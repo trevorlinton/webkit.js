@@ -140,6 +140,16 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * Start smaller with GYP and only develop one pass layout system from CSS/HTML/DOM code with minimal features and build up.
 * Take each file one by one in ./webkitjs/debug/ and port?...
 * Conversation, topics, discussions on best practices, methods and use cases
+* Dependency and/or symbol graph that rebuilds automatically after a compile (expressed as a HTML doc?) The core reason for this is to visualize dependencies between classes, unresolved symbols still to be developed, and spot key integration points. This can be done by regex over the existing ./webkitjs/debug for symbols and building a D3 graph to show the symbols dependency possibly? Is there already key software that does this? Can emscripten/llvm spit this out?
+* Identify what key export symbols need to be created (WebCore.exp already has a list), this can help define a framework.
+* Identify what key import symbols may require significant retooling.
+* Integrate libxml.js (rather than depending on browser pass through decoding to a buffer)
+* Integrate libxslt.js (currently unsupported)
+* Integrate ffmpeg.js ?.... pure javascript video support?..... .
+* Integrate libpng.js (rather than depending on browser pass through decoding to a buffer)
+* Integrate libjpeg-turbo.js/libjpeg.js (rather than depending on browser pass through decoding to a buffer)
+* Integrate zlib (rather than depending on browser pass through decoding to a buffer)
+
 
 License
 ----
