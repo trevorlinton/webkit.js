@@ -8,7 +8,7 @@ Goals
 
   - Produce a renderer in pure JavaScript that supports rendering to WebGL/Canvas contexts.
   - Develop frameworks for image/webpage capturing and automated web testing (similar to PhantomJS).
-  - Develop a fromework for prototyping CSS filters, HTML elements and attributes.
+  - Develop a framework for prototyping CSS filters, HTML elements and attributes.
   - Experimental harness for pure javascript rendering performance.
   - Develop a javascript based browser in nodejs (just for fun).
 
