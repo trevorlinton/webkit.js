@@ -105,19 +105,17 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 
 **Getting around the code**
 
-```sh
-/WebKit/ This is a modified version of Apple's official repo.
-/WebKit/Source/WebCore This is where 90% of the work is done.
-/WebKit/Source/WebCore/bindings/scripts This is an important folder where WebKit autogenerates bindings
-/WebKit/Source/WTF/ is a cross-platform library for common tasks such as HashMaps, etc.
-/WebKit/Source/WTF/PlatformJS.h these are C++ pre-process settings for PLATFORM(JS)
-/WebKit/Source/WebCore/Configurations/ these are important compile-time configurations for WebCore
+* `/WebKit/` This is a modified version of Apple's official repo.
+* `/WebKit/Source/WebCore` This is where 90% of the work is done.
+* `/WebKit/Source/WebCore/bindings/scripts` This is an important folder where WebKit autogenerates bindings
+* `/WebKit/Source/WTF/` is a cross-platform library for common tasks such as HashMaps, etc.
+* `/WebKit/Source/WTF/PlatformJS.h` these are C++ pre-process settings for PLATFORM(JS)
+* `/WebKit/Source/WebCore/Configurations/` these are important compile-time configurations for WebCore
 
-/WebKitJS/ When compiled the output of WebKit is placed in WebKitJS/webkit.js
-/WebKitJS/tools/ Any helpful tools i've come across (only one for now...)
-/WebKitJS/tools/cppfilter.js  This demangles C++ symbols contained in emscripten.js
-/WebKitJS/tools/EmscriptenXcode.plugin This is a Xcode plugin, and a temporary hack for using emscripten
-```
+* `/WebKitJS/` When compiled the output of WebKit is placed in WebKitJS/webkit.js
+* `/WebKitJS/tools/` Any helpful tools i've come across (only one for now...)
+* `/WebKitJS/tools/cppfilter.js`  This demangles C++ symbols contained in emscripten.js
+* `/WebKitJS/tools/EmscriptenXcode.plugin` This is a Xcode plugin, and a temporary hack for using emscripten
 
 **It's important to know**
 
