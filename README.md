@@ -66,32 +66,34 @@ Building
 -----------
 
 **Requirements**
+
 * MacOS X Lion with Xcode 4+
 * Emscripten 1.8.2+
 * At least 16GB of free space (seriously)
 * At least 4GB of RAM
 
 **Building webkit.js step-by-step**
-1. Clone the repo.
-2. Go to WebKitJS/tools and in a terminal run 
+
+* Clone the repo.
+* Go to WebKitJS/tools and in a terminal run 
 ```sh
 cp -pa ./WebKitJS/tools/EmscriptenXcode.xcplugin /Applications/Xcode.app/Contents/PlugIns/EmscriptenXcode.plugin 
 vim /Applications/Xcode.app/Contents/PlugIns/EmscriptenXcode.xcplugin/Contents/Resources/GCC\ 4.5.xcspec 
 ```
-3. Modify line 35 and set ExecPath to the path of em++ included with Emscripten.
-4. Then run:
+* Modify line 35 and set ExecPath to the path of em++ included with Emscripten.
+* Then run:
 ```sh
 vim WebKit/Source/WebCore/Configurations/Base.xcconfig
 ```
-5. Replace "EMSCRIPTEN_SYSTEM" with the path to the system headers for emscripten.
-6. Open WebKit.xcworkspace in Xcode
-7. Change the Schema to "WebcoreJS" and make sure you build in Release (some systems Normal), not Debug. Hit Play and get some coffee or go do some chores.
-8. Your linking will most likely fail.  If so, just run the terminal command:
+* Replace "EMSCRIPTEN_SYSTEM" with the path to the system headers for emscripten.
+* Open WebKit.xcworkspace in Xcode
+* Change the Schema to "WebcoreJS" and make sure you build in Release (some systems Normal), not Debug. Hit Play and get some coffee or go do some chores.
+* Your linking will most likely fail.  If so, just run the terminal command:
 ```sh
 em++ -r -isysroot /Path/To/Emscripten/1.8.2/system /Path/To/Your/WebKitBuild/*.o -std=c++11 -s FULL_ES2=1 -O2 -stdlib=libc++ -s LINKABLE=1 -o /Path/To/Your/WebKitBuild/webkit.js
 ```
 
-9. You can also create individual js files for each class in WebKit to ease debugging. Run:
+* You can also create individual js files for each class in WebKit to ease debugging. Run:
 ```sh
 find . -name "*.o" | xargs -I {} em++ -isysroot /Path/To/Your/Emscripten/1.8.2/system {} -std=c++11 -s FULL_ES2=1 -O2 -stdlib=libc++ -s LINKABLE=1 -s SIDE_MODULE=1 -o /Some/Folder/For/Output/{}.js
 ```
