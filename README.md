@@ -121,7 +121,7 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 
 **It's important to know**
 
-* The code within the WebKit folder is pulled from upstream, becareful not to move any files, remove any files or heavily refactor any source file as it will cause headaches when merging.
+* The code within the WebKit folder is pulled from upstream, be careful not to move any files, remove any files or heavily refactor any source file as it will cause headaches when merging.
 
 * Place a .gitignore on ./WebKit/WebKitBuild/ so you do not accidently commit build files.
 * Enabling/disabling settings within the Configurations folder in WebCore will have a lot of consequences, most of the disabled features are disabled because there's no possible work around for including the platform specific code (it needs to be created in JS from scratch)
