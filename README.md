@@ -149,7 +149,7 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * Integrate libpng.js (rather than depending on browser pass through decoding to a buffer)
 * Integrate libjpeg-turbo.js/libjpeg.js (rather than depending on browser pass through decoding to a buffer)
 * Integrate zlib (rather than depending on browser pass through decoding to a buffer)
-
+* A tool to automatically demangle and rebuild C++ classes in JavaScript from the mangled symbols produced by C++ compilers.  This would be very helpful.
 
 License
 ----
