@@ -28,7 +28,7 @@ Status
 - (NON EXISTANT) Tests for javascript<->C++ needs to be developed (non-layout related code)
 - (BAD) Unit tests that integrate with WebKit's LayoutTests
 
-** Supported Features **
+**Supported Features**
 * (GOOD) Features that are *not* currently supported:
 
     * Accelerated 2D Canvas
@@ -55,23 +55,23 @@ Status
     * Any Resource Loaders
     * Font Rendering
 
-** Frameworks **
+**Frameworks**
 - (NON EXISTANT) Frameworks to easily perform common tasks with the renderer under various contexts.
 
-** Documentation **
+**Documentation**
 - (NON EXISTANT) Lots and lots of documentation, currently this is it.
 
 
 Building
 -----------
 
-** Requirements **
+**Requirements**
 * MacOS X Lion with Xcode 4+
 * Emscripten 1.8.2+
 * At least 16GB of free space (seriously)
 * At least 4GB of RAM
 
-** Building webkit.js step-by-step **
+**Building webkit.js step-by-step**
 1. Clone the repo.
 2. Go to WebKitJS/tools and in a terminal run 
 ```sh
@@ -101,7 +101,7 @@ Contributing
 
 There's so much to be done any help is appreciated, at the moment I have a brutal wrapper/harness that can render DIV's with various colors to a WebGL surface in Chrome 32. It's not impressive but its a proof of concept.
 
-** Getting around the code **
+**Getting around the code**
 
 ```sh
 /WebKit/ This is a modified version of Apple's official repo.
@@ -117,7 +117,7 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 /WebKitJS/tools/EmscriptenXcode.plugin This is a Xcode plugin, and a temporary hack for using emscripten
 ```
 
-** It's important to know**
+**It's important to know**
 
 * The code within the WebKit folder is pulled from upstream, becareful not to move any files, remove any files or heavily refactor any source file as it will cause headaches when merging.
 
