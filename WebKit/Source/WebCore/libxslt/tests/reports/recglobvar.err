@@ -1,0 +1,8 @@
+runtime error: file ./recglobvar.xsl line 4 element variable
+Recursive definition of ok
+runtime error: file ./recglobvar.xsl line 4 element value-of
+unregistered variable ok
+xmlXPathCompiledEval: evaluation failed
+runtime error: file ./recglobvar.xsl line 4 element value-of
+xsltValueOf: text copy failed
+no result for ./recglobvar.xml

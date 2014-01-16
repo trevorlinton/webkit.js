@@ -1,0 +1,5 @@
+runtime error: file ./bug-184.xsl line 5 element value-of
+Variable 'nonexistent' has not been declared.
+xmlXPathCompiledEval: 1 objects left on the stack.
+runtime error: file ./bug-184.xsl line 5 element value-of
+XPath evaluation returned no result.

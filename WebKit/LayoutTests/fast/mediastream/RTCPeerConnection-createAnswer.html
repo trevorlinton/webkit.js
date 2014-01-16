@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+    <head>
+        <script src="../../resources/js-test-pre.js"></script>
+    </head>
+    <body>
+        <script>
+            description("Tests RTCPeerConnection createAnswer.");
+
+            var pc = null;
+
+            function requestSucceeded4(sd)
+            {
+                testPassed('createAnswer request succeeded.');
+
+                sessionDescription = sd;
+                shouldBe('sessionDescription.type', '"answer"');
+
+                finishJSTest();
+            }
+
+            function requestFailed3(reason)
+            {
+                testFailed('createAnswer request failed.');
+
+                finishJSTest();
+            }
+
+            function requestSucceeded3(sd)
+            {
+                testPassed('createAnswer request succeeded.');
+
+                sessionDescription = sd;
+                shouldBe('sessionDescription.type', '"answer"');
+
+                shouldNotThrow('pc.createAnswer(requestSucceeded4, requestFailed3, {mandatory:{"succeed":true}});');
+            }
+
+            function requestFailed2(reason)
+            {
+                testPassed('createAnswer request failed.');
+
+                errorReason = reason;
+                shouldBe('errorReason.name', '"IncompatibleConstraintsError"');
+
+                shouldNotThrow('pc.createAnswer(requestSucceeded3, requestFailed3);');
+            }
+
+            function requestSucceeded2()
+            {
+                testFailed('createAnswer request succeeded.');
+
+                finishJSTest();
+            }
+
+            function requestFailed1(reason)
+            {
+                testFailed('createAnswer request failed.');
+
+                finishJSTest();
+            }
+
+            function requestSucceeded1()
+            {
+                testPassed('createAnswer request succeeded.');
+
+                sessionDescription = new RTCSessionDescription({type:"offer", sdp:"remote"});
+                shouldNotThrow('pc.setRemoteDescription(sessionDescription, setDescriptionSucceeded, setDescriptionFailed);');
+            }
+
+            function setDescriptionFailed()
+            {
+                testFailed('setRemoteDescription failed.');
+
+                finishJSTest();
+            }
+
+            function setDescriptionSucceeded()
+            {
+                testPassed('setRemoteDescription succeeded.');
+                shouldNotThrow('pc.createAnswer(requestSucceeded2, requestFailed2, {mandatory:{"succeed":false}});');
+            }
+
+            pc = new webkitRTCPeerConnection({iceServers:[]});
+            shouldNotThrow('pc.createAnswer(requestSucceeded1, requestFailed1);');
+
+            window.jsTestIsAsync = true;
+            window.successfullyParsed = true;
+        </script>
+        <script src="../../resources/js-test-post.js"></script>
+    </body>
+</html>

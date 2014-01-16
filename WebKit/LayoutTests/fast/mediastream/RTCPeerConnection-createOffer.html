@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+    <head>
+        <script src="../../resources/js-test-pre.js"></script>
+    </head>
+    <body>
+        <script>
+            description("Tests RTCPeerConnection createOffer.");
+
+            var pc = null;
+
+            function requestSucceeded3(sd)
+            {
+                testPassed('createOffer request succeeded.');
+
+                sessionDescription = sd;
+                shouldBe('sessionDescription.type', '"offer"');
+                finishJSTest();
+            }
+
+            function requestFailed2(reason)
+            {
+                testPassed('createOffer request failed.');
+
+                errorReason = reason;
+                shouldBe('errorReason.name', '"IncompatibleConstraintsError"');
+
+                shouldNotThrow('pc.createOffer(requestSucceeded3, requestFailed1);');
+            }
+
+            function requestSucceeded2(sd)
+            {
+                testFailed('createOffer request succeeded.');
+                finishJSTest();
+            }
+
+            function requestFailed1()
+            {
+                testFailed('createOffer request failed.');
+                finishJSTest();
+            }
+
+            function requestSucceeded1(sd)
+            {
+                testPassed('createOffer request succeeded.');
+
+                sessionDescription = sd;
+                shouldBe('sessionDescription.type', '"offer"');
+
+                shouldNotThrow('pc.createOffer(requestSucceeded2, requestFailed2, {mandatory:{"succeed":false}});');
+            }
+
+            pc = new webkitRTCPeerConnection({iceServers:[]});
+            shouldNotThrow('pc.createOffer(requestSucceeded1, requestFailed1, {mandatory:{"succeed":true}});');
+
+            window.jsTestIsAsync = true;
+            window.successfullyParsed = true;
+        </script>
+        <script src="../../resources/js-test-post.js"></script>
+    </body>
+</html>

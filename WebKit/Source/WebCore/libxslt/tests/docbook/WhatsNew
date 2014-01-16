@@ -1,0 +1,91 @@
+Changes since version 1.39 (2001-05-24)
+
+Changes to docbook/*
+
+  | 2001-06-14  Norman Walsh <nwalsh@users.sourceforge.net>
+  | 
+  | 	* VERSION: Version 1.40 released.
+  | 
+
+Changes to docbook/common/*
+
+  | 2001-06-14  Norman Walsh <nwalsh@users.sourceforge.net>
+  | 
+  | 	* subtitles.xsl: Support subtitle on article
+  | 
+
+Changes to docbook/fo/*
+
+  | 2001-06-14  Norman Walsh <nwalsh@users.sourceforge.net>
+  | 
+  | 	* sections.xsl: Bug fix: section autolabelling wasn't working
+  | 	  in division bodies
+  | 
+  | 	* titlepage.templates.xml: Changed text-alignment on centered
+  | 	  titles to be 'center' rather than 'justify'
+  | 
+  | 	* xref.xsl: Added anchor template
+  | 
+  | 2001-06-13  Norman Walsh <nwalsh@users.sourceforge.net>
+  | 
+  | 	* graphics.xsl, param.xsl: Support Arbortext extensions--at
+  | 	  the moment, just to turn off the url() stuff in external
+  | 	  graphic references
+  | 
+  | 	* titlepage.xsl: Bug fix: make a single author in an
+  | 	  authorgroup work correctly
+  | 
+  | 2001-06-08  Norman Walsh <nwalsh@users.sourceforge.net>
+  | 
+  | 	* callout.xsl, inline.xsl, synop.xsl: Fixed some
+  | 	  unparameterized references to specific font families
+  | 
+  | 2001-06-04  Norman Walsh <nwalsh@users.sourceforge.net>
+  | 
+  | 	* block.xsl: Made blockquote indent more reasonable
+  | 
+  | 	* graphics.xsl: Omit the url() wrapper around external-graphic
+  | 	  srcs for FOP and PT
+  | 
+
+Changes to docbook/html/*
+
+  | 2001-06-13  Norman Walsh <nwalsh@users.sourceforge.net>
+  | 
+  | 	* chunk-common.xsl: Make sure the root element gets processed
+  | 	  correctly so that it generates the right titlepage
+  | 
+  | 	* component.xsl: Don't output ID attributes on DIVs with
+  | 	  required titles since they conflict with the NAME attributes
+  | 	  on the subsequently output A tags.
+  | 
+  | 	* docbook.xsl: Pass the current node to user.head.content
+  | 
+  | 	* index.xsl: Updated comment
+  | 
+  | 2001-06-07  Jirka Kosek <kosek@users.sourceforge.net>
+  | 
+  | 	* lists.xsl: Things preceding steps in procedure are placed
+  | 	  before OL list.
+  | 
+  | 2001-06-04  Norman Walsh <nwalsh@users.sourceforge.net>
+  | 
+  | 	* lists.xsl: Fixed typo in compact list support; backed out
+  | 	  procedure step changes
+  | 
+  | 	* sections.xsl: Fixed CSS typo; clear: all should be clear:
+  | 	  both
+  | 
+  | 2001-06-02  Jirka Kosek <kosek@users.sourceforge.net>
+  | 
+  | 	* lists.xsl: Fixed bug #424926. Things preceding steps in
+  | 	  procedure are not placed inside OL list.
+  | 
+
+Changes to docbook/extensions/saxon63/com/nwalsh/saxon/*
+
+  | 2001-06-13  Norman Walsh <nwalsh@users.sourceforge.net>
+  | 
+  | 	* Table.java: Fix API for Saxon 6.3; I missed one
+  | 
+

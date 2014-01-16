@@ -1,0 +1,11 @@
+This test makes sure that openDatabaseSync() accepts only valid parameters.
+PASS: Not enough arguments
+PASS: Not enough arguments
+PASS: undefined
+PASS: undefined
+PASS: undefined
+PASS: Type error
+PASS: openDatabaseSync() succeeded.
+PASS: openDatabaseSync() succeeded.
+PASS: calling openDatabaseSync() with a creation callback succeeded.
+

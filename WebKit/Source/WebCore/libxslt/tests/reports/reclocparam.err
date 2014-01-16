@@ -1,0 +1,6 @@
+runtime error: file ./reclocparam.xsl line 5 element value-of
+unregistered variable ok
+xmlXPathCompiledEval: evaluation failed
+runtime error: file ./reclocparam.xsl line 5 element value-of
+xsltValueOf: text copy failed
+no result for ./reclocparam.xml

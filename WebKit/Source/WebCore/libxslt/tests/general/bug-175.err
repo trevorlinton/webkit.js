@@ -1,0 +1,6 @@
+compilation error: file ./bug-175.xsl line 28 element function
+xsltStylePreCompute: unknown xsl:function
+compilation error: file ./bug-175.xsl line 5 element transform
+xsl:version: only 1.0 features are supported
+compilation error: file ./bug-175.xsl line 28 element function
+xsltParseStylesheetTop: ignoring unknown function element

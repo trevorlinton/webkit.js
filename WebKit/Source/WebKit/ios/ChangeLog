@@ -1,0 +1,262 @@
+2014-01-02  Andy Estes  <aestes@apple.com>
+
+        [iOS] Upstream remainder of minimal-ui viewport changes
+        https://bugs.webkit.org/show_bug.cgi?id=126410
+
+        Reviewed by Sam Weinig.
+
+        * WebCoreSupport/WebChromeClientIOS.mm:
+        (dictionaryForViewportArguments):
+        * WebKit.iOS.exp:
+
+2013-12-31  Andy Estes  <aestes@apple.com>
+
+        [iOS] Upstream PLATFORM(IOS) changes to Source/WebKit/
+        https://bugs.webkit.org/show_bug.cgi?id=125746
+
+        Reviewed by David Kilzer.
+
+        * WebCoreSupport/WebVisiblePosition.mm:
+        (-[WebVisiblePosition positionAtStartOrEndOfWord]): Changed a comment
+        to mention iOS rather than iPhone.
+
+2013-12-27  Daniel Bates  <dabates@apple.com>
+
+        [iOS] Upstream WebCore/page changes
+        https://bugs.webkit.org/show_bug.cgi?id=126180
+
+        Reviewed by Darin Adler.
+
+        * WebCoreSupport/WebChromeClientIOS.mm: Substitute ENABLE(IOS_TOUCH_EVENTS) for ENABLE(TOUCH_EVENTS).
+
+2013-12-04  Brian J. Burg  <burg@cs.washington.edu>
+
+        Consolidate various frame snapshot capabilities.
+        https://bugs.webkit.org/show_bug.cgi?id=124325
+
+        Reviewed by Darin Adler.
+
+        * WebCoreSupport/WebFrameIOS.mm: use new header file.
+
+2013-12-04  Andy Estes  <aestes@apple.com>
+
+        [iOS] Upstream build fixes in Source/WebKit/ios/
+        https://bugs.webkit.org/show_bug.cgi?id=125230
+
+        Reviewed by Sam Weinig.
+
+        * DefaultDelegates/WebDefaultUIKitDelegate.m:
+        (-[WebDefaultUIKitDelegate webViewDidReceiveMobileDocType:]):
+        * Misc/WebNSStringDrawing.mm:
+        (needsBidiLayout):
+        (-[NSString __web_drawAtPoint:forWidth:withFont:ellipsis:letterSpacing:includeEmoji:measureOnly:renderedStringOut:drawUnderline:]):
+        (-[NSString __web_drawInRect:withFont:ellipsis:alignment:letterSpacing:lineSpacing:includeEmoji:truncationRect:measureOnly:renderedStringOut:drawUnderline:]):
+        * Misc/WebUIKitSupport.mm:
+        (WebKitInitialize):
+        * WebCoreSupport/WebChromeClientIOS.h:
+        * WebCoreSupport/WebChromeClientIOS.mm:
+        (WebChromeClientIOS::didReceiveMobileDocType):
+        (WebChromeClientIOS::focusedElementChanged):
+        * WebCoreSupport/WebFrameIOS.mm:
+        (-[WebFrame clearSelection]):
+        (-[WebFrame selectionState]):
+        (-[WebFrame collapseSelection]):
+        (-[WebFrame extendSelection:]):
+        (-[WebFrame selectionRects]):
+        (-[WebFrame setRangedSelectionWithExtentPoint:]):
+        (-[WebFrame setRangedSelectionExtentPoint:baseIsStart:allowFlipping:]):
+        (-[WebFrame setSelectionWithBasePoint:extentPoint:baseIsStart:allowFlipping:]):
+        (-[WebFrame setSelectionWithFirstPoint:secondPoint:]):
+        (-[WebFrame ensureRangedSelectionContainsInitialStartPoint:initialEndPoint:]):
+        (-[WebFrame aggressivelyExpandSelectionToWordContainingCaretSelection]):
+        (-[WebFrame expandSelectionToSentence]):
+        (-[WebFrame setBaseWritingDirection:]):
+        (-[WebFrame moveSelectionToStart]):
+        (-[WebFrame moveSelectionToEnd]):
+        (-[WebFrame moveSelectionToPoint:]):
+        (-[WebFrame setSelectionGranularity:]):
+        (-[WebFrame smartExtendRangedSelection:]):
+        (-[WebFrame previousUnperturbedDictationResultBoundaryFromPosition:]):
+        (-[WebFrame nextUnperturbedDictationResultBoundaryFromPosition:]):
+        * WebCoreSupport/WebInspectorClientIOS.mm:
+        (WebInspectorClient::WebInspectorClient):
+        (WebInspectorClient::didSetSearchingForNode):
+        (WebInspectorClient::setupRemoteConnection):
+        (WebInspectorClient::teardownRemoteConnection):
+        * WebCoreSupport/WebVisiblePosition.mm:
+        (-[WebVisiblePosition enclosingRangeWithDictationPhraseAlternatives:]):
+        (-[WebVisiblePosition enclosingRangeWithCorrectionIndicator]):
+        (-[DOMHTMLInputElement startPosition]):
+        (-[DOMHTMLInputElement endPosition]):
+        (-[DOMHTMLTextAreaElement startPosition]):
+        (-[DOMHTMLTextAreaElement endPosition]):
+        * WebView/WebPDFViewIOS.mm:
+        (+[WebPDFView shadowColor]):
+        (+[WebPDFView backgroundColor]):
+        (-[WebPDFView _checkPDFTitle]):
+        * WebView/WebPDFViewPlaceholder.mm:
+        (-[WebPDFViewPlaceholder simulateClickOnLinkToURL:]):
+        * WebView/WebUIKitDelegate.h:
+
+2013-12-03  Joseph Pecoraro  <pecoraro@apple.com>
+
+        Web Inspector: Push Remote Inspector debugging connection management into JavaScriptCore
+        https://bugs.webkit.org/show_bug.cgi?id=124613
+
+        Reviewed by Timothy Hatcher.
+
+        * WebCoreSupport/WebInspectorClientIOS.mm:
+        (WebInspectorClient::WebInspectorClient):
+        (WebInspectorClient::inspectorDestroyed):
+
+2013-12-03  Ralph Thomas  <ralpht@gmail.com>
+
+        Typo: FixedPositionConstaint -> FixedPositionConstraint
+        https://bugs.webkit.org/show_bug.cgi?id=125171
+
+        Reviewed by Simon Fraser.
+
+        * WebCoreSupport/WebFixedPositionContent.mm:
+        (-[WebFixedPositionContent scrollOrZoomChanged:]):
+
+2013-11-18  Commit Queue  <commit-queue@webkit.org>
+
+        Unreviewed, rolling out r159455.
+        http://trac.webkit.org/changeset/159455
+        https://bugs.webkit.org/show_bug.cgi?id=124568
+
+        broke two api tests (see bug 124564) (Requested by thorton on
+        #webkit).
+
+        * WebCoreSupport/WebFrameIOS.mm:
+
+2013-11-18  Brian J. Burg  <burg@cs.washington.edu>
+
+        Consolidate various frame snapshot capabilities.
+        https://bugs.webkit.org/show_bug.cgi?id=124325
+
+        Reviewed by Timothy Hatcher.
+
+        * WebCoreSupport/WebFrameIOS.mm: use new header file.
+
+2013-11-07  Joseph Pecoraro  <pecoraro@apple.com>
+
+        Remove a PLATFORM(IOS) from WebKit Private Header
+        https://bugs.webkit.org/show_bug.cgi?id=124014
+
+        Reviewed by Timothy Hatcher.
+
+        * WebKit.iOS.exp:
+
+2013-10-29  Andy Estes  <aestes@apple.com>
+
+        [iOS] Upstream Source/WebKit/ios/
+        https://bugs.webkit.org/show_bug.cgi?id=123470
+
+        Reviewed by Sam Weinig.
+
+        * DefaultDelegates/WebDefaultFormDelegate.h: Added.
+        * DefaultDelegates/WebDefaultFormDelegate.m: Added.
+        * DefaultDelegates/WebDefaultFrameLoadDelegate.h: Added.
+        * DefaultDelegates/WebDefaultFrameLoadDelegate.m: Added.
+        * DefaultDelegates/WebDefaultResourceLoadDelegate.h: Added.
+        * DefaultDelegates/WebDefaultResourceLoadDelegate.m: Added.
+        * DefaultDelegates/WebDefaultUIKitDelegate.h: Added.
+        * DefaultDelegates/WebDefaultUIKitDelegate.m: Added.
+        * Misc/EmojiFallbackFontSelector.cpp: Added.
+        * Misc/EmojiFallbackFontSelector.h: Added.
+        * Misc/MemoryMeasure.h: Added.
+        * Misc/MemoryMeasure.mm: Added.
+        * Misc/WebGeolocationCoreLocationProvider.h: Added.
+        * Misc/WebGeolocationCoreLocationProvider.mm: Added.
+        * Misc/WebGeolocationProviderIOS.h: Added.
+        * Misc/WebGeolocationProviderIOS.mm: Added.
+        * Misc/WebNSStringDrawing.h: Added.
+        * Misc/WebNSStringDrawing.mm: Added.
+        * Misc/WebNSStringExtrasIOS.h: Added.
+        * Misc/WebNSStringExtrasIOS.m: Added.
+        * Misc/WebNSStringExtrasIPhone.h: Added.
+        * Misc/WebUIKitSupport.h: Added.
+        * Misc/WebUIKitSupport.mm: Added.
+        * Storage/WebSQLiteDatabaseTrackerClient.h: Added.
+        * Storage/WebSQLiteDatabaseTrackerClient.mm: Added.
+        * WebCoreSupport/PopupMenuIOS.h: Added.
+        * WebCoreSupport/PopupMenuIOS.mm: Added.
+        * WebCoreSupport/SearchPopupMenuIOS.cpp: Added.
+        * WebCoreSupport/SearchPopupMenuIOS.h: Added.
+        * WebCoreSupport/WebCaretChangeListener.h: Added.
+        * WebCoreSupport/WebChromeClientIOS.h: Added.
+        * WebCoreSupport/WebChromeClientIOS.mm: Added.
+        * WebCoreSupport/WebFixedPositionContent.h: Added.
+        * WebCoreSupport/WebFixedPositionContent.mm: Added.
+        * WebCoreSupport/WebFixedPositionContentInternal.h: Added.
+        * WebCoreSupport/WebFrameIOS.h: Added.
+        * WebCoreSupport/WebFrameIOS.mm: Added.
+        * WebCoreSupport/WebFrameIPhone.h: Added.
+        * WebCoreSupport/WebGeolocation.mm: Added.
+        * WebCoreSupport/WebGeolocationInternal.h: Added.
+        * WebCoreSupport/WebGeolocationPrivate.h: Added.
+        * WebCoreSupport/WebMIMETypeRegistry.h: Added.
+        * WebCoreSupport/WebMIMETypeRegistry.mm: Added.
+        * WebCoreSupport/WebSelectionRect.h: Added.
+        * WebCoreSupport/WebSelectionRect.m: Added.
+        * WebCoreSupport/WebVisiblePosition.h: Added.
+        * WebCoreSupport/WebVisiblePosition.mm: Added.
+        * WebCoreSupport/WebVisiblePositionInternal.h: Added.
+        * WebKit.iOS.exp: Added.
+        * WebView/WebFrameViewWAKCompatibility.m: Added.
+        * WebView/WebMailDelegate.h: Added.
+        * WebView/WebPDFViewIOS.h: Added.
+        * WebView/WebPDFViewIOS.mm: Added.
+        * WebView/WebPDFViewIPhone.h: Added.
+        * WebView/WebPDFViewPlaceholder.h: Added.
+        * WebView/WebPDFViewPlaceholder.mm: Added.
+        * WebView/WebPlainWhiteView.h: Added.
+        * WebView/WebPlainWhiteView.mm: Added.
+        * WebView/WebUIKitDelegate.h: Added.
+
+2013-10-25  Joseph Pecoraro  <pecoraro@apple.com>
+
+        Upstream ENABLE(REMOTE_INSPECTOR) and enable on iOS and Mac
+        https://bugs.webkit.org/show_bug.cgi?id=123111
+
+        Reviewed by Timothy Hatcher.
+
+        iOS does not have a local inspector, only remote. So give it a custom
+        implementation separate from the WebKit/mac WebInspectorClient
+        implementation which handles an attaching/detaching local inspector.
+
+        * WebKit.xcodeproj/project.pbxproj:
+        * ios/WebCoreSupport/WebInspectorClientIOS.mm: Added.
+        (WebInspectorClient::WebInspectorClient):
+        (WebInspectorClient::inspectorDestroyed):
+        (WebInspectorClient::openInspectorFrontend):
+        (WebInspectorClient::bringFrontendToFront):
+        (WebInspectorClient::closeInspectorFrontend):
+        (WebInspectorClient::didResizeMainFrame):
+        (WebInspectorClient::highlight):
+        (WebInspectorClient::hideHighlight):
+        (WebInspectorClient::didSetSearchingForNode):
+        (WebInspectorClient::sendMessageToFrontend):
+        (WebInspectorClient::sendMessageToBackend):
+        (WebInspectorClient::setupRemoteConnection):
+        (WebInspectorClient::teardownRemoteConnection):
+        (WebInspectorClient::hasLocalSession):
+        (WebInspectorClient::canBeRemotelyInspected):
+        (WebInspectorClient::inspectedWebView):
+        (WebInspectorFrontendClient::WebInspectorFrontendClient):
+        (WebInspectorFrontendClient::attachAvailabilityChanged):
+        (WebInspectorFrontendClient::frontendLoaded):
+        (WebInspectorFrontendClient::localizedStringsURL):
+        (WebInspectorFrontendClient::bringToFront):
+        (WebInspectorFrontendClient::closeWindow):
+        (WebInspectorFrontendClient::disconnectFromBackend):
+        (WebInspectorFrontendClient::attachWindow):
+        (WebInspectorFrontendClient::detachWindow):
+        (WebInspectorFrontendClient::setAttachedWindowHeight):
+        (WebInspectorFrontendClient::setAttachedWindowWidth):
+        (WebInspectorFrontendClient::setToolbarHeight):
+        (WebInspectorFrontendClient::inspectedURLChanged):
+        (WebInspectorFrontendClient::updateWindowTitle):
+        (WebInspectorFrontendClient::save):
+        (WebInspectorFrontendClient::append):

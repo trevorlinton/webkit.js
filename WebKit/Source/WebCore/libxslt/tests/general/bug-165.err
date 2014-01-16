@@ -1,0 +1,4 @@
+runtime error: file ./bug-165.xsl line 6 element value-of
+Variable 'pStyle' has not been declared.
+runtime error: file ./bug-165.xsl line 6 element value-of
+XPath evaluation returned no result.

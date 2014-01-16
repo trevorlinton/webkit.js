@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY xslt SYSTEM "xml/xslt.xml">
+<!ENTITY functions SYSTEM "xml/functions.xml">
+<!ENTITY pattern SYSTEM "xml/pattern.xml">
+<!ENTITY templates SYSTEM "xml/templates.xml">
+<!ENTITY transform SYSTEM "xml/transform.xml">
+<!ENTITY xsltutils SYSTEM "xml/xsltutils.xml">
+<!ENTITY attributes SYSTEM "xml/attributes.xml">
+<!ENTITY imports SYSTEM "xml/imports.xml">
+<!ENTITY namespaces SYSTEM "xml/namespaces.xml">
+<!ENTITY variables SYSTEM "xml/variables.xml">
+<!ENTITY extensions SYSTEM "xml/extensions.xml">
+<!ENTITY keys SYSTEM "xml/keys.xml">
+<!ENTITY xsltInternals SYSTEM "xml/xsltInternals.xml">
+<!ENTITY numbersInternals SYSTEM "xml/numbersInternals.xml">
+]>
+
+<book>
+  <bookinfo>
+    <title>GNOME XSLT Library Reference Manual</title>
+    <authorgroup>
+      <author>
+        <firstname>Daniel</firstname>
+        <surname>Veillard</surname>
+        <affiliation>
+	  <address>
+	    <email>daniel@veillard.com</email>
+	  </address>
+        </affiliation>
+      </author>
+    </authorgroup>
+    <copyright>
+      <year>2001</year>
+      <holder>Daniel Veillard</holder>
+    </copyright>	
+
+    <legalnotice>
+      <para>Permission is granted to make and distribute verbatim
+      copies of this manual provided the copyright notice and this
+      permission notice are preserved on all copies.</para>
+
+      <para>Permission is granted to copy and distribute modified
+      versions of this manual under the conditions for verbatim
+      copying, provided also that the entire resulting derived work is
+      distributed under the terms of a permission notice identical to
+      this one.</para>
+
+      <para>Permission is granted to copy and distribute translations
+      of this manual into another language, under the above conditions
+      for modified versions.</para>
+    </legalnotice>
+
+    <abstract>
+      <para>This manual documents the interfaces of the libxslt
+      library and has some short notes to help get you up to speed
+      with using the library.</para>
+    </abstract>
+  </bookinfo>
+
+  <chapter id="libxslt-notes">
+     <title>Libxslt Programming Notes</title>
+
+     <para>Libxslt is an XSLT toolkit library, which allows you to transform
+     XML documents. It uses the XML parser, tree and XPath functionalities
+     of libxml2</para>
+  </chapter>
+  <chapter id="libxslt-lib">
+    <title>Libxslt Library Reference</title>
+
+    <para>This section contains the API reference for libxslt. All
+    the public interfaces are documented here. This reference guide is
+    build by extracting comments from the code sources. </para>
+
+    &xslt;
+    &functions;
+    &pattern;
+    &templates;
+    &transform;
+    &xsltutils;
+    &attributes;
+    &imports;
+    &extensions;
+    &namespaces;
+    &variables;
+    &keys;
+    &xsltInternals;
+    &numbersInternals;
+  </chapter>
+</book>
+

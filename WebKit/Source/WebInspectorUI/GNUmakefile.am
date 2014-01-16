@@ -1,0 +1,33 @@
+${GENSOURCES_WEBINSPECTOR_UI}/GResourceBundle.xml: GNUmakefile \
+	$(WebInspectorUI)/UserInterface/*.html \
+	$(WebInspectorUI)/UserInterface/*.js \
+	$(WebInspectorUI)/UserInterface/*.css \
+	$(WebInspectorUI)/UserInterface/Images/*.png \
+	$(WebInspectorUI)/UserInterface/Images/*.svg \
+	$(WebInspectorUI)/UserInterface/External/CodeMirror/* \
+	$(WebInspectorUI)/Localizations/en.lproj/localizedStrings.js \
+	$(srcdir)/Tools/gtk/generate-inspector-gresource-manifest.py
+	$(AM_V_GEN)
+	$(AM_V_at)mkdir -p ${GENSOURCES_WEBINSPECTOR_UI}
+	$(AM_V_at)$(srcdir)/Tools/gtk/generate-inspector-gresource-manifest.py $@
+
+${GENSOURCES_WEBINSPECTOR_UI}/GResourceBundle.c: DerivedSources/WebInspectorUI/GResourceBundle.xml
+	$(AM_V_GEN)
+	$(AM_V_at)glib-compile-resources --generate --sourcedir=$(WebInspectorUI) \
+		--target=${GENSOURCES_WEBINSPECTOR_UI}/GResourceBundle.c ${GENSOURCES_WEBINSPECTOR_UI}/GResourceBundle.xml
+
+BUILT_SOURCES += \
+	DerivedSources/WebInspectorUI/GResourceBundle.xml
+
+webcore_built_sources += \
+	DerivedSources/WebInspectorUI/GResourceBundle.c
+
+EXTRA_DIST += \
+	$(WebInspectorUI)/Localizations/en.lproj/localizedStrings.js \
+	$(shell ls $(WebInspectorUI)/UserInterface/*.html) \
+	$(shell ls $(WebInspectorUI)/UserInterface/*.js) \
+	$(shell ls $(WebInspectorUI)/UserInterface/*.css) \
+	$(shell ls $(WebInspectorUI)/UserInterface/Images/*.png) \
+	$(shell ls $(WebInspectorUI)/UserInterface/Images/*.svg) \
+	$(shell ls $(WebInspectorUI)/UserInterface/External/CodeMirror/*)
+

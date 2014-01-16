@@ -1,0 +1,8 @@
+Tests normal playback case with MediaSource API
+
+EVENT(webkitsourceopen)
+EVENT(webkitsourceended)
+EVENT(playing)
+EVENT(ended)
+END OF TEST
+

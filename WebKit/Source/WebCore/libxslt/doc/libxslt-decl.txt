@@ -1,0 +1,1449 @@
+<MACRO>
+<NAME>LIBXSLT_DOTTED_VERSION</NAME>
+#define LIBXSLT_DOTTED_VERSION "1.1.0"
+</MACRO>
+<MACRO>
+<NAME>LIBXSLT_VERSION</NAME>
+#define LIBXSLT_VERSION 10100
+</MACRO>
+<MACRO>
+<NAME>LIBXSLT_VERSION_STRING</NAME>
+#define LIBXSLT_VERSION_STRING "10100"
+</MACRO>
+<MACRO>
+<NAME>WITH_XSLT_DEBUG</NAME>
+#define WITH_XSLT_DEBUG
+</MACRO>
+<MACRO>
+<NAME>DEBUG_MEMORY</NAME>
+#define DEBUG_MEMORY
+</MACRO>
+<MACRO>
+<NAME>DEBUG_MEMORY_LOCATION</NAME>
+#define DEBUG_MEMORY_LOCATION
+</MACRO>
+<MACRO>
+<NAME>XSLT_NEED_TRIO</NAME>
+#define XSLT_NEED_TRIO
+</MACRO>
+<MACRO>
+<NAME>XSLT_NEED_TRIO</NAME>
+#define XSLT_NEED_TRIO
+</MACRO>
+<MACRO>
+<NAME>WITH_DEBUGGER</NAME>
+#define WITH_DEBUGGER
+</MACRO>
+<MACRO>
+<NAME>ATTRIBUTE_UNUSED</NAME>
+#define ATTRIBUTE_UNUSED __attribute__((unused))
+</MACRO>
+<MACRO>
+<NAME>ATTRIBUTE_UNUSED</NAME>
+#define ATTRIBUTE_UNUSED
+</MACRO>
+<MACRO>
+<NAME>LIBXSLT_PUBLIC</NAME>
+#define LIBXSLT_PUBLIC __declspec(dllimport)
+</MACRO>
+<MACRO>
+<NAME>LIBXSLT_PUBLIC</NAME>
+#define LIBXSLT_PUBLIC
+</MACRO>
+<MACRO>
+<NAME>XSLT_LIBXSLT_NAMESPACE</NAME>
+#define XSLT_LIBXSLT_NAMESPACE ((xmlChar *) "http://xmlsoft.org/XSLT/namespace")
+</MACRO>
+<MACRO>
+<NAME>XSLT_SAXON_NAMESPACE</NAME>
+#define XSLT_SAXON_NAMESPACE ((xmlChar *) "http://icl.com/saxon")
+</MACRO>
+<MACRO>
+<NAME>XSLT_XT_NAMESPACE</NAME>
+#define XSLT_XT_NAMESPACE ((xmlChar *) "http://www.jclark.com/xt")
+</MACRO>
+<MACRO>
+<NAME>XSLT_XALAN_NAMESPACE</NAME>
+#define XSLT_XALAN_NAMESPACE ((xmlChar *)	\
+	                        "org.apache.xalan.xslt.extensions.Redirect")
+</MACRO>
+<MACRO>
+<NAME>XSLT_NORM_SAXON_NAMESPACE</NAME>
+#define XSLT_NORM_SAXON_NAMESPACE ((xmlChar *)	\
+	"http://nwalsh.com/xslt/ext/com.nwalsh.saxon.CVS")
+</MACRO>
+<USER_FUNCTION>
+<NAME>xsltStyleExtInitFunction</NAME>
+<RETURNS>void *</RETURNS>
+xsltStylesheetPtr style,
+						 const xmlChar *URI
+</USER_FUNCTION>
+<USER_FUNCTION>
+<NAME>xsltStyleExtShutdownFunction</NAME>
+<RETURNS>void </RETURNS>
+xsltStylesheetPtr style,
+						 const xmlChar *URI,
+						 void *data
+</USER_FUNCTION>
+<USER_FUNCTION>
+<NAME>xsltExtInitFunction</NAME>
+<RETURNS>void *</RETURNS>
+xsltTransformContextPtr ctxt,
+					 const xmlChar *URI
+</USER_FUNCTION>
+<USER_FUNCTION>
+<NAME>xsltExtShutdownFunction</NAME>
+<RETURNS>void </RETURNS>
+xsltTransformContextPtr ctxt,
+					 const xmlChar *URI,
+					 void *data
+</USER_FUNCTION>
+<USER_FUNCTION>
+<NAME>xsltTopLevelFunction</NAME>
+<RETURNS>void </RETURNS>
+xsltStylesheetPtr style,
+					 xmlNodePtr inst
+</USER_FUNCTION>
+<MACRO>
+<NAME>XSLT_REGISTER_FUNCTION_LOOKUP</NAME>
+#define XSLT_REGISTER_FUNCTION_LOOKUP(ctxt)			\
+    xmlXPathRegisterFuncLookup((ctxt)->xpathCtxt,		\
+	(xmlXPathFuncLookupFunc) xsltXPathFunctionLookup,	\
+	(void *)(ctxt->xpathCtxt));
+</MACRO>
+<MACRO>
+<NAME>XSLT_GET_IMPORT_PTR</NAME>
+#define XSLT_GET_IMPORT_PTR(res, style, name) {			\
+    xsltStylesheetPtr st = style;				\
+    res = NULL;							\
+    while (st != NULL) {					\
+	if (st->name != NULL) { res = st->name; break; }	\
+	st = xsltNextImport(st);				\
+    }}
+</MACRO>
+<MACRO>
+<NAME>XSLT_GET_IMPORT_INT</NAME>
+#define XSLT_GET_IMPORT_INT(res, style, name) {			\
+    xsltStylesheetPtr st = style;				\
+    res = -1;							\
+    while (st != NULL) {					\
+	if (st->name != -1) { res = st->name; break; }	\
+	st = xsltNextImport(st);				\
+    }}
+</MACRO>
+<MACRO>
+<NAME>LIBXSLT_PUBLIC</NAME>
+#define LIBXSLT_PUBLIC __declspec(dllimport)
+</MACRO>
+<MACRO>
+<NAME>LIBXSLT_PUBLIC</NAME>
+#define LIBXSLT_PUBLIC 
+</MACRO>
+<STRUCT>
+<NAME>xsltNumberData</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltNumberDataPtr</NAME>
+typedef xsltNumberData *xsltNumberDataPtr;
+</TYPEDEF>
+<STRUCT>
+<NAME>xsltNumberData</NAME>
+struct xsltNumberData {
+    xmlChar *level;
+    xmlChar *count;
+    xmlChar *from;
+    xmlChar *value;
+    xmlChar *format;
+    int has_format;
+    int digitsPerGroup;
+    int groupingCharacter;
+    int groupingCharacterLen;
+    xmlDocPtr doc;
+    xmlNodePtr node;
+
+    /*
+     * accelerators
+     */
+};
+</STRUCT>
+<STRUCT>
+<NAME>xsltFormatNumberInfo</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltFormatNumberInfoPtr</NAME>
+typedef xsltFormatNumberInfo *xsltFormatNumberInfoPtr;
+</TYPEDEF>
+<STRUCT>
+<NAME>xsltFormatNumberInfo</NAME>
+struct xsltFormatNumberInfo {
+    int	    integer_hash;	/* Number of '#' in integer part */
+    int	    integer_digits;	/* Number of '0' in integer part */
+    int	    frac_digits;	/* Number of '0' in fractional part */
+    int	    frac_hash;		/* Number of '#' in fractional part */
+    int	    group;		/* Number of chars per display 'group' */
+    int     multiplier;		/* Scaling for percent or permille */
+    char    add_decimal;	/* Flag for whether decimal point appears in pattern */
+    char    is_multiplier_set;	/* Flag to catch multiple occurences of percent/permille */
+    char    is_negative_pattern;/* Flag for processing -ve prefix/suffix */
+};
+</STRUCT>
+<STRUCT>
+<NAME>xsltCompMatch</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltCompMatchPtr</NAME>
+typedef xsltCompMatch *xsltCompMatchPtr;
+</TYPEDEF>
+<FUNCTION>
+<NAME>xsltMatchPattern</NAME>
+<RETURNS>int 	</RETURNS>
+xsltTransformContextPtr ctxt,xmlNodePtr node,const xmlChar *pattern,xmlDocPtr ctxtdoc,xmlNodePtr ctxtnode
+</FUNCTION>
+<VARIABLE>
+<NAME>xsltExtMarker</NAME>
+extern const xmlChar *xsltExtMarker;
+</VARIABLE>
+<MACRO>
+<NAME>XSLT_REGISTER_VARIABLE_LOOKUP</NAME>
+#define XSLT_REGISTER_VARIABLE_LOOKUP(ctxt)			\
+    xmlXPathRegisterVariableLookup((ctxt)->xpathCtxt,		\
+	       xsltXPathVariableLookup,	(void *)(ctxt));	\
+    xsltRegisterAllFunctions((ctxt)->xpathCtxt);		\
+    xsltRegisterAllElement(ctxt);				\
+    (ctxt)->xpathCtxt->extra = ctxt
+</MACRO>
+<MACRO>
+<NAME>XSLT_DEFAULT_VERSION</NAME>
+#define XSLT_DEFAULT_VERSION     "1.0"
+</MACRO>
+<MACRO>
+<NAME>XSLT_DEFAULT_VENDOR</NAME>
+#define XSLT_DEFAULT_VENDOR      "libxslt"
+</MACRO>
+<MACRO>
+<NAME>XSLT_DEFAULT_URL</NAME>
+#define XSLT_DEFAULT_URL         "http://xmlsoft.org/XSLT/"
+</MACRO>
+<MACRO>
+<NAME>XSLT_NAMESPACE</NAME>
+#define XSLT_NAMESPACE ((xmlChar *) "http://www.w3.org/1999/XSL/Transform")
+</MACRO>
+<MACRO>
+<NAME>XSLT_PARSE_OPTIONS</NAME>
+#define XSLT_PARSE_OPTIONS \
+ XML_PARSE_NOENT | XML_PARSE_DTDLOAD | XML_PARSE_DTDATTR | XML_PARSE_NOCDATA
+</MACRO>
+<VARIABLE>
+<NAME>xsltMaxDepth</NAME>
+extern int xsltMaxDepth;
+</VARIABLE>
+<VARIABLE>
+<NAME>xsltMaxVars</NAME>
+extern int xsltMaxVars;
+</VARIABLE>
+<VARIABLE>
+<NAME>xsltEngineVersion</NAME>
+extern const char *xsltEngineVersion;
+</VARIABLE>
+<VARIABLE>
+<NAME>xsltLibxsltVersion</NAME>
+extern const int xsltLibxsltVersion;
+</VARIABLE>
+<VARIABLE>
+<NAME>xsltLibxmlVersion</NAME>
+extern const int xsltLibxmlVersion;
+</VARIABLE>
+<MACRO>
+<NAME>XSLT_TODO</NAME>
+#define XSLT_TODO 							\
+    xsltGenericError(xsltGenericErrorContext,				\
+	    "Unimplemented block at %s:%d\n",				\
+            __FILE__, __LINE__);
+</MACRO>
+<MACRO>
+<NAME>XSLT_STRANGE</NAME>
+#define XSLT_STRANGE 							\
+    xsltGenericError(xsltGenericErrorContext,				\
+	    "Internal error at %s:%d\n",				\
+            __FILE__, __LINE__);
+</MACRO>
+<MACRO>
+<NAME>IS_XSLT_ELEM</NAME>
+#define IS_XSLT_ELEM(n)							\
+    (((n) != NULL) && ((n)->ns != NULL) &&				\
+     (xmlStrEqual((n)->ns->href, XSLT_NAMESPACE)))
+</MACRO>
+<MACRO>
+<NAME>IS_XSLT_NAME</NAME>
+#define IS_XSLT_NAME(n, val)						\
+    (xmlStrEqual((n)->name, (const xmlChar *) (val)))
+</MACRO>
+<MACRO>
+<NAME>IS_XSLT_REAL_NODE</NAME>
+#define IS_XSLT_REAL_NODE(n)						\
+    (((n) != NULL) &&							\
+     (((n)->type == XML_ELEMENT_NODE) ||				\
+      ((n)->type == XML_TEXT_NODE) ||					\
+      ((n)->type == XML_ATTRIBUTE_NODE) ||				\
+      ((n)->type == XML_DOCUMENT_NODE) ||				\
+      ((n)->type == XML_HTML_DOCUMENT_NODE) ||				\
+      ((n)->type == XML_PI_NODE)))
+</MACRO>
+<ENUM>
+<NAME>xsltDebugTraceCodes</NAME>
+typedef enum {
+	XSLT_TRACE_ALL =		-1,
+	XSLT_TRACE_NONE = 		0,
+	XSLT_TRACE_COPY_TEXT = 		1<<0,
+	XSLT_TRACE_PROCESS_NODE = 	1<<1,
+	XSLT_TRACE_APPLY_TEMPLATE = 	1<<2,
+	XSLT_TRACE_COPY = 		1<<3,
+	XSLT_TRACE_COMMENT = 		1<<4,
+	XSLT_TRACE_PI = 		1<<5,
+	XSLT_TRACE_COPY_OF = 		1<<6,
+	XSLT_TRACE_VALUE_OF = 		1<<7,
+	XSLT_TRACE_CALL_TEMPLATE = 	1<<8,
+	XSLT_TRACE_APPLY_TEMPLATES = 	1<<9,
+	XSLT_TRACE_CHOOSE = 		1<<10,
+	XSLT_TRACE_IF = 		1<<11,
+	XSLT_TRACE_FOR_EACH = 		1<<12,
+	XSLT_TRACE_STRIP_SPACES = 	1<<13,
+	XSLT_TRACE_TEMPLATES = 		1<<14,
+	XSLT_TRACE_KEYS = 		1<<15,
+	XSLT_TRACE_VARIABLES = 		1<<16
+} xsltDebugTraceCodes;
+</ENUM>
+<MACRO>
+<NAME>XSLT_TRACE</NAME>
+#define XSLT_TRACE(ctxt,code,call)	\
+	if (ctxt->traceCode && (*(ctxt->traceCode) & code)) \
+	    call
+</MACRO>
+<VARIABLE>
+<NAME>xsltGenericError</NAME>
+extern xmlGenericErrorFunc xsltGenericError;
+</VARIABLE>
+<VARIABLE>
+<NAME>xsltGenericErrorContext</NAME>
+extern void *xsltGenericErrorContext;
+</VARIABLE>
+<VARIABLE>
+<NAME>xsltGenericDebug</NAME>
+extern xmlGenericErrorFunc xsltGenericDebug;
+</VARIABLE>
+<VARIABLE>
+<NAME>xsltGenericDebugContext</NAME>
+extern void *xsltGenericDebugContext;
+</VARIABLE>
+<MACRO>
+<NAME>XSLT_TIMESTAMP_TICS_PER_SEC</NAME>
+#define XSLT_TIMESTAMP_TICS_PER_SEC 100000l
+</MACRO>
+<ENUM>
+<NAME>xsltDebugStatusCodes</NAME>
+typedef enum {
+    XSLT_DEBUG_NONE = 0, /* no debugging allowed */
+    XSLT_DEBUG_INIT,
+    XSLT_DEBUG_STEP,
+    XSLT_DEBUG_STEPOUT,
+    XSLT_DEBUG_NEXT,
+    XSLT_DEBUG_STOP,
+    XSLT_DEBUG_CONT,
+    XSLT_DEBUG_RUN,
+    XSLT_DEBUG_RUN_RESTART,
+    XSLT_DEBUG_QUIT
+} xsltDebugStatusCodes;
+</ENUM>
+<VARIABLE>
+<NAME>xslDebugStatus</NAME>
+extern int xslDebugStatus;
+</VARIABLE>
+<USER_FUNCTION>
+<NAME>xsltHandleDebuggerCallback</NAME>
+<RETURNS>void </RETURNS>
+xmlNodePtr cur, xmlNodePtr node,
+			xsltTemplatePtr templ, xsltTransformContextPtr ctxt
+</USER_FUNCTION>
+<USER_FUNCTION>
+<NAME>xsltAddCallCallback</NAME>
+<RETURNS>int </RETURNS>
+xsltTemplatePtr templ, xmlNodePtr source
+</USER_FUNCTION>
+<USER_FUNCTION>
+<NAME>xsltDropCallCallback</NAME>
+<RETURNS>void </RETURNS>
+void
+</USER_FUNCTION>
+<MACRO>
+<NAME>LIBXSLT_DOTTED_VERSION</NAME>
+#define LIBXSLT_DOTTED_VERSION "1.1.0"
+</MACRO>
+<MACRO>
+<NAME>LIBXSLT_VERSION</NAME>
+#define LIBXSLT_VERSION 10100
+</MACRO>
+<MACRO>
+<NAME>LIBXSLT_VERSION_STRING</NAME>
+#define LIBXSLT_VERSION_STRING "10100"
+</MACRO>
+<MACRO>
+<NAME>WITH_XSLT_DEBUG</NAME>
+#define WITH_XSLT_DEBUG
+</MACRO>
+<MACRO>
+<NAME>DEBUG_MEMORY</NAME>
+#define DEBUG_MEMORY
+</MACRO>
+<MACRO>
+<NAME>DEBUG_MEMORY_LOCATION</NAME>
+#define DEBUG_MEMORY_LOCATION
+</MACRO>
+<MACRO>
+<NAME>ATTRIBUTE_UNUSED</NAME>
+#define ATTRIBUTE_UNUSED
+</MACRO>
+<MACRO>
+<NAME>TRIO_ERROR_CODE</NAME>
+#define TRIO_ERROR_CODE(x) ((-(x)) & 0x00FF)
+</MACRO>
+<MACRO>
+<NAME>TRIO_ERROR_POSITION</NAME>
+#define TRIO_ERROR_POSITION(x) ((-(x)) >> 8)
+</MACRO>
+<MACRO>
+<NAME>TRIO_ERROR_NAME</NAME>
+#define TRIO_ERROR_NAME(x) trio_strerror(x)
+</MACRO>
+<TYPEDEF>
+<NAME>int))</NAME>
+typedef int (*trio_outstream_t) TRIO_PROTO((trio_pointer_t, int));
+</TYPEDEF>
+<TYPEDEF>
+<NAME>TRIO_PROTO((trio_pointer_t))</NAME>
+typedef int (*trio_instream_t) TRIO_PROTO((trio_pointer_t));
+</TYPEDEF>
+<MACRO>
+<NAME>printf</NAME>
+# define printf trio_printf
+</MACRO>
+<MACRO>
+<NAME>vprintf</NAME>
+# define vprintf trio_vprintf
+</MACRO>
+<MACRO>
+<NAME>fprintf</NAME>
+# define fprintf trio_fprintf
+</MACRO>
+<MACRO>
+<NAME>vfprintf</NAME>
+# define vfprintf trio_vfprintf
+</MACRO>
+<MACRO>
+<NAME>sprintf</NAME>
+# define sprintf trio_sprintf
+</MACRO>
+<MACRO>
+<NAME>vsprintf</NAME>
+# define vsprintf trio_vsprintf
+</MACRO>
+<MACRO>
+<NAME>snprintf</NAME>
+# define snprintf trio_snprintf
+</MACRO>
+<MACRO>
+<NAME>vsnprintf</NAME>
+# define vsnprintf trio_vsnprintf
+</MACRO>
+<MACRO>
+<NAME>scanf</NAME>
+# define scanf trio_scanf
+</MACRO>
+<MACRO>
+<NAME>vscanf</NAME>
+# define vscanf trio_vscanf
+</MACRO>
+<MACRO>
+<NAME>fscanf</NAME>
+# define fscanf trio_fscanf
+</MACRO>
+<MACRO>
+<NAME>vfscanf</NAME>
+# define vfscanf trio_vfscanf
+</MACRO>
+<MACRO>
+<NAME>sscanf</NAME>
+# define sscanf trio_sscanf
+</MACRO>
+<MACRO>
+<NAME>vsscanf</NAME>
+# define vsscanf trio_vsscanf
+</MACRO>
+<MACRO>
+<NAME>dprintf</NAME>
+#define dprintf trio_dprintf
+</MACRO>
+<MACRO>
+<NAME>vdprintf</NAME>
+#define vdprintf trio_vdprintf
+</MACRO>
+<MACRO>
+<NAME>aprintf</NAME>
+#define aprintf trio_aprintf
+</MACRO>
+<MACRO>
+<NAME>vaprintf</NAME>
+#define vaprintf trio_vaprintf
+</MACRO>
+<MACRO>
+<NAME>asprintf</NAME>
+#define asprintf trio_asprintf
+</MACRO>
+<MACRO>
+<NAME>vasprintf</NAME>
+#define vasprintf trio_vasprintf
+</MACRO>
+<MACRO>
+<NAME>dscanf</NAME>
+#define dscanf trio_dscanf
+</MACRO>
+<MACRO>
+<NAME>vdscanf</NAME>
+#define vdscanf trio_vdscanf
+</MACRO>
+<MACRO>
+<NAME>XSLT_MAX_SORT</NAME>
+#define XSLT_MAX_SORT 15
+</MACRO>
+<MACRO>
+<NAME>XSLT_PAT_NO_PRIORITY</NAME>
+#define XSLT_PAT_NO_PRIORITY -12345789
+</MACRO>
+<STRUCT>
+<NAME>xsltRuntimeExtra</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltRuntimeExtraPtr</NAME>
+typedef xsltRuntimeExtra *xsltRuntimeExtraPtr;
+</TYPEDEF>
+<STRUCT>
+<NAME>xsltRuntimeExtra</NAME>
+struct xsltRuntimeExtra {
+    void       *info;		/* pointer to the extra data */
+    xmlFreeFunc deallocate;	/* pointer to the deallocation routine */
+    void       *val;		/* data not needing deallocation */
+};
+</STRUCT>
+<MACRO>
+<NAME>XSLT_RUNTIME_EXTRA_LST</NAME>
+#define XSLT_RUNTIME_EXTRA_LST(ctxt, nr) (ctxt)->extras[(nr)].info
+</MACRO>
+<MACRO>
+<NAME>XSLT_RUNTIME_EXTRA_FREE</NAME>
+#define XSLT_RUNTIME_EXTRA_FREE(ctxt, nr) (ctxt)->extras[(nr)].deallocate
+</MACRO>
+<MACRO>
+<NAME>XSLT_RUNTIME_EXTRA</NAME>
+#define	XSLT_RUNTIME_EXTRA(ctxt, nr) (ctxt)->extras[(nr)].val
+</MACRO>
+<STRUCT>
+<NAME>xsltTemplate</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltTemplatePtr</NAME>
+typedef xsltTemplate *xsltTemplatePtr;
+</TYPEDEF>
+<STRUCT>
+<NAME>xsltTemplate</NAME>
+struct xsltTemplate {
+    struct _xsltTemplate *next;/* chained list sorted by priority */
+    struct _xsltStylesheet *style;/* the containing stylesheet */
+    xmlChar *match;	/* the matching string */
+    float priority;	/* as given from the stylesheet, not computed */
+    xmlChar *name;	/* the local part of the name QName */
+    xmlChar *nameURI;	/* the URI part of the name QName */
+    xmlChar *mode;	/* the local part of the mode QName */
+    xmlChar *modeURI;	/* the URI part of the mode QName */
+    xmlNodePtr content;	/* the template replacement value */
+    xmlNodePtr elem;	/* the source element */
+
+    int inheritedNsNr;  /* number of inherited namespaces */
+    xmlNsPtr *inheritedNs;/* inherited non-excluded namespaces */
+
+    /* Profiling informations */
+    int nbCalls;        /* the number of time the template was called */
+    unsigned long time; /* the time spent in this template */
+};
+</STRUCT>
+<STRUCT>
+<NAME>xsltDecimalFormat</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltDecimalFormatPtr</NAME>
+typedef xsltDecimalFormat *xsltDecimalFormatPtr;
+</TYPEDEF>
+<STRUCT>
+<NAME>xsltDecimalFormat</NAME>
+struct xsltDecimalFormat {
+    struct _xsltDecimalFormat *next; /* chained list */
+    xmlChar *name;
+    /* Used for interpretation of pattern */
+    xmlChar *digit;
+    xmlChar *patternSeparator;
+    /* May appear in result */
+    xmlChar *minusSign;
+    xmlChar *infinity;
+    xmlChar *noNumber; /* Not-a-number */
+    /* Used for interpretation of pattern and may appear in result */
+    xmlChar *decimalPoint;
+    xmlChar *grouping;
+    xmlChar *percent;
+    xmlChar *permille;
+    xmlChar *zeroDigit;
+};
+</STRUCT>
+<STRUCT>
+<NAME>xsltDocument</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltDocumentPtr</NAME>
+typedef xsltDocument *xsltDocumentPtr;
+</TYPEDEF>
+<STRUCT>
+<NAME>xsltDocument</NAME>
+struct xsltDocument {
+    struct _xsltDocument *next;	/* documents are kept in a chained list */
+    int main;			/* is this the main document */
+    xmlDocPtr doc;		/* the parsed document */
+    void *keys;			/* key tables storage */
+    struct _xsltDocument *includes; /* subsidiary includes */
+};
+</STRUCT>
+<STRUCT>
+<NAME>xsltTransformContext</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltTransformContextPtr</NAME>
+typedef xsltTransformContext *xsltTransformContextPtr;
+</TYPEDEF>
+<STRUCT>
+<NAME>xsltElemPreComp</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltElemPreCompPtr</NAME>
+typedef xsltElemPreComp *xsltElemPreCompPtr;
+</TYPEDEF>
+<USER_FUNCTION>
+<NAME>xsltTransformFunction</NAME>
+<RETURNS>void </RETURNS>
+xsltTransformContextPtr ctxt,
+	                               xmlNodePtr node,
+				       xmlNodePtr inst,
+			               xsltElemPreCompPtr comp
+</USER_FUNCTION>
+<USER_FUNCTION>
+<NAME>xsltSortFunc</NAME>
+<RETURNS>void </RETURNS>
+xsltTransformContextPtr ctxt, xmlNodePtr *sorts,
+			      int nbsorts
+</USER_FUNCTION>
+<ENUM>
+<NAME>xsltStyleType</NAME>
+typedef enum {
+    XSLT_FUNC_COPY=1,
+    XSLT_FUNC_SORT,
+    XSLT_FUNC_TEXT,
+    XSLT_FUNC_ELEMENT,
+    XSLT_FUNC_ATTRIBUTE,
+    XSLT_FUNC_COMMENT,
+    XSLT_FUNC_PI,
+    XSLT_FUNC_COPYOF,
+    XSLT_FUNC_VALUEOF,
+    XSLT_FUNC_NUMBER,
+    XSLT_FUNC_APPLYIMPORTS,
+    XSLT_FUNC_CALLTEMPLATE,
+    XSLT_FUNC_APPLYTEMPLATES,
+    XSLT_FUNC_CHOOSE,
+    XSLT_FUNC_IF,
+    XSLT_FUNC_FOREACH,
+    XSLT_FUNC_DOCUMENT,
+    XSLT_FUNC_WITHPARAM,
+    XSLT_FUNC_PARAM,
+    XSLT_FUNC_VARIABLE,
+    XSLT_FUNC_WHEN,
+    XSLT_FUNC_EXTENSION
+} xsltStyleType;
+</ENUM>
+<USER_FUNCTION>
+<NAME>xsltElemPreCompDeallocator</NAME>
+<RETURNS>void </RETURNS>
+xsltElemPreCompPtr comp
+</USER_FUNCTION>
+<STRUCT>
+<NAME>xsltElemPreComp</NAME>
+struct xsltElemPreComp {
+    xsltElemPreCompPtr next;		/* chained list */
+    xsltStyleType type;			/* type of the element */
+    xsltTransformFunction func; 	/* handling function */
+    xmlNodePtr inst;			/* the instruction */
+
+    /* end of common part */
+    xsltElemPreCompDeallocator free;	/* the deallocator */
+};
+</STRUCT>
+<STRUCT>
+<NAME>xsltStylePreComp</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltStylePreCompPtr</NAME>
+typedef xsltStylePreComp *xsltStylePreCompPtr;
+</TYPEDEF>
+<STRUCT>
+<NAME>xsltStylePreComp</NAME>
+struct xsltStylePreComp {
+    xsltElemPreCompPtr next;	/* chained list */
+    xsltStyleType type;		/* type of the element */
+    xsltTransformFunction func; /* handling function */
+    xmlNodePtr inst;		/* the instruction */
+
+    /*
+     * Pre computed values.
+     */
+
+    xmlChar *stype;             /* sort */
+    int      has_stype;		/* sort */
+    int      number;		/* sort */
+    xmlChar *order;             /* sort */
+    int      has_order;		/* sort */
+    int      descending;	/* sort */
+    xmlChar *lang;		/* sort */
+    int      has_lang;		/* sort */
+    xmlChar *case_order;	/* sort */
+    int      lower_first;	/* sort */
+
+    xmlChar *use;		/* copy, element */
+    int      has_use;		/* copy, element */
+
+    int      noescape;		/* text */
+
+    xmlChar *name;		/* element, attribute, pi */
+    int      has_name;		/* element, attribute, pi */
+    xmlChar *ns;		/* element */
+    int      has_ns;		/* element */
+
+    xmlChar *mode;		/* apply-templates */
+    xmlChar *modeURI;		/* apply-templates */
+
+    xmlChar *test;		/* if */
+
+    xsltTemplatePtr templ;	/* call-template */
+
+    xmlChar *select;		/* sort, copy-of, value-of, apply-templates */
+
+    int      ver11;		/* document */
+    xmlChar *filename;		/* document URL */
+    int      has_filename;	/* document */
+
+    xsltNumberData numdata;	/* number */
+
+    xmlXPathCompExprPtr comp;	/* a precompiled XPath expression */
+    xmlNsPtr *nsList;		/* the namespaces in scope */
+    int nsNr;			/* the number of namespaces in scope */
+};
+</STRUCT>
+<STRUCT>
+<NAME>xsltStackElem</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltStackElemPtr</NAME>
+typedef xsltStackElem *xsltStackElemPtr;
+</TYPEDEF>
+<STRUCT>
+<NAME>xsltStackElem</NAME>
+struct xsltStackElem {
+    struct _xsltStackElem *next;/* chained list */
+    xsltStylePreCompPtr comp;   /* the compiled form */
+    int computed;	/* was the evaluation done */
+    xmlChar *name;	/* the local part of the name QName */
+    xmlChar *nameURI;	/* the URI part of the name QName */
+    xmlChar *select;	/* the eval string */
+    xmlNodePtr tree;	/* the tree if no eval string or the location */
+    xmlXPathObjectPtr value; /* The value if computed */
+};
+</STRUCT>
+<STRUCT>
+<NAME>xsltStylesheet</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltStylesheetPtr</NAME>
+typedef xsltStylesheet *xsltStylesheetPtr;
+</TYPEDEF>
+<STRUCT>
+<NAME>xsltStylesheet</NAME>
+struct xsltStylesheet {
+    /*
+     * The stylesheet import relation is kept as a tree.
+     */
+    struct _xsltStylesheet *parent;
+    struct _xsltStylesheet *next;
+    struct _xsltStylesheet *imports;
+
+    xsltDocumentPtr docList;		/* the include document list */
+
+    /*
+     * General data on the style sheet document.
+     */
+    xmlDocPtr doc;		/* the parsed XML stylesheet */
+    xmlHashTablePtr stripSpaces;/* the hash table of the strip-space and
+				   preserve space elements */
+    int             stripAll;	/* strip-space * (1) preserve-space * (-1) */
+    xmlHashTablePtr cdataSection;/* the hash table of the cdata-section */
+
+    /*
+     * Global variable or parameters.
+     */
+    xsltStackElemPtr variables; /* linked list of param and variables */
+
+    /*
+     * Template descriptions.
+     */
+    xsltTemplatePtr templates;	/* the ordered list of templates */
+    void *templatesHash;	/* hash table or wherever compiled templates
+				   informations are stored */
+    void *rootMatch;		/* template based on / */
+    void *keyMatch;		/* template based on key() */
+    void *elemMatch;		/* template based on * */
+    void *attrMatch;		/* template based on @* */
+    void *parentMatch;		/* template based on .. */
+    void *textMatch;		/* template based on text() */
+    void *piMatch;		/* template based on processing-instruction() */
+    void *commentMatch;		/* template based on comment() */
+    
+    /*
+     * Namespace aliases.
+     */
+    xmlHashTablePtr nsAliases;	/* the namespace alias hash tables */
+
+    /*
+     * Attribute sets.
+     */
+    xmlHashTablePtr attributeSets;/* the attribute sets hash tables */
+
+    /*
+     * Namespaces.
+     */
+    xmlHashTablePtr nsHash;     /* the set of namespaces in use */
+    void           *nsDefs;     /* the namespaces defined */
+
+    /*
+     * Key definitions.
+     */
+    void *keys;				/* key definitions */
+
+    /*
+     * Output related stuff.
+     */
+    xmlChar *method;		/* the output method */
+    xmlChar *methodURI;		/* associated namespace if any */
+    xmlChar *version;		/* version string */
+    xmlChar *encoding;		/* encoding string */
+    int omitXmlDeclaration;     /* omit-xml-declaration = "yes" | "no" */
+
+    /* 
+     * Number formatting.
+     */
+    xsltDecimalFormatPtr decimalFormat;
+    int standalone;             /* standalone = "yes" | "no" */
+    xmlChar *doctypePublic;     /* doctype-public string */
+    xmlChar *doctypeSystem;     /* doctype-system string */
+    int indent;			/* should output being indented */
+    xmlChar *mediaType;		/* media-type string */
+
+    /*
+     * Precomputed blocks.
+     */
+    xsltElemPreCompPtr preComps;/* list of precomputed blocks */
+    int warnings;		/* number of warnings found at compilation */
+    int errors;			/* number of errors found at compilation */
+
+    xmlChar  *exclPrefix;	/* last excluded prefixes */
+    xmlChar **exclPrefixTab;	/* array of excluded prefixes */
+    int       exclPrefixNr;	/* number of excluded prefixes in scope */
+    int       exclPrefixMax;	/* size of the array */
+
+    void     *_private;		/* user defined data */
+
+    /*
+     * Extensions.
+     */
+    xmlHashTablePtr extInfos;	/* the extension data */
+    int		    extrasNr;	/* the number of extras required */
+
+    /*
+     * For keeping track of nested includes
+     */
+    xsltDocumentPtr includes;	/* points to last nested include */
+};
+</STRUCT>
+<ENUM>
+<NAME>xsltOutputType</NAME>
+typedef enum {
+    XSLT_OUTPUT_XML = 0,
+    XSLT_OUTPUT_HTML,
+    XSLT_OUTPUT_TEXT
+} xsltOutputType;
+</ENUM>
+<ENUM>
+<NAME>xsltTransformState</NAME>
+typedef enum {
+    XSLT_STATE_OK = 0,
+    XSLT_STATE_ERROR,
+    XSLT_STATE_STOPPED
+} xsltTransformState;
+</ENUM>
+<STRUCT>
+<NAME>xsltTransformContext</NAME>
+struct xsltTransformContext {
+    xsltStylesheetPtr style;		/* the stylesheet used */
+    xsltOutputType type;		/* the type of output */
+
+    xsltTemplatePtr  templ;		/* the current template */
+    int              templNr;		/* Nb of templates in the stack */
+    int              templMax;		/* Size of the templtes stack */
+    xsltTemplatePtr *templTab;		/* the template stack */
+
+    xsltStackElemPtr  vars;		/* the current variable list */
+    int               varsNr;		/* Nb of variable list in the stack */
+    int               varsMax;		/* Size of the variable list stack */
+    xsltStackElemPtr *varsTab;		/* the variable list stack */
+    int               varsBase;		/* the var base for current templ */
+
+    /*
+     * Extensions
+     */
+    xmlHashTablePtr   extFunctions;	/* the extension functions */
+    xmlHashTablePtr   extElements;	/* the extension elements */
+    xmlHashTablePtr   extInfos;		/* the extension data */
+
+    const xmlChar *mode;		/* the current mode */
+    const xmlChar *modeURI;		/* the current mode URI */
+
+    xsltDocumentPtr docList;		/* the document list */
+
+    xsltDocumentPtr document;		/* the current document */
+    xmlNodePtr node;			/* the current node being processed */
+    xmlNodeSetPtr nodeList;		/* the current node list */
+    /* xmlNodePtr current;			the node */
+
+    xmlDocPtr output;			/* the resulting document */
+    xmlNodePtr insert;			/* the insertion node */
+
+    xmlXPathContextPtr xpathCtxt;	/* the XPath context */
+    xsltTransformState state;		/* the current state */
+
+    /*
+     * Global variables
+     */
+    xmlHashTablePtr   globalVars;	/* the global variables and params */
+
+    xmlNodePtr inst;			/* the instruction in the stylesheet */
+
+    int xinclude;			/* should XInclude be processed */
+
+    const char *      outputFile;	/* the output URI if known */
+
+    int profile;                        /* is this run profiled */
+    long             prof;		/* the current profiled value */
+    int              profNr;		/* Nb of templates in the stack */
+    int              profMax;		/* Size of the templtaes stack */
+    long            *profTab;		/* the profile template stack */
+
+    void            *_private;		/* user defined data */
+
+    int              extrasNr;		/* the number of extras used */
+    int              extrasMax;		/* the number of extras allocated */
+    xsltRuntimeExtraPtr extras;		/* extra per runtime informations */
+
+    xsltDocumentPtr  styleList;		/* the stylesheet docs list */
+    void                 * sec;		/* the security preferences if any */
+
+    xmlGenericErrorFunc  error;		/* a specific error handler */
+    void              * errctx;		/* context for the error handler */
+
+    xsltSortFunc      sortfunc;		/* a ctxt specific sort routine */
+
+    /*
+     * handling of temporary Result Value Tree
+     */
+    xmlDocPtr       tmpRVT;		/* list of RVT without persistance */
+    xmlDocPtr       persistRVT;		/* list of persistant RVTs */
+    int             ctxtflags;          /* context processing flags */
+
+    /*
+     * Speed optimization when coalescing text nodes
+     */
+    const xmlChar  *lasttext;		/* last text node content */
+    unsigned int    lasttsize;		/* last text node size */
+    unsigned int    lasttuse;		/* last text node use */
+    /*
+     * Per Context Debugging
+     */
+    int debugStatus;				/* the context level debug status */
+    unsigned long* traceCode;		/* pointer to the variable holding the mask */
+};
+</STRUCT>
+<MACRO>
+<NAME>CHECK_STOPPED</NAME>
+#define CHECK_STOPPED if (ctxt->state == XSLT_STATE_STOPPED) return;
+</MACRO>
+<MACRO>
+<NAME>CHECK_STOPPEDE</NAME>
+#define CHECK_STOPPEDE if (ctxt->state == XSLT_STATE_STOPPED) goto error;
+</MACRO>
+<MACRO>
+<NAME>CHECK_STOPPED0</NAME>
+#define CHECK_STOPPED0 if (ctxt->state == XSLT_STATE_STOPPED) return(0);
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_GCC</NAME>
+# define TRIO_COMPILER_GCC
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_SUNPRO</NAME>
+# define TRIO_COMPILER_SUNPRO
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_SUNPRO</NAME>
+# define TRIO_COMPILER_SUNPRO
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_XLC</NAME>
+# define TRIO_COMPILER_XLC
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_XLC</NAME>
+# define TRIO_COMPILER_XLC /* Workaround for old xlc */
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_DECC</NAME>
+# define TRIO_COMPILER_DECC
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_DECC</NAME>
+# define TRIO_COMPILER_DECC /* Workaround for old DEC C compilers */
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_MSVC</NAME>
+# define TRIO_COMPILER_MSVC
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_BCB</NAME>
+# define TRIO_COMPILER_BCB
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_VMS</NAME>
+# define TRIO_PLATFORM_VMS
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_UNIX</NAME>
+# define TRIO_PLATFORM_UNIX
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_UNIX</NAME>
+# define TRIO_PLATFORM_UNIX
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_UNIX</NAME>
+# define TRIO_PLATFORM_UNIX
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_UNIX</NAME>
+# define TRIO_PLATFORM_UNIX
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_UNIX</NAME>
+# define TRIO_PLATFORM_UNIX
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_QNX</NAME>
+# define TRIO_PLATFORM_QNX
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_UNIX</NAME>
+# define TRIO_PLATFORM_UNIX
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_UNIX</NAME>
+# define TRIO_PLATFORM_UNIX
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_WIN32</NAME>
+# define TRIO_PLATFORM_WIN32
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_MPEIX</NAME>
+# define TRIO_PLATFORM_MPEIX
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_AIX</NAME>
+# define TRIO_PLATFORM_AIX
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_HPUX</NAME>
+# define TRIO_PLATFORM_HPUX
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_SOLARIS</NAME>
+#  define TRIO_PLATFORM_SOLARIS
+</MACRO>
+<MACRO>
+<NAME>TRIO_PLATFORM_SUNOS</NAME>
+#  define TRIO_PLATFORM_SUNOS
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_SUPPORTS_C89</NAME>
+# define TRIO_COMPILER_SUPPORTS_C89
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_SUPPORTS_C90</NAME>
+#  define TRIO_COMPILER_SUPPORTS_C90
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_SUPPORTS_C94</NAME>
+#   define TRIO_COMPILER_SUPPORTS_C94
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_SUPPORTS_C99</NAME>
+#   define TRIO_COMPILER_SUPPORTS_C99
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_SUPPORTS_C94</NAME>
+#   define TRIO_COMPILER_SUPPORTS_C94
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_SUPPORTS_UNIX95</NAME>
+#  define TRIO_COMPILER_SUPPORTS_UNIX95
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_SUPPORTS_UNIX98</NAME>
+#  define TRIO_COMPILER_SUPPORTS_UNIX98
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_SUPPORTS_UNIX01</NAME>
+#  define TRIO_COMPILER_SUPPORTS_UNIX01
+</MACRO>
+<MACRO>
+<NAME>TRIO_PUBLIC</NAME>
+# define TRIO_PUBLIC
+</MACRO>
+<MACRO>
+<NAME>TRIO_PRIVATE</NAME>
+# define TRIO_PRIVATE static
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_ANCIENT</NAME>
+# define TRIO_COMPILER_ANCIENT
+</MACRO>
+<MACRO>
+<NAME>TRIO_CONST</NAME>
+# define TRIO_CONST
+</MACRO>
+<MACRO>
+<NAME>TRIO_VOLATILE</NAME>
+# define TRIO_VOLATILE
+</MACRO>
+<MACRO>
+<NAME>TRIO_SIGNED</NAME>
+# define TRIO_SIGNED
+</MACRO>
+<TYPEDEF>
+<NAME>trio_long_double_t</NAME>
+typedef double trio_long_double_t;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>trio_pointer_t</NAME>
+typedef char * trio_pointer_t;
+</TYPEDEF>
+<MACRO>
+<NAME>TRIO_SUFFIX_LONG</NAME>
+# define TRIO_SUFFIX_LONG(x) x
+</MACRO>
+<MACRO>
+<NAME>TRIO_PROTO</NAME>
+# define TRIO_PROTO(x) ()
+</MACRO>
+<MACRO>
+<NAME>TRIO_NOARGS</NAME>
+# define TRIO_NOARGS
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS1</NAME>
+# define TRIO_ARGS1(list,a1) list a1;
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS2</NAME>
+# define TRIO_ARGS2(list,a1,a2) list a1; a2;
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS3</NAME>
+# define TRIO_ARGS3(list,a1,a2,a3) list a1; a2; a3;
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS4</NAME>
+# define TRIO_ARGS4(list,a1,a2,a3,a4) list a1; a2; a3; a4;
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS5</NAME>
+# define TRIO_ARGS5(list,a1,a2,a3,a4,a5) list a1; a2; a3; a4; a5;
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS6</NAME>
+# define TRIO_ARGS6(list,a1,a2,a3,a4,a5,a6) list a1; a2; a3; a4; a5; a6;
+</MACRO>
+<MACRO>
+<NAME>TRIO_VARGS2</NAME>
+# define TRIO_VARGS2(list,a1,a2) list a1; a2
+</MACRO>
+<MACRO>
+<NAME>TRIO_VARGS3</NAME>
+# define TRIO_VARGS3(list,a1,a2,a3) list a1; a2; a3
+</MACRO>
+<MACRO>
+<NAME>TRIO_VARGS4</NAME>
+# define TRIO_VARGS4(list,a1,a2,a3,a4) list a1; a2; a3; a4
+</MACRO>
+<MACRO>
+<NAME>TRIO_VARGS5</NAME>
+# define TRIO_VARGS5(list,a1,a2,a3,a4,a5) list a1; a2; a3; a4; a5
+</MACRO>
+<MACRO>
+<NAME>TRIO_VA_DECL</NAME>
+# define TRIO_VA_DECL va_dcl
+</MACRO>
+<MACRO>
+<NAME>TRIO_VA_START</NAME>
+# define TRIO_VA_START(x,y) va_start(x)
+</MACRO>
+<MACRO>
+<NAME>TRIO_VA_END</NAME>
+# define TRIO_VA_END(x) va_end(x)
+</MACRO>
+<MACRO>
+<NAME>TRIO_CONST</NAME>
+# define TRIO_CONST const
+</MACRO>
+<MACRO>
+<NAME>TRIO_VOLATILE</NAME>
+# define TRIO_VOLATILE volatile
+</MACRO>
+<MACRO>
+<NAME>TRIO_SIGNED</NAME>
+# define TRIO_SIGNED signed
+</MACRO>
+<TYPEDEF>
+<NAME>trio_long_double_t</NAME>
+typedef long double trio_long_double_t;
+</TYPEDEF>
+<TYPEDEF>
+<NAME>trio_pointer_t</NAME>
+typedef void * trio_pointer_t;
+</TYPEDEF>
+<MACRO>
+<NAME>TRIO_SUFFIX_LONG</NAME>
+# define TRIO_SUFFIX_LONG(x) x ## L
+</MACRO>
+<MACRO>
+<NAME>TRIO_PROTO</NAME>
+# define TRIO_PROTO(x) x
+</MACRO>
+<MACRO>
+<NAME>TRIO_NOARGS</NAME>
+# define TRIO_NOARGS void
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS1</NAME>
+# define TRIO_ARGS1(list,a1) (a1)
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS2</NAME>
+# define TRIO_ARGS2(list,a1,a2) (a1,a2)
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS3</NAME>
+# define TRIO_ARGS3(list,a1,a2,a3) (a1,a2,a3)
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS4</NAME>
+# define TRIO_ARGS4(list,a1,a2,a3,a4) (a1,a2,a3,a4)
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS5</NAME>
+# define TRIO_ARGS5(list,a1,a2,a3,a4,a5) (a1,a2,a3,a4,a5)
+</MACRO>
+<MACRO>
+<NAME>TRIO_ARGS6</NAME>
+# define TRIO_ARGS6(list,a1,a2,a3,a4,a5,a6) (a1,a2,a3,a4,a5,a6)
+</MACRO>
+<MACRO>
+<NAME>TRIO_VARGS2</NAME>
+# define TRIO_VARGS2 TRIO_ARGS2
+</MACRO>
+<MACRO>
+<NAME>TRIO_VARGS3</NAME>
+# define TRIO_VARGS3 TRIO_ARGS3
+</MACRO>
+<MACRO>
+<NAME>TRIO_VARGS4</NAME>
+# define TRIO_VARGS4 TRIO_ARGS4
+</MACRO>
+<MACRO>
+<NAME>TRIO_VARGS5</NAME>
+# define TRIO_VARGS5 TRIO_ARGS5
+</MACRO>
+<MACRO>
+<NAME>TRIO_VA_DECL</NAME>
+# define TRIO_VA_DECL ...
+</MACRO>
+<MACRO>
+<NAME>TRIO_VA_START</NAME>
+# define TRIO_VA_START(x,y) va_start(x,y)
+</MACRO>
+<MACRO>
+<NAME>TRIO_VA_END</NAME>
+# define TRIO_VA_END(x) va_end(x)
+</MACRO>
+<MACRO>
+<NAME>TRIO_INLINE</NAME>
+# define TRIO_INLINE inline
+</MACRO>
+<MACRO>
+<NAME>TRIO_INLINE</NAME>
+# define TRIO_INLINE __inline__
+</MACRO>
+<MACRO>
+<NAME>TRIO_INLINE</NAME>
+# define TRIO_INLINE _inline
+</MACRO>
+<MACRO>
+<NAME>TRIO_INLINE</NAME>
+# define TRIO_INLINE __inline
+</MACRO>
+<MACRO>
+<NAME>TRIO_INLINE</NAME>
+# define TRIO_INLINE
+</MACRO>
+<MACRO>
+<NAME>TRIO_COMPILER_SUPPORTS_LL</NAME>
+# define TRIO_COMPILER_SUPPORTS_LL
+</MACRO>
+<STRUCT>
+<NAME>xsltSecurityPrefs</NAME>
+</STRUCT>
+<TYPEDEF>
+<NAME>xsltSecurityPrefsPtr</NAME>
+typedef xsltSecurityPrefs *xsltSecurityPrefsPtr;
+</TYPEDEF>
+<ENUM>
+<NAME>xsltSecurityOption</NAME>
+typedef enum {
+    XSLT_SECPREF_READ_FILE = 1,
+    XSLT_SECPREF_WRITE_FILE,
+    XSLT_SECPREF_CREATE_DIRECTORY,
+    XSLT_SECPREF_READ_NETWORK,
+    XSLT_SECPREF_WRITE_NETWORK
+} xsltSecurityOption;
+</ENUM>
+<USER_FUNCTION>
+<NAME>xsltSecurityCheck</NAME>
+<RETURNS>int </RETURNS>
+xsltSecurityPrefsPtr sec,
+					 xsltTransformContextPtr ctxt,
+					 const char *value
+</USER_FUNCTION>
+<MACRO>
+<NAME>XSLTPUBFUN</NAME>
+#define XSLTPUBFUN
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBVAR</NAME>
+#define XSLTPUBVAR extern
+</MACRO>
+<MACRO>
+<NAME>XSLTCALL</NAME>
+#define XSLTCALL
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBFUN</NAME>
+    #define XSLTPUBFUN __declspec(dllexport)
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBVAR</NAME>
+    #define XSLTPUBVAR __declspec(dllexport)
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBFUN</NAME>
+    #define XSLTPUBFUN
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBVAR</NAME>
+      #define XSLTPUBVAR __declspec(dllimport) extern
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBVAR</NAME>
+      #define XSLTPUBVAR extern
+</MACRO>
+<MACRO>
+<NAME>XSLTCALL</NAME>
+  #define XSLTCALL __cdecl
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBFUN</NAME>
+    #define XSLTPUBFUN __declspec(dllexport)
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBVAR</NAME>
+    #define XSLTPUBVAR __declspec(dllexport) extern
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBFUN</NAME>
+    #define XSLTPUBFUN
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBVAR</NAME>
+      #define XSLTPUBVAR __declspec(dllimport) extern
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBVAR</NAME>
+      #define XSLTPUBVAR extern
+</MACRO>
+<MACRO>
+<NAME>XSLTCALL</NAME>
+  #define XSLTCALL __cdecl
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBFUN</NAME>
+    #define XSLTPUBFUN __declspec(dllexport)
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBVAR</NAME>
+    #define XSLTPUBVAR __declspec(dllexport)
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBFUN</NAME>
+    #define XSLTPUBFUN
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBVAR</NAME>
+      #define XSLTPUBVAR __declspec(dllimport) extern
+</MACRO>
+<MACRO>
+<NAME>XSLTPUBVAR</NAME>
+      #define XSLTPUBVAR
+</MACRO>
+<MACRO>
+<NAME>XSLTCALL</NAME>
+  #define XSLTCALL __cdecl
+</MACRO>
+<MACRO>
+<NAME>LIBXSLT_PUBLIC</NAME>
+#define LIBXSLT_PUBLIC XSLTPUBVAR
+</MACRO>

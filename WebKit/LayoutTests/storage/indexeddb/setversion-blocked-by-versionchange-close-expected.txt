@@ -1,0 +1,34 @@
+h2 shouldn't receive any blocked events, and h3 should open after h2 is open
+
+On success, you will see a series of "PASS" messages, followed by "TEST COMPLETE".
+
+
+indexedDB = self.indexedDB || self.webkitIndexedDB || self.mozIndexedDB || self.msIndexedDB || self.OIndexedDB;
+
+dbname = "setversion-blocked-by-versionchange-close.html"
+indexedDB.deleteDatabase(dbname)
+indexedDB.open(dbname)
+blockedEventFired = false
+versionChangeComplete = false
+h2Opened = false
+
+openAnother():
+h1 = event.target.result
+indexedDB.open(dbname, 2)
+indexedDB.open(dbname)
+h1.close()
+
+h2Blocked():
+blockedEventFired = true
+
+h3Success():
+h3 = event.target.result
+FAIL h3.version should be 2. Was 1.
+FIXME: blocked should not fire as connection was closed. http://webkit.org/b/71130
+FAIL blockedEventFired should be false. Was true.
+FAIL versionChangeComplete should be true. Was false.
+FAIL h2Opened should be true. Was false.
+PASS successfullyParsed is true
+
+TEST COMPLETE
+

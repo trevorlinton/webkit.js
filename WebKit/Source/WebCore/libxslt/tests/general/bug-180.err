@@ -1,0 +1,2 @@
+runtime error: file ./bug-180.xsl line 4 element copy-of
+Variable 'xxx' has not been declared.

@@ -1,0 +1,1668 @@
+{
+    Identifier = "com.apple.compilers.gcc.4_5";
+    Type = Compiler;
+    Class = "PBXCompilerSpecificationGcc3_3";
+    Name = "Emscripten JS";
+    Description = "Emscripten JS LLVM/GCC Compiler (1.8.3+)";
+    Vendor = Apple;
+    Version = "4.5";
+    FileTypes = (
+        "sourcecode.c.c",
+        "sourcecode.c.objc",
+        "sourcecode.cpp.cpp",
+        "sourcecode.cpp.objcpp",
+        "sourcecode.asm",
+    );
+    Architectures = (
+        i386,
+        ppc,
+        ppc7400,
+        ppc7450,
+        ppc970,
+        ppc64,
+        "x86_64",
+        armv6,
+        armv7,
+    );
+    "OptionConditionFlavors" = (
+        arch,
+        sdk,
+    );
+    RequiredComponents = (
+        "com.apple.compilers.gcc.headers.4_2",
+    );
+    "BuiltinJambaseRuleName" = ProcessC;
+    ExecPath = "/Users/tlinton/Library/Emscripten/emscripten/1.8.2/em++";
+    CommandOutputParser = "XCGccCommandOutputParser";
+    PrecompStyle = pch;
+    SupportsHeadermaps = Yes;
+    "DashIFlagAcceptsHeadermaps" = Yes;
+    SupportsIsysroot = Yes;
+    SupportsZeroLink = Yes;
+    "SupportsPredictiveCompilation" = No;
+    "SupportsSeparateUserHeaderPaths" = Yes;
+    "SupportsSymbolSeparation" = Yes;
+    "SupportsMacOSXDeploymentTarget" = Yes;
+    "SupportsMacOSXMinVersionFlag" = Yes;
+    "UseCPlusPlusCompilerDriverWhenBundlizing" = Yes;
+    "PatternsOfFlagsNotAffectingPrecomps" = (
+        "-v",
+        "-###",
+        "-H",
+        "-time",
+        "-save-temps",
+        "-W*",
+        "-w",
+    );
+    "PatternsOfFlagsToElide" = (
+        "-D_GLIBCXX_DEBUG=*",
+        "-D_GLIBCXX_DEBUG_PEDANTIC=*",
+    );
+    Options = (
+            
+	{
+	    Name = "diagnostic_message_length";
+            Type = String;
+            DefaultValue = 0;
+            "CommandLinePrefixFlag" = "-fmessage-length=";
+        },
+        {
+            Name = "use_pipe";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineFlag = "-pipe";
+        },
+        {
+            Name = "GCC_INPUT_FILETYPE";
+            Type = Enumeration;
+            AllowedValues = (
+                automatic,
+                "sourcecode.c.c",
+                "sourcecode.c.objc",
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            DefaultValue = automatic;
+            Category = Language;
+        },
+        {
+            Name = "GCC_OPERATION";
+            Type = Enumeration;
+            AllowedValues = (
+                compile,
+                "generate-preprocessed",
+                "generate-assembler",
+                precompile,
+                "separate-symbols",
+            );
+            DefaultValue = compile;
+        },
+        {
+            Name = "GCC_USE_STANDARD_INCLUDE_SEARCHING";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-nostdinc",
+                );
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_C_LANGUAGE_STANDARD";
+            Type = Enumeration;
+            AllowedValues = (
+                ansi,
+                c89,
+                gnu89,
+                c99,
+                gnu99,
+                "compiler-default",
+            );
+            DefaultValue = "compiler-default";
+            CommandLineArgs = {
+                ansi = (
+                    "-ansi",
+                );
+                "compiler-default" = ();
+                "<<otherwise>>" = (
+                    "-std=$(value)",
+                );
+            };
+            FileTypes = (
+                "sourcecode.c.c",
+                "sourcecode.c.objc",
+            );
+            Category = Language;
+        },
+        {
+            Name = "GCC_CHAR_IS_UNSIGNED_CHAR";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-funsigned-char",
+                );
+                NO = ();
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_ENABLE_ASM_KEYWORD";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-fno-asm",
+                );
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_ENABLE_BUILTIN_FUNCTIONS";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-fno-builtin",
+                );
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_ENABLE_TRIGRAPHS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-trigraphs",
+                );
+                NO = (
+                    "-Wno-trigraphs",
+                );
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_ENABLE_CPP_EXCEPTIONS";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-fno-exceptions",
+                );
+            };
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Language;
+        },
+        {
+            Name = "GCC_ENABLE_CPP_RTTI";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-fno-rtti",
+                );
+            };
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Language;
+        },
+        {
+            Name = "GCC_CHECK_RETURN_VALUE_OF_OPERATOR_NEW";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fcheck-new",
+                );
+                NO = ();
+            };
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Language;
+        },
+        {
+            Name = "GCC_ENABLE_PASCAL_STRINGS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fpascal-strings",
+                );
+                NO = ();
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_SHORT_ENUMS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fshort-enums",
+                );
+                NO = ();
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_ALTIVEC_EXTENSIONS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-faltivec",
+                );
+                NO = ();
+            };
+            "AppearsOnCommandLineAfter" = "GCC_PREFIX_HEADER";
+            Architectures = (
+                ppc,
+                ppc7400,
+                ppc7450,
+                ppc970,
+                ppc64,
+            );
+            Category = Language;
+        },
+        {
+            Name = "GCC_FORCE_CPU_SUBTYPE_ALL";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-force_cpusubtype_ALL",
+                );
+                NO = ();
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_LINK_WITH_DYNAMIC_LIBRARIES";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-static",
+                );
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-msoft-float",
+                );
+                NO = ();
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_USE_INDIRECT_FUNCTION_CALLS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-mlong-branch",
+                );
+                NO = ();
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_USE_REGISTER_FUNCTION_CALLS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-mlong-calls",
+                );
+                NO = ();
+            };
+            Category = Language;
+        },
+        {
+            Name = "GCC_PREFIX_HEADER";
+            Type = String;
+            DefaultValue = "";
+            Category = Language;
+            ConditionFlavors = ();
+        },
+        {
+            Name = "GCC_PRECOMPILE_PREFIX_HEADER";
+            Type = Boolean;
+            DefaultValue = NO;
+            Category = Language;
+            ConditionFlavors = ();
+        },
+        {
+            Name = "GCC_INCREASE_PRECOMPILED_HEADER_SHARING";
+            Type = Boolean;
+            DefaultValue = NO;
+            Category = Language;
+            ConditionFlavors = ();
+        },
+        {
+            Name = "OTHER_CFLAGS";
+            Type = StringList;
+            FileTypes = (
+                "sourcecode.c.c",
+                "sourcecode.c.objc",
+            );
+            Category = Language;
+        },
+        {
+            Name = "OTHER_CPLUSPLUSFLAGS";
+            Type = StringList;
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Language;
+        },
+        {
+            Name = "GCC_GENERATE_DEBUGGING_SYMBOLS";
+            Type = Boolean;
+            DefaultValue = YES;
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_DEBUGGING_SYMBOLS";
+            Type = Enumeration;
+            AllowedValues = (
+                default,
+                used,
+                full,
+            );
+            DefaultValue = default;
+            CommandLineArgs = {
+                default = (
+                    "-gstabs+",
+                    "-feliminate-unused-debug-symbols",
+                );
+                used = (
+                    "-gstabs+",
+                    "-feliminate-unused-debug-symbols",
+                );
+                full = (
+                    "-gstabs+",
+                    "-fno-eliminate-unused-debug-symbols",
+                );
+            };
+            Condition = "$(GCC_GENERATE_DEBUGGING_SYMBOLS) == YES  &&  $(GCC_DEBUG_INFORMATION_FORMAT) == stabs";
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_OPTIMIZATION_LEVEL";
+            Type = Enumeration;
+            AllowedValues = (
+                0,
+                1,
+                2,
+                3,
+                s,
+            );
+            DefaultValue = s;
+            CommandLineArgs = (
+                "-O$(value)",
+            );
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_GENERATE_PROFILING_CODE";
+            Type = Boolean;
+            DefaultValue = "$(GENERATE_PROFILING_CODE)";
+            CommandLineArgs = {
+                YES = (
+                    "-pg",
+                );
+                NO = ();
+            };
+        },
+        {
+            Name = "GCC_NO_COMMON_BLOCKS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fno-common",
+                );
+                NO = ();
+            };
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_REUSE_STRINGS";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-fwritable-strings",
+                );
+            };
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_DYNAMIC_NO_PIC";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-mdynamic-no-pic",
+                );
+                NO = ();
+            };
+            Condition = "! $(GCC_ENABLE_FIX_AND_CONTINUE)";
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_ENABLE_KERNEL_DEVELOPMENT";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-mkernel",
+                );
+                NO = ();
+            };
+            Category = CodeGeneration;
+            Description = "Activating this setting enables kernel development mode.  This mode sets -static, -fno-common, -fno-cxa-atexit, -fno-exceptions, -fno-non-call-exceptions, -fapple-kext, -fno-weak and -fno-rtti where applicable.  This mode also sets -mno-altivec, -msoft-float, -fno-builtin and -mlong-branch for PowerPC targets. [GCC_ENABLE_KERNEL_DEVELOPMENT, -mkernel]";
+        },
+        {
+            Name = "GCC_ENABLE_FUNCTION_INLINING";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-finline",
+                );
+                NO = ();
+            };
+        },
+        {
+            Name = "GCC_DISABLE_STATIC_FUNCTION_INLINING";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fno-keep-inline-functions",
+                );
+                NO = ();
+            };
+        },
+        {
+            Name = "GCC_TREAT_WARNINGS_AS_ERRORS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Werror",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wmissing-field-initializers",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fpermissive",
+                );
+                NO = ();
+            };
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_ABOUT_MISSING_PROTOTYPES";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wmissing-prototypes",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Werror-implicit-function-declaration",
+                );
+                NO = ();
+            };
+            FileTypes = (
+                "sourcecode.c.c",
+                "sourcecode.c.objc",
+            );
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_ABOUT_RETURN_TYPE";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wreturn-type",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_NON_VIRTUAL_DESTRUCTOR";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wnon-virtual-dtor",
+                );
+                NO = ();
+            };
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Weffc++",
+                );
+                NO = ();
+            };
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Woverloaded-virtual",
+                );
+                NO = ();
+            };
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_TYPECHECK_CALLS_TO_PRINTF";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-Wno-format",
+                );
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wmissing-braces",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_MISSING_PARENTHESES";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wparentheses",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_CHECK_SWITCH_STATEMENTS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wswitch",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_UNUSED_FUNCTION";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wunused-function",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_UNUSED_LABEL";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wunused-label",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_UNINITIALIZED_AUTOS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wuninitialized",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_UNKNOWN_PRAGMAS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wunknown-pragmas",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_INHIBIT_ALL_WARNINGS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-w",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_PEDANTIC";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-pedantic",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_SHADOW";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wshadow",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_FOUR_CHARACTER_CONSTANTS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wfour-char-constants",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_SIGN_COMPARE";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wsign-compare",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_PROTOTYPE_CONVERSION";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wconversion",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+        },
+        {
+            Name = GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR;
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wselector",
+                );
+                NO = ();
+            };
+            FileTypes = (
+                "sourcecode.c.objc", 
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Warnings;
+        },
+        {   Name = GCC_WARN_STRICT_SELECTOR_MATCH;
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wstrict-selector-match",
+                );
+                NO = ();
+            };
+            FileTypes = (
+                "sourcecode.c.objc",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Warnings;
+        },
+        {   Name = GCC_WARN_UNDECLARED_SELECTOR;
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wundeclared-selector",
+                );
+                NO = ();
+            };
+            FileTypes = (
+                "sourcecode.c.objc",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_ABOUT_GLOBAL_CONSTRUCTORS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wglobal-constructors",
+                );
+                NO = ();
+            };
+            Category = Warnings;
+            CommonOption = NO;
+            DisplayName = "Global Construction or Destruction Required";
+            Description = "Warn about namespace scope data that requires construction or destruction, or functions that use the constructor attribute or the destructor attribute.  Additionally warn if the Objective-C GNU runtime is used to initialize various metadata.  [GCC_WARN_ABOUT_GLOBAL_CONSTRUCTORS, -Wglobal-constructors]";
+        },
+        {
+            Name = "WARNING_CFLAGS";
+            Type = StringList;
+            DefaultValue = "";
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_PREPROCESSOR_DEFINITIONS";
+            Type = StringList;
+            DefaultValue = "";
+            CommandLineArgs = (
+                "-D$(value)",
+            );
+            Category = Preprocessing;
+        },
+        {
+            Name = "GCC_PRODUCT_TYPE_PREPROCESSOR_DEFINITIONS";
+            Type = StringList;
+            DefaultValue = "";
+            CommandLineArgs = (
+                "-D$(value)",
+            );
+        },
+        {
+            Name = "GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS";
+            Type = StringList;
+            DefaultValue = "";
+            Category = Preprocessing;
+        },
+        {
+            Name = "USE_HEADERMAP";
+            Type = Boolean;
+            DefaultValue = NO;
+        },
+        {
+            Name = "HEADERMAP_FILE_FORMAT";
+            Type = Enumeration;
+            AllowedValues = (
+                traditional,
+            );
+            DefaultValue = traditional;
+        },
+        {
+            Name = "CPP_HEADERMAP_FILE";
+            Type = Path;
+            DefaultValue = "$(TEMP_DIR)/$(PRODUCT_NAME).hmap";
+        },
+        {
+            Name = "CPP_HEADERMAP_FILE_FOR_GENERATED_FILES";
+            Type = Path;
+            DefaultValue = "$(TEMP_DIR)/$(PRODUCT_NAME)-generated-files.hmap";
+        },
+        {
+            Name = "CPP_HEADERMAP_FILE_FOR_OWN_TARGET_HEADERS";
+            Type = Path;
+            DefaultValue = "$(TEMP_DIR)/$(PRODUCT_NAME)-own-target-headers.hmap";
+        },
+        {
+            Name = "CPP_HEADERMAP_FILE_FOR_ALL_TARGET_HEADERS";
+            Type = Path;
+            DefaultValue = "$(TEMP_DIR)/$(PRODUCT_NAME)-all-target-headers.hmap";
+        },
+        {
+            Name = "CPP_HEADERMAP_FILE_FOR_PROJECT_FILES";
+            Type = Path;
+            DefaultValue = "$(TEMP_DIR)/$(PRODUCT_NAME)-project-headers.hmap";
+        },
+        {
+            Name = "USE_HEADER_SYMLINKS";
+            Type = Boolean;
+            DefaultValue = NO;
+        },
+        {
+            Name = "CPP_HEADER_SYMLINKS_DIR";
+            Type = Path;
+            DefaultValue = "$(TEMP_DIR)/$(PRODUCT_NAME).hdrs";
+        },
+        {
+            Name = SDKROOT;
+            Type = Path;
+            CommandLineFlag = "-isysroot";
+        },
+        {
+            Name = "GCC_USE_GCC3_PFE_SUPPORT";
+            Type = Boolean;
+            DefaultValue = YES;
+        },
+        {
+            Name = "GCC_PFE_FILE_C_DIALECTS";
+            Type = StringList;
+            DefaultValue = "c objective-c c++ objective-c++";
+        },
+        {
+            Name = "ENABLE_APPLE_KEXT_CODE_GENERATION";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fapple-kext",
+                );
+                NO = ();
+            };
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+        },
+        {
+            Name = "GCC_WARN_UNUSED_PARAMETER";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wunused-parameter",
+                );
+                NO = ();
+            };
+            AppearsAfter = "GCC_WARN_UNUSED_LABEL";
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_UNUSED_VARIABLE";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wunused-variable",
+                );
+                NO = ();
+            };
+            AppearsAfter = "GCC_WARN_UNUSED_PARAMETER";
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_UNUSED_VALUE";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wunused-value",
+                );
+                NO = ();
+            };
+            AppearsAfter = "GCC_WARN_UNUSED_VARIABLE";
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_ENABLE_EXCEPTIONS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineFlag = "-fexceptions";
+            Category = Language;
+        },
+        {
+            Name = "GCC_ENABLE_OBJC_EXCEPTIONS";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-fno-objc-exceptions",
+                );
+            };
+            FileTypes = (
+                "sourcecode.c.objc",
+                "sourcecode.cpp.objcpp",
+            );
+            AppearsAfter = "GCC_ENABLE_CPP_RTTI";
+            Category = Language;
+        },
+        {
+            Name = "GCC_ONE_BYTE_BOOL";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-mone-byte-bool",
+                );
+                NO = ();
+            };
+            Architectures = (
+                ppc,
+                ppc7400,
+                ppc7450,
+                ppc970,
+                ppc64,
+            );
+            AppearsAfter = "GCC_SHORT_ENUMS";
+            Category = Language;
+        },
+        {
+            Name = "GCC_CW_ASM_SYNTAX";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = { YES = (-fasm-blocks); NO = (); };
+            Architectures = (i386, x86_64, ppc, ppc64);
+            AppearsAfter = GCC_ALTIVEC_EXTENSIONS;
+            Category = Language;
+        },
+        {
+            Name = "ZERO_LINK";
+            Type = Boolean;
+            DefaultValue = NO;
+            FileTypes = (
+                "sourcecode.c.objc",
+                "sourcecode.cpp.objcpp",
+            );
+        },
+        {
+            Name = "GCC_ENABLE_FIX_AND_CONTINUE";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-mfix-and-continue",
+                );
+                NO = ();
+            };
+            "AdditionalArgsForFixBundlizing" = ();
+            Category = CodeGeneration;
+            Description = "Activating this setting indicates that binaries should be built for use with Fix & Continue. This setting is enabled by default in Debug build configurations and should be enabled or disabled there. Note: It is recommended that release or deployment builds NOT be built for use with Fix & Continue.\n\nActivating this setting will disable the settings \"Symbols Hidden by Default\" and \"Generate Position-Dependent Code\".\n\n[GCC_ENABLE_FIX_AND_CONTINUE, -mfix-and-continue]";
+        },
+        {
+            Name = "GCC_FAST_OBJC_DISPATCH";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-fno-objc-direct-dispatch",
+                );
+            };
+            FileTypes = (
+                "sourcecode.c.objc",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_ENABLE_OBJC_GC";
+            Type = Enumeration;
+            AllowedValues = (
+                unsupported,
+                supported,
+                required,
+            );
+            DefaultValue = unsupported;
+            CommandLineArgs = {
+                unsupported = ();
+                supported = (
+                    "-fobjc-gc",
+                );
+                required = (
+                    "-fobjc-gc-only",
+                );
+            };
+            FileTypes = (
+                "sourcecode.c.objc",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_UNROLL_LOOPS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-funroll-loops",
+                );
+                NO = ();
+            };
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_FAST_MATH";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-ffast-math",
+                );
+                NO = ();
+            };
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_STRICT_ALIASING";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fstrict-aliasing",
+                );
+                NO = ();
+            };
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_MODEL_CPU";
+            Type = Enumeration;
+            AllowedValues = (
+                "",
+                G3,
+                G4,
+                G5,
+            );
+            DefaultValue = "";
+            CommandLineArgs = {
+                "" = ();
+                "<<otherwise>>" = (
+                    "-mcpu=$(value)",
+                );
+            };
+            Architectures = (
+                ppc,
+                ppc7400,
+                ppc7450,
+                ppc970,
+                ppc64,
+            );
+        },
+        {
+            Name = "GCC_MODEL_TUNING";
+            Type = Enumeration;
+            AllowedValues = (
+                "",
+                G3,
+                G4,
+                G5,
+            );
+            DefaultValue = G4;
+            CommandLineArgs = {
+                "" = ();
+                "<<otherwise>>" = (
+                    "-mtune=$(value)",
+                );
+            };
+            Architectures = (
+                ppc,
+                ppc7400,
+                ppc7450,
+                ppc970,
+                ppc64,
+            );
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_MODEL_PPC64";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-mpowerpc64",
+                );
+                NO = ();
+            };
+            Architectures = (
+                ppc,
+                ppc7400,
+                ppc7450,
+                ppc970,
+                ppc64,
+            );
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_INSTRUMENT_PROGRAM_FLOW_ARCS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fprofile-arcs",
+                );
+                NO = ();
+            };
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_GENERATE_TEST_COVERAGE_FILES";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-ftest-coverage",
+                );
+                NO = ();
+            };
+            Category = CodeGeneration;
+        },
+        {
+            Name = "GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-Wno-protocol",
+                );
+            };
+            FileTypes = (
+                "sourcecode.c.objc",
+                "sourcecode.cpp.objcpp",
+            );
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-Wno-deprecated-declarations",
+                );
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO";
+            Type = Boolean;
+            DefaultValue = YES;
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-Wno-invalid-offsetof",
+                );
+            };
+            Category = Warnings;
+        },
+        {
+            Name = "GCC_MACOSX_VERSION_MIN";
+            Type = String;
+            DefaultValue = "$(MACOSX_DEPLOYMENT_TARGET)";
+            CommandLineArgs = {
+                "" = ();
+                "<<otherwise>>" = (
+                    "-mmacosx-version-min=$(value)",
+                );
+            };
+        },
+        {
+            Name = "GCC_ENABLE_SYMBOL_SEPARATION";
+            Type = Boolean;
+            DefaultValue = YES;
+            AppearsAfter = "GCC_DEBUGGING_SYMBOLS";
+            Category = CodeGeneration;
+            CommonOption = NO;
+            DisplayName = "Separate PCH Symbols";
+            Description = "When precompiling a prefix header, generate a separate file containing the debug symbols for the PCH.  This can improve build time, and is on by default for products other than static libraries.  This option cannot be used when ZeroLink is enabled and can only be used when the Level of Debug Symbols setting is 'All Symbols' (full).  Note that this option only affects STABS and is incompatible with DWARF.  [GCC_ENABLE_SYMBOL_SEPARATION, -fsave-repository=<file>]";
+        },
+        {
+            Name = "GCC_DEBUG_INFORMATION_FORMAT";
+            Type = Enumeration;
+            AllowedValues = (
+                stabs,
+                dwarf,
+                "dwarf-with-dsym",
+            );
+            CommandLineArgs = {
+                dwarf = (
+                    "-g",
+                );
+                "dwarf-with-dsym" = (
+                    "",
+                );
+                "<<otherwise>>" = ();
+            };
+            DefaultValue = "$(DEBUG_INFORMATION_FORMAT)";
+            Condition = "$(GCC_GENERATE_DEBUGGING_SYMBOLS)";
+            CommonOption = NO;
+        },
+        {
+            Name = "GCC_AUTO_VECTORIZATION";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-ftree-vectorize",
+                );
+                NO = ();
+            };
+            Architectures = (
+                ppc,
+                ppc7400,
+                ppc7450,
+                ppc970,
+                ppc64,
+                i386,
+                "x86_64",
+            );
+            AppearsAfter = "GCC_MODEL_PPC64";
+            Category = CodeGeneration;
+            DisplayName = "Auto-vectorization";
+            Description = "Performs automatic loop vectorization whenever it is appropriate.  This setting only takes effect when the optimization level is 2 or higher and when targetting a processor that supports auto-vectorization; if the optimization level is lower than 2 or the processor targetted doesn't support vector operations, this setting has no effect. [GCC_AUTO_VECTORIZATION, -ftree-vectorize]";
+        },
+        {
+            Name = "GCC_ENABLE_SSE3_EXTENSIONS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-msse3",
+                );
+                NO = ();
+            };
+            Architectures = (
+                i386,
+                "x86_64",
+            );
+            AppearsAfter = "GCC_AUTO_VECTORIZATION";
+            Category = CodeGeneration;
+            DisplayName = "Enable SSE3 Extensions";
+            Description = "Enables the use of instructions in the SSE3 extended instruction set.  Only used when targeting Intel architectures. [GCC_ENABLE_SSE3_EXTENSIONS, -msse3]";
+        },
+        {
+            Name = "GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-mssse3",
+                );
+                NO = ();
+            };
+            Architectures = (
+                i386,
+                "x86_64",
+            );
+            AppearsAfter = "GCC_ENABLE_SSE3_EXTENSIONS";
+            Category = CodeGeneration;
+            DisplayName = "Enable Supplemental SSE3 Instructions";
+            Description = "Enables the use of instructions in the MMX, SSE, SSE2, and SSE3 extensions of the instruction set.  Only used when targeting Intel architectures. [GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS, -mssse3]";
+        },
+        {
+            Name = "GCC_ENABLE_SSE41_EXTENSIONS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-msse4.1",
+                );
+                NO = ();
+            };
+            Architectures = (
+                i386,
+                "x86_64",
+            );
+            AppearsAfter = "GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS";
+            Category = CodeGeneration;
+            DisplayName = "Enable SSE4.1 Extensions";
+            Description = "Enables the use of instructions in the SSE4.1 extended instruction set.  Only used when targeting Intel architectures. [GCC_ENABLE_SSE41_EXTENSIONS, -msse4.1]";
+        },
+        {
+            Name = "GCC_ENABLE_SSE42_EXTENSIONS";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-msse4.2",
+                );
+                NO = ();
+            };
+            Architectures = (
+                i386,
+                "x86_64",
+            );
+            AppearsAfter = "GCC_ENABLE_SSE41_EXTENSIONS";
+            Category = CodeGeneration;
+            DisplayName = "Enable SSE4.2 Extensions";
+            Description = "Enables the use of instructions in the SSE4.2 extended instruction set.  Only used when targeting Intel architectures. [GCC_ENABLE_SSE42_EXTENSIONS, -msse42]";
+        },
+        {
+            Name = "GCC_FEEDBACK_DIRECTED_OPTIMIZATION";
+            Type = Enumeration;
+            DefaultValue = Off;
+            AllowedValues = (
+                Off,
+                GenerateProfile,
+                UseProfile,
+            );
+            CommandLineArgs = {
+                Off = ();
+                GenerateProfile = (
+                    "-fprofile-generate",
+                );
+                UseProfile = (
+                    "-fprofile-use",
+                );
+            };
+            AdditionalLinkerArgs = {
+                Off = ();
+                GenerateProfile = (
+                    "-fprofile-generate",
+                );
+                UseProfile = (
+                    "-fprofile-use",
+                );
+            };
+            AppearsAfter = "GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS";
+            Category = CodeGeneration;
+            DisplayName = "Feedback-Directed Optimization";
+            ValueDisplayNames = {
+                Off = Off;
+                GenerateProfile = "Generate Profile";
+                UseProfile = "Use Profile for Optimization";
+            };
+            Description = "Enable profile feedback-directed optimization.  First build the program in 'Generate Profile' mode and run it in a representative manner.  This causes the program to generate profile trace files when it exits (they will be generated next to the .o files).  Multiple runs of the program add data to the profile trace files.  Then rebuild the program in 'Use Profile' mode; this will use the information in the profile trace files to make decisions about optimization.  Note that if the code paths taken during the \"training\" pass are not representative of what is going to happen in the optimized application, performance may actually get worse, since the code will be optimized based on misleading data. [GCC_FEEDBACK_DIRECTED_OPTIMIZATION, -profile-generate, -profile-use]";
+        },
+        {
+            Name = "GCC_SYMBOLS_PRIVATE_EXTERN";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fvisibility=hidden",
+                );
+                NO = ();
+            };
+            Condition = "! $(GCC_ENABLE_FIX_AND_CONTINUE)";
+            AppearsAfter = "GCC_FEEDBACK_DIRECTED_OPTIMIZATION";
+            Category = CodeGeneration;
+            DisplayName = "Symbols Hidden by Default";
+            Description = "When enabled, all symbols are declared 'private extern' unless explicitly marked to be exported using '__attribute__((visibility(\"default\")))' in code. If not enabled, all symbols are exported unless explicitly marked as 'private extern'.\n            For more information, see <file:///Developer/ADC%20Reference%20Library/documentation/DeveloperTools/Conceptual/CppRuntimeEnv/Articles/SymbolVisibility.html>. [GCC_SYMBOLS_PRIVATE_EXTERN, -fvisibility=hidden]";
+        },
+        {
+            Name = "GCC_INLINES_ARE_PRIVATE_EXTERN";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fvisibility-inlines-hidden",
+                );
+                NO = ();
+            };
+            AppearsAfter = "GCC_SYMBOLS_PRIVATE_EXTERN";
+            Category = CodeGeneration;
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            DisplayName = "Inline Methods Hidden";
+            Description = "When enabled, out-of-line copies of inline methods are declared 'private extern'. [GCC_INLINES_ARE_PRIVATE_EXTERN, -fvisibility-inlines-hidden]";
+        },
+        {
+            Name = "GCC_THREADSAFE_STATICS";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-fno-threadsafe-statics",
+                );
+            };
+            AppearsAfter = "GCC_INLINES_ARE_PRIVATE_EXTERN";
+            Category = CodeGeneration;
+            FileTypes = (
+                "sourcecode.cpp.cpp",
+                "sourcecode.cpp.objcpp",
+            );
+            DisplayName = "Statics are Thread-Safe";
+            Description = "Emits extra code to use the routines specified in the C++ ABI for thread-safe initialization of local statics. You can disable this option to reduce code size slightly in code that doesn't need to be thread-safe.  [GCC_THREADSAFE_STATICS, -fno-threadsafe-statics]";
+        },
+        {
+            Name = "GCC_OBJC_CALL_CXX_CDTORS";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-fno-objc-call-cxx-cdtors",
+                );
+            };
+            AppearsAfter = "GCC_INLINES_ARE_PRIVATE_EXTERN";
+            Category = CodeGeneration;
+            FileTypes = (
+                "sourcecode.cpp.objcpp",
+            );
+            DisplayName = "Call C++ Default Ctors/Dtors in Objective-C";
+            Description = "Run non-trivial default constructors and destructors on C++ instance variables of Objective-C classes.  [GCC_OBJC_CALL_CXX_CDTORS, -fobjc-call-cxx-cdtors]";
+        },
+        {
+            Name = "GCC_ENABLE_OPENMP_SUPPORT";
+            Type = Boolean;
+            DefaultValue = "$(ENABLE_OPENMP_SUPPORT)";
+            CommandLineArgs = {
+                YES = (
+                    "-fopenmp",
+                );
+                NO = ();
+            };
+            CommonOption = NO;
+        },
+        {
+            Name = "GCC_WARN_ABOUT_POINTER_SIGNEDNESS";
+            Type = Boolean;
+            DefaultValue = YES;
+            CommandLineArgs = {
+                YES = ();
+                NO = (
+                    "-Wno-pointer-sign",
+                );
+            };
+            FileTypes = (
+                "sourcecode.c.c",
+                "sourcecode.c.objc",
+            );
+            AppearsAfter = "GCC_WARN_SIGN_COMPARE";
+            Category = Warnings;
+            CommonOption = YES;
+            DisplayName = "Pointer Sign Comparison";
+            Description = "Warn when pointers passed via arguments or assigned to a variable differ in sign.  [GCC_WARN_ABOUT_POINTER_SIGNEDNESS, -Wno-pointer-sign]";
+        },
+        {
+            Name = "GCC_WARN_ABOUT_MISSING_NEWLINE";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wnewline-eof",
+                );
+                NO = ();
+            };
+            AppearsAfter = "GCC_WARN_ABOUT_POINTER_SIGNEDNESS";
+            Category = Warnings;
+            CommonOption = NO;
+            DisplayName = "Missing Newline At End Of File";
+            Description = "Warn when a source file does not end with a newline.  [GCC_WARN_ABOUT_MISSING_NEWLINE, -Wnewline-eof]";
+        },
+        {
+            Name = "GCC_WARN_64_TO_32_BIT_CONVERSION";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-Wshorten-64-to-32",
+                );
+                NO = ();
+            };
+            AppearsAfter = "GCC_WARN_PROTOTYPE_CONVERSION";
+            Category = Warnings;
+            CommonOption = NO;
+            DisplayName = "Implicit Conversion to 32 Bit Type";
+            Description = "Warn if a value is implicitly converted from a 64 bit type to a 32 bit type.  [GCC_WARN_64_TO_32_BIT_CONVERSION, -Wshorten-64-to-32]";
+        },
+        {
+            Name = "GCC_THUMB_SUPPORT";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-mthumb",
+                );
+                NO = ();
+            };
+            Architectures = (
+                armv6,
+                armv7,
+            );
+        },
+        {
+            Name = "GCC_OBJC_ABI_VERSION";
+            Type = Enumeration;
+            AllowedValues = (
+                1,
+                2,
+            );
+            DefaultValue = "$(OBJC_ABI_VERSION)";
+            CommandLineArgs = {
+                "" = ();
+                "<<otherwise>>" = (
+                    "-fobjc-abi-version=$(value)"
+                );
+            };
+            FileTypes = (
+                sourcecode.c.objc,
+                sourcecode.cpp.objcpp,
+            );
+        },
+        {
+            Name = "GCC_OBJC_LEGACY_DISPATCH";
+            Type = Boolean;
+            DefaultValue = NO;
+            CommandLineArgs = {
+                YES = (
+                    "-fobjc-legacy-dispatch",
+                );
+                NO = ();
+            };
+            FileTypes = (
+                sourcecode.c.objc,
+                sourcecode.cpp.objcpp,
+            );
+        },
+
+    );
+}

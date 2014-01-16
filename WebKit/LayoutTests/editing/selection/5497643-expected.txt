@@ -1,0 +1,4 @@
+ALERT: SUCCESS: Selection is set to position 2 of BODY.
+This tests to make sure that a selection inside a textarea is updated when the textarea is removed from the document.
+
+
