@@ -129,6 +129,18 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * The current webkit.js in WebKitJS folder was compiled exposing its symbols, this results in a heavy file size (current 44MB - 1/15/14). This can come down considerably once a framework/API is developed, tests are created and optimizations can become a priority.
 * Do not modify code within ./WebKitJS/webkit.js or ./WebKitJS/debug/ these files are over-written when WebKit is built, so its somewhat pointless unless you're testing.
 
+**What's Desperately Needed**
+* A build toolchain similar to GYP/gconfig. QtWebkit has one already, possibly re-map that.
+* Create "Debug" and "Release" modes that allow for easier debugging. In addition creating anything that helps debug and spot problems easier.
+* Scripts to auto-generate code with Emscripten JS Bindings (e.g., IDL generation, and some other bindings/scripts tasks)
+* Integration of WTF library into WebCore
+* Closer examination of optimization/best practices/guidance on Emscripten.
+* Closer examination of optimization/best practices/guidance on compiling WebCore/renderer.
+* Removal of "oddity" code (e.g., no mans land code, existing dead code, platform specific code)
+* Start smaller with GYP and only develop one pass layout system from CSS/HTML/DOM code with minimal features and build up.
+* Take each file one by one in ./webkitjs/debug/ and port?...
+* Conversation, topics, discussions on best practices, methods and use cases
+
 License
 ----
 
