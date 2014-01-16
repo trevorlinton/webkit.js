@@ -153,9 +153,12 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 
 License
 ----
+BSD License (see http://www.webkit.org/coding/bsd-license.html)
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE files contained in the root of the respective source code.
 
-MIT.. or whatever WebKit requires it to be...
+&copy; True Interactions 2014
 
-&copy; 2014 True Interactions http://www.trueinteractions.com/
 [trevor linton]:mailto:trevor dot linton plus github at gmail dot com
+
 [@trevorlinton]:http://twitter.com/trevorlinton
