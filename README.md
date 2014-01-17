@@ -3,6 +3,8 @@ webkit.js
 
 An experimental port of WebKit (Specifically, webcore) to JavaScript aimed at running in both node.js and browsers. This is currently non-functional and is intended for developers and contributors.
 
+**This branch successfully builds.**
+
 Goals
 ----
 
