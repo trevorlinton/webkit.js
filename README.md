@@ -27,7 +27,7 @@ Status
 - (HORRIFIC) There are plenty of linking issues to be addressed; however visibility into this is minimal. Currently the system links but has quite a few unresolved symbols that will cause the renderer to crash. 
 
 **Tests**
-- (NON EXISTANT) Tests for javascript<->C++ needs to be developed (non-layout related code)
+- (NON EXISTENT) Tests for javascript<->C++ needs to be developed (non-layout related code)
 - (BAD) Unit tests that integrate with WebKit's LayoutTests
 
 **Supported Features**
@@ -58,10 +58,10 @@ Status
     * Font Rendering
 
 **Frameworks**
-- (NON EXISTANT) Frameworks to easily perform common tasks with the renderer under various contexts.
+- (NON EXISTENT) Frameworks to easily perform common tasks with the renderer under various contexts.
 
 **Documentation**
-- (NON EXISTANT) Lots and lots of documentation, currently this is it.
+- (NON EXISTENT) Lots and lots of documentation, currently this is it.
 
 
 Building
@@ -124,7 +124,7 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 
 * The code within the WebKit folder is pulled from upstream, be careful not to move any files, remove any files or heavily refactor any source file as it will cause headaches when merging.
 
-* Place a .gitignore on ./WebKit/WebKitBuild/ so you do not accidently commit build files.
+* Place a .gitignore on ./WebKit/WebKitBuild/ so you do not accidentally commit build files.
 * Enabling/disabling settings within the Configurations folder in WebCore will have a lot of consequences, most of the disabled features are disabled because there's no possible work around for including the platform specific code (it needs to be created in JS from scratch)
 * A good amount of the bindings and code within the WebCore is auto generated from scripts, be careful when you have build errors to make sure you're not modifying a "Derived Source" otherwise you'll find your changes will be just over-written the next time the derived sources runs.
 * The current webkit.js in WebKitJS folder was compiled exposing its symbols, this results in a heavy file size (current 44MB - 1/15/14). This can come down considerably once a framework/API is developed, tests are created and optimizations can become a priority.
