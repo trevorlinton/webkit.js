@@ -1,0 +1,37 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpng", "libpng.vcxproj", "{E123293A-EA5B-B381-0A7E-0DB2AA1C486F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\zlib\zlib.vcxproj", "{6DB51794-94EE-C152-9CEA-A7803DC53AEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x64 = Release|x64
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DB51794-94EE-C152-9CEA-A7803DC53AEF}.Release|x64.ActiveCfg = Release|x64
+		{6DB51794-94EE-C152-9CEA-A7803DC53AEF}.Release|x64.Build.0 = Release|x64
+		{6DB51794-94EE-C152-9CEA-A7803DC53AEF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6DB51794-94EE-C152-9CEA-A7803DC53AEF}.Debug|Win32.Build.0 = Debug|Win32
+		{6DB51794-94EE-C152-9CEA-A7803DC53AEF}.Debug|x64.ActiveCfg = Debug|x64
+		{6DB51794-94EE-C152-9CEA-A7803DC53AEF}.Debug|x64.Build.0 = Debug|x64
+		{6DB51794-94EE-C152-9CEA-A7803DC53AEF}.Release|Win32.ActiveCfg = Release|Win32
+		{6DB51794-94EE-C152-9CEA-A7803DC53AEF}.Release|Win32.Build.0 = Release|Win32
+		{E123293A-EA5B-B381-0A7E-0DB2AA1C486F}.Release|x64.ActiveCfg = Release|x64
+		{E123293A-EA5B-B381-0A7E-0DB2AA1C486F}.Release|x64.Build.0 = Release|x64
+		{E123293A-EA5B-B381-0A7E-0DB2AA1C486F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E123293A-EA5B-B381-0A7E-0DB2AA1C486F}.Debug|Win32.Build.0 = Debug|Win32
+		{E123293A-EA5B-B381-0A7E-0DB2AA1C486F}.Debug|x64.ActiveCfg = Debug|x64
+		{E123293A-EA5B-B381-0A7E-0DB2AA1C486F}.Debug|x64.Build.0 = Debug|x64
+		{E123293A-EA5B-B381-0A7E-0DB2AA1C486F}.Release|Win32.ActiveCfg = Release|Win32
+		{E123293A-EA5B-B381-0A7E-0DB2AA1C486F}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal

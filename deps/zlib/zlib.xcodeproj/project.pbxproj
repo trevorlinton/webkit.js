@@ -1,0 +1,1097 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		6F206272A94051BDB4C247B1 /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 30A6B156293D2945E0591A11 /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				26EB72CDE853B0B4B8EA72AE /* PBXTargetDependency */,
+				47F96FA94E32C0DC3FE1398C /* PBXTargetDependency */,
+				80B8611616B777BF169E054A /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0697A9FB6134D380DA5228A7 /* deflate.c in Sources */ = {isa = PBXBuildFile; fileRef = E70CD6F2AFEC4F563CE27DFD /* deflate.c */; };
+		1529D840F111C2D517D701E6 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = F4E11CB277F44AF317C9D6E9 /* crc32.c */; };
+		1B01C3A61810D3AF1218A9D8 /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 19E8DA0D551AC4C47B044866 /* gzlib.c */; };
+		31318F5CB200C01178E48CEF /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = F4E7107437C91DA35E0F1042 /* gzread.c */; };
+		41273AB3D4B3C23F727CF306 /* inffast.c in Sources */ = {isa = PBXBuildFile; fileRef = D0F16579490B65DFE4BE048C /* inffast.c */; };
+		4B491E91D5AB98A9D0612048 /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = C76EB19FBF4B6CAFC2C26E58 /* adler32.c */; };
+		51539A0096AE051B82C68F76 /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 83C44E0C4877C7AFF2071949 /* gzwrite.c */; };
+		5774C9FF6BFCC5E476CBA873 /* gzclose.c in Sources */ = {isa = PBXBuildFile; fileRef = 28F576CF9CB3BC1B23B93390 /* gzclose.c */; };
+		63AB8032E00E9FAFC6FFA4DD /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 62DBB77B5087DD7C94FC7955 /* uncompr.c */; };
+		6AC961E63CCFD84D2FDF81C8 /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F94CD0312F8D1757D3C9FC7 /* zutil.c */; };
+		6F80B31E7E0496FAE86A6C7D /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = E9A50757A5C666D4AE5624F9 /* trees.c */; };
+		7FBCDB7A5B9FA44295106E0D /* zip.cc in Sources */ = {isa = PBXBuildFile; fileRef = 737836239C4CA0F7132E7FBD /* zip.cc */; };
+		A58C42F66C68D0F93EBB69A6 /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = 71C83D732E1E866F604AE65D /* inftrees.c */; };
+		C771EA9006F2C97B01FCA767 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CBA9D1165A9C0823C611017 /* ioapi.c */; };
+		D125CC4E4AE55E44E92F02C0 /* zip_reader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0972DE3975A0F760362A1EAF /* zip_reader.cc */; };
+		DDF9192B91F84EC4B4C9C6C4 /* zip_internal.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7D5C9D6CF8B4880846A6EBFC /* zip_internal.cc */; };
+		DF0ACDB3B874013141B4EC5C /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 5238C0B46F5B8D634A977BD2 /* unzip.c */; };
+		E5446A8E022CC6C4B3D7A0F3 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 34C94964E7DDAA93C807C792 /* zip.c */; };
+		E9236441354350BE87A0F94B /* infback.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F4D07AF12D3B0105EBFD693 /* infback.c */; };
+		FED63B4E6C2413FBF9428180 /* inflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 6E7084ABE279CA5E13052737 /* inflate.c */; };
+		FFD3CC42A8DF88D4D6CC03F6 /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FA06FC3A1F7A679B317BA7C /* compress.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		545E9A78181AA6EAF7EE3640 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B66F94A9E063C8D3C7ED023 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D8C329F08649E147A7B85BCB;
+			remoteInfo = zip;
+		};
+		AC0F5DBF8270E2E7FE3E89C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B66F94A9E063C8D3C7ED023 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CFE557433A4D2EFFDC01DBB4;
+			remoteInfo = zlib;
+		};
+		E6222E6852A3F9FBE5D22062 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B66F94A9E063C8D3C7ED023 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0D5708361E538862DB43C28B;
+			remoteInfo = minizip;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		032DE1615B93C79139FB8A4E /* inffast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inffast.h; sourceTree = "<group>"; };
+		0972DE3975A0F760362A1EAF /* zip_reader.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = zip_reader.cc; sourceTree = "<group>"; };
+		0ED141291112111135D1C884 /* ioapi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		0ED9A06D899E13032359C032 /* zutil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zutil.h; sourceTree = "<group>"; };
+		0F009FE43B012A300FD51360 /* zlib.gyp */ = {isa = PBXFileReference; lastKnownFileType = text; path = zlib.gyp; sourceTree = "<group>"; };
+		0F2EB49EB986F6B16112C6C8 /* mozzconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mozzconf.h; sourceTree = "<group>"; };
+		0F7725C3A9D9183A9FC2C920 /* libzip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libzip.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		10138F655979B6CD10D87590 /* release_impl_official.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = release_impl_official.gypi; path = ../../build/internal/release_impl_official.gypi; sourceTree = "<group>"; };
+		15204BCEE1BD73B289DAABCD /* inffixed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inffixed.h; sourceTree = "<group>"; };
+		19E8DA0D551AC4C47B044866 /* gzlib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gzlib.c; sourceTree = "<group>"; };
+		1BE9DDEAD404D219693FD5BB /* libminizip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libminizip.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F94CD0312F8D1757D3C9FC7 /* zutil.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zutil.c; sourceTree = "<group>"; };
+		232937A26A30063A58E8FB0A /* unzip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		28F576CF9CB3BC1B23B93390 /* gzclose.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gzclose.c; sourceTree = "<group>"; };
+		33DC3F6CD83680A9BEBE3C26 /* zip_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zip_internal.h; sourceTree = "<group>"; };
+		34C94964E7DDAA93C807C792 /* zip.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		3CBA9D1165A9C0823C611017 /* ioapi.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		3F4D07AF12D3B0105EBFD693 /* infback.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = infback.c; sourceTree = "<group>"; };
+		3F588932729121D643EB6BEB /* zip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		3FA06FC3A1F7A679B317BA7C /* compress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = compress.c; sourceTree = "<group>"; };
+		46A75DCB614787198F87FA5D /* crc32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = crc32.h; sourceTree = "<group>"; };
+		48023ACE56554A6A52970636 /* iowin32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iowin32.h; sourceTree = "<group>"; };
+		49C260B84832D73EEFD99948 /* iowin32.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = iowin32.c; sourceTree = "<group>"; };
+		4F89D0D57B563C9F1B5149F0 /* libchrome_zlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libchrome_zlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5238C0B46F5B8D634A977BD2 /* unzip.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		623DCC5AE4EABBA3E6914AC3 /* deflate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = deflate.h; sourceTree = "<group>"; };
+		62DBB77B5087DD7C94FC7955 /* uncompr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = uncompr.c; sourceTree = "<group>"; };
+		6CEA21F9BF3E72D97ADFCF24 /* zip_reader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zip_reader.h; sourceTree = "<group>"; };
+		6E7084ABE279CA5E13052737 /* inflate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = inflate.c; sourceTree = "<group>"; };
+		71C83D732E1E866F604AE65D /* inftrees.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = inftrees.c; sourceTree = "<group>"; };
+		737836239C4CA0F7132E7FBD /* zip.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = zip.cc; sourceTree = "<group>"; };
+		773AF4FE3E6735E126D83337 /* filename_rules.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = filename_rules.gypi; path = ../../build/filename_rules.gypi; sourceTree = "<group>"; };
+		7D5C9D6CF8B4880846A6EBFC /* zip_internal.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = zip_internal.cc; sourceTree = "<group>"; };
+		7DBE161DD4736E3DC9115F70 /* common.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = common.gypi; path = ../../build/common.gypi; sourceTree = "<group>"; };
+		83C44E0C4877C7AFF2071949 /* gzwrite.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gzwrite.c; sourceTree = "<group>"; };
+		89C3ED626ABDB4D6A40595BD /* release.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = release.gypi; path = ../../build/release.gypi; sourceTree = "<group>"; };
+		927635BB09E2BCA5C041206B /* trees.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = trees.h; sourceTree = "<group>"; };
+		B6300E5A7D946ABAF855FB56 /* inflate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inflate.h; sourceTree = "<group>"; };
+		C0E0B6F115C02B6F661B9348 /* gzguts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gzguts.h; sourceTree = "<group>"; };
+		C5C508E980A9B15F13D3A052 /* release_impl.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = release_impl.gypi; path = ../../build/internal/release_impl.gypi; sourceTree = "<group>"; };
+		C6E2B918CD82332480C3CF75 /* release_defaults.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = release_defaults.gypi; path = ../../build/internal/release_defaults.gypi; sourceTree = "<group>"; };
+		C76EB19FBF4B6CAFC2C26E58 /* adler32.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = adler32.c; sourceTree = "<group>"; };
+		D0F16579490B65DFE4BE048C /* inffast.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = inffast.c; sourceTree = "<group>"; };
+		DF9677FE6505DA70B7A4C1B4 /* inftrees.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inftrees.h; sourceTree = "<group>"; };
+		E0B0758F5C563989B791BC36 /* zconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
+		E70CD6F2AFEC4F563CE27DFD /* deflate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = deflate.c; sourceTree = "<group>"; };
+		E786AF4049E4B6E9B2E21FB9 /* zip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		E9A50757A5C666D4AE5624F9 /* trees.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = trees.c; sourceTree = "<group>"; };
+		EED709BA35B7382B6AB08EB5 /* zlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
+		F4E11CB277F44AF317C9D6E9 /* crc32.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = crc32.c; sourceTree = "<group>"; };
+		F4E7107437C91DA35E0F1042 /* gzread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gzread.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		216DCA8302D1DD54B6D1C0CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43D4A1D3B4664CC09625611B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51C4A48FF099DE1E877AE3D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5087E363AC3B2E39AB4943B8 = {
+			isa = PBXGroup;
+			children = (
+				5E30BCF53B6D6BC975E30851 /* Source */,
+				6ABFC02CD1C5BDF7E80FA9AE /* Products */,
+				D2732E4765B53BB3E95C1BBC /* Build */,
+			);
+			sourceTree = "<group>";
+		};
+		5E30BCF53B6D6BC975E30851 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				9A37CD1EF31E0A551A0D3F75 /* contrib/minizip */,
+				8E0AE589435C582F330ADDCD /* google */,
+				C76EB19FBF4B6CAFC2C26E58 /* adler32.c */,
+				3FA06FC3A1F7A679B317BA7C /* compress.c */,
+				F4E11CB277F44AF317C9D6E9 /* crc32.c */,
+				46A75DCB614787198F87FA5D /* crc32.h */,
+				E70CD6F2AFEC4F563CE27DFD /* deflate.c */,
+				623DCC5AE4EABBA3E6914AC3 /* deflate.h */,
+				28F576CF9CB3BC1B23B93390 /* gzclose.c */,
+				C0E0B6F115C02B6F661B9348 /* gzguts.h */,
+				19E8DA0D551AC4C47B044866 /* gzlib.c */,
+				F4E7107437C91DA35E0F1042 /* gzread.c */,
+				83C44E0C4877C7AFF2071949 /* gzwrite.c */,
+				3F4D07AF12D3B0105EBFD693 /* infback.c */,
+				D0F16579490B65DFE4BE048C /* inffast.c */,
+				032DE1615B93C79139FB8A4E /* inffast.h */,
+				15204BCEE1BD73B289DAABCD /* inffixed.h */,
+				6E7084ABE279CA5E13052737 /* inflate.c */,
+				B6300E5A7D946ABAF855FB56 /* inflate.h */,
+				71C83D732E1E866F604AE65D /* inftrees.c */,
+				DF9677FE6505DA70B7A4C1B4 /* inftrees.h */,
+				0F2EB49EB986F6B16112C6C8 /* mozzconf.h */,
+				E9A50757A5C666D4AE5624F9 /* trees.c */,
+				927635BB09E2BCA5C041206B /* trees.h */,
+				62DBB77B5087DD7C94FC7955 /* uncompr.c */,
+				E0B0758F5C563989B791BC36 /* zconf.h */,
+				EED709BA35B7382B6AB08EB5 /* zlib.h */,
+				1F94CD0312F8D1757D3C9FC7 /* zutil.c */,
+				0ED9A06D899E13032359C032 /* zutil.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		6ABFC02CD1C5BDF7E80FA9AE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4F89D0D57B563C9F1B5149F0 /* libchrome_zlib.a */,
+				1BE9DDEAD404D219693FD5BB /* libminizip.a */,
+				0F7725C3A9D9183A9FC2C920 /* libzip.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8E0AE589435C582F330ADDCD /* google */ = {
+			isa = PBXGroup;
+			children = (
+				737836239C4CA0F7132E7FBD /* zip.cc */,
+				E786AF4049E4B6E9B2E21FB9 /* zip.h */,
+				7D5C9D6CF8B4880846A6EBFC /* zip_internal.cc */,
+				33DC3F6CD83680A9BEBE3C26 /* zip_internal.h */,
+				0972DE3975A0F760362A1EAF /* zip_reader.cc */,
+				6CEA21F9BF3E72D97ADFCF24 /* zip_reader.h */,
+			);
+			path = google;
+			sourceTree = "<group>";
+		};
+		9A37CD1EF31E0A551A0D3F75 /* contrib/minizip */ = {
+			isa = PBXGroup;
+			children = (
+				3CBA9D1165A9C0823C611017 /* ioapi.c */,
+				0ED141291112111135D1C884 /* ioapi.h */,
+				49C260B84832D73EEFD99948 /* iowin32.c */,
+				48023ACE56554A6A52970636 /* iowin32.h */,
+				5238C0B46F5B8D634A977BD2 /* unzip.c */,
+				232937A26A30063A58E8FB0A /* unzip.h */,
+				34C94964E7DDAA93C807C792 /* zip.c */,
+				3F588932729121D643EB6BEB /* zip.h */,
+			);
+			path = contrib/minizip;
+			sourceTree = "<group>";
+		};
+		D2732E4765B53BB3E95C1BBC /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				7DBE161DD4736E3DC9115F70 /* common.gypi */,
+				773AF4FE3E6735E126D83337 /* filename_rules.gypi */,
+				89C3ED626ABDB4D6A40595BD /* release.gypi */,
+				C6E2B918CD82332480C3CF75 /* release_defaults.gypi */,
+				C5C508E980A9B15F13D3A052 /* release_impl.gypi */,
+				10138F655979B6CD10D87590 /* release_impl_official.gypi */,
+				0F009FE43B012A300FD51360 /* zlib.gyp */,
+			);
+			name = Build;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0D5708361E538862DB43C28B /* minizip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 710005AA5EE7E71ED65938EC /* Build configuration list for PBXNativeTarget "minizip" */;
+			buildPhases = (
+				868E25F585B15361FB6A4576 /* Sources */,
+				43D4A1D3B4664CC09625611B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = minizip;
+			productName = minizip;
+			productReference = 1BE9DDEAD404D219693FD5BB /* libminizip.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		CFE557433A4D2EFFDC01DBB4 /* zlib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E81D482CBBA2255AB8335104 /* Build configuration list for PBXNativeTarget "zlib" */;
+			buildPhases = (
+				A456D731B40DA29C0D757422 /* Sources */,
+				216DCA8302D1DD54B6D1C0CE /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = zlib;
+			productName = chrome_zlib;
+			productReference = 4F89D0D57B563C9F1B5149F0 /* libchrome_zlib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		D8C329F08649E147A7B85BCB /* zip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C8558514F97A8735588F9A5E /* Build configuration list for PBXNativeTarget "zip" */;
+			buildPhases = (
+				5372FB086E9EEB595C27A412 /* Sources */,
+				C51C4A48FF099DE1E877AE3D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = zip;
+			productName = zip;
+			productReference = 0F7725C3A9D9183A9FC2C920 /* libzip.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8B66F94A9E063C8D3C7ED023 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+			};
+			buildConfigurationList = ABFE510C7338BF4D880CA374 /* Build configuration list for PBXProject "zlib" */;
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 1;
+			mainGroup = 5087E363AC3B2E39AB4943B8;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6F206272A94051BDB4C247B1 /* All */,
+				CFE557433A4D2EFFDC01DBB4 /* zlib */,
+				0D5708361E538862DB43C28B /* minizip */,
+				D8C329F08649E147A7B85BCB /* zip */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5372FB086E9EEB595C27A412 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FBCDB7A5B9FA44295106E0D /* zip.cc in Sources */,
+				DDF9192B91F84EC4B4C9C6C4 /* zip_internal.cc in Sources */,
+				D125CC4E4AE55E44E92F02C0 /* zip_reader.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		868E25F585B15361FB6A4576 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C771EA9006F2C97B01FCA767 /* ioapi.c in Sources */,
+				DF0ACDB3B874013141B4EC5C /* unzip.c in Sources */,
+				E5446A8E022CC6C4B3D7A0F3 /* zip.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A456D731B40DA29C0D757422 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B491E91D5AB98A9D0612048 /* adler32.c in Sources */,
+				FFD3CC42A8DF88D4D6CC03F6 /* compress.c in Sources */,
+				1529D840F111C2D517D701E6 /* crc32.c in Sources */,
+				0697A9FB6134D380DA5228A7 /* deflate.c in Sources */,
+				5774C9FF6BFCC5E476CBA873 /* gzclose.c in Sources */,
+				1B01C3A61810D3AF1218A9D8 /* gzlib.c in Sources */,
+				31318F5CB200C01178E48CEF /* gzread.c in Sources */,
+				51539A0096AE051B82C68F76 /* gzwrite.c in Sources */,
+				E9236441354350BE87A0F94B /* infback.c in Sources */,
+				41273AB3D4B3C23F727CF306 /* inffast.c in Sources */,
+				FED63B4E6C2413FBF9428180 /* inflate.c in Sources */,
+				A58C42F66C68D0F93EBB69A6 /* inftrees.c in Sources */,
+				6F80B31E7E0496FAE86A6C7D /* trees.c in Sources */,
+				63AB8032E00E9FAFC6FFA4DD /* uncompr.c in Sources */,
+				6AC961E63CCFD84D2FDF81C8 /* zutil.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		26EB72CDE853B0B4B8EA72AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CFE557433A4D2EFFDC01DBB4 /* zlib */;
+			targetProxy = AC0F5DBF8270E2E7FE3E89C2 /* PBXContainerItemProxy */;
+		};
+		47F96FA94E32C0DC3FE1398C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0D5708361E538862DB43C28B /* minizip */;
+			targetProxy = E6222E6852A3F9FBE5D22062 /* PBXContainerItemProxy */;
+		};
+		80B8611616B777BF169E054A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D8C329F08649E147A7B85BCB /* zip */;
+			targetProxy = 545E9A78181AA6EAF7EE3640 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		442FFC5D8670E940ED1DF7F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = All;
+			};
+			name = Release;
+		};
+		4827D6C8F4F3CEE877441B1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang";
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OBJC_CALL_CXX_CDTORS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ANGLE_DX11,
+					CHROMIUM_BUILD,
+					"USE_LIBJPEG_TURBO=1",
+					ENABLE_ONE_CLICK_SIGNIN,
+					"ENABLE_REMOTING=1",
+					"ENABLE_WEBRTC=1",
+					USE_PROPRIETARY_CODECS,
+					ENABLE_PEPPER_CDMS,
+					ENABLE_CONFIGURATION_POLICY,
+					ENABLE_INPUT_SPEECH,
+					ENABLE_NOTIFICATIONS,
+					"ENABLE_HIDPI=1",
+					"ENABLE_GPU=1",
+					"ENABLE_EGLIMAGE=1",
+					"ENABLE_TASK_MANAGER=1",
+					"ENABLE_EXTENSIONS=1",
+					"ENABLE_PLUGIN_INSTALLATION=1",
+					"ENABLE_PLUGINS=1",
+					"ENABLE_SESSION_SERVICE=1",
+					"ENABLE_THEMES=1",
+					"ENABLE_AUTOFILL_DIALOG=1",
+					"ENABLE_BACKGROUND=1",
+					"ENABLE_AUTOMATION=1",
+					"ENABLE_GOOGLE_NOW=1",
+					"ENABLE_FULL_PRINTING=1",
+					"ENABLE_PRINTING=1",
+					"ENABLE_SPELLCHECK=1",
+					"ENABLE_CAPTIVE_PORTAL_DETECTION=1",
+					"ENABLE_APP_LIST=1",
+					"ENABLE_SETTINGS_APP=1",
+					"ENABLE_MANAGED_USERS=1",
+					USE_FILE32API,
+					NDEBUG,
+					NVALGRIND,
+					"DYNAMIC_ANNOTATIONS_ENABLED=0",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_THREADSAFE_STATICS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				HEADER_SEARCH_PATHS = (
+					.,
+					../..,
+				);
+				LDPLUSPLUS = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang++";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-load",
+					"-Xclang",
+					"/Tint/Runtime/src/tools/clang/scripts/../../../third_party/llvm-build/Release+Asserts/lib/libFindBadConstructs.dylib",
+					"-Xclang",
+					"-add-plugin",
+					"-Xclang",
+					"find-bad-constructs",
+					"-fno-strict-aliasing",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-std=gnu++11",
+				);
+				PRODUCT_NAME = minizip;
+				SHARED_PRECOMPS_DIR = "$(CONFIGURATION_BUILD_DIR)/SharedPrecompiledHeaders";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wendif-labels",
+					"-Wno-unused-parameter",
+					"-Wno-missing-field-initializers",
+					"-Wheader-hygiene",
+					"-Wno-c++11-narrowing",
+					"-Wno-char-subscripts",
+					"-Wno-unused-function",
+					"-Wno-covered-switch-default",
+					"-Wstring-conversion",
+					"-Wno-deprecated-register",
+					"-Wno-parentheses-equality",
+				);
+				WARNING_CFLAGS_excluded = (
+					"-Wall",
+					"-Wextra",
+				);
+			};
+			name = Release;
+		};
+		4AEBC01FB39038D42AB06108 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang";
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OBJC_CALL_CXX_CDTORS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ANGLE_DX11,
+					CHROMIUM_BUILD,
+					"USE_LIBJPEG_TURBO=1",
+					ENABLE_ONE_CLICK_SIGNIN,
+					"ENABLE_REMOTING=1",
+					"ENABLE_WEBRTC=1",
+					USE_PROPRIETARY_CODECS,
+					ENABLE_PEPPER_CDMS,
+					ENABLE_CONFIGURATION_POLICY,
+					ENABLE_INPUT_SPEECH,
+					ENABLE_NOTIFICATIONS,
+					"ENABLE_HIDPI=1",
+					"ENABLE_GPU=1",
+					"ENABLE_EGLIMAGE=1",
+					"ENABLE_TASK_MANAGER=1",
+					"ENABLE_EXTENSIONS=1",
+					"ENABLE_PLUGIN_INSTALLATION=1",
+					"ENABLE_PLUGINS=1",
+					"ENABLE_SESSION_SERVICE=1",
+					"ENABLE_THEMES=1",
+					"ENABLE_AUTOFILL_DIALOG=1",
+					"ENABLE_BACKGROUND=1",
+					"ENABLE_AUTOMATION=1",
+					"ENABLE_GOOGLE_NOW=1",
+					"ENABLE_FULL_PRINTING=1",
+					"ENABLE_PRINTING=1",
+					"ENABLE_SPELLCHECK=1",
+					"ENABLE_CAPTIVE_PORTAL_DETECTION=1",
+					"ENABLE_APP_LIST=1",
+					"ENABLE_SETTINGS_APP=1",
+					"ENABLE_MANAGED_USERS=1",
+					NDEBUG,
+					NVALGRIND,
+					"DYNAMIC_ANNOTATIONS_ENABLED=0",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THREADSAFE_STATICS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				HEADER_SEARCH_PATHS = .;
+				LDPLUSPLUS = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang++";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-load",
+					"-Xclang",
+					"/Tint/Runtime/src/tools/clang/scripts/../../../third_party/llvm-build/Release+Asserts/lib/libFindBadConstructs.dylib",
+					"-Xclang",
+					"-add-plugin",
+					"-Xclang",
+					"find-bad-constructs",
+					"-fno-strict-aliasing",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-std=gnu++11",
+				);
+				PRODUCT_NAME = chrome_zlib;
+				SHARED_PRECOMPS_DIR = "$(CONFIGURATION_BUILD_DIR)/SharedPrecompiledHeaders";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wendif-labels",
+					"-Wno-unused-parameter",
+					"-Wno-missing-field-initializers",
+					"-Wheader-hygiene",
+					"-Wno-c++11-narrowing",
+					"-Wno-char-subscripts",
+					"-Wno-unused-function",
+					"-Wno-covered-switch-default",
+					"-Wstring-conversion",
+					"-Wno-deprecated-register",
+				);
+				WARNING_CFLAGS_excluded = (
+					"-Wall",
+					"-Wextra",
+				);
+			};
+			name = Release;
+		};
+		4FBC324242404B327FF7A425 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang";
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OBJC_CALL_CXX_CDTORS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ANGLE_DX11,
+					CHROMIUM_BUILD,
+					"USE_LIBJPEG_TURBO=1",
+					ENABLE_ONE_CLICK_SIGNIN,
+					"ENABLE_REMOTING=1",
+					"ENABLE_WEBRTC=1",
+					USE_PROPRIETARY_CODECS,
+					ENABLE_PEPPER_CDMS,
+					ENABLE_CONFIGURATION_POLICY,
+					ENABLE_INPUT_SPEECH,
+					ENABLE_NOTIFICATIONS,
+					"ENABLE_HIDPI=1",
+					"ENABLE_GPU=1",
+					"ENABLE_EGLIMAGE=1",
+					"ENABLE_TASK_MANAGER=1",
+					"ENABLE_EXTENSIONS=1",
+					"ENABLE_PLUGIN_INSTALLATION=1",
+					"ENABLE_PLUGINS=1",
+					"ENABLE_SESSION_SERVICE=1",
+					"ENABLE_THEMES=1",
+					"ENABLE_AUTOFILL_DIALOG=1",
+					"ENABLE_BACKGROUND=1",
+					"ENABLE_AUTOMATION=1",
+					"ENABLE_GOOGLE_NOW=1",
+					"ENABLE_FULL_PRINTING=1",
+					"ENABLE_PRINTING=1",
+					"ENABLE_SPELLCHECK=1",
+					"ENABLE_CAPTIVE_PORTAL_DETECTION=1",
+					"ENABLE_APP_LIST=1",
+					"ENABLE_SETTINGS_APP=1",
+					"ENABLE_MANAGED_USERS=1",
+					"DYNAMIC_ANNOTATIONS_ENABLED=1",
+					"WTF_USE_DYNAMIC_ANNOTATIONS=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THREADSAFE_STATICS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				HEADER_SEARCH_PATHS = .;
+				LDPLUSPLUS = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang++";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-load",
+					"-Xclang",
+					"/Tint/Runtime/src/tools/clang/scripts/../../../third_party/llvm-build/Release+Asserts/lib/libFindBadConstructs.dylib",
+					"-Xclang",
+					"-add-plugin",
+					"-Xclang",
+					"find-bad-constructs",
+					"-fno-strict-aliasing",
+					"-fstack-protector-all",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-std=gnu++11",
+				);
+				PRODUCT_NAME = chrome_zlib;
+				SHARED_PRECOMPS_DIR = "$(CONFIGURATION_BUILD_DIR)/SharedPrecompiledHeaders";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wendif-labels",
+					"-Wno-unused-parameter",
+					"-Wno-missing-field-initializers",
+					"-Wheader-hygiene",
+					"-Wno-c++11-narrowing",
+					"-Wno-char-subscripts",
+					"-Wno-unused-function",
+					"-Wno-covered-switch-default",
+					"-Wstring-conversion",
+					"-Wno-deprecated-register",
+				);
+				WARNING_CFLAGS_excluded = (
+					"-Wall",
+					"-Wextra",
+				);
+			};
+			name = Debug;
+		};
+		828D95383CFF973EF5B770BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = All;
+			};
+			name = Debug;
+		};
+		AA065B6E73130D9FD7CB0C9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				INTERMEDIATE_DIR = "$(PROJECT_DERIVED_FILE_DIR)/$(CONFIGURATION)";
+				SDKROOT = macosx10.8;
+				SHARED_INTERMEDIATE_DIR = "$(SYMROOT)/DerivedSources/$(CONFIGURATION)";
+				SYMROOT = ../../xcodebuild;
+			};
+			name = Release;
+		};
+		AE5F2CF53861B3A5FC9159D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang";
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OBJC_CALL_CXX_CDTORS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ANGLE_DX11,
+					CHROMIUM_BUILD,
+					"USE_LIBJPEG_TURBO=1",
+					ENABLE_ONE_CLICK_SIGNIN,
+					"ENABLE_REMOTING=1",
+					"ENABLE_WEBRTC=1",
+					USE_PROPRIETARY_CODECS,
+					ENABLE_PEPPER_CDMS,
+					ENABLE_CONFIGURATION_POLICY,
+					ENABLE_INPUT_SPEECH,
+					ENABLE_NOTIFICATIONS,
+					"ENABLE_HIDPI=1",
+					"ENABLE_GPU=1",
+					"ENABLE_EGLIMAGE=1",
+					"ENABLE_TASK_MANAGER=1",
+					"ENABLE_EXTENSIONS=1",
+					"ENABLE_PLUGIN_INSTALLATION=1",
+					"ENABLE_PLUGINS=1",
+					"ENABLE_SESSION_SERVICE=1",
+					"ENABLE_THEMES=1",
+					"ENABLE_AUTOFILL_DIALOG=1",
+					"ENABLE_BACKGROUND=1",
+					"ENABLE_AUTOMATION=1",
+					"ENABLE_GOOGLE_NOW=1",
+					"ENABLE_FULL_PRINTING=1",
+					"ENABLE_PRINTING=1",
+					"ENABLE_SPELLCHECK=1",
+					"ENABLE_CAPTIVE_PORTAL_DETECTION=1",
+					"ENABLE_APP_LIST=1",
+					"ENABLE_SETTINGS_APP=1",
+					"ENABLE_MANAGED_USERS=1",
+					USE_FILE32API,
+					"DYNAMIC_ANNOTATIONS_ENABLED=1",
+					"WTF_USE_DYNAMIC_ANNOTATIONS=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_THREADSAFE_STATICS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				HEADER_SEARCH_PATHS = (
+					.,
+					../..,
+				);
+				LDPLUSPLUS = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang++";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-load",
+					"-Xclang",
+					"/Tint/Runtime/src/tools/clang/scripts/../../../third_party/llvm-build/Release+Asserts/lib/libFindBadConstructs.dylib",
+					"-Xclang",
+					"-add-plugin",
+					"-Xclang",
+					"find-bad-constructs",
+					"-fno-strict-aliasing",
+					"-fstack-protector-all",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-std=gnu++11",
+				);
+				PRODUCT_NAME = minizip;
+				SHARED_PRECOMPS_DIR = "$(CONFIGURATION_BUILD_DIR)/SharedPrecompiledHeaders";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wendif-labels",
+					"-Wno-unused-parameter",
+					"-Wno-missing-field-initializers",
+					"-Wheader-hygiene",
+					"-Wno-c++11-narrowing",
+					"-Wno-char-subscripts",
+					"-Wno-unused-function",
+					"-Wno-covered-switch-default",
+					"-Wstring-conversion",
+					"-Wno-deprecated-register",
+					"-Wno-parentheses-equality",
+				);
+				WARNING_CFLAGS_excluded = (
+					"-Wall",
+					"-Wextra",
+				);
+			};
+			name = Debug;
+		};
+		BC34C79BE31548161F840C40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				INTERMEDIATE_DIR = "$(PROJECT_DERIVED_FILE_DIR)/$(CONFIGURATION)";
+				SDKROOT = macosx10.8;
+				SHARED_INTERMEDIATE_DIR = "$(SYMROOT)/DerivedSources/$(CONFIGURATION)";
+				SYMROOT = ../../xcodebuild;
+			};
+			name = Debug;
+		};
+		DB5C4FD5E2C607AA1FC5A0FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang";
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OBJC_CALL_CXX_CDTORS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ANGLE_DX11,
+					CHROMIUM_BUILD,
+					"USE_LIBJPEG_TURBO=1",
+					ENABLE_ONE_CLICK_SIGNIN,
+					"ENABLE_REMOTING=1",
+					"ENABLE_WEBRTC=1",
+					USE_PROPRIETARY_CODECS,
+					ENABLE_PEPPER_CDMS,
+					ENABLE_CONFIGURATION_POLICY,
+					ENABLE_INPUT_SPEECH,
+					ENABLE_NOTIFICATIONS,
+					"ENABLE_HIDPI=1",
+					"ENABLE_GPU=1",
+					"ENABLE_EGLIMAGE=1",
+					"ENABLE_TASK_MANAGER=1",
+					"ENABLE_EXTENSIONS=1",
+					"ENABLE_PLUGIN_INSTALLATION=1",
+					"ENABLE_PLUGINS=1",
+					"ENABLE_SESSION_SERVICE=1",
+					"ENABLE_THEMES=1",
+					"ENABLE_AUTOFILL_DIALOG=1",
+					"ENABLE_BACKGROUND=1",
+					"ENABLE_AUTOMATION=1",
+					"ENABLE_GOOGLE_NOW=1",
+					"ENABLE_FULL_PRINTING=1",
+					"ENABLE_PRINTING=1",
+					"ENABLE_SPELLCHECK=1",
+					"ENABLE_CAPTIVE_PORTAL_DETECTION=1",
+					"ENABLE_APP_LIST=1",
+					"ENABLE_SETTINGS_APP=1",
+					"ENABLE_MANAGED_USERS=1",
+					"DYNAMIC_ANNOTATIONS_ENABLED=1",
+					"WTF_USE_DYNAMIC_ANNOTATIONS=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_THREADSAFE_STATICS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				HEADER_SEARCH_PATHS = (
+					../..,
+					.,
+				);
+				LDPLUSPLUS = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang++";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-load",
+					"-Xclang",
+					"/Tint/Runtime/src/tools/clang/scripts/../../../third_party/llvm-build/Release+Asserts/lib/libFindBadConstructs.dylib",
+					"-Xclang",
+					"-add-plugin",
+					"-Xclang",
+					"find-bad-constructs",
+					"-fno-strict-aliasing",
+					"-fstack-protector-all",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-std=gnu++11",
+				);
+				PRODUCT_NAME = zip;
+				SHARED_PRECOMPS_DIR = "$(CONFIGURATION_BUILD_DIR)/SharedPrecompiledHeaders";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wendif-labels",
+					"-Wno-unused-parameter",
+					"-Wno-missing-field-initializers",
+					"-Wheader-hygiene",
+					"-Wno-c++11-narrowing",
+					"-Wno-char-subscripts",
+					"-Wno-unused-function",
+					"-Wno-covered-switch-default",
+					"-Wstring-conversion",
+					"-Wno-deprecated-register",
+				);
+				WARNING_CFLAGS_excluded = (
+					"-Wall",
+					"-Wextra",
+				);
+			};
+			name = Debug;
+		};
+		EF67AE8A1CC3EA94371012F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang";
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				DEAD_CODE_STRIPPING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OBJC_CALL_CXX_CDTORS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ANGLE_DX11,
+					CHROMIUM_BUILD,
+					"USE_LIBJPEG_TURBO=1",
+					ENABLE_ONE_CLICK_SIGNIN,
+					"ENABLE_REMOTING=1",
+					"ENABLE_WEBRTC=1",
+					USE_PROPRIETARY_CODECS,
+					ENABLE_PEPPER_CDMS,
+					ENABLE_CONFIGURATION_POLICY,
+					ENABLE_INPUT_SPEECH,
+					ENABLE_NOTIFICATIONS,
+					"ENABLE_HIDPI=1",
+					"ENABLE_GPU=1",
+					"ENABLE_EGLIMAGE=1",
+					"ENABLE_TASK_MANAGER=1",
+					"ENABLE_EXTENSIONS=1",
+					"ENABLE_PLUGIN_INSTALLATION=1",
+					"ENABLE_PLUGINS=1",
+					"ENABLE_SESSION_SERVICE=1",
+					"ENABLE_THEMES=1",
+					"ENABLE_AUTOFILL_DIALOG=1",
+					"ENABLE_BACKGROUND=1",
+					"ENABLE_AUTOMATION=1",
+					"ENABLE_GOOGLE_NOW=1",
+					"ENABLE_FULL_PRINTING=1",
+					"ENABLE_PRINTING=1",
+					"ENABLE_SPELLCHECK=1",
+					"ENABLE_CAPTIVE_PORTAL_DETECTION=1",
+					"ENABLE_APP_LIST=1",
+					"ENABLE_SETTINGS_APP=1",
+					"ENABLE_MANAGED_USERS=1",
+					NDEBUG,
+					NVALGRIND,
+					"DYNAMIC_ANNOTATIONS_ENABLED=0",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_THREADSAFE_STATICS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				HEADER_SEARCH_PATHS = (
+					../..,
+					.,
+				);
+				LDPLUSPLUS = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang++";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-load",
+					"-Xclang",
+					"/Tint/Runtime/src/tools/clang/scripts/../../../third_party/llvm-build/Release+Asserts/lib/libFindBadConstructs.dylib",
+					"-Xclang",
+					"-add-plugin",
+					"-Xclang",
+					"find-bad-constructs",
+					"-fno-strict-aliasing",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-std=gnu++11",
+				);
+				PRODUCT_NAME = zip;
+				SHARED_PRECOMPS_DIR = "$(CONFIGURATION_BUILD_DIR)/SharedPrecompiledHeaders";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wendif-labels",
+					"-Wno-unused-parameter",
+					"-Wno-missing-field-initializers",
+					"-Wheader-hygiene",
+					"-Wno-c++11-narrowing",
+					"-Wno-char-subscripts",
+					"-Wno-unused-function",
+					"-Wno-covered-switch-default",
+					"-Wstring-conversion",
+					"-Wno-deprecated-register",
+				);
+				WARNING_CFLAGS_excluded = (
+					"-Wall",
+					"-Wextra",
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		30A6B156293D2945E0591A11 /* Build configuration list for PBXAggregateTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				828D95383CFF973EF5B770BB /* Debug */,
+				442FFC5D8670E940ED1DF7F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+		710005AA5EE7E71ED65938EC /* Build configuration list for PBXNativeTarget "minizip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE5F2CF53861B3A5FC9159D3 /* Debug */,
+				4827D6C8F4F3CEE877441B1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+		ABFE510C7338BF4D880CA374 /* Build configuration list for PBXProject "zlib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC34C79BE31548161F840C40 /* Debug */,
+				AA065B6E73130D9FD7CB0C9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+		C8558514F97A8735588F9A5E /* Build configuration list for PBXNativeTarget "zip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB5C4FD5E2C607AA1FC5A0FB /* Debug */,
+				EF67AE8A1CC3EA94371012F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+		E81D482CBBA2255AB8335104 /* Build configuration list for PBXNativeTarget "zlib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FBC324242404B327FF7A425 /* Debug */,
+				4AEBC01FB39038D42AB06108 /* Release */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8B66F94A9E063C8D3C7ED023 /* Project object */;
+}

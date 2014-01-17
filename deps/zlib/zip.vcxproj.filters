@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="google">
+      <UniqueIdentifier>{8FA81D33-CFDF-CD07-7670-CB8C30BA9132}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="zlib.gyp"/>
+    <ClCompile Include="google\zip.cc">
+      <Filter>google</Filter>
+    </ClCompile>
+    <ClCompile Include="google\zip_internal.cc">
+      <Filter>google</Filter>
+    </ClCompile>
+    <ClCompile Include="google\zip_reader.cc">
+      <Filter>google</Filter>
+    </ClCompile>
+    <ClInclude Include="google\zip_reader.h">
+      <Filter>google</Filter>
+    </ClInclude>
+    <ClInclude Include="google\zip.h">
+      <Filter>google</Filter>
+    </ClInclude>
+    <ClInclude Include="google\zip_internal.h">
+      <Filter>google</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
