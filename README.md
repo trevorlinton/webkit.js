@@ -75,6 +75,7 @@ Building
 **Building webkit.js step-by-step**
 
 * Clone the repo.
+* Ensure you are on the "build-system" branch and not the master. Run: git checkout build-system
 * Go to WebKitJS/tools and in a terminal run 
 ```sh
 cp -pa ./WebKitJS/tools/EmscriptenXcode.xcplugin /Applications/Xcode.app/Contents/PlugIns/EmscriptenXcode.plugin 
