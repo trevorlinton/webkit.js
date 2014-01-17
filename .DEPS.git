@@ -1,0 +1,75 @@
+# DO NOT EDIT EXCEPT FOR LOCAL TESTING.
+# THIS IS A GENERATED FILE.
+# ALL MANUAL CHANGES WILL BE OVERWRITTEN.
+# SEE http://code.google.com/p/chromium/wiki/UsingNewGit
+# FOR HOW TO ROLL DEPS
+vars = {
+    'google_url':
+	'https://chromium.googlesource.com/chromium',
+    'webkit_url':
+         'https://github.com/trevorlinton/webkit.js.git',
+    'git_url':
+         'https://github.com',
+    'libxml_url':
+	 'git://git.gnome.org/libxml2',
+    'webkit_rev':
+         '@origin/master'
+}
+
+deps = {
+    'deps/ffmpeg':'https://github.com/trevorlinton/FFmpeg.git',
+    'deps/icu':'https://github.com/trevorlinton/icu4c.git',
+    'deps/libjpeg_turbo':'https://github.com/trevorlinton/libjpeg-turbo.git',
+    'deps/skia':'https://skia.googlesource.com/skia.git',
+    'deps/freetype2':Var('google_url') + '/src/third_party/freetype2.git',
+    'deps/libxml2':Var('libxml_url'),
+    'tools/deps2git':Var('google_url') + '/tools/deps2git.git',
+    'tools/gyp':Var('google_url') + '/../external/gyp.git',
+}
+
+deps_os = {
+    'android':
+    {
+    },
+    'ios':
+    {
+    },
+    'mac':
+    {
+    },
+    'unix':
+    {
+    },
+    'win':
+    {
+    },
+}
+
+include_rules = [
+    '+base',
+    '+build',
+    '+ipc',
+    '+library_loaders',
+    '+testing',
+    '+third_party/icu/source/common/unicode',
+    '+third_party/icu/source/i18n/unicode',
+    '+url'
+]
+
+skip_child_includes = [
+    'skia',
+]
+
+hooks = [
+    {
+    'action':
+         [
+    'python',
+    'src/build/gyp_webkit.js'
+],
+    'pattern':
+         '.',
+    'name':
+         'gyp'
+},
+]
