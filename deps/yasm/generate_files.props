@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(generate_gperfBeforeTargets)' == '' and '$(generate_gperfAfterTargets)' == '' and '$(ConfigurationType)' != 'Makefile'">
+    <generate_gperfBeforeTargets>Midl</generate_gperfBeforeTargets>
+    <generate_gperfAfterTargets>CustomBuild</generate_gperfAfterTargets>
+  </PropertyGroup>
+  <PropertyGroup>
+    <generate_gperfDependsOn Condition="'$(ConfigurationType)' != 'Makefile'">_SelectedFiles;$(generate_gperfDependsOn)</generate_gperfDependsOn>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <generate_gperf>
+      <CommandLineTemplate>call &quot;$(ProjectDir)..\..\third_party\cygwin\setup_env.bat&quot; &amp;&amp; set CYGWIN=nontsec&amp;&amp; set OUTDIR=$(OutDir)&amp;&amp; set INPUTPATH=%(FullPath) &amp;&amp; bash -c &quot;\&quot;`cygpath -m \\\&quot;${OUTDIR}\\\&quot;`/genperf\&quot; \&quot;`cygpath -m \\\&quot;${INPUTPATH}\\\&quot;`\&quot; \&quot;`cygpath -m \\\&quot;${OUTDIR}\\\&quot;`obj/global_intermediate/third_party/yasm/%(Filename).c\&quot;&quot;</CommandLineTemplate>
+      <Outputs>$(OutDir)obj\global_intermediate\third_party\yasm\%(Filename).c</Outputs>
+      <ExecutionDescription>yasm genperf for %(FullPath).</ExecutionDescription>
+      <AdditionalDependencies>$(OutDir)genperf.exe</AdditionalDependencies>
+    </generate_gperf>
+  </ItemDefinitionGroup>
+</Project>

@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{8A6F5E6E-316F-22D4-1547-253B04CB32E7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\config">
+      <UniqueIdentifier>{31A163C0-193D-20CC-1C7F-55B57F22C481}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\config\win">
+      <UniqueIdentifier>{47FC5EC4-15EB-E92F-89D7-AFE51CF838A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\config\win\_excluded_files">
+      <UniqueIdentifier>{158E591E-B6EA-0C85-8F5A-18EAFA09B4CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm">
+      <UniqueIdentifier>{29BFAA90-E991-FB51-4945-FD2FD72C0BC6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\_excluded_files">
+      <UniqueIdentifier>{158E591E-B6EA-0C85-8F5A-18EAFA09B4CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\libyasm">
+      <UniqueIdentifier>{ED924958-43A4-AEF9-8FBF-735E4CAD8497}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\libyasm\_excluded_files">
+      <UniqueIdentifier>{158E591E-B6EA-0C85-8F5A-18EAFA09B4CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules">
+      <UniqueIdentifier>{212BF124-DF0B-CDE7-390D-94BCC1C226CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\listfmts">
+      <UniqueIdentifier>{73DF67BD-2E7E-0EE7-000C-415BD76640D1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\listfmts\nasm">
+      <UniqueIdentifier>{1E100647-24B8-E71B-253F-274C845ED013}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\objfmts">
+      <UniqueIdentifier>{9B12D44B-202D-A800-84DF-9877F8C87F6E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\objfmts\bin">
+      <UniqueIdentifier>{11CC0371-6539-7E04-3B24-030E187A74AC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\objfmts\xdf">
+      <UniqueIdentifier>{456401F2-8921-C49F-F1BF-D5CA6663CD71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\objfmts\elf">
+      <UniqueIdentifier>{A89A104C-C710-2257-153D-3CDAE5B59551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\objfmts\dbg">
+      <UniqueIdentifier>{CF21423D-194B-3EAE-7497-D543FAAEBA34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\objfmts\rdf">
+      <UniqueIdentifier>{3EFE675A-2113-C26D-97D9-F0F2EAB56BA3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\objfmts\macho">
+      <UniqueIdentifier>{4B909EDB-EF0F-8BCE-7F03-F11E738DC402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\objfmts\coff">
+      <UniqueIdentifier>{122F8428-48D2-1C1A-1A2E-F5E2868EED28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\objfmts\coff\_excluded_files">
+      <UniqueIdentifier>{158E591E-B6EA-0C85-8F5A-18EAFA09B4CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\dbgfmts">
+      <UniqueIdentifier>{E60C9A8B-0F05-49FC-D65A-B86853D05E21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\dbgfmts\codeview">
+      <UniqueIdentifier>{FE5D9A4D-5B39-EC96-448D-12519DB975E9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\dbgfmts\null">
+      <UniqueIdentifier>{DA57143E-ECEC-54A9-816E-2F4B72B03555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\dbgfmts\dwarf2">
+      <UniqueIdentifier>{C31C7ACB-EBA8-FD42-7F94-D04F9EA72C6C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\dbgfmts\stabs">
+      <UniqueIdentifier>{92591BE8-46D6-EF0B-B970-296CCB483340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\parsers">
+      <UniqueIdentifier>{2A2910D7-7E49-0D11-0FA6-9338167F865F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\parsers\gas">
+      <UniqueIdentifier>{0089BFBA-A448-F9AC-8F8D-AF863183AF0F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\parsers\nasm">
+      <UniqueIdentifier>{1E100647-24B8-E71B-253F-274C845ED013}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\parsers\nasm\_excluded_files">
+      <UniqueIdentifier>{158E591E-B6EA-0C85-8F5A-18EAFA09B4CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\preprocs">
+      <UniqueIdentifier>{256D8568-456C-BDCF-4964-72E11BF33A70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\preprocs\cpp">
+      <UniqueIdentifier>{9938E6E5-8F6B-7587-726E-6CE774E44BEE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\preprocs\raw">
+      <UniqueIdentifier>{E1C0E01F-5DB2-EE3C-30AF-09BC8060F54E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\preprocs\nasm">
+      <UniqueIdentifier>{1E100647-24B8-E71B-253F-274C845ED013}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\arch">
+      <UniqueIdentifier>{B7F7A17A-FD42-988D-5D01-C95FD6E77D11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\arch\lc3b">
+      <UniqueIdentifier>{175B4E43-0D88-0ED4-9B6C-C7439DA694C6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\arch\lc3b\_excluded_files">
+      <UniqueIdentifier>{158E591E-B6EA-0C85-8F5A-18EAFA09B4CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\arch\x86">
+      <UniqueIdentifier>{18BBE778-C30E-9E84-331B-B85C911521F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\frontends">
+      <UniqueIdentifier>{D79BC524-4647-89D7-7231-89CBD2CDD7AA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\frontends\yasm">
+      <UniqueIdentifier>{E019ECA3-7A84-34EF-29C6-5C04E7B41E6E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="$(IntDir)">
+      <UniqueIdentifier>{2385D4EB-CAEB-D33E-59EB-C687F571392E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="$(IntDir)\third_party">
+      <UniqueIdentifier>{D6C6CEA7-AAD0-03AD-2394-AC6FCBF8A498}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="$(IntDir)\third_party\yasm">
+      <UniqueIdentifier>{E019ECA3-7A84-34EF-29C6-5C04E7B41E6E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="$(OutDir)obj">
+      <UniqueIdentifier>{7BD4F48B-77B4-AB58-9E24-A7302D190D1C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="$(OutDir)obj\global_intermediate">
+      <UniqueIdentifier>{14CEDE64-16A7-96A9-EF19-5C5D6085FF18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="$(OutDir)obj\global_intermediate\third_party">
+      <UniqueIdentifier>{D6C6CEA7-AAD0-03AD-2394-AC6FCBF8A498}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="$(OutDir)obj\global_intermediate\third_party\yasm">
+      <UniqueIdentifier>{E019ECA3-7A84-34EF-29C6-5C04E7B41E6E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="$(OutDir)obj\global_intermediate\third_party\yasm\_excluded_files">
+      <UniqueIdentifier>{158E591E-B6EA-0C85-8F5A-18EAFA09B4CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="$(OutDir)">
+      <UniqueIdentifier>{ECA95933-7FA6-5798-4EC4-C0CAC6DD34DE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="$(OutDir)\_excluded_files">
+      <UniqueIdentifier>{158E591E-B6EA-0C85-8F5A-18EAFA09B4CE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="yasm.gyp"/>
+    <None Include="source\config\win\Makefile">
+      <Filter>source\config\win\_excluded_files</Filter>
+    </None>
+    <None Include="source\patched-yasm\COPYING">
+      <Filter>source\patched-yasm\_excluded_files</Filter>
+    </None>
+    <ClCompile Include="source\patched-yasm\libyasm\linemap.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\bc-data.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\file.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\bc-reserve.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\hamt.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\bc-align.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\bc-incbin.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\errwarn.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\insn.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\strsep.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\section.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\bc-org.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\value.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\mergesort.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\bytecode.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\bitvect.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\valparam.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\md5.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\assocdat.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\strcasecmp.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\floatnum.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\inttree.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\symrec.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\intnum.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\libyasm\expr.c">
+      <Filter>source\patched-yasm\libyasm</Filter>
+    </ClCompile>
+    <None Include="source\patched-yasm\libyasm\module.in">
+      <Filter>source\patched-yasm\libyasm\_excluded_files</Filter>
+    </None>
+    <ClCompile Include="source\patched-yasm\modules\listfmts\nasm\nasm-listfmt.c">
+      <Filter>source\patched-yasm\modules\listfmts\nasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\objfmts\bin\bin-objfmt.c">
+      <Filter>source\patched-yasm\modules\objfmts\bin</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\objfmts\xdf\xdf-objfmt.c">
+      <Filter>source\patched-yasm\modules\objfmts\xdf</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\objfmts\elf\elf.c">
+      <Filter>source\patched-yasm\modules\objfmts\elf</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\objfmts\elf\elf-x86-amd64.c">
+      <Filter>source\patched-yasm\modules\objfmts\elf</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\objfmts\elf\elf-x86-x86.c">
+      <Filter>source\patched-yasm\modules\objfmts\elf</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\objfmts\elf\elf-objfmt.c">
+      <Filter>source\patched-yasm\modules\objfmts\elf</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\objfmts\dbg\dbg-objfmt.c">
+      <Filter>source\patched-yasm\modules\objfmts\dbg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\objfmts\rdf\rdf-objfmt.c">
+      <Filter>source\patched-yasm\modules\objfmts\rdf</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\objfmts\macho\macho-objfmt.c">
+      <Filter>source\patched-yasm\modules\objfmts\macho</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\objfmts\coff\win64-except.c">
+      <Filter>source\patched-yasm\modules\objfmts\coff</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\objfmts\coff\coff-objfmt.c">
+      <Filter>source\patched-yasm\modules\objfmts\coff</Filter>
+    </ClCompile>
+    <None Include="source\patched-yasm\modules\objfmts\coff\win64-gas.mac">
+      <Filter>source\patched-yasm\modules\objfmts\coff\_excluded_files</Filter>
+    </None>
+    <None Include="source\patched-yasm\modules\objfmts\coff\win64-nasm.mac">
+      <Filter>source\patched-yasm\modules\objfmts\coff\_excluded_files</Filter>
+    </None>
+    <ClCompile Include="source\patched-yasm\modules\dbgfmts\codeview\cv-dbgfmt.c">
+      <Filter>source\patched-yasm\modules\dbgfmts\codeview</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\dbgfmts\codeview\cv-type.c">
+      <Filter>source\patched-yasm\modules\dbgfmts\codeview</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\dbgfmts\codeview\cv-symline.c">
+      <Filter>source\patched-yasm\modules\dbgfmts\codeview</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\dbgfmts\null\null-dbgfmt.c">
+      <Filter>source\patched-yasm\modules\dbgfmts\null</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\dbgfmts\dwarf2\dwarf2-line.c">
+      <Filter>source\patched-yasm\modules\dbgfmts\dwarf2</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\dbgfmts\dwarf2\dwarf2-aranges.c">
+      <Filter>source\patched-yasm\modules\dbgfmts\dwarf2</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\dbgfmts\dwarf2\dwarf2-dbgfmt.c">
+      <Filter>source\patched-yasm\modules\dbgfmts\dwarf2</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\dbgfmts\dwarf2\dwarf2-info.c">
+      <Filter>source\patched-yasm\modules\dbgfmts\dwarf2</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\dbgfmts\stabs\stabs-dbgfmt.c">
+      <Filter>source\patched-yasm\modules\dbgfmts\stabs</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\parsers\gas\gas-parser.c">
+      <Filter>source\patched-yasm\modules\parsers\gas</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\parsers\gas\gas-parse-intel.c">
+      <Filter>source\patched-yasm\modules\parsers\gas</Filter>
+    </ClCompile>
+    <generate_re2c Include="source\patched-yasm\modules\parsers\gas\gas-token.re">
+      <Filter>source\patched-yasm\modules\parsers\gas</Filter>
+    </generate_re2c>
+    <ClCompile Include="source\patched-yasm\modules\parsers\gas\gas-parse.c">
+      <Filter>source\patched-yasm\modules\parsers\gas</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\parsers\nasm\nasm-parser.c">
+      <Filter>source\patched-yasm\modules\parsers\nasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\parsers\nasm\nasm-parse.c">
+      <Filter>source\patched-yasm\modules\parsers\nasm</Filter>
+    </ClCompile>
+    <generate_re2c Include="source\patched-yasm\modules\parsers\nasm\nasm-token.re">
+      <Filter>source\patched-yasm\modules\parsers\nasm</Filter>
+    </generate_re2c>
+    <None Include="source\patched-yasm\modules\parsers\nasm\nasm-std.mac">
+      <Filter>source\patched-yasm\modules\parsers\nasm\_excluded_files</Filter>
+    </None>
+    <ClCompile Include="source\patched-yasm\modules\preprocs\cpp\cpp-preproc.c">
+      <Filter>source\patched-yasm\modules\preprocs\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\preprocs\raw\raw-preproc.c">
+      <Filter>source\patched-yasm\modules\preprocs\raw</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\preprocs\nasm\nasm-eval.c">
+      <Filter>source\patched-yasm\modules\preprocs\nasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\preprocs\nasm\nasm-preproc.c">
+      <Filter>source\patched-yasm\modules\preprocs\nasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\preprocs\nasm\nasm-pp.c">
+      <Filter>source\patched-yasm\modules\preprocs\nasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\preprocs\nasm\nasmlib.c">
+      <Filter>source\patched-yasm\modules\preprocs\nasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\arch\lc3b\lc3barch.c">
+      <Filter>source\patched-yasm\modules\arch\lc3b</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\arch\lc3b\lc3bbc.c">
+      <Filter>source\patched-yasm\modules\arch\lc3b</Filter>
+    </ClCompile>
+    <generate_re2c Include="source\patched-yasm\modules\arch\lc3b\lc3bid.re">
+      <Filter>source\patched-yasm\modules\arch\lc3b\_excluded_files</Filter>
+    </generate_re2c>
+    <ClCompile Include="source\patched-yasm\modules\arch\x86\x86expr.c">
+      <Filter>source\patched-yasm\modules\arch\x86</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\arch\x86\x86arch.c">
+      <Filter>source\patched-yasm\modules\arch\x86</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\arch\x86\x86bc.c">
+      <Filter>source\patched-yasm\modules\arch\x86</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\modules\arch\x86\x86id.c">
+      <Filter>source\patched-yasm\modules\arch\x86</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\frontends\yasm\yasm.c">
+      <Filter>source\patched-yasm\frontends\yasm</Filter>
+    </ClCompile>
+    <ClCompile Include="source\patched-yasm\frontends\yasm\yasm-options.c">
+      <Filter>source\patched-yasm\frontends\yasm</Filter>
+    </ClCompile>
+    <ClCompile Include="$(IntDir)\third_party\yasm\gas-token.c">
+      <Filter>$(IntDir)\third_party\yasm</Filter>
+    </ClCompile>
+    <ClCompile Include="$(IntDir)\third_party\yasm\module.c">
+      <Filter>$(IntDir)\third_party\yasm</Filter>
+    </ClCompile>
+    <ClCompile Include="$(IntDir)\third_party\yasm\lc3bid.c">
+      <Filter>$(IntDir)\third_party\yasm</Filter>
+    </ClCompile>
+    <ClCompile Include="$(IntDir)\third_party\yasm\nasm-macros.c">
+      <Filter>$(IntDir)\third_party\yasm</Filter>
+    </ClCompile>
+    <ClCompile Include="$(IntDir)\third_party\yasm\nasm-token.c">
+      <Filter>$(IntDir)\third_party\yasm</Filter>
+    </ClCompile>
+    <ClCompile Include="$(OutDir)obj\global_intermediate\third_party\yasm\x86regtmod.c">
+      <Filter>$(OutDir)obj\global_intermediate\third_party\yasm</Filter>
+    </ClCompile>
+    <ClCompile Include="$(OutDir)obj\global_intermediate\third_party\yasm\x86cpu.c">
+      <Filter>$(OutDir)obj\global_intermediate\third_party\yasm</Filter>
+    </ClCompile>
+    <generate_gperf Include="$(OutDir)obj\global_intermediate\third_party\yasm\x86insn_nasm.gperf">
+      <Filter>$(OutDir)obj\global_intermediate\third_party\yasm</Filter>
+    </generate_gperf>
+    <generate_gperf Include="$(OutDir)obj\global_intermediate\third_party\yasm\x86insn_gas.gperf">
+      <Filter>$(OutDir)obj\global_intermediate\third_party\yasm</Filter>
+    </generate_gperf>
+    <None Include="$(OutDir)obj\global_intermediate\third_party\yasm\version.mac">
+      <Filter>$(OutDir)obj\global_intermediate\third_party\yasm\_excluded_files</Filter>
+    </None>
+    <None Include="$(OutDir)\genmacro.exe">
+      <Filter>$(OutDir)\_excluded_files</Filter>
+    </None>
+    <None Include="$(OutDir)\genstring.exe">
+      <Filter>$(OutDir)\_excluded_files</Filter>
+    </None>
+    <None Include="$(OutDir)\re2c.exe">
+      <Filter>$(OutDir)\_excluded_files</Filter>
+    </None>
+    <None Include="$(OutDir)\genmodule.exe">
+      <Filter>$(OutDir)\_excluded_files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
