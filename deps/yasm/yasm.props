@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(generate_gperfBeforeTargets)' == '' and '$(generate_gperfAfterTargets)' == '' and '$(ConfigurationType)' != 'Makefile'">
+    <generate_gperfBeforeTargets>Midl</generate_gperfBeforeTargets>
+    <generate_gperfAfterTargets>CustomBuild</generate_gperfAfterTargets>
+  </PropertyGroup>
+  <PropertyGroup>
+    <generate_gperfDependsOn Condition="'$(ConfigurationType)' != 'Makefile'">_SelectedFiles;$(generate_gperfDependsOn)</generate_gperfDependsOn>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <generate_gperf>
+      <CommandLineTemplate>call &quot;$(ProjectDir)..\..\third_party\cygwin\setup_env.bat&quot; &amp;&amp; set CYGWIN=nontsec&amp;&amp; set INTDIR=$(IntDir)&amp;&amp; set OUTDIR=$(OutDir)&amp;&amp; set INPUTPATH=%(FullPath) &amp;&amp; bash -c &quot;\&quot;`cygpath -m \\\&quot;${OUTDIR}\\\&quot;`/genperf\&quot; \&quot;`cygpath -m \\\&quot;${INPUTPATH}\\\&quot;`\&quot; \&quot;`cygpath -m \\\&quot;${INTDIR}\\\&quot;`/third_party/yasm/%(Filename).c\&quot;&quot;</CommandLineTemplate>
+      <Outputs>$(IntDir)third_party\yasm\%(Filename).c</Outputs>
+      <ExecutionDescription>yasm gperf for %(FullPath).</ExecutionDescription>
+      <AdditionalDependencies>$(OutDir)genperf.exe</AdditionalDependencies>
+    </generate_gperf>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(generate_re2cBeforeTargets)' == '' and '$(generate_re2cAfterTargets)' == '' and '$(ConfigurationType)' != 'Makefile'">
+    <generate_re2cBeforeTargets>Midl</generate_re2cBeforeTargets>
+    <generate_re2cAfterTargets>CustomBuild</generate_re2cAfterTargets>
+  </PropertyGroup>
+  <PropertyGroup>
+    <generate_re2cDependsOn Condition="'$(ConfigurationType)' != 'Makefile'">_SelectedFiles;$(generate_re2cDependsOn)</generate_re2cDependsOn>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <generate_re2c>
+      <CommandLineTemplate>call &quot;$(ProjectDir)..\..\third_party\cygwin\setup_env.bat&quot; &amp;&amp; set CYGWIN=nontsec&amp;&amp; set INTDIR=$(IntDir)&amp;&amp; set OUTDIR=$(OutDir)&amp;&amp; set INPUTPATH=%(FullPath) &amp;&amp; bash -c &quot;\&quot;`cygpath -m \\\&quot;${OUTDIR}\\\&quot;`/re2c\&quot; \&quot;-b\&quot; \&quot;-o\&quot; \&quot;`cygpath -m \\\&quot;${INTDIR}\\\&quot;`/third_party/yasm/%(Filename).c\&quot; \&quot;`cygpath -m \\\&quot;${INPUTPATH}\\\&quot;`\&quot;&quot;</CommandLineTemplate>
+      <Outputs>$(IntDir)third_party\yasm\%(Filename).c</Outputs>
+      <ExecutionDescription>yasm re2c for %(FullPath).</ExecutionDescription>
+      <AdditionalDependencies>$(OutDir)re2c.exe</AdditionalDependencies>
+    </generate_re2c>
+  </ItemDefinitionGroup>
+</Project>

@@ -7,22 +7,22 @@
 		<key>All.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>106</integer>
+			<integer>0</integer>
 		</dict>
 		<key>minizip.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>108</integer>
+			<integer>2</integer>
 		</dict>
 		<key>zip.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>109</integer>
+			<integer>3</integer>
 		</dict>
 		<key>zlib.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>107</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
