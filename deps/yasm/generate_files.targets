@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml"/>
+    <AvailableItemName Include="generate_gperf">
+      <Targets>_generate_gperf</Targets>
+    </AvailableItemName>
+  </ItemGroup>
+  <UsingTask AssemblyName="Microsoft.Build.Tasks.v4.0" TaskFactory="XamlTaskFactory" TaskName="generate_gperf">
+    <Task>$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml</Task>
+  </UsingTask>
+  <Target AfterTargets="$(generate_gperfAfterTargets)" BeforeTargets="$(generate_gperfBeforeTargets)" Condition="'@(generate_gperf)' != ''" DependsOnTargets="$(generate_gperfDependsOn);Computegenerate_gperfOutput" Inputs="%(generate_gperf.Identity);%(generate_gperf.AdditionalDependencies);$(MSBuildProjectFile)" Name="_generate_gperf" Outputs="%(generate_gperf.Outputs)">
+    <ItemGroup Condition="'@(SelectedFiles)' != ''">
+      <generate_gperf Condition="'%(Identity)' != '@(SelectedFiles)'" Remove="@(generate_gperf)"/>
+    </ItemGroup>
+    <ItemGroup>
+      <generate_gperf_inputs Include="%(generate_gperf.AdditionalDependencies)"/>
+    </ItemGroup>
+    <ItemGroup>
+      <generate_gperf_tlog Condition="'%(generate_gperf.Outputs)' != '' and '%(generate_gperf.ExcludedFromBuild)' != 'true'" Include="%(generate_gperf.Outputs)">
+        <Source>@(generate_gperf, &apos;|&apos;)</Source>
+        <Inputs>@(generate_gperf_inputs -&gt; &apos;%(Fullpath)&apos;, &apos;;&apos;)</Inputs>
+      </generate_gperf_tlog>
+    </ItemGroup>
+    <Message Importance="High" Text="%(generate_gperf.ExecutionDescription)"/>
+    <WriteLinesToFile Condition="'@(generate_gperf_tlog)' != '' and '%(generate_gperf_tlog.ExcludedFromBuild)' != 'true'" File="$(IntDir)$(ProjectName).write.1.tlog" Lines="^%(generate_gperf_tlog.Source);@(generate_gperf_tlog-&gt;'%(Fullpath)')"/>
+    <WriteLinesToFile Condition="'@(generate_gperf_tlog)' != '' and '%(generate_gperf_tlog.ExcludedFromBuild)' != 'true'" File="$(IntDir)$(ProjectName).read.1.tlog" Lines="^%(generate_gperf_tlog.Source);%(generate_gperf_tlog.Inputs)"/>
+    <generate_gperf AdditionalOptions="%(generate_gperf.AdditionalOptions)" CommandLineTemplate="%(generate_gperf.CommandLineTemplate)" Condition="'@(generate_gperf)' != '' and '%(generate_gperf.ExcludedFromBuild)' != 'true'" Inputs="%(generate_gperf.Identity)"/>
+  </Target>
+  <PropertyGroup>
+    <ComputeLinkInputsTargets>$(ComputeLinkInputsTargets);Computegenerate_gperfOutput;</ComputeLinkInputsTargets>
+    <ComputeLibInputsTargets>$(ComputeLibInputsTargets);Computegenerate_gperfOutput;</ComputeLibInputsTargets>
+  </PropertyGroup>
+  <Target Condition="'@(generate_gperf)' != ''" Name="Computegenerate_gperfOutput">
+    <ItemGroup>
+      <generate_gperfDirsToMake Condition="'@(generate_gperf)' != '' and '%(generate_gperf.ExcludedFromBuild)' != 'true'" Include="%(generate_gperf.Outputs)"/>
+      <Link Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" Include="%(generate_gperfDirsToMake.Identity)"/>
+      <Lib Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" Include="%(generate_gperfDirsToMake.Identity)"/>
+      <ImpLib Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" Include="%(generate_gperfDirsToMake.Identity)"/>
+    </ItemGroup>
+    <MakeDir Directories="@(generate_gperfDirsToMake-&gt;'%(RootDir)%(Directory)')"/>
+  </Target>
+</Project>

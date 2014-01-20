@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{8A6F5E6E-316F-22D4-1547-253B04CB32E7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm">
+      <UniqueIdentifier>{29BFAA90-E991-FB51-4945-FD2FD72C0BC6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules">
+      <UniqueIdentifier>{212BF124-DF0B-CDE7-390D-94BCC1C226CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\preprocs">
+      <UniqueIdentifier>{256D8568-456C-BDCF-4964-72E11BF33A70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\modules\preprocs\nasm">
+      <UniqueIdentifier>{1E100647-24B8-E71B-253F-274C845ED013}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="yasm.gyp"/>
+    <ClCompile Include="source\patched-yasm\modules\preprocs\nasm\genversion.c">
+      <Filter>source\patched-yasm\modules\preprocs\nasm</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

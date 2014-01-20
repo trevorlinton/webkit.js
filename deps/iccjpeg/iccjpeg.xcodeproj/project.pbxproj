@@ -11,16 +11,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1189618E5ABE1078EC9DC378 /* iccjpeg.gyp */ = {isa = PBXFileReference; lastKnownFileType = text; path = iccjpeg.gyp; sourceTree = "<group>"; };
-		2407BF3E32905601CB736951 /* common.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = common.gypi; path = ../../build/common.gypi; sourceTree = "<group>"; };
-		26A1665E6A6A371978AAE6C1 /* release_impl_official.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = release_impl_official.gypi; path = ../../build/internal/release_impl_official.gypi; sourceTree = "<group>"; };
-		39B23D6F1313481DE1A57862 /* release.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = release.gypi; path = ../../build/release.gypi; sourceTree = "<group>"; };
+		1189618E5ABE1078EC9DC378 /* iccjpeg.gyp */ = {isa = PBXFileReference; explicitFileType = sourcecode; path = iccjpeg.gyp; sourceTree = "<group>"; };
+		2407BF3E32905601CB736951 /* common.gypi */ = {isa = PBXFileReference; explicitFileType = sourcecode; name = common.gypi; path = ../../build/common.gypi; sourceTree = "<group>"; };
 		548A159F249D909F127AADF6 /* libiccjpeg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiccjpeg.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D5753F3D01C6843770541CB /* iccjpeg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = iccjpeg.c; sourceTree = "<group>"; };
 		903299586AA9225894E145A5 /* iccjpeg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iccjpeg.h; sourceTree = "<group>"; };
-		B9E51DAAD702C302C41FD39B /* filename_rules.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = filename_rules.gypi; path = ../../build/filename_rules.gypi; sourceTree = "<group>"; };
-		BC85E91B8FD0507A0EB8EDAA /* release_impl.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = release_impl.gypi; path = ../../build/internal/release_impl.gypi; sourceTree = "<group>"; };
-		DE6311B8F6E65A53F6BD3575 /* release_defaults.gypi */ = {isa = PBXFileReference; lastKnownFileType = text; name = release_defaults.gypi; path = ../../build/internal/release_defaults.gypi; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,20 +29,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2F2C06D8C334AA51ED11E0E4 /* Build */ = {
-			isa = PBXGroup;
-			children = (
-				2407BF3E32905601CB736951 /* common.gypi */,
-				B9E51DAAD702C302C41FD39B /* filename_rules.gypi */,
-				1189618E5ABE1078EC9DC378 /* iccjpeg.gyp */,
-				39B23D6F1313481DE1A57862 /* release.gypi */,
-				DE6311B8F6E65A53F6BD3575 /* release_defaults.gypi */,
-				BC85E91B8FD0507A0EB8EDAA /* release_impl.gypi */,
-				26A1665E6A6A371978AAE6C1 /* release_impl_official.gypi */,
-			);
-			name = Build;
-			sourceTree = "<group>";
-		};
 		4B93C8383B207C08EEAEC964 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -56,12 +37,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		61660EC5A4F4540CBEF68C4E /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				2407BF3E32905601CB736951 /* common.gypi */,
+				1189618E5ABE1078EC9DC378 /* iccjpeg.gyp */,
+			);
+			name = Build;
+			sourceTree = "<group>";
+		};
 		BF23C664F1B04156E639E896 = {
 			isa = PBXGroup;
 			children = (
 				FD7E85AF179BFC7D024754E0 /* Source */,
 				4B93C8383B207C08EEAEC964 /* Products */,
-				2F2C06D8C334AA51ED11E0E4 /* Build */,
+				61660EC5A4F4540CBEF68C4E /* Build */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,229 +115,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		0E36FED37545DEEE813DE636 /* Debug */ = {
+		6269E8D5564B6F79A5EB97FF /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = x86_64;
 				INTERMEDIATE_DIR = "$(PROJECT_DERIVED_FILE_DIR)/$(CONFIGURATION)";
-				SDKROOT = macosx10.8;
 				SHARED_INTERMEDIATE_DIR = "$(SYMROOT)/DerivedSources/$(CONFIGURATION)";
-				SYMROOT = ../../xcodebuild;
 			};
-			name = Debug;
+			name = Default;
 		};
-		1C8DB5ED36328ECD1C07BB98 /* Debug */ = {
+		9F4CA7DAFDB063FD9580360B /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CC = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang";
-				CLANG_LINK_OBJC_RUNTIME = NO;
-				CLANG_WARN_CXX0X_EXTENSIONS = NO;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
-				COPY_PHASE_STRIP = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_OBJC_CALL_CXX_CDTORS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					ANGLE_DX11,
-					CHROMIUM_BUILD,
-					"USE_LIBJPEG_TURBO=1",
-					ENABLE_ONE_CLICK_SIGNIN,
-					"ENABLE_REMOTING=1",
-					"ENABLE_WEBRTC=1",
-					USE_PROPRIETARY_CODECS,
-					ENABLE_PEPPER_CDMS,
-					ENABLE_CONFIGURATION_POLICY,
-					ENABLE_INPUT_SPEECH,
-					ENABLE_NOTIFICATIONS,
-					"ENABLE_HIDPI=1",
-					"ENABLE_GPU=1",
-					"ENABLE_EGLIMAGE=1",
-					"ENABLE_TASK_MANAGER=1",
-					"ENABLE_EXTENSIONS=1",
-					"ENABLE_PLUGIN_INSTALLATION=1",
-					"ENABLE_PLUGINS=1",
-					"ENABLE_SESSION_SERVICE=1",
-					"ENABLE_THEMES=1",
-					"ENABLE_AUTOFILL_DIALOG=1",
-					"ENABLE_BACKGROUND=1",
-					"ENABLE_AUTOMATION=1",
-					"ENABLE_GOOGLE_NOW=1",
-					"ENABLE_FULL_PRINTING=1",
-					"ENABLE_PRINTING=1",
-					"ENABLE_SPELLCHECK=1",
-					"ENABLE_CAPTIVE_PORTAL_DETECTION=1",
-					"ENABLE_APP_LIST=1",
-					"ENABLE_SETTINGS_APP=1",
-					"ENABLE_MANAGED_USERS=1",
-					"DYNAMIC_ANNOTATIONS_ENABLED=1",
-					"WTF_USE_DYNAMIC_ANNOTATIONS=1",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_THREADSAFE_STATICS = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				HEADER_SEARCH_PATHS = ../libjpeg_turbo;
-				LDPLUSPLUS = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang++";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				OTHER_CFLAGS = (
-					"-Xclang",
-					"-load",
-					"-Xclang",
-					"/Tint/Runtime/src/tools/clang/scripts/../../../third_party/llvm-build/Release+Asserts/lib/libFindBadConstructs.dylib",
-					"-Xclang",
-					"-add-plugin",
-					"-Xclang",
-					"find-bad-constructs",
-					"-fno-strict-aliasing",
-					"-fstack-protector-all",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(inherited)",
-					"-std=gnu++11",
-				);
 				PRODUCT_NAME = iccjpeg;
-				SHARED_PRECOMPS_DIR = "$(CONFIGURATION_BUILD_DIR)/SharedPrecompiledHeaders";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wendif-labels",
-					"-Wno-unused-parameter",
-					"-Wno-missing-field-initializers",
-					"-Wheader-hygiene",
-					"-Wno-c++11-narrowing",
-					"-Wno-char-subscripts",
-					"-Wno-unused-function",
-					"-Wno-covered-switch-default",
-					"-Wstring-conversion",
-					"-Wno-deprecated-register",
-				);
-				WARNING_CFLAGS_excluded = (
-					"-Wall",
-					"-Wextra",
-				);
 			};
-			name = Debug;
-		};
-		CAE5EB98C38025639FD6A6DA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = x86_64;
-				INTERMEDIATE_DIR = "$(PROJECT_DERIVED_FILE_DIR)/$(CONFIGURATION)";
-				SDKROOT = macosx10.8;
-				SHARED_INTERMEDIATE_DIR = "$(SYMROOT)/DerivedSources/$(CONFIGURATION)";
-				SYMROOT = ../../xcodebuild;
-			};
-			name = Release;
-		};
-		F056514DB3C1445E86D160B5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CC = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang";
-				CLANG_LINK_OBJC_RUNTIME = NO;
-				CLANG_WARN_CXX0X_EXTENSIONS = NO;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
-				DEAD_CODE_STRIPPING = YES;
-				EXECUTABLE_PREFIX = lib;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_OBJC_CALL_CXX_CDTORS = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					ANGLE_DX11,
-					CHROMIUM_BUILD,
-					"USE_LIBJPEG_TURBO=1",
-					ENABLE_ONE_CLICK_SIGNIN,
-					"ENABLE_REMOTING=1",
-					"ENABLE_WEBRTC=1",
-					USE_PROPRIETARY_CODECS,
-					ENABLE_PEPPER_CDMS,
-					ENABLE_CONFIGURATION_POLICY,
-					ENABLE_INPUT_SPEECH,
-					ENABLE_NOTIFICATIONS,
-					"ENABLE_HIDPI=1",
-					"ENABLE_GPU=1",
-					"ENABLE_EGLIMAGE=1",
-					"ENABLE_TASK_MANAGER=1",
-					"ENABLE_EXTENSIONS=1",
-					"ENABLE_PLUGIN_INSTALLATION=1",
-					"ENABLE_PLUGINS=1",
-					"ENABLE_SESSION_SERVICE=1",
-					"ENABLE_THEMES=1",
-					"ENABLE_AUTOFILL_DIALOG=1",
-					"ENABLE_BACKGROUND=1",
-					"ENABLE_AUTOMATION=1",
-					"ENABLE_GOOGLE_NOW=1",
-					"ENABLE_FULL_PRINTING=1",
-					"ENABLE_PRINTING=1",
-					"ENABLE_SPELLCHECK=1",
-					"ENABLE_CAPTIVE_PORTAL_DETECTION=1",
-					"ENABLE_APP_LIST=1",
-					"ENABLE_SETTINGS_APP=1",
-					"ENABLE_MANAGED_USERS=1",
-					NDEBUG,
-					NVALGRIND,
-					"DYNAMIC_ANNOTATIONS_ENABLED=0",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_THREADSAFE_STATICS = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				HEADER_SEARCH_PATHS = ../libjpeg_turbo;
-				LDPLUSPLUS = "$(SOURCE_ROOT)/../../third_party/llvm-build/Release+Asserts/bin/clang++";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				OTHER_CFLAGS = (
-					"-Xclang",
-					"-load",
-					"-Xclang",
-					"/Tint/Runtime/src/tools/clang/scripts/../../../third_party/llvm-build/Release+Asserts/lib/libFindBadConstructs.dylib",
-					"-Xclang",
-					"-add-plugin",
-					"-Xclang",
-					"find-bad-constructs",
-					"-fno-strict-aliasing",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(inherited)",
-					"-std=gnu++11",
-				);
-				PRODUCT_NAME = iccjpeg;
-				SHARED_PRECOMPS_DIR = "$(CONFIGURATION_BUILD_DIR)/SharedPrecompiledHeaders";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wendif-labels",
-					"-Wno-unused-parameter",
-					"-Wno-missing-field-initializers",
-					"-Wheader-hygiene",
-					"-Wno-c++11-narrowing",
-					"-Wno-char-subscripts",
-					"-Wno-unused-function",
-					"-Wno-covered-switch-default",
-					"-Wstring-conversion",
-					"-Wno-deprecated-register",
-				);
-				WARNING_CFLAGS_excluded = (
-					"-Wall",
-					"-Wextra",
-				);
-			};
-			name = Release;
+			name = Default;
 		};
 /* End XCBuildConfiguration section */
 
@@ -355,20 +138,18 @@
 		8A5BC4179043FFDE610F84D6 /* Build configuration list for PBXProject "iccjpeg" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0E36FED37545DEEE813DE636 /* Debug */,
-				CAE5EB98C38025639FD6A6DA /* Release */,
+				6269E8D5564B6F79A5EB97FF /* Default */,
 			);
 			defaultConfigurationIsVisible = 1;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Default;
 		};
 		CA2D1EFBDDBB7064AB1EF37D /* Build configuration list for PBXNativeTarget "iccjpeg" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1C8DB5ED36328ECD1C07BB98 /* Debug */,
-				F056514DB3C1445E86D160B5 /* Release */,
+				9F4CA7DAFDB063FD9580360B /* Default */,
 			);
 			defaultConfigurationIsVisible = 1;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Default;
 		};
 /* End XCConfigurationList section */
 	};
