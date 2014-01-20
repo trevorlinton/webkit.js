@@ -3,6 +3,8 @@ webkit.js
 
 An experimental port of WebKit (Specifically, webcore) to JavaScript aimed at running in both node.js and browsers. This is currently non-functional and is intended for developers and contributors.
 
+Discussions & Questions: https://groups.google.com/forum/#!forum/webkitjs
+
 Goals
 ----
 
@@ -25,7 +27,7 @@ Status
 - (HORRIFIC) There are plenty of linking issues to be addressed; however visibility into this is minimal. Currently the system links but has quite a few unresolved symbols that will cause the renderer to crash. 
 
 **Tests**
-- (NON EXISTANT) Tests for javascript<->C++ needs to be developed (non-layout related code)
+- (NON EXISTENT) Tests for javascript<->C++ needs to be developed (non-layout related code)
 - (BAD) Unit tests that integrate with WebKit's LayoutTests
 
 **Supported Features**
@@ -40,7 +42,7 @@ Status
     * Font Load Events
     * Input Speech
     * Audio
-    * Video
+    * **Supported** ~~Video~~
     * Media Streams
     * JavaScript Debugger / Inspector
     * MHTML
@@ -50,16 +52,16 @@ Status
     * Web Sockets
     * Shadow DOM
     * Web Timing
-    * XSLT
+    * **Supported** ~~XSLT~~
     * Native Widgets (IFRAME, Buttons, Text Boxes, etc.)
     * Any Resource Loaders
-    * Font Rendering
+    * **Supported** ~~Font Rendering~~
 
 **Frameworks**
-- (NON EXISTANT) Frameworks to easily perform common tasks with the renderer under various contexts.
+- (NON EXISTENT) Frameworks to easily perform common tasks with the renderer under various contexts.
 
 **Documentation**
-- (NON EXISTANT) Lots and lots of documentation, currently this is it.
+- (NON EXISTENT) Lots and lots of documentation, currently this is it.
 
 
 Building
@@ -75,28 +77,48 @@ Building
 **Building webkit.js step-by-step**
 
 * Clone the repo.
-* Go to WebKitJS/tools and in a terminal run 
-```sh
+* Ensure you are on the **"build-system" branch** and not the master and run:
+
+```
+git checkout build-system
+```
+* In a terminal run:
+
+```
 cp -pa ./WebKitJS/tools/EmscriptenXcode.xcplugin /Applications/Xcode.app/Contents/PlugIns/EmscriptenXcode.plugin 
-vim /Applications/Xcode.app/Contents/PlugIns/EmscriptenXcode.xcplugin/Contents/Resources/GCC\ 4.5.xcspec 
+
+vim /Applications/Xcode.app/Contents/PlugIns/EmscriptenXcode.xcplugin/Contents/Resources/GCC\ 4.5.xcspec
 ```
 * Modify line 35 and set ExecPath to the path of em++ included with Emscripten.
 * Then run:
-```sh
+
+```
 vim WebKit/Source/WebCore/Configurations/Base.xcconfig
 ```
 * Replace "EMSCRIPTEN_SYSTEM" with the path to the system headers for emscripten.
 * Open WebKit.xcworkspace in Xcode
 * Change the Schema to "WebcoreJS" and make sure you build in Release (some systems Normal), not Debug. Hit Play and get some coffee or go do some chores.
 * Your linking will most likely fail.  If so, just run the terminal command:
-```sh
-em++ -r -isysroot /Path/To/Emscripten/1.8.2/system /Path/To/Your/WebKitBuild/*.o -std=c++11 -s FULL_ES2=1 -O2 -stdlib=libc++ -s LINKABLE=1 -o /Path/To/Your/WebKitBuild/webkit.js
+
+```
+em++ -r -isysroot /Path/To/Emscripten/1.8.2/system /Path/To/Your/WebKitBuild/*.o \ 
+-std=c++11 -s FULL_ES2=1 -O2 -stdlib=libc++ -s LINKABLE=1 -o /Path/To/Your/WebKitBuild/webkit.js
 ```
 
 * You can also create individual js files for each class in WebKit to ease debugging. Run:
-```sh
-find . -name "*.o" | xargs -I {} em++ -isysroot /Path/To/Your/Emscripten/1.8.2/system {} -std=c++11 -s FULL_ES2=1 -O2 -stdlib=libc++ -s LINKABLE=1 -s SIDE_MODULE=1 -o /Some/Folder/For/Output/{}.js
+
 ```
+find . -name "*.o" | xargs -I {} em++ -isysroot \ 
+/Path/To/Your/Emscripten/1.8.2/system {} -std=c++11 \
+-s FULL_ES2=1 -O2 -stdlib=libc++ -s LINKABLE=1 \
+-s SIDE_MODULE=1 -o /Some/Folder/For/Output/{}.js
+```
+
+**Troubleshooting**
+
+* If Xcode reports that it cannot compile because of an unrecognized SDK (or no SDK) you'll have to manually add emscripten as an allowable SDK to Xcode.  Unfortunately I forgot how I did this, however some people have reported that building off of the regular 10.8 SDK works fine, not advisable but give it a go.
+
+* If the link fails and you don't want to use the above shell command its most likely because of extrenous arguments into the linker that Xcode is providing, you'll need to remove -arch x64_86 -F -framework and export symbol arguments that may be passed into the linker.  You can do this by modifying the Xcode Emscripten plugin to ignore specific linker arguments, unfortunately individual Xcode preferences make it difficult to provide step by step instructions to prevent this. The new build system will fix this issue though. 
 
 Contributing
 --------------
@@ -111,8 +133,7 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * `/WebKit/Source/WTF/` is a cross-platform library for common tasks such as HashMaps, etc.
 * `/WebKit/Source/WTF/PlatformJS.h` these are C++ pre-process settings for PLATFORM(JS)
 * `/WebKit/Source/WebCore/Configurations/` these are important compile-time configurations for WebCore
-
-* `/WebKitJS/` When compiled the output of WebKit is placed in WebKitJS/webkit.js
+* `/WebKitJS/` When compiled the output of WebKit is placed in `/WebKitJS/WebKitBuild/`
 * `/WebKitJS/tools/` Any helpful tools i've come across (only one for now...)
 * `/WebKitJS/tools/cppfilter.js`  This demangles C++ symbols contained in emscripten.js
 * `/WebKitJS/tools/EmscriptenXcode.plugin` This is a Xcode plugin, and a temporary hack for using emscripten
@@ -120,33 +141,33 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 **It's important to know**
 
 * The code within the WebKit folder is pulled from upstream, be careful not to move any files, remove any files or heavily refactor any source file as it will cause headaches when merging.
-
-* Place a .gitignore on ./WebKit/WebKitBuild/ so you do not accidently commit build files.
-* Enabling/disabling settings within the Configurations folder in WebCore will have a lot of consequences, most of the disabled features are disabled because there's no possible work around for including the platform specific code (it needs to be created in JS from scratch)
-* A good amount of the bindings and code within the WebCore is auto generated from scripts, be careful when you have build errors to make sure you're not modifying a "Derived Source" otherwise you'll find your changes will be just over-written the next time the derived sources runs.
-* The current webkit.js in WebKitJS folder was compiled exposing its symbols, this results in a heavy file size (current 44MB - 1/15/14). This can come down considerably once a framework/API is developed, tests are created and optimizations can become a priority.
-* Do not modify code within ./WebKitJS/webkit.js or ./WebKitJS/debug/ these files are over-written when WebKit is built, so its somewhat pointless unless you're testing.
+* Add `/WebKit/WebKitBuild/` to .gitignore so you do not accidentally commit build files.
+* Enabling/disabling settings within the `/WebKit/Source/WebCore/Configurations` folder will have a lot of consequences, most of the disabled features are disabled because there's no possible work around for including the platform specific or network layer code (bindings to forward this to the native browser/nodejs module will need to be built).
+* A good amount of the bindings and code within the WebCore are auto generated from scripts, be careful when you have build errors to make sure you're not modifying a "Derived Sources" file, otherwise you'll find your changes will be just over-written the next time this script runs.
+* The current webkit.js in WebKitJS folder was compiled exposing its symbols, this results in a heavy file size (current 44MB - 1/15/14). This can come down considerably once a small list of export symbols is used, the unit tests are created and optimizations can become a priority. (Targeting module based ~10MB code size)
+* Do not modify code within `/WebKitJS/WebKitBuild` these files are over-written when WebKit is built, so its somewhat pointless unless you're testing. In addition any files within the debug folder or webkit.js are autogenerated from the build.
 
 **What's Desperately Needed**
-* A build toolchain similar to GYP/gconfig. QtWebkit has one already, possibly re-map that.
-* Create "Debug" and "Release" modes that allow for easier debugging. In addition creating anything that helps debug and spot problems easier.
+* **In Progress -** A build toolchain similar to GYP/gconfig. QtWebkit has one already, possibly re-map that.
+* **In Progress -** Create "Debug" and "Release" modes that allow for easier debugging. In addition creating anything that helps debug and spot problems easier.
 * Scripts to auto-generate code with Emscripten JS Bindings (e.g., IDL generation, and some other bindings/scripts tasks)
-* Integration of WTF library into WebCore
+* **In Progress -** Integration of WTF library into WebCore
 * Closer examination of optimization/best practices/guidance on Emscripten.
 * Closer examination of optimization/best practices/guidance on compiling WebCore/renderer.
 * Removal of "oddity" code (e.g., no mans land code, existing dead code, platform specific code)
-* Start smaller with GYP and only develop one pass layout system from CSS/HTML/DOM code with minimal features and build up.
-* Take each file one by one in ./webkitjs/debug/ and port?...
+* **Bad Idea -** ~~Start smaller with GYP and only develop one pass layout system from CSS/HTML/DOM code with minimal features and build up.~~
+* **Bad Idea -** ~~Take each file one by one in ./webkitjs/debug/ and port?...~~
 * Conversation, topics, discussions on best practices, methods and use cases
 * Dependency and/or symbol graph that rebuilds automatically after a compile (expressed as a HTML doc?) The core reason for this is to visualize dependencies between classes, unresolved symbols still to be developed, and spot key integration points. This can be done by regex over the existing ./webkitjs/debug for symbols and building a D3 graph to show the symbols dependency possibly? Is there already key software that does this? Can emscripten/llvm spit this out?
 * Identify what key import symbols may require significant retooling.
-* Integrate libxml.js (rather than depending on browser pass through decoding to a buffer)
-* Integrate libxslt.js (currently unsupported)
-* Integrate ffmpeg.js ?.... pure javascript video support?..... .
-* Integrate libpng.js (rather than depending on browser pass through decoding to a buffer)
-* Integrate libjpeg-turbo.js/libjpeg.js (rather than depending on browser pass through decoding to a buffer)
-* Integrate zlib (rather than depending on browser pass through decoding to a buffer)
-* Use embind/cppfilter.js to automatically generate all the WebCore C++ interfaces (derived from WebCore.exp) directly into javascript, then simply reuse existing webcore demos/examples.
+* **DONE** ~~Integrate libxml.js (rather than depending on browser pass through decoding to a buffer)~~
+* **DONE** ~~Integrate libxslt.js (currently unsupported)~~
+* **DONE** ~~Integrate ffmpeg.js ?.... pure javascript video support?..... .~~
+* **DONE** ~~Integrate libpng.js (rather than depending on browser pass through decoding to a buffer)~~
+* **DONE** ~~Integrate libjpeg-turbo.js/libjpeg.js (rather than depending on browser pass through decoding to a buffer)~~
+* **DONE** ~~Integrate zlib (rather than depending on browser pass through decoding to a buffer)~~
+* Use embind/cppfilter.js to automatically generate all the WebCore C++ interfaces (derived from WebCore.exp.in) directly into javascript, then simply reuse existing webcore demos/examples.
+* Generate a webkit.js API based on the WebCore C++ interfaces exported to javascript with embind/cppfilter.js.
 
 
 License
