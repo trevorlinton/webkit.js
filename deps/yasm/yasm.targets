@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml"/>
+    <AvailableItemName Include="generate_gperf">
+      <Targets>_generate_gperf</Targets>
+    </AvailableItemName>
+    <AvailableItemName Include="generate_re2c">
+      <Targets>_generate_re2c</Targets>
+    </AvailableItemName>
+  </ItemGroup>
+  <UsingTask AssemblyName="Microsoft.Build.Tasks.v4.0" TaskFactory="XamlTaskFactory" TaskName="generate_gperf">
+    <Task>$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml</Task>
+  </UsingTask>
+  <UsingTask AssemblyName="Microsoft.Build.Tasks.v4.0" TaskFactory="XamlTaskFactory" TaskName="generate_re2c">
+    <Task>$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml</Task>
+  </UsingTask>
+  <Target AfterTargets="$(generate_gperfAfterTargets)" BeforeTargets="$(generate_gperfBeforeTargets)" Condition="'@(generate_gperf)' != ''" DependsOnTargets="$(generate_gperfDependsOn);Computegenerate_gperfOutput" Inputs="%(generate_gperf.Identity);%(generate_gperf.AdditionalDependencies);$(MSBuildProjectFile)" Name="_generate_gperf" Outputs="%(generate_gperf.Outputs)">
+    <ItemGroup Condition="'@(SelectedFiles)' != ''">
+      <generate_gperf Condition="'%(Identity)' != '@(SelectedFiles)'" Remove="@(generate_gperf)"/>
+    </ItemGroup>
+    <ItemGroup>
+      <generate_gperf_inputs Include="%(generate_gperf.AdditionalDependencies)"/>
+    </ItemGroup>
+    <ItemGroup>
+      <generate_gperf_tlog Condition="'%(generate_gperf.Outputs)' != '' and '%(generate_gperf.ExcludedFromBuild)' != 'true'" Include="%(generate_gperf.Outputs)">
+        <Source>@(generate_gperf, &apos;|&apos;)</Source>
+        <Inputs>@(generate_gperf_inputs -&gt; &apos;%(Fullpath)&apos;, &apos;;&apos;)</Inputs>
+      </generate_gperf_tlog>
+    </ItemGroup>
+    <Message Importance="High" Text="%(generate_gperf.ExecutionDescription)"/>
+    <WriteLinesToFile Condition="'@(generate_gperf_tlog)' != '' and '%(generate_gperf_tlog.ExcludedFromBuild)' != 'true'" File="$(IntDir)$(ProjectName).write.1.tlog" Lines="^%(generate_gperf_tlog.Source);@(generate_gperf_tlog-&gt;'%(Fullpath)')"/>
+    <WriteLinesToFile Condition="'@(generate_gperf_tlog)' != '' and '%(generate_gperf_tlog.ExcludedFromBuild)' != 'true'" File="$(IntDir)$(ProjectName).read.1.tlog" Lines="^%(generate_gperf_tlog.Source);%(generate_gperf_tlog.Inputs)"/>
+    <generate_gperf AdditionalOptions="%(generate_gperf.AdditionalOptions)" CommandLineTemplate="%(generate_gperf.CommandLineTemplate)" Condition="'@(generate_gperf)' != '' and '%(generate_gperf.ExcludedFromBuild)' != 'true'" Inputs="%(generate_gperf.Identity)"/>
+  </Target>
+  <PropertyGroup>
+    <ComputeLinkInputsTargets>$(ComputeLinkInputsTargets);Computegenerate_gperfOutput;</ComputeLinkInputsTargets>
+    <ComputeLibInputsTargets>$(ComputeLibInputsTargets);Computegenerate_gperfOutput;</ComputeLibInputsTargets>
+  </PropertyGroup>
+  <Target Condition="'@(generate_gperf)' != ''" Name="Computegenerate_gperfOutput">
+    <ItemGroup>
+      <generate_gperfDirsToMake Condition="'@(generate_gperf)' != '' and '%(generate_gperf.ExcludedFromBuild)' != 'true'" Include="%(generate_gperf.Outputs)"/>
+      <Link Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" Include="%(generate_gperfDirsToMake.Identity)"/>
+      <Lib Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" Include="%(generate_gperfDirsToMake.Identity)"/>
+      <ImpLib Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" Include="%(generate_gperfDirsToMake.Identity)"/>
+    </ItemGroup>
+    <MakeDir Directories="@(generate_gperfDirsToMake-&gt;'%(RootDir)%(Directory)')"/>
+  </Target>
+  <Target AfterTargets="$(generate_re2cAfterTargets)" BeforeTargets="$(generate_re2cBeforeTargets)" Condition="'@(generate_re2c)' != ''" DependsOnTargets="$(generate_re2cDependsOn);Computegenerate_re2cOutput" Inputs="%(generate_re2c.Identity);%(generate_re2c.AdditionalDependencies);$(MSBuildProjectFile)" Name="_generate_re2c" Outputs="%(generate_re2c.Outputs)">
+    <ItemGroup Condition="'@(SelectedFiles)' != ''">
+      <generate_re2c Condition="'%(Identity)' != '@(SelectedFiles)'" Remove="@(generate_re2c)"/>
+    </ItemGroup>
+    <ItemGroup>
+      <generate_re2c_inputs Include="%(generate_re2c.AdditionalDependencies)"/>
+    </ItemGroup>
+    <ItemGroup>
+      <generate_re2c_tlog Condition="'%(generate_re2c.Outputs)' != '' and '%(generate_re2c.ExcludedFromBuild)' != 'true'" Include="%(generate_re2c.Outputs)">
+        <Source>@(generate_re2c, &apos;|&apos;)</Source>
+        <Inputs>@(generate_re2c_inputs -&gt; &apos;%(Fullpath)&apos;, &apos;;&apos;)</Inputs>
+      </generate_re2c_tlog>
+    </ItemGroup>
+    <Message Importance="High" Text="%(generate_re2c.ExecutionDescription)"/>
+    <WriteLinesToFile Condition="'@(generate_re2c_tlog)' != '' and '%(generate_re2c_tlog.ExcludedFromBuild)' != 'true'" File="$(IntDir)$(ProjectName).write.1.tlog" Lines="^%(generate_re2c_tlog.Source);@(generate_re2c_tlog-&gt;'%(Fullpath)')"/>
+    <WriteLinesToFile Condition="'@(generate_re2c_tlog)' != '' and '%(generate_re2c_tlog.ExcludedFromBuild)' != 'true'" File="$(IntDir)$(ProjectName).read.1.tlog" Lines="^%(generate_re2c_tlog.Source);%(generate_re2c_tlog.Inputs)"/>
+    <generate_re2c AdditionalOptions="%(generate_re2c.AdditionalOptions)" CommandLineTemplate="%(generate_re2c.CommandLineTemplate)" Condition="'@(generate_re2c)' != '' and '%(generate_re2c.ExcludedFromBuild)' != 'true'" Inputs="%(generate_re2c.Identity)"/>
+  </Target>
+  <PropertyGroup>
+    <ComputeLinkInputsTargets>$(ComputeLinkInputsTargets);Computegenerate_re2cOutput;</ComputeLinkInputsTargets>
+    <ComputeLibInputsTargets>$(ComputeLibInputsTargets);Computegenerate_re2cOutput;</ComputeLibInputsTargets>
+  </PropertyGroup>
+  <Target Condition="'@(generate_re2c)' != ''" Name="Computegenerate_re2cOutput">
+    <ItemGroup>
+      <generate_re2cDirsToMake Condition="'@(generate_re2c)' != '' and '%(generate_re2c.ExcludedFromBuild)' != 'true'" Include="%(generate_re2c.Outputs)"/>
+      <Link Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" Include="%(generate_re2cDirsToMake.Identity)"/>
+      <Lib Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" Include="%(generate_re2cDirsToMake.Identity)"/>
+      <ImpLib Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" Include="%(generate_re2cDirsToMake.Identity)"/>
+    </ItemGroup>
+    <MakeDir Directories="@(generate_re2cDirsToMake-&gt;'%(RootDir)%(Directory)')"/>
+  </Target>
+</Project>

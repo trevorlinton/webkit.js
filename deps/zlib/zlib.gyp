@@ -108,24 +108,5 @@
         }],
       ],
     },
-    {
-      'target_name': 'zip',
-      'type': 'static_library',
-      'dependencies': [
-        'minizip',
-        '../../base/base.gyp:base',
-      ],
-      'include_dirs': [
-        '../..',
-      ],
-      'sources': [
-        'google/zip.cc',
-        'google/zip.h',
-        'google/zip_internal.cc',
-        'google/zip_internal.h',
-        'google/zip_reader.cc',
-        'google/zip_reader.h',
-      ],
-    },
   ],
 }

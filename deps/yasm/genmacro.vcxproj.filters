@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{8A6F5E6E-316F-22D4-1547-253B04CB32E7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm">
+      <UniqueIdentifier>{29BFAA90-E991-FB51-4945-FD2FD72C0BC6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\tools">
+      <UniqueIdentifier>{A0946190-5491-4D66-7E51-19400E36F078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\patched-yasm\tools\genmacro">
+      <UniqueIdentifier>{D5717C13-94BF-5BC1-71BF-6AF25B6CD8BC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="yasm.gyp"/>
+    <ClCompile Include="source\patched-yasm\tools\genmacro\genmacro.c">
+      <Filter>source\patched-yasm\tools\genmacro</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -96,7 +96,7 @@
             '.',
           ],
           'dependencies': [
-            '../libxml/libxml.gyp:libxml',
+            '../libxml2/libxml.gyp:libxml',
           ],
           'direct_dependent_settings': {
             'defines': [
