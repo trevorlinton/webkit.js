@@ -69,56 +69,55 @@ Building
 
 **Requirements**
 
-* MacOS X Lion with Xcode 4+
-* Emscripten 1.8.2+
+* Xcode/Visual Studio or GCC toolchain
+* Cygwin (Windows only, see: http://dev.chromium.org/developers/how-tos/cygwin)
+* Command Line Utilities for Xcode (It's an optional download in the Xcode prefs, MacOSX only)
+* Depot Tools (See: http://dev.chromium.org/developers/how-tos/install-depot-tools)
+* Git
+* Emscripten 1.8.2+ 
 * At least 16GB of free space (seriously)
 * At least 4GB of RAM
 
 **Building webkit.js step-by-step**
 
-* Clone the repo.
-* Ensure you are on the **"build-system" branch** and not the master and run:
+* Make sure you all of the requierments above.
+* Write the following into a file named ```.gclient``` into your new repo.
 
 ```
-git checkout build-system
+solutions = [
+  { "name"        : ".",
+    "url"         : "https://github.com/trevorlinton/webkit.js.git",
+    "deps_file"   : ".DEPS.git",
+    "managed"     : True,
+    "custom_deps" : {
+    },
+    "safesync_url": "",
+  },
+]
 ```
-* In a terminal run:
-
+* Note, you should change the git repo URL if you have forked this. 
+* Open a terminal (or cygwin) and navigate to your folder, run:
 ```
-cp -pa ./WebKitJS/tools/EmscriptenXcode.xcplugin /Applications/Xcode.app/Contents/PlugIns/EmscriptenXcode.plugin 
-
-vim /Applications/Xcode.app/Contents/PlugIns/EmscriptenXcode.xcplugin/Contents/Resources/GCC\ 4.5.xcspec
+gclient sync
 ```
-* Modify line 35 and set ExecPath to the path of em++ included with Emscripten.
-* Then run:
-
+* If your on windows execute:
 ```
-vim WebKit/Source/WebCore/Configurations/Base.xcconfig
+export GYP_GENERATORS=msvs,ninja
 ```
-* Replace "EMSCRIPTEN_SYSTEM" with the path to the system headers for emscripten.
-* Open WebKit.xcworkspace in Xcode
-* Change the Schema to "WebcoreJS" and make sure you build in Release (some systems Normal), not Debug. Hit Play and get some coffee or go do some chores.
-* Your linking will most likely fail.  If so, just run the terminal command:
-
+* For MacOSX execute:
 ```
-em++ -r -isysroot /Path/To/Emscripten/1.8.2/system /Path/To/Your/WebKitBuild/*.o \ 
--std=c++11 -s FULL_ES2=1 -O2 -stdlib=libc++ -s LINKABLE=1 -o /Path/To/Your/WebKitBuild/webkit.js
+export GYP_GENERATORS=xcode,ninja
 ```
-
-* You can also create individual js files for each class in WebKit to ease debugging. Run:
-
+* For all other platforms, execute:
 ```
-find . -name "*.o" | xargs -I {} em++ -isysroot \ 
-/Path/To/Your/Emscripten/1.8.2/system {} -std=c++11 \
--s FULL_ES2=1 -O2 -stdlib=libc++ -s LINKABLE=1 \
--s SIDE_MODULE=1 -o /Some/Folder/For/Output/{}.js
+export GYP_GENERATORS=ninja
 ```
-
-**Troubleshooting**
-
-* If Xcode reports that it cannot compile because of an unrecognized SDK (or no SDK) you'll have to manually add emscripten as an allowable SDK to Xcode.  Unfortunately I forgot how I did this, however some people have reported that building off of the regular 10.8 SDK works fine, not advisable but give it a go.
-
-* If the link fails and you don't want to use the above shell command its most likely because of extrenous arguments into the linker that Xcode is providing, you'll need to remove -arch x64_86 -F -framework and export symbol arguments that may be passed into the linker.  You can do this by modifying the Xcode Emscripten plugin to ignore specific linker arguments, unfortunately individual Xcode preferences make it difficult to provide step by step instructions to prevent this. The new build system will fix this issue though. 
+* Finally execute:
+```
+./build/config.sh
+```
+* You should now have project files built for your platform. In MacOSX you can open build/all.xcodeproj, or in windows build/all.vcproj. 
+* Compiling, execute: ```ninja -C build/out/Default```
 
 Contributing
 --------------
