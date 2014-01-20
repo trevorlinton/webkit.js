@@ -20,9 +20,9 @@ deps = {
     'deps/ffmpeg':'https://github.com/trevorlinton/FFmpeg.git',
     'deps/icu':'https://github.com/trevorlinton/icu4c.git',
     'deps/libjpeg_turbo':'https://github.com/trevorlinton/libjpeg-turbo.git',
-    'deps/skia':'https://skia.googlesource.com/skia.git',
+    'deps/skia':'https://github.com/trevorlinton/skia.git',
     'deps/freetype2':Var('google_url') + '/src/third_party/freetype2.git',
-    'deps/libxml2':Var('libxml_url'),
+    'deps/libxml2':'https://github.com/trevorlinton/libxml2.git',
     'tools/deps2git':Var('google_url') + '/tools/deps2git.git',
     'tools/gyp':Var('google_url') + '/../external/gyp.git',
 }
@@ -63,10 +63,7 @@ skip_child_includes = [
 hooks = [
     {
     'action':
-         [
-    'python',
-    'src/build/gyp_webkit.js'
-],
+         ['build/config.sh'],
     'pattern':
          '.',
     'name':
