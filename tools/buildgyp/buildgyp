@@ -1,0 +1,126 @@
+#!/usr/bin/node
+
+var compiler = "/usr/bin/clang";
+var compileropts = [];
+
+var undefined_symbols = 'Undefined symbols for architecture';
+var maybe_you_meant = "(maybe you meant: ";
+var implict_main_module = "implicit entry/start for main executable";
+
+utils.exec = function (execpath,args,output,error,exit) {
+	var child = require('child_process').spawn(execpath,args,{detached:false});
+		child.stderr.on('data',error);
+		child.stdout.on('data',output);
+		child.on('exit',exit);
+		child.on('error',error);
+	if(!ischild) child.unref();
+}
+
+utils.preprocess = function (input,out) {
+	var execparam = [compiler];
+	execparam.push(fname);
+	execparam.concat(compileropts());
+	execparam.push(input);
+
+	var output;
+	exec(execparam, function(e) {
+		output = output + e;
+	}.bind(this),
+	function(e) {
+		throw new e;
+	}.bind(this),
+	function(e) {
+		utils.write(out,output);
+	}.bind(this));
+}
+utils.read = function(file) {
+	return require('fs').readFileSync(file);
+}
+utils.interpret_unit_tests = function() {
+	var p = read('test.c');
+	var d = utils.interpret(p);
+	console.assert(d.error == 'undefined_symbols');
+
+	console.assert(typeof(d.symbols["_crc32"] == 'object');
+    console.assert(d.symbols["_crc32"].referenced_from[0] == '_png_reset_crc');
+    console.assert(d.symbols["_crc32"].referenced_from[1] == '_png_calculate_crc');
+
+  	console.assert(typeof(d.symbols["_inflateReset"]) == 'object');
+    console.assert(d.symbols["_inflateReset"].referenced_from[0] == '_png_reset_zstream');
+
+  	console.assert(typeof(d.symbols["_main"]) == 'object');
+    console.assert(d.symbols["_main"].warnings[0] == "implicit_main_module");
+
+  	console.assert(typeof(d.symbols["_png_create_struct"]) == 'object');
+    console.assert(d.symbols["_png_create_struct"].referenced_from[0] == '_png_info_init_3');
+
+  	console.assert(typeof(d.symbols["_png_create_struct_2"]) == 'object');
+    console.assert(d.symbols["_png_create_struct_2"].referenced_from[0] == '_png_create_info_struct');
+
+  	console.assert(typeof(d.symbols["_png_destroy_struct"]) == 'object');
+    console.assert(d.symbols["_png_destroy_struct"].referenced_from[0] == '_png_info_init_3');
+
+  	console.assert(typeof(d.symbols["_png_destroy_struct_2"]) == 'object');
+    console.assert(d.symbols["_png_destroy_struct_2"].referenced_from[0] == '_png_destroy_info_struct');
+
+  	console.assert(typeof(d.symbols["_png_error"]) == 'object');
+    console.assert(d.symbols["_png_error"].referenced_from[0] == '_png_set_sig_bytes');
+    console.assert(d.symbols["_png_error"].referenced_from[1] == '_png_check_IHDR');
+
+  	console.assert(typeof(d.symbols["_png_free"]) == 'object');
+    console.assert(d.symbols["_png_free"].referenced_from[0] == '_png_zfree');
+    console.assert(d.symbols["_png_free"].referenced_from[1] == '_png_info_destroy');
+  	console.assert(d.symbols["_png_free"].referenced_from[2] == '_png_free_data');
+    console.assert(d.symbols["_png_free"].did_you_mean[0] == '_png_free_data')
+
+  	console.assert(typeof(d.symbols["_png_malloc"]) == 'object');
+    console.assert(d.symbols["_png_malloc"].referenced_from[0] == '_png_zalloc');
+    console.assert(d.symbols["_png_malloc"].referenced_from[1] == '_png_convert_to_rfc1123');
+
+  	console.assert(typeof(d.symbols["_png_warning"]) == 'object');
+    console.assert(d.symbols["_png_warning"].referenced_from[0] == '_png_zalloc');
+    console.assert(d.symbols["_png_warning"].referenced_from[1] == '_png_data_freer');
+    console.assert(d.symbols["_png_warning"].referenced_from[2] == '_png_check_cHRM_fixed');
+    console.assert(d.symbols["_png_warning"].referenced_from[3] == '_png_check_IHDR');
+
+	console.assert(d.symb)
+}
+
+utils.interpret = function(compiledata) {
+	var data = compiledata.split('\n');
+	var return_data= {};
+
+	for(var i=0; i < data.length; i++) {
+		if(data[i].trim().substring(0,undefined_symbols.length) == undefined_symbols)
+		{
+			var symbol;
+			return_data.error = "undefined_symbols";
+
+			for(i++; i < data.length; i++) {
+				var line = data[i].trim();
+				if(line[0] == '"') {
+					symbol = line.substring(1,line.indexOf('"',1));
+					return_data.symbols[symbol] = {referenced_from:[],did_you_mean:[],warnings:[]};
+				} else if(line[0] == '_') {
+					return_data.symbols[symbol].referenced_from.push(line.substring(0,line.indexOf(0,' '));
+				} else if(line[0] == '(') {
+					return_data.symbols[symbol].did_you_mean.push(line.substring(maybe_you_meant.length,line.indexOf(')')-maybe_you_meant.length))
+				} else if(line == implict_main_module) {
+					return_data.symbols[symbol].warnings.push("implicit_main_module");
+				}
+			}
+		}
+	}
+
+	return return_data;
+}
+
+## Startup?
+if(process.argv.indexOf("--unit-tests")) {
+	utils.interpret_unit_tests();
+} else {
+	console.log("build-inspector [--unit-tests]");
+}
+
+
+

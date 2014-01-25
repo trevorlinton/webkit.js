@@ -277,7 +277,7 @@
 					/User/tlinton/Library/Emscripten/1.8.2/system,
 					.,
 					/User/tlinton/Library/Emscripten/1.8.2/system/include,
-					../libxml2/src/include,
+					../libxml2/include,
 				);
 				PRODUCT_NAME = xslt;
 				WARNING_CFLAGS = "-Wno-pointer-sign";

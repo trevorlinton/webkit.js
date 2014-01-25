@@ -100,7 +100,7 @@ sub compile()
     my $generateCode = shift;
 
     my $file = new IO::File;
-    open($file, $inputFile) or die "Failed to open file: $!";
+    open($file, $inputFile) or die "Failed to open file: $inputFile";
 
     my $InParser = InFilesParser->new();
     $InParser->parse($file, \&parameterHandler, \&itemHandler);
