@@ -80,7 +80,7 @@ Building
 
 **Building webkit.js step-by-step**
 
-* Make sure you all of the requierments above.
+* Make sure you meet all of the requirements above.
 * Write the following into a file named ```.gclient``` into your new repo.
 
 ```
