@@ -1,3 +1,11 @@
+./build/Release
+./build/Debug
+/build/Release
+/build/Debug
+./webkit-docs
+/webkit-docs
+/docs-webkit
+./docs-webkit
 ./deps/WebKit/WebKitBuild/
 ./build/out/
 /deps/WebKit/WebKitBuild/

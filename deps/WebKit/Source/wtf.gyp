@@ -1,7 +1,7 @@
 {
   'includes': [
     '../../../build/features.gypi',
-    'WTF/wtf.gypi',
+    'WTF/wtf/wtf.gypi',
   ],
   'targets': [
     {

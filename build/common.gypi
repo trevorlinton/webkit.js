@@ -36,5 +36,70 @@
 		'component':'static_library',
 		'use_icu':0,
 		'arm_version':0,
-	}
+	},
+
+## Default Targets & Configurations ##
+  'target_defaults': {
+    'default_configuration': 'Release',
+    'configurations': {
+      'Debug': {
+        'defines': [ 'DEBUG', '_DEBUG' ],
+        'msvs_settings': {
+          'VCCLCompilerTool': {
+            'RuntimeLibrary': 1, 
+          },
+          'VCLinkerTool': {
+            'LinkTimeCodeGeneration': 1,
+            'OptimizeReferences': 2,
+            'EnableCOMDATFolding': 2,
+            'LinkIncremental': 1,
+            'GenerateDebugInformation': 'true',
+            'AdditionalLibraryDirectories': [
+            ]
+          }          
+        },
+        'xcode_settings': {
+          'GCC_GENERATE_DEBUGGING_SYMBOLS':'NO',
+          'GCC_DONT_INCLUDE_ARCH':'YES',
+          'OTHER_LDFLAGS': [
+          ],
+          'OTHER_CFLAGS': [
+            '-std=c++0x -include <(DEPTH)/deps/WebKit/Source/WebCore/WebCorePrefix.h -DTARGET_EMSCRIPTEN',
+          ]
+        }
+      },
+      'Release': {
+        'defines': [ 'NDEBUG'],
+        'msvs_settings': {
+          'VCCLCompilerTool': {
+            'RuntimeLibrary': 0,
+            'Optimization': 2,
+            'FavorSizeOrSpeed': 1,
+            'InlineFunctionExpansion': 2,
+            'WholeProgramOptimization': 'true',
+            'OmitFramePointers': 'true',
+            'EnableFunctionLevelLinking': 'true',
+            'EnableIntrinsicFunctions': 'true'            
+          },
+          'VCLinkerTool': {
+            'LinkTimeCodeGeneration': 1,
+            'OptimizeReferences': 2,
+            'EnableCOMDATFolding': 2,
+            'LinkIncremental': 1,
+            'AdditionalLibraryDirectories': [
+            ]            
+          }          
+        },
+        'xcode_settings': {
+          'GCC_GENERATE_DEBUGGING_SYMBOLS':'NO',
+          'GCC_DONT_INCLUDE_ARCH':'YES',
+          'OTHER_LDFLAGS': [
+          ],
+          'OTHER_CFLAGS': [
+            '-std=c++0x -include <(DEPTH)/deps/WebKit/Source/WebCore/WebCorePrefix.h -DTARGET_EMSCRIPTEN',
+          ]
+        }
+      }
+    }  
+  }
 }

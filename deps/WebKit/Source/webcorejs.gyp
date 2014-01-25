@@ -1,9 +1,9 @@
 {
   'includes': [
-    '../../../build/features.gypi',
-    'WebCore/Modules/modules.gypi',
+    'features.gypi',
+    #'WebCore/Modules/modules.gypi',
     #'WebCore/bindings/bindings.gypi',
-    'WebCore/webcorejs.gypi'
+    'WebCore/sources.gypi'
     #'core.gypi',
   ],
 
@@ -24,111 +24,6 @@
   },
 
   'targets': [
-    {
-      'target_name': 'webcore_derived',
-      'type': 'static_library',
-      'hard_dependency': 1,
-      'dependencies': [
-        'webcore_prerequisites',
-        #'WebCore/bindings/derived_sources.gyp:bindings_derived_sources',
-        'webcorejs_derived_sources.gyp:make_derived_sources',
-        'wtf.gyp:wtf',
-        '<(DEPTH)/deps/skia/gyp/skia_lib.gyp:skia_lib',
-        '<(DEPTH)/deps/iccjpeg/iccjpeg.gyp:iccjpeg',
-        '<(DEPTH)/deps/libpng/libpng.gyp:libpng',
-        # No support for decoding new image formats.
-        ##'<(DEPTH)/deps/libwebp/libwebp.gyp:libwebp',
-        '<(DEPTH)/deps/libxml2/libxml.gyp:libxml',
-        '<(DEPTH)/deps/libxslt/libxslt.gyp:libxslt',
-        '<(DEPTH)/deps/qcms/qcms.gyp:qcms',
-        # No SQL support, not sure on the URL bindings and use turbo jpeg.
-        #'<(DEPTH)/deps/sqlite/sqlite.gyp:sqlite',
-        #'<(DEPTH)/deps/url/url.gyp:url_lib',
-        '<(DEPTH)/deps/libjpeg_turbo/libjpeg.gyp:libjpeg',
-      ],
-      'include_dirs': [
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/bindings',
-        '<@(webcore_include_dirs)',
-        # ---- POSSIBLE MISSING BRIDGE CODE TO JSTYPES ----
-        #'modules/mediastream',
-        #'modules/speech',
-        'dom',
-        'html',
-        'html/shadow',
-        #'inspector',
-        'page',
-        'svg',
-      ],
-      'sources': [
-        # These files include all the .cpp files generated from the .idl files
-        # in webcore_files.
-        #'<@(derived_sources_aggregate_files)',
-        #'<@(bindings_files)',
-
-        # Additional .cpp files for HashTools.h
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/ColorData.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/CSSPropertyNames.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/CSSValueKeywords.cpp',
-
-        # Additional .cpp files from make_derived_sources actions.
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/HTMLElementFactory.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/HTMLNames.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/FetchInitiatorTypeNames.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/CalendarPicker.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/ColorSuggestionPicker.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/Event.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/EventHeaders.h',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/EventInterfaces.h',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/EventTargetHeaders.h',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/EventTargetInterfaces.h',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/PickerCommon.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/UserAgentStyleSheetsData.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/XLinkNames.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/XMLNSNames.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/XMLNames.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/SVGNames.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/MathMLNames.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/FontFamilyNames.cpp',
-
-        # Generated from HTMLEntityNames.in
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/HTMLEntityTable.cpp',
-
-        # Generated from RuntimeEnabledFeatures.in
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/RuntimeEnabledFeatures.cpp',
-
-        # Generated from CSSParser-in.cpp
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/CSSParser.cpp',
-
-        # Additional .cpp files from the make_derived_sources rules.
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/CSSGrammar.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/XPathGrammar.cpp',
-
-        # Additional .cpp files from the inspector_protocol_sources list.
-        #'<(SHARED_INTERMEDIATE_DIR)/WebCore/InspectorFrontend.cpp',
-        #'<(SHARED_INTERMEDIATE_DIR)/WebCore/InspectorBackendDispatcher.cpp',
-        #'<(SHARED_INTERMEDIATE_DIR)/WebCore/InspectorTypeBuilder.cpp',
-
-        # Additional .cpp files from the inspector_instrumentation_sources list.
-        #'<(SHARED_INTERMEDIATE_DIR)/WebCore/InspectorCanvasInstrumentationInl.h',
-        #'<(SHARED_INTERMEDIATE_DIR)/WebCore/InspectorConsoleInstrumentationInl.h',
-        #'<(SHARED_INTERMEDIATE_DIR)/WebCore/InspectorDatabaseInstrumentationInl.h',
-        #'<(SHARED_INTERMEDIATE_DIR)/WebCore/InspectorInstrumentationInl.h',
-        #'<(SHARED_INTERMEDIATE_DIR)/WebCore/InspectorOverridesInl.h',
-        #'<(SHARED_INTERMEDIATE_DIR)/WebCore/InstrumentingAgentsInl.h',
-        #'<(SHARED_INTERMEDIATE_DIR)/WebCore/InspectorInstrumentationImpl.cpp',
-
-        # Additional .cpp files for SVG.
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/SVGElementFactory.cpp',
-        
-        # Generated from make_style_shorthands.py
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/StylePropertyShorthand.cpp',
-
-        # Generated from make_style_builder.py
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/StyleBuilder.cpp',
-        '<(SHARED_INTERMEDIATE_DIR)/WebCore/StyleBuilderFunctions.cpp',
-      ],
-    },
     {
       # We'll soon split libwebcore in multiple smaller libraries.
       # webcore_prerequisites will be the 'base' target of every sub-target.
@@ -265,7 +160,7 @@
         'webcore_prerequisites',
       ],
       'sources': [
-        '<@(webcore_files)',
+        '<@(webcore_rendering_files)',
       ],
       'sources/': [
         ['exclude', '.*'],
@@ -278,47 +173,47 @@
         ['include', 'rendering/.*Chromium.*\\.(cpp|mm?)$'],
       ],
     },
-    {
-      'target_name': 'webcore_remaining',
-      'type': 'static_library',
-      'dependencies': [
-        'webcore_prerequisites',
-      ],
-      'sources': [
-        '<@(webcore_files)',
-      ],
-      'sources/': [
-        ['exclude', 'rendering/'],
+    #{
+    #  'target_name': 'webcore_remaining',
+    #  'type': 'static_library',
+    #  'dependencies': [
+    #    'webcore_prerequisites',
+    #  ],
+    #  'sources': [
+    #    '<@(webcore_files)',
+    #  ],
+    #  'sources/': [
+    #    ['exclude', 'rendering/'],
 
         # FIXME: Figure out how to store these patterns in a variable.
-        ['exclude', '(cf|cg|mac|opentype|svg|win)/'],
-        ['exclude', '(?<!Chromium)(CF|CG|Mac|OpenType|Win)\\.(cpp|mm?)$'],
-      ],
-    },
+        #   ['exclude', '(cf|cg|mac|opentype|svg|win)/'],
+        #['exclude', '(?<!Chromium)(CF|CG|Mac|OpenType|Win)\\.(cpp|mm?)$'],
+        #],
+        #},
     {
       'target_name': 'webcore',
       'type': 'none',
       'dependencies': [
         'webcore_dom',
         'webcore_html',
-        'webcore_platform',
+        #'webcore_platform',
         'webcore_platform_geometry',
-        'webcore_remaining',
+        #'webcore_remaining',
         'webcore_rendering',
         'webcore_svg',
         # Exported.
         'webcore_derived',
         'wtf.gyp:wtf',
-        '<(DEPTH)/deps/skia/gyp/skia_lib.gyp:skia_lib',
-        '<(DEPTH)/deps/qcms/qcms.gyp:qcms',
+        #'<(DEPTH)/deps/skia/gyp/skia_lib.gyp:skia_lib',
+        #'<(DEPTH)/deps/qcms/qcms.gyp:qcms',
         #'<(DEPTH)/url/url.gyp:url_lib',
         #'<(DEPTH)/v8/tools/gyp/v8.gyp:v8',
       ],
       'export_dependent_settings': [
         'wtf.gyp:wtf',
-        'webcore_derived',
-        '<(DEPTH)/deps/skia/gyp/skia_lib.gyp:skia_lib',
-        '<(DEPTH)/deps/qcms/qcms.gyp:qcms',
+        #'webcore_derived',
+        #'<(DEPTH)/deps/skia/gyp/skia_lib.gyp:skia_lib',
+        #'<(DEPTH)/deps/qcms/qcms.gyp:qcms',
         #'<(DEPTH)/url/url.gyp:url_lib',
         #'<(DEPTH)/v8/tools/gyp/v8.gyp:v8',
       ],
