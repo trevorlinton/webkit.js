@@ -3,7 +3,7 @@ webkit.js
 
 An experimental port of WebKit (Specifically, webcore) to JavaScript aimed at running in both node.js and browsers. This is currently non-functional and is intended for developers and contributors.
 
-Discussions & Questions: https://groups.google.com/forum/#!forum/webkitjs
+See the [webkit.js Google Group](https://groups.google.com/forum/#!forum/webkitjs) for Discussions & Questions
 
 Goals
 ----
@@ -11,14 +11,14 @@ Goals
   - Produce a renderer in pure JavaScript that supports rendering to WebGL/Canvas contexts.
   - Develop frameworks for image/webpage capturing and automated web testing (similar to PhantomJS).
   - Develop a framework for prototyping CSS filters, HTML elements and attributes.
-  - Experimental harness for pure javascript rendering performance.
-  - Develop a javascript based browser in nodejs (just for fun).
+  - Experimental harness for pure JavaScript rendering performance.
+  - Develop a JavaScript based browser in nodejs (just for fun).
 
 Status
 ----
 
 **Toolchain**
-- (BAD) Currently will only compile with Emscripten 1.8.2 on MacOSX in Xcode. 
+- (BAD) Currently will only compile with Emscripten 1.8.2 on Mac OS X in Xcode. 
 
 **Building**
 - (GOOD) Currently the latest nightly WebKit builds.
@@ -27,7 +27,7 @@ Status
 - (HORRIFIC) There are plenty of linking issues to be addressed; however visibility into this is minimal. Currently the system links but has quite a few unresolved symbols that will cause the renderer to crash. 
 
 **Tests**
-- (NON EXISTENT) Tests for javascript<->C++ needs to be developed (non-layout related code)
+- (NON EXISTENT) Tests for JavaScript<->C++ needs to be developed (non-layout related code)
 - (BAD) Unit tests that integrate with WebKit's LayoutTests
 
 **Supported Features**
@@ -70,9 +70,9 @@ Building
 **Requirements**
 
 * Xcode/Visual Studio or GCC toolchain
-* Cygwin (Windows only, see: http://dev.chromium.org/developers/how-tos/cygwin)
-* Command Line Utilities for Xcode (It's an optional download in the Xcode prefs, MacOSX only)
-* Depot Tools (See: http://dev.chromium.org/developers/how-tos/install-depot-tools)
+* [Cygwin](http://dev.chromium.org/developers/how-tos/cygwin) (Windows only)
+* Command Line Utilities for Xcode (Mac OS X only, with `$ xcode-select --install`)
+* [Depot Tools](http://dev.chromium.org/developers/how-tos/install-depot-tools)
 * Git
 * Emscripten 1.8.2+ 
 * At least 16GB of free space (seriously)
@@ -104,7 +104,7 @@ gclient sync
 ```
 export GYP_GENERATORS=msvs,ninja
 ```
-* For MacOSX execute:
+* For Mac OS X execute:
 ```
 export GYP_GENERATORS=xcode,ninja
 ```
@@ -116,7 +116,7 @@ export GYP_GENERATORS=ninja
 ```
 ./build/config.sh
 ```
-* You should now have project files built for your platform. In MacOSX you can open build/all.xcodeproj, or in windows build/all.vcproj. 
+* You should now have project files built for your platform. In Mac OS X you can open build/all.xcodeproj, or in windows build/all.vcproj. 
 * Compiling, execute: ```ninja -C build/out/Default```
 
 Contributing
@@ -157,18 +157,16 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * Identify what key import symbols may require significant retooling.
 * **DONE** ~~Integrate libxml.js (rather than depending on browser pass through decoding to a buffer)~~
 * **DONE** ~~Integrate libxslt.js (currently unsupported)~~
-* **DONE** ~~Integrate ffmpeg.js ?.... pure javascript video support?..... .~~
+* **DONE** ~~Integrate ffmpeg.js ?.... pure JavaScript video support?..... .~~
 * **DONE** ~~Integrate libpng.js (rather than depending on browser pass through decoding to a buffer)~~
 * **DONE** ~~Integrate libjpeg-turbo.js/libjpeg.js (rather than depending on browser pass through decoding to a buffer)~~
 * **DONE** ~~Integrate zlib (rather than depending on browser pass through decoding to a buffer)~~
-* Use embind/cppfilter.js to automatically generate all the WebCore C++ interfaces (derived from WebCore.exp.in) directly into javascript, then simply reuse existing webcore demos/examples.
-* Generate a webkit.js API based on the WebCore C++ interfaces exported to javascript with embind/cppfilter.js.
+* Use embind/cppfilter.js to automatically generate all the WebCore C++ interfaces (derived from WebCore.exp.in) directly into JavaScript, then simply reuse existing webcore demos/examples.
+* Generate a webkit.js API based on the WebCore C++ interfaces exported to JavaScript with embind/cppfilter.js.
 
 
 License
 ----
-BSD License (see http://www.webkit.org/coding/bsd-license.html)
-Use of this source code is governed by a BSD-style license that can be
-found in the LICENSE files contained in the root of the respective source code.
+[BSD License](http://www.webkit.org/coding/bsd-license.html). Use of this source code is governed by a BSD-style license that can be found in the LICENSE files contained in the root of the respective source code.
 
 &copy; True Interactions 2014
