@@ -21,9 +21,14 @@
 #include "config.h"
 #include "JSHTMLEmbedElement.h"
 
+#include "ExceptionCode.h"
 #include "HTMLEmbedElement.h"
 #include "HTMLNames.h"
+#include "JSDOMBinding.h"
+#include "JSSVGDocument.h"
+#include "SVGDocument.h"
 #include "URL.h"
+#include <runtime/Error.h>
 #include <runtime/JSString.h>
 #include <wtf/GetPtr.h>
 
@@ -78,15 +83,22 @@ bool JSHTMLEmbedElementConstructor::getOwnPropertySlot(JSObject* object, ExecSta
 
 static const HashTableValue JSHTMLEmbedElementPrototypeTableValues[] =
 {
+    { "getSVGDocument", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsHTMLEmbedElementPrototypeFunctionGetSVGDocument), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
-static const HashTable JSHTMLEmbedElementPrototypeTable = { 1, 0, JSHTMLEmbedElementPrototypeTableValues, 0 };
+static const HashTable JSHTMLEmbedElementPrototypeTable = { 2, 1, JSHTMLEmbedElementPrototypeTableValues, 0 };
 const ClassInfo JSHTMLEmbedElementPrototype::s_info = { "HTMLEmbedElementPrototype", &Base::s_info, &JSHTMLEmbedElementPrototypeTable, 0, CREATE_METHOD_TABLE(JSHTMLEmbedElementPrototype) };
 
 JSObject* JSHTMLEmbedElementPrototype::self(VM& vm, JSGlobalObject* globalObject)
 {
     return getDOMPrototype<JSHTMLEmbedElement>(vm, globalObject);
+}
+
+bool JSHTMLEmbedElementPrototype::getOwnPropertySlot(JSObject* object, ExecState* exec, PropertyName propertyName, PropertySlot& slot)
+{
+    JSHTMLEmbedElementPrototype* thisObject = jsCast<JSHTMLEmbedElementPrototype*>(object);
+    return getStaticFunctionSlot<JSObject>(exec, JSHTMLEmbedElementPrototypeTable, thisObject, propertyName, slot);
 }
 
 const ClassInfo JSHTMLEmbedElement::s_info = { "HTMLEmbedElement", &Base::s_info, &JSHTMLEmbedElementTable, 0 , CREATE_METHOD_TABLE(JSHTMLEmbedElement) };
@@ -339,6 +351,23 @@ void setJSHTMLEmbedElementWidth(ExecState* exec, EncodedJSValue thisValue, Encod
 JSValue JSHTMLEmbedElement::getConstructor(VM& vm, JSGlobalObject* globalObject)
 {
     return getDOMConstructor<JSHTMLEmbedElementConstructor>(vm, jsCast<JSDOMGlobalObject*>(globalObject));
+}
+
+EncodedJSValue JSC_HOST_CALL jsHTMLEmbedElementPrototypeFunctionGetSVGDocument(ExecState* exec)
+{
+    JSValue thisValue = exec->hostThisValue();
+    JSHTMLEmbedElement* castedThis = jsDynamicCast<JSHTMLEmbedElement*>(thisValue);
+    if (!castedThis)
+        return throwVMTypeError(exec);
+    ASSERT_GC_OBJECT_INHERITS(castedThis, JSHTMLEmbedElement::info());
+    HTMLEmbedElement& impl = castedThis->impl();
+    ExceptionCode ec = 0;
+    if (!shouldAllowAccessToNode(exec, impl.getSVGDocument(ec)))
+        return JSValue::encode(jsNull());
+
+    JSC::JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.getSVGDocument(ec)));
+    setDOMException(exec, ec);
+    return JSValue::encode(result);
 }
 
 

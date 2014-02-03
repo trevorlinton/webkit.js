@@ -25,11 +25,9 @@
 #include "JSDOMURL.h"
 
 #include "DOMURL.h"
-#include "DOMURLMediaSource.h"
 #include "ExceptionCode.h"
 #include "JSBlob.h"
 #include "JSDOMBinding.h"
-#include "JSMediaSource.h"
 #include "URL.h"
 #include <runtime/Error.h>
 #include <wtf/GetPtr.h>

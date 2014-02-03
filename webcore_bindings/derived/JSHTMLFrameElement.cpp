@@ -23,12 +23,16 @@
 
 #include "DOMWindow.h"
 #include "Document.h"
+#include "ExceptionCode.h"
 #include "HTMLFrameElement.h"
 #include "HTMLNames.h"
 #include "JSDOMBinding.h"
 #include "JSDOMWindow.h"
 #include "JSDocument.h"
+#include "JSSVGDocument.h"
+#include "SVGDocument.h"
 #include "URL.h"
+#include <runtime/Error.h>
 #include <runtime/JSString.h>
 #include <wtf/GetPtr.h>
 
@@ -90,15 +94,22 @@ bool JSHTMLFrameElementConstructor::getOwnPropertySlot(JSObject* object, ExecSta
 
 static const HashTableValue JSHTMLFrameElementPrototypeTableValues[] =
 {
+    { "getSVGDocument", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsHTMLFrameElementPrototypeFunctionGetSVGDocument), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
-static const HashTable JSHTMLFrameElementPrototypeTable = { 1, 0, JSHTMLFrameElementPrototypeTableValues, 0 };
+static const HashTable JSHTMLFrameElementPrototypeTable = { 2, 1, JSHTMLFrameElementPrototypeTableValues, 0 };
 const ClassInfo JSHTMLFrameElementPrototype::s_info = { "HTMLFrameElementPrototype", &Base::s_info, &JSHTMLFrameElementPrototypeTable, 0, CREATE_METHOD_TABLE(JSHTMLFrameElementPrototype) };
 
 JSObject* JSHTMLFrameElementPrototype::self(VM& vm, JSGlobalObject* globalObject)
 {
     return getDOMPrototype<JSHTMLFrameElement>(vm, globalObject);
+}
+
+bool JSHTMLFrameElementPrototype::getOwnPropertySlot(JSObject* object, ExecState* exec, PropertyName propertyName, PropertySlot& slot)
+{
+    JSHTMLFrameElementPrototype* thisObject = jsCast<JSHTMLFrameElementPrototype*>(object);
+    return getStaticFunctionSlot<JSObject>(exec, JSHTMLFrameElementPrototypeTable, thisObject, propertyName, slot);
 }
 
 const ClassInfo JSHTMLFrameElement::s_info = { "HTMLFrameElement", &Base::s_info, &JSHTMLFrameElementTable, 0 , CREATE_METHOD_TABLE(JSHTMLFrameElement) };
@@ -462,6 +473,23 @@ void setJSHTMLFrameElementLocation(ExecState* exec, EncodedJSValue thisValue, En
 JSValue JSHTMLFrameElement::getConstructor(VM& vm, JSGlobalObject* globalObject)
 {
     return getDOMConstructor<JSHTMLFrameElementConstructor>(vm, jsCast<JSDOMGlobalObject*>(globalObject));
+}
+
+EncodedJSValue JSC_HOST_CALL jsHTMLFrameElementPrototypeFunctionGetSVGDocument(ExecState* exec)
+{
+    JSValue thisValue = exec->hostThisValue();
+    JSHTMLFrameElement* castedThis = jsDynamicCast<JSHTMLFrameElement*>(thisValue);
+    if (!castedThis)
+        return throwVMTypeError(exec);
+    ASSERT_GC_OBJECT_INHERITS(castedThis, JSHTMLFrameElement::info());
+    HTMLFrameElement& impl = castedThis->impl();
+    ExceptionCode ec = 0;
+    if (!shouldAllowAccessToNode(exec, impl.getSVGDocument(ec)))
+        return JSValue::encode(jsNull());
+
+    JSC::JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.getSVGDocument(ec)));
+    setDOMException(exec, ec);
+    return JSValue::encode(result);
 }
 
 

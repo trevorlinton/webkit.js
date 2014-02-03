@@ -36,6 +36,9 @@
 #include "SVGNames.h"
 
 #include "SVGAElement.h"
+#include "SVGAltGlyphElement.h"
+#include "SVGAltGlyphDefElement.h"
+#include "SVGAltGlyphItemElement.h"
 #include "SVGAnimateElement.h"
 #include "SVGAnimateColorElement.h"
 #include "SVGAnimateMotionElement.h"
@@ -46,14 +49,50 @@
 #include "SVGDefsElement.h"
 #include "SVGDescElement.h"
 #include "SVGEllipseElement.h"
+#include "SVGFEBlendElement.h"
+#include "SVGFEColorMatrixElement.h"
+#include "SVGFEComponentTransferElement.h"
+#include "SVGFECompositeElement.h"
+#include "SVGFEConvolveMatrixElement.h"
+#include "SVGFEDiffuseLightingElement.h"
+#include "SVGFEDisplacementMapElement.h"
+#include "SVGFEDistantLightElement.h"
+#include "SVGFEDropShadowElement.h"
+#include "SVGFEFloodElement.h"
+#include "SVGFEFuncAElement.h"
+#include "SVGFEFuncBElement.h"
+#include "SVGFEFuncGElement.h"
+#include "SVGFEFuncRElement.h"
+#include "SVGFEGaussianBlurElement.h"
+#include "SVGFEImageElement.h"
+#include "SVGFEMergeElement.h"
+#include "SVGFEMergeNodeElement.h"
+#include "SVGFEMorphologyElement.h"
+#include "SVGFEOffsetElement.h"
+#include "SVGFEPointLightElement.h"
+#include "SVGFESpecularLightingElement.h"
+#include "SVGFESpotLightElement.h"
+#include "SVGFETileElement.h"
+#include "SVGFETurbulenceElement.h"
+#include "SVGFilterElement.h"
+#include "SVGFontElement.h"
+#include "SVGFontFaceElement.h"
+#include "SVGFontFaceFormatElement.h"
+#include "SVGFontFaceNameElement.h"
+#include "SVGFontFaceSrcElement.h"
+#include "SVGFontFaceUriElement.h"
 #include "SVGForeignObjectElement.h"
 #include "SVGGElement.h"
+#include "SVGGlyphElement.h"
+#include "SVGGlyphRefElement.h"
+#include "SVGHKernElement.h"
 #include "SVGImageElement.h"
 #include "SVGLineElement.h"
 #include "SVGLinearGradientElement.h"
 #include "SVGMarkerElement.h"
 #include "SVGMaskElement.h"
 #include "SVGMetadataElement.h"
+#include "SVGMissingGlyphElement.h"
 #include "SVGMPathElement.h"
 #include "SVGPathElement.h"
 #include "SVGPatternElement.h"
@@ -75,6 +114,7 @@
 #include "SVGTSpanElement.h"
 #include "SVGUseElement.h"
 #include "SVGViewElement.h"
+#include "SVGVKernElement.h"
 #include "SVGUnknownElement.h"
 
 #include "Document.h"
@@ -92,6 +132,21 @@ typedef PassRefPtr<SVGElement> (*SVGConstructorFunction)(const QualifiedName&, D
 static PassRefPtr<SVGElement> aConstructor(const QualifiedName& tagName, Document& document, bool)
 {
     return SVGAElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> altglyphConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGAltGlyphElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> altglyphdefConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGAltGlyphDefElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> altglyphitemConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGAltGlyphItemElement::create(tagName, document);
 }
 
 static PassRefPtr<SVGElement> animateConstructor(const QualifiedName& tagName, Document& document, bool)
@@ -144,6 +199,166 @@ static PassRefPtr<SVGElement> ellipseConstructor(const QualifiedName& tagName, D
     return SVGEllipseElement::create(tagName, document);
 }
 
+static PassRefPtr<SVGElement> feblendConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEBlendElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fecolormatrixConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEColorMatrixElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fecomponenttransferConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEComponentTransferElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fecompositeConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFECompositeElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> feconvolvematrixConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEConvolveMatrixElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fediffuselightingConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEDiffuseLightingElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fedisplacementmapConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEDisplacementMapElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fedistantlightConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEDistantLightElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fedropshadowConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEDropShadowElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fefloodConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEFloodElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fefuncaConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEFuncAElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fefuncbConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEFuncBElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fefuncgConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEFuncGElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fefuncrConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEFuncRElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fegaussianblurConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEGaussianBlurElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> feimageConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEImageElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> femergeConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEMergeElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> femergenodeConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEMergeNodeElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> femorphologyConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEMorphologyElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> feoffsetConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEOffsetElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fepointlightConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFEPointLightElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fespecularlightingConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFESpecularLightingElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fespotlightConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFESpotLightElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fetileConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFETileElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> feturbulenceConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFETurbulenceElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> filterConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFilterElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fontConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFontElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fontfaceConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFontFaceElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fontfaceformatConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFontFaceFormatElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fontfacenameConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFontFaceNameElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fontfacesrcConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFontFaceSrcElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> fontfaceuriConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGFontFaceUriElement::create(tagName, document);
+}
+
 static PassRefPtr<SVGElement> foreignobjectConstructor(const QualifiedName& tagName, Document& document, bool)
 {
     return SVGForeignObjectElement::create(tagName, document);
@@ -152,6 +367,21 @@ static PassRefPtr<SVGElement> foreignobjectConstructor(const QualifiedName& tagN
 static PassRefPtr<SVGElement> gConstructor(const QualifiedName& tagName, Document& document, bool)
 {
     return SVGGElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> glyphConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGGlyphElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> glyphrefConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGGlyphRefElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> hkernConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGHKernElement::create(tagName, document);
 }
 
 static PassRefPtr<SVGElement> imageConstructor(const QualifiedName& tagName, Document& document, bool)
@@ -182,6 +412,11 @@ static PassRefPtr<SVGElement> maskConstructor(const QualifiedName& tagName, Docu
 static PassRefPtr<SVGElement> metadataConstructor(const QualifiedName& tagName, Document& document, bool)
 {
     return SVGMetadataElement::create(tagName, document);
+}
+
+static PassRefPtr<SVGElement> missingglyphConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGMissingGlyphElement::create(tagName, document);
 }
 
 static PassRefPtr<SVGElement> mpathConstructor(const QualifiedName& tagName, Document& document, bool)
@@ -289,6 +524,11 @@ static PassRefPtr<SVGElement> viewConstructor(const QualifiedName& tagName, Docu
     return SVGViewElement::create(tagName, document);
 }
 
+static PassRefPtr<SVGElement> vkernConstructor(const QualifiedName& tagName, Document& document, bool)
+{
+    return SVGVKernElement::create(tagName, document);
+}
+
 static NEVER_INLINE void populateSVGFactoryMap(HashMap<AtomicStringImpl*, SVGConstructorFunction>& map)
 {
     struct TableEntry {
@@ -298,6 +538,9 @@ static NEVER_INLINE void populateSVGFactoryMap(HashMap<AtomicStringImpl*, SVGCon
 
     static const TableEntry table[] = {
         { aTag, aConstructor },
+        { altGlyphTag, altglyphConstructor },
+        { altGlyphDefTag, altglyphdefConstructor },
+        { altGlyphItemTag, altglyphitemConstructor },
         { animateTag, animateConstructor },
         { animateColorTag, animatecolorConstructor },
         { animateMotionTag, animatemotionConstructor },
@@ -308,14 +551,50 @@ static NEVER_INLINE void populateSVGFactoryMap(HashMap<AtomicStringImpl*, SVGCon
         { defsTag, defsConstructor },
         { descTag, descConstructor },
         { ellipseTag, ellipseConstructor },
+        { feBlendTag, feblendConstructor },
+        { feColorMatrixTag, fecolormatrixConstructor },
+        { feComponentTransferTag, fecomponenttransferConstructor },
+        { feCompositeTag, fecompositeConstructor },
+        { feConvolveMatrixTag, feconvolvematrixConstructor },
+        { feDiffuseLightingTag, fediffuselightingConstructor },
+        { feDisplacementMapTag, fedisplacementmapConstructor },
+        { feDistantLightTag, fedistantlightConstructor },
+        { feDropShadowTag, fedropshadowConstructor },
+        { feFloodTag, fefloodConstructor },
+        { feFuncATag, fefuncaConstructor },
+        { feFuncBTag, fefuncbConstructor },
+        { feFuncGTag, fefuncgConstructor },
+        { feFuncRTag, fefuncrConstructor },
+        { feGaussianBlurTag, fegaussianblurConstructor },
+        { feImageTag, feimageConstructor },
+        { feMergeTag, femergeConstructor },
+        { feMergeNodeTag, femergenodeConstructor },
+        { feMorphologyTag, femorphologyConstructor },
+        { feOffsetTag, feoffsetConstructor },
+        { fePointLightTag, fepointlightConstructor },
+        { feSpecularLightingTag, fespecularlightingConstructor },
+        { feSpotLightTag, fespotlightConstructor },
+        { feTileTag, fetileConstructor },
+        { feTurbulenceTag, feturbulenceConstructor },
+        { filterTag, filterConstructor },
+        { fontTag, fontConstructor },
+        { font_faceTag, fontfaceConstructor },
+        { font_face_formatTag, fontfaceformatConstructor },
+        { font_face_nameTag, fontfacenameConstructor },
+        { font_face_srcTag, fontfacesrcConstructor },
+        { font_face_uriTag, fontfaceuriConstructor },
         { foreignObjectTag, foreignobjectConstructor },
         { gTag, gConstructor },
+        { glyphTag, glyphConstructor },
+        { glyphRefTag, glyphrefConstructor },
+        { hkernTag, hkernConstructor },
         { imageTag, imageConstructor },
         { lineTag, lineConstructor },
         { linearGradientTag, lineargradientConstructor },
         { markerTag, markerConstructor },
         { maskTag, maskConstructor },
         { metadataTag, metadataConstructor },
+        { missing_glyphTag, missingglyphConstructor },
         { mpathTag, mpathConstructor },
         { pathTag, pathConstructor },
         { patternTag, patternConstructor },
@@ -337,6 +616,7 @@ static NEVER_INLINE void populateSVGFactoryMap(HashMap<AtomicStringImpl*, SVGCon
         { tspanTag, tspanConstructor },
         { useTag, useConstructor },
         { viewTag, viewConstructor },
+        { vkernTag, vkernConstructor },
     };
 
     for (unsigned i = 0; i < WTF_ARRAY_LENGTH(table); ++i)

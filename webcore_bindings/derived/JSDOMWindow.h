@@ -169,6 +169,11 @@ JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionGetMatchedCSSRules
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionWebkitConvertPointFromPageToNode(JSC::ExecState*);
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionWebkitConvertPointFromNodeToPage(JSC::ExecState*);
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionPostMessage(JSC::ExecState*);
+JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionRequestAnimationFrame(JSC::ExecState*);
+JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionCancelAnimationFrame(JSC::ExecState*);
+JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionWebkitRequestAnimationFrame(JSC::ExecState*);
+JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionWebkitCancelAnimationFrame(JSC::ExecState*);
+JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionWebkitCancelRequestAnimationFrame(JSC::ExecState*);
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionAddEventListener(JSC::ExecState*);
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionRemoveEventListener(JSC::ExecState*);
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionDispatchEvent(JSC::ExecState*);

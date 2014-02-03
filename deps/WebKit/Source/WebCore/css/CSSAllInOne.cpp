@@ -24,7 +24,8 @@
  */
 
 // This all-in-one cpp file cuts down on template bloat to allow us to build our Windows release build.
- 
+#include "CSSValueKeywords.h"
+
 #include "CSSAspectRatioValue.cpp"
 #include "CSSBasicShapes.cpp"
 #include "CSSBorderImage.cpp"

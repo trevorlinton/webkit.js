@@ -195,6 +195,8 @@ JSC::EncodedJSValue jsCanvasRenderingContext2DWebkitLineDash(JSC::ExecState*, JS
 void setJSCanvasRenderingContext2DWebkitLineDash(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsCanvasRenderingContext2DWebkitLineDashOffset(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSCanvasRenderingContext2DWebkitLineDashOffset(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
+JSC::EncodedJSValue jsCanvasRenderingContext2DCurrentPath(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
+void setJSCanvasRenderingContext2DCurrentPath(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsCanvasRenderingContext2DFont(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSCanvasRenderingContext2DFont(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsCanvasRenderingContext2DTextAlign(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);

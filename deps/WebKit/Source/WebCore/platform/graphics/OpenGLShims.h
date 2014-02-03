@@ -23,8 +23,13 @@
 #if PLATFORM(NIX) && USE(OPENGL_ES_2)
 #include <GLES2/gl2.h>
 #else
+#if PLATFORM(JS)
+#include <GLES2/gl2.h>
+#include <GLES/gl.h>
+#else
 #include <GL/gl.h>
 #include <GL/glext.h>
+#endif
 #endif
 
 #if defined(GL_ES_VERSION_2_0)

@@ -277,6 +277,10 @@ static inline int cssyyerror(void*, const char*)
 
 %union { CSSParser::Location location; }
 %type <location> error_location
+%token WEBKIT_FILTER_RULE_SYM
+
+%type <rule> filter
+%destructor { if ($$) $$->deref(); } filter
 %%
 
 stylesheet:
@@ -366,6 +370,8 @@ valid_rule:
   | namespace { $$ = nullptr; }
   | import
   | region
+  | filter
+
   ;
 
 rule:
@@ -408,6 +414,15 @@ block_valid_rule:
   | font_face
   | media
   | keyframes
+
+
+
+
+
+
+
+  | filter
+
   ;
 
 block_rule: block_valid_rule | invalid_rule { $$ = nullptr; } | invalid_at { $$ = nullptr; } | namespace { $$ = nullptr; } | import | region ;
@@ -777,6 +792,25 @@ region:
         }
     }
 ;
+
+
+
+before_filter_rule:
+                {
+        parser->markRuleHeaderStart(CSSRuleSourceData::FILTER_RULE);
+        parser->m_inFilterRule = true;
+    }
+    ;
+
+filter:
+    before_filter_rule WEBKIT_FILTER_RULE_SYM maybe_space IDENT at_rule_header_end_maybe_space '{' at_rule_body_start maybe_space_before_declaration declaration_list closing_brace {
+        parser->m_inFilterRule = false;
+        $$ = parser->createFilterRule($4).leakRef();
+    }
+    ;
+
+
+
 combinator:
     '+' maybe_space { $$ = CSSSelector::DirectAdjacent; }
   | '~' maybe_space { $$ = CSSSelector::IndirectAdjacent; }

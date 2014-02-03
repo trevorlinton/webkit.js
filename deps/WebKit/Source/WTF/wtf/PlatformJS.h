@@ -47,9 +47,10 @@
 #define WTF_USE_UNIX_DOMAIN_SOCKETS 1
 
 //#if !defined(WTF_USE_OPENGL_ES_2) || !WTF_USE_OPENGL_ES_2
-#define WTF_USE_OPENGL_ES_2 0
+#define WTF_USE_OPENGL_ES_2 1
 #define WTF_USE_OPENGL 1
-#define WTF_USE_GLX 1
+#define WTF_USE_EGL 1
+#define WTF_USE_GLX 0
 //#define WTF_PLATFORM_X11 1
 #define WTF_USE_GRAPHICS_SURFACE 1
 #define WTF_USE_CURL 0 // turn me back on when fixed?..

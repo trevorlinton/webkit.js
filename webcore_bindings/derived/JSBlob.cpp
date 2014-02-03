@@ -22,7 +22,11 @@
 #include "JSBlob.h"
 
 #include "Blob.h"
+#include "ExceptionCode.h"
+#include "JSBlob.h"
+#include "JSDOMBinding.h"
 #include "URL.h"
+#include <runtime/Error.h>
 #include <runtime/JSString.h>
 #include <wtf/GetPtr.h>
 
@@ -84,10 +88,11 @@ ConstructType JSBlobConstructor::getConstructData(JSCell*, ConstructData& constr
 
 static const HashTableValue JSBlobPrototypeTableValues[] =
 {
+    { "slice", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsBlobPrototypeFunctionSlice), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
-static const HashTable JSBlobPrototypeTable = { 1, 0, JSBlobPrototypeTableValues, 0 };
+static const HashTable JSBlobPrototypeTable = { 2, 1, JSBlobPrototypeTableValues, 0 };
 static const HashTable& getJSBlobPrototypeTable(ExecState* exec)
 {
     return getHashTableForGlobalData(exec->vm(), JSBlobPrototypeTable);
@@ -98,6 +103,12 @@ const ClassInfo JSBlobPrototype::s_info = { "BlobPrototype", &Base::s_info, 0, g
 JSObject* JSBlobPrototype::self(VM& vm, JSGlobalObject* globalObject)
 {
     return getDOMPrototype<JSBlob>(vm, globalObject);
+}
+
+bool JSBlobPrototype::getOwnPropertySlot(JSObject* object, ExecState* exec, PropertyName propertyName, PropertySlot& slot)
+{
+    JSBlobPrototype* thisObject = jsCast<JSBlobPrototype*>(object);
+    return getStaticFunctionSlot<JSObject>(exec, getJSBlobPrototypeTable(exec), thisObject, propertyName, slot);
 }
 
 static const HashTable& getJSBlobTable(ExecState* exec)
@@ -181,6 +192,48 @@ EncodedJSValue jsBlobConstructor(ExecState* exec, EncodedJSValue thisValue, Enco
 JSValue JSBlob::getConstructor(VM& vm, JSGlobalObject* globalObject)
 {
     return getDOMConstructor<JSBlobConstructor>(vm, jsCast<JSDOMGlobalObject*>(globalObject));
+}
+
+EncodedJSValue JSC_HOST_CALL jsBlobPrototypeFunctionSlice(ExecState* exec)
+{
+    JSValue thisValue = exec->hostThisValue();
+    JSBlob* castedThis = jsDynamicCast<JSBlob*>(thisValue);
+    if (!castedThis)
+        return throwVMTypeError(exec);
+    ASSERT_GC_OBJECT_INHERITS(castedThis, JSBlob::info());
+    Blob& impl = castedThis->impl();
+
+    size_t argsCount = exec->argumentCount();
+    if (argsCount <= 0) {
+
+        JSC::JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.slice()));
+        return JSValue::encode(result);
+    }
+
+    long long start(toInt64(exec, exec->argument(0), NormalConversion));
+    if (exec->hadException())
+        return JSValue::encode(jsUndefined());
+    if (argsCount <= 1) {
+
+        JSC::JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.slice(start)));
+        return JSValue::encode(result);
+    }
+
+    long long end(toInt64(exec, exec->argument(1), NormalConversion));
+    if (exec->hadException())
+        return JSValue::encode(jsUndefined());
+    if (argsCount <= 2) {
+
+        JSC::JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.slice(start, end)));
+        return JSValue::encode(result);
+    }
+
+    const String& contentType(valueToStringWithUndefinedOrNullCheck(exec, exec->argument(2)));
+    if (exec->hadException())
+        return JSValue::encode(jsUndefined());
+
+    JSC::JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.slice(start, end, contentType)));
+    return JSValue::encode(result);
 }
 
 static inline bool isObservable(JSBlob* jsBlob)

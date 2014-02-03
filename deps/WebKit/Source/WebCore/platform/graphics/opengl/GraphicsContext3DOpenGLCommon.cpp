@@ -38,6 +38,9 @@
 #if USE(OPENGL_ES_2)
 #include "Extensions3DOpenGLES.h"
 #else
+#if PLATFORM(JS)
+#error "Somehow we intended for GLES and got GL"
+#endif
 #include "Extensions3DOpenGL.h"
 #endif
 #include "GraphicsContext.h"
@@ -67,7 +70,10 @@
 #include "OpenGLESShims.h"
 #elif PLATFORM(MAC)
 #include <OpenGL/gl.h>
-#elif PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX) || PLATFORM(JS)
+#elif PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX)
+#ifdef PLATFORM(JS)
+#error "Including opengl shims when requested OpenGLES."
+#endif
 #include "OpenGLShims.h"
 #endif
 #endif

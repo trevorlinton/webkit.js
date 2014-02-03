@@ -27,6 +27,7 @@
 
 /* Things that need to be defined globally should go into "config.h". */
 
+#include "../JavaScriptCore/runtime/JSExportMacros.h"
 #include <wtf/Platform.h>
 
 #if defined(__APPLE__)
@@ -65,7 +66,9 @@
 #include <regex.h>
 #endif
 
+#if !PLATFORM(JS)
 #include <setjmp.h>
+#endif
 
 #include <signal.h>
 #include <stdarg.h>

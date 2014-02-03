@@ -24,7 +24,7 @@
 
 #include "FrameLoaderTypes.h"
 #include "JSDOMWindowShell.h"
-#include <JavaScriptCore/JSBase.h>
+#include "JSBase.h"
 #include <heap/Strong.h>
 #include <wtf/Forward.h>
 #include <wtf/RefPtr.h>

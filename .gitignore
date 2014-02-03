@@ -1,3 +1,7 @@
+./Release
+./Debug
+/Debug
+/Release
 ./build/Release
 ./build/Debug
 /build/Release

@@ -43,11 +43,15 @@
 #include "UTF16UChar32Iterator.h"
 #include <cairo-ft.h>
 #include <cairo.h>
+#if !PLATFORM(JS)
 #include <fontconfig/fcfreetype.h>
+#endif
 #include <ft2build.h>
 #include FT_TRUETYPE_TABLES_H
 #include FT_TRUETYPE_TAGS_H
+#if !PLATFORM(JS)
 #include <unicode/normlzr.h>
+#endif
 #include <wtf/MathExtras.h>
 #include <wtf/unicode/Unicode.h>
 
