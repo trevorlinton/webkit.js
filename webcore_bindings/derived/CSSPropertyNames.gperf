@@ -94,9 +94,11 @@ const char* const propertyNameStrings[numCSSProperties] = {
     "counter-increment",
     "counter-reset",
     "cursor",
+    "-webkit-cursor-visibility",
     "empty-cells",
     "float",
     "font-stretch",
+    "geometry",
     "height",
     "image-rendering",
     "left",
@@ -114,6 +116,8 @@ const char* const propertyNameStrings[numCSSProperties] = {
     "max-width",
     "min-height",
     "min-width",
+    "mix",
+    "parameters",
     "object-fit",
     "opacity",
     "orphans",
@@ -248,6 +252,9 @@ const char* const propertyNameStrings[numCSSProperties] = {
     "-webkit-column-span",
     "-webkit-column-width",
     "-webkit-columns",
+    "-webkit-box-decoration-break",
+    "-webkit-blend-mode",
+    "-webkit-filter",
     "-webkit-align-content",
     "-webkit-align-items",
     "-webkit-align-self",
@@ -339,6 +346,12 @@ const char* const propertyNameStrings[numCSSProperties] = {
     "-webkit-rtl-ordering",
     "-webkit-ruby-position",
     "-webkit-text-combine",
+    "-webkit-text-decoration",
+    "-webkit-text-decoration-line",
+    "-webkit-text-decoration-style",
+    "-webkit-text-decoration-color",
+    "-webkit-text-decoration-skip",
+    "-webkit-text-underline-position",
     "-webkit-text-decorations-in-effect",
     "-webkit-text-emphasis",
     "-webkit-text-emphasis-color",
@@ -363,6 +376,61 @@ const char* const propertyNameStrings[numCSSProperties] = {
     "-webkit-user-drag",
     "-webkit-user-modify",
     "-webkit-user-select",
+    "-webkit-flow-into",
+    "-webkit-flow-from",
+    "-webkit-region-fragment",
+    "-webkit-region-break-after",
+    "-webkit-region-break-before",
+    "-webkit-region-break-inside",
+    "-webkit-shape-inside",
+    "-webkit-shape-outside",
+    "-webkit-shape-margin",
+    "-webkit-shape-padding",
+    "-webkit-shape-image-threshold",
+    "-webkit-wrap-flow",
+    "-webkit-wrap-through",
+    "buffered-rendering",
+    "clip-path",
+    "clip-rule",
+    "mask",
+    "enable-background",
+    "filter",
+    "flood-color",
+    "flood-opacity",
+    "lighting-color",
+    "stop-color",
+    "stop-opacity",
+    "color-interpolation",
+    "color-interpolation-filters",
+    "color-profile",
+    "color-rendering",
+    "fill",
+    "fill-opacity",
+    "fill-rule",
+    "marker",
+    "marker-end",
+    "marker-mid",
+    "marker-start",
+    "mask-type",
+    "shape-rendering",
+    "stroke",
+    "stroke-dasharray",
+    "stroke-dashoffset",
+    "stroke-linecap",
+    "stroke-linejoin",
+    "stroke-miterlimit",
+    "stroke-opacity",
+    "stroke-width",
+    "alignment-baseline",
+    "baseline-shift",
+    "dominant-baseline",
+    "glyph-orientation-horizontal",
+    "glyph-orientation-vertical",
+    "kerning",
+    "text-anchor",
+    "vector-effect",
+    "writing-mode",
+    "-webkit-svg-shadow",
 };
 
 %}
@@ -455,9 +523,11 @@ content, CSSPropertyContent
 counter-increment, CSSPropertyCounterIncrement
 counter-reset, CSSPropertyCounterReset
 cursor, CSSPropertyCursor
+-webkit-cursor-visibility, CSSPropertyWebkitCursorVisibility
 empty-cells, CSSPropertyEmptyCells
 float, CSSPropertyFloat
 font-stretch, CSSPropertyFontStretch
+geometry, CSSPropertyGeometry
 height, CSSPropertyHeight
 image-rendering, CSSPropertyImageRendering
 left, CSSPropertyLeft
@@ -475,6 +545,8 @@ max-height, CSSPropertyMaxHeight
 max-width, CSSPropertyMaxWidth
 min-height, CSSPropertyMinHeight
 min-width, CSSPropertyMinWidth
+mix, CSSPropertyMix
+parameters, CSSPropertyParameters
 object-fit, CSSPropertyObjectFit
 opacity, CSSPropertyOpacity
 orphans, CSSPropertyOrphans
@@ -609,6 +681,9 @@ z-index, CSSPropertyZIndex
 -webkit-column-span, CSSPropertyWebkitColumnSpan
 -webkit-column-width, CSSPropertyWebkitColumnWidth
 -webkit-columns, CSSPropertyWebkitColumns
+-webkit-box-decoration-break, CSSPropertyWebkitBoxDecorationBreak
+-webkit-blend-mode, CSSPropertyWebkitBlendMode
+-webkit-filter, CSSPropertyWebkitFilter
 -webkit-align-content, CSSPropertyWebkitAlignContent
 -webkit-align-items, CSSPropertyWebkitAlignItems
 -webkit-align-self, CSSPropertyWebkitAlignSelf
@@ -700,6 +775,12 @@ z-index, CSSPropertyZIndex
 -webkit-rtl-ordering, CSSPropertyWebkitRtlOrdering
 -webkit-ruby-position, CSSPropertyWebkitRubyPosition
 -webkit-text-combine, CSSPropertyWebkitTextCombine
+-webkit-text-decoration, CSSPropertyWebkitTextDecoration
+-webkit-text-decoration-line, CSSPropertyWebkitTextDecorationLine
+-webkit-text-decoration-style, CSSPropertyWebkitTextDecorationStyle
+-webkit-text-decoration-color, CSSPropertyWebkitTextDecorationColor
+-webkit-text-decoration-skip, CSSPropertyWebkitTextDecorationSkip
+-webkit-text-underline-position, CSSPropertyWebkitTextUnderlinePosition
 -webkit-text-decorations-in-effect, CSSPropertyWebkitTextDecorationsInEffect
 -webkit-text-emphasis, CSSPropertyWebkitTextEmphasis
 -webkit-text-emphasis-color, CSSPropertyWebkitTextEmphasisColor
@@ -724,6 +805,61 @@ z-index, CSSPropertyZIndex
 -webkit-user-drag, CSSPropertyWebkitUserDrag
 -webkit-user-modify, CSSPropertyWebkitUserModify
 -webkit-user-select, CSSPropertyWebkitUserSelect
+-webkit-flow-into, CSSPropertyWebkitFlowInto
+-webkit-flow-from, CSSPropertyWebkitFlowFrom
+-webkit-region-fragment, CSSPropertyWebkitRegionFragment
+-webkit-region-break-after, CSSPropertyWebkitRegionBreakAfter
+-webkit-region-break-before, CSSPropertyWebkitRegionBreakBefore
+-webkit-region-break-inside, CSSPropertyWebkitRegionBreakInside
+-webkit-shape-inside, CSSPropertyWebkitShapeInside
+-webkit-shape-outside, CSSPropertyWebkitShapeOutside
+-webkit-shape-margin, CSSPropertyWebkitShapeMargin
+-webkit-shape-padding, CSSPropertyWebkitShapePadding
+-webkit-shape-image-threshold, CSSPropertyWebkitShapeImageThreshold
+-webkit-wrap-flow, CSSPropertyWebkitWrapFlow
+-webkit-wrap-through, CSSPropertyWebkitWrapThrough
+buffered-rendering, CSSPropertyBufferedRendering
+clip-path, CSSPropertyClipPath
+clip-rule, CSSPropertyClipRule
+mask, CSSPropertyMask
+enable-background, CSSPropertyEnableBackground
+filter, CSSPropertyFilter
+flood-color, CSSPropertyFloodColor
+flood-opacity, CSSPropertyFloodOpacity
+lighting-color, CSSPropertyLightingColor
+stop-color, CSSPropertyStopColor
+stop-opacity, CSSPropertyStopOpacity
+color-interpolation, CSSPropertyColorInterpolation
+color-interpolation-filters, CSSPropertyColorInterpolationFilters
+color-profile, CSSPropertyColorProfile
+color-rendering, CSSPropertyColorRendering
+fill, CSSPropertyFill
+fill-opacity, CSSPropertyFillOpacity
+fill-rule, CSSPropertyFillRule
+marker, CSSPropertyMarker
+marker-end, CSSPropertyMarkerEnd
+marker-mid, CSSPropertyMarkerMid
+marker-start, CSSPropertyMarkerStart
+mask-type, CSSPropertyMaskType
+shape-rendering, CSSPropertyShapeRendering
+stroke, CSSPropertyStroke
+stroke-dasharray, CSSPropertyStrokeDasharray
+stroke-dashoffset, CSSPropertyStrokeDashoffset
+stroke-linecap, CSSPropertyStrokeLinecap
+stroke-linejoin, CSSPropertyStrokeLinejoin
+stroke-miterlimit, CSSPropertyStrokeMiterlimit
+stroke-opacity, CSSPropertyStrokeOpacity
+stroke-width, CSSPropertyStrokeWidth
+alignment-baseline, CSSPropertyAlignmentBaseline
+baseline-shift, CSSPropertyBaselineShift
+dominant-baseline, CSSPropertyDominantBaseline
+glyph-orientation-horizontal, CSSPropertyGlyphOrientationHorizontal
+glyph-orientation-vertical, CSSPropertyGlyphOrientationVertical
+kerning, CSSPropertyKerning
+text-anchor, CSSPropertyTextAnchor
+vector-effect, CSSPropertyVectorEffect
+writing-mode, CSSPropertyWritingMode
+-webkit-svg-shadow, CSSPropertyWebkitSvgShadow
 -epub-text-orientation, CSSPropertyWebkitTextOrientation
 -epub-writing-mode, CSSPropertyWebkitWritingMode
 -webkit-border-bottom-left-radius, CSSPropertyBorderBottomLeftRadius
@@ -879,9 +1015,11 @@ static const bool isInheritedPropertyTable[numCSSProperties + 1] = {
     false, // CSSPropertyCounterIncrement
     false, // CSSPropertyCounterReset
     true , // CSSPropertyCursor
+    true , // CSSPropertyWebkitCursorVisibility
     true , // CSSPropertyEmptyCells
     false, // CSSPropertyFloat
     false, // CSSPropertyFontStretch
+    false, // CSSPropertyGeometry
     false, // CSSPropertyHeight
     true , // CSSPropertyImageRendering
     false, // CSSPropertyLeft
@@ -899,6 +1037,8 @@ static const bool isInheritedPropertyTable[numCSSProperties + 1] = {
     false, // CSSPropertyMaxWidth
     false, // CSSPropertyMinHeight
     false, // CSSPropertyMinWidth
+    false, // CSSPropertyMix
+    false, // CSSPropertyParameters
     false, // CSSPropertyObjectFit
     false, // CSSPropertyOpacity
     true , // CSSPropertyOrphans
@@ -1033,6 +1173,9 @@ static const bool isInheritedPropertyTable[numCSSProperties + 1] = {
     false, // CSSPropertyWebkitColumnSpan
     false, // CSSPropertyWebkitColumnWidth
     false, // CSSPropertyWebkitColumns
+    false, // CSSPropertyWebkitBoxDecorationBreak
+    false, // CSSPropertyWebkitBlendMode
+    false, // CSSPropertyWebkitFilter
     false, // CSSPropertyWebkitAlignContent
     false, // CSSPropertyWebkitAlignItems
     false, // CSSPropertyWebkitAlignSelf
@@ -1124,6 +1267,12 @@ static const bool isInheritedPropertyTable[numCSSProperties + 1] = {
     true , // CSSPropertyWebkitRtlOrdering
     true , // CSSPropertyWebkitRubyPosition
     true , // CSSPropertyWebkitTextCombine
+    false, // CSSPropertyWebkitTextDecoration
+    false, // CSSPropertyWebkitTextDecorationLine
+    false, // CSSPropertyWebkitTextDecorationStyle
+    false, // CSSPropertyWebkitTextDecorationColor
+    true , // CSSPropertyWebkitTextDecorationSkip
+    true , // CSSPropertyWebkitTextUnderlinePosition
     true , // CSSPropertyWebkitTextDecorationsInEffect
     true , // CSSPropertyWebkitTextEmphasis
     true , // CSSPropertyWebkitTextEmphasisColor
@@ -1148,6 +1297,61 @@ static const bool isInheritedPropertyTable[numCSSProperties + 1] = {
     false, // CSSPropertyWebkitUserDrag
     true , // CSSPropertyWebkitUserModify
     true , // CSSPropertyWebkitUserSelect
+    false, // CSSPropertyWebkitFlowInto
+    false, // CSSPropertyWebkitFlowFrom
+    false, // CSSPropertyWebkitRegionFragment
+    false, // CSSPropertyWebkitRegionBreakAfter
+    false, // CSSPropertyWebkitRegionBreakBefore
+    false, // CSSPropertyWebkitRegionBreakInside
+    false, // CSSPropertyWebkitShapeInside
+    false, // CSSPropertyWebkitShapeOutside
+    false, // CSSPropertyWebkitShapeMargin
+    false, // CSSPropertyWebkitShapePadding
+    false, // CSSPropertyWebkitShapeImageThreshold
+    false, // CSSPropertyWebkitWrapFlow
+    false, // CSSPropertyWebkitWrapThrough
+    false, // CSSPropertyBufferedRendering
+    false, // CSSPropertyClipPath
+    true , // CSSPropertyClipRule
+    false, // CSSPropertyMask
+    false, // CSSPropertyEnableBackground
+    false, // CSSPropertyFilter
+    false, // CSSPropertyFloodColor
+    false, // CSSPropertyFloodOpacity
+    false, // CSSPropertyLightingColor
+    false, // CSSPropertyStopColor
+    false, // CSSPropertyStopOpacity
+    true , // CSSPropertyColorInterpolation
+    true , // CSSPropertyColorInterpolationFilters
+    false, // CSSPropertyColorProfile
+    true , // CSSPropertyColorRendering
+    true , // CSSPropertyFill
+    true , // CSSPropertyFillOpacity
+    true , // CSSPropertyFillRule
+    true , // CSSPropertyMarker
+    true , // CSSPropertyMarkerEnd
+    true , // CSSPropertyMarkerMid
+    true , // CSSPropertyMarkerStart
+    false, // CSSPropertyMaskType
+    true , // CSSPropertyShapeRendering
+    true , // CSSPropertyStroke
+    true , // CSSPropertyStrokeDasharray
+    true , // CSSPropertyStrokeDashoffset
+    true , // CSSPropertyStrokeLinecap
+    true , // CSSPropertyStrokeLinejoin
+    true , // CSSPropertyStrokeMiterlimit
+    true , // CSSPropertyStrokeOpacity
+    true , // CSSPropertyStrokeWidth
+    false, // CSSPropertyAlignmentBaseline
+    false, // CSSPropertyBaselineShift
+    false, // CSSPropertyDominantBaseline
+    true , // CSSPropertyGlyphOrientationHorizontal
+    true , // CSSPropertyGlyphOrientationVertical
+    true , // CSSPropertyKerning
+    true , // CSSPropertyTextAnchor
+    false, // CSSPropertyVectorEffect
+    true , // CSSPropertyWritingMode
+    false, // CSSPropertyWebkitSvgShadow
 };
 
 bool CSSProperty::isInheritedProperty(CSSPropertyID id)

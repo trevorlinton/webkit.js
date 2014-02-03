@@ -4,91 +4,175 @@
     'sources.gypi',
     'common.gypi',
   ],
-
   'variables': {
-    'enable_wexit_time_destructors': 1,
+    'clang_cc':'c++',
+    'clang_cxx':'c++',
+    'clang_defines':[], #notused
+    'clang_sysroot':'', #notused
+    'clang_cflags':'-std=c++0x',
+
+    'emscripten_cc':'<!(echo $EMSCRIPTEN_EMCC)',
+    'emscripten_cxx':'<!(echo $EMSCRIPTEN_EMCPP)',
+    'emscripten_ldflags':'!( ./Release/export_generator)',
+    'emscripten_defines':['TARGET_EMSCRIPTEN','CAIRO_HAS_FT_FONT'],
+    'emscripten_sysroot':'<!(echo $EMSCRIPTEN_ROOT)/system/',
+    'emscripten_cflags':'-Wno-warn-absolute-paths -std=c++0x -include <(DEPTH)/deps/WebKit/Source/WebCore/WebCorePrefix.h -s FULL_ES2=1 -isysroot <(emscripten_sysroot)',
+
     'webcore_include_dirs': [
+      '<(emscripten_sysroot)/include/',
+      '<(emscripten_sysroot)/include/GLES',
+      '<(emscripten_sysroot)/include/GLES2',
+      '<(emscripten_sysroot)/include/EGL',
       '<(SHARED_INTERMEDIATE_DIR)/WebCore',
       '<(SHARED_INTERMEDIATE_DIR)/WebCore/bindings',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/accessibility',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/bridge',
       '<(DEPTH)/deps/WebKit/Source/WebCore/dom',
       '<(DEPTH)/deps/WebKit/Source/WebCore/css',
       '<(DEPTH)/deps/WebKit/Source/WebCore/icu',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/history',
       '<(DEPTH)/deps/WebKit/Source/WebCore/html',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/html/canvas',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/html/forms',
       '<(DEPTH)/deps/WebKit/Source/WebCore/html/parser',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/html/shadow',
       '<(DEPTH)/deps/WebKit/Source/WebCore/loader',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/loader/archive',
       '<(DEPTH)/deps/WebKit/Source/WebCore/loader/cache',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/loader/icon',
       '<(DEPTH)/deps/WebKit/Source/WebCore/editing',
       '<(DEPTH)/deps/WebKit/Source/WebCore/inspector',
       '<(DEPTH)/deps/WebKit/Source/WebCore/style',
       '<(DEPTH)/deps/WebKit/Source/WebCore/storage',
       '<(DEPTH)/deps/WebKit/Source/WebCore/page',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/page/animation',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/page/scrolling',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/page/scrolling/coordinatedgraphics',
       '<(DEPTH)/deps/WebKit/Source/WebCore/fileapi',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/animation',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/network',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/network/curl',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/image-decoders',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/image-decoders/bmp',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/image-decoders/gif',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/image-decoders/png',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/image-decoders/ico',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/image-decoders/jpeg',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/opengl',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/surfaces',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/filters',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/transforms',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/cairo',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/gpu',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/opentype',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/freetype',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/harfbuzz',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/egl',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/surfaces/egl',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/texmap/',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/texmap/coordinated',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/cpu/arm/filters',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/sql',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/text',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/audio',
       '<(DEPTH)/deps/WebKit/Source/WebCore/rendering',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/rendering/shapes',
       '<(DEPTH)/deps/WebKit/Source/WebCore/rendering/style',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/rendering/svg',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/rendering/line',
       '<(DEPTH)/deps/WebKit/Source/WebCore/svg',
       '<(DEPTH)/deps/WebKit/Source/WebCore/svg/animation',
       '<(DEPTH)/deps/WebKit/Source/WebCore/svg/properties',
       '<(DEPTH)/deps/WebKit/Source/WebCore/svg/graphics',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/svg/graphics/filters',
       '<(DEPTH)/deps/WebKit/Source/WebCore',
       '<(DEPTH)/deps/WebKit/Source/WebCore/xml',
-      '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/websockets/',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/websockets',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/webdatabase',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/page/scrolling',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/workers',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/xml/parser',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/plugins',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/mathml',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/bindings/generic',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/bridge/jsc',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/loader/appcache',
       '<(DEPTH)/webcore_bindings',
       '<(DEPTH)/webcore_bindings/derived',
-      '<(DEPTH)/webcore_bindings/js',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/API',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/bytecode',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/assembler',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/debugger',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/disassembler',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/dfg',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/heap',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/inspector',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/interpreter',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/jit',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/llint',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/parser',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/profiler',
+      '<(DEPTH)/deps/WebKit/Source/JavaScriptCore/runtime',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/testing',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/bindings/js',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/bindings',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/crypto',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/fileapi',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/geolocation',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/notifications',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/indexeddb',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/mediastream',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/quota',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/plugins',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/indexeddb',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/indexeddb/leveldb',
+      '<(DEPTH)/deps/harfbuzz/src',
+      '<(DEPTH)/deps/freetype2/include',
+      '<(DEPTH)/deps/libjpeg_turbo',
     ],
   },
-
-  'target_defaults': {
-    'variables': {
-      'optimize': '2',
-    },
-  },
-
   'targets': [
     {
       'target_name': 'webkitjs',
-      'type': 'static_library',
-      'dependencies': [
+      'type': 'shared_library',
+      'defines': [
+        '<@(feature_defines)',
+        '<@(emscripten_defines)',
       ],
       'sources': [
+        '<@(webcore_xml_files)',
+        '<@(webcore_wtf_files)',
+        '<@(webcore_svg_files)',
+        '<@(webcore_loader_files)',
+        '<@(webcore_html_files)',
+        '<@(webcore_dom_files)',
+        '<@(webcore_css_files)',
+        '<@(webcore_rendering_files)',
+        '<@(webcore_page_files)',
+        '<@(webcore_style_files)',
+        '<@(webcore_derived_files)',
+        '<@(webcore_platform_files)',
       ],
       'include_dirs': [
         '<@(webcore_include_dirs)',
+        '<(DEPTH)/deps/libxml2/include',
+        '<(DEPTH)/deps/WebKit/Source/WTF/',
+        '<(DEPTH)/deps/WebKit/Source/WTF/wtf',
       ],
-      'export_dependent_settings': [
-      ],
-      'direct_dependent_settings': {
-        'defines': [
-          'WEBCORE_NAVIGATOR_VENDOR="True Interactions."',
-          'WEBKIT_IMPLEMENTATION=1',
-          'INSIDE_WEBKIT',
-        ],
-      }
-    },
-    {
-      'target_name': 'build_tools',
-      'type': 'none',
-      'sources': [
-        '<(DEPTH)/deps/WebKit/Source/WebCore/make-export-file-generator',
-        '<(DEPTH)/deps/WebKit/Source/WebCore/WebCore.exp.in',
-      ]
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cxx)',
+      'cflags':['<(emscripten_cflags)'],
+      'ldflags':['<(emscripten_ldflags)'],
     },
     {
       'target_name': 'webcore_xml',
       'type': 'static_library',
       'defines': [
-        'CC=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emcc',
-        'CXX=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/em++',
         '<@(feature_defines)',
-      ],
-      'dependencies': [
+        '<@(emscripten_defines)',
       ],
       'sources': [
         '<@(webcore_xml_files)'
@@ -97,114 +181,88 @@
         '<(DEPTH)/deps/libxml2/include',
         '<@(webcore_include_dirs)',
       ],
-      'sources!': [
-      ],
-      'sources/': [
-      ],
-      'export_dependent_settings': [
-      ],
-      'direct_dependent_settings': {
-        'defines': [
-          'WEBCORE_NAVIGATOR_VENDOR="True Interactions."',
-          'WEBKIT_IMPLEMENTATION=1',
-          'INSIDE_WEBKIT',
-        ],
-      },
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cxx)',
+      'cflags':['<(emscripten_cflags)'],
     },
     {
-      'target_name': 'webcore_wtf',
-      'type': 'static_library',
+      'target_name': 'export_generator',
+      'type': 'executable',
       'defines': [
-        'CC=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emcc',
-        'CXX=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/em++',
-      ],
-      'dependencies': [
+        '<@(feature_defines)',
       ],
       'sources': [
-        '<@(webcore_wtf_files)'
+        '<(DEPTH)/webcore_bindings/derived/ExportFileGenerator.cpp',
       ],
       'include_dirs': [
         '<@(webcore_include_dirs)',
+        '<(DEPTH)/deps/WebKit/Source/WTF/wtf',
       ],
-      'sources!': [
+      'cc':'<(clang_cc)',
+      'cxx':'<(clang_cxx)',
+      'cflags':['<(clang_cflags)'],
+      'target_arch':'x86_64'
+    },
+    {
+      'target_name': 'webcore_platform',
+      'type': 'static_library',
+      'defines': [
+        '<@(feature_defines)',
+        '<@(emscripten_defines)',
       ],
-      'sources/': [
+      'sources': [
+        '<@(webcore_platform_files)'
       ],
-      'export_dependent_settings': [
+      'include_dirs': [
+        '<@(webcore_include_dirs)',
+        '<(DEPTH)/deps/WebKit/Source/WTF/wtf'
       ],
-      'direct_dependent_settings': {
-        'defines': [
-          '<@(feature_defines)',
-          'WEBCORE_NAVIGATOR_VENDOR="True Interactions."',
-          'WEBKIT_IMPLEMENTATION=1',
-        ],
-      },
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cxx)',
+      'cflags':['<(emscripten_cflags)'],
     },
     {
       'target_name': 'webcore_svg',
       'type': 'static_library',
       'defines': [
-        'CC=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emcc',
-        'CXX=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/em++',
-      ],
-      'dependencies': [
+        '<@(feature_defines)',
+        '<@(emscripten_defines)',
       ],
       'sources': [
         '<@(webcore_svg_files)'
       ],
       'include_dirs': [
+        '<(DEPTH)/deps/libxml2/include',
         '<@(webcore_include_dirs)',
       ],
-      'sources!': [
-      ],
-      'sources/': [
-      ],
-      'export_dependent_settings': [
-      ],
-      'direct_dependent_settings': {
-        'defines': [
-          'WEBCORE_NAVIGATOR_VENDOR="True Interactions."',
-          'WEBKIT_IMPLEMENTATION=1',
-        'INSIDE_WEBKIT',
-        ],
-      },
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cxx)',
+      'cflags':['<(emscripten_cflags)'],
     },
     {
       'target_name': 'webcore_loader',
       'type': 'static_library',
       'defines': [
-        'CC=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emcc',
-        'CXX=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/em++',
-      ],
-      'dependencies': [
+        '<@(feature_defines)',
+        '<@(emscripten_defines)',
       ],
       'sources': [
         '<@(webcore_loader_files)'
       ],
       'include_dirs': [
+        '<(DEPTH)/deps/libxml2/include',
         '<@(webcore_include_dirs)',
       ],
-      'sources!': [
-      ],
-      'sources/': [
-      ],
-      'export_dependent_settings': [
-      ],
-      'direct_dependent_settings': {
-        'defines': [
-          'WEBCORE_NAVIGATOR_VENDOR="True Interactions."',
-          'WEBKIT_IMPLEMENTATION=1',
-        ],
-      },
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cxx)',
+      'cflags':['<(emscripten_cflags)'],
     },
     {
       'target_name': 'webcore_html',
       'type': 'static_library',
       'defines': [
-        'CC=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emcc',
-        'CXX=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/em++',
-      ],
-      'dependencies': [
+        '<@(feature_defines)',
+        '<@(emscripten_defines)',
       ],
       'sources': [
         '<@(webcore_html_files)'
@@ -212,55 +270,34 @@
       'include_dirs': [
         '<@(webcore_include_dirs)',
       ],
-      'sources!': [
-      ],
-      'sources/': [
-      ],
-      'export_dependent_settings': [
-      ],
-      'direct_dependent_settings': {
-        'defines': [
-          'WEBCORE_NAVIGATOR_VENDOR="True Interactions."',
-          'WEBKIT_IMPLEMENTATION=1',
-        ],
-      },
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cxx)',
+      'cflags':['<(emscripten_cflags)'],
     },
     {
       'target_name': 'webcore_dom',
       'type': 'static_library',
       'defines': [
-        'CC=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emcc',
-        'CXX=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/em++',
-      ],
-      'dependencies': [
+        '<@(feature_defines)',
+        '<@(emscripten_defines)',
       ],
       'sources': [
         '<@(webcore_dom_files)'
       ],
       'include_dirs': [
         '<@(webcore_include_dirs)',
+        '<(DEPTH)/deps/libxml2/include'
       ],
-      'sources!': [
-      ],
-      'sources/': [
-      ],
-      'export_dependent_settings': [
-      ],
-      'direct_dependent_settings': {
-        'defines': [
-          'WEBCORE_NAVIGATOR_VENDOR="True Interactions."',
-          'WEBKIT_IMPLEMENTATION=1',
-        ],
-      },
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cxx)',
+      'cflags':['<(emscripten_cflags)'],
     },
     {
       'target_name': 'webcore_css',
       'type': 'static_library',
       'defines': [
-        'CC=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emcc',
-        'CXX=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/em++',
-      ],
-      'dependencies': [
+        '<@(feature_defines)',
+        '<@(emscripten_defines)',
       ],
       'sources': [
         '<@(webcore_css_files)'
@@ -268,25 +305,50 @@
       'include_dirs': [
         '<@(webcore_include_dirs)',
       ],
-      'sources!': [
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cxx)',
+      'cflags':['<(emscripten_cflags)'],
+    },
+    {
+      'target_name': 'webcore_page',
+      'type': 'static_library',
+      'defines': [
+        '<@(feature_defines)',
+        '<@(emscripten_defines)',
       ],
-      'sources/': [
+      'sources': [
+        '<@(webcore_page_files)'
       ],
-      'export_dependent_settings': [
+      'include_dirs': [
+        '<@(webcore_include_dirs)',
       ],
-      'direct_dependent_settings': {
-        'defines': [
-          'WEBCORE_NAVIGATOR_VENDOR="True Interactions."',
-          'WEBKIT_IMPLEMENTATION=1',
-        ],
-      },
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cxx)',
+      'cflags':['<(emscripten_cflags)'],
+    },
+    {
+      'target_name': 'webcore_style',
+      'type': 'static_library',
+      'defines': [
+        '<@(feature_defines)',
+        '<@(emscripten_defines)',
+      ],
+      'sources': [
+        '<@(webcore_style_files)'
+      ],
+      'include_dirs': [
+        '<@(webcore_include_dirs)',
+      ],
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cxx)',
+      'cflags':['<(emscripten_cflags)'],
     },
     {
       'target_name': 'webcore_rendering',
       'type': 'static_library',
       'defines': [
-        'CC=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emcc',
-        'CXX=/Users/tlinton/Library/Emscripten/emscripten/1.8.2/em++',
+        '<@(feature_defines)',
+        '<@(emscripten_defines)',
       ],
       'dependencies': [
       ],
@@ -297,27 +359,31 @@
         '<@(webcore_include_dirs)',
       ],
       'sources!': [
-      # exclusions? or forced inclusions? probably exclusions...
+        # exclusions? or forced inclusions? probably exclusions...
       ],
       'sources/': [
-      #['exclude', '.*'],
-      #['include', 'rendering/'],
+        #['exclude', '.*'],
+        #['include', 'rendering/'],
 
-      # FIXME: Figure out how to store these patterns in a variable.
-      ['exclude', '(cf|cg|mac|opentype|svg|win)/'],
-      ['exclude', '(?<!Chromium)(CF|CG|Mac|OpenType|Win)\\.(cpp|mm?)$'],
-      # Previous rule excludes things like ChromiumFooWin, include those.
-      #['include', 'rendering/.*Chromium.*\\.(cpp|mm?)$'],
+        # FIXME: Figure out how to store these patterns in a variable.
+        ['exclude', '(cf|cg|mac|opentype|svg|win)/'],
+        ['exclude', '(?<!Chromium)(CF|CG|Mac|OpenType|Win)\\.(cpp|mm?)$'],
+        # Previous rule excludes things like ChromiumFooWin, include those.
+        #['include', 'rendering/.*Chromium.*\\.(cpp|mm?)$'],
       ],
       'export_dependent_settings': [
       ],
       'direct_dependent_settings': {
         'defines': [
+          '<@(feature_defines)',
           'WEBCORE_NAVIGATOR_VENDOR="True Interactions."',
           'WEBKIT_IMPLEMENTATION=1',
           'INSIDE_WEBKIT',
         ],
       },
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cxx)',
+      'cflags':['<(emscripten_cflags)'],
     },
   ],  # targets
 }

@@ -39,7 +39,10 @@
 #include "FloatRect.h"
 #include "FocusDirection.h"
 #include "FrameLoaderClient.h"
+#if PLATFORM(JS)
+#else
 #include "InspectorClient.h"
+#endif
 #include "Page.h"
 #include "ResourceError.h"
 #include <wtf/text/StringView.h>
@@ -237,7 +240,8 @@ public:
 };
 
 // FIXME (bug 116233): Get rid of EmptyFrameLoaderClient. It is a travesty.
-
+#if PLATFORM(JS)
+#else
 class EmptyFrameLoaderClient : public FrameLoaderClient {
     WTF_MAKE_NONCOPYABLE(EmptyFrameLoaderClient); WTF_MAKE_FAST_ALLOCATED;
 public:
@@ -415,6 +419,7 @@ public:
 
     virtual bool isEmptyFrameLoaderClient() OVERRIDE { return true; }
 };
+#endif
 
 class EmptyTextCheckerClient : public TextCheckerClient {
 public:
@@ -601,7 +606,8 @@ public:
     virtual void dragControllerDestroyed() OVERRIDE { }
 };
 #endif // ENABLE(DRAG_SUPPORT)
-
+#if PLATFORM(JS)
+#else
 class EmptyInspectorClient : public InspectorClient {
     WTF_MAKE_NONCOPYABLE(EmptyInspectorClient); WTF_MAKE_FAST_ALLOCATED;
 public:
@@ -617,7 +623,7 @@ public:
     virtual void highlight() OVERRIDE { }
     virtual void hideHighlight() OVERRIDE { }
 };
-
+#endif
 class EmptyDeviceClient : public DeviceClient {
 public:
     virtual void startUpdating() OVERRIDE { }

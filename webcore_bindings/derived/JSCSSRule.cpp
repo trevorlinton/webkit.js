@@ -58,6 +58,8 @@ static const HashTableValue JSCSSRuleConstructorTableValues[] =
     { "PAGE_RULE", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCSSRulePAGE_RULE), (intptr_t)0 },
     { "WEBKIT_KEYFRAMES_RULE", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCSSRuleWEBKIT_KEYFRAMES_RULE), (intptr_t)0 },
     { "WEBKIT_KEYFRAME_RULE", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCSSRuleWEBKIT_KEYFRAME_RULE), (intptr_t)0 },
+    { "WEBKIT_REGION_RULE", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCSSRuleWEBKIT_REGION_RULE), (intptr_t)0 },
+    { "WEBKIT_FILTER_RULE", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCSSRuleWEBKIT_FILTER_RULE), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
@@ -72,6 +74,8 @@ COMPILE_ASSERT(5 == CSSRule::FONT_FACE_RULE, CSSRuleEnumFONT_FACE_RULEIsWrongUse
 COMPILE_ASSERT(6 == CSSRule::PAGE_RULE, CSSRuleEnumPAGE_RULEIsWrongUseDoNotCheckConstants);
 COMPILE_ASSERT(7 == CSSRule::WEBKIT_KEYFRAMES_RULE, CSSRuleEnumWEBKIT_KEYFRAMES_RULEIsWrongUseDoNotCheckConstants);
 COMPILE_ASSERT(8 == CSSRule::WEBKIT_KEYFRAME_RULE, CSSRuleEnumWEBKIT_KEYFRAME_RULEIsWrongUseDoNotCheckConstants);
+COMPILE_ASSERT(16 == CSSRule::WEBKIT_REGION_RULE, CSSRuleEnumWEBKIT_REGION_RULEIsWrongUseDoNotCheckConstants);
+COMPILE_ASSERT(17 == CSSRule::WEBKIT_FILTER_RULE, CSSRuleEnumWEBKIT_FILTER_RULEIsWrongUseDoNotCheckConstants);
 
 const ClassInfo JSCSSRuleConstructor::s_info = { "CSSRuleConstructor", &Base::s_info, &JSCSSRuleConstructorTable, 0, CREATE_METHOD_TABLE(JSCSSRuleConstructor) };
 
@@ -106,6 +110,8 @@ static const HashTableValue JSCSSRulePrototypeTableValues[] =
     { "PAGE_RULE", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCSSRulePAGE_RULE), (intptr_t)0 },
     { "WEBKIT_KEYFRAMES_RULE", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCSSRuleWEBKIT_KEYFRAMES_RULE), (intptr_t)0 },
     { "WEBKIT_KEYFRAME_RULE", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCSSRuleWEBKIT_KEYFRAME_RULE), (intptr_t)0 },
+    { "WEBKIT_REGION_RULE", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCSSRuleWEBKIT_REGION_RULE), (intptr_t)0 },
+    { "WEBKIT_FILTER_RULE", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCSSRuleWEBKIT_FILTER_RULE), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
@@ -307,6 +313,18 @@ EncodedJSValue jsCSSRuleWEBKIT_KEYFRAME_RULE(ExecState* exec, EncodedJSValue, En
 {
     UNUSED_PARAM(exec);
     return JSValue::encode(jsNumber(static_cast<int>(8)));
+}
+
+EncodedJSValue jsCSSRuleWEBKIT_REGION_RULE(ExecState* exec, EncodedJSValue, EncodedJSValue, PropertyName)
+{
+    UNUSED_PARAM(exec);
+    return JSValue::encode(jsNumber(static_cast<int>(16)));
+}
+
+EncodedJSValue jsCSSRuleWEBKIT_FILTER_RULE(ExecState* exec, EncodedJSValue, EncodedJSValue, PropertyName)
+{
+    UNUSED_PARAM(exec);
+    return JSValue::encode(jsNumber(static_cast<int>(17)));
 }
 
 static inline bool isObservable(JSCSSRule* jsCSSRule)

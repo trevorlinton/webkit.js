@@ -200,6 +200,7 @@
 #include "JSRange.h"
 #include "JSRangeException.h"
 #include "JSRect.h"
+#include "JSRequestAnimationFrameCallback.h"
 #include "JSScreen.h"
 #include "JSStorage.h"
 #include "JSStorageEvent.h"
@@ -1820,6 +1821,11 @@ static const HashTableValue JSDOMWindowPrototypeTableValues[] =
     { "webkitConvertPointFromPageToNode", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDOMWindowPrototypeFunctionWebkitConvertPointFromPageToNode), (intptr_t)0 },
     { "webkitConvertPointFromNodeToPage", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDOMWindowPrototypeFunctionWebkitConvertPointFromNodeToPage), (intptr_t)0 },
     { "postMessage", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDOMWindowPrototypeFunctionPostMessage), (intptr_t)2 },
+    { "requestAnimationFrame", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDOMWindowPrototypeFunctionRequestAnimationFrame), (intptr_t)1 },
+    { "cancelAnimationFrame", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDOMWindowPrototypeFunctionCancelAnimationFrame), (intptr_t)1 },
+    { "webkitRequestAnimationFrame", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDOMWindowPrototypeFunctionWebkitRequestAnimationFrame), (intptr_t)1 },
+    { "webkitCancelAnimationFrame", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDOMWindowPrototypeFunctionWebkitCancelAnimationFrame), (intptr_t)1 },
+    { "webkitCancelRequestAnimationFrame", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDOMWindowPrototypeFunctionWebkitCancelRequestAnimationFrame), (intptr_t)1 },
     { "addEventListener", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDOMWindowPrototypeFunctionAddEventListener), (intptr_t)2 },
     { "removeEventListener", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDOMWindowPrototypeFunctionRemoveEventListener), (intptr_t)2 },
     { "dispatchEvent", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDOMWindowPrototypeFunctionDispatchEvent), (intptr_t)1 },
@@ -1837,7 +1843,7 @@ static const HashTableValue JSDOMWindowPrototypeTableValues[] =
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
-static const HashTable JSDOMWindowPrototypeTable = { 134, 127, JSDOMWindowPrototypeTableValues, 0 };
+static const HashTable JSDOMWindowPrototypeTable = { 136, 127, JSDOMWindowPrototypeTableValues, 0 };
 const ClassInfo JSDOMWindowPrototype::s_info = { "WindowPrototype", &Base::s_info, &JSDOMWindowPrototypeTable, 0, CREATE_METHOD_TABLE(JSDOMWindowPrototype) };
 
 bool JSDOMWindowPrototype::getOwnPropertySlot(JSObject* object, ExecState* exec, PropertyName propertyName, PropertySlot& slot)
@@ -21259,6 +21265,98 @@ EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionPostMessage(ExecState* 
         return throwVMTypeError(exec);
     ASSERT_GC_OBJECT_INHERITS(castedThis, JSDOMWindow::info());
     return JSValue::encode(castedThis->postMessage(exec));
+}
+
+EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionRequestAnimationFrame(ExecState* exec)
+{
+    JSDOMWindow* castedThis = toJSDOMWindow(exec->hostThisValue().toThis(exec, NotStrictMode));
+    if (!castedThis)
+        return throwVMTypeError(exec);
+    ASSERT_GC_OBJECT_INHERITS(castedThis, JSDOMWindow::info());
+    if (!BindingSecurity::shouldAllowAccessToDOMWindow(exec, castedThis->impl()))
+        return JSValue::encode(jsUndefined());
+    DOMWindow& impl = castedThis->impl();
+    if (exec->argumentCount() < 1)
+        return throwVMError(exec, createNotEnoughArgumentsError(exec));
+    if (!exec->argument(0).isFunction())
+        return throwVMTypeError(exec);
+    RefPtr<RequestAnimationFrameCallback> callback = JSRequestAnimationFrameCallback::create(asObject(exec->uncheckedArgument(0)), castedThis->globalObject());
+
+    JSC::JSValue result = jsNumber(impl.requestAnimationFrame(callback));
+    return JSValue::encode(result);
+}
+
+EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionCancelAnimationFrame(ExecState* exec)
+{
+    JSDOMWindow* castedThis = toJSDOMWindow(exec->hostThisValue().toThis(exec, NotStrictMode));
+    if (!castedThis)
+        return throwVMTypeError(exec);
+    ASSERT_GC_OBJECT_INHERITS(castedThis, JSDOMWindow::info());
+    if (!BindingSecurity::shouldAllowAccessToDOMWindow(exec, castedThis->impl()))
+        return JSValue::encode(jsUndefined());
+    DOMWindow& impl = castedThis->impl();
+    if (exec->argumentCount() < 1)
+        return throwVMError(exec, createNotEnoughArgumentsError(exec));
+    int id(toInt32(exec, exec->argument(0), NormalConversion));
+    if (exec->hadException())
+        return JSValue::encode(jsUndefined());
+    impl.cancelAnimationFrame(id);
+    return JSValue::encode(jsUndefined());
+}
+
+EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionWebkitRequestAnimationFrame(ExecState* exec)
+{
+    JSDOMWindow* castedThis = toJSDOMWindow(exec->hostThisValue().toThis(exec, NotStrictMode));
+    if (!castedThis)
+        return throwVMTypeError(exec);
+    ASSERT_GC_OBJECT_INHERITS(castedThis, JSDOMWindow::info());
+    if (!BindingSecurity::shouldAllowAccessToDOMWindow(exec, castedThis->impl()))
+        return JSValue::encode(jsUndefined());
+    DOMWindow& impl = castedThis->impl();
+    if (exec->argumentCount() < 1)
+        return throwVMError(exec, createNotEnoughArgumentsError(exec));
+    if (!exec->argument(0).isFunction())
+        return throwVMTypeError(exec);
+    RefPtr<RequestAnimationFrameCallback> callback = JSRequestAnimationFrameCallback::create(asObject(exec->uncheckedArgument(0)), castedThis->globalObject());
+
+    JSC::JSValue result = jsNumber(impl.webkitRequestAnimationFrame(callback));
+    return JSValue::encode(result);
+}
+
+EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionWebkitCancelAnimationFrame(ExecState* exec)
+{
+    JSDOMWindow* castedThis = toJSDOMWindow(exec->hostThisValue().toThis(exec, NotStrictMode));
+    if (!castedThis)
+        return throwVMTypeError(exec);
+    ASSERT_GC_OBJECT_INHERITS(castedThis, JSDOMWindow::info());
+    if (!BindingSecurity::shouldAllowAccessToDOMWindow(exec, castedThis->impl()))
+        return JSValue::encode(jsUndefined());
+    DOMWindow& impl = castedThis->impl();
+    if (exec->argumentCount() < 1)
+        return throwVMError(exec, createNotEnoughArgumentsError(exec));
+    int id(toInt32(exec, exec->argument(0), NormalConversion));
+    if (exec->hadException())
+        return JSValue::encode(jsUndefined());
+    impl.cancelAnimationFrame(id);
+    return JSValue::encode(jsUndefined());
+}
+
+EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionWebkitCancelRequestAnimationFrame(ExecState* exec)
+{
+    JSDOMWindow* castedThis = toJSDOMWindow(exec->hostThisValue().toThis(exec, NotStrictMode));
+    if (!castedThis)
+        return throwVMTypeError(exec);
+    ASSERT_GC_OBJECT_INHERITS(castedThis, JSDOMWindow::info());
+    if (!BindingSecurity::shouldAllowAccessToDOMWindow(exec, castedThis->impl()))
+        return JSValue::encode(jsUndefined());
+    DOMWindow& impl = castedThis->impl();
+    if (exec->argumentCount() < 1)
+        return throwVMError(exec, createNotEnoughArgumentsError(exec));
+    int id(toInt32(exec, exec->argument(0), NormalConversion));
+    if (exec->hadException())
+        return JSValue::encode(jsUndefined());
+    impl.cancelAnimationFrame(id);
+    return JSValue::encode(jsUndefined());
 }
 
 EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionAddEventListener(ExecState* exec)

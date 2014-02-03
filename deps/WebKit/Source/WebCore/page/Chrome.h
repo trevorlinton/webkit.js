@@ -156,7 +156,7 @@ public:
     PassOwnPtr<ColorChooser> createColorChooser(ColorChooserClient*, const Color& initialColor);
 #endif
 
-#if ENABLE(DATE_AND_TIME_INPUT_TYPES) && !PLATFORM(IOS)
+#if ENABLE(DATE_AND_TIME_INPUT_TYPES) && !PLATFORM(IOS) && !PLATFORM(JS)
     PassRefPtr<DateTimeChooser> openDateTimeChooser(DateTimeChooserClient*, const DateTimeChooserParameters&)
 #endif
 

@@ -50,8 +50,8 @@
 #include "ShadowRoot.h"
 #include "StyleResolver.h"
 #include "SubframeLoader.h"
-#include <JavaScriptCore/APICast.h>
-#include <JavaScriptCore/JSBase.h>
+#include <APICast.h>
+#include <JSBase.h>
 #include <wtf/HashMap.h>
 #include <wtf/text/StringHash.h>
 

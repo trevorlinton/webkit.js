@@ -23,12 +23,16 @@
 
 #include "DOMWindow.h"
 #include "Document.h"
+#include "ExceptionCode.h"
 #include "HTMLIFrameElement.h"
 #include "HTMLNames.h"
 #include "JSDOMBinding.h"
 #include "JSDOMWindow.h"
 #include "JSDocument.h"
+#include "JSSVGDocument.h"
+#include "SVGDocument.h"
 #include "URL.h"
+#include <runtime/Error.h>
 #include <runtime/JSString.h>
 #include <wtf/GetPtr.h>
 
@@ -94,15 +98,22 @@ bool JSHTMLIFrameElementConstructor::getOwnPropertySlot(JSObject* object, ExecSt
 
 static const HashTableValue JSHTMLIFrameElementPrototypeTableValues[] =
 {
+    { "getSVGDocument", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsHTMLIFrameElementPrototypeFunctionGetSVGDocument), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
-static const HashTable JSHTMLIFrameElementPrototypeTable = { 1, 0, JSHTMLIFrameElementPrototypeTableValues, 0 };
+static const HashTable JSHTMLIFrameElementPrototypeTable = { 2, 1, JSHTMLIFrameElementPrototypeTableValues, 0 };
 const ClassInfo JSHTMLIFrameElementPrototype::s_info = { "HTMLIFrameElementPrototype", &Base::s_info, &JSHTMLIFrameElementPrototypeTable, 0, CREATE_METHOD_TABLE(JSHTMLIFrameElementPrototype) };
 
 JSObject* JSHTMLIFrameElementPrototype::self(VM& vm, JSGlobalObject* globalObject)
 {
     return getDOMPrototype<JSHTMLIFrameElement>(vm, globalObject);
+}
+
+bool JSHTMLIFrameElementPrototype::getOwnPropertySlot(JSObject* object, ExecState* exec, PropertyName propertyName, PropertySlot& slot)
+{
+    JSHTMLIFrameElementPrototype* thisObject = jsCast<JSHTMLIFrameElementPrototype*>(object);
+    return getStaticFunctionSlot<JSObject>(exec, JSHTMLIFrameElementPrototypeTable, thisObject, propertyName, slot);
 }
 
 const ClassInfo JSHTMLIFrameElement::s_info = { "HTMLIFrameElement", &Base::s_info, &JSHTMLIFrameElementTable, 0 , CREATE_METHOD_TABLE(JSHTMLIFrameElement) };
@@ -568,6 +579,23 @@ void setJSHTMLIFrameElementWidth(ExecState* exec, EncodedJSValue thisValue, Enco
 JSValue JSHTMLIFrameElement::getConstructor(VM& vm, JSGlobalObject* globalObject)
 {
     return getDOMConstructor<JSHTMLIFrameElementConstructor>(vm, jsCast<JSDOMGlobalObject*>(globalObject));
+}
+
+EncodedJSValue JSC_HOST_CALL jsHTMLIFrameElementPrototypeFunctionGetSVGDocument(ExecState* exec)
+{
+    JSValue thisValue = exec->hostThisValue();
+    JSHTMLIFrameElement* castedThis = jsDynamicCast<JSHTMLIFrameElement*>(thisValue);
+    if (!castedThis)
+        return throwVMTypeError(exec);
+    ASSERT_GC_OBJECT_INHERITS(castedThis, JSHTMLIFrameElement::info());
+    HTMLIFrameElement& impl = castedThis->impl();
+    ExceptionCode ec = 0;
+    if (!shouldAllowAccessToNode(exec, impl.getSVGDocument(ec)))
+        return JSValue::encode(jsNull());
+
+    JSC::JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.getSVGDocument(ec)));
+    setDOMException(exec, ec);
+    return JSValue::encode(result);
 }
 
 

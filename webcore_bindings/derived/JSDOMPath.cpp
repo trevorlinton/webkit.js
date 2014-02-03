@@ -71,6 +71,18 @@ EncodedJSValue JSC_HOST_CALL JSDOMPathConstructor::constructJSDOMPath2(ExecState
     return JSValue::encode(asObject(toJS(exec, castedThis->globalObject(), object.get())));
 }
 
+EncodedJSValue JSC_HOST_CALL JSDOMPathConstructor::constructJSDOMPath3(ExecState* exec)
+{
+    JSDOMPathConstructor* castedThis = jsCast<JSDOMPathConstructor*>(exec->callee());
+    if (exec->argumentCount() < 1)
+        return throwVMError(exec, createNotEnoughArgumentsError(exec));
+    const String& text(exec->argument(0).isEmpty() ? String() : exec->argument(0).toString(exec)->value(exec));
+    if (exec->hadException())
+        return JSValue::encode(jsUndefined());
+    RefPtr<DOMPath> object = DOMPath::create(text);
+    return JSValue::encode(asObject(toJS(exec, castedThis->globalObject(), object.get())));
+}
+
 EncodedJSValue JSC_HOST_CALL JSDOMPathConstructor::constructJSDOMPath(ExecState* exec)
 {
     size_t argsCount = exec->argumentCount();
@@ -79,6 +91,8 @@ EncodedJSValue JSC_HOST_CALL JSDOMPathConstructor::constructJSDOMPath(ExecState*
     JSValue arg0(exec->argument(0));
     if ((argsCount == 1 && (arg0.isObject() && asObject(arg0)->inherits(JSDOMPath::info()))))
         return JSDOMPathConstructor::constructJSDOMPath2(exec);
+    if (argsCount == 1)
+        return JSDOMPathConstructor::constructJSDOMPath3(exec);
     return throwVMTypeError(exec);
 }
 

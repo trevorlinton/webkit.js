@@ -92,6 +92,9 @@ class Extensions3D;
 #if USE(OPENGL_ES_2)
 class Extensions3DOpenGLES;
 #else
+#if PLATFORM(JS)
+#error "Somehow we ended up with GL when we intended for GLES"
+#endif
 class Extensions3DOpenGL;
 #endif
 class HostWindow;
@@ -1052,7 +1055,7 @@ private:
     OwnPtr<ShaderNameHash> nameHashMapForShaders;
 #endif
 
-#if PLATFORM(BLACKBERRY) || ((PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX)) && USE(OPENGL_ES_2))
+#if PLATFORM(BLACKBERRY) || ((PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX)) && USE(OPENGL_ES_2) || PLATFORM(JS) && USE(OPENGL_ES_2))
     friend class Extensions3DOpenGLES;
     OwnPtr<Extensions3DOpenGLES> m_extensions;
 #else

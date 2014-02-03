@@ -29,7 +29,9 @@
 #include "JSDOMBinding.h"
 #include "JSDocument.h"
 #include "JSHTMLFormElement.h"
+#include "JSSVGDocument.h"
 #include "JSValidityState.h"
+#include "SVGDocument.h"
 #include "URL.h"
 #include "ValidityState.h"
 #include <runtime/Error.h>
@@ -104,10 +106,11 @@ static const HashTableValue JSHTMLObjectElementPrototypeTableValues[] =
 {
     { "checkValidity", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsHTMLObjectElementPrototypeFunctionCheckValidity), (intptr_t)0 },
     { "setCustomValidity", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsHTMLObjectElementPrototypeFunctionSetCustomValidity), (intptr_t)1 },
+    { "getSVGDocument", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsHTMLObjectElementPrototypeFunctionGetSVGDocument), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
-static const HashTable JSHTMLObjectElementPrototypeTable = { 4, 3, JSHTMLObjectElementPrototypeTableValues, 0 };
+static const HashTable JSHTMLObjectElementPrototypeTable = { 9, 7, JSHTMLObjectElementPrototypeTableValues, 0 };
 const ClassInfo JSHTMLObjectElementPrototype::s_info = { "HTMLObjectElementPrototype", &Base::s_info, &JSHTMLObjectElementPrototypeTable, 0, CREATE_METHOD_TABLE(JSHTMLObjectElementPrototype) };
 
 JSObject* JSHTMLObjectElementPrototype::self(VM& vm, JSGlobalObject* globalObject)
@@ -764,6 +767,23 @@ EncodedJSValue JSC_HOST_CALL jsHTMLObjectElementPrototypeFunctionSetCustomValidi
         return JSValue::encode(jsUndefined());
     impl.setCustomValidity(error);
     return JSValue::encode(jsUndefined());
+}
+
+EncodedJSValue JSC_HOST_CALL jsHTMLObjectElementPrototypeFunctionGetSVGDocument(ExecState* exec)
+{
+    JSValue thisValue = exec->hostThisValue();
+    JSHTMLObjectElement* castedThis = jsDynamicCast<JSHTMLObjectElement*>(thisValue);
+    if (!castedThis)
+        return throwVMTypeError(exec);
+    ASSERT_GC_OBJECT_INHERITS(castedThis, JSHTMLObjectElement::info());
+    HTMLObjectElement& impl = castedThis->impl();
+    ExceptionCode ec = 0;
+    if (!shouldAllowAccessToNode(exec, impl.getSVGDocument(ec)))
+        return JSValue::encode(jsNull());
+
+    JSC::JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.getSVGDocument(ec)));
+    setDOMException(exec, ec);
+    return JSValue::encode(result);
 }
 
 

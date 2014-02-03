@@ -119,6 +119,7 @@ protected:
 
 JSC::EncodedJSValue JSC_HOST_CALL jsHTMLObjectElementPrototypeFunctionCheckValidity(JSC::ExecState*);
 JSC::EncodedJSValue JSC_HOST_CALL jsHTMLObjectElementPrototypeFunctionSetCustomValidity(JSC::ExecState*);
+JSC::EncodedJSValue JSC_HOST_CALL jsHTMLObjectElementPrototypeFunctionGetSVGDocument(JSC::ExecState*);
 // Attributes
 
 JSC::EncodedJSValue jsHTMLObjectElementForm(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);

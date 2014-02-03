@@ -33,7 +33,7 @@
 #include "ScriptState.h"
 #include "WorkerGlobalScope.h"
 
-#include <JavaScriptCore/APIShims.h>
+#include "APIShims.h"
 
 namespace WebCore {
 

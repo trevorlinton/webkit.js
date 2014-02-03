@@ -54,27 +54,34 @@ static bool symbolCanBeValidated(const char* symbol)
 
 static void validateAndPrint(const char* symbol)
 {
-#if !OS(WINDOWS)
-    if (symbolCanBeValidated(symbol)) {
-      char* demangledName = abi::__cxa_demangle(symbol + 1, nullptr, nullptr, nullptr);
-      if (!demangledName) {
-        fprintf(stderr, "ERROR: \\"%s\\" is not a valid C++ mangled name.\\n", symbol);
-        exit(EXIT_FAILURE);
-      }
+//#if !OS(WINDOWS) && 0 && !PLATFORM(JS)
+//    if (symbolCanBeValidated(symbol)) {
+//      char* demangledName = abi::__cxa_demangle(symbol + 1, nullptr, nullptr, nullptr);
+//      if (!demangledName) {
+//        fprintf(stderr, "ERROR: \\"%s\\" is not a valid C++ mangled name.\\n", symbol);
+//        exit(EXIT_FAILURE);
+//      }
       
-      free(demangledName);
-    }
-#endif
-
-    printf("%s\\n", symbol);
+//      free(demangledName);
+//    }
+// #elif PLATFORM(JS)
+printf("'%s',", symbol);
+// #else
+// printf("%s\\n", symbol);
+// #endif
 }
 
 int main(int, char**)
 {
+// #if PLATFORM(JS)
+printf("-s EXPORTED_FUNCTIONS=\\"[");
+// #endif
 <%- input.each_line do |line| -%>
 <%= line_for_output line %>
 <%- end -%>
-
+// #if PLATFORM(JS)
+printf("'']\\"");
+// #endif
     return 0;
 }
 EOF

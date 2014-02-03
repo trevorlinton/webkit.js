@@ -34,6 +34,33 @@
 
 namespace WebCore {
 
+class SVGAltGlyphElement;
+void isSVGAltGlyphElement(const SVGAltGlyphElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGAltGlyphElement(const SVGAltGlyphElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGAltGlyphElement(const Element& element) { return element.hasTagName(SVGNames::altGlyphTag); }
+inline bool isSVGAltGlyphElement(const Element* element) { ASSERT(element); return isSVGAltGlyphElement(*element); }
+inline bool isSVGAltGlyphElement(const Node& node) { return node.isElementNode() && isSVGAltGlyphElement(toElement(node)); }
+inline bool isSVGAltGlyphElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGAltGlyphElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGAltGlyphElement>(const Element& element) { return isSVGAltGlyphElement(element); }
+
+class SVGAltGlyphDefElement;
+void isSVGAltGlyphDefElement(const SVGAltGlyphDefElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGAltGlyphDefElement(const SVGAltGlyphDefElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGAltGlyphDefElement(const Element& element) { return element.hasTagName(SVGNames::altGlyphDefTag); }
+inline bool isSVGAltGlyphDefElement(const Element* element) { ASSERT(element); return isSVGAltGlyphDefElement(*element); }
+inline bool isSVGAltGlyphDefElement(const Node& node) { return node.isElementNode() && isSVGAltGlyphDefElement(toElement(node)); }
+inline bool isSVGAltGlyphDefElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGAltGlyphDefElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGAltGlyphDefElement>(const Element& element) { return isSVGAltGlyphDefElement(element); }
+
+class SVGAltGlyphItemElement;
+void isSVGAltGlyphItemElement(const SVGAltGlyphItemElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGAltGlyphItemElement(const SVGAltGlyphItemElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGAltGlyphItemElement(const Element& element) { return element.hasTagName(SVGNames::altGlyphItemTag); }
+inline bool isSVGAltGlyphItemElement(const Element* element) { ASSERT(element); return isSVGAltGlyphItemElement(*element); }
+inline bool isSVGAltGlyphItemElement(const Node& node) { return node.isElementNode() && isSVGAltGlyphItemElement(toElement(node)); }
+inline bool isSVGAltGlyphItemElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGAltGlyphItemElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGAltGlyphItemElement>(const Element& element) { return isSVGAltGlyphItemElement(element); }
+
 class SVGAnimateMotionElement;
 void isSVGAnimateMotionElement(const SVGAnimateMotionElement&); // Catch unnecessary runtime check of type known at compile time.
 void isSVGAnimateMotionElement(const SVGAnimateMotionElement*); // Catch unnecessary runtime check of type known at compile time.
@@ -88,6 +115,132 @@ inline bool isSVGEllipseElement(const Node& node) { return node.isElementNode() 
 inline bool isSVGEllipseElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGEllipseElement(toElement(node)); }
 template <> inline bool isElementOfType<const SVGEllipseElement>(const Element& element) { return isSVGEllipseElement(element); }
 
+class SVGFEDistantLightElement;
+void isSVGFEDistantLightElement(const SVGFEDistantLightElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFEDistantLightElement(const SVGFEDistantLightElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFEDistantLightElement(const Element& element) { return element.hasTagName(SVGNames::feDistantLightTag); }
+inline bool isSVGFEDistantLightElement(const Element* element) { ASSERT(element); return isSVGFEDistantLightElement(*element); }
+inline bool isSVGFEDistantLightElement(const Node& node) { return node.isElementNode() && isSVGFEDistantLightElement(toElement(node)); }
+inline bool isSVGFEDistantLightElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFEDistantLightElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFEDistantLightElement>(const Element& element) { return isSVGFEDistantLightElement(element); }
+
+class SVGFEFuncAElement;
+void isSVGFEFuncAElement(const SVGFEFuncAElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFEFuncAElement(const SVGFEFuncAElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFEFuncAElement(const Element& element) { return element.hasTagName(SVGNames::feFuncATag); }
+inline bool isSVGFEFuncAElement(const Element* element) { ASSERT(element); return isSVGFEFuncAElement(*element); }
+inline bool isSVGFEFuncAElement(const Node& node) { return node.isElementNode() && isSVGFEFuncAElement(toElement(node)); }
+inline bool isSVGFEFuncAElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFEFuncAElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFEFuncAElement>(const Element& element) { return isSVGFEFuncAElement(element); }
+
+class SVGFEFuncBElement;
+void isSVGFEFuncBElement(const SVGFEFuncBElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFEFuncBElement(const SVGFEFuncBElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFEFuncBElement(const Element& element) { return element.hasTagName(SVGNames::feFuncBTag); }
+inline bool isSVGFEFuncBElement(const Element* element) { ASSERT(element); return isSVGFEFuncBElement(*element); }
+inline bool isSVGFEFuncBElement(const Node& node) { return node.isElementNode() && isSVGFEFuncBElement(toElement(node)); }
+inline bool isSVGFEFuncBElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFEFuncBElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFEFuncBElement>(const Element& element) { return isSVGFEFuncBElement(element); }
+
+class SVGFEFuncGElement;
+void isSVGFEFuncGElement(const SVGFEFuncGElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFEFuncGElement(const SVGFEFuncGElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFEFuncGElement(const Element& element) { return element.hasTagName(SVGNames::feFuncGTag); }
+inline bool isSVGFEFuncGElement(const Element* element) { ASSERT(element); return isSVGFEFuncGElement(*element); }
+inline bool isSVGFEFuncGElement(const Node& node) { return node.isElementNode() && isSVGFEFuncGElement(toElement(node)); }
+inline bool isSVGFEFuncGElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFEFuncGElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFEFuncGElement>(const Element& element) { return isSVGFEFuncGElement(element); }
+
+class SVGFEFuncRElement;
+void isSVGFEFuncRElement(const SVGFEFuncRElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFEFuncRElement(const SVGFEFuncRElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFEFuncRElement(const Element& element) { return element.hasTagName(SVGNames::feFuncRTag); }
+inline bool isSVGFEFuncRElement(const Element* element) { ASSERT(element); return isSVGFEFuncRElement(*element); }
+inline bool isSVGFEFuncRElement(const Node& node) { return node.isElementNode() && isSVGFEFuncRElement(toElement(node)); }
+inline bool isSVGFEFuncRElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFEFuncRElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFEFuncRElement>(const Element& element) { return isSVGFEFuncRElement(element); }
+
+class SVGFEMergeNodeElement;
+void isSVGFEMergeNodeElement(const SVGFEMergeNodeElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFEMergeNodeElement(const SVGFEMergeNodeElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFEMergeNodeElement(const Element& element) { return element.hasTagName(SVGNames::feMergeNodeTag); }
+inline bool isSVGFEMergeNodeElement(const Element* element) { ASSERT(element); return isSVGFEMergeNodeElement(*element); }
+inline bool isSVGFEMergeNodeElement(const Node& node) { return node.isElementNode() && isSVGFEMergeNodeElement(toElement(node)); }
+inline bool isSVGFEMergeNodeElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFEMergeNodeElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFEMergeNodeElement>(const Element& element) { return isSVGFEMergeNodeElement(element); }
+
+class SVGFEPointLightElement;
+void isSVGFEPointLightElement(const SVGFEPointLightElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFEPointLightElement(const SVGFEPointLightElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFEPointLightElement(const Element& element) { return element.hasTagName(SVGNames::fePointLightTag); }
+inline bool isSVGFEPointLightElement(const Element* element) { ASSERT(element); return isSVGFEPointLightElement(*element); }
+inline bool isSVGFEPointLightElement(const Node& node) { return node.isElementNode() && isSVGFEPointLightElement(toElement(node)); }
+inline bool isSVGFEPointLightElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFEPointLightElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFEPointLightElement>(const Element& element) { return isSVGFEPointLightElement(element); }
+
+class SVGFESpotLightElement;
+void isSVGFESpotLightElement(const SVGFESpotLightElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFESpotLightElement(const SVGFESpotLightElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFESpotLightElement(const Element& element) { return element.hasTagName(SVGNames::feSpotLightTag); }
+inline bool isSVGFESpotLightElement(const Element* element) { ASSERT(element); return isSVGFESpotLightElement(*element); }
+inline bool isSVGFESpotLightElement(const Node& node) { return node.isElementNode() && isSVGFESpotLightElement(toElement(node)); }
+inline bool isSVGFESpotLightElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFESpotLightElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFESpotLightElement>(const Element& element) { return isSVGFESpotLightElement(element); }
+
+class SVGFilterElement;
+void isSVGFilterElement(const SVGFilterElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFilterElement(const SVGFilterElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFilterElement(const Element& element) { return element.hasTagName(SVGNames::filterTag); }
+inline bool isSVGFilterElement(const Element* element) { ASSERT(element); return isSVGFilterElement(*element); }
+inline bool isSVGFilterElement(const Node& node) { return node.isElementNode() && isSVGFilterElement(toElement(node)); }
+inline bool isSVGFilterElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFilterElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFilterElement>(const Element& element) { return isSVGFilterElement(element); }
+
+class SVGFontElement;
+void isSVGFontElement(const SVGFontElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFontElement(const SVGFontElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFontElement(const Element& element) { return element.hasTagName(SVGNames::fontTag); }
+inline bool isSVGFontElement(const Element* element) { ASSERT(element); return isSVGFontElement(*element); }
+inline bool isSVGFontElement(const Node& node) { return node.isElementNode() && isSVGFontElement(toElement(node)); }
+inline bool isSVGFontElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFontElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFontElement>(const Element& element) { return isSVGFontElement(element); }
+
+class SVGFontFaceElement;
+void isSVGFontFaceElement(const SVGFontFaceElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFontFaceElement(const SVGFontFaceElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFontFaceElement(const Element& element) { return element.hasTagName(SVGNames::font_faceTag); }
+inline bool isSVGFontFaceElement(const Element* element) { ASSERT(element); return isSVGFontFaceElement(*element); }
+inline bool isSVGFontFaceElement(const Node& node) { return node.isElementNode() && isSVGFontFaceElement(toElement(node)); }
+inline bool isSVGFontFaceElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFontFaceElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFontFaceElement>(const Element& element) { return isSVGFontFaceElement(element); }
+
+class SVGFontFaceNameElement;
+void isSVGFontFaceNameElement(const SVGFontFaceNameElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFontFaceNameElement(const SVGFontFaceNameElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFontFaceNameElement(const Element& element) { return element.hasTagName(SVGNames::font_face_nameTag); }
+inline bool isSVGFontFaceNameElement(const Element* element) { ASSERT(element); return isSVGFontFaceNameElement(*element); }
+inline bool isSVGFontFaceNameElement(const Node& node) { return node.isElementNode() && isSVGFontFaceNameElement(toElement(node)); }
+inline bool isSVGFontFaceNameElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFontFaceNameElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFontFaceNameElement>(const Element& element) { return isSVGFontFaceNameElement(element); }
+
+class SVGFontFaceSrcElement;
+void isSVGFontFaceSrcElement(const SVGFontFaceSrcElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFontFaceSrcElement(const SVGFontFaceSrcElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFontFaceSrcElement(const Element& element) { return element.hasTagName(SVGNames::font_face_srcTag); }
+inline bool isSVGFontFaceSrcElement(const Element* element) { ASSERT(element); return isSVGFontFaceSrcElement(*element); }
+inline bool isSVGFontFaceSrcElement(const Node& node) { return node.isElementNode() && isSVGFontFaceSrcElement(toElement(node)); }
+inline bool isSVGFontFaceSrcElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFontFaceSrcElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFontFaceSrcElement>(const Element& element) { return isSVGFontFaceSrcElement(element); }
+
+class SVGFontFaceUriElement;
+void isSVGFontFaceUriElement(const SVGFontFaceUriElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGFontFaceUriElement(const SVGFontFaceUriElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGFontFaceUriElement(const Element& element) { return element.hasTagName(SVGNames::font_face_uriTag); }
+inline bool isSVGFontFaceUriElement(const Element* element) { ASSERT(element); return isSVGFontFaceUriElement(*element); }
+inline bool isSVGFontFaceUriElement(const Node& node) { return node.isElementNode() && isSVGFontFaceUriElement(toElement(node)); }
+inline bool isSVGFontFaceUriElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGFontFaceUriElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGFontFaceUriElement>(const Element& element) { return isSVGFontFaceUriElement(element); }
+
 class SVGForeignObjectElement;
 void isSVGForeignObjectElement(const SVGForeignObjectElement&); // Catch unnecessary runtime check of type known at compile time.
 void isSVGForeignObjectElement(const SVGForeignObjectElement*); // Catch unnecessary runtime check of type known at compile time.
@@ -105,6 +258,33 @@ inline bool isSVGGElement(const Element* element) { ASSERT(element); return isSV
 inline bool isSVGGElement(const Node& node) { return node.isElementNode() && isSVGGElement(toElement(node)); }
 inline bool isSVGGElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGGElement(toElement(node)); }
 template <> inline bool isElementOfType<const SVGGElement>(const Element& element) { return isSVGGElement(element); }
+
+class SVGGlyphElement;
+void isSVGGlyphElement(const SVGGlyphElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGGlyphElement(const SVGGlyphElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGGlyphElement(const Element& element) { return element.hasTagName(SVGNames::glyphTag); }
+inline bool isSVGGlyphElement(const Element* element) { ASSERT(element); return isSVGGlyphElement(*element); }
+inline bool isSVGGlyphElement(const Node& node) { return node.isElementNode() && isSVGGlyphElement(toElement(node)); }
+inline bool isSVGGlyphElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGGlyphElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGGlyphElement>(const Element& element) { return isSVGGlyphElement(element); }
+
+class SVGGlyphRefElement;
+void isSVGGlyphRefElement(const SVGGlyphRefElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGGlyphRefElement(const SVGGlyphRefElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGGlyphRefElement(const Element& element) { return element.hasTagName(SVGNames::glyphRefTag); }
+inline bool isSVGGlyphRefElement(const Element* element) { ASSERT(element); return isSVGGlyphRefElement(*element); }
+inline bool isSVGGlyphRefElement(const Node& node) { return node.isElementNode() && isSVGGlyphRefElement(toElement(node)); }
+inline bool isSVGGlyphRefElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGGlyphRefElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGGlyphRefElement>(const Element& element) { return isSVGGlyphRefElement(element); }
+
+class SVGHKernElement;
+void isSVGHKernElement(const SVGHKernElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGHKernElement(const SVGHKernElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGHKernElement(const Element& element) { return element.hasTagName(SVGNames::hkernTag); }
+inline bool isSVGHKernElement(const Element* element) { ASSERT(element); return isSVGHKernElement(*element); }
+inline bool isSVGHKernElement(const Node& node) { return node.isElementNode() && isSVGHKernElement(toElement(node)); }
+inline bool isSVGHKernElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGHKernElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGHKernElement>(const Element& element) { return isSVGHKernElement(element); }
 
 class SVGImageElement;
 void isSVGImageElement(const SVGImageElement&); // Catch unnecessary runtime check of type known at compile time.
@@ -150,6 +330,15 @@ inline bool isSVGMaskElement(const Element* element) { ASSERT(element); return i
 inline bool isSVGMaskElement(const Node& node) { return node.isElementNode() && isSVGMaskElement(toElement(node)); }
 inline bool isSVGMaskElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGMaskElement(toElement(node)); }
 template <> inline bool isElementOfType<const SVGMaskElement>(const Element& element) { return isSVGMaskElement(element); }
+
+class SVGMissingGlyphElement;
+void isSVGMissingGlyphElement(const SVGMissingGlyphElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGMissingGlyphElement(const SVGMissingGlyphElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGMissingGlyphElement(const Element& element) { return element.hasTagName(SVGNames::missing_glyphTag); }
+inline bool isSVGMissingGlyphElement(const Element* element) { ASSERT(element); return isSVGMissingGlyphElement(*element); }
+inline bool isSVGMissingGlyphElement(const Node& node) { return node.isElementNode() && isSVGMissingGlyphElement(toElement(node)); }
+inline bool isSVGMissingGlyphElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGMissingGlyphElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGMissingGlyphElement>(const Element& element) { return isSVGMissingGlyphElement(element); }
 
 class SVGMPathElement;
 void isSVGMPathElement(const SVGMPathElement&); // Catch unnecessary runtime check of type known at compile time.
@@ -294,6 +483,15 @@ inline bool isSVGViewElement(const Element* element) { ASSERT(element); return i
 inline bool isSVGViewElement(const Node& node) { return node.isElementNode() && isSVGViewElement(toElement(node)); }
 inline bool isSVGViewElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGViewElement(toElement(node)); }
 template <> inline bool isElementOfType<const SVGViewElement>(const Element& element) { return isSVGViewElement(element); }
+
+class SVGVKernElement;
+void isSVGVKernElement(const SVGVKernElement&); // Catch unnecessary runtime check of type known at compile time.
+void isSVGVKernElement(const SVGVKernElement*); // Catch unnecessary runtime check of type known at compile time.
+inline bool isSVGVKernElement(const Element& element) { return element.hasTagName(SVGNames::vkernTag); }
+inline bool isSVGVKernElement(const Element* element) { ASSERT(element); return isSVGVKernElement(*element); }
+inline bool isSVGVKernElement(const Node& node) { return node.isElementNode() && isSVGVKernElement(toElement(node)); }
+inline bool isSVGVKernElement(const Node* node) { ASSERT(node); return node->isElementNode() && isSVGVKernElement(toElement(node)); }
+template <> inline bool isElementOfType<const SVGVKernElement>(const Element& element) { return isSVGVKernElement(element); }
 
 }
 

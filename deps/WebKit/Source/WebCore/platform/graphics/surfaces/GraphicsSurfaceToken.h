@@ -39,9 +39,11 @@ struct GraphicsSurfaceToken {
     typedef uint32_t BufferHandle;
 #elif OS(WINDOWS)
     typedef HANDLE BufferHandle;
+#elif PLATFORM(JS)
+    typedef uint32_t BufferHandle;
 #endif
 
-#if OS(DARWIN) || OS(WINDOWS)
+#if OS(DARWIN) || OS(WINDOWS) || PLATFORM(JS)
     GraphicsSurfaceToken(BufferHandle frontBuffer = 0, BufferHandle backBuffer = 0)
         : frontBufferHandle(frontBuffer)
         , backBufferHandle(backBuffer)

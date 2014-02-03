@@ -57,10 +57,11 @@ static const HashTableValue JSWebKitCSSFilterValueConstructorTableValues[] =
     { "CSS_FILTER_CONTRAST", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWebKitCSSFilterValueCSS_FILTER_CONTRAST), (intptr_t)0 },
     { "CSS_FILTER_BLUR", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWebKitCSSFilterValueCSS_FILTER_BLUR), (intptr_t)0 },
     { "CSS_FILTER_DROP_SHADOW", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWebKitCSSFilterValueCSS_FILTER_DROP_SHADOW), (intptr_t)0 },
+    { "CSS_FILTER_CUSTOM", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWebKitCSSFilterValueCSS_FILTER_CUSTOM), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
-static const HashTable JSWebKitCSSFilterValueConstructorTable = { 33, 31, JSWebKitCSSFilterValueConstructorTableValues, 0 };
+static const HashTable JSWebKitCSSFilterValueConstructorTable = { 34, 31, JSWebKitCSSFilterValueConstructorTableValues, 0 };
 const ClassInfo JSWebKitCSSFilterValueConstructor::s_info = { "WebKitCSSFilterValueConstructor", &Base::s_info, &JSWebKitCSSFilterValueConstructorTable, 0, CREATE_METHOD_TABLE(JSWebKitCSSFilterValueConstructor) };
 
 JSWebKitCSSFilterValueConstructor::JSWebKitCSSFilterValueConstructor(Structure* structure, JSDOMGlobalObject* globalObject)
@@ -96,10 +97,11 @@ static const HashTableValue JSWebKitCSSFilterValuePrototypeTableValues[] =
     { "CSS_FILTER_CONTRAST", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWebKitCSSFilterValueCSS_FILTER_CONTRAST), (intptr_t)0 },
     { "CSS_FILTER_BLUR", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWebKitCSSFilterValueCSS_FILTER_BLUR), (intptr_t)0 },
     { "CSS_FILTER_DROP_SHADOW", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWebKitCSSFilterValueCSS_FILTER_DROP_SHADOW), (intptr_t)0 },
+    { "CSS_FILTER_CUSTOM", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWebKitCSSFilterValueCSS_FILTER_CUSTOM), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
-static const HashTable JSWebKitCSSFilterValuePrototypeTable = { 33, 31, JSWebKitCSSFilterValuePrototypeTableValues, 0 };
+static const HashTable JSWebKitCSSFilterValuePrototypeTable = { 34, 31, JSWebKitCSSFilterValuePrototypeTableValues, 0 };
 const ClassInfo JSWebKitCSSFilterValuePrototype::s_info = { "WebKitCSSFilterValuePrototype", &Base::s_info, &JSWebKitCSSFilterValuePrototypeTable, 0, CREATE_METHOD_TABLE(JSWebKitCSSFilterValuePrototype) };
 
 JSObject* JSWebKitCSSFilterValuePrototype::self(VM& vm, JSGlobalObject* globalObject)
@@ -264,6 +266,12 @@ EncodedJSValue jsWebKitCSSFilterValueCSS_FILTER_DROP_SHADOW(ExecState* exec, Enc
 {
     UNUSED_PARAM(exec);
     return JSValue::encode(jsNumber(static_cast<int>(11)));
+}
+
+EncodedJSValue jsWebKitCSSFilterValueCSS_FILTER_CUSTOM(ExecState* exec, EncodedJSValue, EncodedJSValue, PropertyName)
+{
+    UNUSED_PARAM(exec);
+    return JSValue::encode(jsNumber(static_cast<int>(12)));
 }
 
 

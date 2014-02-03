@@ -34,6 +34,9 @@
 #if ENABLE(SVG)
 
 #include "JSSVGAElement.h"
+#include "JSSVGAltGlyphElement.h"
+#include "JSSVGAltGlyphDefElement.h"
+#include "JSSVGAltGlyphItemElement.h"
 #include "JSSVGAnimateElement.h"
 #include "JSSVGAnimateColorElement.h"
 #include "JSSVGAnimateMotionElement.h"
@@ -44,14 +47,50 @@
 #include "JSSVGDefsElement.h"
 #include "JSSVGDescElement.h"
 #include "JSSVGEllipseElement.h"
+#include "JSSVGFEBlendElement.h"
+#include "JSSVGFEColorMatrixElement.h"
+#include "JSSVGFEComponentTransferElement.h"
+#include "JSSVGFECompositeElement.h"
+#include "JSSVGFEConvolveMatrixElement.h"
+#include "JSSVGFEDiffuseLightingElement.h"
+#include "JSSVGFEDisplacementMapElement.h"
+#include "JSSVGFEDistantLightElement.h"
+#include "JSSVGFEDropShadowElement.h"
+#include "JSSVGFEFloodElement.h"
+#include "JSSVGFEFuncAElement.h"
+#include "JSSVGFEFuncBElement.h"
+#include "JSSVGFEFuncGElement.h"
+#include "JSSVGFEFuncRElement.h"
+#include "JSSVGFEGaussianBlurElement.h"
+#include "JSSVGFEImageElement.h"
+#include "JSSVGFEMergeElement.h"
+#include "JSSVGFEMergeNodeElement.h"
+#include "JSSVGFEMorphologyElement.h"
+#include "JSSVGFEOffsetElement.h"
+#include "JSSVGFEPointLightElement.h"
+#include "JSSVGFESpecularLightingElement.h"
+#include "JSSVGFESpotLightElement.h"
+#include "JSSVGFETileElement.h"
+#include "JSSVGFETurbulenceElement.h"
+#include "JSSVGFilterElement.h"
+#include "JSSVGFontElement.h"
+#include "JSSVGFontFaceElement.h"
+#include "JSSVGFontFaceFormatElement.h"
+#include "JSSVGFontFaceNameElement.h"
+#include "JSSVGFontFaceSrcElement.h"
+#include "JSSVGFontFaceUriElement.h"
 #include "JSSVGForeignObjectElement.h"
 #include "JSSVGGElement.h"
+#include "JSSVGGlyphElement.h"
+#include "JSSVGGlyphRefElement.h"
+#include "JSSVGHKernElement.h"
 #include "JSSVGImageElement.h"
 #include "JSSVGLineElement.h"
 #include "JSSVGLinearGradientElement.h"
 #include "JSSVGMarkerElement.h"
 #include "JSSVGMaskElement.h"
 #include "JSSVGMetadataElement.h"
+#include "JSSVGMissingGlyphElement.h"
 #include "JSSVGMPathElement.h"
 #include "JSSVGPathElement.h"
 #include "JSSVGPatternElement.h"
@@ -73,8 +112,12 @@
 #include "JSSVGTSpanElement.h"
 #include "JSSVGUseElement.h"
 #include "JSSVGViewElement.h"
+#include "JSSVGVKernElement.h"
 #include "JSSVGElement.h"
 #include "SVGAElement.h"
+#include "SVGAltGlyphElement.h"
+#include "SVGAltGlyphDefElement.h"
+#include "SVGAltGlyphItemElement.h"
 #include "SVGAnimateElement.h"
 #include "SVGAnimateColorElement.h"
 #include "SVGAnimateMotionElement.h"
@@ -85,14 +128,50 @@
 #include "SVGDefsElement.h"
 #include "SVGDescElement.h"
 #include "SVGEllipseElement.h"
+#include "SVGFEBlendElement.h"
+#include "SVGFEColorMatrixElement.h"
+#include "SVGFEComponentTransferElement.h"
+#include "SVGFECompositeElement.h"
+#include "SVGFEConvolveMatrixElement.h"
+#include "SVGFEDiffuseLightingElement.h"
+#include "SVGFEDisplacementMapElement.h"
+#include "SVGFEDistantLightElement.h"
+#include "SVGFEDropShadowElement.h"
+#include "SVGFEFloodElement.h"
+#include "SVGFEFuncAElement.h"
+#include "SVGFEFuncBElement.h"
+#include "SVGFEFuncGElement.h"
+#include "SVGFEFuncRElement.h"
+#include "SVGFEGaussianBlurElement.h"
+#include "SVGFEImageElement.h"
+#include "SVGFEMergeElement.h"
+#include "SVGFEMergeNodeElement.h"
+#include "SVGFEMorphologyElement.h"
+#include "SVGFEOffsetElement.h"
+#include "SVGFEPointLightElement.h"
+#include "SVGFESpecularLightingElement.h"
+#include "SVGFESpotLightElement.h"
+#include "SVGFETileElement.h"
+#include "SVGFETurbulenceElement.h"
+#include "SVGFilterElement.h"
+#include "SVGFontElement.h"
+#include "SVGFontFaceElement.h"
+#include "SVGFontFaceFormatElement.h"
+#include "SVGFontFaceNameElement.h"
+#include "SVGFontFaceSrcElement.h"
+#include "SVGFontFaceUriElement.h"
 #include "SVGForeignObjectElement.h"
 #include "SVGGElement.h"
+#include "SVGGlyphElement.h"
+#include "SVGGlyphRefElement.h"
+#include "SVGHKernElement.h"
 #include "SVGImageElement.h"
 #include "SVGLineElement.h"
 #include "SVGLinearGradientElement.h"
 #include "SVGMarkerElement.h"
 #include "SVGMaskElement.h"
 #include "SVGMetadataElement.h"
+#include "SVGMissingGlyphElement.h"
 #include "SVGMPathElement.h"
 #include "SVGPathElement.h"
 #include "SVGPatternElement.h"
@@ -114,6 +193,7 @@
 #include "SVGTSpanElement.h"
 #include "SVGUseElement.h"
 #include "SVGViewElement.h"
+#include "SVGVKernElement.h"
 #include "SVGUnknownElement.h"
 
 #include "SVGNames.h"
@@ -135,6 +215,21 @@ typedef JSDOMWrapper* (*CreateSVGElementWrapperFunction)(ExecState*, JSDOMGlobal
 static JSDOMWrapper* createSVGAElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
 {
     return CREATE_DOM_WRAPPER(exec, globalObject, SVGAElement, element.get());
+}
+
+static JSDOMWrapper* createSVGAltGlyphElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGAltGlyphElement, element.get());
+}
+
+static JSDOMWrapper* createSVGAltGlyphDefElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGAltGlyphDefElement, element.get());
+}
+
+static JSDOMWrapper* createSVGAltGlyphItemElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGAltGlyphItemElement, element.get());
 }
 
 static JSDOMWrapper* createSVGAnimateElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
@@ -187,6 +282,166 @@ static JSDOMWrapper* createSVGEllipseElementWrapper(ExecState* exec, JSDOMGlobal
     return CREATE_DOM_WRAPPER(exec, globalObject, SVGEllipseElement, element.get());
 }
 
+static JSDOMWrapper* createSVGFEBlendElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEBlendElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEColorMatrixElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEColorMatrixElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEComponentTransferElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEComponentTransferElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFECompositeElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFECompositeElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEConvolveMatrixElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEConvolveMatrixElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEDiffuseLightingElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEDiffuseLightingElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEDisplacementMapElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEDisplacementMapElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEDistantLightElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEDistantLightElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEDropShadowElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEDropShadowElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEFloodElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEFloodElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEFuncAElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEFuncAElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEFuncBElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEFuncBElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEFuncGElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEFuncGElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEFuncRElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEFuncRElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEGaussianBlurElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEGaussianBlurElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEImageElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEImageElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEMergeElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEMergeElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEMergeNodeElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEMergeNodeElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEMorphologyElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEMorphologyElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEOffsetElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEOffsetElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFEPointLightElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFEPointLightElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFESpecularLightingElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFESpecularLightingElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFESpotLightElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFESpotLightElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFETileElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFETileElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFETurbulenceElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFETurbulenceElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFilterElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFilterElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFontElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFontElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFontFaceElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFontFaceElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFontFaceFormatElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFontFaceFormatElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFontFaceNameElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFontFaceNameElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFontFaceSrcElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFontFaceSrcElement, element.get());
+}
+
+static JSDOMWrapper* createSVGFontFaceUriElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGFontFaceUriElement, element.get());
+}
+
 static JSDOMWrapper* createSVGForeignObjectElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
 {
     return CREATE_DOM_WRAPPER(exec, globalObject, SVGForeignObjectElement, element.get());
@@ -195,6 +450,21 @@ static JSDOMWrapper* createSVGForeignObjectElementWrapper(ExecState* exec, JSDOM
 static JSDOMWrapper* createSVGGElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
 {
     return CREATE_DOM_WRAPPER(exec, globalObject, SVGGElement, element.get());
+}
+
+static JSDOMWrapper* createSVGGlyphElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGGlyphElement, element.get());
+}
+
+static JSDOMWrapper* createSVGGlyphRefElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGGlyphRefElement, element.get());
+}
+
+static JSDOMWrapper* createSVGHKernElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGHKernElement, element.get());
 }
 
 static JSDOMWrapper* createSVGImageElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
@@ -225,6 +495,11 @@ static JSDOMWrapper* createSVGMaskElementWrapper(ExecState* exec, JSDOMGlobalObj
 static JSDOMWrapper* createSVGMetadataElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
 {
     return CREATE_DOM_WRAPPER(exec, globalObject, SVGMetadataElement, element.get());
+}
+
+static JSDOMWrapper* createSVGMissingGlyphElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGMissingGlyphElement, element.get());
 }
 
 static JSDOMWrapper* createSVGMPathElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
@@ -332,6 +607,11 @@ static JSDOMWrapper* createSVGViewElementWrapper(ExecState* exec, JSDOMGlobalObj
     return CREATE_DOM_WRAPPER(exec, globalObject, SVGViewElement, element.get());
 }
 
+static JSDOMWrapper* createSVGVKernElementWrapper(ExecState* exec, JSDOMGlobalObject* globalObject, PassRefPtr<SVGElement> element)
+{
+    return CREATE_DOM_WRAPPER(exec, globalObject, SVGVKernElement, element.get());
+}
+
 
 static NEVER_INLINE void populateSVGWrapperMap(HashMap<AtomicStringImpl*, CreateSVGElementWrapperFunction>& map)
 {
@@ -342,6 +622,9 @@ static NEVER_INLINE void populateSVGWrapperMap(HashMap<AtomicStringImpl*, Create
 
     static const TableEntry table[] = {
         { aTag, &createSVGAElementWrapper },
+        { altGlyphTag, &createSVGAltGlyphElementWrapper },
+        { altGlyphDefTag, &createSVGAltGlyphDefElementWrapper },
+        { altGlyphItemTag, &createSVGAltGlyphItemElementWrapper },
         { animateTag, &createSVGAnimateElementWrapper },
         { animateColorTag, &createSVGAnimateColorElementWrapper },
         { animateMotionTag, &createSVGAnimateMotionElementWrapper },
@@ -352,14 +635,50 @@ static NEVER_INLINE void populateSVGWrapperMap(HashMap<AtomicStringImpl*, Create
         { defsTag, &createSVGDefsElementWrapper },
         { descTag, &createSVGDescElementWrapper },
         { ellipseTag, &createSVGEllipseElementWrapper },
+        { feBlendTag, &createSVGFEBlendElementWrapper },
+        { feColorMatrixTag, &createSVGFEColorMatrixElementWrapper },
+        { feComponentTransferTag, &createSVGFEComponentTransferElementWrapper },
+        { feCompositeTag, &createSVGFECompositeElementWrapper },
+        { feConvolveMatrixTag, &createSVGFEConvolveMatrixElementWrapper },
+        { feDiffuseLightingTag, &createSVGFEDiffuseLightingElementWrapper },
+        { feDisplacementMapTag, &createSVGFEDisplacementMapElementWrapper },
+        { feDistantLightTag, &createSVGFEDistantLightElementWrapper },
+        { feDropShadowTag, &createSVGFEDropShadowElementWrapper },
+        { feFloodTag, &createSVGFEFloodElementWrapper },
+        { feFuncATag, &createSVGFEFuncAElementWrapper },
+        { feFuncBTag, &createSVGFEFuncBElementWrapper },
+        { feFuncGTag, &createSVGFEFuncGElementWrapper },
+        { feFuncRTag, &createSVGFEFuncRElementWrapper },
+        { feGaussianBlurTag, &createSVGFEGaussianBlurElementWrapper },
+        { feImageTag, &createSVGFEImageElementWrapper },
+        { feMergeTag, &createSVGFEMergeElementWrapper },
+        { feMergeNodeTag, &createSVGFEMergeNodeElementWrapper },
+        { feMorphologyTag, &createSVGFEMorphologyElementWrapper },
+        { feOffsetTag, &createSVGFEOffsetElementWrapper },
+        { fePointLightTag, &createSVGFEPointLightElementWrapper },
+        { feSpecularLightingTag, &createSVGFESpecularLightingElementWrapper },
+        { feSpotLightTag, &createSVGFESpotLightElementWrapper },
+        { feTileTag, &createSVGFETileElementWrapper },
+        { feTurbulenceTag, &createSVGFETurbulenceElementWrapper },
+        { filterTag, &createSVGFilterElementWrapper },
+        { fontTag, &createSVGFontElementWrapper },
+        { font_faceTag, &createSVGFontFaceElementWrapper },
+        { font_face_formatTag, &createSVGFontFaceFormatElementWrapper },
+        { font_face_nameTag, &createSVGFontFaceNameElementWrapper },
+        { font_face_srcTag, &createSVGFontFaceSrcElementWrapper },
+        { font_face_uriTag, &createSVGFontFaceUriElementWrapper },
         { foreignObjectTag, &createSVGForeignObjectElementWrapper },
         { gTag, &createSVGGElementWrapper },
+        { glyphTag, &createSVGGlyphElementWrapper },
+        { glyphRefTag, &createSVGGlyphRefElementWrapper },
+        { hkernTag, &createSVGHKernElementWrapper },
         { imageTag, &createSVGImageElementWrapper },
         { lineTag, &createSVGLineElementWrapper },
         { linearGradientTag, &createSVGLinearGradientElementWrapper },
         { markerTag, &createSVGMarkerElementWrapper },
         { maskTag, &createSVGMaskElementWrapper },
         { metadataTag, &createSVGMetadataElementWrapper },
+        { missing_glyphTag, &createSVGMissingGlyphElementWrapper },
         { mpathTag, &createSVGMPathElementWrapper },
         { pathTag, &createSVGPathElementWrapper },
         { patternTag, &createSVGPatternElementWrapper },
@@ -381,6 +700,7 @@ static NEVER_INLINE void populateSVGWrapperMap(HashMap<AtomicStringImpl*, Create
         { tspanTag, &createSVGTSpanElementWrapper },
         { useTag, &createSVGUseElementWrapper },
         { viewTag, &createSVGViewElementWrapper },
+        { vkernTag, &createSVGVKernElementWrapper },
     };
 
     for (unsigned i = 0; i < WTF_ARRAY_LENGTH(table); ++i)

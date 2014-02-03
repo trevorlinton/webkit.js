@@ -18,23 +18,28 @@ static bool symbolCanBeValidated(const char* symbol)
 
 static void validateAndPrint(const char* symbol)
 {
-#if !OS(WINDOWS)
-    if (symbolCanBeValidated(symbol)) {
-      char* demangledName = abi::__cxa_demangle(symbol + 1, nullptr, nullptr, nullptr);
-      if (!demangledName) {
-        fprintf(stderr, "ERROR: \"%s\" is not a valid C++ mangled name.\n", symbol);
-        exit(EXIT_FAILURE);
-      }
+//#if !OS(WINDOWS) && 0 && !PLATFORM(JS)
+//    if (symbolCanBeValidated(symbol)) {
+//      char* demangledName = abi::__cxa_demangle(symbol + 1, nullptr, nullptr, nullptr);
+//      if (!demangledName) {
+//        fprintf(stderr, "ERROR: \"%s\" is not a valid C++ mangled name.\n", symbol);
+//        exit(EXIT_FAILURE);
+//      }
       
-      free(demangledName);
-    }
-#endif
-
-    printf("%s\n", symbol);
+//      free(demangledName);
+//    }
+// #elif PLATFORM(JS)
+printf("'%s',", symbol);
+// #else
+// printf("%s\n", symbol);
+// #endif
 }
 
 int main(int, char**)
 {
+// #if PLATFORM(JS)
+printf("-s EXPORTED_FUNCTIONS=\"[");
+// #endif
     validateAndPrint(".objc_class_name_DOMAbstractView");
     validateAndPrint(".objc_class_name_DOMCSSStyleDeclaration");
     validateAndPrint(".objc_class_name_DOMCharacterData");
@@ -3018,6 +3023,8 @@ int main(int, char**)
     validateAndPrint("__ZN7WebCore18IDBDatabaseBackendD1Ev");
     validateAndPrint("__ZN7WebCore21CrossThreadCopierBaseILb0ELb0ENS_9IndexedDB15TransactionModeEE4copyERKS2_");
 #endif
-
+// #if PLATFORM(JS)
+printf("'']\"");
+// #endif
     return 0;
 }

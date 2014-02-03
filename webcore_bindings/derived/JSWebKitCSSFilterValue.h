@@ -129,6 +129,7 @@ JSC::EncodedJSValue jsWebKitCSSFilterValueCSS_FILTER_BRIGHTNESS(JSC::ExecState*,
 JSC::EncodedJSValue jsWebKitCSSFilterValueCSS_FILTER_CONTRAST(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsWebKitCSSFilterValueCSS_FILTER_BLUR(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsWebKitCSSFilterValueCSS_FILTER_DROP_SHADOW(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
+JSC::EncodedJSValue jsWebKitCSSFilterValueCSS_FILTER_CUSTOM(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 
 } // namespace WebCore
 

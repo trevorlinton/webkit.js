@@ -131,7 +131,8 @@
      CALCFUNCTION = 344,
      MINFUNCTION = 345,
      MAXFUNCTION = 346,
-     UNICODERANGE = 347
+     UNICODERANGE = 347,
+     WEBKIT_FILTER_RULE_SYM = 348
    };
 #endif
 /* Tokens.  */
@@ -226,6 +227,7 @@
 #define MINFUNCTION 345
 #define MAXFUNCTION 346
 #define UNICODERANGE 347
+#define WEBKIT_FILTER_RULE_SYM 348
 
 
 
@@ -278,7 +280,7 @@ typedef union YYSTYPE
 #line 278 "./CSSGrammar.y"
  CSSParser::Location location; }
 /* Line 1529 of yacc.c.  */
-#line 280 "./CSSGrammar.hpp"
+#line 282 "./CSSGrammar.hpp"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

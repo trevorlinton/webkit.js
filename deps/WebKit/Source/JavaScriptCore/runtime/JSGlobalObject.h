@@ -36,7 +36,7 @@
 #include "StructureRareDataInlines.h"
 #include "VM.h"
 #include "Watchpoint.h"
-#include <JavaScriptCore/JSBase.h>
+#include "JSBase.h"
 #include <array>
 #include <wtf/HashSet.h>
 #include <wtf/OwnPtr.h>

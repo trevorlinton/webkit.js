@@ -24,11 +24,13 @@
 #include "CanvasGradient.h"
 #include "CanvasPattern.h"
 #include "CanvasRenderingContext2D.h"
+#include "DOMPath.h"
 #include "ExceptionCode.h"
 #include "ImageData.h"
 #include "JSCanvasGradient.h"
 #include "JSCanvasPattern.h"
 #include "JSDOMBinding.h"
+#include "JSDOMPath.h"
 #include "JSHTMLCanvasElement.h"
 #include "JSHTMLImageElement.h"
 #include "JSImageData.h"
@@ -61,6 +63,7 @@ static const HashTableValue JSCanvasRenderingContext2DTableValues[] =
     { "lineDashOffset", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCanvasRenderingContext2DLineDashOffset), (intptr_t)setJSCanvasRenderingContext2DLineDashOffset },
     { "webkitLineDash", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCanvasRenderingContext2DWebkitLineDash), (intptr_t)setJSCanvasRenderingContext2DWebkitLineDash },
     { "webkitLineDashOffset", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCanvasRenderingContext2DWebkitLineDashOffset), (intptr_t)setJSCanvasRenderingContext2DWebkitLineDashOffset },
+    { "currentPath", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCanvasRenderingContext2DCurrentPath), (intptr_t)setJSCanvasRenderingContext2DCurrentPath },
     { "font", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCanvasRenderingContext2DFont), (intptr_t)setJSCanvasRenderingContext2DFont },
     { "textAlign", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCanvasRenderingContext2DTextAlign), (intptr_t)setJSCanvasRenderingContext2DTextAlign },
     { "textBaseline", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsCanvasRenderingContext2DTextBaseline), (intptr_t)setJSCanvasRenderingContext2DTextBaseline },
@@ -358,6 +361,19 @@ EncodedJSValue jsCanvasRenderingContext2DWebkitLineDashOffset(ExecState* exec, E
     UNUSED_PARAM(exec);
     CanvasRenderingContext2D& impl = castedThis->impl();
     JSValue result = jsNumber(impl.webkitLineDashOffset());
+    return JSValue::encode(result);
+}
+
+
+EncodedJSValue jsCanvasRenderingContext2DCurrentPath(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
+{
+    JSCanvasRenderingContext2D* castedThis = jsDynamicCast<JSCanvasRenderingContext2D*>(JSValue::decode(thisValue));
+    UNUSED_PARAM(slotBase);
+    if (!castedThis)
+        return throwVMTypeError(exec);
+    UNUSED_PARAM(exec);
+    CanvasRenderingContext2D& impl = castedThis->impl();
+    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.currentPath()));
     return JSValue::encode(result);
 }
 
@@ -678,6 +694,23 @@ void setJSCanvasRenderingContext2DWebkitLineDashOffset(ExecState* exec, EncodedJ
     if (exec->hadException())
         return;
     impl.setWebkitLineDashOffset(nativeValue);
+}
+
+
+void setJSCanvasRenderingContext2DCurrentPath(ExecState* exec, EncodedJSValue thisValue, EncodedJSValue encodedValue)
+{
+    JSValue value = JSValue::decode(encodedValue);
+    UNUSED_PARAM(exec);
+    JSCanvasRenderingContext2D* castedThis = jsDynamicCast<JSCanvasRenderingContext2D*>(JSValue::decode(thisValue));
+    if (!castedThis) {
+        throwVMTypeError(exec);
+        return;
+    }
+    CanvasRenderingContext2D& impl = castedThis->impl();
+    DOMPath* nativeValue(toDOMPath(value));
+    if (exec->hadException())
+        return;
+    impl.setCurrentPath(nativeValue);
 }
 
 
