@@ -123,6 +123,7 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * `/build/common.gypi` You can change various compiler settings, system paths, etc.
 * `/build/all.gypi` This contains the build arch and is the first file used when generating project files with gyp.
 * `/build/sources.gypi` This file contains the list of all of the sources to compile.
+* `/build/config.sh` This autogenerates the project files, it also tries to find em++/emcc and all of your tools, if config files, check the file to make sure its finding emscripten and clang.
 
 **It's important to know**
 
@@ -151,8 +152,8 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * **DONE** ~~Integrate libpng.js (rather than depending on browser pass through decoding to a buffer)~~
 * **DONE** ~~Integrate libjpeg-turbo.js/libjpeg.js (rather than depending on browser pass through decoding to a buffer)~~
 * **DONE** ~~Integrate zlib (rather than depending on browser pass through decoding to a buffer)~~
-* **In Progress -**Use embind/cppfilter.js to automatically generate all the WebCore C++ interfaces (derived from WebCore.exp.in) directly into JavaScript, then simply reuse existing webcore demos/examples.
-* **Bad Idea -** ~~Generate a webkit.js API based on the WebCore C++ interfaces exported to JavaScript with embind/cppfilter.js.~~
+* **Bad Idea -** ~~Use embind/cppfilter.js to automatically generate all the WebCore C++ interfaces (derived from WebCore.exp.in) directly into JavaScript, then simply reuse existing webcore demos/examples.~~
+* **In Progress -**Generate a webkit.js API based on the WebCore C++ interfaces exported to JavaScript with embind/cppfilter.js.
 
 
 License
