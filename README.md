@@ -131,9 +131,10 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * Enabling/disabling settings within the `build/features.gypi` will have a lot of consequences, most of the disabled features are disabled because there's no possible work around for including the platform specific or network layer code (bindings to forward this to the native browser/nodejs module will need to be built).
 * A good amount of the bindings and code within the WebCore are auto generated from scripts, be careful when you have build errors to make sure you're not modifying a "Derived Sources" file, otherwise you'll find your changes will be just over-written the next time this script runs.
 * The current webkit.js "binary" was compiled exposing its symbols, this results in a heavy file size (current 111MB - 2/4/14). However with isolated symbols and -O2 optimizations plus minimization this will come down to 5MB from my tests once we have a proper list of exported symbols (and don't export everything).
-* Do not modify code within `deps/WebKit/WebKitBuild`, `build/out`, `build/Release`, `Release`, `webcore_bindings/derived` or `build/Debug` these files are over-written when WebKit is built, so its somewhat pointless unless you're testing. 
+* Do not modify code within `deps/WebKit/WebKitBuild`, `build/out`, `build/Release`, `Release`, `webcore_bindings/derived` or `build/Debug` these files are over-written when WebKit is built, so its somewhat pointless unless you're testing.
+* Becareful adding files/changing settings in your native IDE/toolchain, these settings are intially set in `build/config.sh` and `build/all.gyp` (and related files). While not all settings will be overwritten with a new config, there's a chance some of your settings may need to be added to these files.
 
-**What's Desperately Needed**
+**Roadmap**
 * **DONE** A build toolchain similar to GYP/gconfig. QtWebkit has one already, possibly re-map that.
 * **DONE** Create "Debug" and "Release" modes that allow for easier debugging. In addition creating anything that helps debug and spot problems easier.
 * Scripts to auto-generate code with Emscripten JS Bindings (e.g., IDL generation, and some other bindings/scripts tasks)
