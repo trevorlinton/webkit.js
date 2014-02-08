@@ -91,6 +91,10 @@
 #include <wtf/text/Base64.h>
 #include <wtf/text/StringHash.h>
 
+#if PLATFORM(JS)
+#include "PageBindings.h"
+#endif
+
 namespace WebCore {
 
 static HashSet<Page*>* allPages;

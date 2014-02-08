@@ -118,7 +118,10 @@ void ResourceHandle::cancel()
 
 void ResourceHandle::setHostAllowsAnyHTTPSCertificate(const String& host)
 {
+#if !PLATFORM(JS)
     allowsAnyHTTPSCertificateHosts(host.lower());
+#endif
+    return;
 }
 
 #if PLATFORM(WIN) && USE(CF)

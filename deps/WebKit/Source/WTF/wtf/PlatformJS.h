@@ -53,7 +53,7 @@
 #define WTF_USE_GLX 0
 //#define WTF_PLATFORM_X11 1
 #define WTF_USE_GRAPHICS_SURFACE 1
-#define WTF_USE_CURL 0 // turn me back on when fixed?..
+#define WTF_USE_CURL 1 // turn me back on when fixed?..
 
 
 //#else
