@@ -11,8 +11,8 @@
     'clang_sysroot':'', #notused
     'clang_cflags':'-std=c++0x',
 
-    'emscripten_cc':'<!(echo $EMSCRIPTEN_EMCC)',
-    'emscripten_cxx':'<!(echo $EMSCRIPTEN_EMCPP)',
+    'emscripten_cc':'<!(echo $EMSCRIPTEN_ROOT)/emcc',
+    'emscripten_cxx':'<!(echo $EMSCRIPTEN_ROOT)/em++',
     'emscripten_ldflags':'!( ./Release/export_generator)',
     'emscripten_defines':['TARGET_EMSCRIPTEN','CAIRO_HAS_FT_FONT'],
     'emscripten_sysroot':'<!(echo $EMSCRIPTEN_ROOT)/system/',
@@ -74,6 +74,7 @@
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/texmap/',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/texmap/coordinated',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/graphics/cpu/arm/filters',
+      '<(DEPTH)/deps/WebKit/Source/WebCore/platform/mock',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/sql',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/text',
       '<(DEPTH)/deps/WebKit/Source/WebCore/platform/audio',
@@ -132,12 +133,27 @@
       '<(DEPTH)/deps/harfbuzz/src',
       '<(DEPTH)/deps/freetype2/include',
       '<(DEPTH)/deps/libjpeg_turbo',
+      '<(DEPTH)/deps/curl/include',
     ],
   },
   'targets': [
     {
       'target_name': 'webkitjs',
-      'type': 'shared_library',
+      'type': 'none',
+      'dependencies':[
+      ],
+      'actions':[
+        {
+          'inputs':['all.gyp'],
+          'outputs':['link.log'],
+          'action_name':'link',
+          'action':['./compile.sh','<!(echo $NINJA_ROOT)','<!(echo $EMSCRIPTEN_ROOT)'],
+        },
+      ],
+    },
+    {
+      'target_name': 'webkitobj',
+      'type': 'static_library',
       'defines': [
         '<@(feature_defines)',
         '<@(emscripten_defines)',
@@ -168,24 +184,6 @@
       'ldflags':['<(emscripten_ldflags)'],
     },
     {
-      'target_name': 'webcore_xml',
-      'type': 'static_library',
-      'defines': [
-        '<@(feature_defines)',
-        '<@(emscripten_defines)',
-      ],
-      'sources': [
-        '<@(webcore_xml_files)'
-      ],
-      'include_dirs': [
-        '<(DEPTH)/deps/libxml2/include',
-        '<@(webcore_include_dirs)',
-      ],
-      'cc':'<(emscripten_cc)',
-      'cxx':'<(emscripten_cxx)',
-      'cflags':['<(emscripten_cflags)'],
-    },
-    {
       'target_name': 'export_generator',
       'type': 'executable',
       'defines': [
@@ -198,192 +196,10 @@
         '<@(webcore_include_dirs)',
         '<(DEPTH)/deps/WebKit/Source/WTF/wtf',
       ],
-      'cc':'<(clang_cc)',
-      'cxx':'<(clang_cxx)',
+      'cc':'<(clang_cc) -std=c++0x',
+      'cxx':'<(clang_cxx) -std=c++0x',
       'cflags':['<(clang_cflags)'],
       'target_arch':'x86_64'
-    },
-    {
-      'target_name': 'webcore_platform',
-      'type': 'static_library',
-      'defines': [
-        '<@(feature_defines)',
-        '<@(emscripten_defines)',
-      ],
-      'sources': [
-        '<@(webcore_platform_files)'
-      ],
-      'include_dirs': [
-        '<@(webcore_include_dirs)',
-        '<(DEPTH)/deps/WebKit/Source/WTF/wtf'
-      ],
-      'cc':'<(emscripten_cc)',
-      'cxx':'<(emscripten_cxx)',
-      'cflags':['<(emscripten_cflags)'],
-    },
-    {
-      'target_name': 'webcore_svg',
-      'type': 'static_library',
-      'defines': [
-        '<@(feature_defines)',
-        '<@(emscripten_defines)',
-      ],
-      'sources': [
-        '<@(webcore_svg_files)'
-      ],
-      'include_dirs': [
-        '<(DEPTH)/deps/libxml2/include',
-        '<@(webcore_include_dirs)',
-      ],
-      'cc':'<(emscripten_cc)',
-      'cxx':'<(emscripten_cxx)',
-      'cflags':['<(emscripten_cflags)'],
-    },
-    {
-      'target_name': 'webcore_loader',
-      'type': 'static_library',
-      'defines': [
-        '<@(feature_defines)',
-        '<@(emscripten_defines)',
-      ],
-      'sources': [
-        '<@(webcore_loader_files)'
-      ],
-      'include_dirs': [
-        '<(DEPTH)/deps/libxml2/include',
-        '<@(webcore_include_dirs)',
-      ],
-      'cc':'<(emscripten_cc)',
-      'cxx':'<(emscripten_cxx)',
-      'cflags':['<(emscripten_cflags)'],
-    },
-    {
-      'target_name': 'webcore_html',
-      'type': 'static_library',
-      'defines': [
-        '<@(feature_defines)',
-        '<@(emscripten_defines)',
-      ],
-      'sources': [
-        '<@(webcore_html_files)'
-      ],
-      'include_dirs': [
-        '<@(webcore_include_dirs)',
-      ],
-      'cc':'<(emscripten_cc)',
-      'cxx':'<(emscripten_cxx)',
-      'cflags':['<(emscripten_cflags)'],
-    },
-    {
-      'target_name': 'webcore_dom',
-      'type': 'static_library',
-      'defines': [
-        '<@(feature_defines)',
-        '<@(emscripten_defines)',
-      ],
-      'sources': [
-        '<@(webcore_dom_files)'
-      ],
-      'include_dirs': [
-        '<@(webcore_include_dirs)',
-        '<(DEPTH)/deps/libxml2/include'
-      ],
-      'cc':'<(emscripten_cc)',
-      'cxx':'<(emscripten_cxx)',
-      'cflags':['<(emscripten_cflags)'],
-    },
-    {
-      'target_name': 'webcore_css',
-      'type': 'static_library',
-      'defines': [
-        '<@(feature_defines)',
-        '<@(emscripten_defines)',
-      ],
-      'sources': [
-        '<@(webcore_css_files)'
-      ],
-      'include_dirs': [
-        '<@(webcore_include_dirs)',
-      ],
-      'cc':'<(emscripten_cc)',
-      'cxx':'<(emscripten_cxx)',
-      'cflags':['<(emscripten_cflags)'],
-    },
-    {
-      'target_name': 'webcore_page',
-      'type': 'static_library',
-      'defines': [
-        '<@(feature_defines)',
-        '<@(emscripten_defines)',
-      ],
-      'sources': [
-        '<@(webcore_page_files)'
-      ],
-      'include_dirs': [
-        '<@(webcore_include_dirs)',
-      ],
-      'cc':'<(emscripten_cc)',
-      'cxx':'<(emscripten_cxx)',
-      'cflags':['<(emscripten_cflags)'],
-    },
-    {
-      'target_name': 'webcore_style',
-      'type': 'static_library',
-      'defines': [
-        '<@(feature_defines)',
-        '<@(emscripten_defines)',
-      ],
-      'sources': [
-        '<@(webcore_style_files)'
-      ],
-      'include_dirs': [
-        '<@(webcore_include_dirs)',
-      ],
-      'cc':'<(emscripten_cc)',
-      'cxx':'<(emscripten_cxx)',
-      'cflags':['<(emscripten_cflags)'],
-    },
-    {
-      'target_name': 'webcore_rendering',
-      'type': 'static_library',
-      'defines': [
-        '<@(feature_defines)',
-        '<@(emscripten_defines)',
-      ],
-      'dependencies': [
-      ],
-      'sources': [
-        '<@(webcore_rendering_files)'
-      ],
-      'include_dirs': [
-        '<@(webcore_include_dirs)',
-      ],
-      'sources!': [
-        # exclusions? or forced inclusions? probably exclusions...
-      ],
-      'sources/': [
-        #['exclude', '.*'],
-        #['include', 'rendering/'],
-
-        # FIXME: Figure out how to store these patterns in a variable.
-        ['exclude', '(cf|cg|mac|opentype|svg|win)/'],
-        ['exclude', '(?<!Chromium)(CF|CG|Mac|OpenType|Win)\\.(cpp|mm?)$'],
-        # Previous rule excludes things like ChromiumFooWin, include those.
-        #['include', 'rendering/.*Chromium.*\\.(cpp|mm?)$'],
-      ],
-      'export_dependent_settings': [
-      ],
-      'direct_dependent_settings': {
-        'defines': [
-          '<@(feature_defines)',
-          'WEBCORE_NAVIGATOR_VENDOR="True Interactions."',
-          'WEBKIT_IMPLEMENTATION=1',
-          'INSIDE_WEBKIT',
-        ],
-      },
-      'cc':'<(emscripten_cc)',
-      'cxx':'<(emscripten_cxx)',
-      'cflags':['<(emscripten_cflags)'],
     },
   ],  # targets
 }

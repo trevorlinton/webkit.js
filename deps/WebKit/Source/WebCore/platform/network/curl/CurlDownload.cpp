@@ -161,7 +161,7 @@ bool CurlDownloadManager::removeFromCurl(CURL* curlHandle)
     }
     return false;
 }
-
+#if !PLATFORM(JS)
 void CurlDownloadManager::downloadThread(void* data)
 {
     CurlDownloadManager* downloadManager = reinterpret_cast<CurlDownloadManager*>(data);
@@ -220,7 +220,7 @@ void CurlDownloadManager::downloadThread(void* data)
         downloadManager->stopThreadIfIdle();
     }
 }
-
+#endif
 // CurlDownload --------------------------------------------------------------------------
 
 CurlDownloadManager CurlDownload::m_downloadManager;
@@ -338,8 +338,9 @@ void CurlDownload::moveFileToDestination()
 {
     if (m_destination.isEmpty())
         return;
-
+#if !PLATFORM(JS)
     ::MoveFileEx(m_tempPath.charactersWithNullTermination().data(), m_destination.charactersWithNullTermination().data(), MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING);
+#endif
 }
 
 void CurlDownload::writeDataToFile(const char* data, int size)

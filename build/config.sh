@@ -11,6 +11,12 @@ export InspectorScripts=$PWD/deps/WebKit/Source/JavaScriptCore/inspector/scripts
 make -C webcore_bindings/derived -f ../../deps/WebKit/Source/WebCore/DerivedSources.make $@
 
 export EMSCRIPTEN_ROOT=`em-config EMSCRIPTEN_ROOT`
+export NINJA_ROOT=`which ninja`
+
+if [ ! "NINJA_ROOT" ]; then
+  echo "Cannot find ninja build tool.";
+  exit 1
+fi
 
 if [ -d "$EMSCRIPTEN_ROOT" ]; then
   export EMSCRIPTEN_EMCC=$EMSCRIPTEN_ROOT/emcc
