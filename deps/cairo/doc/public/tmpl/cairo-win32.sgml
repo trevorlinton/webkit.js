@@ -1,0 +1,88 @@
+<!-- ##### SECTION Title ##### -->
+cairo-win32
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_WIN32_SURFACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_win32_surface_create ##### -->
+<para>
+
+</para>
+
+@hdc: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_win32_surface_create_with_dib ##### -->
+<para>
+
+</para>
+
+@format: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_win32_surface_create_with_ddb ##### -->
+<para>
+
+</para>
+
+@hdc: 
+@format: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_win32_printing_surface_create ##### -->
+<para>
+
+</para>
+
+@hdc: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_win32_surface_get_dc ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_win32_surface_get_image ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+

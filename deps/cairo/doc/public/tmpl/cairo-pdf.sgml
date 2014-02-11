@@ -1,0 +1,97 @@
+<!-- ##### SECTION Title ##### -->
+cairo-pdf
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_PDF_SURFACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_pdf_surface_create ##### -->
+<para>
+
+</para>
+
+@filename: 
+@width_in_points: 
+@height_in_points: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_pdf_surface_create_for_stream ##### -->
+<para>
+
+</para>
+
+@write_func: 
+@closure: 
+@width_in_points: 
+@height_in_points: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_pdf_surface_restrict_to_version ##### -->
+<para>
+
+</para>
+
+@surface: 
+@version: 
+
+
+<!-- ##### ENUM cairo_pdf_version_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_PDF_VERSION_1_4: 
+@CAIRO_PDF_VERSION_1_5: 
+
+<!-- ##### FUNCTION cairo_pdf_get_versions ##### -->
+<para>
+
+</para>
+
+@versions: 
+@num_versions: 
+
+
+<!-- ##### FUNCTION cairo_pdf_version_to_string ##### -->
+<para>
+
+</para>
+
+@version: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_pdf_surface_set_size ##### -->
+<para>
+
+</para>
+
+@surface: 
+@width_in_points: 
+@height_in_points: 
+
+

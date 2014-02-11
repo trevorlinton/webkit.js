@@ -1,0 +1,102 @@
+<!-- ##### SECTION Title ##### -->
+cairo-win32-fonts
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_WIN32_FONT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_win32_font_face_create_for_logfontw ##### -->
+<para>
+
+</para>
+
+@logfont: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_win32_font_face_create_for_hfont ##### -->
+<para>
+
+</para>
+
+@font: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_win32_font_face_create_for_logfontw_hfont ##### -->
+<para>
+
+</para>
+
+@logfont: 
+@font: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_win32_scaled_font_select_font ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@hdc: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_win32_scaled_font_done_font ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+
+
+<!-- ##### FUNCTION cairo_win32_scaled_font_get_metrics_factor ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_win32_scaled_font_get_logical_to_device ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@logical_to_device: 
+
+
+<!-- ##### FUNCTION cairo_win32_scaled_font_get_device_to_logical ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@device_to_logical: 
+
+

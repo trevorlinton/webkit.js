@@ -1,3 +1,4 @@
+*.xcscheme
 ./Release
 ./Debug
 /Debug

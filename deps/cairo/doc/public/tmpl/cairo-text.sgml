@@ -1,0 +1,291 @@
+<!-- ##### SECTION Title ##### -->
+cairo-text
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT cairo_glyph_t ##### -->
+<para>
+
+</para>
+
+@index: 
+@x: 
+@y: 
+
+<!-- ##### ENUM cairo_font_slant_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_FONT_SLANT_NORMAL: 
+@CAIRO_FONT_SLANT_ITALIC: 
+@CAIRO_FONT_SLANT_OBLIQUE: 
+
+<!-- ##### ENUM cairo_font_weight_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_FONT_WEIGHT_NORMAL: 
+@CAIRO_FONT_WEIGHT_BOLD: 
+
+<!-- ##### STRUCT cairo_text_cluster_t ##### -->
+<para>
+
+</para>
+
+@num_bytes: 
+@num_glyphs: 
+
+<!-- ##### ENUM cairo_text_cluster_flags_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_TEXT_CLUSTER_FLAG_BACKWARD: 
+
+<!-- ##### FUNCTION cairo_select_font_face ##### -->
+<para>
+
+</para>
+
+@cr: 
+@family: 
+@slant: 
+@weight: 
+
+
+<!-- ##### FUNCTION cairo_set_font_size ##### -->
+<para>
+
+</para>
+
+@cr: 
+@size: 
+
+
+<!-- ##### FUNCTION cairo_set_font_matrix ##### -->
+<para>
+
+</para>
+
+@cr: 
+@matrix: 
+
+
+<!-- ##### FUNCTION cairo_get_font_matrix ##### -->
+<para>
+
+</para>
+
+@cr: 
+@matrix: 
+
+
+<!-- ##### FUNCTION cairo_set_font_options ##### -->
+<para>
+
+</para>
+
+@cr: 
+@options: 
+
+
+<!-- ##### FUNCTION cairo_get_font_options ##### -->
+<para>
+
+</para>
+
+@cr: 
+@options: 
+
+
+<!-- ##### FUNCTION cairo_set_font_face ##### -->
+<para>
+
+</para>
+
+@cr: 
+@font_face: 
+
+
+<!-- ##### FUNCTION cairo_get_font_face ##### -->
+<para>
+
+</para>
+
+@cr: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_set_scaled_font ##### -->
+<para>
+
+</para>
+
+@cr: 
+@scaled_font: 
+
+
+<!-- ##### FUNCTION cairo_get_scaled_font ##### -->
+<para>
+
+</para>
+
+@cr: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_show_text ##### -->
+<para>
+
+</para>
+
+@cr: 
+@utf8: 
+
+
+<!-- ##### FUNCTION cairo_show_glyphs ##### -->
+<para>
+
+</para>
+
+@cr: 
+@glyphs: 
+@num_glyphs: 
+
+
+<!-- ##### FUNCTION cairo_show_text_glyphs ##### -->
+<para>
+
+</para>
+
+@cr: 
+@utf8: 
+@utf8_len: 
+@glyphs: 
+@num_glyphs: 
+@clusters: 
+@num_clusters: 
+@cluster_flags: 
+
+
+<!-- ##### FUNCTION cairo_font_extents ##### -->
+<para>
+
+</para>
+
+@cr: 
+@extents: 
+
+
+<!-- ##### FUNCTION cairo_text_extents ##### -->
+<para>
+
+</para>
+
+@cr: 
+@utf8: 
+@extents: 
+
+
+<!-- ##### FUNCTION cairo_glyph_extents ##### -->
+<para>
+
+</para>
+
+@cr: 
+@glyphs: 
+@num_glyphs: 
+@extents: 
+
+
+<!-- ##### FUNCTION cairo_toy_font_face_create ##### -->
+<para>
+
+</para>
+
+@family: 
+@slant: 
+@weight: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_toy_font_face_get_family ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_toy_font_face_get_slant ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_toy_font_face_get_weight ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_glyph_allocate ##### -->
+<para>
+
+</para>
+
+@num_glyphs: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_glyph_free ##### -->
+<para>
+
+</para>
+
+@glyphs: 
+
+
+<!-- ##### FUNCTION cairo_text_cluster_allocate ##### -->
+<para>
+
+</para>
+
+@num_clusters: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_text_cluster_free ##### -->
+<para>
+
+</para>
+
+@clusters: 
+
+

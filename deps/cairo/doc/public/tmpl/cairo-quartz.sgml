@@ -1,0 +1,60 @@
+<!-- ##### SECTION Title ##### -->
+cairo-quartz
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_QUARTZ_SURFACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_quartz_surface_create ##### -->
+<para>
+
+</para>
+
+@format: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_quartz_surface_create_for_cg_context ##### -->
+<para>
+
+</para>
+
+@cgContext: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_quartz_surface_get_cg_context ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+

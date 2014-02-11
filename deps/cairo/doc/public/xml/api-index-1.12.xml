@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<indexdiv>
+<indexdiv><title>M</title>
+<indexentry><primaryie linkends="cairo-mesh-pattern-begin-patch"><link linkend="cairo-mesh-pattern-begin-patch">cairo_mesh_pattern_begin_patch</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mesh-pattern-curve-to"><link linkend="cairo-mesh-pattern-curve-to">cairo_mesh_pattern_curve_to</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mesh-pattern-end-patch"><link linkend="cairo-mesh-pattern-end-patch">cairo_mesh_pattern_end_patch</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mesh-pattern-get-control-point"><link linkend="cairo-mesh-pattern-get-control-point">cairo_mesh_pattern_get_control_point</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mesh-pattern-get-corner-color-rgba"><link linkend="cairo-mesh-pattern-get-corner-color-rgba">cairo_mesh_pattern_get_corner_color_rgba</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mesh-pattern-get-patch-count"><link linkend="cairo-mesh-pattern-get-patch-count">cairo_mesh_pattern_get_patch_count</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mesh-pattern-get-path"><link linkend="cairo-mesh-pattern-get-path">cairo_mesh_pattern_get_path</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mesh-pattern-line-to"><link linkend="cairo-mesh-pattern-line-to">cairo_mesh_pattern_line_to</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mesh-pattern-move-to"><link linkend="cairo-mesh-pattern-move-to">cairo_mesh_pattern_move_to</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mesh-pattern-set-control-point"><link linkend="cairo-mesh-pattern-set-control-point">cairo_mesh_pattern_set_control_point</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mesh-pattern-set-corner-color-rgb"><link linkend="cairo-mesh-pattern-set-corner-color-rgb">cairo_mesh_pattern_set_corner_color_rgb</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mesh-pattern-set-corner-color-rgba"><link linkend="cairo-mesh-pattern-set-corner-color-rgba">cairo_mesh_pattern_set_corner_color_rgba</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>P</title>
+<indexentry><primaryie linkends="cairo-pattern-create-mesh"><link linkend="cairo-pattern-create-mesh">cairo_pattern_create_mesh</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-create-raster-source"><link linkend="cairo-pattern-create-raster-source">cairo_pattern_create_raster_source</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>R</title>
+<indexentry><primaryie linkends="cairo-raster-source-acquire-func-t"><link linkend="cairo-raster-source-acquire-func-t">cairo_raster_source_acquire_func_t</link>, user_function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-copy-func-t"><link linkend="cairo-raster-source-copy-func-t">cairo_raster_source_copy_func_t</link>, user_function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-finish-func-t"><link linkend="cairo-raster-source-finish-func-t">cairo_raster_source_finish_func_t</link>, user_function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-pattern-get-acquire"><link linkend="cairo-raster-source-pattern-get-acquire">cairo_raster_source_pattern_get_acquire</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-pattern-get-callback-data"><link linkend="cairo-raster-source-pattern-get-callback-data">cairo_raster_source_pattern_get_callback_data</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-pattern-get-copy"><link linkend="cairo-raster-source-pattern-get-copy">cairo_raster_source_pattern_get_copy</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-pattern-get-finish"><link linkend="cairo-raster-source-pattern-get-finish">cairo_raster_source_pattern_get_finish</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-pattern-get-snapshot"><link linkend="cairo-raster-source-pattern-get-snapshot">cairo_raster_source_pattern_get_snapshot</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-pattern-set-acquire"><link linkend="cairo-raster-source-pattern-set-acquire">cairo_raster_source_pattern_set_acquire</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-pattern-set-callback-data"><link linkend="cairo-raster-source-pattern-set-callback-data">cairo_raster_source_pattern_set_callback_data</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-pattern-set-copy"><link linkend="cairo-raster-source-pattern-set-copy">cairo_raster_source_pattern_set_copy</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-pattern-set-finish"><link linkend="cairo-raster-source-pattern-set-finish">cairo_raster_source_pattern_set_finish</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-pattern-set-snapshot"><link linkend="cairo-raster-source-pattern-set-snapshot">cairo_raster_source_pattern_set_snapshot</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-release-func-t"><link linkend="cairo-raster-source-release-func-t">cairo_raster_source_release_func_t</link>, user_function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-raster-source-snapshot-func-t"><link linkend="cairo-raster-source-snapshot-func-t">cairo_raster_source_snapshot_func_t</link>, user_function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>S</title>
+<indexentry><primaryie linkends="cairo-surface-create-similar-image"><link linkend="cairo-surface-create-similar-image">cairo_surface_create_similar_image</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-map-to-image"><link linkend="cairo-surface-map-to-image">cairo_surface_map_to_image</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-unmap-image"><link linkend="cairo-surface-unmap-image">cairo_surface_unmap_image</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

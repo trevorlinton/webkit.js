@@ -216,6 +216,7 @@ inline void ThreadSpecific<T>::set(T* ptr)
     TlsSetValue(tlsKeys()[m_index], data);
 }
 
+#elif PLATFORM(JS)
 #else
 #error ThreadSpecific is not implemented for this platform.
 #endif

@@ -193,7 +193,7 @@ public:
     CFDictionaryRef getCFStringAttributes(TypesettingFeatures, FontOrientation) const;
 #endif
 
-#if PLATFORM(MAC) || USE(HARFBUZZ)
+#if PLATFORM(MAC) || (USE(HARFBUZZ) && USE(ICU))
     bool canRenderCombiningCharacterSequence(const UChar*, size_t) const;
 #endif
 

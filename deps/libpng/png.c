@@ -17,7 +17,7 @@
 #include "png.h"
 
 /* Generate a compiler error if there is an old png.h in the search path. */
-typedef version_1_2_45 Your_png_h_is_not_version_1_2_45;
+typedef version_1_2_46 Your_png_h_is_not_version_1_2_46;
 
 /* Version information for C files.  This had better match the version
  * string defined in png.h.

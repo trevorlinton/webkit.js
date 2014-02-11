@@ -43,7 +43,7 @@
 
 #if PLATFORM(WIN)
 #include "GLSLANG/ShaderLang.h"
-#else
+#elif !PLATFORM(JS)
 #include "ShaderLang.h"
 #endif
 

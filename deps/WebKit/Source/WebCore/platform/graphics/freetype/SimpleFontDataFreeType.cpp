@@ -43,9 +43,8 @@
 #include "UTF16UChar32Iterator.h"
 #include <cairo-ft.h>
 #include <cairo.h>
-#if !PLATFORM(JS)
+#include <fontconfig/fontconfig.h>
 #include <fontconfig/fcfreetype.h>
-#endif
 #include <ft2build.h>
 #include FT_TRUETYPE_TABLES_H
 #include FT_TRUETYPE_TAGS_H
@@ -175,7 +174,7 @@ float SimpleFontData::platformWidthForGlyph(Glyph glyph) const
     return width ? width : m_spaceWidth;
 }
 
-#if USE(HARFBUZZ)
+#if USE(HARFBUZZ) && USE(ICU)
 bool SimpleFontData::canRenderCombiningCharacterSequence(const UChar* characters, size_t length) const
 {
     if (!m_combiningCharacterSequenceSupport)

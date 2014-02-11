@@ -1,0 +1,38 @@
+libcairoperf_sources = \
+	cairo-perf.c		\
+	cairo-perf-report.c	\
+	cairo-stats.c		\
+	$(NULL)
+
+libcairoperf_external_sources = ../src/cairo-time.c
+
+libcairoperf_headers = \
+	cairo-perf.h   \
+	cairo-stats.h  \
+	$(NULL)
+
+cairo_analyse_trace_sources = cairo-analyse-trace.c
+cairo_analyse_trace_external_sources = ../src/cairo-error.c
+
+cairo_perf_trace_sources = cairo-perf-trace.c
+cairo_perf_trace_external_sources = \
+	../src/cairo-error.c \
+	../src/cairo-hash.c \
+	$(NULL)
+
+cairo_perf_micro_sources = cairo-perf-micro.c
+
+cairo_perf_diff_files_sources =	cairo-perf-diff-files.c
+
+cairo_perf_print_sources = cairo-perf-print.c
+
+cairo_perf_chart_sources = cairo-perf-chart.c
+
+cairo_perf_compare_backends_sources = cairo-perf-compare-backends.c
+
+cairo_perf_graph_files_sources =	\
+	cairo-perf-graph-files.c	\
+	cairo-perf-graph-widget.c	\
+	$(NULL)
+
+cairo_perf_graph_files_headers = cairo-perf-graph.h

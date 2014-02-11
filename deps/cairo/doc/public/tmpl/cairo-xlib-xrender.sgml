@@ -1,0 +1,52 @@
+<!-- ##### SECTION Title ##### -->
+cairo-xlib-xrender
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_XLIB_XRENDER_SURFACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_create_with_xrender_format ##### -->
+<para>
+
+</para>
+
+@dpy: 
+@drawable: 
+@screen: 
+@format: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_get_xrender_format ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+

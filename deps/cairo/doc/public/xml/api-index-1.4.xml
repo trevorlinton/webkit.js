@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<indexdiv>
+<indexdiv><title>C</title>
+<indexentry><primaryie linkends="cairo-clip-extents"><link linkend="cairo-clip-extents">cairo_clip_extents</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-copy-clip-rectangle-list"><link linkend="cairo-copy-clip-rectangle-list">cairo_copy_clip_rectangle_list</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>F</title>
+<indexentry><primaryie linkends="cairo-font-face-get-reference-count"><link linkend="cairo-font-face-get-reference-count">cairo_font_face_get_reference_count</link>, function in <link linkend="cairo-cairo-font-face-t">cairo_font_face_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>G</title>
+<indexentry><primaryie linkends="cairo-get-dash"><link linkend="cairo-get-dash">cairo_get_dash</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-dash-count"><link linkend="cairo-get-dash-count">cairo_get_dash_count</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-reference-count"><link linkend="cairo-get-reference-count">cairo_get_reference_count</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-scaled-font"><link linkend="cairo-get-scaled-font">cairo_get_scaled_font</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-user-data"><link linkend="cairo-get-user-data">cairo_get_user_data</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>P</title>
+<indexentry><primaryie linkends="cairo-pattern-get-color-stop-count"><link linkend="cairo-pattern-get-color-stop-count">cairo_pattern_get_color_stop_count</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-get-color-stop-rgba"><link linkend="cairo-pattern-get-color-stop-rgba">cairo_pattern_get_color_stop_rgba</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-get-linear-points"><link linkend="cairo-pattern-get-linear-points">cairo_pattern_get_linear_points</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-get-radial-circles"><link linkend="cairo-pattern-get-radial-circles">cairo_pattern_get_radial_circles</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-get-reference-count"><link linkend="cairo-pattern-get-reference-count">cairo_pattern_get_reference_count</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-get-rgba"><link linkend="cairo-pattern-get-rgba">cairo_pattern_get_rgba</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-get-surface"><link linkend="cairo-pattern-get-surface">cairo_pattern_get_surface</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-get-user-data"><link linkend="cairo-pattern-get-user-data">cairo_pattern_get_user_data</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-set-user-data"><link linkend="cairo-pattern-set-user-data">cairo_pattern_set_user_data</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>Q</title>
+<indexentry><primaryie linkends="cairo-quartz-surface-create"><link linkend="cairo-quartz-surface-create">cairo_quartz_surface_create</link>, function in <link linkend="cairo-Quartz-Surfaces">Quartz Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-quartz-surface-create-for-cg-context"><link linkend="cairo-quartz-surface-create-for-cg-context">cairo_quartz_surface_create_for_cg_context</link>, function in <link linkend="cairo-Quartz-Surfaces">Quartz Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-quartz-surface-get-cg-context"><link linkend="cairo-quartz-surface-get-cg-context">cairo_quartz_surface_get_cg_context</link>, function in <link linkend="cairo-Quartz-Surfaces">Quartz Surfaces</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>R</title>
+<indexentry><primaryie linkends="cairo-rectangle-list-destroy"><link linkend="cairo-rectangle-list-destroy">cairo_rectangle_list_destroy</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-rectangle-list-t"><link linkend="cairo-rectangle-list-t">cairo_rectangle_list_t</link>, struct in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-rectangle-t"><link linkend="cairo-rectangle-t">cairo_rectangle_t</link>, struct in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>S</title>
+<indexentry><primaryie linkends="cairo-scaled-font-get-reference-count"><link linkend="cairo-scaled-font-get-reference-count">cairo_scaled_font_get_reference_count</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-scaled-font-get-user-data"><link linkend="cairo-scaled-font-get-user-data">cairo_scaled_font_get_user_data</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-scaled-font-set-user-data"><link linkend="cairo-scaled-font-set-user-data">cairo_scaled_font_set_user_data</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-user-data"><link linkend="cairo-set-user-data">cairo_set_user_data</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-get-reference-count"><link linkend="cairo-surface-get-reference-count">cairo_surface_get_reference_count</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>W</title>
+<indexentry><primaryie linkends="cairo-win32-scaled-font-get-device-to-logical"><link linkend="cairo-win32-scaled-font-get-device-to-logical">cairo_win32_scaled_font_get_device_to_logical</link>, function in <link linkend="cairo-Win32-Fonts">Win32 Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-win32-scaled-font-get-logical-to-device"><link linkend="cairo-win32-scaled-font-get-logical-to-device">cairo_win32_scaled_font_get_logical_to_device</link>, function in <link linkend="cairo-Win32-Fonts">Win32 Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-win32-surface-create-with-ddb"><link linkend="cairo-win32-surface-create-with-ddb">cairo_win32_surface_create_with_ddb</link>, function in <link linkend="cairo-Win32-Surfaces">Win32 Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-win32-surface-get-image"><link linkend="cairo-win32-surface-get-image">cairo_win32_surface_get_image</link>, function in <link linkend="cairo-Win32-Surfaces">Win32 Surfaces</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<refentry id="cairo-XLib-Surfaces">
+<refmeta>
+<refentrytitle role="top_of_page" id="cairo-XLib-Surfaces.top_of_page">XLib Surfaces</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  CAIRO Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>XLib Surfaces</refname>
+<refpurpose>X Window System rendering using XLib</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cairo-XLib-Surfaces.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="CAIRO-HAS-XLIB-SURFACE:CAPS">CAIRO_HAS_XLIB_SURFACE</link>
+<link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   <link linkend="cairo-xlib-surface-create">cairo_xlib_surface_create</link>           (<parameter><link linkend="Display"><type>Display</type></link> *dpy</parameter>,
+                                                         <parameter><link linkend="Drawable"><type>Drawable</type></link> drawable</parameter>,
+                                                         <parameter><link linkend="Visual"><type>Visual</type></link> *visual</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);
+<link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   <link linkend="cairo-xlib-surface-create-for-bitmap">cairo_xlib_surface_create_for_bitmap</link>
+                                                        (<parameter><link linkend="Display"><type>Display</type></link> *dpy</parameter>,
+                                                         <parameter><link linkend="Pixmap"><type>Pixmap</type></link> bitmap</parameter>,
+                                                         <parameter><link linkend="Screen"><type>Screen</type></link> *screen</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-xlib-surface-set-size">cairo_xlib_surface_set_size</link>         (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);
+<link linkend="Display"><returnvalue>Display</returnvalue></link> *           <link linkend="cairo-xlib-surface-get-display">cairo_xlib_surface_get_display</link>      (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+<link linkend="Screen"><returnvalue>Screen</returnvalue></link> *            <link linkend="cairo-xlib-surface-get-screen">cairo_xlib_surface_get_screen</link>       (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-xlib-surface-set-drawable">cairo_xlib_surface_set_drawable</link>     (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
+                                                         <parameter><link linkend="Drawable"><type>Drawable</type></link> drawable</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);
+<link linkend="Drawable"><returnvalue>Drawable</returnvalue></link>            <link linkend="cairo-xlib-surface-get-drawable">cairo_xlib_surface_get_drawable</link>     (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+<link linkend="Visual"><returnvalue>Visual</returnvalue></link> *            <link linkend="cairo-xlib-surface-get-visual">cairo_xlib_surface_get_visual</link>       (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="cairo-xlib-surface-get-width">cairo_xlib_surface_get_width</link>        (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="cairo-xlib-surface-get-height">cairo_xlib_surface_get_height</link>       (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="cairo-xlib-surface-get-depth">cairo_xlib_surface_get_depth</link>        (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="cairo-XLib-Surfaces.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+The XLib surface is used to render cairo graphics to X Window System
+windows and pixmaps using the XLib library.
+</para>
+<para>
+Note that the XLib surface automatically takes advantage of X render extension
+if it is available.
+</para>
+</refsect1>
+<refsect1 id="cairo-XLib-Surfaces.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="CAIRO-HAS-XLIB-SURFACE:CAPS" role="macro">
+<title>CAIRO_HAS_XLIB_SURFACE</title>
+<indexterm zone="CAIRO-HAS-XLIB-SURFACE:CAPS"><primary sortas="HAS_XLIB_SURFACE">CAIRO_HAS_XLIB_SURFACE</primary></indexterm>
+<programlisting>#define CAIRO_HAS_XLIB_SURFACE 1
+</programlisting>
+<para>
+Defined if the Xlib surface backend is available.
+This macro can be used to conditionally compile backend-specific code.
+</para></refsect2>
+<refsect2 id="cairo-xlib-surface-create" role="function">
+<title>cairo_xlib_surface_create ()</title>
+<indexterm zone="cairo-xlib-surface-create"><primary sortas="xlib_surface_create">cairo_xlib_surface_create</primary></indexterm>
+<programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_xlib_surface_create           (<parameter><link linkend="Display"><type>Display</type></link> *dpy</parameter>,
+                                                         <parameter><link linkend="Drawable"><type>Drawable</type></link> drawable</parameter>,
+                                                         <parameter><link linkend="Visual"><type>Visual</type></link> *visual</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);</programlisting>
+<para>
+Creates an Xlib surface that draws to the given drawable.
+The way that colors are represented in the drawable is specified
+by the provided visual.
+</para>
+<para>
+Note: If <parameter>drawable</parameter> is a Window, then the function
+<link linkend="cairo-xlib-surface-set-size"><function>cairo_xlib_surface_set_size()</function></link> must be called whenever the size of the
+window changes.
+</para>
+<para>
+When <parameter>drawable</parameter> is a Window containing child windows then drawing to
+the created surface will be clipped by those child windows.  When
+the created surface is used as a source, the contents of the
+children will be included.
+</para><variablelist role="params">
+<varlistentry><term><parameter>dpy</parameter>&#160;:</term>
+<listitem><simpara>an X Display</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>drawable</parameter>&#160;:</term>
+<listitem><simpara>an X Drawable, (a Pixmap or a Window)</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>visual</parameter>&#160;:</term>
+<listitem><simpara>the visual to use for drawing to <parameter>drawable</parameter>. The depth
+of the visual must match the depth of the drawable.
+Currently, only TrueColor visuals are fully supported.</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara>the current width of <parameter>drawable</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara>the current height of <parameter>drawable</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the newly created surface</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-xlib-surface-create-for-bitmap" role="function">
+<title>cairo_xlib_surface_create_for_bitmap ()</title>
+<indexterm zone="cairo-xlib-surface-create-for-bitmap"><primary sortas="xlib_surface_create_for_bitmap">cairo_xlib_surface_create_for_bitmap</primary></indexterm>
+<programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_xlib_surface_create_for_bitmap
+                                                        (<parameter><link linkend="Display"><type>Display</type></link> *dpy</parameter>,
+                                                         <parameter><link linkend="Pixmap"><type>Pixmap</type></link> bitmap</parameter>,
+                                                         <parameter><link linkend="Screen"><type>Screen</type></link> *screen</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);</programlisting>
+<para>
+Creates an Xlib surface that draws to the given bitmap.
+This will be drawn to as a <link linkend="CAIRO-FORMAT-A1:CAPS"><literal>CAIRO_FORMAT_A1</literal></link> object.
+</para><variablelist role="params">
+<varlistentry><term><parameter>dpy</parameter>&#160;:</term>
+<listitem><simpara>an X Display</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>bitmap</parameter>&#160;:</term>
+<listitem><simpara>an X Drawable, (a depth-1 Pixmap)</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>screen</parameter>&#160;:</term>
+<listitem><simpara>the X Screen associated with <parameter>bitmap</parameter></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara>the current width of <parameter>bitmap</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara>the current height of <parameter>bitmap</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the newly created surface</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-xlib-surface-set-size" role="function">
+<title>cairo_xlib_surface_set_size ()</title>
+<indexterm zone="cairo-xlib-surface-set-size"><primary sortas="xlib_surface_set_size">cairo_xlib_surface_set_size</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_xlib_surface_set_size         (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);</programlisting>
+<para>
+Informs cairo of the new size of the X Drawable underlying the
+surface. For a surface created for a Window (rather than a Pixmap),
+this function must be called each time the size of the window
+changes. (For a subwindow, you are normally resizing the window
+yourself, but for a toplevel window, it is necessary to listen for
+ConfigureNotify events.)
+</para>
+<para>
+A Pixmap can never change size, so it is never necessary to call
+this function on a surface created for a Pixmap.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> for the XLib backend</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara>the new width of the surface</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara>the new height of the surface</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-xlib-surface-get-display" role="function" condition="since:1.2">
+<title>cairo_xlib_surface_get_display ()</title>
+<indexterm zone="cairo-xlib-surface-get-display" role="1.2"><primary sortas="xlib_surface_get_display">cairo_xlib_surface_get_display</primary></indexterm>
+<programlisting><link linkend="Display"><returnvalue>Display</returnvalue></link> *           cairo_xlib_surface_get_display      (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Get the X Display for the underlying X Drawable.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-xlib-surface-t"><type>cairo_xlib_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the display.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-xlib-surface-get-screen" role="function" condition="since:1.2">
+<title>cairo_xlib_surface_get_screen ()</title>
+<indexterm zone="cairo-xlib-surface-get-screen" role="1.2"><primary sortas="xlib_surface_get_screen">cairo_xlib_surface_get_screen</primary></indexterm>
+<programlisting><link linkend="Screen"><returnvalue>Screen</returnvalue></link> *            cairo_xlib_surface_get_screen       (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Get the X Screen for the underlying X Drawable.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-xlib-surface-t"><type>cairo_xlib_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the screen.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-xlib-surface-set-drawable" role="function">
+<title>cairo_xlib_surface_set_drawable ()</title>
+<indexterm zone="cairo-xlib-surface-set-drawable"><primary sortas="xlib_surface_set_drawable">cairo_xlib_surface_set_drawable</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_xlib_surface_set_drawable     (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
+                                                         <parameter><link linkend="Drawable"><type>Drawable</type></link> drawable</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);</programlisting>
+<para>
+Informs cairo of a new X Drawable underlying the
+surface. The drawable must match the display, screen
+and format of the existing drawable or the application
+will get X protocol errors and will probably terminate.
+No checks are done by this function to ensure this
+compatibility.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> for the XLib backend</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>drawable</parameter>&#160;:</term>
+<listitem><simpara>the new drawable for the surface</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara>the width of the new drawable</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara>the height of the new drawable</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-xlib-surface-get-drawable" role="function" condition="since:1.2">
+<title>cairo_xlib_surface_get_drawable ()</title>
+<indexterm zone="cairo-xlib-surface-get-drawable" role="1.2"><primary sortas="xlib_surface_get_drawable">cairo_xlib_surface_get_drawable</primary></indexterm>
+<programlisting><link linkend="Drawable"><returnvalue>Drawable</returnvalue></link>            cairo_xlib_surface_get_drawable     (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Get the underlying X Drawable used for the surface.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-xlib-surface-t"><type>cairo_xlib_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the drawable.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-xlib-surface-get-visual" role="function" condition="since:1.2">
+<title>cairo_xlib_surface_get_visual ()</title>
+<indexterm zone="cairo-xlib-surface-get-visual" role="1.2"><primary sortas="xlib_surface_get_visual">cairo_xlib_surface_get_visual</primary></indexterm>
+<programlisting><link linkend="Visual"><returnvalue>Visual</returnvalue></link> *            cairo_xlib_surface_get_visual       (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Gets the X Visual associated with <parameter>surface</parameter>, suitable for use with the
+underlying X Drawable.  If <parameter>surface</parameter> was created by
+<link linkend="cairo-xlib-surface-create"><function>cairo_xlib_surface_create()</function></link>, the return value is the Visual passed to that
+constructor.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-xlib-surface-t"><type>cairo_xlib_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the Visual or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if there is no appropriate Visual for
+<parameter>surface</parameter>.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-xlib-surface-get-width" role="function" condition="since:1.2">
+<title>cairo_xlib_surface_get_width ()</title>
+<indexterm zone="cairo-xlib-surface-get-width" role="1.2"><primary sortas="xlib_surface_get_width">cairo_xlib_surface_get_width</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 cairo_xlib_surface_get_width        (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Get the width of the X Drawable underlying the surface in pixels.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-xlib-surface-t"><type>cairo_xlib_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the width of the surface in pixels.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-xlib-surface-get-height" role="function" condition="since:1.2">
+<title>cairo_xlib_surface_get_height ()</title>
+<indexterm zone="cairo-xlib-surface-get-height" role="1.2"><primary sortas="xlib_surface_get_height">cairo_xlib_surface_get_height</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 cairo_xlib_surface_get_height       (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Get the height of the X Drawable underlying the surface in pixels.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-xlib-surface-t"><type>cairo_xlib_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the height of the surface in pixels.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-xlib-surface-get-depth" role="function" condition="since:1.2">
+<title>cairo_xlib_surface_get_depth ()</title>
+<indexterm zone="cairo-xlib-surface-get-depth" role="1.2"><primary sortas="xlib_surface_get_depth">cairo_xlib_surface_get_depth</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 cairo_xlib_surface_get_depth        (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Get the number of bits used to represent each pixel value.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-xlib-surface-t"><type>cairo_xlib_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the depth of the surface in bits.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+
+</refsect1>
+<refsect1 id="cairo-XLib-Surfaces.see-also">
+<title>See Also</title>
+<link linkend="cairo-surface-t"><type>cairo_surface_t</type></link>
+</refsect1>
+
+</refentry>

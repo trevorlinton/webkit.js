@@ -1,0 +1,81 @@
+<!-- ##### SECTION Title ##### -->
+cairo-ft
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_FT_FONT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO CAIRO_HAS_FC_FONT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_ft_font_face_create_for_ft_face ##### -->
+<para>
+
+</para>
+
+@face: 
+@load_flags: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_ft_font_face_create_for_pattern ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_ft_font_options_substitute ##### -->
+<para>
+
+</para>
+
+@options: 
+@pattern: 
+
+
+<!-- ##### FUNCTION cairo_ft_scaled_font_lock_face ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_ft_scaled_font_unlock_face ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+
+

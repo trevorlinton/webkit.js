@@ -42,9 +42,9 @@ class HarfBuzzFace;
 
 namespace WebCore {
 
-#if PLATFORM(JS)
-typedef void FcPattern;
-#endif
+// #if PLATFORM(JS)
+// typedef void *FcPattern;
+// #endif
 
 class FontPlatformData {
 public:
@@ -66,11 +66,12 @@ public:
         , m_orientation(Horizontal)
         { }
 
+    FontPlatformData(float size, bool syntheticBold, bool syntheticOblique, FontOrientation orientation, FontWidthVariant widthVariant);
     FontPlatformData(FcPattern*, const FontDescription&);
-    FontPlatformData(cairo_font_face_t*, float size, bool bold, bool italic, FontOrientation);
     FontPlatformData(float size, bool bold, bool italic);
     FontPlatformData(const FontPlatformData&);
     FontPlatformData(const FontPlatformData&, float size);
+    FontPlatformData(cairo_font_face_t* fontFace, float size, bool bold, bool italic, FontOrientation);
 
     ~FontPlatformData();
 

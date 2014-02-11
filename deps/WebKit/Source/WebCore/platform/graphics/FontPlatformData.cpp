@@ -28,7 +28,7 @@
 #include <wtf/text/WTFString.h>
 
 namespace WebCore {
-
+#if !PLATFORM(JS)
 FontPlatformData::FontPlatformData(WTF::HashTableDeletedValueType)
     : m_syntheticBold(false)
     , m_syntheticOblique(false)
@@ -86,6 +86,7 @@ FontPlatformData::FontPlatformData()
 #endif
 {
 }
+#endif
 
 FontPlatformData::FontPlatformData(float size, bool syntheticBold, bool syntheticOblique, FontOrientation orientation, FontWidthVariant widthVariant)
     : m_syntheticBold(syntheticBold)
@@ -95,7 +96,6 @@ FontPlatformData::FontPlatformData(float size, bool syntheticBold, bool syntheti
     , m_isEmoji(false)
 #endif
     , m_size(size)
-    , m_widthVariant(widthVariant)
 #if OS(DARWIN)
     , m_font(0)
 #endif
@@ -104,8 +104,11 @@ FontPlatformData::FontPlatformData(float size, bool syntheticBold, bool syntheti
 #elif USE(CAIRO)
     , m_scaledFont(0)
 #endif
+#if !PLATFORM(JS)
+    , m_widthVariant(widthVariant)
     , m_isColorBitmapFont(false)
     , m_isCompositeFontReference(false)
+#endif
 #if OS(DARWIN)
     , m_isPrinterFont(false)
 #endif
@@ -139,9 +142,11 @@ FontPlatformData::FontPlatformData(const FontPlatformData& source)
     , m_syntheticOblique(source.m_syntheticOblique)
     , m_orientation(source.m_orientation)
     , m_size(source.m_size)
+#if !PLATFORM(JS)
     , m_widthVariant(source.m_widthVariant)
     , m_isColorBitmapFont(source.m_isColorBitmapFont)
     , m_isCompositeFontReference(source.m_isCompositeFontReference)
+#endif
 #if OS(DARWIN)
     , m_isPrinterFont(source.m_isPrinterFont)
 #endif

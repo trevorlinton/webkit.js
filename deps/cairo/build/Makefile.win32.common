@@ -1,0 +1,63 @@
+default: all
+
+#
+# Edit build/Makefile.win32.features to enable features to build
+#
+include $(top_srcdir)/build/Makefile.win32.inform
+include $(top_srcdir)/build/Makefile.win32.features
+include $(top_srcdir)/build/Makefile.win32.features-h
+
+ifeq ($(top_builddir),)
+top_builddir = $(top_srcdir)
+endif
+
+CC := cl
+LD := link
+AR := lib
+
+ifeq ($(CFG),debug)
+CFG_CFLAGS := -MDd -Od -Zi
+CFG_LDFLAGS := -DEBUG
+else
+CFG_CFLAGS := -MD -O2
+CFG_LDFLAGS :=
+endif
+
+PIXMAN_CFLAGS := -I$(top_srcdir)/../pixman/pixman
+PIXMAN_LIBS := $(top_builddir)/../pixman/pixman/$(CFG)/pixman-1.lib
+
+CAIRO_LIBS =  gdi32.lib msimg32.lib user32.lib
+ifeq ($(CAIRO_HAS_PNG_FUNCTIONS),1)
+LIBPNG_CFLAGS += -I$(top_srcdir)/../libpng/
+CAIRO_LIBS +=  $(top_builddir)/../libpng/libpng.lib
+endif
+ifeq ($(CAIRO_HAS_PS_SURFACE)$(CAIRO_HAS_PDF_SURFACE),00)
+else
+ZLIB_CFLAGS += -I$(top_srcdir)/../zlib/
+CAIRO_LIBS += $(top_builddir)/../zlib/zdll.lib
+endif
+
+DEFAULT_CFLAGS = -nologo $(CFG_CFLAGS)
+DEFAULT_CFLAGS += -I. -I$(top_srcdir) -I$(top_srcdir)/src
+DEFAULT_CFLAGS += $(PIXMAN_CFLAGS) $(LIBPNG_CFLAGS) $(ZLIB_CFLAGS)
+
+CAIRO_CFLAGS = $(DEFAULT_CFLAGS) $(CFLAGS)
+
+DEFAULT_LDFLAGS = -nologo $(CFG_LDFLAGS)
+DEFAULT_ARFLAGS = -nologo
+
+CAIRO_LDFLAGS = $(DEFAULT_LDFLAGS) $(LDFLAGS)
+CAIRO_ARFLAGS = $(DEFAULT_ARFLAGS) $(LDFLAGS)
+
+# Some generic rules
+
+$(CFG)/%.obj: %.c $(top_srcdir)/src/cairo-features.h
+	@mkdir -p $(CFG)/`dirname $<`
+	@$(CC) $(CAIRO_CFLAGS) -c -Fo"$@" $<
+
+$(CFG)/%-static.obj: %.c $(top_srcdir)/src/cairo-features.h
+	@mkdir -p $(CFG)/`dirname $<`
+	@$(CC) $(CAIRO_CFLAGS) -c -DCAIRO_WIN32_STATIC_BUILD=1 -Fo"$@" $<
+
+clean:
+	@rm -f $(CFG)/*.obj $(CFG)/*.dll $(CFG)/*.lib $(CFG)/*.pdb $(CFG)/*.ilk || exit 0

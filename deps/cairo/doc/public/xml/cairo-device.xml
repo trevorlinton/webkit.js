@@ -1,0 +1,410 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<refentry id="cairo-cairo-device-t">
+<refmeta>
+<refentrytitle role="top_of_page" id="cairo-cairo-device-t.top_of_page">cairo_device_t</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  CAIRO Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>cairo_device_t</refname>
+<refpurpose>interface to underlying rendering system</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cairo-cairo-device-t.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>typedef             <link linkend="cairo-device-t">cairo_device_t</link>;
+<link linkend="cairo-device-t"><returnvalue>cairo_device_t</returnvalue></link> *    <link linkend="cairo-device-reference">cairo_device_reference</link>              (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-device-destroy">cairo_device_destroy</link>                (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-device-status">cairo_device_status</link>                 (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-device-finish">cairo_device_finish</link>                 (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-device-flush">cairo_device_flush</link>                  (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);
+enum                <link linkend="cairo-device-type-t">cairo_device_type_t</link>;
+<link linkend="cairo-device-type-t"><returnvalue>cairo_device_type_t</returnvalue></link> <link linkend="cairo-device-get-type">cairo_device_get_type</link>               (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);
+unsigned <link linkend="int"><returnvalue>int</returnvalue></link>        <link linkend="cairo-device-get-reference-count">cairo_device_get_reference_count</link>    (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-device-set-user-data">cairo_device_set_user_data</link>          (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>,
+                                                         <parameter>const <link linkend="cairo-user-data-key-t"><type>cairo_user_data_key_t</type></link> *key</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *user_data</parameter>,
+                                                         <parameter><link linkend="cairo-destroy-func-t"><type>cairo_destroy_func_t</type></link> destroy</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link> *              <link linkend="cairo-device-get-user-data">cairo_device_get_user_data</link>          (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>,
+                                                         <parameter>const <link linkend="cairo-user-data-key-t"><type>cairo_user_data_key_t</type></link> *key</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-device-acquire">cairo_device_acquire</link>                (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-device-release">cairo_device_release</link>                (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="cairo-cairo-device-t.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Devices are the abstraction Cairo employs for the rendering system
+used by a <link linkend="cairo-surface-t"><type>cairo_surface_t</type></link>. You can get the device of a surface using
+<link linkend="cairo-surface-get-device"><function>cairo_surface_get_device()</function></link>.
+</para>
+<para>
+Devices are created using custom functions specific to the rendering
+system you want to use. See the documentation for the surface types
+for those functions.
+</para>
+<para>
+An important function that devices fulfill is sharing access to the
+rendering system between Cairo and your application. If you want to
+access a device directly that you used to draw to with Cairo, you must
+first call <link linkend="cairo-device-flush"><function>cairo_device_flush()</function></link> to ensure that Cairo finishes all
+operations on the device and resets it to a clean state.
+</para>
+<para>
+Cairo also provides the functions <link linkend="cairo-device-acquire"><function>cairo_device_acquire()</function></link> and
+<link linkend="cairo-device-release"><function>cairo_device_release()</function></link> to synchronize access to the rendering system
+in a multithreaded environment. This is done internally, but can also
+be used by applications.
+</para>
+<para>
+Putting this all together, a function that works with devices should
+look something like this:
+<informalexample><programlisting>
+void
+my_device_modifying_function (cairo_device_t *device)
+{
+  cairo_status_t status;
+
+  // Ensure the device is properly reset
+  cairo_device_flush (device);
+  // Try to acquire the device
+  status = cairo_device_acquire (device);
+  if (status != CAIRO_STATUS_SUCCESS) {
+    printf ("Failed to acquire the device: %s\n", cairo_status_to_string (status));
+    return;
+  }
+
+  // Do the custom operations on the device here.
+  // But do not call any Cairo functions that might acquire devices.
+  
+  // Release the device when done.
+  cairo_device_release (device);
+}
+</programlisting></informalexample>
+</para>
+<para>
+<note><para>Please refer to the documentation of each backend for
+additional usage requirements, guarantees provided, and
+interactions with existing surface API of the device functions for
+surfaces of that type.
+</para></note>
+</para>
+</refsect1>
+<refsect1 id="cairo-cairo-device-t.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="cairo-device-t" role="typedef" condition="since:1.10">
+<title>cairo_device_t</title>
+<indexterm zone="cairo-device-t" role="1.10"><primary sortas="device_t">cairo_device_t</primary></indexterm>
+<programlisting>typedef struct _cairo_device cairo_device_t;
+</programlisting>
+<para>
+A <link linkend="cairo-device-t"><type>cairo_device_t</type></link> represents the driver interface for drawing
+operations to a <link linkend="cairo-surface-t"><type>cairo_surface_t</type></link>.  There are different subtypes of
+<link linkend="cairo-device-t"><type>cairo_device_t</type></link> for different drawing backends; for example,
+<link linkend="cairo-egl-device-create"><function>cairo_egl_device_create()</function></link> creates a device that wraps an EGL display and
+context.
+</para>
+<para>
+The type of a device can be queried with <link linkend="cairo-device-get-type"><function>cairo_device_get_type()</function></link>.
+</para>
+<para>
+Memory management of <link linkend="cairo-device-t"><type>cairo_device_t</type></link> is done with
+<link linkend="cairo-device-reference"><function>cairo_device_reference()</function></link> and <link linkend="cairo-device-destroy"><function>cairo_device_destroy()</function></link>.
+</para><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-reference" role="function" condition="since:1.10">
+<title>cairo_device_reference ()</title>
+<indexterm zone="cairo-device-reference" role="1.10"><primary sortas="device_reference">cairo_device_reference</primary></indexterm>
+<programlisting><link linkend="cairo-device-t"><returnvalue>cairo_device_t</returnvalue></link> *    cairo_device_reference              (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);</programlisting>
+<para>
+Increases the reference count on <parameter>device</parameter> by one. This prevents
+<parameter>device</parameter> from being destroyed until a matching call to
+<link linkend="cairo-device-destroy"><function>cairo_device_destroy()</function></link> is made.
+</para>
+<para>
+The number of references to a <link linkend="cairo-device-t"><type>cairo_device_t</type></link> can be get using
+<link linkend="cairo-device-get-reference-count"><function>cairo_device_get_reference_count()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-device-t"><type>cairo_device_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the referenced <link linkend="cairo-device-t"><type>cairo_device_t</type></link>.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-destroy" role="function" condition="since:1.10">
+<title>cairo_device_destroy ()</title>
+<indexterm zone="cairo-device-destroy" role="1.10"><primary sortas="device_destroy">cairo_device_destroy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_device_destroy                (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);</programlisting>
+<para>
+Decreases the reference count on <parameter>device</parameter> by one. If the result is
+zero, then <parameter>device</parameter> and all associated resources are freed.  See
+<link linkend="cairo-device-reference"><function>cairo_device_reference()</function></link>.
+</para>
+<para>
+This function may acquire devices if the last reference was dropped.
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-device-t"><type>cairo_device_t</type></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-status" role="function" condition="since:1.10">
+<title>cairo_device_status ()</title>
+<indexterm zone="cairo-device-status" role="1.10"><primary sortas="device_status">cairo_device_status</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_device_status                 (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);</programlisting>
+<para>
+Checks whether an error has previously occurred for this
+device.
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-device-t"><type>cairo_device_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> on success or an error code if
+the device is in an error state.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-finish" role="function" condition="since:1.10">
+<title>cairo_device_finish ()</title>
+<indexterm zone="cairo-device-finish" role="1.10"><primary sortas="device_finish">cairo_device_finish</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_device_finish                 (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);</programlisting>
+<para>
+This function finishes the device and drops all references to
+external resources. All surfaces, fonts and other objects created
+for this <parameter>device</parameter> will be finished, too.
+Further operations on the <parameter>device</parameter> will not affect the <parameter>device</parameter> but
+will instead trigger a <link linkend="CAIRO-STATUS-DEVICE-FINISHED:CAPS"><literal>CAIRO_STATUS_DEVICE_FINISHED</literal></link> error.
+</para>
+<para>
+When the last call to <link linkend="cairo-device-destroy"><function>cairo_device_destroy()</function></link> decreases the
+reference count to zero, cairo will call <link linkend="cairo-device-finish"><function>cairo_device_finish()</function></link> if
+it hasn't been called already, before freeing the resources
+associated with the device.
+</para>
+<para>
+This function may acquire devices.
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&#160;:</term>
+<listitem><simpara>the <link linkend="cairo-device-t"><type>cairo_device_t</type></link> to finish</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-flush" role="function" condition="since:1.10">
+<title>cairo_device_flush ()</title>
+<indexterm zone="cairo-device-flush" role="1.10"><primary sortas="device_flush">cairo_device_flush</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_device_flush                  (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);</programlisting>
+<para>
+Finish any pending operations for the device and also restore any
+temporary modifications cairo has made to the device's state.
+This function must be called before switching from using the 
+device with Cairo to operating on it directly with native APIs.
+If the device doesn't support direct access, then this function
+does nothing.
+</para>
+<para>
+This function may acquire devices.
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-device-t"><type>cairo_device_t</type></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-type-t" role="enum" condition="since:1.10">
+<title>enum cairo_device_type_t</title>
+<indexterm zone="cairo-device-type-t" role="1.10"><primary sortas="device_type_t">cairo_device_type_t</primary></indexterm>
+<programlisting>typedef enum {
+    CAIRO_DEVICE_TYPE_DRM,
+    CAIRO_DEVICE_TYPE_GL,
+    CAIRO_DEVICE_TYPE_SCRIPT,
+    CAIRO_DEVICE_TYPE_XCB,
+    CAIRO_DEVICE_TYPE_XLIB,
+    CAIRO_DEVICE_TYPE_XML,
+    CAIRO_DEVICE_TYPE_COGL,
+    CAIRO_DEVICE_TYPE_WIN32,
+
+    CAIRO_DEVICE_TYPE_INVALID = -1
+} cairo_device_type_t;
+</programlisting>
+<para>
+<link linkend="cairo-device-type-t"><type>cairo_device_type_t</type></link> is used to describe the type of a given
+device. The devices types are also known as "backends" within cairo.
+</para>
+<para>
+The device type can be queried with <link linkend="cairo-device-get-type"><function>cairo_device_get_type()</function></link>
+</para>
+<para>
+The various <link linkend="cairo-device-t"><type>cairo_device_t</type></link> functions can be used with devices of
+any type, but some backends also provide type-specific functions
+that must only be called with a device of the appropriate
+type. These functions have names that begin with
+<literal>cairo_<emphasis>type</emphasis>_device</literal> such as
+<link linkend="cairo-xcb-device-debug-cap-xrender-version"><function>cairo_xcb_device_debug_cap_xrender_version()</function></link>.
+</para>
+<para>
+The behavior of calling a type-specific function with a device of
+the wrong type is undefined.
+</para>
+<para>
+New entries may be added in future versions.
+</para><variablelist role="enum">
+<varlistentry id="CAIRO-DEVICE-TYPE-DRM:CAPS" role="constant">
+<term><literal>CAIRO_DEVICE_TYPE_DRM</literal></term>
+<listitem><simpara>The device is of type Direct Render Manager
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-DEVICE-TYPE-GL:CAPS" role="constant">
+<term><literal>CAIRO_DEVICE_TYPE_GL</literal></term>
+<listitem><simpara>The device is of type OpenGL
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-DEVICE-TYPE-SCRIPT:CAPS" role="constant">
+<term><literal>CAIRO_DEVICE_TYPE_SCRIPT</literal></term>
+<listitem><simpara>The device is of type script
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-DEVICE-TYPE-XCB:CAPS" role="constant">
+<term><literal>CAIRO_DEVICE_TYPE_XCB</literal></term>
+<listitem><simpara>The device is of type xcb
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-DEVICE-TYPE-XLIB:CAPS" role="constant">
+<term><literal>CAIRO_DEVICE_TYPE_XLIB</literal></term>
+<listitem><simpara>The device is of type xlib
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-DEVICE-TYPE-XML:CAPS" role="constant">
+<term><literal>CAIRO_DEVICE_TYPE_XML</literal></term>
+<listitem><simpara>The device is of type XML
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-DEVICE-TYPE-COGL:CAPS" role="constant">
+<term><literal>CAIRO_DEVICE_TYPE_COGL</literal></term>
+<listitem><simpara>The device is of type cogl, since 1.12
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-DEVICE-TYPE-WIN32:CAPS" role="constant">
+<term><literal>CAIRO_DEVICE_TYPE_WIN32</literal></term>
+<listitem><simpara>The device is of type win32, since 1.12
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-DEVICE-TYPE-INVALID:CAPS" role="constant">
+<term><literal>CAIRO_DEVICE_TYPE_INVALID</literal></term>
+<listitem><simpara>The device is invalid
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-get-type" role="function" condition="since:1.10">
+<title>cairo_device_get_type ()</title>
+<indexterm zone="cairo-device-get-type" role="1.10"><primary sortas="device_get_type">cairo_device_get_type</primary></indexterm>
+<programlisting><link linkend="cairo-device-type-t"><returnvalue>cairo_device_type_t</returnvalue></link> cairo_device_get_type               (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);</programlisting>
+<para>
+This function returns the type of the device. See <link linkend="cairo-device-type-t"><type>cairo_device_type_t</type></link>
+for available types.
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-device-t"><type>cairo_device_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>The type of <parameter>device</parameter>.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-get-reference-count" role="function" condition="since:1.10">
+<title>cairo_device_get_reference_count ()</title>
+<indexterm zone="cairo-device-get-reference-count" role="1.10"><primary sortas="device_get_reference_count">cairo_device_get_reference_count</primary></indexterm>
+<programlisting>unsigned <link linkend="int"><returnvalue>int</returnvalue></link>        cairo_device_get_reference_count    (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);</programlisting>
+<para>
+Returns the current reference count of <parameter>device</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-device-t"><type>cairo_device_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the current reference count of <parameter>device</parameter>.  If the
+object is a nil object, 0 will be returned.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-set-user-data" role="function" condition="since:1.10">
+<title>cairo_device_set_user_data ()</title>
+<indexterm zone="cairo-device-set-user-data" role="1.10"><primary sortas="device_set_user_data">cairo_device_set_user_data</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_device_set_user_data          (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>,
+                                                         <parameter>const <link linkend="cairo-user-data-key-t"><type>cairo_user_data_key_t</type></link> *key</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *user_data</parameter>,
+                                                         <parameter><link linkend="cairo-destroy-func-t"><type>cairo_destroy_func_t</type></link> destroy</parameter>);</programlisting>
+<para>
+Attach user data to <parameter>device</parameter>.  To remove user data from a surface,
+call this function with the key that was used to set it and <link linkend="NULL:CAPS"><literal>NULL</literal></link>
+for <parameter>data</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-device-t"><type>cairo_device_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>the address of a <link linkend="cairo-user-data-key-t"><type>cairo_user_data_key_t</type></link> to attach the user data to</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>the user data to attach to the <link linkend="cairo-device-t"><type>cairo_device_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destroy</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-destroy-func-t"><type>cairo_destroy_func_t</type></link> which will be called when the
+<link linkend="cairo-t"><type>cairo_t</type></link> is destroyed or when new user data is attached using the
+same key.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link> if a
+slot could not be allocated for the user data.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-get-user-data" role="function" condition="since:1.10">
+<title>cairo_device_get_user_data ()</title>
+<indexterm zone="cairo-device-get-user-data" role="1.10"><primary sortas="device_get_user_data">cairo_device_get_user_data</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link> *              cairo_device_get_user_data          (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>,
+                                                         <parameter>const <link linkend="cairo-user-data-key-t"><type>cairo_user_data_key_t</type></link> *key</parameter>);</programlisting>
+<para>
+Return user data previously attached to <parameter>device</parameter> using the
+specified key.  If no user data has been attached with the given
+key this function returns <link linkend="NULL:CAPS"><literal>NULL</literal></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-device-t"><type>cairo_device_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>the address of the <link linkend="cairo-user-data-key-t"><type>cairo_user_data_key_t</type></link> the user data was
+attached to</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the user data previously attached or <link linkend="NULL:CAPS"><literal>NULL</literal></link>.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-acquire" role="function" condition="since:1.10">
+<title>cairo_device_acquire ()</title>
+<indexterm zone="cairo-device-acquire" role="1.10"><primary sortas="device_acquire">cairo_device_acquire</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_device_acquire                (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);</programlisting>
+<para>
+Acquires the <parameter>device</parameter> for the current thread. This function will block
+until no other thread has acquired the device.
+</para>
+<para>
+If the return value is <link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link>, you successfully acquired the
+device. From now on your thread owns the device and no other thread will be
+able to acquire it until a matching call to <link linkend="cairo-device-release"><function>cairo_device_release()</function></link>. It is
+allowed to recursively acquire the device multiple times from the same
+thread.
+</para>
+<para>
+<note><para>You must never acquire two different devices at the same time
+unless this is explicitly allowed. Otherwise the possibility of deadlocks
+exist.
+</para>
+<para>
+As various Cairo functions can acquire devices when called, these functions
+may also cause deadlocks when you call them with an acquired device. So you
+must not have a device acquired when calling them. These functions are
+marked in the documentation.
+</para></note>
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-device-t"><type>cairo_device_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> on success or an error code if
+the device is in an error state and could not be
+acquired. After a successful call to <link linkend="cairo-device-acquire"><function>cairo_device_acquire()</function></link>,
+a matching call to <link linkend="cairo-device-release"><function>cairo_device_release()</function></link> is required.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-device-release" role="function" condition="since:1.10">
+<title>cairo_device_release ()</title>
+<indexterm zone="cairo-device-release" role="1.10"><primary sortas="device_release">cairo_device_release</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_device_release                (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *device</parameter>);</programlisting>
+<para>
+Releases a <parameter>device</parameter> previously acquired using <link linkend="cairo-device-acquire"><function>cairo_device_acquire()</function></link>. See
+that function for details.
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-device-t"><type>cairo_device_t</type></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+
+</refsect1>
+<refsect1 id="cairo-cairo-device-t.see-also">
+<title>See Also</title>
+<link linkend="cairo-surface-t"><type>cairo_surface_t</type></link>
+</refsect1>
+
+</refentry>

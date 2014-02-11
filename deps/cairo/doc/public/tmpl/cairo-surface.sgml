@@ -1,0 +1,378 @@
+<!-- ##### SECTION Title ##### -->
+cairo-surface
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_MIME_TYPE_JP2 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO CAIRO_MIME_TYPE_JPEG ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO CAIRO_MIME_TYPE_PNG ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO CAIRO_MIME_TYPE_URI ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO CAIRO_MIME_TYPE_UNIQUE_ID ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### TYPEDEF cairo_surface_t ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ENUM cairo_content_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_CONTENT_COLOR: 
+@CAIRO_CONTENT_ALPHA: 
+@CAIRO_CONTENT_COLOR_ALPHA: 
+
+<!-- ##### FUNCTION cairo_surface_create_similar ##### -->
+<para>
+
+</para>
+
+@other: 
+@content: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_create_similar_image ##### -->
+<para>
+
+</para>
+
+@other: 
+@format: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_create_for_rectangle ##### -->
+<para>
+
+</para>
+
+@target: 
+@x: 
+@y: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_reference ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_destroy ##### -->
+<para>
+
+</para>
+
+@surface: 
+
+
+<!-- ##### FUNCTION cairo_surface_status ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_finish ##### -->
+<para>
+
+</para>
+
+@surface: 
+
+
+<!-- ##### FUNCTION cairo_surface_flush ##### -->
+<para>
+
+</para>
+
+@surface: 
+
+
+<!-- ##### FUNCTION cairo_surface_get_device ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_get_font_options ##### -->
+<para>
+
+</para>
+
+@surface: 
+@options: 
+
+
+<!-- ##### FUNCTION cairo_surface_get_content ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_mark_dirty ##### -->
+<para>
+
+</para>
+
+@surface: 
+
+
+<!-- ##### FUNCTION cairo_surface_mark_dirty_rectangle ##### -->
+<para>
+
+</para>
+
+@surface: 
+@x: 
+@y: 
+@width: 
+@height: 
+
+
+<!-- ##### FUNCTION cairo_surface_set_device_offset ##### -->
+<para>
+
+</para>
+
+@surface: 
+@x_offset: 
+@y_offset: 
+
+
+<!-- ##### FUNCTION cairo_surface_get_device_offset ##### -->
+<para>
+
+</para>
+
+@surface: 
+@x_offset: 
+@y_offset: 
+
+
+<!-- ##### FUNCTION cairo_surface_set_fallback_resolution ##### -->
+<para>
+
+</para>
+
+@surface: 
+@x_pixels_per_inch: 
+@y_pixels_per_inch: 
+
+
+<!-- ##### FUNCTION cairo_surface_get_fallback_resolution ##### -->
+<para>
+
+</para>
+
+@surface: 
+@x_pixels_per_inch: 
+@y_pixels_per_inch: 
+
+
+<!-- ##### ENUM cairo_surface_type_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_SURFACE_TYPE_IMAGE: 
+@CAIRO_SURFACE_TYPE_PDF: 
+@CAIRO_SURFACE_TYPE_PS: 
+@CAIRO_SURFACE_TYPE_XLIB: 
+@CAIRO_SURFACE_TYPE_XCB: 
+@CAIRO_SURFACE_TYPE_GLITZ: 
+@CAIRO_SURFACE_TYPE_QUARTZ: 
+@CAIRO_SURFACE_TYPE_WIN32: 
+@CAIRO_SURFACE_TYPE_BEOS: 
+@CAIRO_SURFACE_TYPE_DIRECTFB: 
+@CAIRO_SURFACE_TYPE_SVG: 
+@CAIRO_SURFACE_TYPE_OS2: 
+@CAIRO_SURFACE_TYPE_WIN32_PRINTING: 
+@CAIRO_SURFACE_TYPE_QUARTZ_IMAGE: 
+@CAIRO_SURFACE_TYPE_SCRIPT: 
+@CAIRO_SURFACE_TYPE_QT: 
+@CAIRO_SURFACE_TYPE_RECORDING: 
+@CAIRO_SURFACE_TYPE_VG: 
+@CAIRO_SURFACE_TYPE_GL: 
+@CAIRO_SURFACE_TYPE_DRM: 
+@CAIRO_SURFACE_TYPE_TEE: 
+@CAIRO_SURFACE_TYPE_XML: 
+@CAIRO_SURFACE_TYPE_SKIA: 
+@CAIRO_SURFACE_TYPE_SUBSURFACE: 
+@CAIRO_SURFACE_TYPE_COGL: 
+
+<!-- ##### FUNCTION cairo_surface_get_type ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_get_reference_count ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_set_user_data ##### -->
+<para>
+
+</para>
+
+@surface: 
+@key: 
+@user_data: 
+@destroy: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_get_user_data ##### -->
+<para>
+
+</para>
+
+@surface: 
+@key: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_copy_page ##### -->
+<para>
+
+</para>
+
+@surface: 
+
+
+<!-- ##### FUNCTION cairo_surface_show_page ##### -->
+<para>
+
+</para>
+
+@surface: 
+
+
+<!-- ##### FUNCTION cairo_surface_has_show_text_glyphs ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_set_mime_data ##### -->
+<para>
+
+</para>
+
+@surface: 
+@mime_type: 
+@data: 
+@length: 
+@destroy: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_get_mime_data ##### -->
+<para>
+
+</para>
+
+@surface: 
+@mime_type: 
+@data: 
+@length: 
+
+
+<!-- ##### FUNCTION cairo_surface_map_to_image ##### -->
+<para>
+
+</para>
+
+@surface: 
+@extents: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_surface_unmap_image ##### -->
+<para>
+
+</para>
+
+@surface: 
+@image: 
+
+

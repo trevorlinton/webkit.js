@@ -1,0 +1,97 @@
+<!-- ##### SECTION Title ##### -->
+XCB Surfaces
+
+<!-- ##### SECTION Short_Description ##### -->
+X Window System rendering using the XCB library
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+The XCB surface is used to render cairo graphics to X Window System
+windows and pixmaps using the XCB library.
+</para>
+<para>
+Note that the XCB surface automatically takes advantage of the X render
+extension if it is available.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+<itemizedlist>
+<listitem>#cairo_surface_t</listitem>
+</itemizedlist>
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_XCB_SURFACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_xcb_surface_create ##### -->
+<para>
+
+</para>
+
+@connection: 
+@drawable: 
+@visual: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xcb_surface_create_for_bitmap ##### -->
+<para>
+
+</para>
+
+@connection: 
+@screen: 
+@bitmap: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xcb_surface_create_with_xrender_format ##### -->
+<para>
+
+</para>
+
+@connection: 
+@screen: 
+@drawable: 
+@format: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xcb_surface_set_size ##### -->
+<para>
+
+</para>
+
+@surface: 
+@width: 
+@height: 
+
+
+<!-- ##### FUNCTION cairo_xcb_surface_set_drawable ##### -->
+<para>
+
+</para>
+
+@surface: 
+@drawable: 
+@width: 
+@height: 
+
+

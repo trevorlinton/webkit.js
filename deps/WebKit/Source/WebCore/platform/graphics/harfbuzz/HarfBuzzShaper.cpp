@@ -35,9 +35,11 @@
 #include "HarfBuzzFace.h"
 #include "SurrogatePairAwareTextIterator.h"
 #include "TextRun.h"
+#if !PLATFORM(JS)
 #include "hb-icu.h"
 #include <unicode/normlzr.h>
 #include <unicode/uchar.h>
+#endif
 #include <wtf/MathExtras.h>
 #include <wtf/StdLibExtras.h>
 #include <wtf/Vector.h>
@@ -231,6 +233,7 @@ static void normalizeSpacesAndMirrorChars(const UChar* source, UChar* destinatio
 
 void HarfBuzzShaper::setNormalizedBuffer(NormalizeMode normalizeMode)
 {
+#if !PLATFORM(JS)
     // Normalize the text run in three ways:
     // 1) Convert the |originalRun| to NFC normalized form if combining diacritical marks
     // (U+0300..) are used in the run. This conversion is necessary since most OpenType
@@ -280,6 +283,7 @@ void HarfBuzzShaper::setNormalizedBuffer(NormalizeMode normalizeMode)
 
     m_normalizedBuffer = std::make_unique<UChar[]>(m_normalizedBufferLength + 1);
     normalizeSpacesAndMirrorChars(sourceText, m_normalizedBuffer.get(), m_normalizedBufferLength, normalizeMode);
+#endif
 }
 
 bool HarfBuzzShaper::isWordEnd(unsigned index)
@@ -405,6 +409,7 @@ FloatPoint HarfBuzzShaper::adjustStartPoint(const FloatPoint& point)
 
 bool HarfBuzzShaper::collectHarfBuzzRuns()
 {
+#if !PLATFORM(JS)
     const UChar* normalizedBufferEnd = m_normalizedBuffer.get() + m_normalizedBufferLength;
     SurrogatePairAwareTextIterator iterator(m_normalizedBuffer.get(), 0, m_normalizedBufferLength, m_normalizedBufferLength);
     UChar32 character;
@@ -466,14 +471,17 @@ bool HarfBuzzShaper::collectHarfBuzzRuns()
     } while (iterator.consume(character, clusterLength));
 
     return !m_harfBuzzRuns.isEmpty();
+#else 
+  return false;
+#endif
 }
 
 bool HarfBuzzShaper::shapeHarfBuzzRuns(bool shouldSetDirection)
 {
     HarfBuzzScopedPtr<hb_buffer_t> harfBuzzBuffer(hb_buffer_create(), hb_buffer_destroy);
-
+#if !PLATFORM(JS)
     hb_buffer_set_unicode_funcs(harfBuzzBuffer.get(), hb_icu_get_unicode_funcs());
-
+#endif
     for (unsigned i = 0; i < m_harfBuzzRuns.size(); ++i) {
         unsigned runIndex = m_run.rtl() ? m_harfBuzzRuns.size() - i - 1 : i;
         HarfBuzzRun* currentRun = m_harfBuzzRuns[runIndex].get();

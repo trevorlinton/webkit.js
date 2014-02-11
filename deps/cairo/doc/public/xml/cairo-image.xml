@@ -1,0 +1,319 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<refentry id="cairo-Image-Surfaces">
+<refmeta>
+<refentrytitle role="top_of_page" id="cairo-Image-Surfaces.top_of_page">Image Surfaces</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  CAIRO Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Image Surfaces</refname>
+<refpurpose>Rendering to memory buffers</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cairo-Image-Surfaces.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="CAIRO-HAS-IMAGE-SURFACE:CAPS">CAIRO_HAS_IMAGE_SURFACE</link>
+enum                <link linkend="cairo-format-t">cairo_format_t</link>;
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="cairo-format-stride-for-width">cairo_format_stride_for_width</link>       (<parameter><link linkend="cairo-format-t"><type>cairo_format_t</type></link> format</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>);
+<link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   <link linkend="cairo-image-surface-create">cairo_image_surface_create</link>          (<parameter><link linkend="cairo-format-t"><type>cairo_format_t</type></link> format</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);
+<link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   <link linkend="cairo-image-surface-create-for-data">cairo_image_surface_create_for_data</link> (<parameter>unsigned <link linkend="char"><type>char</type></link> *data</parameter>,
+                                                         <parameter><link linkend="cairo-format-t"><type>cairo_format_t</type></link> format</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> stride</parameter>);
+unsigned <link linkend="char"><returnvalue>char</returnvalue></link> *     <link linkend="cairo-image-surface-get-data">cairo_image_surface_get_data</link>        (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+<link linkend="cairo-format-t"><returnvalue>cairo_format_t</returnvalue></link>      <link linkend="cairo-image-surface-get-format">cairo_image_surface_get_format</link>      (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="cairo-image-surface-get-width">cairo_image_surface_get_width</link>       (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="cairo-image-surface-get-height">cairo_image_surface_get_height</link>      (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="cairo-image-surface-get-stride">cairo_image_surface_get_stride</link>      (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="cairo-Image-Surfaces.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Image surfaces provide the ability to render to memory buffers
+either allocated by cairo or by the calling code.  The supported
+image formats are those defined in <link linkend="cairo-format-t"><type>cairo_format_t</type></link>.
+</para>
+</refsect1>
+<refsect1 id="cairo-Image-Surfaces.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="CAIRO-HAS-IMAGE-SURFACE:CAPS" role="macro">
+<title>CAIRO_HAS_IMAGE_SURFACE</title>
+<indexterm zone="CAIRO-HAS-IMAGE-SURFACE:CAPS"><primary sortas="HAS_IMAGE_SURFACE">CAIRO_HAS_IMAGE_SURFACE</primary></indexterm>
+<programlisting>#define CAIRO_HAS_IMAGE_SURFACE 1
+</programlisting>
+<para>
+Defined if the image surface backend is available.
+The image surface backend is always built in.
+This macro was added for completeness in cairo 1.8.
+</para>
+<para>
+<parameter>Since</parameter>: 1.8
+</para></refsect2>
+<refsect2 id="cairo-format-t" role="enum">
+<title>enum cairo_format_t</title>
+<indexterm zone="cairo-format-t"><primary sortas="format_t">cairo_format_t</primary></indexterm>
+<programlisting>typedef enum {
+    CAIRO_FORMAT_INVALID   = -1,
+    CAIRO_FORMAT_ARGB32    = 0,
+    CAIRO_FORMAT_RGB24     = 1,
+    CAIRO_FORMAT_A8        = 2,
+    CAIRO_FORMAT_A1        = 3,
+    CAIRO_FORMAT_RGB16_565 = 4,
+    CAIRO_FORMAT_RGB30     = 5
+} cairo_format_t;
+</programlisting>
+<para>
+<link linkend="cairo-format-t"><type>cairo_format_t</type></link> is used to identify the memory format of
+image data.
+</para>
+<para>
+New entries may be added in future versions.
+</para><variablelist role="enum">
+<varlistentry id="CAIRO-FORMAT-INVALID:CAPS" role="constant">
+<term><literal>CAIRO_FORMAT_INVALID</literal></term>
+<listitem><simpara>no such format exists or is supported.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-FORMAT-ARGB32:CAPS" role="constant">
+<term><literal>CAIRO_FORMAT_ARGB32</literal></term>
+<listitem><simpara>each pixel is a 32-bit quantity, with
+  alpha in the upper 8 bits, then red, then green, then blue.
+  The 32-bit quantities are stored native-endian. Pre-multiplied
+  alpha is used. (That is, 50% transparent red is 0x80800000,
+  not 0x80ff0000.)
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-FORMAT-RGB24:CAPS" role="constant">
+<term><literal>CAIRO_FORMAT_RGB24</literal></term>
+<listitem><simpara>each pixel is a 32-bit quantity, with
+  the upper 8 bits unused. Red, Green, and Blue are stored
+  in the remaining 24 bits in that order.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-FORMAT-A8:CAPS" role="constant">
+<term><literal>CAIRO_FORMAT_A8</literal></term>
+<listitem><simpara>each pixel is a 8-bit quantity holding
+  an alpha value.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-FORMAT-A1:CAPS" role="constant">
+<term><literal>CAIRO_FORMAT_A1</literal></term>
+<listitem><simpara>each pixel is a 1-bit quantity holding
+  an alpha value. Pixels are packed together into 32-bit
+  quantities. The ordering of the bits matches the
+  endianess of the platform. On a big-endian machine, the
+  first pixel is in the uppermost bit, on a little-endian
+  machine the first pixel is in the least-significant bit.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-FORMAT-RGB16-565:CAPS" role="constant">
+<term><literal>CAIRO_FORMAT_RGB16_565</literal></term>
+<listitem><simpara>each pixel is a 16-bit quantity
+  with red in the upper 5 bits, then green in the middle
+  6 bits, and blue in the lower 5 bits.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-FORMAT-RGB30:CAPS" role="constant">
+<term><literal>CAIRO_FORMAT_RGB30</literal></term>
+<listitem><simpara>like RGB24 but with 10bpc
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-format-stride-for-width" role="function" condition="since:1.6">
+<title>cairo_format_stride_for_width ()</title>
+<indexterm zone="cairo-format-stride-for-width" role="1.6"><primary sortas="format_stride_for_width">cairo_format_stride_for_width</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 cairo_format_stride_for_width       (<parameter><link linkend="cairo-format-t"><type>cairo_format_t</type></link> format</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>);</programlisting>
+<para>
+This function provides a stride value that will respect all
+alignment requirements of the accelerated image-rendering code
+within cairo. Typical usage will be of the form:
+</para>
+<para>
+<informalexample><programlisting>
+int stride;
+unsigned char *data;
+<link linkend="cairo-surface-t">cairo_surface_t</link> *surface;
+
+stride = cairo_format_stride_for_width (format, width);
+data = malloc (stride * height);
+surface = cairo_image_surface_create_for_data (data, format,
+					  width, height,
+					  stride);
+</programlisting></informalexample>
+</para><variablelist role="params">
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="cairo-format-t"><type>cairo_format_t</type></link> value</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara>The desired width of an image surface to be created.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the appropriate stride to use given the desired
+format and width, or -1 if either the format is invalid or the width
+too large.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.6</para></refsect2>
+<refsect2 id="cairo-image-surface-create" role="function">
+<title>cairo_image_surface_create ()</title>
+<indexterm zone="cairo-image-surface-create"><primary sortas="image_surface_create">cairo_image_surface_create</primary></indexterm>
+<programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_image_surface_create          (<parameter><link linkend="cairo-format-t"><type>cairo_format_t</type></link> format</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);</programlisting>
+<para>
+Creates an image surface of the specified format and
+dimensions. Initially the surface contents are all
+0. (Specifically, within each pixel, each color or alpha channel
+belonging to format will be 0. The contents of bits within a pixel,
+but not belonging to the given format are undefined).
+</para><variablelist role="params">
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>format of pixels in the surface to create</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara>width of the surface, in pixels</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara>height of the surface, in pixels</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a pointer to the newly created surface. The caller
+owns the surface and should call <link linkend="cairo-surface-destroy"><function>cairo_surface_destroy()</function></link> when done
+with it.
+This function always returns a valid pointer, but it will return a
+pointer to a "nil" surface if an error such as out of memory
+occurs. You can use <link linkend="cairo-surface-status"><function>cairo_surface_status()</function></link> to check for this.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-image-surface-create-for-data" role="function">
+<title>cairo_image_surface_create_for_data ()</title>
+<indexterm zone="cairo-image-surface-create-for-data"><primary sortas="image_surface_create_for_data">cairo_image_surface_create_for_data</primary></indexterm>
+<programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_image_surface_create_for_data (<parameter>unsigned <link linkend="char"><type>char</type></link> *data</parameter>,
+                                                         <parameter><link linkend="cairo-format-t"><type>cairo_format_t</type></link> format</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> stride</parameter>);</programlisting>
+<para>
+Creates an image surface for the provided pixel data. The output
+buffer must be kept around until the <link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> is destroyed
+or <link linkend="cairo-surface-finish"><function>cairo_surface_finish()</function></link> is called on the surface.  The initial
+contents of <parameter>data</parameter> will be used as the initial image contents; you
+must explicitly clear the buffer, using, for example,
+<link linkend="cairo-rectangle"><function>cairo_rectangle()</function></link> and <link linkend="cairo-fill"><function>cairo_fill()</function></link> if you want it cleared.
+</para>
+<para>
+Note that the stride may be larger than
+width*bytes_per_pixel to provide proper alignment for each pixel
+and row. This alignment is required to allow high-performance rendering
+within cairo. The correct way to obtain a legal stride value is to
+call <link linkend="cairo-format-stride-for-width"><function>cairo_format_stride_for_width()</function></link> with the desired format and
+maximum image width value, and then use the resulting stride value
+to allocate the data and to create the image surface. See
+<link linkend="cairo-format-stride-for-width"><function>cairo_format_stride_for_width()</function></link> for example code.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>a pointer to a buffer supplied by the application in which
+to write contents. This pointer must be suitably aligned for any
+kind of variable, (for example, a pointer returned by malloc).</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>the format of pixels in the buffer</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara>the width of the image to be stored in the buffer</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara>the height of the image to be stored in the buffer</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>stride</parameter>&#160;:</term>
+<listitem><simpara>the number of bytes between the start of rows in the
+buffer as allocated. This value should always be computed by
+<link linkend="cairo-format-stride-for-width"><function>cairo_format_stride_for_width()</function></link> before allocating the data
+buffer.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a pointer to the newly created surface. The caller
+owns the surface and should call <link linkend="cairo-surface-destroy"><function>cairo_surface_destroy()</function></link> when done
+with it.
+This function always returns a valid pointer, but it will return a
+pointer to a "nil" surface in the case of an error such as out of
+memory or an invalid stride value. In case of invalid stride value
+the error status of the returned surface will be
+<link linkend="CAIRO-STATUS-INVALID-STRIDE:CAPS"><literal>CAIRO_STATUS_INVALID_STRIDE</literal></link>.  You can use
+<link linkend="cairo-surface-status"><function>cairo_surface_status()</function></link> to check for this.
+See <link linkend="cairo-surface-set-user-data"><function>cairo_surface_set_user_data()</function></link> for a means of attaching a
+destroy-notification fallback to the surface if necessary.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-image-surface-get-data" role="function" condition="since:1.2">
+<title>cairo_image_surface_get_data ()</title>
+<indexterm zone="cairo-image-surface-get-data" role="1.2"><primary sortas="image_surface_get_data">cairo_image_surface_get_data</primary></indexterm>
+<programlisting>unsigned <link linkend="char"><returnvalue>char</returnvalue></link> *     cairo_image_surface_get_data        (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Get a pointer to the data of the image surface, for direct
+inspection or modification.
+</para>
+<para>
+A call to <link linkend="cairo-surface-flush"><function>cairo_surface_flush()</function></link> is required before accessing the
+pixel data to ensure that all pending drawing operations are
+finished. A call to <link linkend="cairo-surface-mark-dirty"><function>cairo_surface_mark_dirty()</function></link> is required after
+the data is modified.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-image-surface-t"><type>cairo_image_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a pointer to the image data of this surface or <link linkend="NULL:CAPS"><literal>NULL</literal></link>
+if <parameter>surface</parameter> is not an image surface, or if <link linkend="cairo-surface-finish"><function>cairo_surface_finish()</function></link>
+has been called.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-image-surface-get-format" role="function" condition="since:1.2">
+<title>cairo_image_surface_get_format ()</title>
+<indexterm zone="cairo-image-surface-get-format" role="1.2"><primary sortas="image_surface_get_format">cairo_image_surface_get_format</primary></indexterm>
+<programlisting><link linkend="cairo-format-t"><returnvalue>cairo_format_t</returnvalue></link>      cairo_image_surface_get_format      (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Get the format of the surface.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-image-surface-t"><type>cairo_image_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the format of the surface</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-image-surface-get-width" role="function">
+<title>cairo_image_surface_get_width ()</title>
+<indexterm zone="cairo-image-surface-get-width"><primary sortas="image_surface_get_width">cairo_image_surface_get_width</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 cairo_image_surface_get_width       (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Get the width of the image surface in pixels.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-image-surface-t"><type>cairo_image_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the width of the surface in pixels.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-image-surface-get-height" role="function">
+<title>cairo_image_surface_get_height ()</title>
+<indexterm zone="cairo-image-surface-get-height"><primary sortas="image_surface_get_height">cairo_image_surface_get_height</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 cairo_image_surface_get_height      (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Get the height of the image surface in pixels.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-image-surface-t"><type>cairo_image_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the height of the surface in pixels.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-image-surface-get-stride" role="function" condition="since:1.2">
+<title>cairo_image_surface_get_stride ()</title>
+<indexterm zone="cairo-image-surface-get-stride" role="1.2"><primary sortas="image_surface_get_stride">cairo_image_surface_get_stride</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 cairo_image_surface_get_stride      (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Get the stride of the image surface in bytes
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-image-surface-t"><type>cairo_image_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the stride of the image surface in bytes (or 0 if
+<parameter>surface</parameter> is not an image surface). The stride is the distance in
+bytes from the beginning of one row of the image data to the
+beginning of the next row.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+
+</refsect1>
+<refsect1 id="cairo-Image-Surfaces.see-also">
+<title>See Also</title>
+<link linkend="cairo-surface-t"><type>cairo_surface_t</type></link>
+</refsect1>
+
+</refentry>

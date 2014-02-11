@@ -38,7 +38,7 @@ printf("'%s',", symbol);
 int main(int, char**)
 {
 // #if PLATFORM(JS)
-printf("-s EXPORTED_FUNCTIONS=\"[");
+printf("EXPORTED_FUNCTIONS=\"[");
 // #endif
     validateAndPrint(".objc_class_name_DOMAbstractView");
     validateAndPrint(".objc_class_name_DOMCSSStyleDeclaration");

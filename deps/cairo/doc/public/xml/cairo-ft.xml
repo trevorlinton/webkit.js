@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<refentry id="cairo-FreeType-Fonts">
+<refmeta>
+<refentrytitle role="top_of_page" id="cairo-FreeType-Fonts.top_of_page">FreeType Fonts</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  CAIRO Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>FreeType Fonts</refname>
+<refpurpose>Font support for FreeType</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cairo-FreeType-Fonts.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="CAIRO-HAS-FT-FONT:CAPS">CAIRO_HAS_FT_FONT</link>
+#define             <link linkend="CAIRO-HAS-FC-FONT:CAPS">CAIRO_HAS_FC_FONT</link>
+<link linkend="cairo-font-face-t"><returnvalue>cairo_font_face_t</returnvalue></link> * <link linkend="cairo-ft-font-face-create-for-ft-face">cairo_ft_font_face_create_for_ft_face</link>
+                                                        (<parameter><link linkend="FT-Face"><type>FT_Face</type></link> face</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> load_flags</parameter>);
+<link linkend="cairo-font-face-t"><returnvalue>cairo_font_face_t</returnvalue></link> * <link linkend="cairo-ft-font-face-create-for-pattern">cairo_ft_font_face_create_for_pattern</link>
+                                                        (<parameter><link linkend="FcPattern"><type>FcPattern</type></link> *pattern</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-ft-font-options-substitute">cairo_ft_font_options_substitute</link>    (<parameter>const <link linkend="cairo-font-options-t"><type>cairo_font_options_t</type></link> *options</parameter>,
+                                                         <parameter><link linkend="FcPattern"><type>FcPattern</type></link> *pattern</parameter>);
+<link linkend="FT-Face"><returnvalue>FT_Face</returnvalue></link>             <link linkend="cairo-ft-scaled-font-lock-face">cairo_ft_scaled_font_lock_face</link>      (<parameter><link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> *scaled_font</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-ft-scaled-font-unlock-face">cairo_ft_scaled_font_unlock_face</link>    (<parameter><link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> *scaled_font</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="cairo-FreeType-Fonts.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+The FreeType font backend is primarily used to render text on GNU/Linux
+systems, but can be used on other platforms too.
+</para>
+</refsect1>
+<refsect1 id="cairo-FreeType-Fonts.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="CAIRO-HAS-FT-FONT:CAPS" role="macro">
+<title>CAIRO_HAS_FT_FONT</title>
+<indexterm zone="CAIRO-HAS-FT-FONT:CAPS"><primary sortas="HAS_FT_FONT">CAIRO_HAS_FT_FONT</primary></indexterm>
+<programlisting>#define CAIRO_HAS_FT_FONT 1
+</programlisting>
+<para>
+Defined if the FreeType font backend is available.
+This macro can be used to conditionally compile backend-specific code.
+</para></refsect2>
+<refsect2 id="CAIRO-HAS-FC-FONT:CAPS" role="macro">
+<title>CAIRO_HAS_FC_FONT</title>
+<indexterm zone="CAIRO-HAS-FC-FONT:CAPS"><primary sortas="HAS_FC_FONT">CAIRO_HAS_FC_FONT</primary></indexterm>
+<programlisting>#define CAIRO_HAS_FC_FONT 1
+</programlisting>
+<para>
+Defined if the Fontconfig-specific functions of the FreeType font backend
+are available.
+This macro can be used to conditionally compile backend-specific code.
+</para></refsect2>
+<refsect2 id="cairo-ft-font-face-create-for-ft-face" role="function">
+<title>cairo_ft_font_face_create_for_ft_face ()</title>
+<indexterm zone="cairo-ft-font-face-create-for-ft-face"><primary sortas="ft_font_face_create_for_ft_face">cairo_ft_font_face_create_for_ft_face</primary></indexterm>
+<programlisting><link linkend="cairo-font-face-t"><returnvalue>cairo_font_face_t</returnvalue></link> * cairo_ft_font_face_create_for_ft_face
+                                                        (<parameter><link linkend="FT-Face"><type>FT_Face</type></link> face</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> load_flags</parameter>);</programlisting>
+<para>
+Creates a new font face for the FreeType font backend from a
+pre-opened FreeType face. This font can then be used with
+<link linkend="cairo-set-font-face"><function>cairo_set_font_face()</function></link> or <link linkend="cairo-scaled-font-create"><function>cairo_scaled_font_create()</function></link>. The
+<link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> returned from <link linkend="cairo-scaled-font-create"><function>cairo_scaled_font_create()</function></link> is
+also for the FreeType backend and can be used with functions such
+as <link linkend="cairo-ft-scaled-font-lock-face"><function>cairo_ft_scaled_font_lock_face()</function></link>. Note that Cairo may keep a reference
+to the FT_Face alive in a font-cache and the exact lifetime of the reference
+depends highly upon the exact usage pattern and is subject to external
+factors. You must not call <link linkend="FT-Done-Face"><function>FT_Done_Face()</function></link> before the last reference to the
+<link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> has been dropped.
+</para>
+<para>
+As an example, below is how one might correctly couple the lifetime of
+the FreeType face object to the <link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link>.
+</para>
+<para>
+<informalexample><programlisting>
+static const cairo_user_data_key_t key;
+
+font_face = cairo_ft_font_face_create_for_ft_face (ft_face, 0);
+status = cairo_font_face_set_user_data (font_face, &amp;key,
+                               ft_face, (cairo_destroy_func_t) FT_Done_Face);
+if (status) {
+   cairo_font_face_destroy (font_face);
+   FT_Done_Face (ft_face);
+   return ERROR;
+}
+</programlisting></informalexample>
+</para><variablelist role="params">
+<varlistentry><term><parameter>face</parameter>&#160;:</term>
+<listitem><simpara>A FreeType face object, already opened. This must
+be kept around until the face's ref_count drops to
+zero and it is freed. Since the face may be referenced
+internally to Cairo, the best way to determine when it
+is safe to free the face is to pass a
+<link linkend="cairo-destroy-func-t"><type>cairo_destroy_func_t</type></link> to <link linkend="cairo-font-face-set-user-data"><function>cairo_font_face_set_user_data()</function></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>load_flags</parameter>&#160;:</term>
+<listitem><simpara>flags to pass to FT_Load_Glyph when loading
+glyphs from the font. These flags are OR'ed together with
+the flags derived from the <link linkend="cairo-font-options-t"><type>cairo_font_options_t</type></link> passed
+to <link linkend="cairo-scaled-font-create"><function>cairo_scaled_font_create()</function></link>, so only a few values such
+as <link linkend="FT-LOAD-VERTICAL-LAYOUT:CAPS"><literal>FT_LOAD_VERTICAL_LAYOUT</literal></link>, and <link linkend="FT-LOAD-FORCE-AUTOHINT:CAPS"><literal>FT_LOAD_FORCE_AUTOHINT</literal></link>
+are useful. You should not pass any of the flags affecting
+the load target, such as <link linkend="FT-LOAD-TARGET-LIGHT:CAPS"><literal>FT_LOAD_TARGET_LIGHT</literal></link>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a newly created <link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link>. Free with
+<link linkend="cairo-font-face-destroy"><function>cairo_font_face_destroy()</function></link> when you are done using it.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-ft-font-face-create-for-pattern" role="function">
+<title>cairo_ft_font_face_create_for_pattern ()</title>
+<indexterm zone="cairo-ft-font-face-create-for-pattern"><primary sortas="ft_font_face_create_for_pattern">cairo_ft_font_face_create_for_pattern</primary></indexterm>
+<programlisting><link linkend="cairo-font-face-t"><returnvalue>cairo_font_face_t</returnvalue></link> * cairo_ft_font_face_create_for_pattern
+                                                        (<parameter><link linkend="FcPattern"><type>FcPattern</type></link> *pattern</parameter>);</programlisting>
+<para>
+Creates a new font face for the FreeType font backend based on a
+fontconfig pattern. This font can then be used with
+<link linkend="cairo-set-font-face"><function>cairo_set_font_face()</function></link> or <link linkend="cairo-scaled-font-create"><function>cairo_scaled_font_create()</function></link>. The
+<link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> returned from <link linkend="cairo-scaled-font-create"><function>cairo_scaled_font_create()</function></link> is
+also for the FreeType backend and can be used with functions such
+as <link linkend="cairo-ft-scaled-font-lock-face"><function>cairo_ft_scaled_font_lock_face()</function></link>.
+</para>
+<para>
+Font rendering options are represented both here and when you
+call <link linkend="cairo-scaled-font-create"><function>cairo_scaled_font_create()</function></link>. Font options that have a representation
+in a <link linkend="FcPattern"><type>FcPattern</type></link> must be passed in here; to modify <link linkend="FcPattern"><type>FcPattern</type></link>
+appropriately to reflect the options in a <link linkend="cairo-font-options-t"><type>cairo_font_options_t</type></link>, call
+<link linkend="cairo-ft-font-options-substitute"><function>cairo_ft_font_options_substitute()</function></link>.
+</para>
+<para>
+The pattern's FC_FT_FACE element is inspected first and if that is set,
+that will be the FreeType font face associated with the returned cairo
+font face.  Otherwise the FC_FILE element is checked.  If it's set,
+that and the value of the FC_INDEX element (defaults to zero) of <parameter>pattern</parameter>
+are used to load a font face from file.
+</para>
+<para>
+If both steps from the previous paragraph fails, <parameter>pattern</parameter> will be passed
+to FcConfigSubstitute, FcDefaultSubstitute, and finally FcFontMatch,
+and the resulting font pattern is used.
+</para>
+<para>
+If the FC_FT_FACE element of <parameter>pattern</parameter> is set, the user is responsible
+for making sure that the referenced FT_Face remains valid for the life
+time of the returned <link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link>.  See
+<link linkend="cairo-ft-font-face-create-for-ft-face"><function>cairo_ft_font_face_create_for_ft_face()</function></link> for an example of how to couple
+the life time of the FT_Face to that of the cairo font-face.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pattern</parameter>&#160;:</term>
+<listitem><simpara>A fontconfig pattern.  Cairo makes a copy of the pattern
+if it needs to.  You are free to modify or free <parameter>pattern</parameter> after this call.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a newly created <link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link>. Free with
+<link linkend="cairo-font-face-destroy"><function>cairo_font_face_destroy()</function></link> when you are done using it.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-ft-font-options-substitute" role="function">
+<title>cairo_ft_font_options_substitute ()</title>
+<indexterm zone="cairo-ft-font-options-substitute"><primary sortas="ft_font_options_substitute">cairo_ft_font_options_substitute</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_ft_font_options_substitute    (<parameter>const <link linkend="cairo-font-options-t"><type>cairo_font_options_t</type></link> *options</parameter>,
+                                                         <parameter><link linkend="FcPattern"><type>FcPattern</type></link> *pattern</parameter>);</programlisting>
+<para>
+Add options to a <link linkend="FcPattern"><type>FcPattern</type></link> based on a <link linkend="cairo-font-options-t"><type>cairo_font_options_t</type></link> font
+options object. Options that are already in the pattern, are not overridden,
+so you should call this function after calling <link linkend="FcConfigSubstitute"><function>FcConfigSubstitute()</function></link> (the
+user's settings should override options based on the surface type), but
+before calling <link linkend="FcDefaultSubstitute"><function>FcDefaultSubstitute()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>options</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-font-options-t"><type>cairo_font_options_t</type></link> object</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pattern</parameter>&#160;:</term>
+<listitem><simpara>an existing <link linkend="FcPattern"><type>FcPattern</type></link></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-ft-scaled-font-lock-face" role="function">
+<title>cairo_ft_scaled_font_lock_face ()</title>
+<indexterm zone="cairo-ft-scaled-font-lock-face"><primary sortas="ft_scaled_font_lock_face">cairo_ft_scaled_font_lock_face</primary></indexterm>
+<programlisting><link linkend="FT-Face"><returnvalue>FT_Face</returnvalue></link>             cairo_ft_scaled_font_lock_face      (<parameter><link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> *scaled_font</parameter>);</programlisting>
+<para>
+<link linkend="cairo-ft-scaled-font-lock-face"><function>cairo_ft_scaled_font_lock_face()</function></link> gets the <link linkend="FT-Face"><type>FT_Face</type></link> object from a FreeType
+backend font and scales it appropriately for the font. You must
+release the face with <link linkend="cairo-ft-scaled-font-unlock-face"><function>cairo_ft_scaled_font_unlock_face()</function></link>
+when you are done using it.  Since the <link linkend="FT-Face"><type>FT_Face</type></link> object can be
+shared between multiple <link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> objects, you must not
+lock any other font objects until you unlock this one. A count is
+kept of the number of times <link linkend="cairo-ft-scaled-font-lock-face"><function>cairo_ft_scaled_font_lock_face()</function></link> is
+called. <link linkend="cairo-ft-scaled-font-unlock-face"><function>cairo_ft_scaled_font_unlock_face()</function></link> must be called the same number
+of times.
+</para>
+<para>
+You must be careful when using this function in a library or in a
+threaded application, because freetype's design makes it unsafe to
+call freetype functions simultaneously from multiple threads, (even
+if using distinct FT_Face objects). Because of this, application
+code that acquires an FT_Face object with this call must add its
+own locking to protect any use of that object, (and which also must
+protect any other calls into cairo as almost any cairo function
+might result in a call into the freetype library).
+</para><variablelist role="params">
+<varlistentry><term><parameter>scaled_font</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> from the FreeType font backend. Such an
+object can be created by calling <link linkend="cairo-scaled-font-create"><function>cairo_scaled_font_create()</function></link> on a
+FreeType backend font face (see <link linkend="cairo-ft-font-face-create-for-pattern"><function>cairo_ft_font_face_create_for_pattern()</function></link>,
+<link linkend="cairo-ft-font-face-create-for-ft-face"><function>cairo_ft_font_face_create_for_ft_face()</function></link>).</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>The <link linkend="FT-Face"><type>FT_Face</type></link> object for <parameter>font</parameter>, scaled appropriately,
+or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if <parameter>scaled_font</parameter> is in an error state (see
+<link linkend="cairo-scaled-font-status"><function>cairo_scaled_font_status()</function></link>) or there is insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-ft-scaled-font-unlock-face" role="function">
+<title>cairo_ft_scaled_font_unlock_face ()</title>
+<indexterm zone="cairo-ft-scaled-font-unlock-face"><primary sortas="ft_scaled_font_unlock_face">cairo_ft_scaled_font_unlock_face</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_ft_scaled_font_unlock_face    (<parameter><link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> *scaled_font</parameter>);</programlisting>
+<para>
+Releases a face obtained with <link linkend="cairo-ft-scaled-font-lock-face"><function>cairo_ft_scaled_font_lock_face()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>scaled_font</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> from the FreeType font backend. Such an
+object can be created by calling <link linkend="cairo-scaled-font-create"><function>cairo_scaled_font_create()</function></link> on a
+FreeType backend font face (see <link linkend="cairo-ft-font-face-create-for-pattern"><function>cairo_ft_font_face_create_for_pattern()</function></link>,
+<link linkend="cairo-ft-font-face-create-for-ft-face"><function>cairo_ft_font_face_create_for_ft_face()</function></link>).</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="cairo-FreeType-Fonts.see-also">
+<title>See Also</title>
+<link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link>
+</refsect1>
+
+</refentry>

@@ -1,0 +1,140 @@
+<!-- ##### SECTION Title ##### -->
+cairo-ps
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_PS_SURFACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_ps_surface_create ##### -->
+<para>
+
+</para>
+
+@filename: 
+@width_in_points: 
+@height_in_points: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_ps_surface_create_for_stream ##### -->
+<para>
+
+</para>
+
+@write_func: 
+@closure: 
+@width_in_points: 
+@height_in_points: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_ps_surface_restrict_to_level ##### -->
+<para>
+
+</para>
+
+@surface: 
+@level: 
+
+
+<!-- ##### ENUM cairo_ps_level_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_PS_LEVEL_2: 
+@CAIRO_PS_LEVEL_3: 
+
+<!-- ##### FUNCTION cairo_ps_get_levels ##### -->
+<para>
+
+</para>
+
+@levels: 
+@num_levels: 
+
+
+<!-- ##### FUNCTION cairo_ps_level_to_string ##### -->
+<para>
+
+</para>
+
+@level: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_ps_surface_set_eps ##### -->
+<para>
+
+</para>
+
+@surface: 
+@eps: 
+
+
+<!-- ##### FUNCTION cairo_ps_surface_get_eps ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_ps_surface_set_size ##### -->
+<para>
+
+</para>
+
+@surface: 
+@width_in_points: 
+@height_in_points: 
+
+
+<!-- ##### FUNCTION cairo_ps_surface_dsc_begin_setup ##### -->
+<para>
+
+</para>
+
+@surface: 
+
+
+<!-- ##### FUNCTION cairo_ps_surface_dsc_begin_page_setup ##### -->
+<para>
+
+</para>
+
+@surface: 
+
+
+<!-- ##### FUNCTION cairo_ps_surface_dsc_comment ##### -->
+<para>
+
+</para>
+
+@surface: 
+@comment: 
+
+

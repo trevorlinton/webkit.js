@@ -1,0 +1,142 @@
+<!-- ##### SECTION Title ##### -->
+cairo-device
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### TYPEDEF cairo_device_t ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION cairo_device_reference ##### -->
+<para>
+
+</para>
+
+@device: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_device_destroy ##### -->
+<para>
+
+</para>
+
+@device: 
+
+
+<!-- ##### FUNCTION cairo_device_status ##### -->
+<para>
+
+</para>
+
+@device: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_device_finish ##### -->
+<para>
+
+</para>
+
+@device: 
+
+
+<!-- ##### FUNCTION cairo_device_flush ##### -->
+<para>
+
+</para>
+
+@device: 
+
+
+<!-- ##### ENUM cairo_device_type_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_DEVICE_TYPE_DRM: 
+@CAIRO_DEVICE_TYPE_GL: 
+@CAIRO_DEVICE_TYPE_SCRIPT: 
+@CAIRO_DEVICE_TYPE_XCB: 
+@CAIRO_DEVICE_TYPE_XLIB: 
+@CAIRO_DEVICE_TYPE_XML: 
+@CAIRO_DEVICE_TYPE_COGL: 
+@CAIRO_DEVICE_TYPE_WIN32: 
+@CAIRO_DEVICE_TYPE_INVALID: 
+
+<!-- ##### FUNCTION cairo_device_get_type ##### -->
+<para>
+
+</para>
+
+@device: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_device_get_reference_count ##### -->
+<para>
+
+</para>
+
+@device: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_device_set_user_data ##### -->
+<para>
+
+</para>
+
+@device: 
+@key: 
+@user_data: 
+@destroy: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_device_get_user_data ##### -->
+<para>
+
+</para>
+
+@device: 
+@key: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_device_acquire ##### -->
+<para>
+
+</para>
+
+@device: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_device_release ##### -->
+<para>
+
+</para>
+
+@device: 
+
+

@@ -1,0 +1,1 @@
+/Tint/webkit.js/deps/WebKit/Source/WebCore/inspector/JavaScriptCallFrame.idl 

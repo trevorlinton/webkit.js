@@ -29,6 +29,7 @@
 #include "UTF16UChar32Iterator.h"
 #include <cairo-ft.h>
 #include <cairo.h>
+#include <fontconfig/fontconfig.h>
 #include <fontconfig/fcfreetype.h>
 #include <wtf/Assertions.h>
 #include <wtf/text/CString.h>

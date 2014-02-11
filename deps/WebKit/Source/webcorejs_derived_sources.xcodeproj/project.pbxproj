@@ -1,0 +1,1309 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		5816614EDC63F3120BA1D018 /* make_derived_sources */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = AC9F079660067BDB039E4871 /* Build configuration list for PBXAggregateTarget "make_derived_sources" */;
+			buildPhases = (
+				A1340F33F965FAFA82DF987B /* Action "generateXMLViewerCSS" */,
+				ACB0D3BD61FD0D3A1FC712F9 /* Action "generateXMLViewerJS" */,
+				A9A8363DB368F5DA282CDCE3 /* Action "HTMLEntityTable" */,
+				A96C494E7065747430607C27 /* Action "RuntimeEnabledFeatures" */,
+				311EED6B6ECD9B5ACC192CF2 /* Action "CSSPropertyNames" */,
+				AAB638E93E50A48A20F6CAAD /* Action "StylePropertyShorthand" */,
+				76154DAD1C50490ED4BFEBF4 /* Action "StyleBuilder" */,
+				844D5DA10D7FAD927FC263CA /* Action "CSSValueKeywords" */,
+				8AAA12083B348FA45FD87F79 /* Action "HTMLNames" */,
+				E80AFE6719038AFA4BF65970 /* Action "FontFamilyNames" */,
+				26984D956AF607656CA7CCD9 /* Action "SVGNames" */,
+				BFFB5EEBD429954932A189AA /* Action "EventFactory" */,
+				865C276FA335F23FDDBA09C6 /* Action "EventTargetFactory" */,
+				8726C10171B5E90BA1BE613A /* Action "MathMLNames" */,
+				9790F9D2E1A8B73678477053 /* Action "UserAgentStyleSheets" */,
+				666580A4E34B47FE7597B2E6 /* Action "FetchInitiatorTypeNames" */,
+				43969F5D9D8966A71351CA0D /* Action "PickerCommon" */,
+				77B70BCEB3C83BD177968399 /* Action "CalendarPicker" */,
+				5CBF9E72C81499149F3BAD15 /* Action "ColorSuggestionPicker" */,
+				502C5E82E775CA88F9413B36 /* Action "XLinkNames" */,
+				87EF5F0AEFDDAB1B7FFC52C7 /* Action "XMLNSNames" */,
+				513746104396C52A2C088118 /* Action "XMLNames" */,
+				4CA38655770ACBB20D20CB19 /* Action "preprocess_grammar" */,
+				9C1952128A7E14DA0D8AD5C6 /* Action "MakeTokenMatcher" */,
+				EAE121360A454B99C4064F31 /* Rule "bison" */,
+			);
+			dependencies = (
+				742B5CFA03B359014F278B15 /* PBXTargetDependency */,
+			);
+			name = make_derived_sources;
+			productName = make_derived_sources;
+		};
+		C4228FEE4A17A7AAD777C698 /* generate_test_support_idls */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 6E4D6E151FDA171758365885 /* Build configuration list for PBXAggregateTarget "generate_test_support_idls" */;
+			buildPhases = (
+				16F3C1428DB0A5333106C248 /* Action "Settings" */,
+				8609A8B157730F1742C75040 /* Action "InternalRuntimeFlags" */,
+			);
+			dependencies = (
+			);
+			name = generate_test_support_idls;
+			productName = generate_test_support_idls;
+		};
+		FAB33B35283D409C08E77312 /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 577113F8C3CC2E0F492A5760 /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				879A439FDA2F3D20D2B1994B /* PBXTargetDependency */,
+				27D6DA142F8CA8B589644A46 /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		1C781A560A863851F9CE50B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C7AB17D37FADFBC6B17683F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5816614EDC63F3120BA1D018;
+			remoteInfo = make_derived_sources;
+		};
+		9215BBB53C247ABC7EDA6807 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C7AB17D37FADFBC6B17683F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4228FEE4A17A7AAD777C698;
+			remoteInfo = generate_test_support_idls;
+		};
+		AD13B2D6AF42182C87094F40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C7AB17D37FADFBC6B17683F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4228FEE4A17A7AAD777C698;
+			remoteInfo = generate_test_support_idls;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		03456DE96F8742A6B9690713 /* HTMLElementFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HTMLElementFactory.cpp; sourceTree = "<group>"; };
+		03E9F22EC9E6E8917292D772 /* fullscreen.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = fullscreen.css; sourceTree = "<group>"; };
+		05F6F43A2BECAD0BD4F2A3CA /* colorSuggestionPicker.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = colorSuggestionPicker.css; sourceTree = "<group>"; };
+		060B2C0B8D79F9D288FEAC7D /* XPathGrammar.y */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.yacc; path = XPathGrammar.y; sourceTree = "<group>"; };
+		07B26BDFD56B4FA13DE3193D /* themeChromiumLinux.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = themeChromiumLinux.css; sourceTree = "<group>"; };
+		08F58D528E7B6444FEC6334F /* InternalRuntimeFlags.h.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = InternalRuntimeFlags.h.tmpl; sourceTree = "<group>"; };
+		09AFC6372525AA371D849160 /* V8SVGElementWrapperFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = V8SVGElementWrapperFactory.h; sourceTree = "<group>"; };
+		0A9CC1E277FA8451EFF54D77 /* mediaControls.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = mediaControls.css; sourceTree = "<group>"; };
+		0B568D39D41E6A1A8A8851A8 /* mathtags.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = mathtags.in; sourceTree = "<group>"; };
+		0C747073F8BAE5A4CC8244E5 /* Event.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
+		0E8A0BA848314D7499D3FBC8 /* StyleBuilderFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyleBuilderFunctions.h; sourceTree = "<group>"; };
+		0EB89D02C2D042230FAE4244 /* StyleBuilderFunctions.h.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = StyleBuilderFunctions.h.tmpl; sourceTree = "<group>"; };
+		0EBEF73830DAA5E14C602CE3 /* themeChromium.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = themeChromium.css; sourceTree = "<group>"; };
+		1253EB0BCD5B02E797B1FCE3 /* MathMLNames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MathMLNames.cpp; sourceTree = "<group>"; };
+		14A0D97B79A89134DB8F7564 /* FetchInitiatorTypeNames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FetchInitiatorTypeNames.cpp; sourceTree = "<group>"; };
+		14BCBEFCED74832402CC83F2 /* XMLNames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = XMLNames.cpp; sourceTree = "<group>"; };
+		157E89882D77741D1BD3E4EC /* EventTargetHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventTargetHeaders.h; sourceTree = "<group>"; };
+		1620333135797DD534911FCB /* EventHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventHeaders.h; sourceTree = "<group>"; };
+		16F6EC52A2AD22542F50A94E /* in_generator.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = in_generator.py; sourceTree = "<group>"; };
+		177A0EF98B172A07039A30DE /* pickerCommonChromium.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = pickerCommonChromium.css; sourceTree = "<group>"; };
+		17F5A2BB78454B61ED820F3C /* suggestionPicker.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = suggestionPicker.js; sourceTree = "<group>"; };
+		1A144512D9CB4268B3F9966F /* InternalSettingsGenerated.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InternalSettingsGenerated.cpp; sourceTree = "<group>"; };
+		1C513EB50DC414DB3F053914 /* UserAgentStyleSheets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAgentStyleSheets.h; sourceTree = "<group>"; };
+		1D1E762E2DAE1076C856F964 /* quirks.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = quirks.css; sourceTree = "<group>"; };
+		1E1B2CF878422263BBAC84ED /* CSSPropertyNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSPropertyNames.h; sourceTree = "<group>"; };
+		20587E3F506367B99BC7BC3B /* StylePropertyShorthand.cpp.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = StylePropertyShorthand.cpp.tmpl; sourceTree = "<group>"; };
+		22176A619FEE92C96E67CA47 /* make_style_shorthands.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = make_style_shorthands.py; sourceTree = "<group>"; };
+		23CF2916B5FCFD0BDF1E114F /* xlinkattrs.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = xlinkattrs.in; sourceTree = "<group>"; };
+		26EDA4901F619350DD5A5990 /* RuntimeEnabledFeatures.h.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = RuntimeEnabledFeatures.h.tmpl; sourceTree = "<group>"; };
+		291747AB63203BC2A118B9B9 /* template_expander.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = template_expander.py; sourceTree = "<group>"; };
+		2A1081F807E9A1BA5442CABA /* EventInterfaces.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventInterfaces.h; sourceTree = "<group>"; };
+		2B34B07555088ADA80D969E0 /* InternalSettingsGenerated.idl */ = {isa = PBXFileReference; lastKnownFileType = text; path = InternalSettingsGenerated.idl; sourceTree = "<group>"; };
+		2E4502CB7B3A6762F0840CCE /* CSSGrammar.y.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = CSSGrammar.y.in; sourceTree = "<group>"; };
+		2E7B292E63952592B0186DD0 /* SVGElementFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SVGElementFactory.cpp; sourceTree = "<group>"; };
+		2F256125F61BBBB4172BB787 /* xmlattrs.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = xmlattrs.in; sourceTree = "<group>"; };
+		3467BADF3F3718F130880770 /* in_file.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = in_file.py; sourceTree = "<group>"; };
+		35BF8EE35C692B980D84614F /* XLinkNames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = XLinkNames.cpp; sourceTree = "<group>"; };
+		367BB9A839BCEDFFD7C6B8BC /* HTMLNames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HTMLNames.cpp; sourceTree = "<group>"; };
+		3BBF569A1423B56698B29B9C /* CSSGrammar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSGrammar.h; sourceTree = "<group>"; };
+		3BCD1F5185810F1A428243CE /* themeWin.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = themeWin.css; sourceTree = "<group>"; };
+		3BD3250CA6FDB00635DED6C8 /* SettingsMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsMacros.h; sourceTree = "<group>"; };
+		3CB2F774ED77BABC6644155E /* FetchInitiatorTypeNames.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = FetchInitiatorTypeNames.in; sourceTree = "<group>"; };
+		3E49BE279CD18FFA88C0F6B0 /* UserAgentStyleSheetsData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UserAgentStyleSheetsData.cpp; sourceTree = "<group>"; };
+		467438307A70BEEA03A0F537 /* preprocessor.pm */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = preprocessor.pm; sourceTree = "<group>"; };
+		477FBF5E06B7971C88F381EC /* XPathGrammar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = XPathGrammar.cpp; sourceTree = "<group>"; };
+		48696B77DD0189486C47685B /* calendarPicker.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = calendarPicker.css; sourceTree = "<group>"; };
+		4ADD97F88FB5E651E3C09874 /* CSSPropertyNames.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = CSSPropertyNames.in; sourceTree = "<group>"; };
+		4BD88AA9807F3989DA5063BB /* StyleBuilder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StyleBuilder.cpp; sourceTree = "<group>"; };
+		4C3C5B74CA06292513755C27 /* InternalRuntimeFlags.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InternalRuntimeFlags.h; sourceTree = "<group>"; };
+		4F9BD534A7D6B49DAEC3A1A6 /* StyleBuilder.cpp.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = StyleBuilder.cpp.tmpl; sourceTree = "<group>"; };
+		4FF56E2927467B1A16E6825C /* CSSValueKeywords.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSValueKeywords.h; sourceTree = "<group>"; };
+		53396C686CDBE47A25A8FA0E /* suggestionPicker.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = suggestionPicker.css; sourceTree = "<group>"; };
+		5344FBAC7337D2B34A072226 /* InternalRuntimeFlags.idl */ = {isa = PBXFileReference; lastKnownFileType = text; path = InternalRuntimeFlags.idl; sourceTree = "<group>"; };
+		55044EF02BE06A34E2982FC5 /* html.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = html.css; sourceTree = "<group>"; };
+		55237BD56D3E00417FA395B3 /* EventTargetInterfaces.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventTargetInterfaces.h; sourceTree = "<group>"; };
+		5A276C66D49B81B7C64074FF /* macros.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = macros.tmpl; sourceTree = "<group>"; };
+		5C3AA00ADA1683F5288B46C2 /* CSSGrammar.y */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.yacc; path = CSSGrammar.y; sourceTree = "<group>"; };
+		5D6077B07A80651EA1A5C8AD /* svg.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = svg.css; sourceTree = "<group>"; };
+		5DD237CE4E759B8C4FB2889C /* MathMLNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathMLNames.h; sourceTree = "<group>"; };
+		60C4EEAFE26FBF7A751EC17C /* make_css_property_names.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = make_css_property_names.py; sourceTree = "<group>"; };
+		60E244D3682C054A5E2CBBF7 /* make_internal_runtime_flags.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = make_internal_runtime_flags.py; sourceTree = "<group>"; };
+		615A4C7A6D8512719F5966F3 /* xmlnsattrs.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = xmlnsattrs.in; sourceTree = "<group>"; };
+		61931292FAFCEBC172B8F688 /* StyleBuilderFunctions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StyleBuilderFunctions.cpp; sourceTree = "<group>"; };
+		65AF437FCF4FEA35412CE868 /* create-html-entity-table */ = {isa = PBXFileReference; lastKnownFileType = text; path = "create-html-entity-table"; sourceTree = "<group>"; };
+		65EFE5DD37F2A646B6377915 /* make_style_builder.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = make_style_builder.py; sourceTree = "<group>"; };
+		66FFD11236985C6F4A716CFE /* CSSPropertyNames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSSPropertyNames.cpp; sourceTree = "<group>"; };
+		6753BFEDA2279D38755ABD32 /* XMLNSNames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = XMLNSNames.cpp; sourceTree = "<group>"; };
+		69F4FCBB40CF6D9F5A6DACA9 /* StylePropertyShorthand.h.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = StylePropertyShorthand.h.tmpl; sourceTree = "<group>"; };
+		6B1AC077E6F14C565478B7A8 /* InternalSettingsGenerated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InternalSettingsGenerated.h; sourceTree = "<group>"; };
+		6C374E6FA2DAA03E18CB1A72 /* StylePropertyShorthand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StylePropertyShorthand.h; sourceTree = "<group>"; };
+		6EB39C6114EDEFF43D8D6BED /* view-source.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = "view-source.css"; sourceTree = "<group>"; };
+		7295761399229E9A075D9333 /* license.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = license.py; sourceTree = "<group>"; };
+		739C9D952724DC6338BD56EB /* webcorejs_derived_sources.gyp */ = {isa = PBXFileReference; explicitFileType = sourcecode; path = webcorejs_derived_sources.gyp; sourceTree = "<group>"; };
+		75947F8991896D3052D1CCAA /* SVGNames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SVGNames.cpp; sourceTree = "<group>"; };
+		763BC297E2A4B2D7C18696EC /* CSSGrammar.y.includes */ = {isa = PBXFileReference; lastKnownFileType = text; path = CSSGrammar.y.includes; sourceTree = "<group>"; };
+		782865CEC779AD553486EE26 /* XMLViewerJS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLViewerJS.h; sourceTree = "<group>"; };
+		78C67FD6B8D7BC4FA25DA04E /* Settings.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Settings.in; sourceTree = "<group>"; };
+		796DED605F34AB4372D980BB /* make-css-file-arrays.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = "make-css-file-arrays.pl"; sourceTree = "<group>"; };
+		82244D132063E5BCCDFAD7BB /* StylePropertyShorthand.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StylePropertyShorthand.cpp; sourceTree = "<group>"; };
+		84CC1E400EDE49B1C63F3F1B /* HTMLEntityTable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HTMLEntityTable.cpp; sourceTree = "<group>"; };
+		854B94CAD9E623E91384C0BE /* make_event_factory.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = make_event_factory.py; sourceTree = "<group>"; };
+		85A16904263B78F77D0CBC81 /* XMLNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLNames.h; sourceTree = "<group>"; };
+		8750A65CDF1431F9D92BFA83 /* calendarPickerChromium.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = calendarPickerChromium.css; sourceTree = "<group>"; };
+		87BE192A7328845BFFF849B9 /* FontFamilyNames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FontFamilyNames.cpp; sourceTree = "<group>"; };
+		8F3CD78D0ADDB4D50227669B /* ColorData.gperf */ = {isa = PBXFileReference; lastKnownFileType = text; path = ColorData.gperf; sourceTree = "<group>"; };
+		93D017CE289A2A6798D481DF /* PickerCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerCommon.h; sourceTree = "<group>"; };
+		95DC4B3E460EBEE3173AAA54 /* V8SVGElementWrapperFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = V8SVGElementWrapperFactory.cpp; sourceTree = "<group>"; };
+		9767939CD4534CF4340356E0 /* FetchInitiatorTypeNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchInitiatorTypeNames.h; sourceTree = "<group>"; };
+		98B73988870A77D9E8AE2B01 /* StyleBuilderFunctions.cpp.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = StyleBuilderFunctions.cpp.tmpl; sourceTree = "<group>"; };
+		98D6423A0B7F4EE1370C875A /* CSSValueKeywords.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSSValueKeywords.cpp; sourceTree = "<group>"; };
+		990E95811105F1F2C00D4BBA /* XMLViewer.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = XMLViewer.css; sourceTree = "<group>"; };
+		9D4C5DB758B910D04CC3169E /* XLinkNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLinkNames.h; sourceTree = "<group>"; };
+		9E596CFDDCCFC656D1554592 /* RuntimeEnabledFeatures.cpp.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = RuntimeEnabledFeatures.cpp.tmpl; sourceTree = "<group>"; };
+		9F3EC8AE3E1D6E25620D4A7C /* EventTargetFactory.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventTargetFactory.in; sourceTree = "<group>"; };
+		A0F1BA00671A64C7AC605336 /* mathattrs.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = mathattrs.in; sourceTree = "<group>"; };
+		A23A72305CFFD6AEF8C6E77F /* CSSParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSSParser.cpp; sourceTree = "<group>"; };
+		A30DC06377E58AD737ECDCD9 /* PickerCommon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PickerCommon.cpp; sourceTree = "<group>"; };
+		A4CD618E09475AC59263C722 /* XMLViewerCSS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLViewerCSS.h; sourceTree = "<group>"; };
+		A554DE1FAC87D24850733397 /* HTMLAttributeNames.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = HTMLAttributeNames.in; sourceTree = "<group>"; };
+		A588463668DCEC5A52E6651B /* CSSParser-in.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "CSSParser-in.cpp"; sourceTree = "<group>"; };
+		A9DFDFE795EB48229EA77991 /* FontFamilyNames.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = FontFamilyNames.in; sourceTree = "<group>"; };
+		AAC5A3CC2CAE154EA1555319 /* make_css_value_keywords.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = make_css_value_keywords.py; sourceTree = "<group>"; };
+		AB9A0853D6A995B39A4A81DA /* InternalRuntimeFlags.idl.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = InternalRuntimeFlags.idl.tmpl; sourceTree = "<group>"; };
+		AC3A38A766EA79F46A5174CB /* CSSShorthands.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = CSSShorthands.in; sourceTree = "<group>"; };
+		AE36F5DCAA31CA8589556DCA /* StaticString.pm */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = StaticString.pm; sourceTree = "<group>"; };
+		AE3EFF3E369D5EF6179DFB22 /* RuntimeEnabledFeatures.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RuntimeEnabledFeatures.cpp; sourceTree = "<group>"; };
+		B0B52F31E91B2102A552B532 /* name_macros.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = name_macros.py; sourceTree = "<group>"; };
+		B0E66E92AA767D1EDF51FD60 /* SVGCSSValueKeywords.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = SVGCSSValueKeywords.in; sourceTree = "<group>"; };
+		B47E52851099797DF35E6131 /* XMLNSNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLNSNames.h; sourceTree = "<group>"; };
+		B4A293760A6E4EA66A9C0143 /* themeChromiumAndroid.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = themeChromiumAndroid.css; sourceTree = "<group>"; };
+		BB86E71EEA4B87A1AA3847AF /* EventAliases.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventAliases.in; sourceTree = "<group>"; };
+		BC1E47AEC66B335805441458 /* svgtags.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = svgtags.in; sourceTree = "<group>"; };
+		BDE60EE8EC4EEE0491BC58FF /* HTMLEntityNames.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = HTMLEntityNames.in; sourceTree = "<group>"; };
+		BECFB272A5ED9BAF668B73D4 /* CSSValueKeywords.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = CSSValueKeywords.in; sourceTree = "<group>"; };
+		BFCE8EB38A6BD5CEF1FC85E6 /* themeWinQuirks.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = themeWinQuirks.css; sourceTree = "<group>"; };
+		C100E6EFB17D9E0A6ECEA11D /* CalendarPicker.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CalendarPicker.cpp; sourceTree = "<group>"; };
+		C1EAEAD0EECC24A4AD8BE4B7 /* V8HTMLElementWrapperFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = V8HTMLElementWrapperFactory.cpp; sourceTree = "<group>"; };
+		C506D55E22ED09735C1DAC4C /* calendarPicker.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = calendarPicker.js; sourceTree = "<group>"; };
+		C98FF44E51650C88B7BF1423 /* common.gypi */ = {isa = PBXFileReference; explicitFileType = sourcecode; name = common.gypi; path = ../../../build/common.gypi; sourceTree = "<group>"; };
+		CED57E20B62E2F8B2E5F175C /* SVGElementFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGElementFactory.h; sourceTree = "<group>"; };
+		D1EE306D6311D7797099BAF9 /* themeChromiumSkia.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = themeChromiumSkia.css; sourceTree = "<group>"; };
+		D313F3FAC6B3311E4DAE6A14 /* make_token_matcher.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = make_token_matcher.py; sourceTree = "<group>"; };
+		D836218B5C7444FA671CB7CB /* Hasher.pm */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = Hasher.pm; sourceTree = "<group>"; };
+		D8C4B138FB036F0E82894145 /* XMLViewer.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = XMLViewer.js; sourceTree = "<group>"; };
+		D8E3F9399014A215B3F0478D /* colorSuggestionPicker.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = colorSuggestionPicker.js; sourceTree = "<group>"; };
+		D9352AD8239B2F971E66D291 /* make_settings.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = make_settings.pl; sourceTree = "<group>"; };
+		D966D34EF00F02E12053526F /* SVGNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGNames.h; sourceTree = "<group>"; };
+		DAA72DA775C7AEC008240E2E /* V8HTMLElementWrapperFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = V8HTMLElementWrapperFactory.h; sourceTree = "<group>"; };
+		DD4E6DC51B1DC039CA9FE2E9 /* CSSGrammar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSSGrammar.cpp; sourceTree = "<group>"; };
+		DD97877D98938969649352EC /* CSSProperties.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = CSSProperties.in; sourceTree = "<group>"; };
+		DE57A58904A740A0580289A6 /* make_names.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = make_names.pl; sourceTree = "<group>"; };
+		E4BBBD92EAB6ABDE3856EFB0 /* HTMLTagNames.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = HTMLTagNames.in; sourceTree = "<group>"; };
+		E59EA3490BE37631EC0B8B38 /* ColorSuggestionPicker.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ColorSuggestionPicker.cpp; sourceTree = "<group>"; };
+		E8AE6BDAED04454D39884F1D /* pickerCommon.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = pickerCommon.js; sourceTree = "<group>"; };
+		E94E3A5F4767B536D6584ABC /* mediaControlsAndroid.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = mediaControlsAndroid.css; sourceTree = "<group>"; };
+		E96A013EF219A6ED438A7EF7 /* RuntimeEnabledFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuntimeEnabledFeatures.h; sourceTree = "<group>"; };
+		EC7786A7C5A057831EDAC21C /* features.gypi */ = {isa = PBXFileReference; explicitFileType = sourcecode; name = features.gypi; path = ../../../build/features.gypi; sourceTree = "<group>"; };
+		EF062787926CB794643D2A78 /* pickerCommon.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = pickerCommon.css; sourceTree = "<group>"; };
+		F05125E8B440ED03AB9EF846 /* XPathGrammar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XPathGrammar.h; sourceTree = "<group>"; };
+		F2EF9E8596BA304982C2B6A7 /* SVGCSSPropertyNames.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = SVGCSSPropertyNames.in; sourceTree = "<group>"; };
+		F2F90D8907FF24C05049663C /* make_runtime_features.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = make_runtime_features.py; sourceTree = "<group>"; };
+		F4A7C4B815FAC7E3AA1C2701 /* webcorejs.gypi */ = {isa = PBXFileReference; explicitFileType = sourcecode; name = webcorejs.gypi; path = WebCore/webcorejs.gypi; sourceTree = "<group>"; };
+		F619843B23E73DA4B582D68C /* svgattrs.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = svgattrs.in; sourceTree = "<group>"; };
+		F7594CA7B762BB93930E6DF1 /* RuntimeEnabledFeatures.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = RuntimeEnabledFeatures.in; sourceTree = "<group>"; };
+		F9045E9F5986FD11777822D1 /* ColorSuggestionPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorSuggestionPicker.h; sourceTree = "<group>"; };
+		FA0FBD6DBF9156ED7E22AE31 /* bindings.gypi */ = {isa = PBXFileReference; explicitFileType = sourcecode; name = bindings.gypi; path = WebCore/bindings/bindings.gypi; sourceTree = "<group>"; };
+		FA9D7D050381C6947CD847C2 /* HTMLNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLNames.h; sourceTree = "<group>"; };
+		FD4A9D7E6771B3A26B6AC156 /* FontFamilyNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontFamilyNames.h; sourceTree = "<group>"; };
+		FDB3B76713649EB4E43CF74E /* EventInterfaces.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventInterfaces.in; sourceTree = "<group>"; };
+		FE9BCF9EC5D188D5DC9A8788 /* CalendarPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarPicker.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		104834D69744E56805B62A8B /* chromium */ = {
+			isa = PBXGroup;
+			children = (
+				8750A65CDF1431F9D92BFA83 /* calendarPickerChromium.css */,
+				177A0EF98B172A07039A30DE /* pickerCommonChromium.css */,
+			);
+			path = chromium;
+			sourceTree = "<group>";
+		};
+		23AD68D11FD5D7CAD4AC79C7 /* xml */ = {
+			isa = PBXGroup;
+			children = (
+				990E95811105F1F2C00D4BBA /* XMLViewer.css */,
+				D8C4B138FB036F0E82894145 /* XMLViewer.js */,
+				060B2C0B8D79F9D288FEAC7D /* XPathGrammar.y */,
+				2F256125F61BBBB4172BB787 /* xmlattrs.in */,
+				615A4C7A6D8512719F5966F3 /* xmlnsattrs.in */,
+			);
+			path = xml;
+			sourceTree = "<group>";
+		};
+		25E5E7A8B83D4E3C9F6955F7 /* ../core */ = {
+			isa = PBXGroup;
+			children = (
+				FEEED89E72B8560967979BF4 /* css */,
+				B44B9E18503E9A7B789C4E1A /* scripts */,
+			);
+			path = ../core;
+			sourceTree = "<group>";
+		};
+		2A695FD5203E015C9D550953 /* templates */ = {
+			isa = PBXGroup;
+			children = (
+				08F58D528E7B6444FEC6334F /* InternalRuntimeFlags.h.tmpl */,
+				AB9A0853D6A995B39A4A81DA /* InternalRuntimeFlags.idl.tmpl */,
+				9E596CFDDCCFC656D1554592 /* RuntimeEnabledFeatures.cpp.tmpl */,
+				26EDA4901F619350DD5A5990 /* RuntimeEnabledFeatures.h.tmpl */,
+				4F9BD534A7D6B49DAEC3A1A6 /* StyleBuilder.cpp.tmpl */,
+				98B73988870A77D9E8AE2B01 /* StyleBuilderFunctions.cpp.tmpl */,
+				0EB89D02C2D042230FAE4244 /* StyleBuilderFunctions.h.tmpl */,
+				20587E3F506367B99BC7BC3B /* StylePropertyShorthand.cpp.tmpl */,
+				69F4FCBB40CF6D9F5A6DACA9 /* StylePropertyShorthand.h.tmpl */,
+			);
+			path = templates;
+			sourceTree = "<group>";
+		};
+		397F9D057700DA466266534D /* css */ = {
+			isa = PBXGroup;
+			children = (
+				2E4502CB7B3A6762F0840CCE /* CSSGrammar.y.in */,
+				763BC297E2A4B2D7C18696EC /* CSSGrammar.y.includes */,
+				DD97877D98938969649352EC /* CSSProperties.in */,
+				4ADD97F88FB5E651E3C09874 /* CSSPropertyNames.in */,
+				AC3A38A766EA79F46A5174CB /* CSSShorthands.in */,
+				BECFB272A5ED9BAF668B73D4 /* CSSValueKeywords.in */,
+				A9DFDFE795EB48229EA77991 /* FontFamilyNames.in */,
+				F2EF9E8596BA304982C2B6A7 /* SVGCSSPropertyNames.in */,
+				B0E66E92AA767D1EDF51FD60 /* SVGCSSValueKeywords.in */,
+				03E9F22EC9E6E8917292D772 /* fullscreen.css */,
+				55044EF02BE06A34E2982FC5 /* html.css */,
+				796DED605F34AB4372D980BB /* make-css-file-arrays.pl */,
+				0A9CC1E277FA8451EFF54D77 /* mediaControls.css */,
+				E94E3A5F4767B536D6584ABC /* mediaControlsAndroid.css */,
+				1D1E762E2DAE1076C856F964 /* quirks.css */,
+				5D6077B07A80651EA1A5C8AD /* svg.css */,
+				0EBEF73830DAA5E14C602CE3 /* themeChromium.css */,
+				B4A293760A6E4EA66A9C0143 /* themeChromiumAndroid.css */,
+				07B26BDFD56B4FA13DE3193D /* themeChromiumLinux.css */,
+				D1EE306D6311D7797099BAF9 /* themeChromiumSkia.css */,
+				3BCD1F5185810F1A428243CE /* themeWin.css */,
+				BFCE8EB38A6BD5CEF1FC85E6 /* themeWinQuirks.css */,
+				6EB39C6114EDEFF43D8D6BED /* view-source.css */,
+			);
+			path = css;
+			sourceTree = "<group>";
+		};
+		3E81E62DD7A354F4AA4E445C = {
+			isa = PBXGroup;
+			children = (
+				6EBE1E7D745B958FB34E7E56 /* Source */,
+				52FDCB795D554E97433BC10C /* Intermediates */,
+				CD0A520C616602CF456047F5 /* Build */,
+			);
+			sourceTree = "<group>";
+		};
+		3F08D348685E148927A3745A /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				8F3CD78D0ADDB4D50227669B /* ColorData.gperf */,
+			);
+			path = platform;
+			sourceTree = "<group>";
+		};
+		52FDCB795D554E97433BC10C /* Intermediates */ = {
+			isa = PBXGroup;
+			children = (
+				DD4E6DC51B1DC039CA9FE2E9 /* CSSGrammar.cpp */,
+				3BBF569A1423B56698B29B9C /* CSSGrammar.h */,
+				5C3AA00ADA1683F5288B46C2 /* CSSGrammar.y */,
+				A23A72305CFFD6AEF8C6E77F /* CSSParser.cpp */,
+				66FFD11236985C6F4A716CFE /* CSSPropertyNames.cpp */,
+				1E1B2CF878422263BBAC84ED /* CSSPropertyNames.h */,
+				98D6423A0B7F4EE1370C875A /* CSSValueKeywords.cpp */,
+				4FF56E2927467B1A16E6825C /* CSSValueKeywords.h */,
+				C100E6EFB17D9E0A6ECEA11D /* CalendarPicker.cpp */,
+				FE9BCF9EC5D188D5DC9A8788 /* CalendarPicker.h */,
+				E59EA3490BE37631EC0B8B38 /* ColorSuggestionPicker.cpp */,
+				F9045E9F5986FD11777822D1 /* ColorSuggestionPicker.h */,
+				0C747073F8BAE5A4CC8244E5 /* Event.cpp */,
+				1620333135797DD534911FCB /* EventHeaders.h */,
+				2A1081F807E9A1BA5442CABA /* EventInterfaces.h */,
+				FDB3B76713649EB4E43CF74E /* EventInterfaces.in */,
+				157E89882D77741D1BD3E4EC /* EventTargetHeaders.h */,
+				55237BD56D3E00417FA395B3 /* EventTargetInterfaces.h */,
+				14A0D97B79A89134DB8F7564 /* FetchInitiatorTypeNames.cpp */,
+				9767939CD4534CF4340356E0 /* FetchInitiatorTypeNames.h */,
+				87BE192A7328845BFFF849B9 /* FontFamilyNames.cpp */,
+				FD4A9D7E6771B3A26B6AC156 /* FontFamilyNames.h */,
+				03456DE96F8742A6B9690713 /* HTMLElementFactory.cpp */,
+				84CC1E400EDE49B1C63F3F1B /* HTMLEntityTable.cpp */,
+				367BB9A839BCEDFFD7C6B8BC /* HTMLNames.cpp */,
+				FA9D7D050381C6947CD847C2 /* HTMLNames.h */,
+				4C3C5B74CA06292513755C27 /* InternalRuntimeFlags.h */,
+				5344FBAC7337D2B34A072226 /* InternalRuntimeFlags.idl */,
+				1A144512D9CB4268B3F9966F /* InternalSettingsGenerated.cpp */,
+				6B1AC077E6F14C565478B7A8 /* InternalSettingsGenerated.h */,
+				2B34B07555088ADA80D969E0 /* InternalSettingsGenerated.idl */,
+				1253EB0BCD5B02E797B1FCE3 /* MathMLNames.cpp */,
+				5DD237CE4E759B8C4FB2889C /* MathMLNames.h */,
+				A30DC06377E58AD737ECDCD9 /* PickerCommon.cpp */,
+				93D017CE289A2A6798D481DF /* PickerCommon.h */,
+				AE3EFF3E369D5EF6179DFB22 /* RuntimeEnabledFeatures.cpp */,
+				E96A013EF219A6ED438A7EF7 /* RuntimeEnabledFeatures.h */,
+				2E7B292E63952592B0186DD0 /* SVGElementFactory.cpp */,
+				CED57E20B62E2F8B2E5F175C /* SVGElementFactory.h */,
+				75947F8991896D3052D1CCAA /* SVGNames.cpp */,
+				D966D34EF00F02E12053526F /* SVGNames.h */,
+				3BD3250CA6FDB00635DED6C8 /* SettingsMacros.h */,
+				4BD88AA9807F3989DA5063BB /* StyleBuilder.cpp */,
+				61931292FAFCEBC172B8F688 /* StyleBuilderFunctions.cpp */,
+				0E8A0BA848314D7499D3FBC8 /* StyleBuilderFunctions.h */,
+				82244D132063E5BCCDFAD7BB /* StylePropertyShorthand.cpp */,
+				6C374E6FA2DAA03E18CB1A72 /* StylePropertyShorthand.h */,
+				1C513EB50DC414DB3F053914 /* UserAgentStyleSheets.h */,
+				3E49BE279CD18FFA88C0F6B0 /* UserAgentStyleSheetsData.cpp */,
+				C1EAEAD0EECC24A4AD8BE4B7 /* V8HTMLElementWrapperFactory.cpp */,
+				DAA72DA775C7AEC008240E2E /* V8HTMLElementWrapperFactory.h */,
+				95DC4B3E460EBEE3173AAA54 /* V8SVGElementWrapperFactory.cpp */,
+				09AFC6372525AA371D849160 /* V8SVGElementWrapperFactory.h */,
+				35BF8EE35C692B980D84614F /* XLinkNames.cpp */,
+				9D4C5DB758B910D04CC3169E /* XLinkNames.h */,
+				6753BFEDA2279D38755ABD32 /* XMLNSNames.cpp */,
+				B47E52851099797DF35E6131 /* XMLNSNames.h */,
+				14BCBEFCED74832402CC83F2 /* XMLNames.cpp */,
+				85A16904263B78F77D0CBC81 /* XMLNames.h */,
+				A4CD618E09475AC59263C722 /* XMLViewerCSS.h */,
+				782865CEC779AD553486EE26 /* XMLViewerJS.h */,
+				477FBF5E06B7971C88F381EC /* XPathGrammar.cpp */,
+				F05125E8B440ED03AB9EF846 /* XPathGrammar.h */,
+			);
+			name = Intermediates;
+			path = blink;
+			sourceTree = SHARED_INTERMEDIATE_DIR;
+		};
+		5DFAF2E1DD0D87F5F463924B /* page */ = {
+			isa = PBXGroup;
+			children = (
+				F7594CA7B762BB93930E6DF1 /* RuntimeEnabledFeatures.in */,
+				78C67FD6B8D7BC4FA25DA04E /* Settings.in */,
+				D9352AD8239B2F971E66D291 /* make_settings.pl */,
+			);
+			path = page;
+			sourceTree = "<group>";
+		};
+		6EBE1E7D745B958FB34E7E56 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				25E5E7A8B83D4E3C9F6955F7 /* ../core */,
+				F090807F84F936378F16301F /* Resources/pagepopups */,
+				BA42549228B0000532A20305 /* WebCore/scripts */,
+				397F9D057700DA466266534D /* css */,
+				EF58CDF912C06B8A87475B07 /* dom */,
+				DA7B4B11A424AD32A7F6D10F /* html */,
+				7577769137B8C3B35C306EF7 /* loader/cache */,
+				8FC6E122AF2EB9374E47A759 /* mathml */,
+				5DFAF2E1DD0D87F5F463924B /* page */,
+				3F08D348685E148927A3745A /* platform */,
+				6F1582530B644FB56E9E20A2 /* scripts */,
+				FC1D7C91918610717F5742B3 /* svg */,
+				23AD68D11FD5D7CAD4AC79C7 /* xml */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		6F1582530B644FB56E9E20A2 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				2A695FD5203E015C9D550953 /* templates */,
+				D836218B5C7444FA671CB7CB /* Hasher.pm */,
+				AE36F5DCAA31CA8589556DCA /* StaticString.pm */,
+				60C4EEAFE26FBF7A751EC17C /* make_css_property_names.py */,
+				AAC5A3CC2CAE154EA1555319 /* make_css_value_keywords.py */,
+				854B94CAD9E623E91384C0BE /* make_event_factory.py */,
+				60E244D3682C054A5E2CBBF7 /* make_internal_runtime_flags.py */,
+				DE57A58904A740A0580289A6 /* make_names.pl */,
+				F2F90D8907FF24C05049663C /* make_runtime_features.py */,
+				65EFE5DD37F2A646B6377915 /* make_style_builder.py */,
+				22176A619FEE92C96E67CA47 /* make_style_shorthands.py */,
+				467438307A70BEEA03A0F537 /* preprocessor.pm */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
+		7577769137B8C3B35C306EF7 /* loader/cache */ = {
+			isa = PBXGroup;
+			children = (
+				3CB2F774ED77BABC6644155E /* FetchInitiatorTypeNames.in */,
+			);
+			path = loader/cache;
+			sourceTree = "<group>";
+		};
+		8FC6E122AF2EB9374E47A759 /* mathml */ = {
+			isa = PBXGroup;
+			children = (
+				A0F1BA00671A64C7AC605336 /* mathattrs.in */,
+				0B568D39D41E6A1A8A8851A8 /* mathtags.in */,
+			);
+			path = mathml;
+			sourceTree = "<group>";
+		};
+		B44B9E18503E9A7B789C4E1A /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				D313F3FAC6B3311E4DAE6A14 /* make_token_matcher.py */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
+		BA42549228B0000532A20305 /* WebCore/scripts */ = {
+			isa = PBXGroup;
+			children = (
+				BF68C9DD1AF8F7014ED896CA /* templates */,
+				3467BADF3F3718F130880770 /* in_file.py */,
+				16F6EC52A2AD22542F50A94E /* in_generator.py */,
+				7295761399229E9A075D9333 /* license.py */,
+				B0B52F31E91B2102A552B532 /* name_macros.py */,
+				291747AB63203BC2A118B9B9 /* template_expander.py */,
+			);
+			path = WebCore/scripts;
+			sourceTree = "<group>";
+		};
+		BF68C9DD1AF8F7014ED896CA /* templates */ = {
+			isa = PBXGroup;
+			children = (
+				5A276C66D49B81B7C64074FF /* macros.tmpl */,
+			);
+			path = templates;
+			sourceTree = "<group>";
+		};
+		CD0A520C616602CF456047F5 /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				FA0FBD6DBF9156ED7E22AE31 /* bindings.gypi */,
+				C98FF44E51650C88B7BF1423 /* common.gypi */,
+				EC7786A7C5A057831EDAC21C /* features.gypi */,
+				F4A7C4B815FAC7E3AA1C2701 /* webcorejs.gypi */,
+				739C9D952724DC6338BD56EB /* webcorejs_derived_sources.gyp */,
+			);
+			name = Build;
+			sourceTree = "<group>";
+		};
+		DA7B4B11A424AD32A7F6D10F /* html */ = {
+			isa = PBXGroup;
+			children = (
+				F64551CB9C359AFA44AC939C /* parser */,
+				A554DE1FAC87D24850733397 /* HTMLAttributeNames.in */,
+				E4BBBD92EAB6ABDE3856EFB0 /* HTMLTagNames.in */,
+			);
+			path = html;
+			sourceTree = "<group>";
+		};
+		EF58CDF912C06B8A87475B07 /* dom */ = {
+			isa = PBXGroup;
+			children = (
+				BB86E71EEA4B87A1AA3847AF /* EventAliases.in */,
+				9F3EC8AE3E1D6E25620D4A7C /* EventTargetFactory.in */,
+			);
+			path = dom;
+			sourceTree = "<group>";
+		};
+		F090807F84F936378F16301F /* Resources/pagepopups */ = {
+			isa = PBXGroup;
+			children = (
+				104834D69744E56805B62A8B /* chromium */,
+				48696B77DD0189486C47685B /* calendarPicker.css */,
+				C506D55E22ED09735C1DAC4C /* calendarPicker.js */,
+				05F6F43A2BECAD0BD4F2A3CA /* colorSuggestionPicker.css */,
+				D8E3F9399014A215B3F0478D /* colorSuggestionPicker.js */,
+				EF062787926CB794643D2A78 /* pickerCommon.css */,
+				E8AE6BDAED04454D39884F1D /* pickerCommon.js */,
+				53396C686CDBE47A25A8FA0E /* suggestionPicker.css */,
+				17F5A2BB78454B61ED820F3C /* suggestionPicker.js */,
+			);
+			path = Resources/pagepopups;
+			sourceTree = "<group>";
+		};
+		F64551CB9C359AFA44AC939C /* parser */ = {
+			isa = PBXGroup;
+			children = (
+				BDE60EE8EC4EEE0491BC58FF /* HTMLEntityNames.in */,
+				65AF437FCF4FEA35412CE868 /* create-html-entity-table */,
+			);
+			path = parser;
+			sourceTree = "<group>";
+		};
+		FC1D7C91918610717F5742B3 /* svg */ = {
+			isa = PBXGroup;
+			children = (
+				F619843B23E73DA4B582D68C /* svgattrs.in */,
+				BC1E47AEC66B335805441458 /* svgtags.in */,
+				23CF2916B5FCFD0BDF1E114F /* xlinkattrs.in */,
+			);
+			path = svg;
+			sourceTree = "<group>";
+		};
+		FEEED89E72B8560967979BF4 /* css */ = {
+			isa = PBXGroup;
+			children = (
+				A588463668DCEC5A52E6651B /* CSSParser-in.cpp */,
+			);
+			path = css;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		5C7AB17D37FADFBC6B17683F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+			};
+			buildConfigurationList = ED14FB9582F2E1FAA93F484E /* Build configuration list for PBXProject "webcorejs_derived_sources" */;
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 1;
+			mainGroup = 3E81E62DD7A354F4AA4E445C;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FAB33B35283D409C08E77312 /* All */,
+				C4228FEE4A17A7AAD777C698 /* generate_test_support_idls */,
+				5816614EDC63F3120BA1D018 /* make_derived_sources */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		16F3C1428DB0A5333106C248 /* Action "Settings" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				page/make_settings.pl,
+				page/Settings.in,
+			);
+			name = "Action \"Settings\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/SettingsMacros.h",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/InternalSettingsGenerated.idl",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/InternalSettingsGenerated.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/InternalSettingsGenerated.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/action_makenames.py \"${SHARED_INTERMEDIATE_DIR}/blink/SettingsMacros.h\" \"${SHARED_INTERMEDIATE_DIR}/blink/InternalSettingsGenerated.idl\" \"${SHARED_INTERMEDIATE_DIR}/blink/InternalSettingsGenerated.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/InternalSettingsGenerated.h\" -- page/make_settings.pl page/Settings.in\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		26984D956AF607656CA7CCD9 /* Action "SVGNames" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				scripts/Hasher.pm,
+				scripts/StaticString.pm,
+				scripts/make_names.pl,
+				svg/svgtags.in,
+				svg/svgattrs.in,
+			);
+			name = "Action \"SVGNames\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/SVGNames.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/SVGNames.h",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/SVGElementFactory.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/SVGElementFactory.h",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/V8SVGElementWrapperFactory.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/V8SVGElementWrapperFactory.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/action_makenames.py \"${SHARED_INTERMEDIATE_DIR}/blink/SVGNames.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/SVGNames.h\" \"${SHARED_INTERMEDIATE_DIR}/blink/SVGElementFactory.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/SVGElementFactory.h\" \"${SHARED_INTERMEDIATE_DIR}/blink/V8SVGElementWrapperFactory.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/V8SVGElementWrapperFactory.h\" -- scripts/Hasher.pm scripts/StaticString.pm scripts/make_names.pl svg/svgtags.in svg/svgattrs.in -- --factory --extraDefines \"\\\"ENABLE_CSS3_TEXT=0\\\" \\\"ENABLE_CSS_EXCLUSIONS=1\\\" \\\"ENABLE_CSS_REGIONS=1\\\" \\\"ENABLE_CUSTOM_SCHEME_HANDLER=0\\\" \\\"ENABLE_ENCRYPTED_MEDIA_V2=0\\\" \\\"ENABLE_SVG_FONTS=1\\\" \\\"ENABLE_TOUCH_ICON_LOADING=0\\\" \\\"ENABLE_GDI_FONTS_ON_WINDOWS=1\\\" \\\"ENABLE_CALENDAR_PICKER=0\\\" \\\"ENABLE_FAST_MOBILE_SCROLLING=1\\\" \\\"ENABLE_INPUT_SPEECH=0\\\" \\\"ENABLE_LEGACY_NOTIFICATIONS=0\\\" \\\"ENABLE_MEDIA_CAPTURE=1\\\" \\\"ENABLE_NOTIFICATIONS=0\\\" \\\"ENABLE_ORIENTATION_EVENTS=1\\\" \\\"ENABLE_PRINTING=0\\\" \\\"ENABLE_NAVIGATOR_CONTENT_UTILS=0\\\" \\\"WTF_USE_NATIVE_FULLSCREEN_VIDEO=1\\\" \\\"WTF_USE_WEBAUDIO_FFMPEG=0\\\"\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		311EED6B6ECD9B5ACC192CF2 /* Action "CSSPropertyNames" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				WebCore/scripts/in_file.py,
+				WebCore/scripts/in_generator.py,
+				WebCore/scripts/license.py,
+				WebCore/scripts/name_macros.py,
+				WebCore/scripts/template_expander.py,
+				WebCore/scripts/templates/macros.tmpl,
+				scripts/make_css_property_names.py,
+				css/CSSPropertyNames.in,
+				css/SVGCSSPropertyNames.in,
+			);
+			name = "Action \"CSSPropertyNames\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/CSSPropertyNames.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/CSSPropertyNames.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/make_css_property_names.py css/CSSPropertyNames.in css/SVGCSSPropertyNames.in --output_dir \"${SHARED_INTERMEDIATE_DIR}/blink\" --defines \"\\\"ENABLE_CSS3_TEXT=0\\\" \\\"ENABLE_CSS_EXCLUSIONS=1\\\" \\\"ENABLE_CSS_REGIONS=1\\\" \\\"ENABLE_CUSTOM_SCHEME_HANDLER=0\\\" \\\"ENABLE_ENCRYPTED_MEDIA_V2=0\\\" \\\"ENABLE_SVG_FONTS=1\\\" \\\"ENABLE_TOUCH_ICON_LOADING=0\\\" \\\"ENABLE_GDI_FONTS_ON_WINDOWS=1\\\" \\\"ENABLE_CALENDAR_PICKER=0\\\" \\\"ENABLE_FAST_MOBILE_SCROLLING=1\\\" \\\"ENABLE_INPUT_SPEECH=0\\\" \\\"ENABLE_LEGACY_NOTIFICATIONS=0\\\" \\\"ENABLE_MEDIA_CAPTURE=1\\\" \\\"ENABLE_NOTIFICATIONS=0\\\" \\\"ENABLE_ORIENTATION_EVENTS=1\\\" \\\"ENABLE_PRINTING=0\\\" \\\"ENABLE_NAVIGATOR_CONTENT_UTILS=0\\\" \\\"WTF_USE_NATIVE_FULLSCREEN_VIDEO=1\\\" \\\"WTF_USE_WEBAUDIO_FFMPEG=0\\\"\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		43969F5D9D8966A71351CA0D /* Action "PickerCommon" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				Resources/pagepopups/pickerCommon.css,
+				Resources/pagepopups/pickerCommon.js,
+			);
+			name = "Action \"PickerCommon\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/PickerCommon.h",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/PickerCommon.cpp",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/make-file-arrays.py \"--out-h=${SHARED_INTERMEDIATE_DIR}/blink/PickerCommon.h\" \"--out-cpp=${SHARED_INTERMEDIATE_DIR}/blink/PickerCommon.cpp\" Resources/pagepopups/pickerCommon.css Resources/pagepopups/pickerCommon.js\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		4CA38655770ACBB20D20CB19 /* Action "preprocess_grammar" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				css/CSSGrammar.y.in,
+				css/CSSGrammar.y.includes,
+			);
+			name = "Action \"preprocess_grammar\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/CSSGrammar.y",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec /usr/bin/perl -Iscripts css/makegrammar.pl --outputDir \"${SHARED_INTERMEDIATE_DIR}/blink\" css/CSSGrammar.y.in css/CSSGrammar.y.includes\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		502C5E82E775CA88F9413B36 /* Action "XLinkNames" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				scripts/Hasher.pm,
+				scripts/StaticString.pm,
+				scripts/make_names.pl,
+				svg/xlinkattrs.in,
+			);
+			name = "Action \"XLinkNames\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/XLinkNames.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/XLinkNames.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/action_makenames.py \"${SHARED_INTERMEDIATE_DIR}/blink/XLinkNames.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/XLinkNames.h\" -- scripts/Hasher.pm scripts/StaticString.pm scripts/make_names.pl svg/xlinkattrs.in -- --extraDefines \"\\\"ENABLE_CSS3_TEXT=0\\\" \\\"ENABLE_CSS_EXCLUSIONS=1\\\" \\\"ENABLE_CSS_REGIONS=1\\\" \\\"ENABLE_CUSTOM_SCHEME_HANDLER=0\\\" \\\"ENABLE_ENCRYPTED_MEDIA_V2=0\\\" \\\"ENABLE_SVG_FONTS=1\\\" \\\"ENABLE_TOUCH_ICON_LOADING=0\\\" \\\"ENABLE_GDI_FONTS_ON_WINDOWS=1\\\" \\\"ENABLE_CALENDAR_PICKER=0\\\" \\\"ENABLE_FAST_MOBILE_SCROLLING=1\\\" \\\"ENABLE_INPUT_SPEECH=0\\\" \\\"ENABLE_LEGACY_NOTIFICATIONS=0\\\" \\\"ENABLE_MEDIA_CAPTURE=1\\\" \\\"ENABLE_NOTIFICATIONS=0\\\" \\\"ENABLE_ORIENTATION_EVENTS=1\\\" \\\"ENABLE_PRINTING=0\\\" \\\"ENABLE_NAVIGATOR_CONTENT_UTILS=0\\\" \\\"WTF_USE_NATIVE_FULLSCREEN_VIDEO=1\\\" \\\"WTF_USE_WEBAUDIO_FFMPEG=0\\\"\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		513746104396C52A2C088118 /* Action "XMLNames" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				scripts/Hasher.pm,
+				scripts/StaticString.pm,
+				scripts/make_names.pl,
+				xml/xmlattrs.in,
+			);
+			name = "Action \"XMLNames\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/XMLNames.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/XMLNames.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/action_makenames.py \"${SHARED_INTERMEDIATE_DIR}/blink/XMLNames.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/XMLNames.h\" -- scripts/Hasher.pm scripts/StaticString.pm scripts/make_names.pl xml/xmlattrs.in -- --extraDefines \"\\\"ENABLE_CSS3_TEXT=0\\\" \\\"ENABLE_CSS_EXCLUSIONS=1\\\" \\\"ENABLE_CSS_REGIONS=1\\\" \\\"ENABLE_CUSTOM_SCHEME_HANDLER=0\\\" \\\"ENABLE_ENCRYPTED_MEDIA_V2=0\\\" \\\"ENABLE_SVG_FONTS=1\\\" \\\"ENABLE_TOUCH_ICON_LOADING=0\\\" \\\"ENABLE_GDI_FONTS_ON_WINDOWS=1\\\" \\\"ENABLE_CALENDAR_PICKER=0\\\" \\\"ENABLE_FAST_MOBILE_SCROLLING=1\\\" \\\"ENABLE_INPUT_SPEECH=0\\\" \\\"ENABLE_LEGACY_NOTIFICATIONS=0\\\" \\\"ENABLE_MEDIA_CAPTURE=1\\\" \\\"ENABLE_NOTIFICATIONS=0\\\" \\\"ENABLE_ORIENTATION_EVENTS=1\\\" \\\"ENABLE_PRINTING=0\\\" \\\"ENABLE_NAVIGATOR_CONTENT_UTILS=0\\\" \\\"WTF_USE_NATIVE_FULLSCREEN_VIDEO=1\\\" \\\"WTF_USE_WEBAUDIO_FFMPEG=0\\\"\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		5CBF9E72C81499149F3BAD15 /* Action "ColorSuggestionPicker" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				Resources/pagepopups/colorSuggestionPicker.css,
+				Resources/pagepopups/colorSuggestionPicker.js,
+			);
+			name = "Action \"ColorSuggestionPicker\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/ColorSuggestionPicker.h",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/ColorSuggestionPicker.cpp",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/make-file-arrays.py \"--out-h=${SHARED_INTERMEDIATE_DIR}/blink/ColorSuggestionPicker.h\" \"--out-cpp=${SHARED_INTERMEDIATE_DIR}/blink/ColorSuggestionPicker.cpp\" Resources/pagepopups/colorSuggestionPicker.css Resources/pagepopups/colorSuggestionPicker.js\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		666580A4E34B47FE7597B2E6 /* Action "FetchInitiatorTypeNames" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				scripts/Hasher.pm,
+				scripts/StaticString.pm,
+				scripts/make_names.pl,
+				loader/cache/FetchInitiatorTypeNames.in,
+			);
+			name = "Action \"FetchInitiatorTypeNames\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/FetchInitiatorTypeNames.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/FetchInitiatorTypeNames.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/action_makenames.py \"${SHARED_INTERMEDIATE_DIR}/blink/FetchInitiatorTypeNames.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/FetchInitiatorTypeNames.h\" -- scripts/Hasher.pm scripts/StaticString.pm scripts/make_names.pl loader/cache/FetchInitiatorTypeNames.in -- --resourceTypes\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		76154DAD1C50490ED4BFEBF4 /* Action "StyleBuilder" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				WebCore/scripts/in_file.py,
+				WebCore/scripts/in_generator.py,
+				WebCore/scripts/license.py,
+				WebCore/scripts/name_macros.py,
+				WebCore/scripts/template_expander.py,
+				WebCore/scripts/templates/macros.tmpl,
+				scripts/make_style_builder.py,
+				css/CSSProperties.in,
+				scripts/templates/StyleBuilder.cpp.tmpl,
+				scripts/templates/StyleBuilderFunctions.h.tmpl,
+				scripts/templates/StyleBuilderFunctions.cpp.tmpl,
+			);
+			name = "Action \"StyleBuilder\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/StyleBuilder.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/StyleBuilderFunctions.h",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/StyleBuilderFunctions.cpp",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/make_style_builder.py css/CSSProperties.in --output_dir \"${SHARED_INTERMEDIATE_DIR}/blink\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		77B70BCEB3C83BD177968399 /* Action "CalendarPicker" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				Resources/pagepopups/calendarPicker.css,
+				Resources/pagepopups/calendarPicker.js,
+				Resources/pagepopups/chromium/calendarPickerChromium.css,
+				Resources/pagepopups/chromium/pickerCommonChromium.css,
+				Resources/pagepopups/suggestionPicker.css,
+				Resources/pagepopups/suggestionPicker.js,
+			);
+			name = "Action \"CalendarPicker\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/CalendarPicker.h",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/CalendarPicker.cpp",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/make-file-arrays.py \"--condition=ENABLE(CALENDAR_PICKER)\" \"--out-h=${SHARED_INTERMEDIATE_DIR}/blink/CalendarPicker.h\" \"--out-cpp=${SHARED_INTERMEDIATE_DIR}/blink/CalendarPicker.cpp\" Resources/pagepopups/calendarPicker.css Resources/pagepopups/calendarPicker.js Resources/pagepopups/chromium/calendarPickerChromium.css Resources/pagepopups/chromium/pickerCommonChromium.css Resources/pagepopups/suggestionPicker.css Resources/pagepopups/suggestionPicker.js\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		844D5DA10D7FAD927FC263CA /* Action "CSSValueKeywords" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				WebCore/scripts/in_file.py,
+				WebCore/scripts/in_generator.py,
+				WebCore/scripts/license.py,
+				WebCore/scripts/name_macros.py,
+				WebCore/scripts/template_expander.py,
+				WebCore/scripts/templates/macros.tmpl,
+				scripts/make_css_value_keywords.py,
+				css/CSSValueKeywords.in,
+				css/SVGCSSValueKeywords.in,
+			);
+			name = "Action \"CSSValueKeywords\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/CSSValueKeywords.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/CSSValueKeywords.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec scripts/make_css_value_keywords.py css/CSSValueKeywords.in css/SVGCSSValueKeywords.in --output_dir \"${SHARED_INTERMEDIATE_DIR}/blink\" --defines \"\\\"ENABLE_CSS3_TEXT=0\\\" \\\"ENABLE_CSS_EXCLUSIONS=1\\\" \\\"ENABLE_CSS_REGIONS=1\\\" \\\"ENABLE_CUSTOM_SCHEME_HANDLER=0\\\" \\\"ENABLE_ENCRYPTED_MEDIA_V2=0\\\" \\\"ENABLE_SVG_FONTS=1\\\" \\\"ENABLE_TOUCH_ICON_LOADING=0\\\" \\\"ENABLE_GDI_FONTS_ON_WINDOWS=1\\\" \\\"ENABLE_CALENDAR_PICKER=0\\\" \\\"ENABLE_FAST_MOBILE_SCROLLING=1\\\" \\\"ENABLE_INPUT_SPEECH=0\\\" \\\"ENABLE_LEGACY_NOTIFICATIONS=0\\\" \\\"ENABLE_MEDIA_CAPTURE=1\\\" \\\"ENABLE_NOTIFICATIONS=0\\\" \\\"ENABLE_ORIENTATION_EVENTS=1\\\" \\\"ENABLE_PRINTING=0\\\" \\\"ENABLE_NAVIGATOR_CONTENT_UTILS=0\\\" \\\"WTF_USE_NATIVE_FULLSCREEN_VIDEO=1\\\" \\\"WTF_USE_WEBAUDIO_FFMPEG=0\\\"\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		8609A8B157730F1742C75040 /* Action "InternalRuntimeFlags" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				WebCore/scripts/in_file.py,
+				WebCore/scripts/in_generator.py,
+				WebCore/scripts/license.py,
+				WebCore/scripts/name_macros.py,
+				WebCore/scripts/template_expander.py,
+				WebCore/scripts/templates/macros.tmpl,
+				scripts/make_internal_runtime_flags.py,
+				page/RuntimeEnabledFeatures.in,
+				scripts/templates/InternalRuntimeFlags.h.tmpl,
+				scripts/templates/InternalRuntimeFlags.idl.tmpl,
+			);
+			name = "Action \"InternalRuntimeFlags\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/InternalRuntimeFlags.idl",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/InternalRuntimeFlags.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/make_internal_runtime_flags.py page/RuntimeEnabledFeatures.in --output_dir \"${SHARED_INTERMEDIATE_DIR}/blink\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		865C276FA335F23FDDBA09C6 /* Action "EventTargetFactory" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				WebCore/scripts/in_file.py,
+				WebCore/scripts/in_generator.py,
+				WebCore/scripts/license.py,
+				WebCore/scripts/name_macros.py,
+				WebCore/scripts/template_expander.py,
+				WebCore/scripts/templates/macros.tmpl,
+				scripts/make_event_factory.py,
+				dom/EventTargetFactory.in,
+			);
+			name = "Action \"EventTargetFactory\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/EventTargetHeaders.h",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/EventTargetInterfaces.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/make_event_factory.py dom/EventTargetFactory.in --output_dir \"${SHARED_INTERMEDIATE_DIR}/blink\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		8726C10171B5E90BA1BE613A /* Action "MathMLNames" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				scripts/Hasher.pm,
+				scripts/StaticString.pm,
+				scripts/make_names.pl,
+				mathml/mathtags.in,
+				mathml/mathattrs.in,
+			);
+			name = "Action \"MathMLNames\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/MathMLNames.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/MathMLNames.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/action_makenames.py \"${SHARED_INTERMEDIATE_DIR}/blink/MathMLNames.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/MathMLNames.h\" -- scripts/Hasher.pm scripts/StaticString.pm scripts/make_names.pl mathml/mathtags.in mathml/mathattrs.in -- --extraDefines \"\\\"ENABLE_CSS3_TEXT=0\\\" \\\"ENABLE_CSS_EXCLUSIONS=1\\\" \\\"ENABLE_CSS_REGIONS=1\\\" \\\"ENABLE_CUSTOM_SCHEME_HANDLER=0\\\" \\\"ENABLE_ENCRYPTED_MEDIA_V2=0\\\" \\\"ENABLE_SVG_FONTS=1\\\" \\\"ENABLE_TOUCH_ICON_LOADING=0\\\" \\\"ENABLE_GDI_FONTS_ON_WINDOWS=1\\\" \\\"ENABLE_CALENDAR_PICKER=0\\\" \\\"ENABLE_FAST_MOBILE_SCROLLING=1\\\" \\\"ENABLE_INPUT_SPEECH=0\\\" \\\"ENABLE_LEGACY_NOTIFICATIONS=0\\\" \\\"ENABLE_MEDIA_CAPTURE=1\\\" \\\"ENABLE_NOTIFICATIONS=0\\\" \\\"ENABLE_ORIENTATION_EVENTS=1\\\" \\\"ENABLE_PRINTING=0\\\" \\\"ENABLE_NAVIGATOR_CONTENT_UTILS=0\\\" \\\"WTF_USE_NATIVE_FULLSCREEN_VIDEO=1\\\" \\\"WTF_USE_WEBAUDIO_FFMPEG=0\\\"\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		87EF5F0AEFDDAB1B7FFC52C7 /* Action "XMLNSNames" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				scripts/Hasher.pm,
+				scripts/StaticString.pm,
+				scripts/make_names.pl,
+				xml/xmlnsattrs.in,
+			);
+			name = "Action \"XMLNSNames\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/XMLNSNames.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/XMLNSNames.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/action_makenames.py \"${SHARED_INTERMEDIATE_DIR}/blink/XMLNSNames.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/XMLNSNames.h\" -- scripts/Hasher.pm scripts/StaticString.pm scripts/make_names.pl xml/xmlnsattrs.in -- --extraDefines \"\\\"ENABLE_CSS3_TEXT=0\\\" \\\"ENABLE_CSS_EXCLUSIONS=1\\\" \\\"ENABLE_CSS_REGIONS=1\\\" \\\"ENABLE_CUSTOM_SCHEME_HANDLER=0\\\" \\\"ENABLE_ENCRYPTED_MEDIA_V2=0\\\" \\\"ENABLE_SVG_FONTS=1\\\" \\\"ENABLE_TOUCH_ICON_LOADING=0\\\" \\\"ENABLE_GDI_FONTS_ON_WINDOWS=1\\\" \\\"ENABLE_CALENDAR_PICKER=0\\\" \\\"ENABLE_FAST_MOBILE_SCROLLING=1\\\" \\\"ENABLE_INPUT_SPEECH=0\\\" \\\"ENABLE_LEGACY_NOTIFICATIONS=0\\\" \\\"ENABLE_MEDIA_CAPTURE=1\\\" \\\"ENABLE_NOTIFICATIONS=0\\\" \\\"ENABLE_ORIENTATION_EVENTS=1\\\" \\\"ENABLE_PRINTING=0\\\" \\\"ENABLE_NAVIGATOR_CONTENT_UTILS=0\\\" \\\"WTF_USE_NATIVE_FULLSCREEN_VIDEO=1\\\" \\\"WTF_USE_WEBAUDIO_FFMPEG=0\\\"\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		8AAA12083B348FA45FD87F79 /* Action "HTMLNames" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				scripts/Hasher.pm,
+				scripts/StaticString.pm,
+				scripts/make_names.pl,
+				html/HTMLTagNames.in,
+				html/HTMLAttributeNames.in,
+			);
+			name = "Action \"HTMLNames\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/HTMLNames.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/HTMLNames.h",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/HTMLElementFactory.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/V8HTMLElementWrapperFactory.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/V8HTMLElementWrapperFactory.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/action_makenames.py \"${SHARED_INTERMEDIATE_DIR}/blink/HTMLNames.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/HTMLNames.h\" \"${SHARED_INTERMEDIATE_DIR}/blink/HTMLElementFactory.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/V8HTMLElementWrapperFactory.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/V8HTMLElementWrapperFactory.h\" -- scripts/Hasher.pm scripts/StaticString.pm scripts/make_names.pl html/HTMLTagNames.in html/HTMLAttributeNames.in -- --factory --extraDefines \"\\\"ENABLE_CSS3_TEXT=0\\\" \\\"ENABLE_CSS_EXCLUSIONS=1\\\" \\\"ENABLE_CSS_REGIONS=1\\\" \\\"ENABLE_CUSTOM_SCHEME_HANDLER=0\\\" \\\"ENABLE_ENCRYPTED_MEDIA_V2=0\\\" \\\"ENABLE_SVG_FONTS=1\\\" \\\"ENABLE_TOUCH_ICON_LOADING=0\\\" \\\"ENABLE_GDI_FONTS_ON_WINDOWS=1\\\" \\\"ENABLE_CALENDAR_PICKER=0\\\" \\\"ENABLE_FAST_MOBILE_SCROLLING=1\\\" \\\"ENABLE_INPUT_SPEECH=0\\\" \\\"ENABLE_LEGACY_NOTIFICATIONS=0\\\" \\\"ENABLE_MEDIA_CAPTURE=1\\\" \\\"ENABLE_NOTIFICATIONS=0\\\" \\\"ENABLE_ORIENTATION_EVENTS=1\\\" \\\"ENABLE_PRINTING=0\\\" \\\"ENABLE_NAVIGATOR_CONTENT_UTILS=0\\\" \\\"WTF_USE_NATIVE_FULLSCREEN_VIDEO=1\\\" \\\"WTF_USE_WEBAUDIO_FFMPEG=0\\\"\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		9790F9D2E1A8B73678477053 /* Action "UserAgentStyleSheets" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"css/make-css-file-arrays.pl",
+				scripts/preprocessor.pm,
+				css/html.css,
+				css/quirks.css,
+				"css/view-source.css",
+				css/themeChromium.css,
+				css/themeChromiumAndroid.css,
+				css/themeChromiumLinux.css,
+				css/themeChromiumSkia.css,
+				css/themeWin.css,
+				css/themeWinQuirks.css,
+				css/svg.css,
+				css/mediaControls.css,
+				css/mediaControlsAndroid.css,
+				css/fullscreen.css,
+			);
+			name = "Action \"UserAgentStyleSheets\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/UserAgentStyleSheets.h",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/UserAgentStyleSheetsData.cpp",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/action_useragentstylesheets.py \"${SHARED_INTERMEDIATE_DIR}/blink/UserAgentStyleSheets.h\" \"${SHARED_INTERMEDIATE_DIR}/blink/UserAgentStyleSheetsData.cpp\" css/html.css css/quirks.css css/view-source.css css/themeChromium.css css/themeChromiumAndroid.css css/themeChromiumLinux.css css/themeChromiumSkia.css css/themeWin.css css/themeWinQuirks.css css/svg.css css/mediaControls.css css/mediaControlsAndroid.css css/fullscreen.css -- css/make-css-file-arrays.pl scripts/preprocessor.pm -- --defines \"\\\"ENABLE_CSS3_TEXT=0\\\" \\\"ENABLE_CSS_EXCLUSIONS=1\\\" \\\"ENABLE_CSS_REGIONS=1\\\" \\\"ENABLE_CUSTOM_SCHEME_HANDLER=0\\\" \\\"ENABLE_ENCRYPTED_MEDIA_V2=0\\\" \\\"ENABLE_SVG_FONTS=1\\\" \\\"ENABLE_TOUCH_ICON_LOADING=0\\\" \\\"ENABLE_GDI_FONTS_ON_WINDOWS=1\\\" \\\"ENABLE_CALENDAR_PICKER=0\\\" \\\"ENABLE_FAST_MOBILE_SCROLLING=1\\\" \\\"ENABLE_INPUT_SPEECH=0\\\" \\\"ENABLE_LEGACY_NOTIFICATIONS=0\\\" \\\"ENABLE_MEDIA_CAPTURE=1\\\" \\\"ENABLE_NOTIFICATIONS=0\\\" \\\"ENABLE_ORIENTATION_EVENTS=1\\\" \\\"ENABLE_PRINTING=0\\\" \\\"ENABLE_NAVIGATOR_CONTENT_UTILS=0\\\" \\\"WTF_USE_NATIVE_FULLSCREEN_VIDEO=1\\\" \\\"WTF_USE_WEBAUDIO_FFMPEG=0\\\"\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		9C1952128A7E14DA0D8AD5C6 /* Action "MakeTokenMatcher" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				WebCore/scripts/in_file.py,
+				WebCore/scripts/in_generator.py,
+				WebCore/scripts/license.py,
+				WebCore/scripts/name_macros.py,
+				WebCore/scripts/template_expander.py,
+				WebCore/scripts/templates/macros.tmpl,
+				../core/scripts/make_token_matcher.py,
+				"../core/css/CSSParser-in.cpp",
+			);
+			name = "Action \"MakeTokenMatcher\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/CSSParser.cpp",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python ../core/scripts/make_token_matcher.py ../core/css/CSSParser-in.cpp \"${SHARED_INTERMEDIATE_DIR}/blink/CSSParser.cpp\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		A1340F33F965FAFA82DF987B /* Action "generateXMLViewerCSS" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				xml/XMLViewer.css,
+			);
+			name = "Action \"generateXMLViewerCSS\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/XMLViewerCSS.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec /usr/bin/perl inspector/xxd.pl XMLViewer_css xml/XMLViewer.css \"${SHARED_INTERMEDIATE_DIR}/blink/XMLViewerCSS.h\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		A96C494E7065747430607C27 /* Action "RuntimeEnabledFeatures" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				WebCore/scripts/in_file.py,
+				WebCore/scripts/in_generator.py,
+				WebCore/scripts/license.py,
+				WebCore/scripts/name_macros.py,
+				WebCore/scripts/template_expander.py,
+				WebCore/scripts/templates/macros.tmpl,
+				scripts/make_runtime_features.py,
+				page/RuntimeEnabledFeatures.in,
+				scripts/templates/RuntimeEnabledFeatures.cpp.tmpl,
+				scripts/templates/RuntimeEnabledFeatures.h.tmpl,
+			);
+			name = "Action \"RuntimeEnabledFeatures\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/RuntimeEnabledFeatures.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/RuntimeEnabledFeatures.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/make_runtime_features.py page/RuntimeEnabledFeatures.in --output_dir \"${SHARED_INTERMEDIATE_DIR}/blink\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		A9A8363DB368F5DA282CDCE3 /* Action "HTMLEntityTable" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"html/parser/create-html-entity-table",
+				html/parser/HTMLEntityNames.in,
+			);
+			name = "Action \"HTMLEntityTable\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/HTMLEntityTable.cpp",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python html/parser/create-html-entity-table -o \"${SHARED_INTERMEDIATE_DIR}/blink/HTMLEntityTable.cpp\" html/parser/create-html-entity-table html/parser/HTMLEntityNames.in\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		AAB638E93E50A48A20F6CAAD /* Action "StylePropertyShorthand" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				WebCore/scripts/in_file.py,
+				WebCore/scripts/in_generator.py,
+				WebCore/scripts/license.py,
+				WebCore/scripts/name_macros.py,
+				WebCore/scripts/template_expander.py,
+				WebCore/scripts/templates/macros.tmpl,
+				scripts/make_style_shorthands.py,
+				css/CSSShorthands.in,
+				scripts/templates/StylePropertyShorthand.h.tmpl,
+				scripts/templates/StylePropertyShorthand.cpp.tmpl,
+			);
+			name = "Action \"StylePropertyShorthand\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/StylePropertyShorthand.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/StylePropertyShorthand.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/make_style_shorthands.py css/CSSShorthands.in --output_dir \"${SHARED_INTERMEDIATE_DIR}/blink\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		ACB0D3BD61FD0D3A1FC712F9 /* Action "generateXMLViewerJS" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				xml/XMLViewer.js,
+			);
+			name = "Action \"generateXMLViewerJS\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/XMLViewerJS.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec /usr/bin/perl inspector/xxd.pl XMLViewer_js xml/XMLViewer.js \"${SHARED_INTERMEDIATE_DIR}/blink/XMLViewerJS.h\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		BFFB5EEBD429954932A189AA /* Action "EventFactory" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				WebCore/scripts/in_file.py,
+				WebCore/scripts/in_generator.py,
+				WebCore/scripts/license.py,
+				WebCore/scripts/name_macros.py,
+				WebCore/scripts/template_expander.py,
+				WebCore/scripts/templates/macros.tmpl,
+				scripts/make_event_factory.py,
+				"$(SHARED_INTERMEDIATE_DIR)/blink/EventInterfaces.in",
+				dom/EventAliases.in,
+			);
+			name = "Action \"EventFactory\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/Event.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/EventHeaders.h",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/EventInterfaces.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/make_event_factory.py \"${SHARED_INTERMEDIATE_DIR}/blink/EventInterfaces.in\" dom/EventAliases.in --output_dir \"${SHARED_INTERMEDIATE_DIR}/blink\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		E80AFE6719038AFA4BF65970 /* Action "FontFamilyNames" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				scripts/Hasher.pm,
+				scripts/StaticString.pm,
+				scripts/make_names.pl,
+				css/FontFamilyNames.in,
+			);
+			name = "Action \"FontFamilyNames\"";
+			outputPaths = (
+				"$(SHARED_INTERMEDIATE_DIR)/blink/FontFamilyNames.cpp",
+				"$(SHARED_INTERMEDIATE_DIR)/blink/FontFamilyNames.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec python scripts/action_makenames.py \"${SHARED_INTERMEDIATE_DIR}/blink/FontFamilyNames.cpp\" \"${SHARED_INTERMEDIATE_DIR}/blink/FontFamilyNames.h\" -- scripts/Hasher.pm scripts/StaticString.pm scripts/make_names.pl css/FontFamilyNames.in -- --fonts\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+		EAE121360A454B99C4064F31 /* Rule "bison" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Rule \"bison\"";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "JOB_COUNT=\"$(/usr/sbin/sysctl -n hw.ncpu)\"\nif [ \"${JOB_COUNT}\" -gt 4 ]; then\n  JOB_COUNT=4\nfi\nexec xcrun make -f \"${PROJECT_FILE_PATH}/make_derived_sources_bison.make\" -j \"${JOB_COUNT}\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		27D6DA142F8CA8B589644A46 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5816614EDC63F3120BA1D018 /* make_derived_sources */;
+			targetProxy = 1C781A560A863851F9CE50B9 /* PBXContainerItemProxy */;
+		};
+		742B5CFA03B359014F278B15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4228FEE4A17A7AAD777C698 /* generate_test_support_idls */;
+			targetProxy = AD13B2D6AF42182C87094F40 /* PBXContainerItemProxy */;
+		};
+		879A439FDA2F3D20D2B1994B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4228FEE4A17A7AAD777C698 /* generate_test_support_idls */;
+			targetProxy = 9215BBB53C247ABC7EDA6807 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		421ED5BB5B67D45E8863CB56 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = generate_test_support_idls;
+			};
+			name = Default;
+		};
+		656CA1AFD49097E1B7DA7E59 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = All;
+			};
+			name = Default;
+		};
+		7DA4EB17B450F38C9414B56D /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = make_derived_sources;
+			};
+			name = Default;
+		};
+		EAF3054A00DA805EC937A20F /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INTERMEDIATE_DIR = "$(PROJECT_DERIVED_FILE_DIR)/$(CONFIGURATION)";
+				SHARED_INTERMEDIATE_DIR = "$(SYMROOT)/DerivedSources/$(CONFIGURATION)";
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		577113F8C3CC2E0F492A5760 /* Build configuration list for PBXAggregateTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				656CA1AFD49097E1B7DA7E59 /* Default */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Default;
+		};
+		6E4D6E151FDA171758365885 /* Build configuration list for PBXAggregateTarget "generate_test_support_idls" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				421ED5BB5B67D45E8863CB56 /* Default */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Default;
+		};
+		AC9F079660067BDB039E4871 /* Build configuration list for PBXAggregateTarget "make_derived_sources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DA4EB17B450F38C9414B56D /* Default */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Default;
+		};
+		ED14FB9582F2E1FAA93F484E /* Build configuration list for PBXProject "webcorejs_derived_sources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EAF3054A00DA805EC937A20F /* Default */,
+			);
+			defaultConfigurationIsVisible = 1;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5C7AB17D37FADFBC6B17683F /* Project object */;
+}
