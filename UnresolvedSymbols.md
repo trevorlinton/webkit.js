@@ -1,474 +1,445 @@
 ```C++
-WTF::fastFree(void*)
-WTF::fastMallocGoodSize(unsigned int)
-WTF::fastMalloc(unsigned int)
-WTF::fastRealloc(void*, unsigned int)
-JSC::SourceProvider::SourceProvider(WTF::String const&, WTF::TextPosition const&)
-JSC::SourceProvider::~SourceProvider()
-xmlInitParser
+pixman_contract
+pixman_malloc_ab
+pixman_expand
+_pixman_iter_get_scanline_noop
+_pixman_multiply_overflows_int
+_pixman_addition_overflows_int
+_pixman_multiply_overflows_size
+_pixman_lookup_composite_function
+pixman_malloc_abc
+FcPatternGetBool
+FcPatternGetInteger
+FcPatternDuplicate
+FcPatternGetFTFace
+FcPatternGetString
+FcPatternGet
+FcPatternAddBool
+FcPatternDel
+FcPatternAddInteger
+FcInitBringUptoDate
+FcConfigGetCurrent
+FcPatternAddDouble
+FcConfigSubstitute
+FcDefaultSubstitute
+FcFontMatch
+FcPatternDestroy
+FcPatternCreate
+FcPatternAddString
+FcFreeTypeCharIndex
+inflateEnd
+inflate
+inflateReset
+inflateInit2_
+xmlParserGetDirectory
+xmlParserInputBufferCreateMem
+xmlParserInputBufferPush
+xmlAllocParserInputBuffer
+xmlFreeParserInputBuffer
+xmlLoadExternalEntity
+xmlRegisterDefaultInputCallbacks
+xmlRegisterDefaultOutputCallbacks
+xmlNop
+xmlParserInputBufferGrow
+xmlParserInputBufferRead
+xmlUCSIsCatNd
+xmlUCSIsCatP
+xmlUCSIsCatZ
+xmlUCSIsCatC
+xmlUCSIsCatL
+xmlUCSIsCatLu
+xmlUCSIsCatLl
+xmlUCSIsCatLt
+xmlUCSIsCatLm
+xmlUCSIsCatLo
+xmlUCSIsCatM
+xmlUCSIsCatMn
+xmlUCSIsCatMc
+xmlUCSIsCatMe
+xmlUCSIsCatN
+xmlUCSIsCatNl
+xmlUCSIsCatNo
+xmlUCSIsCatPc
+xmlUCSIsCatPd
+xmlUCSIsCatPs
+xmlUCSIsCatPe
+xmlUCSIsCatPi
+xmlUCSIsCatPf
+xmlUCSIsCatPo
+xmlUCSIsCatZs
+xmlUCSIsCatZl
+xmlUCSIsCatZp
+xmlUCSIsCatS
+xmlUCSIsCatSm
+xmlUCSIsCatSc
+xmlUCSIsCatSk
+xmlUCSIsCatSo
+xmlUCSIsCatCc
+xmlUCSIsCatCf
+xmlUCSIsCatCo
+xmlUCSIsBlock
+jsimd_ycc_extrgb_convert_mips_dspr2
+jsimd_ycc_extrgbx_convert_mips_dspr2
+jsimd_ycc_extbgr_convert_mips_dspr2
+jsimd_ycc_extbgrx_convert_mips_dspr2
+jsimd_ycc_extxbgr_convert_mips_dspr2
+jsimd_ycc_extxrgb_convert_mips_dspr2
+jsimd_h2v2_upsample_mips_dspr2
+jsimd_h2v1_upsample_mips_dspr2
+jsimd_h2v2_fancy_upsample_mips_dspr2
+jsimd_h2v1_fancy_upsample_mips_dspr2
+_ZN3WTF8fastFreeEPv
+_ZN3WTF18fastMallocGoodSizeEj
+_ZN3WTF10fastMallocEj
+_ZN3JSC14SourceProviderC2ERKN3WTF6StringERKNS1_12TextPositionE
+_ZN3JSC14SourceProviderD2Ev
 xmlRegisterInputCallbacks
 xmlRegisterOutputCallbacks
-xmlCreatePushParserCtxt
-xmlCtxtUseOptions
-xmlCreateMemoryParserCtxt
-xmlDictLookup
-xmlFreeDoc
-xmlFreeParserCtxt
-xmlParseChunk
-xmlStopParser
-WTF::tryFastMalloc(unsigned int)
-WTF::fastZeroedMalloc(unsigned int)
-xmlSAX2EntityDecl
-xmlSAX2InternalSubset
-xmlSAX2EndDocument
-xmlSAX2StartDocument
-xmlGetPredefinedEntity
-xmlGetDocEntity
-xmlStrdup
-xmlStrndup
-xmlSwitchEncoding
-WebCore::ScriptController::shouldBypassMainWorldContentSecurityPolicy()
-JSC::JSLockHolder::JSLockHolder(JSC::VM*)
-JSC::JSLockHolder::~JSLockHolder()
-JSC::weakClearSlowCase(JSC::WeakImpl*&)
-u_foldCase
-JSC::Heap::reportExtraMemoryCostSlowCase(unsigned int)
-WTF::tryFastCalloc(unsigned int, unsigned int)
+_ZN3WTF13tryFastMallocEj
+_ZN3WTF16fastZeroedMallocEj
 u_charType
 u_charDirection
-WTF::double_conversion::DoubleToStringConverter::EcmaScriptConverter()
-WTF::double_conversion::DoubleToStringConverter::ToShortest(double, WTF::double_conversion::StringBuilder*) const
-WTF::double_conversion::DoubleToStringConverter::ToPrecision(double, int, WTF::double_conversion::StringBuilder*) const
-WTF::double_conversion::DoubleToStringConverter::ToFixed(double, int, WTF::double_conversion::StringBuilder*) const
-WTF::double_conversion::StringToDoubleConverter::StringToDouble(char const*, unsigned int, unsigned int*)
-WTF::scheduleDispatchFunctionsOnMainThread()
+_ZN3WTF11fastReallocEPvj
+inflateInit_
+_ZN3WTF37scheduleDispatchFunctionsOnMainThreadEv
 u_tolower
 u_strToLower
 u_toupper
 u_strToUpper
 u_strFoldCase
+u_foldCase
 u_memcasecmp
 pthread_create
-WebCore::ImageBuffer::context() const
-WebCore::GraphicsContext::concatCTM(WebCore::AffineTransform const&)
-WebCore::ImageBuffer::~ImageBuffer()
-WebCore::ImageBuffer::copyImage(WebCore::BackingStoreCopy, WebCore::ScaleBehavior) const
-WebCore::GraphicsContext::getCTM(WebCore::GraphicsContext::IncludeDeviceScale) const
-WebCore::GraphicsContext::translate(float, float)
-WebCore::GraphicsContext::scale(WebCore::FloatSize const&)
-WebCore::fillWithEmptyClients(WebCore::Page::PageClients&)
-WebCore::Image::drawPattern(WebCore::GraphicsContext*, WebCore::FloatRect const&, WebCore::AffineTransform const&, WebCore::FloatPoint const&, WebCore::ColorSpace, WebCore::CompositeOperator, WebCore::FloatRect const&, WebCore::BlendMode)
-WebCore::EmptyChromeClient::runOpenPanel(WebCore::Frame*, WTF::PassRefPtr<WebCore::FileChooser>)
-WebCore::EmptyChromeClient::createPopupMenu(WebCore::PopupMenuClient*) const
-WebCore::EmptyChromeClient::createSearchPopupMenu(WebCore::PopupMenuClient*) const
-void WTF::refIfNotNull<_cairo_surface>(_cairo_surface*)
-WebCore::ImageBuffer::ImageBuffer(WebCore::IntSize const&, float, WebCore::ColorSpace, WebCore::RenderingMode, bool&)
-WebCore::Widget::frameRect() const
-WebCore::Path::operator=(WebCore::Path const&)
-WebCore::Path::Path()
-WebCore::Path::~Path()
-WebCore::Path::isEmpty() const
-WebCore::SimpleFontData::determinePitch()
+_ZN7WebCore20fillWithEmptyClientsERNS_4Page11PageClientsE
+_ZN7WebCore17EmptyChromeClient12runOpenPanelEPNS_5FrameEN3WTF10PassRefPtrINS_11FileChooserEEE
+_ZNK7WebCore17EmptyChromeClient15createPopupMenuEPNS_15PopupMenuClientE
+_ZNK7WebCore17EmptyChromeClient21createSearchPopupMenuEPNS_15PopupMenuClientE
+_ZNK7WebCore6Widget9frameRectEv
+_ZN3JSC17weakClearSlowCaseERPNS_8WeakImplE
 u_charMirror
-WebCore::Path::Path(WebCore::Path const&)
-WebCore::SimpleFontData::platformWidthForGlyph(unsigned short) const
-WebCore::Path::transform(WebCore::AffineTransform const&)
-WebCore::Path::closeSubpath()
-WebCore::Path::moveTo(WebCore::FloatPoint const&)
-WebCore::Path::addLineTo(WebCore::FloatPoint const&)
-WebCore::Path::addBezierCurveTo(WebCore::FloatPoint const&, WebCore::FloatPoint const&, WebCore::FloatPoint const&)
-WebCore::Path::boundingRect() const
-WebCore::FrameSelection::clear()
-WebCore::VisiblePosition::VisiblePosition(WebCore::Position const&, WebCore::EAffinity)
-WebCore::FrameSelection::setSelection(WebCore::VisibleSelection const&, unsigned int, WebCore::FrameSelection::CursorAlignOnScroll, WebCore::TextGranularity)
-WebCore::VisibleSelection::VisibleSelection(WebCore::VisiblePosition const&, WebCore::VisiblePosition const&, bool)
-WebCore::Path::translate(WebCore::FloatSize const&)
-WebCore::SQLiteStatement::SQLiteStatement(WebCore::SQLiteDatabase&, WTF::String const&)
-WebCore::SQLiteStatement::prepare()
-WebCore::SQLiteStatement::bindText(int, WTF::String const&)
-WebCore::SQLiteStatement::step()
-WebCore::SQLiteStatement::getColumnInt64(int)
-WebCore::SQLiteStatement::~SQLiteStatement()
-WebCore::SQLiteStatement::getColumnText(int)
-WebCore::SQLiteStatement::bindInt64(int, long long)
-WebCore::SQLiteStatement::getColumnInt(int)
-WebCore::SQLiteStatement::executeCommand()
-WebCore::SQLiteStatement::bindBlob(int, void const*, int)
-WebCore::SQLiteStatement::getColumnBlobAsVector(int, WTF::Vector<char, 0u, WTF::CrashOnOverflow>&)
-WebCore::createFontCustomPlatformData(WebCore::SharedBuffer&)
-WebCore::FontCustomPlatformData::fontPlatformData(int, bool, bool, WebCore::FontOrientation, WebCore::FontWidthVariant, WebCore::FontRenderingMode)
-WebCore::FontCustomPlatformData::~FontCustomPlatformData()
-WebCore::Image::loadPlatformResource(char const*)
-void WTF::derefIfNotNull<_cairo_surface>(_cairo_surface*)
-WebCore::FrameLoaderStateMachine::creatingInitialEmptyDocument() const
-WebCore::DOMWindow::finishedLoading()
-WebCore::FrameLoaderStateMachine::isDisplayingInitialEmptyDocument() const
-WebCore::ScriptController::updatePlatformScriptObjects()
-WebCore::FrameLoaderStateMachine::FrameLoaderStateMachine()
-WebCore::FrameLoaderStateMachine::advanceTo(WebCore::FrameLoaderStateMachine::State)
-WebCore::ScriptController::executeIfJavaScriptURL(WebCore::URL const&, WebCore::ShouldReplaceDocumentIfJavaScriptURL)
-WebCore::DOMWindow::allowPopUp(WebCore::Frame*)
-WebCore::ScriptController::processingUserGesture()
-WebCore::DOMWindow::dispatchEvent(WTF::PassRefPtr<WebCore::Event>, WTF::PassRefPtr<WebCore::EventTarget>)
-WebCore::Editor::confirmComposition()
-WebCore::Editor::client() const
-WebCore::Editor::clearUndoRedoOperations()
-WebCore::Editor::clearLastEditCommand()
-WebCore::DOMWindow::setStatus(WTF::String const&)
-WebCore::DOMWindow::setDefaultStatus(WTF::String const&)
-WebCore::FrameLoaderStateMachine::committedFirstRealDocumentLoad() const
-WebCore::Editor::clear()
-WebCore::DOMWindow::resetUnlessSuspendedForPageCache()
-WebCore::ScriptController::clearWindowShell(WebCore::DOMWindow*, bool)
-WebCore::FrameSelection::prepareForDestruction()
-WebCore::ScriptController::clearScriptObjects()
-WebCore::ScriptController::enableEval()
-WebCore::HistoryItem::children() const
-WebCore::HistoryItem::childItemWithTarget(WTF::String const&) const
-WebCore::FrameLoaderStateMachine::firstLayoutDone() const
-WebCore::SerializedScriptValue::nullValue()
-WebCore::BackForwardController::setCurrentItem(WebCore::HistoryItem*)
-WebCore::pageCache()
-WebCore::PageCache::take(WebCore::HistoryItem*)
-WebCore::PageCache::canCache(WebCore::Page*) const
-WebCore::PageCache::add(WTF::PassRefPtr<WebCore::HistoryItem>, WebCore::Page&)
-WebCore::CachedPage::restore(WebCore::Page&)
-WebCore::ScriptController::canExecuteScripts(WebCore::ReasonForCallingCanExecuteScripts)
-WebCore::DOMWindow::document() const
-WebCore::HistoryItem::isTargetItem() const
-WebCore::HistoryItem::url() const
-WebCore::HistoryItem::originalURL() const
-WebCore::PageCache::get(WebCore::HistoryItem*)
-WebCore::HistoryItem::formData()
-WebCore::HistoryItem::referrer() const
-WebCore::HistoryItem::formContentType() const
-WebCore::HistoryItem::shouldDoSameDocumentNavigationTo(WebCore::HistoryItem*) const
-WebCore::ScriptController::getAllWorlds(WTF::Vector<WTF::Ref<WebCore::DOMWrapperWorld>, 0u, WTF::CrashOnOverflow>&)
-WebCore::DOMWrapperWorld::~DOMWrapperWorld()
-WebCore::CachedPage::~CachedPage()
-WebCore::SerializedScriptValue::~SerializedScriptValue()
-WebCore::HistoryItem::~HistoryItem()
-WebCore::BackForwardController::itemAtIndex(int)
-WebCore::BackForwardController::backCount() const
-WebCore::HistoryItem::HistoryItem()
-WebCore::HistoryItem::setScrollPoint(WebCore::IntPoint const&)
-WebCore::HistoryItem::setPageScaleFactor(float)
-WebCore::HistoryItem::clearScrollPoint()
-WebCore::HistoryItem::pageScaleFactor() const
-WebCore::HistoryItem::scrollPoint() const
-WebCore::HistoryItem::isCurrentDocument(WebCore::Document*) const
-WebCore::HistoryItem::setDocumentState(WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow> const&)
-WebCore::HistoryItem::documentState() const
-WebCore::CachedPage::clear()
-WebCore::PageCache::remove(WebCore::HistoryItem*)
-WebCore::HistoryItem::setChildItem(WTF::PassRefPtr<WebCore::HistoryItem>)
-WebCore::HistoryItem::clearDocumentState()
-WebCore::HistoryItem::setURL(WebCore::URL const&)
-WebCore::HistoryItem::setTitle(WTF::String const&)
-WebCore::HistoryItem::urlString() const
-WebCore::HistoryItem::setTarget(WTF::String const&)
-WebCore::HistoryItem::setParent(WTF::String const&)
-WebCore::HistoryItem::setOriginalURLString(WTF::String const&)
-WebCore::HistoryItem::setFormInfoFromRequest(WebCore::ResourceRequest const&)
-WebCore::HistoryItem::addChildItem(WTF::PassRefPtr<WebCore::HistoryItem>)
-WebCore::HistoryItem::setIsTargetItem(bool)
-WebCore::HistoryItem::target() const
-WebCore::HistoryItem::hasSameFrames(WebCore::HistoryItem*) const
-WebCore::BackForwardController::addItem(WTF::PassRefPtr<WebCore::HistoryItem>)
-WebCore::HistoryItem::reset()
-WebCore::MIMETypeRegistry::isApplicationPluginMIMEType(WTF::String const&)
-WebCore::PluginData::pluginNameForMimeType(WTF::String const&) const
-WebCore::PluginData::pluginFileForMimeType(WTF::String const&) const
-WebCore::Path::addRect(WebCore::FloatRect const&)
-WebCore::Path::clear()
-WebCore::GraphicsContext::setLineCap(WebCore::LineCap)
-WebCore::GraphicsContext::setLineJoin(WebCore::LineJoin)
-WebCore::GraphicsContext::setMiterLimit(float)
-WebCore::GraphicsContext::setLineDash(WTF::Vector<double, 0u, WTF::CrashOnOverflow> const&, float)
-WebCore::GraphicsContext::setAlpha(float)
-WebCore::GraphicsContext::rotate(float)
-WebCore::GraphicsContext::fillPath(WebCore::Path const&)
-WebCore::GraphicsContext::strokePath(WebCore::Path const&)
-WebCore::Path::contains(WebCore::FloatPoint const&, WebCore::WindRule) const
-WebCore::Path::strokeContains(WebCore::StrokeStyleApplier*, WebCore::FloatPoint const&) const
-WebCore::GraphicsContext::clearRect(WebCore::FloatRect const&)
-WebCore::GraphicsContext::fillRect(WebCore::FloatRect const&)
-WebCore::GraphicsContext::strokeRect(WebCore::FloatRect const&, float)
-WebCore::GraphicsContext::clipOut(WebCore::IntRect const&)
-WebCore::ImageBuffer::getUnmultipliedImageData(WebCore::IntRect const&, WebCore::ImageBuffer::CoordinateSystem) const
-WebCore::ImageBuffer::putByteArray(WebCore::Multiply, JSC::GenericTypedArrayView<JSC::Uint8ClampedAdaptor>*, WebCore::IntSize const&, WebCore::IntRect const&, WebCore::IntPoint const&, WebCore::ImageBuffer::CoordinateSystem)
-WebCore::GraphicsContext::setImageInterpolationQuality(WebCore::InterpolationQuality)
-WebCore::GraphicsContext3D::create(WebCore::GraphicsContext3D::Attributes, WebCore::HostWindow*, WebCore::GraphicsContext3D::RenderStyle)
-WebCore::GraphicsContext3D::makeContextCurrent()
-WebCore::GraphicsContext3D::isGLES2Compliant() const
-WebCore::ImageBuffer::fastCopyImageMode()
-JSC::ArrayBufferView::ArrayBufferView(WTF::PassRefPtr<JSC::ArrayBuffer>, unsigned int)
-JSC::JSArrayBufferView::ConstructionContext::ConstructionContext(JSC::VM&, JSC::Structure*, WTF::PassRefPtr<JSC::ArrayBuffer>, unsigned int, unsigned int)
-JSC::JSArrayBufferView::finishCreation(JSC::VM&)
-JSC::JSArrayBufferView::JSArrayBufferView(JSC::VM&, JSC::JSArrayBufferView::ConstructionContext&)
-JSC::MarkedAllocator::allocateSlowCase(unsigned int)
-JSC::ArrayBufferView::~ArrayBufferView()
-WebCore::GraphicsContext3D::~GraphicsContext3D()
-WebCore::FileList::item(unsigned int) const
-WebCore::FileList::paths() const
-WebCore::DragData::asFilenames(WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow>&) const
-WebCore::Icon::~Icon()
-WebCore::File::File(WTF::String const&, WebCore::File::ContentTypeLookupPolicy)
-WebCore::File::File(WTF::String const&, WTF::String const&, WebCore::File::ContentTypeLookupPolicy)
-WebCore::FileList::FileList()
-WebCore::VisibleSelection::rootEditableElement() const
-WebCore::HTMLPlugInElement::isPluginElement() const
-WebCore::HTMLPlugInElement::willRespondToMouseClickEvents()
-WebCore::HTMLPlugInElement::supportsFocus() const
-WebCore::HTMLPlugInElement::isKeyboardFocusable(WebCore::KeyboardEvent*) const
-WebCore::HTMLPlugInElement::collectStyleForPresentationAttribute(WebCore::QualifiedName const&, WTF::AtomicString const&, WebCore::MutableStyleProperties&)
-WebCore::HTMLPlugInElement::isPresentationAttribute(WebCore::QualifiedName const&) const
-WebCore::Path::addEllipse(WebCore::FloatRect const&)
-WebCore::addImpureProperty(WTF::AtomicString const&)
-WebCore::replaceChildrenWithFragment(WebCore::ContainerNode&, WTF::PassRefPtr<WebCore::DocumentFragment>, int&)
-WebCore::replaceChildrenWithText(WebCore::ContainerNode&, WTF::String const&, int&)
-WebCore::HTMLPlugInElement::guardedDispatchBeforeLoadEvent(WTF::String const&)
-WebCore::EventHandler::tabsToAllFormControls(WebCore::KeyboardEvent*) const
-WebCore::ScriptController::canAccessFromCurrentOrigin(WebCore::Frame*)
-WebCore::JSDOMWindowBase::commonVM()
-WebCore::FrameSelection::revealSelection(WebCore::ScrollAlignment const&, WebCore::RevealExtentOption)
-WebCore::Editor::textFieldDidEndEditing(WebCore::Element*)
-WebCore::signedPublicKeyAndChallengeString(unsigned int, WTF::String const&, WebCore::URL const&)
-WebCore::getSupportedKeySizes(WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow>&)
-WebCore::HTMLPlugInElement::pluginWidget() const
-WebCore::HTMLPlugInElement::HTMLPlugInElement(WebCore::QualifiedName const&, WebCore::Document&)
-WebCore::HTMLPlugInElement::~HTMLPlugInElement()
-WebCore::HTMLPlugInElement::setDisplayState(WebCore::HTMLPlugInElement::DisplayState)
-WebCore::HTMLPlugInElement::createElementRenderer(WTF::PassRef<WebCore::RenderStyle>)
-WebCore::HTMLPlugInElement::willDetachRenderers()
-WebCore::HTMLPlugInElement::didAddUserAgentShadowRoot(WebCore::ShadowRoot*)
-JSC::JSGlobalObject::globalExec()
-JSC::JSLockHolder::JSLockHolder(JSC::ExecState*)
-JSC::call(JSC::ExecState*, JSC::JSValue, JSC::CallType, JSC::CallData const&, JSC::JSValue, JSC::ArgList const&)
-WebCore::HTMLPlugInElement::defaultEventHandler(WebCore::Event*)
-WebCore::HTMLPlugInElement::requestObject(WTF::String const&, WTF::String const&, WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow> const&, WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow> const&)
-JSC::Identifier::add(JSC::ExecState*, char const*)
-JSC::JSCell::toObject(JSC::ExecState*, JSC::JSGlobalObject*) const
-JSC::JSValue::toObjectSlowCase(JSC::ExecState*, JSC::JSGlobalObject*) const
-JSC::PropertySlot::functionGetter(JSC::ExecState*) const
-JSC::Structure::get(JSC::VM&, JSC::PropertyName, unsigned int&, JSC::JSCell*&)
-JSC::JSObject::fillGetterPropertySlot(JSC::PropertySlot&, JSC::JSValue, unsigned int, int)
-JSC::JSObject::getOwnPropertySlotSlow(JSC::ExecState*, JSC::PropertyName, JSC::PropertySlot&)
-WebCore::createWrapper(JSC::ExecState*, WebCore::JSDOMGlobalObject*, WebCore::Node*)
-JSC::MarkedArgumentBuffer::slowAppend(JSC::JSValue)
-WebCore::ScriptController::initScript(WebCore::DOMWrapperWorld&)
-WebCore::DOMWrapperWorld::DOMWrapperWorld(JSC::VM*, bool)
+_ZN7WebCore14FrameSelection5clearEv
+_ZN7WebCore15VisiblePositionC1ERKNS_8PositionENS_9EAffinityE
+_ZN7WebCore14FrameSelection12setSelectionERKNS_16VisibleSelectionEjNS0_19CursorAlignOnScrollENS_15TextGranularityE
+_ZN7WebCore16VisibleSelectionC1ERKNS_15VisiblePositionES3_b
+_ZN7WebCore15SQLiteStatementC1ERNS_14SQLiteDatabaseERKN3WTF6StringE
+_ZN7WebCore15SQLiteStatement7prepareEv
+_ZN7WebCore15SQLiteStatement8bindTextEiRKN3WTF6StringE
+_ZN7WebCore15SQLiteStatement4stepEv
+_ZN7WebCore15SQLiteStatement14getColumnInt64Ei
+_ZN7WebCore15SQLiteStatementD1Ev
+_ZN7WebCore15SQLiteStatement13getColumnTextEi
+_ZN7WebCore15SQLiteStatement9bindInt64Eix
+_ZN7WebCore15SQLiteStatement12getColumnIntEi
+_ZN7WebCore15SQLiteStatement14executeCommandEv
+_ZN7WebCore15SQLiteStatement8bindBlobEiPKvi
+_ZN7WebCore15SQLiteStatement21getColumnBlobAsVectorEiRN3WTF6VectorIcLj0ENS1_15CrashOnOverflowEEE
+_ZN7WebCore5Image20loadPlatformResourceEPKc
+_ZN7WebCore16ScriptController42shouldBypassMainWorldContentSecurityPolicyEv
+_ZN7WebCore16ScriptController27updatePlatformScriptObjectsEv
+_ZN7WebCore16ScriptController22executeIfJavaScriptURLERKNS_3URLENS_36ShouldReplaceDocumentIfJavaScriptURLE
+_ZN7WebCore16ScriptController21processingUserGestureEv
+_ZN7WebCore6Editor18confirmCompositionEv
+_ZNK7WebCore6Editor6clientEv
+_ZN7WebCore6Editor23clearUndoRedoOperationsEv
+_ZN7WebCore6Editor20clearLastEditCommandEv
+_ZN7WebCore6Editor5clearEv
+_ZN7WebCore16ScriptController16clearWindowShellEPNS_9DOMWindowEb
+_ZN7WebCore14FrameSelection21prepareForDestructionEv
+_ZN7WebCore16ScriptController18clearScriptObjectsEv
+_ZN7WebCore16ScriptController10enableEvalEv
+_ZNK7WebCore11HistoryItem8childrenEv
+_ZNK7WebCore11HistoryItem19childItemWithTargetERKN3WTF6StringE
+_ZN7WebCore21SerializedScriptValue9nullValueEv
+_ZN7WebCore21BackForwardController14setCurrentItemEPNS_11HistoryItemE
+_ZN7WebCore9pageCacheEv
+_ZN7WebCore9PageCache4takeEPNS_11HistoryItemE
+_ZNK7WebCore9PageCache8canCacheEPNS_4PageE
+_ZN7WebCore9PageCache3addEN3WTF10PassRefPtrINS_11HistoryItemEEERNS_4PageE
+_ZN7WebCore10CachedPage7restoreERNS_4PageE
+_ZN7WebCore16ScriptController17canExecuteScriptsENS_33ReasonForCallingCanExecuteScriptsE
+_ZNK7WebCore11HistoryItem12isTargetItemEv
+_ZNK7WebCore11HistoryItem3urlEv
+_ZNK7WebCore11HistoryItem11originalURLEv
+_ZN7WebCore9PageCache3getEPNS_11HistoryItemE
+_ZN7WebCore11HistoryItem8formDataEv
+_ZNK7WebCore11HistoryItem8referrerEv
+_ZNK7WebCore11HistoryItem15formContentTypeEv
+_ZNK7WebCore11HistoryItem32shouldDoSameDocumentNavigationToEPS0_
+_ZN7WebCore16ScriptController12getAllWorldsERN3WTF6VectorINS1_3RefINS_15DOMWrapperWorldEEELj0ENS1_15CrashOnOverflowEEE
+_ZN7WebCore15DOMWrapperWorldD1Ev
+_ZN7WebCore10CachedPageD1Ev
+_ZN7WebCore21SerializedScriptValueD1Ev
+_ZN7WebCore11HistoryItemD1Ev
+_ZN7WebCore21BackForwardController11itemAtIndexEi
+_ZNK7WebCore21BackForwardController9backCountEv
+_ZN7WebCore11HistoryItemC1Ev
+_ZN7WebCore11HistoryItem14setScrollPointERKNS_8IntPointE
+_ZN7WebCore11HistoryItem18setPageScaleFactorEf
+_ZN7WebCore11HistoryItem16clearScrollPointEv
+_ZNK7WebCore11HistoryItem15pageScaleFactorEv
+_ZNK7WebCore11HistoryItem11scrollPointEv
+_ZNK7WebCore11HistoryItem17isCurrentDocumentEPNS_8DocumentE
+_ZN7WebCore11HistoryItem16setDocumentStateERKN3WTF6VectorINS1_6StringELj0ENS1_15CrashOnOverflowEEE
+_ZNK7WebCore11HistoryItem13documentStateEv
+_ZN7WebCore10CachedPage5clearEv
+_ZN7WebCore9PageCache6removeEPNS_11HistoryItemE
+_ZN7WebCore11HistoryItem12setChildItemEN3WTF10PassRefPtrIS0_EE
+_ZN7WebCore11HistoryItem18clearDocumentStateEv
+_ZN7WebCore11HistoryItem6setURLERKNS_3URLE
+_ZN7WebCore11HistoryItem8setTitleERKN3WTF6StringE
+_ZNK7WebCore11HistoryItem9urlStringEv
+_ZN7WebCore11HistoryItem9setTargetERKN3WTF6StringE
+_ZN7WebCore11HistoryItem9setParentERKN3WTF6StringE
+_ZN7WebCore11HistoryItem20setOriginalURLStringERKN3WTF6StringE
+_ZN7WebCore11HistoryItem22setFormInfoFromRequestERKNS_15ResourceRequestE
+_ZN7WebCore11HistoryItem12addChildItemEN3WTF10PassRefPtrIS0_EE
+_ZN7WebCore11HistoryItem15setIsTargetItemEb
+_ZNK7WebCore11HistoryItem6targetEv
+_ZNK7WebCore11HistoryItem13hasSameFramesEPS0_
+_ZN7WebCore21BackForwardController7addItemEN3WTF10PassRefPtrINS_11HistoryItemEEE
+_ZN7WebCore11HistoryItem5resetEv
+_ZN7WebCore16MIMETypeRegistry27isApplicationPluginMIMETypeERKN3WTF6StringE
+_ZNK7WebCore10PluginData21pluginNameForMimeTypeERKN3WTF6StringE
+_ZNK7WebCore10PluginData21pluginFileForMimeTypeERKN3WTF6StringE
+_ZN7WebCore12newTextCodecERKNS_12TextEncodingE
+_ZN3JSC15ArrayBufferViewC2EN3WTF10PassRefPtrINS_11ArrayBufferEEEj
+_ZN3JSC17JSArrayBufferView19ConstructionContextC1ERNS_2VMEPNS_9StructureEN3WTF10PassRefPtrINS_11ArrayBufferEEEjj
+_ZN3JSC17JSArrayBufferView14finishCreationERNS_2VME
+_ZN3JSC17JSArrayBufferViewC2ERNS_2VMERNS0_19ConstructionContextE
+_ZN3JSC15MarkedAllocator16allocateSlowCaseEj
+_ZN3JSC15ArrayBufferViewD2Ev
+_ZNK7WebCore8FileList4itemEj
+_ZNK7WebCore8FileList5pathsEv
+_ZNK7WebCore8DragData11asFilenamesERN3WTF6VectorINS1_6StringELj0ENS1_15CrashOnOverflowEEE
+_ZN7WebCore4IconD1Ev
+_ZN7WebCore4FileC1ERKN3WTF6StringENS0_23ContentTypeLookupPolicyE
+_ZN7WebCore4FileC1ERKN3WTF6StringES4_NS0_23ContentTypeLookupPolicyE
+_ZN7WebCore8FileListC1Ev
+_ZNK7WebCore16VisibleSelection19rootEditableElementEv
+_ZNK7WebCore17HTMLPlugInElement15isPluginElementEv
+_ZN7WebCore17HTMLPlugInElement29willRespondToMouseClickEventsEv
+_ZNK7WebCore17HTMLPlugInElement13supportsFocusEv
+_ZNK7WebCore17HTMLPlugInElement19isKeyboardFocusableEPNS_13KeyboardEventE
+_ZN7WebCore17HTMLPlugInElement36collectStyleForPresentationAttributeERKNS_13QualifiedNameERKN3WTF12AtomicStringERNS_22MutableStylePropertiesE
+_ZNK7WebCore17HTMLPlugInElement23isPresentationAttributeERKNS_13QualifiedNameE
+_ZN3JSC12JSLockHolderC1EPNS_2VME
+_ZN3JSC12JSLockHolderD1Ev
+_ZN3JSC4Heap29reportExtraMemoryCostSlowCaseEj
+_ZN7WebCore17addImpurePropertyERKN3WTF12AtomicStringE
+_ZN7WebCore27replaceChildrenWithFragmentERNS_13ContainerNodeEN3WTF10PassRefPtrINS_16DocumentFragmentEEERi
+_ZN7WebCore23replaceChildrenWithTextERNS_13ContainerNodeERKN3WTF6StringERi
+_ZN7WebCore17HTMLPlugInElement30guardedDispatchBeforeLoadEventERKN3WTF6StringE
+_ZNK7WebCore12EventHandler21tabsToAllFormControlsEPNS_13KeyboardEventE
+_ZN7WebCore16ScriptController26canAccessFromCurrentOriginEPNS_5FrameE
+_ZN7WebCore15JSDOMWindowBase8commonVMEv
+_ZN7WebCore14FrameSelection15revealSelectionERKNS_15ScrollAlignmentENS_18RevealExtentOptionE
+_ZN7WebCore6Editor22textFieldDidEndEditingEPNS_7ElementE
+_ZN7WebCore33signedPublicKeyAndChallengeStringEjRKN3WTF6StringERKNS_3URLE
+_ZN7WebCore20getSupportedKeySizesERN3WTF6VectorINS0_6StringELj0ENS0_15CrashOnOverflowEEE
+_ZNK7WebCore17HTMLPlugInElement12pluginWidgetEv
+_ZN7WebCore17HTMLPlugInElementC2ERKNS_13QualifiedNameERNS_8DocumentE
+_ZN7WebCore17HTMLPlugInElementD2Ev
+_ZN7WebCore17HTMLPlugInElement15setDisplayStateENS0_12DisplayStateE
+_ZN7WebCore17HTMLPlugInElement21createElementRendererEN3WTF7PassRefINS_11RenderStyleEEE
+_ZN7WebCore17HTMLPlugInElement19willDetachRenderersEv
+_ZN7WebCore17HTMLPlugInElement25didAddUserAgentShadowRootEPNS_10ShadowRootE
+_ZN3JSC14JSGlobalObject10globalExecEv
+_ZN3JSC12JSLockHolderC1EPNS_9ExecStateE
+_ZN3JSC4callEPNS_9ExecStateENS_7JSValueENS_8CallTypeERKNS_8CallDataES2_RKNS_7ArgListE
+_ZN7WebCore17HTMLPlugInElement19defaultEventHandlerEPNS_5EventE
+_ZN7WebCore17HTMLPlugInElement13requestObjectERKN3WTF6StringES4_RKNS1_6VectorIS2_Lj0ENS1_15CrashOnOverflowEEES9_
+_ZN3JSC10Identifier3addEPNS_9ExecStateEPKc
+_ZNK3JSC6JSCell8toObjectEPNS_9ExecStateEPNS_14JSGlobalObjectE
+_ZNK3JSC7JSValue16toObjectSlowCaseEPNS_9ExecStateEPNS_14JSGlobalObjectE
+_ZNK3JSC12PropertySlot14functionGetterEPNS_9ExecStateE
+_ZN3JSC9Structure3getERNS_2VMENS_12PropertyNameERjRPNS_6JSCellE
+_ZN3JSC8JSObject22fillGetterPropertySlotERNS_12PropertySlotENS_7JSValueEji
+_ZN3JSC8JSObject22getOwnPropertySlotSlowEPNS_9ExecStateENS_12PropertyNameERNS_12PropertySlotE
+_ZN7WebCore13createWrapperEPN3JSC9ExecStateEPNS_17JSDOMGlobalObjectEPNS_4NodeE
+_ZN3JSC20MarkedArgumentBuffer10slowAppendENS_7JSValueE
+_ZN7WebCore16ScriptController10initScriptERNS_15DOMWrapperWorldE
+_ZN7WebCore15DOMWrapperWorldC1EPN3JSC2VMEb
 u_isprint
-WebCore::RenderTheme::themeForPage(WebCore::Page*)
-WebCore::Editor::textDidChangeInTextArea(WebCore::Element*)
-WebCore::plainText(WebCore::Range const*, WebCore::TextIteratorBehavior, bool)
-WebCore::VisibleSelection::toNormalizedRange() const
-WebCore::VisibleSelection::VisibleSelection()
-WebCore::indexForVisiblePosition(WebCore::Node*, WebCore::VisiblePosition const&, bool)
-WebCore::visiblePositionForIndexUsingCharacterIterator(WebCore::Node*, int)
-WebCore::DOMWindow::addEventListener(WTF::AtomicString const&, WTF::PassRefPtr<WebCore::EventListener>, bool)
-WebCore::RuntimeEnabledFeatures::sharedFeatures()
-Inspector::InspectorObject::create()
-Inspector::InspectorValue::toJSONString() const
-Inspector::InspectorString::create(WTF::String const&)
-WebCore::Editor::doTextFieldCommandFromEvent(WebCore::Element*, WebCore::KeyboardEvent*)
-WebCore::Editor::textFieldDidBeginEditing(WebCore::Element*)
-WebCore::Editor::textDidChangeInTextField(WebCore::Element*)
-WebCore::FrameSelection::textWasReplaced(WebCore::CharacterData*, unsigned int, unsigned int, unsigned int)
-WebCore::Pasteboard::setDragImage(void*, WebCore::IntPoint const&)
-WebCore::createDragImageFromImage(WebCore::Image*, WebCore::ImageOrientationDescription)
-WebCore::JSLazyEventListener::createForNode(WebCore::ContainerNode&, WebCore::QualifiedName const&, WTF::AtomicString const&)
-WebCore::willCreatePossiblyOrphanedTreeByRemovalSlowCase(WebCore::Node*)
-Deprecated::ScriptValue::~ScriptValue()
-WebCore::ScriptController::updateDocument()
-WebCore::DOMWindow::willDetachDocumentFromFrame()
-WebCore::DOMWindow::removeAllEventListeners()
-WebCore::ScriptController::disableEval(WTF::String const&)
-WebCore::Editor::didEndEditing()
-WebCore::Widget::setFocus(bool)
-WebCore::Editor::didBeginEditing()
-WebCore::FrameSelection::nodeWillBeRemoved(WebCore::Node*)
-WebCore::DragCaretController::nodeWillBeRemoved(WebCore::Node*)
-WebCore::DOMWindow::didSecureTransitionTo(WebCore::Document*)
-WebCore::JSLazyEventListener::createForDOMWindow(WebCore::Frame&, WebCore::QualifiedName const&, WTF::AtomicString const&)
-WebCore::DOMWindow::dispatchLoadEvent()
-WebCore::Editor::Command::isEnabled(WebCore::Event*) const
-WebCore::Editor::Command::state(WebCore::Event*) const
-WebCore::DOMWindow::history() const
-WebCore::ScriptController::evaluateInWorld(WebCore::ScriptSourceCode const&, WebCore::DOMWrapperWorld&)
-WebCore::ScriptCallStack::~ScriptCallStack()
+_ZN7WebCore11RenderTheme12themeForPageEPNS_4PageE
+_ZN7WebCore6Editor23textDidChangeInTextAreaEPNS_7ElementE
+_ZN7WebCore9plainTextEPKNS_5RangeENS_20TextIteratorBehaviorEb
+_ZNK7WebCore16VisibleSelection17toNormalizedRangeEv
+_ZN7WebCore16VisibleSelectionC1Ev
+_ZN7WebCore23indexForVisiblePositionEPNS_4NodeERKNS_15VisiblePositionEb
+_ZN7WebCore45visiblePositionForIndexUsingCharacterIteratorEPNS_4NodeEi
+_ZN7WebCore22RuntimeEnabledFeatures14sharedFeaturesEv
+_ZN9Inspector15InspectorObject6createEv
+_ZNK9Inspector14InspectorValue12toJSONStringEv
+_ZN9Inspector15InspectorString6createERKN3WTF6StringE
+_ZN7WebCore6Editor27doTextFieldCommandFromEventEPNS_7ElementEPNS_13KeyboardEventE
+_ZN7WebCore6Editor24textFieldDidBeginEditingEPNS_7ElementE
+_ZN7WebCore6Editor24textDidChangeInTextFieldEPNS_7ElementE
+_ZN7WebCore14FrameSelection15textWasReplacedEPNS_13CharacterDataEjjj
+_ZN7WebCore10Pasteboard12setDragImageEPvRKNS_8IntPointE
+_ZN7WebCore24createDragImageFromImageEPNS_5ImageENS_27ImageOrientationDescriptionE
+_ZN7WebCore19JSLazyEventListener13createForNodeERNS_13ContainerNodeERKNS_13QualifiedNameERKN3WTF12AtomicStringE
+_ZN7WebCore47willCreatePossiblyOrphanedTreeByRemovalSlowCaseEPNS_4NodeE
+_ZN10Deprecated11ScriptValueD1Ev
+_ZN7WebCore16ScriptController14updateDocumentEv
+_ZN7WebCore16ScriptController11disableEvalERKN3WTF6StringE
+_ZN7WebCore6Editor13didEndEditingEv
+_ZN7WebCore6Widget8setFocusEb
+_ZN7WebCore6Editor15didBeginEditingEv
+_ZN7WebCore14FrameSelection17nodeWillBeRemovedEPNS_4NodeE
+_ZN7WebCore19DragCaretController17nodeWillBeRemovedEPNS_4NodeE
+_ZN7WebCore19JSLazyEventListener18createForDOMWindowERNS_5FrameERKNS_13QualifiedNameERKN3WTF12AtomicStringE
+_ZNK7WebCore6Editor7Command9isEnabledEPNS_5EventE
+_ZNK7WebCore6Editor7Command5stateEPNS_5EventE
+_ZN7WebCore16ScriptController15evaluateInWorldERKNS_16ScriptSourceCodeERNS_15DOMWrapperWorldE
+_ZN7WebCore15ScriptCallStackD1Ev
 u_getIntPropertyValue
-WebCore::DOMWindow::DOMWindow(WebCore::Document*)
-WebCore::Editor::shouldBeginEditing(WebCore::Range*)
-WebCore::DOMWindow::printErrorMessage(WTF::String const&)
-WebCore::TextIterator::TextIterator(WebCore::Range const*, WebCore::TextIteratorBehavior)
-WebCore::TextIterator::advance()
-WebCore::TextIterator::~TextIterator()
-WebCore::PluginData::supportsMimeType(WTF::String const&, WebCore::PluginData::AllowedPluginTypes) const
-WebCore::VisibleSelection::VisibleSelection(WebCore::Position const&, WebCore::EAffinity, bool)
-WebCore::FrameSelection::shouldChangeSelection(WebCore::VisibleSelection const&) const
-WebCore::lastOffsetForEditing(WebCore::Node const*)
-WebCore::isTableElement(WebCore::Node*)
-WebCore::caretMaxOffset(WebCore::Node const*)
-WebCore::isAtomicNode(WebCore::Node const*)
-WebCore::ScriptController::evaluate(WebCore::ScriptSourceCode const&)
-WebCore::FontPlatformData::~FontPlatformData()
-WebCore::FontCustomPlatformData::supportsFormat(WTF::String const&)
-WebCore::FontCache::getTraitsInFamily(WTF::AtomicString const&, WTF::Vector<unsigned int, 0u, WTF::CrashOnOverflow>&)
+_ZN7WebCore6Editor18shouldBeginEditingEPNS_5RangeE
+_ZN7WebCore12TextIteratorC1EPKNS_5RangeENS_20TextIteratorBehaviorE
+_ZN7WebCore12TextIterator7advanceEv
+_ZN7WebCore12TextIteratorD1Ev
+_ZNK7WebCore10PluginData16supportsMimeTypeERKN3WTF6StringENS0_18AllowedPluginTypesE
+_ZN7WebCore16VisibleSelectionC1ERKNS_8PositionENS_9EAffinityEb
+_ZNK7WebCore14FrameSelection21shouldChangeSelectionERKNS_16VisibleSelectionE
+_ZN7WebCore20lastOffsetForEditingEPKNS_4NodeE
+_ZN7WebCore14isTableElementEPNS_4NodeE
+_ZN7WebCore14caretMaxOffsetEPKNS_4NodeE
+_ZN7WebCore12isAtomicNodeEPKNS_4NodeE
+_ZN7WebCore16ScriptController8evaluateERKNS_16ScriptSourceCodeE
 nextafter
-WebCore::screenRect(WebCore::Widget*)
-WebCore::screenIsMonochrome(WebCore::Widget*)
-WebCore::screenDepthPerComponent(WebCore::Widget*)
-WebCore::FrameSelection::isFocusedAndActive() const
-WebCore::GraphicsContext::clip(WebCore::FloatRect const&)
-WebCore::FrameSelection::contains(WebCore::LayoutPoint const&)
-WebCore::Editor::dictationAlternativesForMarker(WebCore::DocumentMarker const*)
-WebCore::GraphicsContext::drawLineForText(WebCore::FloatPoint const&, float, bool)
-WebCore::GraphicsContext::drawLineForDocumentMarker(WebCore::FloatPoint const&, float, WebCore::GraphicsContext::DocumentMarkerLineStyle)
-WebCore::GraphicsContext::computeLineBoundsForText(WebCore::FloatPoint const&, float, bool)
-WebCore::acquireLineBreakIterator(unsigned char const*, int, WTF::AtomicString const&, unsigned short const*, unsigned int)
-WebCore::FrameSelection::caretRenderer() const
-WebCore::DragCaretController::caretRenderer() const
-WebCore::FrameSelection::paintCaret(WebCore::GraphicsContext*, WebCore::LayoutPoint const&, WebCore::LayoutRect const&)
-WebCore::DragCaretController::paintDragCaret(WebCore::Frame*, WebCore::GraphicsContext*, WebCore::LayoutPoint const&, WebCore::LayoutRect const&) const
-WebCore::GraphicsContext::fillRect(WebCore::FloatRect const&, WebCore::Color const&, WebCore::ColorSpace)
-WebCore::VisibleSelection::hasEditableStyle() const
-WebCore::Editor::behavior() const
-WebCore::GraphicsContext::drawRect(WebCore::IntRect const&)
-WebCore::GraphicsContext::clipConvexPolygon(unsigned int, WebCore::FloatPoint const*, bool)
-WebCore::GraphicsContext::clip(WebCore::Path const&, WebCore::WindRule)
-WebCore::GraphicsContext::fillRectWithRoundedHole(WebCore::IntRect const&, WebCore::RoundedRect const&, WebCore::Color const&, WebCore::ColorSpace)
-WebCore::Cursor::operator=(WebCore::Cursor const&)
-WebCore::handCursor()
-WebCore::Icon::paint(WebCore::GraphicsContext*, WebCore::IntRect const&)
-WebCore::rowResizeCursor()
-WebCore::columnResizeCursor()
-WebCore::GraphicsContext::drawFocusRing(WebCore::Path const&, int, int, WebCore::Color const&)
-WebCore::GraphicsContext::clipPath(WebCore::Path const&, WebCore::WindRule)
-WebCore::GraphicsContext::drawEllipse(WebCore::IntRect const&)
-WebCore::AccessibilityMenuList::didUpdateActiveOption(int)
-WebCore::GraphicsContext::drawLine(WebCore::IntPoint const&, WebCore::IntPoint const&)
-WebCore::GraphicsContext::drawConvexPolygon(unsigned int, WebCore::FloatPoint const*, bool)
-WebCore::GraphicsContext::drawFocusRing(WTF::Vector<WebCore::IntRect, 0u, WTF::CrashOnOverflow> const&, int, int, WebCore::Color const&)
-WebCore::GraphicsContext::setURLForRect(WebCore::URL const&, WebCore::IntRect const&)
-WebCore::Widget::show()
-WebCore::Widget::hide()
+_ZN7WebCore10screenRectEPNS_6WidgetE
+_ZN7WebCore18screenIsMonochromeEPNS_6WidgetE
+_ZN7WebCore23screenDepthPerComponentEPNS_6WidgetE
+_ZNK7WebCore14FrameSelection18isFocusedAndActiveEv
+_ZN7WebCore14FrameSelection8containsERKNS_11LayoutPointE
+_ZN7WebCore6Editor30dictationAlternativesForMarkerEPKNS_14DocumentMarkerE
+_ZNK7WebCore14FrameSelection13caretRendererEv
+_ZNK7WebCore19DragCaretController13caretRendererEv
+_ZN7WebCore14FrameSelection10paintCaretEPNS_15GraphicsContextERKNS_11LayoutPointERKNS_10LayoutRectE
+_ZNK7WebCore19DragCaretController14paintDragCaretEPNS_5FrameEPNS_15GraphicsContextERKNS_11LayoutPointERKNS_10LayoutRectE
+_ZNK7WebCore16VisibleSelection16hasEditableStyleEv
+_ZNK7WebCore6Editor8behaviorEv
+_ZN7WebCore6CursoraSERKS0_
+_ZN7WebCore10handCursorEv
+_ZN7WebCore4Icon5paintEPNS_15GraphicsContextERKNS_7IntRectE
+_ZN7WebCore15rowResizeCursorEv
+_ZN7WebCore18columnResizeCursorEv
+_ZN7WebCore6Widget4showEv
+_ZN7WebCore6Widget4hideEv
 u_totitle
-WebCore::PlatformKeyboardEvent::currentCapsLockState()
-WebCore::Widget::setIsSelected(bool)
-WebCore::Path::apply(void*, void (*)(void*, WebCore::PathElement const*)) const
-WebCore::Path::strokeBoundingRect(WebCore::StrokeStyleApplier*) const
-WebCore::ScriptCallStack::at(unsigned int) const
-WebCore::ScriptCallStack::size() const
-WebCore::createScriptCallStack(unsigned int, bool)
-Inspector::InspectorBasicValue::create(double)
-WebCore::Editor::command(WTF::String const&)
-WebCore::VisibleSelection::VisibleSelection(WebCore::VisiblePosition const&, bool)
-WebCore::VisibleSelection::expandUsingGranularity(WebCore::TextGranularity)
-WebCore::BackForwardController::canGoBackOrForward(int) const
-WebCore::FrameSelection::isInPasswordField() const
-WebCore::Editor::isSpellCheckingEnabledFor(WebCore::Node*) const
-WebCore::Editor::guessesForMisspelledOrUngrammatical(bool&, bool&)
-WebCore::Editor::hasBidiSelection() const
-WebCore::Editor::canEdit() const
-WebCore::Editor::selectionHasStyle(WebCore::CSSPropertyID, WTF::String const&) const
-WebCore::Editor::canDHTMLCopy()
-WebCore::Editor::canCopy() const
-WebCore::Editor::canDHTMLCut()
-WebCore::Editor::canCut() const
-WebCore::Editor::canDHTMLPaste()
-WebCore::Editor::canPaste() const
-WebCore::Editor::canEditRichly() const
-WebCore::Editor::isGrammarCheckingEnabled()
-WebCore::Editor::spellingPanelIsShowing()
-WebCore::Editor::isContinuousSpellCheckingEnabled() const
-WebCore::TextIterator::characterAt(unsigned int) const
-WebCore::FrameSelection::modify(WebCore::FrameSelection::EAlteration, WebCore::SelectionDirection, WebCore::TextGranularity, WebCore::EUserTriggered)
-WebCore::VisibleSelection::VisibleSelection(WebCore::Range const*, WebCore::EAffinity, bool)
-WebCore::VisibleSelection::VisibleSelection(WebCore::Position const&, WebCore::Position const&, WebCore::EAffinity, bool)
-WebCore::Pasteboard::hasData()
-WebCore::Editor::willWriteSelectionToPasteboard(WTF::PassRefPtr<WebCore::Range>)
-WebCore::Pasteboard::writePlainText(WTF::String const&, WebCore::Pasteboard::SmartReplaceOption)
-WebCore::Editor::selectedTextForClipboard() const
-WebCore::Editor::didWriteSelectionToPasteboard()
-WebCore::dissolveDragImageToFraction(void*, float)
-WebCore::DragController::declareAndWriteDragImage(WebCore::Clipboard&, WebCore::Element&, WebCore::URL const&, WTF::String const&)
-WebCore::Editor::copyURL(WebCore::URL const&, WTF::String const&, WebCore::Pasteboard&)
-WebCore::enclosingAnchorElement(WebCore::Position const&)
-WebCore::VisibleSelection::selectionFromContentsOfNode(WebCore::Node*)
-WebCore::dragImageSize(void*)
-WebCore::scaleDragImage(void*, WebCore::FloatSize)
-WebCore::deleteDragImage(void*)
-WebCore::DragController::maxDragImageSize()
-WebCore::createDragImageIconForCachedImageFilename(WTF::String const&)
-WebCore::DragController::cleanupAfterSystemDrag()
-WebCore::FrameSelection::bounds(bool) const
-WebCore::VisibleSelection::isContentEditable() const
-WebCore::Cursor::~Cursor()
-WebCore::FrameSelection::setNonDirectionalSelectionIfNeeded(WebCore::VisibleSelection const&, WebCore::TextGranularity, WebCore::FrameSelection::EndPointsAdjustmentMode)
-WebCore::VisibleSelection::setExtent(WebCore::Position const&)
-WebCore::VisibleSelection::setBase(WebCore::Position const&)
-WebCore::comparePositions(WebCore::VisiblePosition const&, WebCore::VisiblePosition const&)
-WebCore::VisibleSelection::setExtent(WebCore::VisiblePosition const&)
-WebCore::EventHandler::eventActivatedView(WebCore::PlatformMouseEvent const&) const
-WebCore::PlatformKeyboardEvent::getCurrentModifierState(bool&, bool&, bool&, bool&)
-WebCore::Widget::setCursor(WebCore::Cursor const&)
-WebCore::iBeamCursor()
-WebCore::verticalTextCursor()
-WebCore::Cursor::Cursor(WebCore::Image*, WebCore::IntPoint const&)
-WebCore::pointerCursor()
-WebCore::crossCursor()
-WebCore::moveCursor()
-WebCore::eastResizeCursor()
-WebCore::westResizeCursor()
-WebCore::northResizeCursor()
-WebCore::southResizeCursor()
-WebCore::northEastResizeCursor()
-WebCore::southWestResizeCursor()
-WebCore::northWestResizeCursor()
-WebCore::southEastResizeCursor()
-WebCore::northSouthResizeCursor()
-WebCore::eastWestResizeCursor()
-WebCore::northEastSouthWestResizeCursor()
-WebCore::northWestSouthEastResizeCursor()
-WebCore::waitCursor()
-WebCore::helpCursor()
-WebCore::cellCursor()
-WebCore::contextMenuCursor()
-WebCore::progressCursor()
-WebCore::noDropCursor()
-WebCore::aliasCursor()
-WebCore::copyCursor()
-WebCore::noneCursor()
-WebCore::notAllowedCursor()
-WebCore::zoomInCursor()
-WebCore::zoomOutCursor()
-WebCore::grabCursor()
-WebCore::grabbingCursor()
-WebCore::EventHandler::passMouseMoveEventToSubframe(WebCore::MouseEventWithHitTestResults&, WebCore::Frame*, WebCore::HitTestResult*)
-WebCore::Editor::handleKeyboardEvent(WebCore::KeyboardEvent*)
-WebCore::EventHandler::createDraggingClipboard() const
-WebCore::Editor::handleTextEvent(WebCore::TextEvent*)
-WebCore::Cursor::Cursor(WebCore::Cursor const&)
-WebCore::FrameSelection::setFocused(bool)
-WebCore::Editor::shouldEndEditing(WebCore::Range*)
-WebCore::FrameSelection::FrameSelection(WebCore::Frame*)
-WebCore::EditingStyle::~EditingStyle()
-WebCore::Editor::~Editor()
-WebCore::ScriptController::~ScriptController()
-WebCore::ScriptController::ScriptController(WebCore::Frame&)
-WebCore::Editor::Editor(WebCore::Frame&)
-WebCore::Widget::setFrameRect(WebCore::IntRect const&)
-WebCore::FrameSelection::updateAppearance()
-WebCore::BackForwardController::close()
-WebCore::PluginData::refresh()
-WebCore::BackForwardController::~BackForwardController()
-WebCore::BackForwardController::BackForwardController(WebCore::Page&, WTF::PassRefPtr<WebCore::BackForwardClient>)
-WebCore::DragCaretController::DragCaretController()
-_embind_register_class_constructor
-_embind_register_class
-WebCore::PluginData::PluginData(WebCore::Page const*)
-WebCore::ThreadableBlobRegistry::getCachedOrigin(WebCore::URL const&)
+_ZN7WebCore21PlatformKeyboardEvent20currentCapsLockStateEv
+_ZN7WebCore6Widget13setIsSelectedEb
+_ZNK7WebCore15ScriptCallStack2atEj
+_ZNK7WebCore15ScriptCallStack4sizeEv
+_ZN7WebCore21createScriptCallStackEjb
+_ZN9Inspector19InspectorBasicValue6createEd
+_ZN7WebCore6Editor7commandERKN3WTF6StringE
+_ZN7WebCore16VisibleSelectionC1ERKNS_15VisiblePositionEb
+_ZN7WebCore16VisibleSelection22expandUsingGranularityENS_15TextGranularityE
+_ZNK7WebCore21BackForwardController18canGoBackOrForwardEi
+_ZNK7WebCore14FrameSelection17isInPasswordFieldEv
+_ZNK7WebCore6Editor25isSpellCheckingEnabledForEPNS_4NodeE
+_ZN7WebCore6Editor35guessesForMisspelledOrUngrammaticalERbS1_
+_ZNK7WebCore6Editor16hasBidiSelectionEv
+_ZNK7WebCore6Editor7canEditEv
+_ZNK7WebCore6Editor17selectionHasStyleENS_13CSSPropertyIDERKN3WTF6StringE
+_ZN7WebCore6Editor12canDHTMLCopyEv
+_ZNK7WebCore6Editor7canCopyEv
+_ZN7WebCore6Editor11canDHTMLCutEv
+_ZNK7WebCore6Editor6canCutEv
+_ZN7WebCore6Editor13canDHTMLPasteEv
+_ZNK7WebCore6Editor8canPasteEv
+_ZNK7WebCore6Editor13canEditRichlyEv
+_ZN7WebCore6Editor24isGrammarCheckingEnabledEv
+_ZN7WebCore6Editor22spellingPanelIsShowingEv
+_ZNK7WebCore6Editor32isContinuousSpellCheckingEnabledEv
+_ZNK7WebCore12TextIterator11characterAtEj
+_ZN7WebCore16VisibleSelectionC1EPKNS_5RangeENS_9EAffinityEb
+_ZN7WebCore16VisibleSelectionC1ERKNS_8PositionES3_NS_9EAffinityEb
+_ZN7WebCore7Storage6createEPNS_5FrameEN3WTF10PassRefPtrINS_11StorageAreaEEE
+_ZN7WebCore10Pasteboard7hasDataEv
+_ZN7WebCore6Editor30willWriteSelectionToPasteboardEN3WTF10PassRefPtrINS_5RangeEEE
+_ZN7WebCore10Pasteboard14writePlainTextERKN3WTF6StringENS0_18SmartReplaceOptionE
+_ZNK7WebCore6Editor24selectedTextForClipboardEv
+_ZN7WebCore6Editor29didWriteSelectionToPasteboardEv
+_ZN7WebCore27dissolveDragImageToFractionEPvf
+_ZN7WebCore14DragController24declareAndWriteDragImageERNS_9ClipboardERNS_7ElementERKNS_3URLERKN3WTF6StringE
+_ZN7WebCore6Editor7copyURLERKNS_3URLERKN3WTF6StringERNS_10PasteboardE
+_ZN7WebCore22enclosingAnchorElementERKNS_8PositionE
+_ZN7WebCore16VisibleSelection27selectionFromContentsOfNodeEPNS_4NodeE
+_ZN7WebCore13dragImageSizeEPv
+_ZN7WebCore14scaleDragImageEPvNS_9FloatSizeE
+_ZN7WebCore15deleteDragImageEPv
+_ZN7WebCore14DragController16maxDragImageSizeEv
+_ZN7WebCore41createDragImageIconForCachedImageFilenameERKN3WTF6StringE
+_ZN7WebCore14DragController22cleanupAfterSystemDragEv
+_ZNK7WebCore14FrameSelection6boundsEb
+_ZNK7WebCore16VisibleSelection17isContentEditableEv
+_ZN7WebCore6CursorD1Ev
+_ZN7WebCore14FrameSelection34setNonDirectionalSelectionIfNeededERKNS_16VisibleSelectionENS_15TextGranularityENS0_23EndPointsAdjustmentModeE
+_ZN7WebCore16VisibleSelection9setExtentERKNS_8PositionE
+_ZN7WebCore16VisibleSelection7setBaseERKNS_8PositionE
+_ZN7WebCore16comparePositionsERKNS_15VisiblePositionES2_
+_ZN7WebCore16VisibleSelection9setExtentERKNS_15VisiblePositionE
+_ZNK7WebCore12EventHandler18eventActivatedViewERKNS_18PlatformMouseEventE
+_ZN7WebCore21PlatformKeyboardEvent23getCurrentModifierStateERbS1_S1_S1_
+_ZN7WebCore6Widget9setCursorERKNS_6CursorE
+_ZN7WebCore11iBeamCursorEv
+_ZN7WebCore18verticalTextCursorEv
+_ZN7WebCore6CursorC1EPNS_5ImageERKNS_8IntPointE
+_ZN7WebCore13pointerCursorEv
+_ZN7WebCore11crossCursorEv
+_ZN7WebCore10moveCursorEv
+_ZN7WebCore16eastResizeCursorEv
+_ZN7WebCore16westResizeCursorEv
+_ZN7WebCore17northResizeCursorEv
+_ZN7WebCore17southResizeCursorEv
+_ZN7WebCore21northEastResizeCursorEv
+_ZN7WebCore21southWestResizeCursorEv
+_ZN7WebCore21northWestResizeCursorEv
+_ZN7WebCore21southEastResizeCursorEv
+_ZN7WebCore22northSouthResizeCursorEv
+_ZN7WebCore20eastWestResizeCursorEv
+_ZN7WebCore30northEastSouthWestResizeCursorEv
+_ZN7WebCore30northWestSouthEastResizeCursorEv
+_ZN7WebCore10waitCursorEv
+_ZN7WebCore10helpCursorEv
+_ZN7WebCore10cellCursorEv
+_ZN7WebCore17contextMenuCursorEv
+_ZN7WebCore14progressCursorEv
+_ZN7WebCore12noDropCursorEv
+_ZN7WebCore11aliasCursorEv
+_ZN7WebCore10copyCursorEv
+_ZN7WebCore10noneCursorEv
+_ZN7WebCore16notAllowedCursorEv
+_ZN7WebCore12zoomInCursorEv
+_ZN7WebCore13zoomOutCursorEv
+_ZN7WebCore10grabCursorEv
+_ZN7WebCore14grabbingCursorEv
+_ZN7WebCore12EventHandler28passMouseMoveEventToSubframeERNS_28MouseEventWithHitTestResultsEPNS_5FrameEPNS_13HitTestResultE
+_ZN7WebCore6Editor19handleKeyboardEventEPNS_13KeyboardEventE
+_ZNK7WebCore12EventHandler23createDraggingClipboardEv
+_ZN7WebCore6Editor15handleTextEventEPNS_9TextEventE
+_ZN7WebCore6CursorC1ERKS0_
+_ZN7WebCore14FrameSelection10setFocusedEb
+_ZN7WebCore6Editor16shouldEndEditingEPNS_5RangeE
+_ZN7WebCore14FrameSelectionC1EPNS_5FrameE
+_ZN7WebCore12EditingStyleD1Ev
+_ZN7WebCore6EditorD1Ev
+_ZN7WebCore16ScriptControllerD1Ev
+_ZN7WebCore16ScriptControllerC1ERNS_5FrameE
+_ZN7WebCore6EditorC1ERNS_5FrameE
+_ZN7WebCore6Widget12setFrameRectERKNS_7IntRectE
+_ZN7WebCore14FrameSelection16updateAppearanceEv
+_ZN7WebCore21BackForwardController5closeEv
+_ZN7WebCore10PluginData7refreshEv
+_ZN7WebCore16StorageNamespace23sessionStorageNamespaceEPNS_4PageE
+_ZN7WebCore21BackForwardControllerD1Ev
+_ZN7WebCore21BackForwardControllerC1ERNS_4PageEN3WTF10PassRefPtrINS_17BackForwardClientEEE
+_ZN7WebCore19DragCaretControllerC1Ev
+_ZN7WebCore10PluginDataC1EPKNS_4PageE
+_ZN7WebCore16StorageNamespace21localStorageNamespaceEPNS_9PageGroupE
+_ZN7WebCore16StorageNamespace30transientLocalStorageNamespaceEPNS_9PageGroupEPNS_14SecurityOriginE
+_ZN7WebCore22ThreadableBlobRegistry15getCachedOriginERKNS_3URLE
 ShInitialize
 ShDestruct
 ShConstructCompiler
@@ -477,107 +448,30 @@ ShGetInfoLog
 ShGetObjectCode
 ShGetVariableInfo
 ShGetInfo
-WebCore::BitmapImage::invalidatePlatformData()
-WebCore::FrameData::clear(bool)
-WebCore::BitmapImage::checkForSolidColor()
-WebCore::BitmapImage::draw(WebCore::GraphicsContext*, WebCore::FloatRect const&, WebCore::FloatRect const&, WebCore::ColorSpace, WebCore::CompositeOperator, WebCore::BlendMode, WebCore::ImageOrientationDescription)
-nextafterf
-WebCore::GraphicsContext::isAcceleratedContext() const
-WebCore::ImageBuffer::drawPattern(WebCore::GraphicsContext*, WebCore::FloatRect const&, WebCore::AffineTransform const&, WebCore::FloatPoint const&, WebCore::ColorSpace, WebCore::CompositeOperator, WebCore::FloatRect const&)
+_ZN7WebCore11BitmapImage22invalidatePlatformDataEv
 ShInitBuiltInResources
-WebCore::ImageBuffer::getPremultipliedImageData(WebCore::IntRect const&, WebCore::ImageBuffer::CoordinateSystem) const
-WebCore::Font::drawComplexText(WebCore::GraphicsContext*, WebCore::TextRun const&, WebCore::FloatPoint const&, int, int) const
-WebCore::Font::drawEmphasisMarksForComplexText(WebCore::GraphicsContext*, WebCore::TextRun const&, WTF::AtomicString const&, WebCore::FloatPoint const&, int, int) const
-WebCore::Font::canReturnFallbackFontsForComplexText()
-WebCore::Font::floatWidthForComplexText(WebCore::TextRun const&, WTF::HashSet<WebCore::SimpleFontData const*, WTF::PtrHash<WebCore::SimpleFontData const*>, WTF::HashTraits<WebCore::SimpleFontData const*> >*, WebCore::GlyphOverflow*) const
-WebCore::Font::selectionRectForComplexText(WebCore::TextRun const&, WebCore::FloatPoint const&, int, int, int) const
-WebCore::Font::offsetForPositionForComplexText(WebCore::TextRun const&, float, bool) const
-WebCore::Font::canExpandAroundIdeographsInComplexText()
-WebCore::FontCache::platformInit()
-WebCore::FontCache::createFontPlatformData(WebCore::FontDescription const&, WTF::AtomicString const&)
-WebCore::FontCache::getLastResortFallbackFont(WebCore::FontDescription const&, WebCore::FontCache::ShouldRetain)
-WebCore::FontPlatformData::platformIsEqual(WebCore::FontPlatformData const&) const
-WebCore::Font::drawGlyphs(WebCore::GraphicsContext*, WebCore::SimpleFontData const*, WebCore::GlyphBuffer const&, int, int, WebCore::FloatPoint const&) const
-WebCore::SimpleFontData::platformBoundsForGlyph(unsigned short) const
-WebCore::FontCache::systemFallbackForCharacters(WebCore::FontDescription const&, WebCore::SimpleFontData const*, bool, unsigned short const*, int)
-WebCore::FontPlatformData::platformDataInit(WebCore::FontPlatformData const&)
-WebCore::FontPlatformData::platformDataAssign(WebCore::FontPlatformData const&)
-WebCore::GlyphPage::fill(unsigned int, unsigned int, unsigned short*, unsigned int, WebCore::SimpleFontData const*)
-WebCore::Gradient::platformDestroy()
-WebCore::Gradient::setPlatformGradientSpaceTransform(WebCore::AffineTransform const&)
-WebCore::GraphicsContext::savePlatformState()
-WebCore::GraphicsContext::restorePlatformState()
-WebCore::GraphicsContext::setPlatformStrokeThickness(float)
-WebCore::GraphicsContext::setPlatformStrokeStyle(WebCore::StrokeStyle)
-WebCore::GraphicsContext::setPlatformStrokeColor(WebCore::Color const&, WebCore::ColorSpace)
-WebCore::GraphicsContext::setPlatformShadow(WebCore::FloatSize const&, float, WebCore::Color const&, WebCore::ColorSpace)
-WebCore::GraphicsContext::clearPlatformShadow()
-WebCore::GraphicsContext::setPlatformFillColor(WebCore::Color const&, WebCore::ColorSpace)
-WebCore::GraphicsContext::setPlatformShouldAntialias(bool)
-WebCore::GraphicsContext::beginPlatformTransparencyLayer(float)
-WebCore::GraphicsContext::endPlatformTransparencyLayer()
-WebCore::GraphicsContext::imageInterpolationQuality() const
-WebCore::ImageBuffer::draw(WebCore::GraphicsContext*, WebCore::ColorSpace, WebCore::FloatRect const&, WebCore::FloatRect const&, WebCore::CompositeOperator, WebCore::BlendMode, bool)
-WebCore::GraphicsContext::clipOut(WebCore::Path const&)
-WebCore::ImageBuffer::clip(WebCore::GraphicsContext*, WebCore::FloatRect const&) const
-WebCore::Gradient::fill(WebCore::GraphicsContext*, WebCore::FloatRect const&)
-WebCore::GraphicsContext::fillRoundedRect(WebCore::IntRect const&, WebCore::IntSize const&, WebCore::IntSize const&, WebCore::IntSize const&, WebCore::IntSize const&, WebCore::Color const&, WebCore::ColorSpace)
-WebCore::GraphicsContext::setPlatformCompositeOperation(WebCore::CompositeOperator, WebCore::BlendMode)
-WebCore::ImageBuffer::platformTransformColorSpace(WTF::Vector<int, 0u, WTF::CrashOnOverflow> const&)
-WebCore::ImageFrame::asNewNativeImage() const
-WebCore::GraphicsContext3D::platformGraphicsContext3D()
-WebCore::SimpleFontData::platformInit()
-WebCore::SimpleFontData::platformCharWidthInit()
-WebCore::SimpleFontData::platformDestroy()
-WebCore::SimpleFontData::platformCreateScaledFontData(WebCore::FontDescription const&, float) const
-WebCore::SimpleFontData::containsCharacters(unsigned short const*, int) const
+FcFontSetDestroy
+FcPatternReference
+nextafterf
+eglCreatePbufferSurface
+FcInit
+FcCharSetCreate
+FcCharSetAddChar
+FcPatternAddCharSet
+FcCharSetDestroy
+FcFontSort
+FcFontSetMatch
+FcPatternEqual
+FcPatternGetMatrix
+FcMatrixMultiply
 u_getCombiningClass
 unorm_normalize
 ublock_getCode
 uncompress
-jpeg_read_scanlines
-jpeg_destroy_decompress
-jpeg_read_header
-jpeg_has_multiple_scans
-jpeg_calc_output_dimensions
-jpeg_start_decompress
-jpeg_consume_input
-jpeg_start_output
-jpeg_finish_output
-jpeg_input_complete
-jpeg_finish_decompress
-jpeg_std_error
-jpeg_CreateDecompress
-WTF::fastCalloc(unsigned int, unsigned int)
-jpeg_resync_to_restart
-jpeg_save_markers
-png_get_image_width
-png_get_image_height
-png_get_IHDR
-png_set_expand
-png_get_valid
-png_get_tRNS
-png_set_strip_16
-png_set_gray_to_rgb
-png_get_gAMA
-png_set_gAMA
-png_set_gamma
-png_set_interlace_handling
-png_read_update_info
-png_get_channels
-png_get_interlace_type
-png_progressive_combine_row
-png_destroy_read_struct
-png_get_progressive_ptr
-png_process_data
-png_create_read_struct
-png_create_info_struct
-png_set_progressive_read_fn
-png_error
-png_get_iCCP
-WebCore::platformUserPreferredLanguages()
-WebCore::localizedString(char const*)
-WebCore::MIMETypeRegistry::getMIMETypeForExtension(WTF::String const&)
+_ZN3WTF10fastCallocEjj
+_ZN7WebCore30platformUserPreferredLanguagesEv
+_ZN7WebCore15localizedStringEPKc
+_ZN7WebCore16MIMETypeRegistry23getMIMETypeForExtensionERKN3WTF6StringE
 curl_easy_init
 curl_easy_setopt
 curl_easy_cleanup
@@ -589,7 +483,7 @@ curl_multi_cleanup
 curl_global_cleanup
 curl_multi_add_handle
 curl_multi_remove_handle
-WTF::fastStrDup(char const*)
+_ZN3WTF10fastStrDupEPKc
 curl_slist_append
 curl_easy_pause
 curl_share_init
@@ -598,63 +492,81 @@ curl_multi_fdset
 curl_multi_perform
 curl_multi_info_read
 curl_easy_strerror
-WebCore::setSSLVerifyOptions(WebCore::ResourceHandle*)
+_ZN7WebCore19setSSLVerifyOptionsEPNS_14ResourceHandleE
 curl_version_info
-WebCore::ResourceHandle::continueWillSendRequest(WebCore::ResourceRequest const&)
-WebCore::ResourceHandle::continueDidReceiveResponse()
-WebCore::ResourceHandle::continueShouldUseCredentialStorage(bool)
-WebCore::fileSystemRepresentation(WTF::String const&)
-WebCore::Widget::Widget(void*)
-WebCore::Widget::~Widget()
-WebCore::Widget::paint(WebCore::GraphicsContext*, WebCore::IntRect const&)
-WebCore::ScrollbarTheme::nativeTheme()
+_ZN7WebCore14ResourceHandle23continueWillSendRequestERKNS_15ResourceRequestE
+_ZN7WebCore14ResourceHandle26continueDidReceiveResponseEv
+_ZN7WebCore14ResourceHandle34continueShouldUseCredentialStorageEb
+_ZN7WebCore24fileSystemRepresentationERKN3WTF6StringE
+_ZN7WebCore6WidgetC2EPv
+_ZN7WebCore6WidgetD2Ev
+_ZN7WebCore6Widget5paintEPNS_15GraphicsContextERKNS_7IntRectE
+_ZN7WebCore14ScrollbarTheme11nativeThemeEv
 sqlite3_errmsg
 sqlite3_close
 sqlite3_extended_result_codes
-WebCore::SQLiteStatement::returnTextResults(int, WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow>&)
+_ZN7WebCore15SQLiteStatement17returnTextResultsEiRN3WTF6VectorINS1_6StringELj0ENS1_15CrashOnOverflowEEE
 sqlite3_last_insert_rowid
 sqlite3_errcode
-WebCore::DatabaseAuthorizer::createIndex(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::createTable(WTF::String const&)
-WebCore::DatabaseAuthorizer::createTempIndex(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::createTempTable(WTF::String const&)
-WebCore::DatabaseAuthorizer::createTempTrigger(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::createTempView(WTF::String const&)
-WebCore::DatabaseAuthorizer::createTrigger(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::createView(WTF::String const&)
-WebCore::DatabaseAuthorizer::allowDelete(WTF::String const&)
-WebCore::DatabaseAuthorizer::dropIndex(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::dropTable(WTF::String const&)
-WebCore::DatabaseAuthorizer::dropTempIndex(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::dropTempTable(WTF::String const&)
-WebCore::DatabaseAuthorizer::dropTempTrigger(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::dropTempView(WTF::String const&)
-WebCore::DatabaseAuthorizer::dropTrigger(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::dropView(WTF::String const&)
-WebCore::DatabaseAuthorizer::allowInsert(WTF::String const&)
-WebCore::DatabaseAuthorizer::allowPragma(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::allowRead(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::allowTransaction()
-WebCore::DatabaseAuthorizer::allowUpdate(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::allowAttach(WTF::String const&)
-WebCore::DatabaseAuthorizer::allowDetach(WTF::String const&)
-WebCore::DatabaseAuthorizer::allowAlterTable(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::allowReindex(WTF::String const&)
-WebCore::DatabaseAuthorizer::allowAnalyze(WTF::String const&)
-WebCore::DatabaseAuthorizer::createVTable(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::dropVTable(WTF::String const&, WTF::String const&)
-WebCore::DatabaseAuthorizer::allowFunction(WTF::String const&)
+_ZN7WebCore18DatabaseAuthorizer11createIndexERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer11createTableERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer15createTempIndexERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer15createTempTableERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer17createTempTriggerERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer14createTempViewERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer13createTriggerERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer10createViewERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer11allowDeleteERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer9dropIndexERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer9dropTableERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer13dropTempIndexERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer13dropTempTableERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer15dropTempTriggerERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer12dropTempViewERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer11dropTriggerERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer8dropViewERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer11allowInsertERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer11allowPragmaERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer9allowReadERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer16allowTransactionEv
+_ZN7WebCore18DatabaseAuthorizer11allowUpdateERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer11allowAttachERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer11allowDetachERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer15allowAlterTableERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer12allowReindexERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer12allowAnalyzeERKN3WTF6StringE
+_ZN7WebCore18DatabaseAuthorizer12createVTableERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer10dropVTableERKN3WTF6StringES4_
+_ZN7WebCore18DatabaseAuthorizer13allowFunctionERKN3WTF6StringE
 sqlite3_set_authorizer
 sqlite3_open
-JSC::Yarr::interpret(JSC::Yarr::BytecodePattern*, WTF::String const&, unsigned int, unsigned int*)
-JSC::Yarr::YarrPattern::YarrPattern(WTF::String const&, bool, bool, char const**)
-JSC::Yarr::byteCompile(JSC::Yarr::YarrPattern&, WTF::BumpPointerAllocator*)
+_ZN3JSC4Yarr9interpretEPNS0_15BytecodePatternERKN3WTF6StringEjPj
+_ZN3JSC4Yarr11YarrPatternC1ERKN3WTF6StringEbbPPKc
+_ZN3JSC4Yarr11byteCompileERNS0_11YarrPatternEPN3WTF20BumpPointerAllocatorE
+ubrk_setUText
+utext_close
+ubrk_close
+ubrk_first
+ubrk_next
+ubrk_preceding
+ubrk_following
+ubrk_current
+ubrk_isBoundary
+ubrk_openRules
+ubrk_setText
+utext_setup
+ubrk_open
+_ZN7WebCore24currentTextBreakLocaleIDEv
+ucnv_close
+_ZN7WebCore37shouldShowBackslashAsCurrencySymbolInEPKc
+_ZN7WebCore31atomicCanonicalTextEncodingNameEPKc
+_ZN7WebCore31atomicCanonicalTextEncodingNameERKN3WTF6StringE
 unorm_quickCheck
-WebCore::TextCodecICU::registerEncodingNames(void (*)(char const*, char const*))
-WebCore::TextCodecICU::registerCodecs(void (*)(char const*, WTF::PassOwnPtr<WebCore::TextCodec> (*)(WebCore::TextEncoding const&, void const*), void const*))
-u_isspace
-WebCore::ICUConverterWrapper::~ICUConverterWrapper()
-WebCore::stopSharedTimer()
-WebCore::setSharedTimerFireInterval(double)
-WebCore::setSharedTimerFiredFunction(void (*)())
+_ZN7WebCore30noExtendedTextEncodingNameUsedEv
+_ZN7WebCore18isJapaneseEncodingEPKc
+_ZN7WebCore15stopSharedTimerEv
+_ZN7WebCore26setSharedTimerFireIntervalEd
+_ZN7WebCore27setSharedTimerFiredFunctionEPFvvE
+uidna_IDNToASCII
+crc32
 uidna_IDNToASCII
