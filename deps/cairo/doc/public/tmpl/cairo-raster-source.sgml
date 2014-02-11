@@ -1,0 +1,178 @@
+<!-- ##### SECTION Title ##### -->
+cairo-raster-source
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### FUNCTION cairo_pattern_create_raster_source ##### -->
+<para>
+
+</para>
+
+@user_data: 
+@content: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_raster_source_pattern_set_callback_data ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@data: 
+
+
+<!-- ##### FUNCTION cairo_raster_source_pattern_get_callback_data ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_raster_source_pattern_set_acquire ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@acquire: 
+@release: 
+
+
+<!-- ##### FUNCTION cairo_raster_source_pattern_get_acquire ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@acquire: 
+@release: 
+
+
+<!-- ##### FUNCTION cairo_raster_source_pattern_set_snapshot ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@snapshot: 
+
+
+<!-- ##### FUNCTION cairo_raster_source_pattern_get_snapshot ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_raster_source_pattern_set_copy ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@copy: 
+
+
+<!-- ##### FUNCTION cairo_raster_source_pattern_get_copy ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_raster_source_pattern_set_finish ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@finish: 
+
+
+<!-- ##### FUNCTION cairo_raster_source_pattern_get_finish ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION cairo_raster_source_acquire_func_t ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@callback_data: 
+@target: 
+@extents: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION cairo_raster_source_release_func_t ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@callback_data: 
+@surface: 
+
+
+<!-- ##### USER_FUNCTION cairo_raster_source_snapshot_func_t ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@callback_data: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION cairo_raster_source_copy_func_t ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@callback_data: 
+@other: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION cairo_raster_source_finish_func_t ##### -->
+<para>
+
+</para>
+
+@pattern: 
+@callback_data: 
+
+

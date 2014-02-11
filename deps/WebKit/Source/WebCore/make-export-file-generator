@@ -74,7 +74,7 @@ printf("'%s',", symbol);
 int main(int, char**)
 {
 // #if PLATFORM(JS)
-printf("-s EXPORTED_FUNCTIONS=\\"[");
+printf("EXPORTED_FUNCTIONS=\\"[");
 // #endif
 <%- input.each_line do |line| -%>
 <%= line_for_output line %>

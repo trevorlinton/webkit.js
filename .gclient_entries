@@ -1,0 +1,11 @@
+entries = {
+  '.': 'https://github.com/trevorlinton/webkit.js.git',
+  'deps/ffmpeg': 'https://github.com/trevorlinton/FFmpeg.git',
+  'deps/freetype2': 'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git',
+  'deps/icu': 'https://github.com/trevorlinton/icu4c.git',
+  'deps/libjpeg_turbo': 'https://github.com/trevorlinton/libjpeg-turbo.git',
+  'deps/libxml2': 'https://github.com/trevorlinton/libxml2.git',
+  'deps/skia': 'https://github.com/trevorlinton/skia.git',
+  'tools/deps2git': 'https://chromium.googlesource.com/chromium/tools/deps2git.git',
+  'tools/gyp': 'https://chromium.googlesource.com/chromium/../external/gyp.git',
+}

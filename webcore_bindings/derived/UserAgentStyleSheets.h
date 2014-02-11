@@ -6,5 +6,4 @@ extern const char themeWinUserAgentStyleSheet[1444];
 extern const char themeWinQuirksUserAgentStyleSheet[34];
 extern const char plugInsUserAgentStyleSheet[1413];
 extern const char svgUserAgentStyleSheet[399];
-extern const char mathmlUserAgentStyleSheet[5960];
 }

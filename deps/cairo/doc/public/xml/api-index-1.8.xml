@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<indexdiv>
+<indexdiv><title>G</title>
+<indexentry><primaryie linkends="cairo-glyph-allocate"><link linkend="cairo-glyph-allocate">cairo_glyph_allocate</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-glyph-free"><link linkend="cairo-glyph-free">cairo_glyph_free</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>S</title>
+<indexentry><primaryie linkends="cairo-scaled-font-get-scale-matrix"><link linkend="cairo-scaled-font-get-scale-matrix">cairo_scaled_font_get_scale_matrix</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-scaled-font-text-to-glyphs"><link linkend="cairo-scaled-font-text-to-glyphs">cairo_scaled_font_text_to_glyphs</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-show-text-glyphs"><link linkend="cairo-show-text-glyphs">cairo_show_text_glyphs</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-get-fallback-resolution"><link linkend="cairo-surface-get-fallback-resolution">cairo_surface_get_fallback_resolution</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-has-show-text-glyphs"><link linkend="cairo-surface-has-show-text-glyphs">cairo_surface_has_show_text_glyphs</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>T</title>
+<indexentry><primaryie linkends="cairo-text-cluster-allocate"><link linkend="cairo-text-cluster-allocate">cairo_text_cluster_allocate</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-text-cluster-flags-t"><link linkend="cairo-text-cluster-flags-t">cairo_text_cluster_flags_t</link>, enum in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-text-cluster-free"><link linkend="cairo-text-cluster-free">cairo_text_cluster_free</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-text-cluster-t"><link linkend="cairo-text-cluster-t">cairo_text_cluster_t</link>, struct in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-toy-font-face-create"><link linkend="cairo-toy-font-face-create">cairo_toy_font_face_create</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-toy-font-face-get-family"><link linkend="cairo-toy-font-face-get-family">cairo_toy_font_face_get_family</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-toy-font-face-get-slant"><link linkend="cairo-toy-font-face-get-slant">cairo_toy_font_face_get_slant</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-toy-font-face-get-weight"><link linkend="cairo-toy-font-face-get-weight">cairo_toy_font_face_get_weight</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>U</title>
+<indexentry><primaryie linkends="cairo-user-font-face-create"><link linkend="cairo-user-font-face-create">cairo_user_font_face_create</link>, function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-font-face-get-init-func"><link linkend="cairo-user-font-face-get-init-func">cairo_user_font_face_get_init_func</link>, function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-font-face-get-render-glyph-func"><link linkend="cairo-user-font-face-get-render-glyph-func">cairo_user_font_face_get_render_glyph_func</link>, function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-font-face-get-text-to-glyphs-func"><link linkend="cairo-user-font-face-get-text-to-glyphs-func">cairo_user_font_face_get_text_to_glyphs_func</link>, function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-font-face-get-unicode-to-glyph-func"><link linkend="cairo-user-font-face-get-unicode-to-glyph-func">cairo_user_font_face_get_unicode_to_glyph_func</link>, function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-font-face-set-init-func"><link linkend="cairo-user-font-face-set-init-func">cairo_user_font_face_set_init_func</link>, function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-font-face-set-render-glyph-func"><link linkend="cairo-user-font-face-set-render-glyph-func">cairo_user_font_face_set_render_glyph_func</link>, function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-font-face-set-text-to-glyphs-func"><link linkend="cairo-user-font-face-set-text-to-glyphs-func">cairo_user_font_face_set_text_to_glyphs_func</link>, function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-font-face-set-unicode-to-glyph-func"><link linkend="cairo-user-font-face-set-unicode-to-glyph-func">cairo_user_font_face_set_unicode_to_glyph_func</link>, function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-scaled-font-init-func-t"><link linkend="cairo-user-scaled-font-init-func-t">cairo_user_scaled_font_init_func_t</link>, user_function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-scaled-font-render-glyph-func-t"><link linkend="cairo-user-scaled-font-render-glyph-func-t">cairo_user_scaled_font_render_glyph_func_t</link>, user_function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-scaled-font-text-to-glyphs-func-t"><link linkend="cairo-user-scaled-font-text-to-glyphs-func-t">cairo_user_scaled_font_text_to_glyphs_func_t</link>, user_function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-scaled-font-unicode-to-glyph-func-t"><link linkend="cairo-user-scaled-font-unicode-to-glyph-func-t">cairo_user_scaled_font_unicode_to_glyph_func_t</link>, user_function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

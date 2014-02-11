@@ -26,42 +26,9 @@
 #ifndef WTF_PlatformJS_h
 #define WTF_PlatformJS_h
 
-#define WTF_PLATFORM_NIX 0
-#define ENABLE_GLOBAL_FASTMALLOC_NEW 0
-
-#define WTF_USE_3D_GRAPHICS 1
-#define WTF_USE_ACCELERATED_COMPOSITING 1
-#define WTF_USE_CAIRO 1
-#define WTF_USE_COORDINATED_GRAPHICS 1
-#define WTF_USE_CROSS_PLATFORM_CONTEXT_MENUS 1
-#define WTF_USE_FREETYPE 0
-#define WTF_USE_GLIB 0
-#define WTF_USE_HARFBUZZ 0
-#define WTF_USE_HARFBUZZ_NG 0
-#define WTF_USE_ICU_UNICODE 1
-#define WTF_USE_LEVELDB 1
-#define WTF_USE_PTHREADS 1
-#define WTF_USE_TEXTURE_MAPPER 1
-#define WTF_USE_TEXTURE_MAPPER_GL 1
-#define WTF_USE_TILED_BACKING_STORE 1
-#define WTF_USE_UNIX_DOMAIN_SOCKETS 1
-
-//#if !defined(WTF_USE_OPENGL_ES_2) || !WTF_USE_OPENGL_ES_2
-#define WTF_USE_OPENGL_ES_2 1
-#define WTF_USE_OPENGL 1
-#define WTF_USE_EGL 1
-#define WTF_USE_GLX 0
-//#define WTF_PLATFORM_X11 1
-#define WTF_USE_GRAPHICS_SURFACE 1
-#define WTF_USE_CURL 1 // turn me back on when fixed?..
-
-
-//#else
-//#define WTF_USE_EGL 1
-//#endif
-
-//#if !defined(WTF_USE_CURL) || !WTF_USE_CURL
-//#define WTF_USE_SOUP 1
-//#endif
-
+/** IMPORTANT:
+ * This file can be used to set preprocess settings that require
+ * conditionalys, any other defines/undefines should go in build/features.gypi
+ * for consistancy and maintenance.
+ */
 #endif

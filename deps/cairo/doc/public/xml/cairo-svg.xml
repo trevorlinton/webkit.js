@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<refentry id="cairo-SVG-Surfaces">
+<refmeta>
+<refentrytitle role="top_of_page" id="cairo-SVG-Surfaces.top_of_page">SVG Surfaces</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  CAIRO Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>SVG Surfaces</refname>
+<refpurpose>Rendering SVG documents</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cairo-SVG-Surfaces.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="CAIRO-HAS-SVG-SURFACE:CAPS">CAIRO_HAS_SVG_SURFACE</link>
+<link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   <link linkend="cairo-svg-surface-create">cairo_svg_surface_create</link>            (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> width_in_points</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> height_in_points</parameter>);
+<link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   <link linkend="cairo-svg-surface-create-for-stream">cairo_svg_surface_create_for_stream</link> (<parameter><link linkend="cairo-write-func-t"><type>cairo_write_func_t</type></link> write_func</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *closure</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> width_in_points</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> height_in_points</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-svg-surface-restrict-to-version">cairo_svg_surface_restrict_to_version</link>
+                                                        (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
+                                                         <parameter><link linkend="cairo-svg-version-t"><type>cairo_svg_version_t</type></link> version</parameter>);
+enum                <link linkend="cairo-svg-version-t">cairo_svg_version_t</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-svg-get-versions">cairo_svg_get_versions</link>              (<parameter><link linkend="cairo-svg-version-t"><type>cairo_svg_version_t</type></link> const **versions</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> *num_versions</parameter>);
+const <link linkend="char"><returnvalue>char</returnvalue></link> *        <link linkend="cairo-svg-version-to-string">cairo_svg_version_to_string</link>         (<parameter><link linkend="cairo-svg-version-t"><type>cairo_svg_version_t</type></link> version</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="cairo-SVG-Surfaces.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+The SVG surface is used to render cairo graphics to
+SVG files and is a multi-page vector surface backend.
+</para>
+</refsect1>
+<refsect1 id="cairo-SVG-Surfaces.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="CAIRO-HAS-SVG-SURFACE:CAPS" role="macro">
+<title>CAIRO_HAS_SVG_SURFACE</title>
+<indexterm zone="CAIRO-HAS-SVG-SURFACE:CAPS"><primary sortas="HAS_SVG_SURFACE">CAIRO_HAS_SVG_SURFACE</primary></indexterm>
+<programlisting>#define CAIRO_HAS_SVG_SURFACE 1
+</programlisting>
+<para>
+Defined if the SVG surface backend is available.
+This macro can be used to conditionally compile backend-specific code.
+</para></refsect2>
+<refsect2 id="cairo-svg-surface-create" role="function" condition="since:1.2">
+<title>cairo_svg_surface_create ()</title>
+<indexterm zone="cairo-svg-surface-create" role="1.2"><primary sortas="svg_surface_create">cairo_svg_surface_create</primary></indexterm>
+<programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_svg_surface_create            (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> width_in_points</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> height_in_points</parameter>);</programlisting>
+<para>
+Creates a SVG surface of the specified size in points to be written
+to <parameter>filename</parameter>.
+</para>
+<para>
+The SVG surface backend recognizes the following MIME types for the
+data attached to a surface (see <link linkend="cairo-surface-set-mime-data"><function>cairo_surface_set_mime_data()</function></link>) when
+it is used as a source pattern for drawing on this surface:
+<link linkend="CAIRO-MIME-TYPE-JPEG:CAPS"><literal>CAIRO_MIME_TYPE_JPEG</literal></link>, <link linkend="CAIRO-MIME-TYPE-PNG:CAPS"><literal>CAIRO_MIME_TYPE_PNG</literal></link>,
+<link linkend="CAIRO-MIME-TYPE-URI:CAPS"><literal>CAIRO_MIME_TYPE_URI</literal></link>. If any of them is specified, the SVG backend
+emits a href with the content of MIME data instead of a surface
+snapshot (PNG, Base64-encoded) in the corresponding image tag.
+</para>
+<para>
+The unofficial MIME type <link linkend="CAIRO-MIME-TYPE-URI:CAPS"><literal>CAIRO_MIME_TYPE_URI</literal></link> is examined
+first. If present, the URI is emitted as is: assuring the
+correctness of URI is left to the client code.
+</para>
+<para>
+If <link linkend="CAIRO-MIME-TYPE-URI:CAPS"><literal>CAIRO_MIME_TYPE_URI</literal></link> is not present, but <link linkend="CAIRO-MIME-TYPE-JPEG:CAPS"><literal>CAIRO_MIME_TYPE_JPEG</literal></link>
+or <link linkend="CAIRO-MIME-TYPE-PNG:CAPS"><literal>CAIRO_MIME_TYPE_PNG</literal></link> is specified, the corresponding data is
+Base64-encoded and emitted.
+</para><variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&#160;:</term>
+<listitem><simpara>a filename for the SVG output (must be writable), <link linkend="NULL:CAPS"><literal>NULL</literal></link> may be
+used to specify no output. This will generate a SVG surface that
+may be queried and used as a source, without generating a
+temporary file.</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width_in_points</parameter>&#160;:</term>
+<listitem><simpara>width of the surface, in points (1 point == 1/72.0 inch)</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height_in_points</parameter>&#160;:</term>
+<listitem><simpara>height of the surface, in points (1 point == 1/72.0 inch)</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a pointer to the newly created surface. The caller
+owns the surface and should call <link linkend="cairo-surface-destroy"><function>cairo_surface_destroy()</function></link> when done
+with it.
+This function always returns a valid pointer, but it will return a
+pointer to a "nil" surface if an error such as out of memory
+occurs. You can use <link linkend="cairo-surface-status"><function>cairo_surface_status()</function></link> to check for this.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-svg-surface-create-for-stream" role="function" condition="since:1.2">
+<title>cairo_svg_surface_create_for_stream ()</title>
+<indexterm zone="cairo-svg-surface-create-for-stream" role="1.2"><primary sortas="svg_surface_create_for_stream">cairo_svg_surface_create_for_stream</primary></indexterm>
+<programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_svg_surface_create_for_stream (<parameter><link linkend="cairo-write-func-t"><type>cairo_write_func_t</type></link> write_func</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *closure</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> width_in_points</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> height_in_points</parameter>);</programlisting>
+<para>
+Creates a SVG surface of the specified size in points to be written
+incrementally to the stream represented by <parameter>write_func</parameter> and <parameter>closure</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>write_func</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-write-func-t"><type>cairo_write_func_t</type></link> to accept the output data, may be <link linkend="NULL:CAPS"><literal>NULL</literal></link>
+to indicate a no-op <parameter>write_func</parameter>. With a no-op <parameter>write_func</parameter>,
+the surface may be queried or used as a source without
+generating any temporary files.</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>the closure argument for <parameter>write_func</parameter></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width_in_points</parameter>&#160;:</term>
+<listitem><simpara>width of the surface, in points (1 point == 1/72.0 inch)</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height_in_points</parameter>&#160;:</term>
+<listitem><simpara>height of the surface, in points (1 point == 1/72.0 inch)</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a pointer to the newly created surface. The caller
+owns the surface and should call <link linkend="cairo-surface-destroy"><function>cairo_surface_destroy()</function></link> when done
+with it.
+This function always returns a valid pointer, but it will return a
+pointer to a "nil" surface if an error such as out of memory
+occurs. You can use <link linkend="cairo-surface-status"><function>cairo_surface_status()</function></link> to check for this.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-svg-surface-restrict-to-version" role="function" condition="since:1.2">
+<title>cairo_svg_surface_restrict_to_version ()</title>
+<indexterm zone="cairo-svg-surface-restrict-to-version" role="1.2"><primary sortas="svg_surface_restrict_to_version">cairo_svg_surface_restrict_to_version</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_svg_surface_restrict_to_version
+                                                        (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
+                                                         <parameter><link linkend="cairo-svg-version-t"><type>cairo_svg_version_t</type></link> version</parameter>);</programlisting>
+<para>
+Restricts the generated SVG file to <parameter>version</parameter>. See <link linkend="cairo-svg-get-versions"><function>cairo_svg_get_versions()</function></link>
+for a list of available version values that can be used here.
+</para>
+<para>
+This function should only be called before any drawing operations
+have been performed on the given surface. The simplest way to do
+this is to call this function immediately after creating the
+surface.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a SVG <link linkend="cairo-surface-t"><type>cairo_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>version</parameter>&#160;:</term>
+<listitem><simpara>SVG version</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-svg-version-t" role="enum">
+<title>enum cairo_svg_version_t</title>
+<indexterm zone="cairo-svg-version-t"><primary sortas="svg_version_t">cairo_svg_version_t</primary></indexterm>
+<programlisting>typedef enum {
+    CAIRO_SVG_VERSION_1_1,
+    CAIRO_SVG_VERSION_1_2
+} cairo_svg_version_t;
+</programlisting>
+<para>
+<link linkend="cairo-svg-version-t"><type>cairo_svg_version_t</type></link> is used to describe the version number of the SVG
+specification that a generated SVG file will conform to.
+</para><variablelist role="enum">
+<varlistentry id="CAIRO-SVG-VERSION-1-1:CAPS" role="constant">
+<term><literal>CAIRO_SVG_VERSION_1_1</literal></term>
+<listitem><simpara>The version 1.1 of the SVG specification.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-SVG-VERSION-1-2:CAPS" role="constant">
+<term><literal>CAIRO_SVG_VERSION_1_2</literal></term>
+<listitem><simpara>The version 1.2 of the SVG specification.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-svg-get-versions" role="function" condition="since:1.2">
+<title>cairo_svg_get_versions ()</title>
+<indexterm zone="cairo-svg-get-versions" role="1.2"><primary sortas="svg_get_versions">cairo_svg_get_versions</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_svg_get_versions              (<parameter><link linkend="cairo-svg-version-t"><type>cairo_svg_version_t</type></link> const **versions</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> *num_versions</parameter>);</programlisting>
+<para>
+Used to retrieve the list of supported versions. See
+<link linkend="cairo-svg-surface-restrict-to-version"><function>cairo_svg_surface_restrict_to_version()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>versions</parameter>&#160;:</term>
+<listitem><simpara>supported version list</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num_versions</parameter>&#160;:</term>
+<listitem><simpara>list length</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+<refsect2 id="cairo-svg-version-to-string" role="function" condition="since:1.2">
+<title>cairo_svg_version_to_string ()</title>
+<indexterm zone="cairo-svg-version-to-string" role="1.2"><primary sortas="svg_version_to_string">cairo_svg_version_to_string</primary></indexterm>
+<programlisting>const <link linkend="char"><returnvalue>char</returnvalue></link> *        cairo_svg_version_to_string         (<parameter><link linkend="cairo-svg-version-t"><type>cairo_svg_version_t</type></link> version</parameter>);</programlisting>
+<para>
+Get the string representation of the given <parameter>version</parameter> id. This function
+will return <link linkend="NULL:CAPS"><literal>NULL</literal></link> if <parameter>version</parameter> isn't valid. See <link linkend="cairo-svg-get-versions"><function>cairo_svg_get_versions()</function></link>
+for a way to get the list of valid version ids.
+</para><variablelist role="params">
+<varlistentry><term><parameter>version</parameter>&#160;:</term>
+<listitem><simpara>a version id</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the string associated to given version.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.2</para></refsect2>
+
+</refsect1>
+<refsect1 id="cairo-SVG-Surfaces.see-also">
+<title>See Also</title>
+<link linkend="cairo-surface-t"><type>cairo_surface_t</type></link>
+</refsect1>
+
+</refentry>

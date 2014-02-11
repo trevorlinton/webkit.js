@@ -1,0 +1,139 @@
+<!-- ##### SECTION Title ##### -->
+cairo-xlib
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_XLIB_SURFACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_create ##### -->
+<para>
+
+</para>
+
+@dpy: 
+@drawable: 
+@visual: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_create_for_bitmap ##### -->
+<para>
+
+</para>
+
+@dpy: 
+@bitmap: 
+@screen: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_set_size ##### -->
+<para>
+
+</para>
+
+@surface: 
+@width: 
+@height: 
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_get_display ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_get_screen ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_set_drawable ##### -->
+<para>
+
+</para>
+
+@surface: 
+@drawable: 
+@width: 
+@height: 
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_get_drawable ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_get_visual ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_get_width ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_get_height ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xlib_surface_get_depth ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+

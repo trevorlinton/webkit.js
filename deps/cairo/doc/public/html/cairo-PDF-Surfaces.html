@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>PDF Surfaces</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Cairo: A Vector Graphics Library">
+<link rel="up" href="cairo-surfaces.html" title="Surfaces">
+<link rel="prev" href="cairo-Image-Surfaces.html" title="Image Surfaces">
+<link rel="next" href="cairo-PNG-Support.html" title="PNG Support">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="cairo-Image-Surfaces.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="cairo-surfaces.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Cairo: A Vector Graphics Library</th>
+<td><a accesskey="n" href="cairo-PNG-Support.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#cairo-PDF-Surfaces.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#cairo-PDF-Surfaces.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="cairo-PDF-Surfaces"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="cairo-PDF-Surfaces.top_of_page"></a>PDF Surfaces</span></h2>
+<p>PDF Surfaces — Rendering PDF documents</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="cairo-PDF-Surfaces.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="cairo-PDF-Surfaces.html#CAIRO-HAS-PDF-SURFACE:CAPS" title="CAIRO_HAS_PDF_SURFACE">CAIRO_HAS_PDF_SURFACE</a>
+<a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="returnvalue">cairo_surface_t</span></a> *   <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-surface-create" title="cairo_pdf_surface_create ()">cairo_pdf_surface_create</a>            (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> width_in_points</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> height_in_points</code></em>);
+<a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="returnvalue">cairo_surface_t</span></a> *   <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-surface-create-for-stream" title="cairo_pdf_surface_create_for_stream ()">cairo_pdf_surface_create_for_stream</a> (<em class="parameter"><code><a class="link" href="cairo-PNG-Support.html#cairo-write-func-t" title="cairo_write_func_t ()"><span class="type">cairo_write_func_t</span></a> write_func</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *closure</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> width_in_points</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> height_in_points</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-surface-restrict-to-version" title="cairo_pdf_surface_restrict_to_version ()">cairo_pdf_surface_restrict_to_version</a>
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-version-t" title="enum cairo_pdf_version_t"><span class="type">cairo_pdf_version_t</span></a> version</code></em>);
+enum                <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-version-t" title="enum cairo_pdf_version_t">cairo_pdf_version_t</a>;
+<span class="returnvalue">void</span>                <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-get-versions" title="cairo_pdf_get_versions ()">cairo_pdf_get_versions</a>              (<em class="parameter"><code><a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-version-t" title="enum cairo_pdf_version_t"><span class="type">cairo_pdf_version_t</span></a> const **versions</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *num_versions</code></em>);
+const <span class="returnvalue">char</span> *        <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-version-to-string" title="cairo_pdf_version_to_string ()">cairo_pdf_version_to_string</a>         (<em class="parameter"><code><a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-version-t" title="enum cairo_pdf_version_t"><span class="type">cairo_pdf_version_t</span></a> version</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-surface-set-size" title="cairo_pdf_surface_set_size ()">cairo_pdf_surface_set_size</a>          (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> width_in_points</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> height_in_points</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="cairo-PDF-Surfaces.description"></a><h2>Description</h2>
+<p>
+The PDF surface is used to render cairo graphics to Adobe
+PDF files and is a multi-page vector surface backend.
+</p>
+</div>
+<div class="refsect1">
+<a name="cairo-PDF-Surfaces.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CAIRO-HAS-PDF-SURFACE:CAPS"></a><h3>CAIRO_HAS_PDF_SURFACE</h3>
+<pre class="programlisting">#define CAIRO_HAS_PDF_SURFACE 1
+</pre>
+<p>
+Defined if the PDF surface backend is available.
+This macro can be used to conditionally compile backend-specific code.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-pdf-surface-create"></a><h3>cairo_pdf_surface_create ()</h3>
+<pre class="programlisting"><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="returnvalue">cairo_surface_t</span></a> *   cairo_pdf_surface_create            (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> width_in_points</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> height_in_points</code></em>);</pre>
+<p>
+Creates a PDF surface of the specified size in points to be written
+to <em class="parameter"><code>filename</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>a filename for the PDF output (must be writable), <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> may be
+used to specify no output. This will generate a PDF surface that
+may be queried and used as a source, without generating a
+temporary file.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width_in_points</code></em> :</span></p></td>
+<td>width of the surface, in points (1 point == 1/72.0 inch)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height_in_points</code></em> :</span></p></td>
+<td>height of the surface, in points (1 point == 1/72.0 inch)</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a pointer to the newly created surface. The caller
+owns the surface and should call <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-destroy" title="cairo_surface_destroy ()"><code class="function">cairo_surface_destroy()</code></a> when done
+with it.
+This function always returns a valid pointer, but it will return a
+pointer to a "nil" surface if an error such as out of memory
+occurs. You can use <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-status" title="cairo_surface_status ()"><code class="function">cairo_surface_status()</code></a> to check for this.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-pdf-surface-create-for-stream"></a><h3>cairo_pdf_surface_create_for_stream ()</h3>
+<pre class="programlisting"><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="returnvalue">cairo_surface_t</span></a> *   cairo_pdf_surface_create_for_stream (<em class="parameter"><code><a class="link" href="cairo-PNG-Support.html#cairo-write-func-t" title="cairo_write_func_t ()"><span class="type">cairo_write_func_t</span></a> write_func</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *closure</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> width_in_points</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> height_in_points</code></em>);</pre>
+<p>
+Creates a PDF surface of the specified size in points to be written
+incrementally to the stream represented by <em class="parameter"><code>write_func</code></em> and <em class="parameter"><code>closure</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>write_func</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-PNG-Support.html#cairo-write-func-t" title="cairo_write_func_t ()"><span class="type">cairo_write_func_t</span></a> to accept the output data, may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+to indicate a no-op <em class="parameter"><code>write_func</code></em>. With a no-op <em class="parameter"><code>write_func</code></em>,
+the surface may be queried or used as a source without
+generating any temporary files.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>closure</code></em> :</span></p></td>
+<td>the closure argument for <em class="parameter"><code>write_func</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width_in_points</code></em> :</span></p></td>
+<td>width of the surface, in points (1 point == 1/72.0 inch)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height_in_points</code></em> :</span></p></td>
+<td>height of the surface, in points (1 point == 1/72.0 inch)</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a pointer to the newly created surface. The caller
+owns the surface and should call <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-destroy" title="cairo_surface_destroy ()"><code class="function">cairo_surface_destroy()</code></a> when done
+with it.
+This function always returns a valid pointer, but it will return a
+pointer to a "nil" surface if an error such as out of memory
+occurs. You can use <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-status" title="cairo_surface_status ()"><code class="function">cairo_surface_status()</code></a> to check for this.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-pdf-surface-restrict-to-version"></a><h3>cairo_pdf_surface_restrict_to_version ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                cairo_pdf_surface_restrict_to_version
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-version-t" title="enum cairo_pdf_version_t"><span class="type">cairo_pdf_version_t</span></a> version</code></em>);</pre>
+<p>
+Restricts the generated PDF file to <em class="parameter"><code>version</code></em>. See <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-get-versions" title="cairo_pdf_get_versions ()"><code class="function">cairo_pdf_get_versions()</code></a>
+for a list of available version values that can be used here.
+</p>
+<p>
+This function should only be called before any drawing operations
+have been performed on the given surface. The simplest way to do
+this is to call this function immediately after creating the
+surface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>surface</code></em> :</span></p></td>
+<td>a PDF <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>version</code></em> :</span></p></td>
+<td>PDF version</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-pdf-version-t"></a><h3>enum cairo_pdf_version_t</h3>
+<pre class="programlisting">typedef enum {
+    CAIRO_PDF_VERSION_1_4,
+    CAIRO_PDF_VERSION_1_5
+} cairo_pdf_version_t;
+</pre>
+<p>
+<a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-version-t" title="enum cairo_pdf_version_t"><span class="type">cairo_pdf_version_t</span></a> is used to describe the version number of the PDF
+specification that a generated PDF file will conform to.
+</p>
+<p>
+Since 1.10
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="CAIRO-PDF-VERSION-1-4:CAPS"></a><span class="term"><code class="literal">CAIRO_PDF_VERSION_1_4</code></span></p></td>
+<td>The version 1.4 of the PDF specification.
+</td>
+</tr>
+<tr>
+<td><p><a name="CAIRO-PDF-VERSION-1-5:CAPS"></a><span class="term"><code class="literal">CAIRO_PDF_VERSION_1_5</code></span></p></td>
+<td>The version 1.5 of the PDF specification.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-pdf-get-versions"></a><h3>cairo_pdf_get_versions ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                cairo_pdf_get_versions              (<em class="parameter"><code><a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-version-t" title="enum cairo_pdf_version_t"><span class="type">cairo_pdf_version_t</span></a> const **versions</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *num_versions</code></em>);</pre>
+<p>
+Used to retrieve the list of supported versions. See
+<a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-surface-restrict-to-version" title="cairo_pdf_surface_restrict_to_version ()"><code class="function">cairo_pdf_surface_restrict_to_version()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>versions</code></em> :</span></p></td>
+<td>supported version list</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>num_versions</code></em> :</span></p></td>
+<td>list length</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-pdf-version-to-string"></a><h3>cairo_pdf_version_to_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        cairo_pdf_version_to_string         (<em class="parameter"><code><a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-version-t" title="enum cairo_pdf_version_t"><span class="type">cairo_pdf_version_t</span></a> version</code></em>);</pre>
+<p>
+Get the string representation of the given <em class="parameter"><code>version</code></em> id. This function
+will return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>version</code></em> isn't valid. See <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-get-versions" title="cairo_pdf_get_versions ()"><code class="function">cairo_pdf_get_versions()</code></a>
+for a way to get the list of valid version ids.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>version</code></em> :</span></p></td>
+<td>a version id</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the string associated to given version.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-pdf-surface-set-size"></a><h3>cairo_pdf_surface_set_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                cairo_pdf_surface_set_size          (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> width_in_points</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> height_in_points</code></em>);</pre>
+<p>
+Changes the size of a PDF surface for the current (and
+subsequent) pages.
+</p>
+<p>
+This function should only be called before any drawing operations
+have been performed on the current page. The simplest way to do
+this is to call this function immediately after creating the
+surface or immediately after completing a page with either
+<a class="link" href="cairo-cairo-t.html#cairo-show-page" title="cairo_show_page ()"><code class="function">cairo_show_page()</code></a> or <a class="link" href="cairo-cairo-t.html#cairo-copy-page" title="cairo_copy_page ()"><code class="function">cairo_copy_page()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>surface</code></em> :</span></p></td>
+<td>a PDF <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width_in_points</code></em> :</span></p></td>
+<td>new surface width, in points (1 point == 1/72.0 inch)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height_in_points</code></em> :</span></p></td>
+<td>new surface height, in points (1 point == 1/72.0 inch)</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="cairo-PDF-Surfaces.see-also"></a><h2>See Also</h2>
+<a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

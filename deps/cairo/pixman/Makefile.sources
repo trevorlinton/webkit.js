@@ -1,0 +1,55 @@
+libpixman_sources =			\
+	pixman.c			\
+	pixman-access.c			\
+	pixman-access-accessors.c	\
+	pixman-bits-image.c		\
+	pixman-combine32.c		\
+	pixman-combine64.c		\
+	pixman-conical-gradient.c	\
+	pixman-cpu.c			\
+	pixman-edge.c			\
+	pixman-edge-accessors.c		\
+	pixman-fast-path.c		\
+	pixman-general.c		\
+	pixman-gradient-walker.c	\
+	pixman-image.c			\
+	pixman-implementation.c		\
+	pixman-linear-gradient.c	\
+	pixman-matrix.c			\
+	pixman-noop.c			\
+	pixman-radial-gradient.c	\
+	pixman-region16.c		\
+	pixman-region32.c		\
+	pixman-solid-fill.c		\
+	pixman-timer.c			\
+	pixman-trap.c			\
+	pixman-utils.c			\
+	$(NULL)
+
+libpixman_headers =			\
+	pixman.h			\
+	pixman-accessor.h		\
+	pixman-combine32.h		\
+	pixman-combine64.h		\
+	pixman-compiler.h		\
+	pixman-edge-imp.h		\
+	pixman-inlines.h		\
+	pixman-private.h		\
+	$(NULL)
+
+BUILT_SOURCES =				\
+	pixman-combine32.c		\
+	pixman-combine32.h		\
+	pixman-combine64.c		\
+	pixman-combine64.h		\
+	$(NULL)
+
+pixman-combine32.c: pixman-combine.c.template make-combine.pl
+	$(PERL) $(lastword $+) 8 < $< > $@ || ($(RM) $@; exit 1)
+pixman-combine32.h: pixman-combine.h.template make-combine.pl
+	$(PERL) $(lastword $+) 8 < $< > $@ || ($(RM) $@; exit 1)
+
+pixman-combine64.c: pixman-combine.c.template make-combine.pl
+	$(PERL) $(lastword $+) 16 < $< > $@ || ($(RM) $@; exit 1)
+pixman-combine64.h: pixman-combine.h.template make-combine.pl
+	$(PERL) $(lastword $+) 16 < $< > $@ || ($(RM) $@; exit 1)

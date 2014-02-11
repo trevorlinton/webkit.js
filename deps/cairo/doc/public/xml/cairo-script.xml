@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<refentry id="cairo-Script-Surfaces">
+<refmeta>
+<refentrytitle role="top_of_page" id="cairo-Script-Surfaces.top_of_page">Script Surfaces</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  CAIRO Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Script Surfaces</refname>
+<refpurpose>Rendering to replayable scripts</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cairo-Script-Surfaces.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="cairo-device-t"><returnvalue>cairo_device_t</returnvalue></link> *    <link linkend="cairo-script-create">cairo_script_create</link>                 (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>);
+<link linkend="cairo-device-t"><returnvalue>cairo_device_t</returnvalue></link> *    <link linkend="cairo-script-create-for-stream">cairo_script_create_for_stream</link>      (<parameter><link linkend="cairo-write-func-t"><type>cairo_write_func_t</type></link> write_func</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *closure</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-script-from-recording-surface">cairo_script_from_recording_surface</link> (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
+                                                         <parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *recording_surface</parameter>);
+<link linkend="cairo-script-mode-t"><returnvalue>cairo_script_mode_t</returnvalue></link> <link linkend="cairo-script-get-mode">cairo_script_get_mode</link>               (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>);
+enum                <link linkend="cairo-script-mode-t">cairo_script_mode_t</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-script-set-mode">cairo_script_set_mode</link>               (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
+                                                         <parameter><link linkend="cairo-script-mode-t"><type>cairo_script_mode_t</type></link> mode</parameter>);
+<link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   <link linkend="cairo-script-surface-create">cairo_script_surface_create</link>         (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
+                                                         <parameter><link linkend="cairo-content-t"><type>cairo_content_t</type></link> content</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> width</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> height</parameter>);
+<link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   <link linkend="cairo-script-surface-create-for-target">cairo_script_surface_create_for_target</link>
+                                                        (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
+                                                         <parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *target</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-script-write-comment">cairo_script_write_comment</link>          (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *comment</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> len</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="cairo-Script-Surfaces.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+The script surface provides the ability to render to a native
+script that matches the cairo drawing model. The scripts can
+be replayed using tools under the util/cairo-script directoriy,
+or with cairo-perf-trace.
+</para>
+</refsect1>
+<refsect1 id="cairo-Script-Surfaces.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="cairo-script-create" role="function">
+<title>cairo_script_create ()</title>
+<indexterm zone="cairo-script-create"><primary sortas="script_create">cairo_script_create</primary></indexterm>
+<programlisting><link linkend="cairo-device-t"><returnvalue>cairo_device_t</returnvalue></link> *    cairo_script_create                 (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>);</programlisting>
+<para>
+Creates a output device for emitting the script, used when
+creating the individual surfaces.
+</para><variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&#160;:</term>
+<listitem><simpara>the name (path) of the file to write the script to</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a pointer to the newly created device. The caller
+owns the surface and should call <link linkend="cairo-device-destroy"><function>cairo_device_destroy()</function></link> when done
+with it.
+This function always returns a valid pointer, but it will return a
+pointer to a "nil" device if an error such as out of memory
+occurs. You can use <link linkend="cairo-device-status"><function>cairo_device_status()</function></link> to check for this.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-script-create-for-stream" role="function">
+<title>cairo_script_create_for_stream ()</title>
+<indexterm zone="cairo-script-create-for-stream"><primary sortas="script_create_for_stream">cairo_script_create_for_stream</primary></indexterm>
+<programlisting><link linkend="cairo-device-t"><returnvalue>cairo_device_t</returnvalue></link> *    cairo_script_create_for_stream      (<parameter><link linkend="cairo-write-func-t"><type>cairo_write_func_t</type></link> write_func</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *closure</parameter>);</programlisting>
+<para>
+Creates a output device for emitting the script, used when
+creating the individual surfaces.
+</para><variablelist role="params">
+<varlistentry><term><parameter>write_func</parameter>&#160;:</term>
+<listitem><simpara>callback function passed the bytes written to the script</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>user data to be passed to the callback</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a pointer to the newly created device. The caller
+owns the surface and should call <link linkend="cairo-device-destroy"><function>cairo_device_destroy()</function></link> when done
+with it.
+This function always returns a valid pointer, but it will return a
+pointer to a "nil" device if an error such as out of memory
+occurs. You can use <link linkend="cairo-device-status"><function>cairo_device_status()</function></link> to check for this.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-script-from-recording-surface" role="function">
+<title>cairo_script_from_recording_surface ()</title>
+<indexterm zone="cairo-script-from-recording-surface"><primary sortas="script_from_recording_surface">cairo_script_from_recording_surface</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_script_from_recording_surface (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
+                                                         <parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *recording_surface</parameter>);</programlisting>
+<para>
+Converts the record operations in <parameter>recording_surface</parameter> into a script.
+</para><variablelist role="params">
+<varlistentry><term><parameter>script</parameter>&#160;:</term>
+<listitem><simpara>the script (output device)</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>recording_surface</parameter>&#160;:</term>
+<listitem><simpara>the recording surface to replay</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><type>CAIRO_STATUS_SUCCESS</type></link> on successful completion or an error code.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-script-get-mode" role="function">
+<title>cairo_script_get_mode ()</title>
+<indexterm zone="cairo-script-get-mode"><primary sortas="script_get_mode">cairo_script_get_mode</primary></indexterm>
+<programlisting><link linkend="cairo-script-mode-t"><returnvalue>cairo_script_mode_t</returnvalue></link> cairo_script_get_mode               (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>);</programlisting>
+<para>
+Queries the script for its current output mode.
+</para><variablelist role="params">
+<varlistentry><term><parameter>script</parameter>&#160;:</term>
+<listitem><simpara>The script (output device) to query</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the current output mode of the script</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-script-mode-t" role="enum" condition="since:1.10">
+<title>enum cairo_script_mode_t</title>
+<indexterm zone="cairo-script-mode-t" role="1.10"><primary sortas="script_mode_t">cairo_script_mode_t</primary></indexterm>
+<programlisting>typedef enum {
+    CAIRO_SCRIPT_MODE_ASCII,
+    CAIRO_SCRIPT_MODE_BINARY
+} cairo_script_mode_t;
+</programlisting>
+<para>
+A set of script output variants.
+</para><variablelist role="enum">
+<varlistentry id="CAIRO-SCRIPT-MODE-ASCII:CAPS" role="constant">
+<term><literal>CAIRO_SCRIPT_MODE_ASCII</literal></term>
+<listitem><simpara>the output will be in readable text (default)
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-SCRIPT-MODE-BINARY:CAPS" role="constant">
+<term><literal>CAIRO_SCRIPT_MODE_BINARY</literal></term>
+<listitem><simpara>the output will use byte codes
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-script-set-mode" role="function">
+<title>cairo_script_set_mode ()</title>
+<indexterm zone="cairo-script-set-mode"><primary sortas="script_set_mode">cairo_script_set_mode</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_script_set_mode               (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
+                                                         <parameter><link linkend="cairo-script-mode-t"><type>cairo_script_mode_t</type></link> mode</parameter>);</programlisting>
+<para>
+Change the output mode of the script
+</para><variablelist role="params">
+<varlistentry><term><parameter>script</parameter>&#160;:</term>
+<listitem><simpara>The script (output device)</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara>the new mode</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-script-surface-create" role="function">
+<title>cairo_script_surface_create ()</title>
+<indexterm zone="cairo-script-surface-create"><primary sortas="script_surface_create">cairo_script_surface_create</primary></indexterm>
+<programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_script_surface_create         (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
+                                                         <parameter><link linkend="cairo-content-t"><type>cairo_content_t</type></link> content</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> width</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> height</parameter>);</programlisting>
+<para>
+Create a new surface that will emit its rendering through <parameter>script</parameter>
+</para><variablelist role="params">
+<varlistentry><term><parameter>script</parameter>&#160;:</term>
+<listitem><simpara>the script (output device)</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>content</parameter>&#160;:</term>
+<listitem><simpara>the content of the surface</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara>width in pixels</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara>height in pixels</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a pointer to the newly created surface. The caller
+owns the surface and should call <link linkend="cairo-surface-destroy"><function>cairo_surface_destroy()</function></link> when done
+with it.
+This function always returns a valid pointer, but it will return a
+pointer to a "nil" surface if an error such as out of memory
+occurs. You can use <link linkend="cairo-surface-status"><function>cairo_surface_status()</function></link> to check for this.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-script-surface-create-for-target" role="function">
+<title>cairo_script_surface_create_for_target ()</title>
+<indexterm zone="cairo-script-surface-create-for-target"><primary sortas="script_surface_create_for_target">cairo_script_surface_create_for_target</primary></indexterm>
+<programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_script_surface_create_for_target
+                                                        (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
+                                                         <parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *target</parameter>);</programlisting>
+<para>
+Create a pxoy surface that will render to <parameter>target</parameter> and record
+the operations to <parameter>device</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>script</parameter>&#160;:</term>
+<listitem><simpara>the script (output device)</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>target</parameter>&#160;:</term>
+<listitem><simpara>a target surface to wrap</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a pointer to the newly created surface. The caller
+owns the surface and should call <link linkend="cairo-surface-destroy"><function>cairo_surface_destroy()</function></link> when done
+with it.
+This function always returns a valid pointer, but it will return a
+pointer to a "nil" surface if an error such as out of memory
+occurs. You can use <link linkend="cairo-surface-status"><function>cairo_surface_status()</function></link> to check for this.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-script-write-comment" role="function">
+<title>cairo_script_write_comment ()</title>
+<indexterm zone="cairo-script-write-comment"><primary sortas="script_write_comment">cairo_script_write_comment</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_script_write_comment          (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *comment</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> len</parameter>);</programlisting>
+<para>
+Emit a string verbatim into the script.
+</para><variablelist role="params">
+<varlistentry><term><parameter>script</parameter>&#160;:</term>
+<listitem><simpara>the script (output device)</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>comment</parameter>&#160;:</term>
+<listitem><simpara>the string to emit</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>the length of the sting to write, or -1 to use <link linkend="strlen"><function>strlen()</function></link></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="cairo-Script-Surfaces.see-also">
+<title>See Also</title>
+<link linkend="cairo-surface-t"><type>cairo_surface_t</type></link>
+</refsect1>
+
+</refentry>

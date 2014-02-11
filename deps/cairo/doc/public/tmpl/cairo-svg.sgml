@@ -1,0 +1,87 @@
+<!-- ##### SECTION Title ##### -->
+cairo-svg
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_SVG_SURFACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_svg_surface_create ##### -->
+<para>
+
+</para>
+
+@filename: 
+@width_in_points: 
+@height_in_points: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_svg_surface_create_for_stream ##### -->
+<para>
+
+</para>
+
+@write_func: 
+@closure: 
+@width_in_points: 
+@height_in_points: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_svg_surface_restrict_to_version ##### -->
+<para>
+
+</para>
+
+@surface: 
+@version: 
+
+
+<!-- ##### ENUM cairo_svg_version_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_SVG_VERSION_1_1: 
+@CAIRO_SVG_VERSION_1_2: 
+
+<!-- ##### FUNCTION cairo_svg_get_versions ##### -->
+<para>
+
+</para>
+
+@versions: 
+@num_versions: 
+
+
+<!-- ##### FUNCTION cairo_svg_version_to_string ##### -->
+<para>
+
+</para>
+
+@version: 
+@Returns: 
+
+

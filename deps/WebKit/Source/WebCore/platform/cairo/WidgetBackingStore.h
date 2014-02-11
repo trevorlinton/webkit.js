@@ -39,7 +39,7 @@ namespace WebCore {
 typedef GtkWidget* PlatformWidget;
 #elif PLATFORM(EFL)
 typedef Evas_Object* PlatformWidget;
-#elif PLATFORM(NIX)
+#elif PLATFORM(NIX) || PLATFORM(JS)
 typedef void* PlatformWidget;
 #endif
 

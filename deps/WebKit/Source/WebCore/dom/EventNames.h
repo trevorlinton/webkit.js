@@ -21,7 +21,6 @@
 
 #ifndef EventNames_h
 #define EventNames_h
-
 #include "ThreadGlobalData.h"
 #include <wtf/text/AtomicString.h>
 
@@ -284,7 +283,6 @@ class EventNames {
     // Private to prevent accidental call to EventNames() instead of eventNames()
     EventNames();
     friend class ThreadGlobalData;
-
 public:
     #define DOM_EVENT_NAMES_DECLARE(name) AtomicString name##Event;
     DOM_EVENT_NAMES_FOR_EACH(DOM_EVENT_NAMES_DECLARE)

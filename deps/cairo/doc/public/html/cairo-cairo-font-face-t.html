@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>cairo_font_face_t</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Cairo: A Vector Graphics Library">
+<link rel="up" href="cairo-fonts.html" title="Fonts">
+<link rel="prev" href="cairo-fonts.html" title="Fonts">
+<link rel="next" href="cairo-cairo-scaled-font-t.html" title="cairo_scaled_font_t">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="cairo-fonts.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="cairo-fonts.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Cairo: A Vector Graphics Library</th>
+<td><a accesskey="n" href="cairo-cairo-scaled-font-t.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#cairo-cairo-font-face-t.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#cairo-cairo-font-face-t.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="cairo-cairo-font-face-t"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="cairo-cairo-font-face-t.top_of_page"></a>cairo_font_face_t</span></h2>
+<p>cairo_font_face_t — Base class for font faces</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="cairo-cairo-font-face-t.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">typedef             <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t">cairo_font_face_t</a>;
+<a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="returnvalue">cairo_font_face_t</span></a> * <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-reference" title="cairo_font_face_reference ()">cairo_font_face_reference</a>           (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-destroy" title="cairo_font_face_destroy ()">cairo_font_face_destroy</a>             (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>);
+<a class="link" href="cairo-Error-handling.html#cairo-status-t" title="enum cairo_status_t"><span class="returnvalue">cairo_status_t</span></a>      <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-status" title="cairo_font_face_status ()">cairo_font_face_status</a>              (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>);
+enum                <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-type-t" title="enum cairo_font_type_t">cairo_font_type_t</a>;
+<a class="link" href="cairo-cairo-font-face-t.html#cairo-font-type-t" title="enum cairo_font_type_t"><span class="returnvalue">cairo_font_type_t</span></a>   <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-get-type" title="cairo_font_face_get_type ()">cairo_font_face_get_type</a>            (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>);
+unsigned <span class="returnvalue">int</span>        <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-get-reference-count" title="cairo_font_face_get_reference_count ()">cairo_font_face_get_reference_count</a> (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>);
+<a class="link" href="cairo-Error-handling.html#cairo-status-t" title="enum cairo_status_t"><span class="returnvalue">cairo_status_t</span></a>      <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-set-user-data" title="cairo_font_face_set_user_data ()">cairo_font_face_set_user_data</a>       (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="cairo-Types.html#cairo-user-data-key-t" title="cairo_user_data_key_t"><span class="type">cairo_user_data_key_t</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *user_data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="cairo-Types.html#cairo-destroy-func-t" title="cairo_destroy_func_t ()"><span class="type">cairo_destroy_func_t</span></a> destroy</code></em>);
+<span class="returnvalue">void</span> *              <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-get-user-data" title="cairo_font_face_get_user_data ()">cairo_font_face_get_user_data</a>       (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="cairo-Types.html#cairo-user-data-key-t" title="cairo_user_data_key_t"><span class="type">cairo_user_data_key_t</span></a> *key</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="cairo-cairo-font-face-t.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> represents a particular font at a particular weight,
+slant, and other characteristic but no size, transformation, or size.
+</p>
+<p>
+Font faces are created using <em class="firstterm">font-backend</em>-specific
+constructors, typically of the form
+<code class="function">cairo_<span class="emphasis"><em>backend</em></span>_font_face_create()</code>,
+or implicitly using the <em class="firstterm">toy</em> text API by way of
+<a class="link" href="cairo-text.html#cairo-select-font-face" title="cairo_select_font_face ()"><code class="function">cairo_select_font_face()</code></a>.  The resulting face can be accessed using
+<a class="link" href="cairo-text.html#cairo-get-font-face" title="cairo_get_font_face ()"><code class="function">cairo_get_font_face()</code></a>.
+</p>
+</div>
+<div class="refsect1">
+<a name="cairo-cairo-font-face-t.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="cairo-font-face-t"></a><h3>cairo_font_face_t</h3>
+<pre class="programlisting">typedef struct _cairo_font_face cairo_font_face_t;
+</pre>
+<p>
+A <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> specifies all aspects of a font other
+than the size or font matrix (a font matrix is used to distort
+a font by sheering it or scaling it unequally in the two
+directions) . A font face can be set on a <a class="link" href="cairo-cairo-t.html#cairo-t" title="cairo_t"><span class="type">cairo_t</span></a> by using
+<a class="link" href="cairo-text.html#cairo-set-font-face" title="cairo_set_font_face ()"><code class="function">cairo_set_font_face()</code></a>; the size and font matrix are set with
+<a class="link" href="cairo-text.html#cairo-set-font-size" title="cairo_set_font_size ()"><code class="function">cairo_set_font_size()</code></a> and <a class="link" href="cairo-text.html#cairo-set-font-matrix" title="cairo_set_font_matrix ()"><code class="function">cairo_set_font_matrix()</code></a>.
+</p>
+<p>
+There are various types of font faces, depending on the
+<em class="firstterm">font backend</em> they use. The type of a
+font face can be queried using <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-get-type" title="cairo_font_face_get_type ()"><code class="function">cairo_font_face_get_type()</code></a>.
+</p>
+<p>
+Memory management of <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> is done with
+<a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-reference" title="cairo_font_face_reference ()"><code class="function">cairo_font_face_reference()</code></a> and <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-destroy" title="cairo_font_face_destroy ()"><code class="function">cairo_font_face_destroy()</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-font-face-reference"></a><h3>cairo_font_face_reference ()</h3>
+<pre class="programlisting"><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="returnvalue">cairo_font_face_t</span></a> * cairo_font_face_reference           (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>);</pre>
+<p>
+Increases the reference count on <em class="parameter"><code>font_face</code></em> by one. This prevents
+<em class="parameter"><code>font_face</code></em> from being destroyed until a matching call to
+<a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-destroy" title="cairo_font_face_destroy ()"><code class="function">cairo_font_face_destroy()</code></a> is made.
+</p>
+<p>
+The number of references to a <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> can be get using
+<a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-get-reference-count" title="cairo_font_face_get_reference_count ()"><code class="function">cairo_font_face_get_reference_count()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>font_face</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a>, (may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> in which case this
+function does nothing).</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the referenced <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-font-face-destroy"></a><h3>cairo_font_face_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                cairo_font_face_destroy             (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>);</pre>
+<p>
+Decreases the reference count on <em class="parameter"><code>font_face</code></em> by one. If the result
+is zero, then <em class="parameter"><code>font_face</code></em> and all associated resources are freed.
+See <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-reference" title="cairo_font_face_reference ()"><code class="function">cairo_font_face_reference()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>font_face</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-font-face-status"></a><h3>cairo_font_face_status ()</h3>
+<pre class="programlisting"><a class="link" href="cairo-Error-handling.html#cairo-status-t" title="enum cairo_status_t"><span class="returnvalue">cairo_status_t</span></a>      cairo_font_face_status              (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>);</pre>
+<p>
+Checks whether an error has previously occurred for this
+font face
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>font_face</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a class="link" href="cairo-Error-handling.html#CAIRO-STATUS-SUCCESS:CAPS"><code class="literal">CAIRO_STATUS_SUCCESS</code></a> or another error such as
+<a class="link" href="cairo-Error-handling.html#CAIRO-STATUS-NO-MEMORY:CAPS"><code class="literal">CAIRO_STATUS_NO_MEMORY</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-font-type-t"></a><h3>enum cairo_font_type_t</h3>
+<pre class="programlisting">typedef enum {
+    CAIRO_FONT_TYPE_TOY,
+    CAIRO_FONT_TYPE_FT,
+    CAIRO_FONT_TYPE_WIN32,
+    CAIRO_FONT_TYPE_QUARTZ,
+    CAIRO_FONT_TYPE_USER
+} cairo_font_type_t;
+</pre>
+<p>
+<a class="link" href="cairo-cairo-font-face-t.html#cairo-font-type-t" title="enum cairo_font_type_t"><span class="type">cairo_font_type_t</span></a> is used to describe the type of a given font
+face or scaled font. The font types are also known as "font
+backends" within cairo.
+</p>
+<p>
+The type of a font face is determined by the function used to
+create it, which will generally be of the form
+<code class="function">cairo_<span class="emphasis"><em>type</em></span>_font_face_create()</code>.
+The font face type can be queried with <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-get-type" title="cairo_font_face_get_type ()"><code class="function">cairo_font_face_get_type()</code></a>
+</p>
+<p>
+The various <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> functions can be used with a font face
+of any type.
+</p>
+<p>
+The type of a scaled font is determined by the type of the font
+face passed to <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-create" title="cairo_scaled_font_create ()"><code class="function">cairo_scaled_font_create()</code></a>. The scaled font type can
+be queried with <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-get-type" title="cairo_scaled_font_get_type ()"><code class="function">cairo_scaled_font_get_type()</code></a>
+</p>
+<p>
+The various <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-t" title="cairo_scaled_font_t"><span class="type">cairo_scaled_font_t</span></a> functions can be used with scaled
+fonts of any type, but some font backends also provide
+type-specific functions that must only be called with a scaled font
+of the appropriate type. These functions have names that begin with
+<code class="function">cairo_<span class="emphasis"><em>type</em></span>_scaled_font()</code>
+such as <a class="link" href="cairo-FreeType-Fonts.html#cairo-ft-scaled-font-lock-face" title="cairo_ft_scaled_font_lock_face ()"><code class="function">cairo_ft_scaled_font_lock_face()</code></a>.
+</p>
+<p>
+The behavior of calling a type-specific function with a scaled font
+of the wrong type is undefined.
+</p>
+<p>
+New entries may be added in future versions.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="CAIRO-FONT-TYPE-TOY:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_TYPE_TOY</code></span></p></td>
+<td>The font was created using cairo's toy font api
+</td>
+</tr>
+<tr>
+<td><p><a name="CAIRO-FONT-TYPE-FT:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_TYPE_FT</code></span></p></td>
+<td>The font is of type FreeType
+</td>
+</tr>
+<tr>
+<td><p><a name="CAIRO-FONT-TYPE-WIN32:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_TYPE_WIN32</code></span></p></td>
+<td>The font is of type Win32
+</td>
+</tr>
+<tr>
+<td><p><a name="CAIRO-FONT-TYPE-QUARTZ:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_TYPE_QUARTZ</code></span></p></td>
+<td>The font is of type Quartz (Since: 1.6)
+</td>
+</tr>
+<tr>
+<td><p><a name="CAIRO-FONT-TYPE-USER:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_TYPE_USER</code></span></p></td>
+<td>The font was create using cairo's user font api (Since: 1.8)
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-font-face-get-type"></a><h3>cairo_font_face_get_type ()</h3>
+<pre class="programlisting"><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-type-t" title="enum cairo_font_type_t"><span class="returnvalue">cairo_font_type_t</span></a>   cairo_font_face_get_type            (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>);</pre>
+<p>
+This function returns the type of the backend used to create
+a font face. See <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-type-t" title="enum cairo_font_type_t"><span class="type">cairo_font_type_t</span></a> for available types.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>font_face</code></em> :</span></p></td>
+<td>a font face</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The type of <em class="parameter"><code>font_face</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-font-face-get-reference-count"></a><h3>cairo_font_face_get_reference_count ()</h3>
+<pre class="programlisting">unsigned <span class="returnvalue">int</span>        cairo_font_face_get_reference_count (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>);</pre>
+<p>
+Returns the current reference count of <em class="parameter"><code>font_face</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>font_face</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the current reference count of <em class="parameter"><code>font_face</code></em>.  If the
+object is a nil object, 0 will be returned.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-font-face-set-user-data"></a><h3>cairo_font_face_set_user_data ()</h3>
+<pre class="programlisting"><a class="link" href="cairo-Error-handling.html#cairo-status-t" title="enum cairo_status_t"><span class="returnvalue">cairo_status_t</span></a>      cairo_font_face_set_user_data       (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="cairo-Types.html#cairo-user-data-key-t" title="cairo_user_data_key_t"><span class="type">cairo_user_data_key_t</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *user_data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="cairo-Types.html#cairo-destroy-func-t" title="cairo_destroy_func_t ()"><span class="type">cairo_destroy_func_t</span></a> destroy</code></em>);</pre>
+<p>
+Attach user data to <em class="parameter"><code>font_face</code></em>.  To remove user data from a font face,
+call this function with the key that was used to set it and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+for <em class="parameter"><code>data</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>font_face</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>the address of a <a class="link" href="cairo-Types.html#cairo-user-data-key-t" title="cairo_user_data_key_t"><span class="type">cairo_user_data_key_t</span></a> to attach the user data to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>the user data to attach to the font face</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-Types.html#cairo-destroy-func-t" title="cairo_destroy_func_t ()"><span class="type">cairo_destroy_func_t</span></a> which will be called when the
+font face is destroyed or when new user data is attached using the
+same key.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a class="link" href="cairo-Error-handling.html#CAIRO-STATUS-SUCCESS:CAPS"><code class="literal">CAIRO_STATUS_SUCCESS</code></a> or <a class="link" href="cairo-Error-handling.html#CAIRO-STATUS-NO-MEMORY:CAPS"><code class="literal">CAIRO_STATUS_NO_MEMORY</code></a> if a
+slot could not be allocated for the user data.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-font-face-get-user-data"></a><h3>cairo_font_face_get_user_data ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              cairo_font_face_get_user_data       (<em class="parameter"><code><a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> *font_face</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="cairo-Types.html#cairo-user-data-key-t" title="cairo_user_data_key_t"><span class="type">cairo_user_data_key_t</span></a> *key</code></em>);</pre>
+<p>
+Return user data previously attached to <em class="parameter"><code>font_face</code></em> using the specified
+key.  If no user data has been attached with the given key this
+function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>font_face</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>the address of the <a class="link" href="cairo-Types.html#cairo-user-data-key-t" title="cairo_user_data_key_t"><span class="type">cairo_user_data_key_t</span></a> the user data was
+attached to</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the user data previously attached or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="cairo-cairo-font-face-t.see-also"></a><h2>See Also</h2>
+<a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-t" title="cairo_scaled_font_t"><span class="type">cairo_scaled_font_t</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

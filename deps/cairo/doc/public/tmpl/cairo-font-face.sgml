@@ -1,0 +1,105 @@
+<!-- ##### SECTION Title ##### -->
+cairo-font-face
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### TYPEDEF cairo_font_face_t ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION cairo_font_face_reference ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_font_face_destroy ##### -->
+<para>
+
+</para>
+
+@font_face: 
+
+
+<!-- ##### FUNCTION cairo_font_face_status ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+
+<!-- ##### ENUM cairo_font_type_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_FONT_TYPE_TOY: 
+@CAIRO_FONT_TYPE_FT: 
+@CAIRO_FONT_TYPE_WIN32: 
+@CAIRO_FONT_TYPE_QUARTZ: 
+@CAIRO_FONT_TYPE_USER: 
+
+<!-- ##### FUNCTION cairo_font_face_get_type ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_font_face_get_reference_count ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_font_face_set_user_data ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@key: 
+@user_data: 
+@destroy: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_font_face_get_user_data ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@key: 
+@Returns: 
+
+

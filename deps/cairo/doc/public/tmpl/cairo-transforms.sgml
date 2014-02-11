@@ -1,0 +1,126 @@
+<!-- ##### SECTION Title ##### -->
+cairo-transforms
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### FUNCTION cairo_translate ##### -->
+<para>
+
+</para>
+
+@cr: 
+@tx: 
+@ty: 
+
+
+<!-- ##### FUNCTION cairo_scale ##### -->
+<para>
+
+</para>
+
+@cr: 
+@sx: 
+@sy: 
+
+
+<!-- ##### FUNCTION cairo_rotate ##### -->
+<para>
+
+</para>
+
+@cr: 
+@angle: 
+
+
+<!-- ##### FUNCTION cairo_transform ##### -->
+<para>
+
+</para>
+
+@cr: 
+@matrix: 
+
+
+<!-- ##### FUNCTION cairo_set_matrix ##### -->
+<para>
+
+</para>
+
+@cr: 
+@matrix: 
+
+
+<!-- ##### FUNCTION cairo_get_matrix ##### -->
+<para>
+
+</para>
+
+@cr: 
+@matrix: 
+
+
+<!-- ##### FUNCTION cairo_identity_matrix ##### -->
+<para>
+
+</para>
+
+@cr: 
+
+
+<!-- ##### FUNCTION cairo_user_to_device ##### -->
+<para>
+
+</para>
+
+@cr: 
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION cairo_user_to_device_distance ##### -->
+<para>
+
+</para>
+
+@cr: 
+@dx: 
+@dy: 
+
+
+<!-- ##### FUNCTION cairo_device_to_user ##### -->
+<para>
+
+</para>
+
+@cr: 
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION cairo_device_to_user_distance ##### -->
+<para>
+
+</para>
+
+@cr: 
+@dx: 
+@dy: 
+
+

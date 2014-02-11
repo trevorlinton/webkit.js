@@ -1,0 +1,8 @@
+libcairo_missing_sources = \
+	strndup.c \
+	getline.c \
+	$(NULL)
+
+libcairo_missing_headers = \
+	cairo-missing.h \
+	$(NULL)

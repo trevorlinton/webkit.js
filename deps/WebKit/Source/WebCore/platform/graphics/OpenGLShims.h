@@ -20,6 +20,10 @@
 #ifndef OpenGLShims_h
 #define OpenGLShims_h
 
+#ifndef GL_BGRA
+#define GL_BGRA					0x80E1
+#endif
+
 #if PLATFORM(NIX) && USE(OPENGL_ES_2)
 #include <GLES2/gl2.h>
 #else

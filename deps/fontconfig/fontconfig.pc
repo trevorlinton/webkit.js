@@ -1,0 +1,16 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+sysconfdir=${prefix}/etc
+localstatedir=${prefix}/var
+PACKAGE=fontconfig
+confdir=${sysconfdir}/fonts
+cachedir=${localstatedir}/cache/${PACKAGE}
+
+Name: Fontconfig
+Description: Font configuration and customization library
+Version: 2.10.91
+Libs: -L${libdir} -lfontconfig
+Libs.private:  -lexpat  
+Cflags: -I${includedir}

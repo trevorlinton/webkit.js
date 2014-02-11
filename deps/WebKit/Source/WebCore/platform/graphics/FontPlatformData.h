@@ -27,9 +27,11 @@
 #include "harfbuzz/FontPlatformDataHarfBuzz.h"
 #elif USE(WINGDI)
 #include "wince/FontPlatformData.h"
-#elif PLATFORM(EFL) || PLATFORM(GTK) || PLATFORM(NIX)
+#elif PLATFORM(EFL) || PLATFORM(GTK) || PLATFORM(NIX) || PLATFORM(JS)
 #include "freetype/FontPlatformData.h"
 #else
+
+#error "Somehow we're including old font data platform info."
 
 #ifndef FontPlatformData_h
 #define FontPlatformData_h
@@ -94,6 +96,9 @@ public:
     FontPlatformData(const FontPlatformData&);
     FontPlatformData(const FontDescription&, const AtomicString& family);
     FontPlatformData(float size, bool syntheticBold, bool syntheticOblique, FontOrientation = Horizontal, FontWidthVariant = RegularWidth);
+#if PLATFORM(JS) && USE(CAIRO)
+    FontPlatformData(cairo_font_face_t* fontFace, float size, bool bold = false, bool oblique=false);
+#endif
 
 #if OS(DARWIN)
 #if USE(APPKIT)

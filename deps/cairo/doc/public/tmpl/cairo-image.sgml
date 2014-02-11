@@ -1,0 +1,121 @@
+<!-- ##### SECTION Title ##### -->
+cairo-image
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_IMAGE_SURFACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### ENUM cairo_format_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_FORMAT_INVALID: 
+@CAIRO_FORMAT_ARGB32: 
+@CAIRO_FORMAT_RGB24: 
+@CAIRO_FORMAT_A8: 
+@CAIRO_FORMAT_A1: 
+@CAIRO_FORMAT_RGB16_565: 
+@CAIRO_FORMAT_RGB30: 
+
+<!-- ##### FUNCTION cairo_format_stride_for_width ##### -->
+<para>
+
+</para>
+
+@format: 
+@width: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_image_surface_create ##### -->
+<para>
+
+</para>
+
+@format: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_image_surface_create_for_data ##### -->
+<para>
+
+</para>
+
+@data: 
+@format: 
+@width: 
+@height: 
+@stride: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_image_surface_get_data ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_image_surface_get_format ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_image_surface_get_width ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_image_surface_get_height ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_image_surface_get_stride ##### -->
+<para>
+
+</para>
+
+@surface: 
+@Returns: 
+
+

@@ -1,0 +1,16 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+sysconfdir=@sysconfdir@
+localstatedir=@localstatedir@
+PACKAGE=@PACKAGE@
+confdir=@baseconfigdir@
+cachedir=@fc_cachedir@
+
+Name: Fontconfig
+Description: Font configuration and customization library
+Version: @VERSION@
+Libs: -L${libdir} -lfontconfig
+Libs.private: @LIBXML2_LIBS@ @EXPAT_LIBS@ @FREETYPE_LIBS@ @ICONV_LIBS@
+Cflags: -I${includedir}

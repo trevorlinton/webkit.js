@@ -1,0 +1,258 @@
+<!-- ##### SECTION Title ##### -->
+cairo-region
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### TYPEDEF cairo_region_t ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION cairo_region_create ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_create_rectangle ##### -->
+<para>
+
+</para>
+
+@rectangle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_create_rectangles ##### -->
+<para>
+
+</para>
+
+@rects: 
+@count: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_copy ##### -->
+<para>
+
+</para>
+
+@original: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_reference ##### -->
+<para>
+
+</para>
+
+@region: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_destroy ##### -->
+<para>
+
+</para>
+
+@region: 
+
+
+<!-- ##### FUNCTION cairo_region_status ##### -->
+<para>
+
+</para>
+
+@region: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_get_extents ##### -->
+<para>
+
+</para>
+
+@region: 
+@extents: 
+
+
+<!-- ##### FUNCTION cairo_region_num_rectangles ##### -->
+<para>
+
+</para>
+
+@region: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_get_rectangle ##### -->
+<para>
+
+</para>
+
+@region: 
+@nth: 
+@rectangle: 
+
+
+<!-- ##### FUNCTION cairo_region_is_empty ##### -->
+<para>
+
+</para>
+
+@region: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_contains_point ##### -->
+<para>
+
+</para>
+
+@region: 
+@x: 
+@y: 
+@Returns: 
+
+
+<!-- ##### ENUM cairo_region_overlap_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_REGION_OVERLAP_IN: 
+@CAIRO_REGION_OVERLAP_OUT: 
+@CAIRO_REGION_OVERLAP_PART: 
+
+<!-- ##### FUNCTION cairo_region_contains_rectangle ##### -->
+<para>
+
+</para>
+
+@region: 
+@rectangle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_equal ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_translate ##### -->
+<para>
+
+</para>
+
+@region: 
+@dx: 
+@dy: 
+
+
+<!-- ##### FUNCTION cairo_region_intersect ##### -->
+<para>
+
+</para>
+
+@dst: 
+@other: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_intersect_rectangle ##### -->
+<para>
+
+</para>
+
+@dst: 
+@rectangle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_subtract ##### -->
+<para>
+
+</para>
+
+@dst: 
+@other: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_subtract_rectangle ##### -->
+<para>
+
+</para>
+
+@dst: 
+@rectangle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_union ##### -->
+<para>
+
+</para>
+
+@dst: 
+@other: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_union_rectangle ##### -->
+<para>
+
+</para>
+
+@dst: 
+@rectangle: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_xor ##### -->
+<para>
+
+</para>
+
+@dst: 
+@other: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_region_xor_rectangle ##### -->
+<para>
+
+</para>
+
+@dst: 
+@rectangle: 
+@Returns: 
+
+

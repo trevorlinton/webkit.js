@@ -1,0 +1,84 @@
+<!-- ##### SECTION ./tmpl/cairo-atsui.sgml:Long_Description ##### -->
+<para>
+The ATSUI font backend is primarily used to render text on Apple OS X systems.
+</para>
+
+
+<!-- ##### SECTION ./tmpl/cairo-atsui.sgml:See_Also ##### -->
+<para>
+<itemizedlist>
+<listitem>#cairo_font_face_t</listitem>
+</itemizedlist>
+</para>
+
+
+<!-- ##### SECTION ./tmpl/cairo-atsui.sgml:Short_Description ##### -->
+Font support for ATSUI on OS X
+
+
+<!-- ##### SECTION ./tmpl/cairo-atsui.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/cairo-atsui.sgml:Title ##### -->
+ATSUI Fonts
+
+
+<!-- ##### SECTION ./tmpl/cairo-beos.sgml:Long_Description ##### -->
+<para>
+The BeOS surface is used to render cairo graphics to
+BeOS views and bitmaps.
+</para>
+
+
+<!-- ##### SECTION ./tmpl/cairo-beos.sgml:See_Also ##### -->
+<para>
+<itemizedlist>
+<listitem>#cairo_surface_t</listitem>
+</itemizedlist>
+</para>
+
+
+<!-- ##### SECTION ./tmpl/cairo-beos.sgml:Short_Description ##### -->
+BeOS surface support
+
+
+<!-- ##### SECTION ./tmpl/cairo-beos.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/cairo-beos.sgml:Title ##### -->
+BeOS Surfaces
+
+
+<!-- ##### SECTION ./tmpl/cairo-xcb-xrender.sgml:Long_Description ##### -->
+<para>
+The XCB surface is used to render cairo graphics to X Window System
+windows and pixmaps using the XCB library and its X Render extension.
+</para>
+<para>
+Note that the XCB surface automatically takes advantage of the X Render
+extension if it is available.
+</para>
+
+
+<!-- ##### SECTION ./tmpl/cairo-xcb-xrender.sgml:See_Also ##### -->
+<para>
+<itemizedlist>
+<listitem>#cairo_surface_t</listitem>
+</itemizedlist>
+</para>
+
+
+<!-- ##### SECTION ./tmpl/cairo-xcb-xrender.sgml:Short_Description ##### -->
+X Window System rendering using the XCB library and the X Render extension
+
+
+<!-- ##### SECTION ./tmpl/cairo-xcb-xrender.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/cairo-xcb-xrender.sgml:Title ##### -->
+XCB Surfaces
+
+

@@ -22,18 +22,20 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#pragma GCC diagnostic ignored "-Wreturn-type"
 #include "config.h"
 #include "FontPlatformData.h"
 
 #include "FontDescription.h"
 #include <cairo-ft.h>
 #include <cairo.h>
+#include <fontconfig/fontconfig.h>
 #include <fontconfig/fcfreetype.h>
 #include <ft2build.h>
 #include FT_TRUETYPE_TABLES_H
 #include <wtf/text/WTFString.h>
 
-#if !PLATFORM(EFL) && !PLATFORM(NIX)
+#if !PLATFORM(EFL) && !PLATFORM(NIX) && !PLATFORM(JS)
 #include <gdk/gdk.h>
 #endif
 
@@ -342,8 +344,10 @@ bool FontPlatformData::hasCompatibleCharmap()
 
 PassRefPtr<OpenTypeVerticalData> FontPlatformData::verticalData() const
 {
+#if !PLATFORM(JS)
     ASSERT(hash());
     return fontCache()->getVerticalData(String::number(hash()), *this);
+#endif
 }
 
 PassRefPtr<SharedBuffer> FontPlatformData::openTypeTable(uint32_t table) const

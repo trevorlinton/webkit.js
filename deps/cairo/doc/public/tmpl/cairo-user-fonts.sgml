@@ -1,0 +1,160 @@
+<!-- ##### SECTION Title ##### -->
+cairo-user-fonts
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_USER_FONT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### USER_FUNCTION cairo_user_scaled_font_init_func_t ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@cr: 
+@extents: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION cairo_user_scaled_font_render_glyph_func_t ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@glyph: 
+@cr: 
+@extents: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION cairo_user_scaled_font_text_to_glyphs_func_t ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@utf8: 
+@utf8_len: 
+@glyphs: 
+@num_glyphs: 
+@clusters: 
+@num_clusters: 
+@cluster_flags: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION cairo_user_scaled_font_unicode_to_glyph_func_t ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@unicode: 
+@glyph_index: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_user_font_face_create ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_user_font_face_set_init_func ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@init_func: 
+
+
+<!-- ##### FUNCTION cairo_user_font_face_get_init_func ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_user_font_face_set_render_glyph_func ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@render_glyph_func: 
+
+
+<!-- ##### FUNCTION cairo_user_font_face_get_render_glyph_func ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_user_font_face_set_unicode_to_glyph_func ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@unicode_to_glyph_func: 
+
+
+<!-- ##### FUNCTION cairo_user_font_face_get_unicode_to_glyph_func ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_user_font_face_set_text_to_glyphs_func ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@text_to_glyphs_func: 
+
+
+<!-- ##### FUNCTION cairo_user_font_face_get_text_to_glyphs_func ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+

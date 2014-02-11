@@ -1,0 +1,11 @@
+17:07 < sanooj> ickle_: could you write up the docs for the device functions with particular care given to the interactions with other things?
+17:07 < ickle_> sanooj: can't you tell I'm still winging it ;-)
+17:07  * ickle_ hand waves... these are not the docs you are looking for.
+17:07 < sanooj> heh. all right
+17:08 < sanooj> but before 1.10 anyway!
+17:08 < ickle_> most of it will depend upon how it breaks when Company uses it in anger. :)
+17:09 < Company> well, the idea is to set up the GLX context the way i want it
+17:09 < Company> and only restore it to defaults in _flush()
+17:09 < sanooj> it should answer things like "when do I need to care about a device_t?  when should I acquire it?  what can I do while it's acquired?  when is it implicitly acquired/released by cairo?  what does flushing a device mean?  who else is 
+                flushing the device?  when do I need to flush it?" etc.
+17:10  * ickle_ takes notes.

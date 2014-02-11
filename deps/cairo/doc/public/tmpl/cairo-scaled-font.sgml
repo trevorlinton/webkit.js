@@ -1,0 +1,222 @@
+<!-- ##### SECTION Title ##### -->
+cairo-scaled-font
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### TYPEDEF cairo_scaled_font_t ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION cairo_scaled_font_create ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@font_matrix: 
+@ctm: 
+@options: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_reference ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_destroy ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_status ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@Returns: 
+
+
+<!-- ##### STRUCT cairo_font_extents_t ##### -->
+<para>
+
+</para>
+
+@ascent: 
+@descent: 
+@height: 
+@max_x_advance: 
+@max_y_advance: 
+
+<!-- ##### FUNCTION cairo_scaled_font_extents ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@extents: 
+
+
+<!-- ##### STRUCT cairo_text_extents_t ##### -->
+<para>
+
+</para>
+
+@x_bearing: 
+@y_bearing: 
+@width: 
+@height: 
+@x_advance: 
+@y_advance: 
+
+<!-- ##### FUNCTION cairo_scaled_font_text_extents ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@utf8: 
+@extents: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_glyph_extents ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@glyphs: 
+@num_glyphs: 
+@extents: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_text_to_glyphs ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@x: 
+@y: 
+@utf8: 
+@utf8_len: 
+@glyphs: 
+@num_glyphs: 
+@clusters: 
+@num_clusters: 
+@cluster_flags: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_get_font_face ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_get_font_options ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@options: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_get_font_matrix ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@font_matrix: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_get_ctm ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@ctm: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_get_scale_matrix ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@scale_matrix: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_get_type ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_get_reference_count ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_set_user_data ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@key: 
+@user_data: 
+@destroy: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_scaled_font_get_user_data ##### -->
+<para>
+
+</para>
+
+@scaled_font: 
+@key: 
+@Returns: 
+
+
