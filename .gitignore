@@ -1,3 +1,7 @@
+xcuserdata
+xcuserdata/
+./xcuserdata
+/xcuserdata
 *.xcuserstate
 *.xcscheme
 ./Release
