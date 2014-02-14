@@ -1,0 +1,174 @@
+Trevors-MacBook-Pro:Release tlinton$ du -h -s *.js
+3.5M	cairo.js
+1.3M	freetype2.js
+1.1M	harfbuzz.js
+800K	jpeg.js
+540K	png.js
+1.3M	xml.js
+456K	zlib.js
+Trevors-MacBook-Pro:Release tlinton$ 
+
+
+harfbuzz -> harfbuzz.js
+warning: not optimizing llvm switch into js switch because range of values is 43598, density is 650.7164179104477
+warning: not optimizing llvm switch into js switch because range of values is 268435451, density is 33554431.375
+warning: not optimizing llvm switch into js switch because range of values is 318111743, density is 16742723.315789474
+warning: phi refers to nonexistent label on line 10431
+warning: phi refers to nonexistent label on line 10431
+warning: phi refers to nonexistent label on line 10803
+warning: phi refers to nonexistent label on line 10803
+warning: landingpad, but exceptions are disabled!
+warning: not optimizing llvm switch into js switch because range of values is 318111751, density is 9356227.970588235
+warning: not optimizing llvm switch into js switch because range of values is 67582, density is 4827.285714285715
+warning: not optimizing llvm switch into js switch because range of values is 1500080489, density is 250013414.83333334
+warning: not optimizing llvm switch into js switch because range of values is 301989390, density is 30198939
+warning: not optimizing llvm switch into js switch because range of values is 301925632, density is 30192563.2
+warning: phi refers to nonexistent label on line 22171
+warning: phi refers to nonexistent label on line 22171
+warning: phi refers to nonexistent label on line 22216
+warning: phi refers to nonexistent label on line 22216
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verr
+warning: See https://github.com/kripken/emscripten/wiki/CodeGuidelinesAndLimitations#function-pointer-issues for more information on dangerous function pointer casts
+warning: Incompatible function pointer casts are very dangerous with ASM_JS=1, you should investigate and correct these
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verrx
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarn
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarnx
+warning: Fixing function call based on return type from signature, on __verr,i32,void
+warning: Fixing function call based on return type from signature, on __verrx,i32,void
+warning: Fixing function call based on return type from signature, on __vwarn,i32,void
+warning: Fixing function call based on return type from signature, on __vwarnx,i32,void
+
+
+
+jpeg -> jpeg.js
+warning: phi refers to nonexistent label on line 14349
+warning: phi refers to nonexistent label on line 14349
+warning: landingpad, but exceptions are disabled!
+warning: phi refers to nonexistent label on line 14394
+warning: phi refers to nonexistent label on line 14394
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verr
+warning: See https://github.com/kripken/emscripten/wiki/CodeGuidelinesAndLimitations#function-pointer-issues for more information on dangerous function pointer casts
+warning: Incompatible function pointer casts are very dangerous with ASM_JS=1, you should investigate and correct these
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verrx
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarn
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarnx
+warning: Fixing function call based on return type from signature, on __verr,i32,void
+warning: Fixing function call based on return type from signature, on __verrx,i32,void
+warning: Fixing function call based on return type from signature, on __vwarn,i32,void
+warning: Fixing function call based on return type from signature, on __vwarnx,i32,void
+
+png -> png.js
+warning: phi refers to nonexistent label on line 15449
+warning: phi refers to nonexistent label on line 15449
+warning: landingpad, but exceptions are disabled!
+warning: phi refers to nonexistent label on line 15494
+warning: phi refers to nonexistent label on line 15494
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verr
+warning: See https://github.com/kripken/emscripten/wiki/CodeGuidelinesAndLimitations#function-pointer-issues for more information on dangerous function pointer casts
+warning: Incompatible function pointer casts are very dangerous with ASM_JS=1, you should investigate and correct these
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verrx
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarn
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarnx
+warning: Fixing function call based on return type from signature, on __verr,i32,void
+warning: Fixing function call based on return type from signature, on __verrx,i32,void
+warning: Fixing function call based on return type from signature, on __vwarn,i32,void
+warning: Fixing function call based on return type from signature, on __vwarnx,i32,void
+
+
+zlib -> zlib.js
+warning: phi refers to nonexistent label on line 12952
+warning: phi refers to nonexistent label on line 12952
+warning: landingpad, but exceptions are disabled!
+warning: phi refers to nonexistent label on line 12997
+warning: phi refers to nonexistent label on line 12997
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verr
+warning: See https://github.com/kripken/emscripten/wiki/CodeGuidelinesAndLimitations#function-pointer-issues for more information on dangerous function pointer casts
+warning: Incompatible function pointer casts are very dangerous with ASM_JS=1, you should investigate and correct these
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verrx
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarn
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarnx
+warning: Fixing function call based on return type from signature, on __verr,i32,void
+warning: Fixing function call based on return type from signature, on __verrx,i32,void
+warning: Fixing function call based on return type from signature, on __vwarn,i32,void
+warning: Fixing function call based on return type from signature, on __vwarnx,i32,void
+
+
+
+xml -> xml.js
+warning: Casting potentially incompatible function pointer void (%struct._xmlElement*)* to void (i8*, i8*)*, for xmlFreeElement
+warning: See https://github.com/kripken/emscripten/wiki/CodeGuidelinesAndLimitations#function-pointer-issues for more information on dangerous function pointer casts
+warning: Casting potentially incompatible function pointer %struct._xmlElement* (%struct._xmlElement*)* to i8* (i8*, i8*)*, for xmlCopyElement
+warning: Casting potentially incompatible function pointer %struct._xmlEntity* (%struct._xmlEntity*)* to i8* (i8*, i8*)*, for xmlCopyEntity
+warning: See https://github.com/kripken/emscripten/wiki/CodeGuidelinesAndLimitations#function-pointer-issues for more information on dangerous function pointer casts
+warning: Casting potentially incompatible function pointer void (%struct._xmlAttribute*)* to void (i8*, i8*)*, for xmlFreeAttribute
+warning: Casting potentially incompatible function pointer %struct._xmlAttribute* (%struct._xmlAttribute*)* to i8* (i8*, i8*)*, for xmlCopyAttribute
+warning: Casting potentially incompatible function pointer void (%struct._xmlNotation*)* to void (i8*, i8*)*, for xmlFreeNotation
+warning: Casting potentially incompatible function pointer %struct._xmlNotation* (%struct._xmlNotation*)* to i8* (i8*, i8*)*, for xmlCopyNotation
+warning: Casting potentially incompatible function pointer void (%struct._xmlID*)* to void (i8*, i8*)*, for xmlFreeID
+warning: Casting potentially incompatible function pointer void (%struct._xmlList*)* to void (i8*, i8*)*, for xmlFreeRefList
+
+
+cairo -> cairo.js
+warning: Fixing function call based on return type from signature, on __slope_length,i64,i32
+warning: Fixing function call based on return type from signature, on _color_to_uint64,i64,i32
+warning: Fixing function call based on return type from signature, on ___DOUBLE_BITS1527,i64,i32
+warning: not optimizing llvm switch into js switch because range of values is 520648840, density is 11832928.181818182
+warning: not optimizing llvm switch into js switch because range of values is 520648840, density is 11832928.181818182
+warning: Fixing function call based on return type from signature, on __cairo_observation_total_elapsed,i64,i32
+warning: Fixing function call based on return type from signature, on _det32_64,i64,i32
+warning: Fixing function call based on return type from signature, on ___DOUBLE_BITS945,i64,i32
+warning: Fixing function call based on return type from signature, on _blend_screen234,i64,i32
+warning: Fixing function call based on return type from signature, on _blend_overlay233,i64,i32
+warning: Fixing function call based on return type from signature, on _blend_darken232,i64,i32
+warning: Fixing function call based on return type from signature, on _blend_lighten231,i64,i32
+warning: Fixing function call based on return type from signature, on _blend_color_dodge230,i64,i32
+warning: Fixing function call based on return type from signature, on _blend_color_burn229,i64,i32
+warning: Fixing function call based on return type from signature, on _blend_hard_light228,i64,i32
+warning: Fixing function call based on return type from signature, on _det32_64381,i64,i32
+warning: Fixing function call based on return type from signature, on _blend_soft_light227,i64,i32
+warning: Fixing function call based on return type from signature, on _blend_difference226,i64,i32
+warning: Fixing function call based on return type from signature, on _blend_exclusion225,i64,i32
+warning: Casting potentially incompatible function pointer i32 (i8*, %struct._cairo_point*)* to i32 (i8*, %struct._cairo_point*, %struct._cairo_slope*)*, for _cairo_filler_line_to
+warning: See https://github.com/kripken/emscripten/wiki/CodeGuidelinesAndLimitations#function-pointer-issues for more information on dangerous function pointer casts
+warning: Incompatible function pointer casts are very dangerous with ASM_JS=1, you should investigate and correct these
+warning: Casting potentially incompatible function pointer i32 (i8*, %struct._cairo_point*)* to i32 (i8*, %struct._cairo_point*, %struct._cairo_slope*)*, for _cairo_in_fill_line_to
+warning: Fixing function call based on return type from signature, on _det32_641300,i64,i32
+warning: Fixing function call based on return type from signature, on _det32_641343,i64,i32
+warning: not optimizing llvm switch into js switch because range of values is 520648840, density is 11832928.181818182
+warning: not optimizing llvm switch into js switch because range of values is 403114120, density is 31008778.46153846
+warning: phi refers to nonexistent label on line 78502
+warning: phi refers to nonexistent label on line 78502
+warning: landingpad, but exceptions are disabled!
+warning: phi refers to nonexistent label on line 78547
+warning: phi refers to nonexistent label on line 78547
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verr
+warning: See https://github.com/kripken/emscripten/wiki/CodeGuidelinesAndLimitations#function-pointer-issues for more information on dangerous function pointer casts
+warning: Incompatible function pointer casts are very dangerous with ASM_JS=1, you should investigate and correct these
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verrx
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarn
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarnx
+warning: Fixing function call based on return type from signature, on __verr,i32,void
+warning: Fixing function call based on return type from signature, on __verrx,i32,void
+warning: Fixing function call based on return type from signature, on __vwarn,i32,void
+warning: Fixing function call based on return type from signature, on __vwarnx,i32,void
+warning: Fixing function call based on return type from signature, on ___DOUBLE_BITS,i64,i32
+warning: Fixing function call based on return type from signature, on _dot,i64,i32
+
+freetype2 -> freetype.js
+warning: phi refers to nonexistent label on line 16896
+warning: phi refers to nonexistent label on line 16896
+warning: landingpad, but exceptions are disabled!
+warning: phi refers to nonexistent label on line 16941
+warning: phi refers to nonexistent label on line 16941
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verr
+warning: See https://github.com/kripken/emscripten/wiki/CodeGuidelinesAndLimitations#function-pointer-issues for more information on dangerous function pointer casts
+warning: Incompatible function pointer casts are very dangerous with ASM_JS=1, you should investigate and correct these
+warning: Casting potentially incompatible function pointer void (i32, i8*, i32*)* to i32 (i32, i8*, i32*)*, for _verrx
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarn
+warning: Casting potentially incompatible function pointer void (i8*, i32*)* to i32 (i8*, i32*)*, for _vwarnx
+warning: Fixing function call based on return type from signature, on __verr,i32,void
+warning: Fixing function call based on return type from signature, on __verrx,i32,void
+warning: Fixing function call based on return type from signature, on __vwarn,i32,void
+warning: Fixing function call based on return type from signature, on __vwarnx,i32,void
+VERBOSE is on, this generates a lot of output and can slow down compilation
+
