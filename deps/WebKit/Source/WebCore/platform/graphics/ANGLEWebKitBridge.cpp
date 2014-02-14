@@ -40,6 +40,35 @@ typedef int ANGLEGetInfoType;
 typedef size_t ANGLEGetInfoType;
 #endif
 
+#if PLATFORM(JS)
+  void ShInitBuiltInResources(ShBuiltInResources* resources) {
+    // Constants.
+    resources->MaxVertexAttribs = 8;
+    resources->MaxVertexUniformVectors = 128;
+    resources->MaxVaryingVectors = 8;
+    resources->MaxVertexTextureImageUnits = 0;
+    resources->MaxCombinedTextureImageUnits = 8;
+    resources->MaxTextureImageUnits = 8;
+    resources->MaxFragmentUniformVectors = 16;
+    resources->MaxDrawBuffers = 1;
+
+    // Extensions.
+    resources->OES_standard_derivatives = 0;
+    resources->OES_EGL_image_external = 0;
+    resources->ARB_texture_rectangle = 0;
+    resources->EXT_draw_buffers = 0;
+    resources->EXT_frag_depth = 0;
+
+    // Disable highp precision in fragment shader by default.
+    resources->FragmentPrecisionHigh = 0;
+
+    // Disable name hashing by default.
+    resources->HashFunction = NULL;
+
+    resources->ArrayIndexClampingStrategy = SH_CLAMP_WITH_CLAMP_INTRINSIC;
+  }
+#endif
+
 inline static ANGLEGetInfoType getValidationResultValue(const ShHandle compiler, ShShaderInfo shaderInfo)
 {
     ANGLEGetInfoType value = 0;

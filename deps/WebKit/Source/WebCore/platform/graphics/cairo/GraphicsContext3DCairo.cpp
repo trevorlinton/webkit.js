@@ -43,7 +43,9 @@
 
 #if PLATFORM(WIN)
 #include "GLSLANG/ShaderLang.h"
-#elif !PLATFORM(JS)
+#elif PLATFORM(JS)
+#include "ANGLE/ShaderLang.h"
+#else
 #include "ShaderLang.h"
 #endif
 
@@ -123,7 +125,6 @@ GraphicsContext3D::GraphicsContext3D(GraphicsContext3D::Attributes attributes, H
                 ::glGenRenderbuffers(1, &m_multisampleDepthStencilBuffer);
         }
     }
-
     // ANGLE initialization.
     ShBuiltInResources ANGLEResources;
     ShInitBuiltInResources(&ANGLEResources);
@@ -144,7 +145,6 @@ GraphicsContext3D::GraphicsContext3D(GraphicsContext3D::Attributes attributes, H
     ANGLEResources.FragmentPrecisionHigh = (range[0] || range[1] || precision);
 
     m_compiler.setResources(ANGLEResources);
-
 #if !USE(OPENGL_ES_2)
     ::glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
     ::glEnable(GL_POINT_SPRITE);

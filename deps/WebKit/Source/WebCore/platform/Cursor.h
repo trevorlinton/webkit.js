@@ -54,7 +54,7 @@ typedef HICON HCURSOR;
 #endif
 
 // Looks like it's just PLATFORM(BLACKBERRY) still not using this?
-#if PLATFORM(WIN) || PLATFORM(MAC) || PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(NIX)
+#if PLATFORM(WIN) || PLATFORM(MAC) || PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(NIX) || PLATFORM(JS)
 #define WTF_USE_LAZY_NATIVE_CURSOR 1
 #endif
 
@@ -195,7 +195,7 @@ namespace WebCore {
 #endif
 #endif
 
-#if !PLATFORM(MAC)
+#if !PLATFORM(MAC) || PLATFORM(JS)
         mutable PlatformCursor m_platformCursor;
 #else
         mutable RetainPtr<NSCursor> m_platformCursor;

@@ -62,9 +62,11 @@
 #include "PageDebuggable.h"
 #include "PageGroup.h"
 #include "PageThrottler.h"
+#if !PLATFORM(JS)
 #include "PlugInClient.h"
 #include "PluginData.h"
 #include "PluginView.h"
+#endif
 #include "PointerLockController.h"
 #include "ProgressTracker.h"
 #include "RenderLayerCompositor.h"
@@ -148,8 +150,10 @@ Page::Page(PageClients& pageClients)
     , m_backForwardController(std::make_unique<BackForwardController>(*this, pageClients.backForwardClient))
     , m_mainFrame(MainFrame::create(*this, *pageClients.loaderClientForMainFrame))
     , m_theme(RenderTheme::themeForPage(this))
+#if !PLATFORM(JS)
     , m_editorClient(pageClients.editorClient)
     , m_plugInClient(pageClients.plugInClient)
+#endif
     , m_validationMessageClient(pageClients.validationMessageClient)
     , m_subframeCount(0)
     , m_openedByDOM(false)
@@ -227,8 +231,10 @@ Page::~Page()
     }
 
     m_editorClient->pageDestroyed();
+#if !PLATFORM(JS)
     if (m_plugInClient)
         m_plugInClient->pageDestroyed();
+#endif
     if (m_alternativeTextClient)
         m_alternativeTextClient->pageDestroyed();
 
@@ -505,12 +511,11 @@ void Page::jettisonStyleResolversInAllDocuments()
         }
     }
 }
-
+#if !PLATFORM(JS)
 void Page::refreshPlugins(bool reload)
 {
     if (!allPages)
         return;
-
     PluginData::refresh();
 
     Vector<Ref<Frame>> framesNeedingReload;
@@ -531,13 +536,15 @@ void Page::refreshPlugins(bool reload)
     for (size_t i = 0; i < framesNeedingReload.size(); ++i)
         framesNeedingReload[i]->loader().reload();
 }
-
+#endif
+#if !PLATFORM(JS)
 PluginData& Page::pluginData() const
 {
     if (!m_pluginData)
         m_pluginData = PluginData::create(this);
     return *m_pluginData;
 }
+#endif
 
 inline MediaCanStartListener* Page::takeAnyMediaCanStartListener()
 {
@@ -1131,6 +1138,7 @@ void Page::dnsPrefetchingStateChanged()
         frame->document()->initDNSPrefetch();
 }
 
+#if !PLATFORM(JS)
 Vector<Ref<PluginViewBase>> Page::pluginViews()
 {
     Vector<Ref<PluginViewBase>> views;
@@ -1149,18 +1157,20 @@ Vector<Ref<PluginViewBase>> Page::pluginViews()
 
     return views;
 }
+#endif
 
 void Page::storageBlockingStateChanged()
 {
     for (Frame* frame = &mainFrame(); frame; frame = frame->tree().traverseNext())
         frame->document()->storageBlockingStateDidChange();
-
+#if !PLATFORM(JS)
     // Collect the PluginViews in to a vector to ensure that action the plug-in takes
     // from below storageBlockingStateChanged does not affect their lifetime.
     auto views = pluginViews();
 
     for (unsigned i = 0; i < views.size(); ++i)
         views[i]->storageBlockingStateChanged();
+#endif
 }
 
 void Page::privateBrowsingStateChanged()
@@ -1169,13 +1179,14 @@ void Page::privateBrowsingStateChanged()
 
     for (Frame* frame = &mainFrame(); frame; frame = frame->tree().traverseNext())
         frame->document()->privateBrowsingStateDidChange();
-
+#if !PLATFORM(JS)
     // Collect the PluginViews in to a vector to ensure that action the plug-in takes
     // from below privateBrowsingStateChanged does not affect their lifetime.
     auto views = pluginViews();
 
     for (unsigned i = 0; i < views.size(); ++i)
         views[i]->privateBrowsingStateChanged(privateBrowsingEnabled);
+#endif
 }
 
 #if !ASSERT_DISABLED

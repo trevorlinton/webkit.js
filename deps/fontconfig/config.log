@@ -30,8 +30,8 @@ Kernel configured for up to 8 processors.
 Processor type: i486 (Intel 80486)
 Processors active: 0 1 2 3 4 5 6 7
 Primary memory available: 8.00 gigabytes
-Default processor set: 180 tasks, 1044 threads, 8 processors
-Load average: 1.12, Mach factor: 6.87
+Default processor set: 174 tasks, 821 threads, 8 processors
+Load average: 0.95, Mach factor: 7.04
 /bin/machine           = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
@@ -52,91 +52,91 @@ PATH: /Users/tlinton/Library/Emscripten/emscripten/1.8.2
 ## Core tests. ##
 ## ----------- ##
 
-configure:2615: checking for a BSD-compatible install
-configure:2683: result: /usr/bin/install -c
-configure:2694: checking whether build environment is sane
-configure:2744: result: yes
-configure:2885: checking for a thread-safe mkdir -p
-configure:2924: result: ./install-sh -c -d
-configure:2937: checking for gawk
-configure:2967: result: no
-configure:2937: checking for mawk
-configure:2967: result: no
-configure:2937: checking for nawk
-configure:2967: result: no
-configure:2937: checking for awk
-configure:2953: found /usr/bin/awk
-configure:2964: result: awk
-configure:2975: checking whether make sets $(MAKE)
-configure:2997: result: yes
-configure:3156: checking for gcc
-configure:3172: found /usr/bin/gcc
-configure:3183: result: gcc
-configure:3412: checking for C compiler version
-configure:3421: gcc --version >&5
+configure:2643: checking for a BSD-compatible install
+configure:2711: result: /usr/bin/install -c
+configure:2722: checking whether build environment is sane
+configure:2772: result: yes
+configure:2913: checking for a thread-safe mkdir -p
+configure:2952: result: ./install-sh -c -d
+configure:2965: checking for gawk
+configure:2995: result: no
+configure:2965: checking for mawk
+configure:2995: result: no
+configure:2965: checking for nawk
+configure:2995: result: no
+configure:2965: checking for awk
+configure:2981: found /usr/bin/awk
+configure:2992: result: awk
+configure:3003: checking whether make sets $(MAKE)
+configure:3025: result: yes
+configure:3184: checking for gcc
+configure:3200: found /usr/bin/gcc
+configure:3211: result: gcc
+configure:3440: checking for C compiler version
+configure:3449: gcc --version >&5
 Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
 Target: x86_64-apple-darwin13.0.0
 Thread model: posix
 Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
-configure:3432: $? = 0
-configure:3421: gcc -v >&5
+configure:3460: $? = 0
+configure:3449: gcc -v >&5
 Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
 Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
 Target: x86_64-apple-darwin13.0.0
 Thread model: posix
-configure:3432: $? = 0
-configure:3421: gcc -V >&5
+configure:3460: $? = 0
+configure:3449: gcc -V >&5
 clang: error: argument to '-V' is missing (expected 1 value)
 clang: error: no input files
-configure:3432: $? = 1
-configure:3421: gcc -qversion >&5
+configure:3460: $? = 1
+configure:3449: gcc -qversion >&5
 clang: error: no input files
-configure:3432: $? = 1
-configure:3452: checking whether the C compiler works
-configure:3474: gcc    conftest.c  >&5
-configure:3478: $? = 0
-configure:3526: result: yes
-configure:3529: checking for C compiler default output file name
-configure:3531: result: a.out
-configure:3537: checking for suffix of executables
-configure:3544: gcc -o conftest    conftest.c  >&5
-configure:3548: $? = 0
-configure:3570: result: 
-configure:3592: checking whether we are cross compiling
-configure:3600: gcc -o conftest    conftest.c  >&5
-configure:3604: $? = 0
-configure:3611: ./conftest
-configure:3615: $? = 0
-configure:3630: result: no
-configure:3635: checking for suffix of object files
-configure:3657: gcc -c   conftest.c >&5
-configure:3661: $? = 0
-configure:3682: result: o
-configure:3686: checking whether we are using the GNU C compiler
-configure:3705: gcc -c   conftest.c >&5
-configure:3705: $? = 0
-configure:3714: result: yes
-configure:3723: checking whether gcc accepts -g
-configure:3743: gcc -c -g  conftest.c >&5
-configure:3743: $? = 0
-configure:3784: result: yes
-configure:3801: checking for gcc option to accept ISO C89
-configure:3865: gcc  -c -g -O2  conftest.c >&5
-configure:3865: $? = 0
-configure:3878: result: none needed
-configure:3909: checking for style of include used by make
-configure:3937: result: GNU
-configure:3962: checking dependency style of gcc
-configure:4072: result: gcc3
-configure:4093: checking how to run the C preprocessor
-configure:4124: gcc -E  conftest.c
-configure:4124: $? = 0
-configure:4138: gcc -E  conftest.c
+configure:3460: $? = 1
+configure:3480: checking whether the C compiler works
+configure:3502: gcc    conftest.c  >&5
+configure:3506: $? = 0
+configure:3554: result: yes
+configure:3557: checking for C compiler default output file name
+configure:3559: result: a.out
+configure:3565: checking for suffix of executables
+configure:3572: gcc -o conftest    conftest.c  >&5
+configure:3576: $? = 0
+configure:3598: result: 
+configure:3620: checking whether we are cross compiling
+configure:3628: gcc -o conftest    conftest.c  >&5
+configure:3632: $? = 0
+configure:3639: ./conftest
+configure:3643: $? = 0
+configure:3658: result: no
+configure:3663: checking for suffix of object files
+configure:3685: gcc -c   conftest.c >&5
+configure:3689: $? = 0
+configure:3710: result: o
+configure:3714: checking whether we are using the GNU C compiler
+configure:3733: gcc -c   conftest.c >&5
+configure:3733: $? = 0
+configure:3742: result: yes
+configure:3751: checking whether gcc accepts -g
+configure:3771: gcc -c -g  conftest.c >&5
+configure:3771: $? = 0
+configure:3812: result: yes
+configure:3829: checking for gcc option to accept ISO C89
+configure:3893: gcc  -c -g -O2  conftest.c >&5
+configure:3893: $? = 0
+configure:3906: result: none needed
+configure:3937: checking for style of include used by make
+configure:3965: result: GNU
+configure:3990: checking dependency style of gcc
+configure:4100: result: gcc3
+configure:4121: checking how to run the C preprocessor
+configure:4152: gcc -E  conftest.c
+configure:4152: $? = 0
+configure:4166: gcc -E  conftest.c
 conftest.c:11:10: fatal error: 'ac_nonexistent.h' file not found
 #include <ac_nonexistent.h>
          ^
 1 error generated.
-configure:4138: $? = 1
+configure:4166: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -149,15 +149,15 @@ configure: failed program was:
 | #define VERSION "2.10.91"
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:4163: result: gcc -E
-configure:4183: gcc -E  conftest.c
-configure:4183: $? = 0
-configure:4197: gcc -E  conftest.c
+configure:4191: result: gcc -E
+configure:4211: gcc -E  conftest.c
+configure:4211: $? = 0
+configure:4225: gcc -E  conftest.c
 conftest.c:11:10: fatal error: 'ac_nonexistent.h' file not found
 #include <ac_nonexistent.h>
          ^
 1 error generated.
-configure:4197: $? = 1
+configure:4225: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -170,61 +170,61 @@ configure: failed program was:
 | #define VERSION "2.10.91"
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:4226: checking for grep that handles long lines and -e
-configure:4284: result: /usr/bin/grep
-configure:4289: checking for egrep
-configure:4351: result: /usr/bin/grep -E
-configure:4356: checking for ANSI C header files
-configure:4376: gcc -c -g -O2  conftest.c >&5
-configure:4376: $? = 0
-configure:4449: gcc -o conftest -g -O2   conftest.c  >&5
-configure:4449: $? = 0
-configure:4449: ./conftest
-configure:4449: $? = 0
-configure:4460: result: yes
-configure:4473: checking for sys/types.h
-configure:4473: gcc -c -g -O2  conftest.c >&5
-configure:4473: $? = 0
-configure:4473: result: yes
-configure:4473: checking for sys/stat.h
-configure:4473: gcc -c -g -O2  conftest.c >&5
-configure:4473: $? = 0
-configure:4473: result: yes
-configure:4473: checking for stdlib.h
-configure:4473: gcc -c -g -O2  conftest.c >&5
-configure:4473: $? = 0
-configure:4473: result: yes
-configure:4473: checking for string.h
-configure:4473: gcc -c -g -O2  conftest.c >&5
-configure:4473: $? = 0
-configure:4473: result: yes
-configure:4473: checking for memory.h
-configure:4473: gcc -c -g -O2  conftest.c >&5
-configure:4473: $? = 0
-configure:4473: result: yes
-configure:4473: checking for strings.h
-configure:4473: gcc -c -g -O2  conftest.c >&5
-configure:4473: $? = 0
-configure:4473: result: yes
-configure:4473: checking for inttypes.h
-configure:4473: gcc -c -g -O2  conftest.c >&5
-configure:4473: $? = 0
-configure:4473: result: yes
-configure:4473: checking for stdint.h
-configure:4473: gcc -c -g -O2  conftest.c >&5
-configure:4473: $? = 0
-configure:4473: result: yes
-configure:4473: checking for unistd.h
-configure:4473: gcc -c -g -O2  conftest.c >&5
-configure:4473: $? = 0
-configure:4473: result: yes
-configure:4486: checking minix/config.h usability
-configure:4486: gcc -c -g -O2  conftest.c >&5
+configure:4254: checking for grep that handles long lines and -e
+configure:4312: result: /usr/bin/grep
+configure:4317: checking for egrep
+configure:4379: result: /usr/bin/grep -E
+configure:4384: checking for ANSI C header files
+configure:4404: gcc -c -g -O2  conftest.c >&5
+configure:4404: $? = 0
+configure:4477: gcc -o conftest -g -O2   conftest.c  >&5
+configure:4477: $? = 0
+configure:4477: ./conftest
+configure:4477: $? = 0
+configure:4488: result: yes
+configure:4501: checking for sys/types.h
+configure:4501: gcc -c -g -O2  conftest.c >&5
+configure:4501: $? = 0
+configure:4501: result: yes
+configure:4501: checking for sys/stat.h
+configure:4501: gcc -c -g -O2  conftest.c >&5
+configure:4501: $? = 0
+configure:4501: result: yes
+configure:4501: checking for stdlib.h
+configure:4501: gcc -c -g -O2  conftest.c >&5
+configure:4501: $? = 0
+configure:4501: result: yes
+configure:4501: checking for string.h
+configure:4501: gcc -c -g -O2  conftest.c >&5
+configure:4501: $? = 0
+configure:4501: result: yes
+configure:4501: checking for memory.h
+configure:4501: gcc -c -g -O2  conftest.c >&5
+configure:4501: $? = 0
+configure:4501: result: yes
+configure:4501: checking for strings.h
+configure:4501: gcc -c -g -O2  conftest.c >&5
+configure:4501: $? = 0
+configure:4501: result: yes
+configure:4501: checking for inttypes.h
+configure:4501: gcc -c -g -O2  conftest.c >&5
+configure:4501: $? = 0
+configure:4501: result: yes
+configure:4501: checking for stdint.h
+configure:4501: gcc -c -g -O2  conftest.c >&5
+configure:4501: $? = 0
+configure:4501: result: yes
+configure:4501: checking for unistd.h
+configure:4501: gcc -c -g -O2  conftest.c >&5
+configure:4501: $? = 0
+configure:4501: result: yes
+configure:4514: checking minix/config.h usability
+configure:4514: gcc -c -g -O2  conftest.c >&5
 conftest.c:54:10: fatal error: 'minix/config.h' file not found
 #include <minix/config.h>
          ^
 1 error generated.
-configure:4486: $? = 1
+configure:4514: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -280,14 +280,14 @@ configure: failed program was:
 | # include <unistd.h>
 | #endif
 | #include <minix/config.h>
-configure:4486: result: no
-configure:4486: checking minix/config.h presence
-configure:4486: gcc -E  conftest.c
+configure:4514: result: no
+configure:4514: checking minix/config.h presence
+configure:4514: gcc -E  conftest.c
 conftest.c:21:10: fatal error: 'minix/config.h' file not found
 #include <minix/config.h>
          ^
 1 error generated.
-configure:4486: $? = 1
+configure:4514: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -310,211 +310,216 @@ configure: failed program was:
 | #define HAVE_UNISTD_H 1
 | /* end confdefs.h.  */
 | #include <minix/config.h>
-configure:4486: result: no
-configure:4486: checking for minix/config.h
-configure:4486: result: no
-configure:4507: checking whether it is safe to define __EXTENSIONS__
-configure:4525: gcc -c -g -O2  conftest.c >&5
-configure:4525: $? = 0
-configure:4532: result: yes
-configure:4553: checking for special C compiler options needed for large files
-configure:4598: result: no
-configure:4604: checking for _FILE_OFFSET_BITS value needed for large files
-configure:4629: gcc -c -g -O2  conftest.c >&5
-configure:4629: $? = 0
-configure:4661: result: no
-configure:4745: checking whether ln -s works
-configure:4749: result: yes
-configure:4760: checking build system type
-configure:4774: result: i386-apple-darwin13.0.0
-configure:4794: checking host system type
-configure:4807: result: i386-apple-darwin13.0.0
-configure:5176: checking how to print strings
-configure:5203: result: printf
-configure:5224: checking for a sed that does not truncate output
-configure:5288: result: /usr/bin/sed
-configure:5306: checking for fgrep
-configure:5368: result: /usr/bin/grep -F
-configure:5403: checking for ld used by gcc
-configure:5470: result: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
-configure:5477: checking if the linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld
-configure:5492: result: no
-configure:5504: checking for BSD- or MS-compatible name lister (nm)
-configure:5553: result: /usr/bin/nm
-configure:5683: checking the name lister (/usr/bin/nm) interface
-configure:5690: gcc -c -g -O2  conftest.c >&5
-configure:5693: /usr/bin/nm "conftest.o"
-configure:5696: output
+configure:4514: result: no
+configure:4514: checking for minix/config.h
+configure:4514: result: no
+configure:4535: checking whether it is safe to define __EXTENSIONS__
+configure:4553: gcc -c -g -O2  conftest.c >&5
+configure:4553: $? = 0
+configure:4560: result: yes
+configure:4581: checking for special C compiler options needed for large files
+configure:4626: result: no
+configure:4632: checking for _FILE_OFFSET_BITS value needed for large files
+configure:4657: gcc -c -g -O2  conftest.c >&5
+configure:4657: $? = 0
+configure:4689: result: no
+configure:4773: checking whether ln -s works
+configure:4777: result: yes
+configure:4788: checking build system type
+configure:4802: result: i386-apple-darwin13.0.0
+configure:4822: checking host system type
+configure:4835: result: i386-apple-darwin13.0.0
+configure:5204: checking how to print strings
+configure:5231: result: printf
+configure:5252: checking for a sed that does not truncate output
+configure:5316: result: /usr/bin/sed
+configure:5334: checking for fgrep
+configure:5396: result: /usr/bin/grep -F
+configure:5431: checking for ld used by gcc
+configure:5498: result: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+configure:5505: checking if the linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld
+configure:5520: result: no
+configure:5532: checking for BSD- or MS-compatible name lister (nm)
+configure:5581: result: /usr/bin/nm
+configure:5711: checking the name lister (/usr/bin/nm) interface
+configure:5718: gcc -c -g -O2  conftest.c >&5
+configure:5721: /usr/bin/nm "conftest.o"
+configure:5724: output
 0000000000000208 S _some_variable
-configure:5703: result: BSD nm
-configure:5707: checking the maximum length of command line arguments
-configure:5832: result: 196608
-configure:5849: checking whether the shell understands some XSI constructs
-configure:5859: result: yes
-configure:5863: checking whether the shell understands "+="
-configure:5869: result: yes
-configure:5904: checking how to convert i386-apple-darwin13.0.0 file names to i386-apple-darwin13.0.0 format
-configure:5944: result: func_convert_file_noop
-configure:5951: checking how to convert i386-apple-darwin13.0.0 file names to toolchain format
-configure:5971: result: func_convert_file_noop
-configure:5978: checking for /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld option to reload object files
-configure:5985: result: -r
-configure:6059: checking for objdump
-configure:6086: result: objdump
-configure:6115: checking how to recognize dependent libraries
-configure:6317: result: pass_all
-configure:6402: checking for dlltool
-configure:6429: result: dlltool
-configure:6459: checking how to associate runtime and link libraries
-configure:6486: result: printf %s\n
-configure:6546: checking for ar
-configure:6562: found /usr/bin/ar
-configure:6573: result: ar
-configure:6610: checking for archiver @FILE support
-configure:6627: gcc -c -g -O2  conftest.c >&5
-configure:6627: $? = 0
-configure:6630: ar cru libconftest.a @conftest.lst >&5
+configure:5731: result: BSD nm
+configure:5735: checking the maximum length of command line arguments
+configure:5860: result: 196608
+configure:5877: checking whether the shell understands some XSI constructs
+configure:5887: result: yes
+configure:5891: checking whether the shell understands "+="
+configure:5897: result: yes
+configure:5932: checking how to convert i386-apple-darwin13.0.0 file names to i386-apple-darwin13.0.0 format
+configure:5972: result: func_convert_file_noop
+configure:5979: checking how to convert i386-apple-darwin13.0.0 file names to toolchain format
+configure:5999: result: func_convert_file_noop
+configure:6006: checking for /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld option to reload object files
+configure:6013: result: -r
+configure:6087: checking for objdump
+configure:6114: result: objdump
+configure:6143: checking how to recognize dependent libraries
+configure:6345: result: pass_all
+configure:6430: checking for dlltool
+configure:6457: result: dlltool
+configure:6487: checking how to associate runtime and link libraries
+configure:6514: result: printf %s\n
+configure:6574: checking for ar
+configure:6590: found /usr/bin/ar
+configure:6601: result: ar
+configure:6638: checking for archiver @FILE support
+configure:6655: gcc -c -g -O2  conftest.c >&5
+configure:6655: $? = 0
+configure:6658: ar cru libconftest.a @conftest.lst >&5
 ar: @conftest.lst: No such file or directory
-configure:6633: $? = 1
-configure:6653: result: no
-configure:6711: checking for strip
-configure:6727: found /usr/bin/strip
-configure:6738: result: strip
-configure:6810: checking for ranlib
-configure:6826: found /usr/bin/ranlib
-configure:6837: result: ranlib
-configure:6939: checking command to parse /usr/bin/nm output from gcc object
-configure:7058: gcc -c -g -O2  conftest.c >&5
-configure:7061: $? = 0
-configure:7065: /usr/bin/nm conftest.o \| sed -n -e 's/^.*[ ]\([BCDEGRST][BCDEGRST]*\)[ ][ ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p' | sed '/ __gnu_lto/d' \> conftest.nm
-configure:7068: $? = 0
+configure:6661: $? = 1
+configure:6681: result: no
+configure:6739: checking for strip
+configure:6755: found /usr/bin/strip
+configure:6766: result: strip
+configure:6838: checking for ranlib
+configure:6854: found /usr/bin/ranlib
+configure:6865: result: ranlib
+configure:6967: checking command to parse /usr/bin/nm output from gcc object
+configure:7086: gcc -c -g -O2  conftest.c >&5
+configure:7089: $? = 0
+configure:7093: /usr/bin/nm conftest.o \| sed -n -e 's/^.*[ ]\([BCDEGRST][BCDEGRST]*\)[ ][ ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p' | sed '/ __gnu_lto/d' \> conftest.nm
+configure:7096: $? = 0
 cannot find nm_test_var in conftest.nm
-configure:7058: gcc -c -g -O2  conftest.c >&5
-configure:7061: $? = 0
-configure:7065: /usr/bin/nm conftest.o \| sed -n -e 's/^.*[ ]\([BCDEGRST][BCDEGRST]*\)[ ][ ]*_\([_A-Za-z][_A-Za-z0-9]*\)$/\1 _\2 \2/p' | sed '/ __gnu_lto/d' \> conftest.nm
-configure:7068: $? = 0
-configure:7134: gcc -o conftest -g -O2   conftest.c conftstm.o >&5
-configure:7137: $? = 0
-configure:7175: result: ok
-configure:7212: checking for sysroot
-configure:7242: result: no
-configure:7485: checking for mt
-configure:7515: result: no
-configure:7535: checking if : is a manifest tool
-configure:7541: : '-?'
-configure:7549: result: no
-configure:7605: checking for dsymutil
-configure:7621: found /usr/bin/dsymutil
-configure:7632: result: dsymutil
-configure:7697: checking for nmedit
-configure:7713: found /usr/bin/nmedit
-configure:7724: result: nmedit
-configure:7789: checking for lipo
-configure:7805: found /usr/bin/lipo
-configure:7816: result: lipo
-configure:7881: checking for otool
-configure:7897: found /usr/bin/otool
-configure:7908: result: otool
-configure:7973: checking for otool64
-configure:8003: result: no
-configure:8048: checking for -single_module linker flag
+configure:7086: gcc -c -g -O2  conftest.c >&5
+configure:7089: $? = 0
+configure:7093: /usr/bin/nm conftest.o \| sed -n -e 's/^.*[ ]\([BCDEGRST][BCDEGRST]*\)[ ][ ]*_\([_A-Za-z][_A-Za-z0-9]*\)$/\1 _\2 \2/p' | sed '/ __gnu_lto/d' \> conftest.nm
+configure:7096: $? = 0
+configure:7162: gcc -o conftest -g -O2   conftest.c conftstm.o >&5
+configure:7165: $? = 0
+configure:7203: result: ok
+configure:7240: checking for sysroot
+configure:7270: result: no
+configure:7513: checking for mt
+configure:7543: result: no
+configure:7563: checking if : is a manifest tool
+configure:7569: : '-?'
+configure:7577: result: no
+configure:7633: checking for dsymutil
+configure:7649: found /usr/bin/dsymutil
+configure:7660: result: dsymutil
+configure:7725: checking for nmedit
+configure:7741: found /usr/bin/nmedit
+configure:7752: result: nmedit
+configure:7817: checking for lipo
+configure:7833: found /usr/bin/lipo
+configure:7844: result: lipo
+configure:7909: checking for otool
+configure:7925: found /usr/bin/otool
+configure:7936: result: otool
+configure:8001: checking for otool64
+configure:8031: result: no
+configure:8076: checking for -single_module linker flag
 gcc -g -O2  -o libconftest.dylib -dynamiclib -Wl,-single_module conftest.c
-configure:8075: result: yes
-configure:8077: checking for -exported_symbols_list linker flag
-configure:8097: gcc -o conftest -g -O2   -Wl,-exported_symbols_list,conftest.sym conftest.c  >&5
-configure:8097: $? = 0
-configure:8107: result: yes
-configure:8109: checking for -force_load linker flag
+configure:8103: result: yes
+configure:8105: checking for -exported_symbols_list linker flag
+configure:8125: gcc -o conftest -g -O2   -Wl,-exported_symbols_list,conftest.sym conftest.c  >&5
+configure:8125: $? = 0
+configure:8135: result: yes
+configure:8137: checking for -force_load linker flag
 gcc -g -O2 -c -o conftest.o conftest.c
 ar cru libconftest.a conftest.o
 ranlib libconftest.a
 gcc -g -O2  -o conftest conftest.c -Wl,-force_load,./libconftest.a
-configure:8139: result: yes
-configure:8178: checking for dlfcn.h
-configure:8178: gcc -c -g -O2  conftest.c >&5
-configure:8178: $? = 0
-configure:8178: result: yes
-configure:8363: checking for objdir
-configure:8378: result: .libs
-configure:8645: checking if gcc supports -fno-rtti -fno-exceptions
-configure:8663: gcc -c -g -O2  -fno-rtti -fno-exceptions conftest.c >&5
-configure:8667: $? = 0
-configure:8680: result: yes
-configure:8990: checking for gcc option to produce PIC
-configure:8997: result: -fno-common -DPIC
-configure:9005: checking if gcc PIC flag -fno-common -DPIC works
-configure:9023: gcc -c -g -O2  -fno-common -DPIC -DPIC conftest.c >&5
-configure:9027: $? = 0
-configure:9040: result: yes
-configure:9069: checking if gcc static flag -static works
-configure:9097: result: no
-configure:9112: checking if gcc supports -c -o file.o
-configure:9133: gcc -c -g -O2  -o out/conftest2.o conftest.c >&5
-configure:9137: $? = 0
-configure:9159: result: yes
-configure:9167: checking if gcc supports -c -o file.o
-configure:9214: result: yes
-configure:9247: checking whether the gcc linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries
-configure:10405: result: yes
-configure:10650: checking dynamic linker characteristics
-configure:11386: result: darwin13.0.0 dyld
-configure:11493: checking how to hardcode library paths into programs
-configure:11518: result: immediate
-configure:12058: checking whether stripping libraries is possible
-configure:12072: result: yes
-configure:12098: checking if libtool supports shared libraries
-configure:12100: result: yes
-configure:12103: checking whether to build shared libraries
-configure:12124: result: yes
-configure:12127: checking whether to build static libraries
-configure:12131: result: yes
-configure:12166: checking whether make sets $(MAKE)
-configure:12188: result: yes
-configure:12199: checking for RM macro
-configure:12243: result: rm -f
-configure:12407: checking for dirent.h that defines DIR
-configure:12426: gcc -c -g -O2  conftest.c >&5
-configure:12426: $? = 0
-configure:12434: result: yes
-configure:12447: checking for library containing opendir
-configure:12478: gcc -o conftest -g -O2   conftest.c  >&5
-configure:12478: $? = 0
-configure:12495: result: none required
-configure:12562: checking for ANSI C header files
-configure:12666: result: yes
-configure:12677: checking fcntl.h usability
-configure:12677: gcc -c -g -O2  conftest.c >&5
-configure:12677: $? = 0
-configure:12677: result: yes
-configure:12677: checking fcntl.h presence
-configure:12677: gcc -E  conftest.c
-configure:12677: $? = 0
-configure:12677: result: yes
-configure:12677: checking for fcntl.h
-configure:12677: result: yes
-configure:12677: checking regex.h usability
-configure:12677: gcc -c -g -O2  conftest.c >&5
-configure:12677: $? = 0
-configure:12677: result: yes
-configure:12677: checking regex.h presence
-configure:12677: gcc -E  conftest.c
-configure:12677: $? = 0
-configure:12677: result: yes
-configure:12677: checking for regex.h
-configure:12677: result: yes
-configure:12677: checking for stdlib.h
-configure:12677: result: yes
-configure:12677: checking for string.h
-configure:12677: result: yes
-configure:12677: checking for unistd.h
-configure:12677: result: yes
-configure:12677: checking sys/vfs.h usability
-configure:12677: gcc -c -g -O2  conftest.c >&5
+configure:8167: result: yes
+configure:8206: checking for dlfcn.h
+configure:8206: gcc -c -g -O2  conftest.c >&5
+configure:8206: $? = 0
+configure:8206: result: yes
+configure:8391: checking for objdir
+configure:8406: result: .libs
+configure:8677: checking if gcc supports -fno-rtti -fno-exceptions
+configure:8695: gcc -c -g -O2  -fno-rtti -fno-exceptions conftest.c >&5
+configure:8699: $? = 0
+configure:8712: result: yes
+configure:9022: checking for gcc option to produce PIC
+configure:9029: result: -fno-common -DPIC
+configure:9037: checking if gcc PIC flag -fno-common -DPIC works
+configure:9055: gcc -c -g -O2  -fno-common -DPIC -DPIC conftest.c >&5
+configure:9059: $? = 0
+configure:9072: result: yes
+configure:9101: checking if gcc static flag -static works
+configure:9129: result: no
+configure:9144: checking if gcc supports -c -o file.o
+configure:9165: gcc -c -g -O2  -o out/conftest2.o conftest.c >&5
+configure:9169: $? = 0
+configure:9191: result: yes
+configure:9199: checking if gcc supports -c -o file.o
+configure:9246: result: yes
+configure:9279: checking whether the gcc linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries
+configure:10437: result: yes
+configure:10682: checking dynamic linker characteristics
+configure:11418: result: darwin13.0.0 dyld
+configure:11525: checking how to hardcode library paths into programs
+configure:11550: result: immediate
+configure:12090: checking whether stripping libraries is possible
+configure:12104: result: yes
+configure:12130: checking if libtool supports shared libraries
+configure:12132: result: yes
+configure:12135: checking whether to build shared libraries
+configure:12156: result: yes
+configure:12159: checking whether to build static libraries
+configure:12163: result: yes
+configure:12198: checking whether make sets $(MAKE)
+configure:12220: result: yes
+configure:12283: checking for pkg-config
+configure:12301: found /usr/local/bin/pkg-config
+configure:12313: result: /usr/local/bin/pkg-config
+configure:12338: checking pkg-config is at least version 0.9.0
+configure:12341: result: yes
+configure:12350: checking for RM macro
+configure:12394: result: rm -f
+configure:12558: checking for dirent.h that defines DIR
+configure:12577: gcc -c -g -O2  conftest.c >&5
+configure:12577: $? = 0
+configure:12585: result: yes
+configure:12598: checking for library containing opendir
+configure:12629: gcc -o conftest -g -O2   conftest.c  >&5
+configure:12629: $? = 0
+configure:12646: result: none required
+configure:12713: checking for ANSI C header files
+configure:12817: result: yes
+configure:12828: checking fcntl.h usability
+configure:12828: gcc -c -g -O2  conftest.c >&5
+configure:12828: $? = 0
+configure:12828: result: yes
+configure:12828: checking fcntl.h presence
+configure:12828: gcc -E  conftest.c
+configure:12828: $? = 0
+configure:12828: result: yes
+configure:12828: checking for fcntl.h
+configure:12828: result: yes
+configure:12828: checking regex.h usability
+configure:12828: gcc -c -g -O2  conftest.c >&5
+configure:12828: $? = 0
+configure:12828: result: yes
+configure:12828: checking regex.h presence
+configure:12828: gcc -E  conftest.c
+configure:12828: $? = 0
+configure:12828: result: yes
+configure:12828: checking for regex.h
+configure:12828: result: yes
+configure:12828: checking for stdlib.h
+configure:12828: result: yes
+configure:12828: checking for string.h
+configure:12828: result: yes
+configure:12828: checking for unistd.h
+configure:12828: result: yes
+configure:12828: checking sys/vfs.h usability
+configure:12828: gcc -c -g -O2  conftest.c >&5
 conftest.c:69:10: fatal error: 'sys/vfs.h' file not found
 #include <sys/vfs.h>
          ^
 1 error generated.
-configure:12677: $? = 1
+configure:12828: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -585,14 +590,14 @@ configure: failed program was:
 | # include <unistd.h>
 | #endif
 | #include <sys/vfs.h>
-configure:12677: result: no
-configure:12677: checking sys/vfs.h presence
-configure:12677: gcc -E  conftest.c
+configure:12828: result: no
+configure:12828: checking sys/vfs.h presence
+configure:12828: gcc -E  conftest.c
 conftest.c:36:10: fatal error: 'sys/vfs.h' file not found
 #include <sys/vfs.h>
          ^
 1 error generated.
-configure:12677: $? = 1
+configure:12828: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -630,16 +635,16 @@ configure: failed program was:
 | #define HAVE_UNISTD_H 1
 | /* end confdefs.h.  */
 | #include <sys/vfs.h>
-configure:12677: result: no
-configure:12677: checking for sys/vfs.h
-configure:12677: result: no
-configure:12677: checking sys/statfs.h usability
-configure:12677: gcc -c -g -O2  conftest.c >&5
+configure:12828: result: no
+configure:12828: checking for sys/vfs.h
+configure:12828: result: no
+configure:12828: checking sys/statfs.h usability
+configure:12828: gcc -c -g -O2  conftest.c >&5
 conftest.c:69:10: fatal error: 'sys/statfs.h' file not found
 #include <sys/statfs.h>
          ^
 1 error generated.
-configure:12677: $? = 1
+configure:12828: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -710,14 +715,14 @@ configure: failed program was:
 | # include <unistd.h>
 | #endif
 | #include <sys/statfs.h>
-configure:12677: result: no
-configure:12677: checking sys/statfs.h presence
-configure:12677: gcc -E  conftest.c
+configure:12828: result: no
+configure:12828: checking sys/statfs.h presence
+configure:12828: gcc -E  conftest.c
 conftest.c:36:10: fatal error: 'sys/statfs.h' file not found
 #include <sys/statfs.h>
          ^
 1 error generated.
-configure:12677: $? = 1
+configure:12828: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -755,55 +760,55 @@ configure: failed program was:
 | #define HAVE_UNISTD_H 1
 | /* end confdefs.h.  */
 | #include <sys/statfs.h>
-configure:12677: result: no
-configure:12677: checking for sys/statfs.h
-configure:12677: result: no
-configure:12677: checking sys/param.h usability
-configure:12677: gcc -c -g -O2  conftest.c >&5
-configure:12677: $? = 0
-configure:12677: result: yes
-configure:12677: checking sys/param.h presence
-configure:12677: gcc -E  conftest.c
-configure:12677: $? = 0
-configure:12677: result: yes
-configure:12677: checking for sys/param.h
-configure:12677: result: yes
-configure:12677: checking sys/mount.h usability
-configure:12677: gcc -c -g -O2  conftest.c >&5
-configure:12677: $? = 0
-configure:12677: result: yes
-configure:12677: checking sys/mount.h presence
-configure:12677: gcc -E  conftest.c
-configure:12677: $? = 0
-configure:12677: result: yes
-configure:12677: checking for sys/mount.h
-configure:12677: result: yes
-configure:12688: checking for stdint types
-configure:12711: gcc -c   conftest.c >&5
-configure:12711: $? = 0
-configure:12755: result: stdint.h (shortcircuit)
-configure:13142: result: make use of stdint.h in src/fcstdint.h (assuming C99 compatible system)
-configure:13151: checking for an ANSI C-conforming const
-configure:13216: gcc -c -g -O2  conftest.c >&5
-configure:13216: $? = 0
-configure:13223: result: yes
-configure:13231: checking for inline
-configure:13247: gcc -c -g -O2  conftest.c >&5
-configure:13247: $? = 0
-configure:13255: result: inline
-configure:13274: checking for flexible array members
-configure:13297: gcc -c -g -O2  conftest.c >&5
-configure:13297: $? = 0
-configure:13304: result: yes
-configure:13315: checking for pid_t
-configure:13315: gcc -c -g -O2  conftest.c >&5
-configure:13315: $? = 0
-configure:13315: gcc -c -g -O2  conftest.c >&5
+configure:12828: result: no
+configure:12828: checking for sys/statfs.h
+configure:12828: result: no
+configure:12828: checking sys/param.h usability
+configure:12828: gcc -c -g -O2  conftest.c >&5
+configure:12828: $? = 0
+configure:12828: result: yes
+configure:12828: checking sys/param.h presence
+configure:12828: gcc -E  conftest.c
+configure:12828: $? = 0
+configure:12828: result: yes
+configure:12828: checking for sys/param.h
+configure:12828: result: yes
+configure:12828: checking sys/mount.h usability
+configure:12828: gcc -c -g -O2  conftest.c >&5
+configure:12828: $? = 0
+configure:12828: result: yes
+configure:12828: checking sys/mount.h presence
+configure:12828: gcc -E  conftest.c
+configure:12828: $? = 0
+configure:12828: result: yes
+configure:12828: checking for sys/mount.h
+configure:12828: result: yes
+configure:12839: checking for stdint types
+configure:12862: gcc -c   conftest.c >&5
+configure:12862: $? = 0
+configure:12906: result: stdint.h (shortcircuit)
+configure:13293: result: make use of stdint.h in src/fcstdint.h (assuming C99 compatible system)
+configure:13302: checking for an ANSI C-conforming const
+configure:13367: gcc -c -g -O2  conftest.c >&5
+configure:13367: $? = 0
+configure:13374: result: yes
+configure:13382: checking for inline
+configure:13398: gcc -c -g -O2  conftest.c >&5
+configure:13398: $? = 0
+configure:13406: result: inline
+configure:13425: checking for flexible array members
+configure:13448: gcc -c -g -O2  conftest.c >&5
+configure:13448: $? = 0
+configure:13455: result: yes
+configure:13466: checking for pid_t
+configure:13466: gcc -c -g -O2  conftest.c >&5
+configure:13466: $? = 0
+configure:13466: gcc -c -g -O2  conftest.c >&5
 conftest.c:75:20: error: expected expression
 if (sizeof ((pid_t)))
                    ^
 1 error generated.
-configure:13315: $? = 1
+configure:13466: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -884,24 +889,24 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13315: result: yes
-configure:13330: checking for vprintf
-configure:13330: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13466: result: yes
+configure:13481: checking for vprintf
+configure:13481: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:62:6: warning: incompatible redeclaration of library function 'vprintf' [-Wincompatible-library-redeclaration]
 char vprintf ();
      ^
 conftest.c:62:6: note: 'vprintf' is a builtin with type 'int (const char *, __va_list_tag *)'
 1 warning generated.
-configure:13330: $? = 0
-configure:13330: result: yes
-configure:13336: checking for _doprnt
-configure:13336: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13481: $? = 0
+configure:13481: result: yes
+configure:13487: checking for _doprnt
+configure:13487: gcc -o conftest -g -O2   conftest.c  >&5
 Undefined symbols for architecture x86_64:
   "__doprnt", referenced from:
-      _main in conftest-0Afras.o
+      _main in conftest-dwDrdD.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:13336: $? = 1
+configure:13487: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -980,65 +985,65 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13336: result: no
-configure:13353: checking for stdlib.h
-configure:13353: result: yes
-configure:13353: checking for unistd.h
-configure:13353: result: yes
-configure:13353: checking for sys/param.h
-configure:13353: result: yes
-configure:13373: checking for getpagesize
-configure:13373: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13373: $? = 0
-configure:13373: result: yes
-configure:13382: checking for working mmap
-configure:13529: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13529: $? = 0
-configure:13529: ./conftest
-configure:13529: $? = 0
-configure:13539: result: yes
-configure:13551: checking for geteuid
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for getuid
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for link
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for memmove
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13487: result: no
+configure:13504: checking for stdlib.h
+configure:13504: result: yes
+configure:13504: checking for unistd.h
+configure:13504: result: yes
+configure:13504: checking for sys/param.h
+configure:13504: result: yes
+configure:13524: checking for getpagesize
+configure:13524: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13524: $? = 0
+configure:13524: result: yes
+configure:13533: checking for working mmap
+configure:13680: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13680: $? = 0
+configure:13680: ./conftest
+configure:13680: $? = 0
+configure:13690: result: yes
+configure:13702: checking for geteuid
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for getuid
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for link
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for memmove
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:71:6: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration]
 char memmove ();
      ^
 conftest.c:71:6: note: 'memmove' is a builtin with type 'void *(void *, const void *, unsigned long)'
 1 warning generated.
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for memset
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for memset
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:72:6: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration]
 char memset ();
      ^
 conftest.c:72:6: note: 'memset' is a builtin with type 'void *(void *, int, unsigned long)'
 1 warning generated.
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for mkstemp
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for mkostemp
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for mkstemp
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for mkostemp
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
 Undefined symbols for architecture x86_64:
   "_mkostemp", referenced from:
-      _main in conftest-TyI1Xh.o
+      _main in conftest-6a3M8R.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:13551: $? = 1
+configure:13702: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -1128,15 +1133,15 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13551: result: no
-configure:13551: checking for _mktemp_s
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: result: no
+configure:13702: checking for _mktemp_s
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
 Undefined symbols for architecture x86_64:
   "__mktemp_s", referenced from:
-      _main in conftest-vajp5d.o
+      _main in conftest-q3gE6M.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:13551: $? = 1
+configure:13702: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -1226,53 +1231,53 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13551: result: no
-configure:13551: checking for strchr
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: result: no
+configure:13702: checking for strchr
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:74:6: warning: incompatible redeclaration of library function 'strchr' [-Wincompatible-library-redeclaration]
 char strchr ();
      ^
 conftest.c:74:6: note: 'strchr' is a builtin with type 'char *(const char *, int)'
 1 warning generated.
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for strrchr
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for strrchr
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:75:6: warning: incompatible redeclaration of library function 'strrchr' [-Wincompatible-library-redeclaration]
 char strrchr ();
      ^
 conftest.c:75:6: note: 'strrchr' is a builtin with type 'char *(const char *, int)'
 1 warning generated.
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for strtol
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for getopt
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for getopt_long
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for sysconf
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for ftruncate
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for chsize
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for strtol
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for getopt
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for getopt_long
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for sysconf
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for ftruncate
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for chsize
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
 Undefined symbols for architecture x86_64:
   "_chsize", referenced from:
-      _main in conftest-vlL6QU.o
+      _main in conftest-lVYoUP.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:13551: $? = 1
+configure:13702: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -1369,27 +1374,27 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13551: result: no
-configure:13551: checking for rand
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for random
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for lrand48
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for random_r
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: result: no
+configure:13702: checking for rand
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for random
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for lrand48
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for random_r
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
 Undefined symbols for architecture x86_64:
   "_random_r", referenced from:
-      _main in conftest-F5iop0.o
+      _main in conftest-iWD3sl.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:13551: $? = 1
+configure:13702: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -1489,46 +1494,46 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13551: result: no
-configure:13551: checking for rand_r
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for regcomp
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for regerror
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for regexec
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for regfree
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for fstatvfs
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for fstatfs
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13551: checking for lstat
-configure:13551: gcc -o conftest -g -O2   conftest.c  >&5
-configure:13551: $? = 0
-configure:13551: result: yes
-configure:13563: checking for posix_fadvise
-configure:13574: gcc -o conftest -g -O2 -Wall -Wpointer-arith -Wstrict-prototypes 	-Wmissing-prototypes -Wmissing-declarations 	-Wnested-externs -fno-strict-aliasing -Werror   conftest.c  >&5
+configure:13702: result: no
+configure:13702: checking for rand_r
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for regcomp
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for regerror
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for regexec
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for regfree
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for fstatvfs
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for fstatfs
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13702: checking for lstat
+configure:13702: gcc -o conftest -g -O2   conftest.c  >&5
+configure:13702: $? = 0
+configure:13702: result: yes
+configure:13714: checking for posix_fadvise
+configure:13725: gcc -o conftest -g -O2 -Wall -Wpointer-arith -Wstrict-prototypes 	-Wmissing-prototypes -Wmissing-declarations 	-Wnested-externs -fno-strict-aliasing -Werror   conftest.c  >&5
 conftest.c:72:13: error: implicit declaration of function 'posix_fadvise' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
             return posix_fadvise(0, 0, 0, 0);
                    ^
 1 error generated.
-configure:13574: $? = 1
+configure:13725: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -1604,14 +1609,14 @@ configure: failed program was:
 | 	    return posix_fadvise(0, 0, 0, 0);
 | 	}
 | 
-configure:13583: result: no
-configure:13592: checking for struct statvfs.f_basetype
-configure:13592: gcc -c -g -O2  conftest.c >&5
+configure:13734: result: no
+configure:13743: checking for struct statvfs.f_basetype
+configure:13743: gcc -c -g -O2  conftest.c >&5
 conftest.c:75:13: error: no member named 'f_basetype' in 'struct statvfs'
 if (ac_aggr.f_basetype)
     ~~~~~~~ ^
 1 error generated.
-configure:13592: $? = 1
+configure:13743: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -1692,12 +1697,12 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13592: gcc -c -g -O2  conftest.c >&5
+configure:13743: gcc -c -g -O2  conftest.c >&5
 conftest.c:75:20: error: no member named 'f_basetype' in 'struct statvfs'
 if (sizeof ac_aggr.f_basetype)
            ~~~~~~~ ^
 1 error generated.
-configure:13592: $? = 1
+configure:13743: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -1778,14 +1783,14 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13592: result: no
-configure:13602: checking for struct statvfs.f_fstypename
-configure:13602: gcc -c -g -O2  conftest.c >&5
+configure:13743: result: no
+configure:13753: checking for struct statvfs.f_fstypename
+configure:13753: gcc -c -g -O2  conftest.c >&5
 conftest.c:75:13: error: no member named 'f_fstypename' in 'struct statvfs'
 if (ac_aggr.f_fstypename)
     ~~~~~~~ ^
 1 error generated.
-configure:13602: $? = 1
+configure:13753: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -1866,12 +1871,12 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13602: gcc -c -g -O2  conftest.c >&5
+configure:13753: gcc -c -g -O2  conftest.c >&5
 conftest.c:75:20: error: no member named 'f_fstypename' in 'struct statvfs'
 if (sizeof ac_aggr.f_fstypename)
            ~~~~~~~ ^
 1 error generated.
-configure:13602: $? = 1
+configure:13753: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -1952,27 +1957,26 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13602: result: no
-configure:13615: checking for struct statfs.f_flags
-configure:13615: gcc -c -g -O2  conftest.c >&5
-configure:13615: $? = 0
-configure:13615: result: yes
-configure:13637: checking for struct statfs.f_fstypename
-configure:13637: gcc -c -g -O2  conftest.c >&5
-configure:13637: $? = 0
-configure:13637: result: yes
-configure:13661: checking for struct dirent.d_type
-configure:13661: gcc -c -g -O2  conftest.c >&5
-configure:13661: $? = 0
-configure:13661: result: yes
-configure:13821: checking for FT_Get_Next_Char
-configure:13821: gcc -o conftest -g -O2    conftest.c   >&5
-Undefined symbols for architecture x86_64:
-  "_FT_Get_Next_Char", referenced from:
-      _main in conftest-EMAC8u.o
-ld: symbol(s) not found for architecture x86_64
+configure:13753: result: no
+configure:13766: checking for struct statfs.f_flags
+configure:13766: gcc -c -g -O2  conftest.c >&5
+configure:13766: $? = 0
+configure:13766: result: yes
+configure:13788: checking for struct statfs.f_fstypename
+configure:13788: gcc -c -g -O2  conftest.c >&5
+configure:13788: $? = 0
+configure:13788: result: yes
+configure:13812: checking for struct dirent.d_type
+configure:13812: gcc -c -g -O2  conftest.c >&5
+configure:13812: $? = 0
+configure:13812: result: yes
+configure:13964: checking for FREETYPE
+configure:14049: result: yes
+configure:14064: checking for FT_Get_Next_Char
+configure:14064: gcc -o conftest -g -O2 -I../freetype2/   conftest.c  -lfreetype2 >&5
+ld: library not found for -lfreetype2
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:13821: $? = 1
+configure:14064: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -2085,15 +2089,12 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13821: result: no
-configure:13821: checking for FT_Get_BDF_Property
-configure:13821: gcc -o conftest -g -O2    conftest.c   >&5
-Undefined symbols for architecture x86_64:
-  "_FT_Get_BDF_Property", referenced from:
-      _main in conftest-wyRsoi.o
-ld: symbol(s) not found for architecture x86_64
+configure:14064: result: no
+configure:14064: checking for FT_Get_BDF_Property
+configure:14064: gcc -o conftest -g -O2 -I../freetype2/   conftest.c  -lfreetype2 >&5
+ld: library not found for -lfreetype2
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:13821: $? = 1
+configure:14064: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -2206,15 +2207,12 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13821: result: no
-configure:13821: checking for FT_Get_PS_Font_Info
-configure:13821: gcc -o conftest -g -O2    conftest.c   >&5
-Undefined symbols for architecture x86_64:
-  "_FT_Get_PS_Font_Info", referenced from:
-      _main in conftest-A5wu0W.o
-ld: symbol(s) not found for architecture x86_64
+configure:14064: result: no
+configure:14064: checking for FT_Get_PS_Font_Info
+configure:14064: gcc -o conftest -g -O2 -I../freetype2/   conftest.c  -lfreetype2 >&5
+ld: library not found for -lfreetype2
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:13821: $? = 1
+configure:14064: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -2327,15 +2325,12 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13821: result: no
-configure:13821: checking for FT_Has_PS_Glyph_Names
-configure:13821: gcc -o conftest -g -O2    conftest.c   >&5
-Undefined symbols for architecture x86_64:
-  "_FT_Has_PS_Glyph_Names", referenced from:
-      _main in conftest-r5DFOh.o
-ld: symbol(s) not found for architecture x86_64
+configure:14064: result: no
+configure:14064: checking for FT_Has_PS_Glyph_Names
+configure:14064: gcc -o conftest -g -O2 -I../freetype2/   conftest.c  -lfreetype2 >&5
+ld: library not found for -lfreetype2
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:13821: $? = 1
+configure:14064: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -2448,15 +2443,12 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13821: result: no
-configure:13821: checking for FT_Get_X11_Font_Format
-configure:13821: gcc -o conftest -g -O2    conftest.c   >&5
-Undefined symbols for architecture x86_64:
-  "_FT_Get_X11_Font_Format", referenced from:
-      _main in conftest-gKMDmU.o
-ld: symbol(s) not found for architecture x86_64
+configure:14064: result: no
+configure:14064: checking for FT_Get_X11_Font_Format
+configure:14064: gcc -o conftest -g -O2 -I../freetype2/   conftest.c  -lfreetype2 >&5
+ld: library not found for -lfreetype2
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:13821: $? = 1
+configure:14064: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -2569,15 +2561,12 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13821: result: no
-configure:13821: checking for FT_Select_Size
-configure:13821: gcc -o conftest -g -O2    conftest.c   >&5
-Undefined symbols for architecture x86_64:
-  "_FT_Select_Size", referenced from:
-      _main in conftest-xMIZ9t.o
-ld: symbol(s) not found for architecture x86_64
+configure:14064: result: no
+configure:14064: checking for FT_Select_Size
+configure:14064: gcc -o conftest -g -O2 -I../freetype2/   conftest.c  -lfreetype2 >&5
+ld: library not found for -lfreetype2
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:13821: $? = 1
+configure:14064: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -2690,14 +2679,14 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13821: result: no
-configure:13830: checking for FT_Bitmap_Size.y_ppem
-configure:13830: gcc -c -g -O2   conftest.c >&5
+configure:14064: result: no
+configure:14073: checking for FT_Bitmap_Size.y_ppem
+configure:14073: gcc -c -g -O2 -I../freetype2/  conftest.c >&5
 conftest.c:74:10: fatal error: 'ft2build.h' file not found
 #include <ft2build.h>
          ^
 1 error generated.
-configure:13830: $? = 1
+configure:14073: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -2784,12 +2773,12 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13830: gcc -c -g -O2   conftest.c >&5
+configure:14073: gcc -c -g -O2 -I../freetype2/  conftest.c >&5
 conftest.c:74:10: fatal error: 'ft2build.h' file not found
 #include <ft2build.h>
          ^
 1 error generated.
-configure:13830: $? = 1
+configure:14073: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -2876,32 +2865,47 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:13830: result: no
-configure:13900: checking expat.h usability
-configure:13900: gcc -c -g -O2   conftest.c >&5
-configure:13900: $? = 0
-configure:13900: result: yes
-configure:13900: checking expat.h presence
-configure:13900: gcc -E   conftest.c
-configure:13900: $? = 0
-configure:13900: result: yes
-configure:13900: checking for expat.h
-configure:13900: result: yes
-configure:13928: checking for XML_SetDoctypeDeclHandler
-configure:13928: gcc -o conftest -g -O2    conftest.c  -lexpat >&5
-configure:13928: $? = 0
-configure:13928: result: yes
-configure:14218: checking for Intel atomic primitives
-configure:14241: gcc -o conftest -g -O2   conftest.c  >&5
-configure:14241: $? = 0
-configure:14249: result: true
-configure:14257: checking for Solaris atomic operations
-configure:14282: gcc -o conftest -g -O2   conftest.c  >&5
+configure:14073: result: no
+configure:14123: checking for EXPAT
+configure:14130: $PKG_CONFIG --exists --print-errors "expat"
+Package expat was not found in the pkg-config search path.
+Perhaps you should add the directory containing `expat.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'expat' found
+configure:14133: $? = 1
+configure:14147: $PKG_CONFIG --exists --print-errors "expat"
+Package expat was not found in the pkg-config search path.
+Perhaps you should add the directory containing `expat.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'expat' found
+configure:14150: $? = 1
+configure:14164: result: no
+No package 'expat' found
+configure:14217: checking expat.h usability
+configure:14217: gcc -c -g -O2   conftest.c >&5
+configure:14217: $? = 0
+configure:14217: result: yes
+configure:14217: checking expat.h presence
+configure:14217: gcc -E   conftest.c
+configure:14217: $? = 0
+configure:14217: result: yes
+configure:14217: checking for expat.h
+configure:14217: result: yes
+configure:14245: checking for XML_SetDoctypeDeclHandler
+configure:14245: gcc -o conftest -g -O2    conftest.c  -lexpat >&5
+configure:14245: $? = 0
+configure:14245: result: yes
+configure:14626: checking for Intel atomic primitives
+configure:14649: gcc -o conftest -g -O2   conftest.c  >&5
+configure:14649: $? = 0
+configure:14657: result: true
+configure:14665: checking for Solaris atomic operations
+configure:14690: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:80:12: fatal error: 'atomic.h' file not found
                 #include <atomic.h>
                          ^
 1 error generated.
-configure:14282: $? = 1
+configure:14690: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -2996,34 +3000,34 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:14290: result: false
-configure:14491: checking whether pthreads work with -pthread
-configure:14579: gcc -o conftest -g -O2 -pthread   conftest.c   >&5
-configure:14579: $? = 0
-configure:14588: result: yes
-configure:14607: checking for joinable pthread attribute
-configure:14622: gcc -o conftest -g -O2 -pthread   conftest.c   >&5
-configure:14622: $? = 0
-configure:14628: result: PTHREAD_CREATE_JOINABLE
-configure:14638: checking if more special flags are required for pthreads
-configure:14652: result: -D_THREAD_SAFE
-configure:14658: checking for PTHREAD_PRIO_INHERIT
-configure:14676: gcc -o conftest -g -O2 -pthread   conftest.c   >&5
-configure:14676: $? = 0
-configure:14685: result: yes
-configure:14793: checking for docbook2html
-configure:14821: result: no
-configure:14883: checking whether byte ordering is bigendian
-configure:14898: gcc -c -g -O2 -D_THREAD_SAFE -pthread  conftest.c >&5
-configure:14898: $? = 0
-configure:14943: gcc -c -g -O2 -D_THREAD_SAFE -pthread  conftest.c >&5
-configure:14943: $? = 0
-configure:14961: gcc -c -g -O2 -D_THREAD_SAFE -pthread  conftest.c >&5
+configure:14698: result: false
+configure:14899: checking whether pthreads work with -pthread
+configure:14987: gcc -o conftest -g -O2 -pthread   conftest.c   >&5
+configure:14987: $? = 0
+configure:14996: result: yes
+configure:15015: checking for joinable pthread attribute
+configure:15030: gcc -o conftest -g -O2 -pthread   conftest.c   >&5
+configure:15030: $? = 0
+configure:15036: result: PTHREAD_CREATE_JOINABLE
+configure:15046: checking if more special flags are required for pthreads
+configure:15060: result: -D_THREAD_SAFE
+configure:15066: checking for PTHREAD_PRIO_INHERIT
+configure:15084: gcc -o conftest -g -O2 -pthread   conftest.c   >&5
+configure:15084: $? = 0
+configure:15093: result: yes
+configure:15201: checking for docbook2html
+configure:15229: result: no
+configure:15291: checking whether byte ordering is bigendian
+configure:15306: gcc -c -g -O2 -D_THREAD_SAFE -pthread  conftest.c >&5
+configure:15306: $? = 0
+configure:15351: gcc -c -g -O2 -D_THREAD_SAFE -pthread  conftest.c >&5
+configure:15351: $? = 0
+configure:15369: gcc -c -g -O2 -D_THREAD_SAFE -pthread  conftest.c >&5
 conftest.c:88:4: error: use of undeclared identifier 'not'
                  not big endian
                  ^
 1 error generated.
-configure:14961: $? = 1
+configure:15369: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME ""
@@ -3118,20 +3122,20 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:15089: result: no
-configure:15111: checking size of void *
-configure:15116: gcc -o conftest -g -O2 -D_THREAD_SAFE -pthread   conftest.c   >&5
-configure:15116: $? = 0
-configure:15116: ./conftest
-configure:15116: $? = 0
-configure:15130: result: 8
-configure:15142: checking alignment of double
-configure:15147: gcc -o conftest -g -O2 -D_THREAD_SAFE -pthread   conftest.c   >&5
-configure:15147: $? = 0
-configure:15147: ./conftest
-configure:15147: $? = 0
-configure:15165: result: 8
-configure:15339: creating ./config.status
+configure:15497: result: no
+configure:15519: checking size of void *
+configure:15524: gcc -o conftest -g -O2 -D_THREAD_SAFE -pthread   conftest.c   >&5
+configure:15524: $? = 0
+configure:15524: ./conftest
+configure:15524: $? = 0
+configure:15538: result: 8
+configure:15550: checking alignment of double
+configure:15555: gcc -o conftest -g -O2 -D_THREAD_SAFE -pthread   conftest.c   >&5
+configure:15555: $? = 0
+configure:15555: ./conftest
+configure:15555: $? = 0
+configure:15573: result: 8
+configure:15747: creating ./config.status
 
 ## ---------------------- ##
 ## Running config.status. ##
@@ -3148,32 +3152,32 @@ generated by GNU Autoconf 2.68.  Invocation command line was
 
 on Trevors-MacBook-Pro.local
 
-config.status:1239: creating Makefile
-config.status:1239: creating fontconfig/Makefile
-config.status:1239: creating fc-lang/Makefile
-config.status:1239: creating fc-glyphname/Makefile
-config.status:1239: creating fc-case/Makefile
-config.status:1239: creating src/Makefile
-config.status:1239: creating conf.d/Makefile
-config.status:1239: creating fc-cache/Makefile
-config.status:1239: creating fc-cat/Makefile
-config.status:1239: creating fc-list/Makefile
-config.status:1239: creating fc-match/Makefile
-config.status:1239: creating fc-pattern/Makefile
-config.status:1239: creating fc-query/Makefile
-config.status:1239: creating fc-scan/Makefile
-config.status:1239: creating fc-validate/Makefile
-config.status:1239: creating doc/Makefile
-config.status:1239: creating doc/version.sgml
-config.status:1239: creating test/Makefile
-config.status:1239: creating fontconfig.spec
-config.status:1239: creating fontconfig.pc
-config.status:1239: creating fontconfig-zip
-config.status:1239: creating config.h
-config.status:1468: executing depfiles commands
-config.status:1468: executing libtool commands
-config.status:1468: executing src/fcstdint.h commands
-config.status:2205: creating src/fcstdint.h : _FONTCONFIG_SRC_FCSTDINT_H
+config.status:1242: creating Makefile
+config.status:1242: creating fontconfig/Makefile
+config.status:1242: creating fc-lang/Makefile
+config.status:1242: creating fc-glyphname/Makefile
+config.status:1242: creating fc-case/Makefile
+config.status:1242: creating src/Makefile
+config.status:1242: creating conf.d/Makefile
+config.status:1242: creating fc-cache/Makefile
+config.status:1242: creating fc-cat/Makefile
+config.status:1242: creating fc-list/Makefile
+config.status:1242: creating fc-match/Makefile
+config.status:1242: creating fc-pattern/Makefile
+config.status:1242: creating fc-query/Makefile
+config.status:1242: creating fc-scan/Makefile
+config.status:1242: creating fc-validate/Makefile
+config.status:1242: creating doc/Makefile
+config.status:1242: creating doc/version.sgml
+config.status:1242: creating test/Makefile
+config.status:1242: creating fontconfig.spec
+config.status:1242: creating fontconfig.pc
+config.status:1242: creating fontconfig-zip
+config.status:1242: creating config.h
+config.status:1471: executing depfiles commands
+config.status:1471: executing libtool commands
+config.status:1471: executing src/fcstdint.h commands
+config.status:2208: creating src/fcstdint.h : _FONTCONFIG_SRC_FCSTDINT_H
 
 ## ---------------- ##
 ## Cache variables. ##
@@ -3196,10 +3200,28 @@ ac_cv_env_CPPFLAGS_set=
 ac_cv_env_CPPFLAGS_value=
 ac_cv_env_CPP_set=
 ac_cv_env_CPP_value=
+ac_cv_env_EXPAT_CFLAGS_set=
+ac_cv_env_EXPAT_CFLAGS_value=
+ac_cv_env_EXPAT_LIBS_set=
+ac_cv_env_EXPAT_LIBS_value=
+ac_cv_env_FREETYPE_CFLAGS_set=set
+ac_cv_env_FREETYPE_CFLAGS_value=-I../freetype2/
+ac_cv_env_FREETYPE_LIBS_set=set
+ac_cv_env_FREETYPE_LIBS_value=-lfreetype2
 ac_cv_env_LDFLAGS_set=
 ac_cv_env_LDFLAGS_value=
 ac_cv_env_LIBS_set=
 ac_cv_env_LIBS_value=
+ac_cv_env_LIBXML2_CFLAGS_set=set
+ac_cv_env_LIBXML2_CFLAGS_value=-I../libxml2/include/
+ac_cv_env_LIBXML2_LIBS_set=set
+ac_cv_env_LIBXML2_LIBS_value=-llibxml2
+ac_cv_env_PKG_CONFIG_LIBDIR_set=
+ac_cv_env_PKG_CONFIG_LIBDIR_value=
+ac_cv_env_PKG_CONFIG_PATH_set=
+ac_cv_env_PKG_CONFIG_PATH_value=
+ac_cv_env_PKG_CONFIG_set=
+ac_cv_env_PKG_CONFIG_value=
 ac_cv_env_build_alias_set=
 ac_cv_env_build_alias_value=
 ac_cv_env_host_alias_set=
@@ -3279,6 +3301,7 @@ ac_cv_path_EGREP='/usr/bin/grep -E'
 ac_cv_path_FGREP='/usr/bin/grep -F'
 ac_cv_path_GREP=/usr/bin/grep
 ac_cv_path_SED=/usr/bin/sed
+ac_cv_path_ac_pt_PKG_CONFIG=/usr/local/bin/pkg-config
 ac_cv_path_install='/usr/bin/install -c'
 ac_cv_prog_AWK=awk
 ac_cv_prog_CPP='gcc -E'
@@ -3335,6 +3358,8 @@ lt_cv_sys_global_symbol_to_cdecl='sed -n -e '\''s/^T .* \(.*\)$/extern int \1();
 lt_cv_sys_max_cmd_len=196608
 lt_cv_to_host_file_cmd=func_convert_file_noop
 lt_cv_to_tool_file_cmd=func_convert_file_noop
+pkg_cv_FREETYPE_CFLAGS=-I../freetype2/
+pkg_cv_FREETYPE_LIBS=-lfreetype2
 
 ## ----------------- ##
 ## Output variables. ##
@@ -3385,11 +3410,11 @@ EXPAT_LIBS='-lexpat'
 FC_ADD_FONTS=''
 FC_CACHEDIR='${localstatedir}/cache/${PACKAGE}'
 FC_DEFAULT_FONTS='/usr/share/fonts'
-FC_FONTDATE='Sun Feb  9 14:01:59 MST 2014'
+FC_FONTDATE='Tue Feb 11 20:16:25 MST 2014'
 FC_FONTPATH=''
 FGREP='/usr/bin/grep -F'
-FREETYPE_CFLAGS=''
-FREETYPE_LIBS=''
+FREETYPE_CFLAGS='-I../freetype2/'
+FREETYPE_LIBS='-lfreetype2'
 GREP='/usr/bin/grep'
 HASDOCBOOK='no'
 HAVE_PTHREAD_FALSE='#'
@@ -3410,8 +3435,8 @@ LIBT_CURRENT='7'
 LIBT_CURRENT_MINUS_AGE='1'
 LIBT_REVISION='2'
 LIBT_VERSION_INFO='7:2:6'
-LIBXML2_CFLAGS=''
-LIBXML2_LIBS=''
+LIBXML2_CFLAGS='-I../libxml2/include/'
+LIBXML2_LIBS='-llibxml2'
 LIPO='lipo'
 LN_S='ln -s'
 LTLIBOBJS=''
@@ -3436,6 +3461,9 @@ PACKAGE_TARNAME=''
 PACKAGE_URL=''
 PACKAGE_VERSION=''
 PATH_SEPARATOR=':'
+PKG_CONFIG='/usr/local/bin/pkg-config'
+PKG_CONFIG_LIBDIR=''
+PKG_CONFIG_PATH=''
 PTHREAD_CC='gcc'
 PTHREAD_CFLAGS='-D_THREAD_SAFE -pthread'
 PTHREAD_LIBS=''

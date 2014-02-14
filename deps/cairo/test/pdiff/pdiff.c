@@ -42,6 +42,9 @@
   typedef unsigned __int64 uint64_t;
 # ifndef HAVE_UINT64_T
 #  define HAVE_UINT64_T 1
+#ifdef TARGET_EMSCRIPTEN
+#error "Declaring we have uint64_t when we don't."
+#endif
 # endif
 # ifndef INT16_MIN
 #  define INT16_MIN	(-32767-1)

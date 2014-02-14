@@ -175,9 +175,6 @@ WebDOMNotificationCenter.h:
 JSNotificationPermissionCallback.h: 
 DOMNotificationPermissionCallback.h: 
 WebDOMNotificationPermissionCallback.h: 
-JSQuickTimePluginReplacement.h: 
-DOMQuickTimePluginReplacement.h: 
-WebDOMQuickTimePluginReplacement.h: 
 JSStorageErrorCallback.h: 
 DOMStorageErrorCallback.h: 
 WebDOMStorageErrorCallback.h: 
@@ -1176,12 +1173,6 @@ WebDOMDOMMimeType.h:
 JSDOMMimeTypeArray.h: 
 DOMDOMMimeTypeArray.h: 
 WebDOMDOMMimeTypeArray.h: 
-JSDOMPlugin.h: 
-DOMDOMPlugin.h: 
-WebDOMDOMPlugin.h: 
-JSDOMPluginArray.h: 
-DOMDOMPluginArray.h: 
-WebDOMDOMPluginArray.h: 
 JSStorage.h: 
 DOMStorage.h: 
 WebDOMStorage.h: 

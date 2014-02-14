@@ -33,10 +33,13 @@
 namespace WebCore {
 
 class DOMMimeTypeArray;
+#if !PLATFORM(JS)
 class DOMPluginArray;
+#endif
 class Frame;
+#if !PLATFORM(JS)
 class PluginData;
-
+#endif
 typedef int ExceptionCode;
 
 class Navigator : public NavigatorBase, public ScriptWrappable, public RefCounted<Navigator>, public DOMWindowProperty, public Supplementable<Navigator> {
@@ -46,7 +49,9 @@ public:
 
     String appVersion() const;
     String language() const;
+#if !PLATFORM(JS)
     DOMPluginArray* plugins() const;
+#endif
     DOMMimeTypeArray* mimeTypes() const;
     bool cookieEnabled() const;
     bool javaEnabled() const;
@@ -62,8 +67,9 @@ public:
 
 private:
     explicit Navigator(Frame*);
-
+#if !PLATFORM(JS)
     mutable RefPtr<DOMPluginArray> m_plugins;
+#endif
     mutable RefPtr<DOMMimeTypeArray> m_mimeTypes;
 };
 

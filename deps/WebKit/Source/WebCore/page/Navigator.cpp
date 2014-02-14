@@ -24,8 +24,12 @@
 #include "Navigator.h"
 
 #include "CookieJar.h"
+#if !PLATFORM(JS)
 #include "DOMMimeTypeArray.h"
 #include "DOMPluginArray.h"
+#else
+#include "plugins/DOMMimeTypeArray.h"
+#endif
 #include "Document.h"
 #include "Frame.h"
 #include "FrameLoader.h"
@@ -93,14 +97,14 @@ String Navigator::userAgent() const
         
     return m_frame->loader().userAgent(m_frame->document()->url());
 }
-
+#if !PLATFORM(JS)
 DOMPluginArray* Navigator::plugins() const
 {
     if (!m_plugins)
         m_plugins = DOMPluginArray::create(m_frame);
     return m_plugins.get();
 }
-
+#endif
 DOMMimeTypeArray* Navigator::mimeTypes() const
 {
     if (!m_mimeTypes)

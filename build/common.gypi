@@ -42,9 +42,9 @@
     # Emscripten settings.
     'emscripten_cc':'<!(echo $EMSCRIPTEN_ROOT)/emcc',
     'emscripten_cxx':'<!(echo $EMSCRIPTEN_ROOT)/em++',
-    'emscripten_ldflags':'-O2 -s FULL_ES2=1',
+    'emscripten_ldflags':'-O2 -s FULL_ES2=1 -s EXPORTED_FUNCTIONS="[`cat <(DEPTH)/webcore_bindings/Symbols.exports`]"',
     'emscripten_sysroot':'<!(echo $EMSCRIPTEN_ROOT)/system/',
-    'emscripten_cflags':'-Wno-warn-absolute-paths -DTARGET_EMSCRIPTEN -DCAIRO_HAS_FT_FONT -include <(DEPTH)/deps/WebKit/Source/WebCore/WebCorePrefix.h -s FULL_ES2=1 -s LEGACY_GL_EMULATION=1 -O2 -isysroot <(emscripten_sysroot)',
+    'emscripten_cflags':'-Wno-warn-absolute-paths -DTARGET_EMSCRIPTEN -DCAIRO_HAS_FT_FONT -include <(DEPTH)/deps/WebKit/Source/WebCore/WebCorePrefix.h -O2 -isysroot <(emscripten_sysroot)',
     'emscripten_cxxflags':'-std=c++0x',
     'emscripten_ld':'<!(echo $EMSCRIPTEN_ROOT)/emcc',
 	},

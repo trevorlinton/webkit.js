@@ -47,7 +47,6 @@
 #define _cairo_uint32s_to_uint64(h,l) ((uint64_t) (h) << 32 | (l))
 
 #else
-
 #define uint64_lo32(i)	((i).lo)
 #define uint64_hi32(i)	((i).hi)
 

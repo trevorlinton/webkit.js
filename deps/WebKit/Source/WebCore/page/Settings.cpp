@@ -437,7 +437,9 @@ void Settings::setPluginsEnabled(bool arePluginsEnabled)
         return;
 
     m_arePluginsEnabled = arePluginsEnabled;
+#if !PLATFORM(JS)
     Page::refreshPlugins(false);
+#endif
 }
 
 void Settings::setPrivateBrowsingEnabled(bool privateBrowsingEnabled)

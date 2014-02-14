@@ -37,6 +37,8 @@
 
 #if USE(ICU_UNICODE)
 #include "TextCodecICU.h"
+#else
+#include "TextCodec.h"
 #endif
 
 #if PLATFORM(MAC)
@@ -59,7 +61,9 @@ ThreadGlobalData::ThreadGlobalData()
     , m_eventNames(adoptPtr(new EventNames))
     , m_threadTimers(adoptPtr(new ThreadTimers))
 #ifndef NDEBUG
+#if !PLATFORM(JS)
     , m_isMainThread(isMainThread())
+#endif
 #endif
 #if USE(ICU_UNICODE)
     , m_cachedConverterICU(adoptPtr(new ICUConverterWrapper))

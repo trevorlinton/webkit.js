@@ -332,7 +332,7 @@ PassRefPtr<Document> DOMImplementation::createDocument(const String& type, Frame
     if (type == "application/x-ftp-directory")
         return FTPDirectoryDocument::create(frame, url);
 #endif
-
+#if !PLATFORM(JS)
     PluginData* pluginData = 0;
     PluginData::AllowedPluginTypes allowedPluginTypes = PluginData::OnlyApplicationPlugins;
     if (frame && frame->page()) {
@@ -341,13 +341,13 @@ PassRefPtr<Document> DOMImplementation::createDocument(const String& type, Frame
 
         pluginData = &frame->page()->pluginData();
     }
-
     // PDF is one image type for which a plugin can override built-in support.
     // We do not want QuickTime to take over all image types, obviously.
     if ((MIMETypeRegistry::isPDFOrPostScriptMIMEType(type)) && pluginData && pluginData->supportsMimeType(type, allowedPluginTypes))
         return PluginDocument::create(frame, url);
     if (Image::supportsType(type))
         return ImageDocument::create(frame, url);
+
 
 #if ENABLE(VIDEO) && !ENABLE(PLUGIN_PROXY_FOR_VIDEO)
      // Check to see if the type can be played by our MediaPlayer, if so create a MediaDocument
@@ -365,6 +365,7 @@ PassRefPtr<Document> DOMImplementation::createDocument(const String& type, Frame
     // and also serves as an optimization to prevent loading the plug-in database in the common case.
     if (type != "text/plain" && ((pluginData && pluginData->supportsMimeType(type, allowedPluginTypes)) || (frame && frame->loader().client().shouldAlwaysUsePluginDocument(type))))
         return PluginDocument::create(frame, url);
+#endif
     if (isTextMIMEType(type))
         return TextDocument::create(frame, url);
 
