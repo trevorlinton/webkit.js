@@ -7,6 +7,8 @@ echo "# basis or modify ../tools/make_webcore_file_list.sh to add"
 echo "# new project folders to scan. "
 echo "{"
 echo "    'variables': {"
+./gyplist.sh webcore_editing_files .. '/deps/WebKit/Source/WebCore/editing/'
+./gyplist.sh webcore_history_files .. '/deps/WebKit/Source/WebCore/history/'
 ./gyplist.sh webcore_dom_files .. '/deps/WebKit/Source/WebCore/dom/'
 ./gyplist.sh webcore_html_files .. '/deps/WebKit/Source/WebCore/html/'
 ./gyplist.sh webcore_platform_files .. '/deps/WebKit/Source/WebCore/platform/'

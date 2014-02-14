@@ -4,6 +4,7 @@
  */
 
 #include "gzguts.h"
+#pragma GCC diagnostic ignored "-Wunused-value"
 
 /* Local functions */
 local int gz_load OF((gz_statep, unsigned char *, unsigned, unsigned *));

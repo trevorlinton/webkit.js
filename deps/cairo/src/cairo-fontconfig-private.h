@@ -44,7 +44,7 @@
 
 #include "cairo.h"
 
-#if CAIRO_HAS_FC_FONT
+#if CAIRO_HAS_FC_FONT && !defined(TARGET_EMSCRIPTEN)
 #include <fontconfig/fontconfig.h>
 #include <fontconfig/fcfreetype.h>
 #endif

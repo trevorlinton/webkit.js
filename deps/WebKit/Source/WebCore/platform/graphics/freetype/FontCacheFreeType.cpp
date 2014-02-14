@@ -29,8 +29,10 @@
 #include "UTF16UChar32Iterator.h"
 #include <cairo-ft.h>
 #include <cairo.h>
+#if !PLATFORM(JS)
 #include <fontconfig/fontconfig.h>
 #include <fontconfig/fcfreetype.h>
+#endif
 #include <wtf/Assertions.h>
 #include <wtf/text/CString.h>
 
@@ -38,11 +40,13 @@ namespace WebCore {
 
 void FontCache::platformInit()
 {
+#if !PLATFORM(JS)
     // It's fine to call FcInit multiple times per the documentation.
     if (!FcInit())
         ASSERT_NOT_REACHED();
+#endif
 }
-
+#if !PLATFORM(JS)
 FcPattern* createFontConfigPatternForCharacters(const UChar* characters, int bufferLength)
 {
     FcPattern* pattern = FcPatternCreate();
@@ -81,9 +85,10 @@ FcPattern* findBestFontGivenFallbacks(const FontPlatformData& fontData, FcPatter
     FcResult fontConfigResult;
     return FcFontSetMatch(0, sets, 1, pattern, &fontConfigResult);
 }
-
+#endif
 PassRefPtr<SimpleFontData> FontCache::systemFallbackForCharacters(const FontDescription& description, const SimpleFontData* originalFontData, bool, const UChar* characters, int length)
 {
+#if !PLATFORM(JS)
     RefPtr<FcPattern> pattern = adoptRef(createFontConfigPatternForCharacters(characters, length));
     const FontPlatformData& fontData = originalFontData->platformData();
 
@@ -99,6 +104,9 @@ PassRefPtr<SimpleFontData> FontCache::systemFallbackForCharacters(const FontDesc
         return 0;
     FontPlatformData alternateFontData(resultPattern.get(), description);
     return getCachedFontData(&alternateFontData, DoNotRetain);
+#else
+  return 0;
+#endif
 }
 
 PassRefPtr<SimpleFontData> FontCache::getLastResortFallbackFont(const FontDescription& fontDescription, ShouldRetain shouldRetain)
@@ -140,6 +148,30 @@ static String getFamilyNameStringFromFontDescriptionAndFamily(const FontDescript
 
 int fontWeightToFontconfigWeight(FontWeight weight)
 {
+#if PLATFORM(JS)
+  switch (weight) {
+    case FontWeight100:
+      return 0;
+    case FontWeight200:
+      return 40;
+    case FontWeight300:
+      return 50;
+    case FontWeight400:
+      return 80;
+    case FontWeight500:
+      return 100;
+    case FontWeight600:
+      return 180;
+    case FontWeight700:
+      return 200;
+    case FontWeight800:
+      return 205;
+    case FontWeight900:
+      return 205;
+    default:
+      return 80;
+  }
+#else
     switch (weight) {
     case FontWeight100:
         return FC_WEIGHT_THIN;
@@ -163,10 +195,12 @@ int fontWeightToFontconfigWeight(FontWeight weight)
         ASSERT_NOT_REACHED();
         return FC_WEIGHT_REGULAR;
     }
+#endif
 }
 
 PassOwnPtr<FontPlatformData> FontCache::createFontPlatformData(const FontDescription& fontDescription, const AtomicString& family)
 {
+#if !PLATFORM(JS)
     // The CSS font matching algorithm (http://www.w3.org/TR/css3-fonts/#font-matching-algorithm)
     // says that we must find an exact match for font family, slant (italic or oblique can be used)
     // and font weight (we only match bold/non-bold here).
@@ -221,6 +255,9 @@ PassOwnPtr<FontPlatformData> FontCache::createFontPlatformData(const FontDescrip
         return nullptr;
 
     return platformData.release();
+#else
+  return nullptr;
+#endif
 }
 
 }

@@ -48,7 +48,6 @@ typedef unsigned __int32 uint32_t;
 typedef __int64 int64_t;
 typedef unsigned __int64 uint64_t;
 # ifndef HAVE_UINT64_T
-#  define HAVE_UINT64_T 1
 # endif
 #else
 #error Cannot find definitions for fixed-width integral types (uint8_t, uint32_t, \etc.)

@@ -57,7 +57,6 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/notifications/Notification.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/notifications/NotificationCenter.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/notifications/NotificationPermissionCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/plugins/QuickTimePluginReplacement.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/StorageErrorCallback.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/StorageInfo.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/StorageQuota.idl 
@@ -384,8 +383,6 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/WorkerNavigator.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/WorkerNavigatorStorageQuota.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/plugins/DOMMimeType.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/plugins/DOMMimeTypeArray.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/plugins/DOMPlugin.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/plugins/DOMPluginArray.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/storage/Storage.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/storage/StorageEvent.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGAElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGURIReference.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl

@@ -29,6 +29,9 @@
 typedef unsigned char LChar;
 
 #if USE(ICU_UNICODE)
+#if TARGET_EMSCRIPTEN
+#error "Target is emscripten but attempting to include ICU related code."
+#endif
 #include <wtf/unicode/icu/UnicodeIcu.h>
 #elif USE(WCHAR_UNICODE)
 #include <wtf/unicode/wchar/UnicodeWchar.h>
@@ -36,6 +39,9 @@ typedef unsigned char LChar;
 #error "Unknown Unicode implementation"
 #endif
 
+#if PLATFORM(JS)
+static_assert(sizeof(UChar) == 4, "UChar must be two bytes!");
+#else
 static_assert(sizeof(UChar) == 2, "UChar must be two bytes!");
-
+#endif
 #endif // WTF_UNICODE_H

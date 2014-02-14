@@ -113,3 +113,32 @@ int u_strToUpper(UChar* result, int resultLength, const UChar* source, int sourc
 {
     return convertWithFunction<towupper>(result, resultLength, source, sourceLength, *status);
 }
+
+#if PLATFORM(JS)
+UChar32 u_foldCase(UChar32 character, unsigned options)
+{
+  ASSERT_UNUSED(options, options == U_FOLD_CASE_DEFAULT); return towlower(character);
+}
+
+
+UBlockCode ublock_getCode(UChar32 character)
+{
+  return (character & ~0xFF) == 0x600 ? UBLOCK_ARABIC : UBLOCK_UNKNOWN;
+}
+
+bool u_isalnum(UChar32 character) { return iswalnum(character); }
+
+bool u_isprint(UChar32 character) { return iswprint(character); }
+
+bool u_ispunct(UChar32 character) { return iswpunct(character); }
+
+bool u_isspace(UChar32 character) { return iswspace(character); }
+
+bool u_print(UChar32 character) { return iswprint(character); }
+
+UChar32 u_tolower(UChar32 character) { return towlower(character); }
+
+UChar32 u_totitle(UChar32 character) { return towupper(character); }
+
+UChar32 u_toupper(UChar32 character) { return towupper(character); }
+#endif

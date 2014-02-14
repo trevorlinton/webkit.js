@@ -52,7 +52,7 @@ SurroundingText::SurroundingText(const VisiblePosition& visiblePosition, unsigne
     Position position = visiblePosition.deepEquivalent().parentAnchoredEquivalent();
     Document* document = position.document();
     RefPtr<Range> forwardRange = forwardIterator.range();
-    if (!forwardRange || !Range::create(document, position, forwardRange->startPosition())->text().length()) {
+    if (!forwardRange || !Range::create(*document, position, forwardRange->startPosition())->text().length()) {
         ASSERT(forwardRange);
         return;
     }
@@ -67,8 +67,8 @@ SurroundingText::SurroundingText(const VisiblePosition& visiblePosition, unsigne
         return;
     }
 
-    m_positionOffsetInContent = Range::create(document, backwardsRange->endPosition(), position)->text().length();
-    m_contentRange = Range::create(document, backwardsRange->endPosition(), forwardRange->startPosition());
+    m_positionOffsetInContent = Range::create(*document, backwardsRange->endPosition(), position)->text().length();
+    m_contentRange = Range::create(*document, backwardsRange->endPosition(), forwardRange->startPosition());
     ASSERT(m_contentRange);
 }
 
@@ -91,7 +91,7 @@ PassRefPtr<Range> SurroundingText::rangeFromContentOffsets(unsigned startOffsetI
     ASSERT(iterator.range());
     Position end = iterator.range()->startPosition();
 
-    return Range::create(start.document(), start, end);
+    return Range::create(*start.document(), start, end);
 }
 
 String SurroundingText::content() const

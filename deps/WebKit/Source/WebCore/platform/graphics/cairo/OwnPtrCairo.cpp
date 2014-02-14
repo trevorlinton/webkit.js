@@ -22,7 +22,9 @@
 
 #if USE(FREETYPE)
 #include <cairo-ft.h>
+#if !PLATFORM(JS)
 #include <fontconfig/fcfreetype.h>
+#endif
 #endif
 
 #include <cairo.h>
@@ -32,14 +34,18 @@ namespace WTF {
 #if USE(FREETYPE)
 template <> void deleteOwnedPtr<FcObjectSet>(FcObjectSet* ptr)
 {
+#if !PLATFORM(JS)
     if (ptr)
         FcObjectSetDestroy(ptr);
+#endif
 }
 
 template <> void deleteOwnedPtr<FcFontSet>(FcFontSet* ptr)
 {
+#if !PLATFORM(JS)
     if (ptr)
         FcFontSetDestroy(ptr);
+#endif
 }
 #endif
 

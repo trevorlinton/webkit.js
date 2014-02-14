@@ -90,7 +90,10 @@ subdir = fc-glyphname
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cc_for_build.m4 \
 	$(top_srcdir)/m4/ax_create_stdint_h.m4 \
-	$(top_srcdir)/m4/ax_pthread.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/ax_pthread.m4 $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
+	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -144,11 +147,11 @@ EXPAT_LIBS = -lexpat
 FC_ADD_FONTS = 
 FC_CACHEDIR = ${localstatedir}/cache/${PACKAGE}
 FC_DEFAULT_FONTS = /usr/share/fonts
-FC_FONTDATE = Sun Feb  9 14:01:59 MST 2014
+FC_FONTDATE = Tue Feb 11 20:16:25 MST 2014
 FC_FONTPATH = 
 FGREP = /usr/bin/grep -F
-FREETYPE_CFLAGS = 
-FREETYPE_LIBS = 
+FREETYPE_CFLAGS = -I../freetype2/
+FREETYPE_LIBS = -lfreetype2
 GREP = /usr/bin/grep
 HASDOCBOOK = no
 HAVE_XMLPARSE_H = 
@@ -168,8 +171,8 @@ LIBT_CURRENT = 7
 LIBT_CURRENT_MINUS_AGE = 1
 LIBT_REVISION = 2
 LIBT_VERSION_INFO = 7:2:6
-LIBXML2_CFLAGS = 
-LIBXML2_LIBS = 
+LIBXML2_CFLAGS = -I../libxml2/include/
+LIBXML2_LIBS = -llibxml2
 LIPO = lipo
 LN_S = ln -s
 LTLIBOBJS = 
@@ -190,6 +193,9 @@ PACKAGE_TARNAME =
 PACKAGE_URL = 
 PACKAGE_VERSION = 
 PATH_SEPARATOR = :
+PKG_CONFIG = /usr/local/bin/pkg-config
+PKG_CONFIG_LIBDIR = 
+PKG_CONFIG_PATH = 
 PTHREAD_CC = gcc
 PTHREAD_CFLAGS = -D_THREAD_SAFE -pthread
 PTHREAD_LIBS = 

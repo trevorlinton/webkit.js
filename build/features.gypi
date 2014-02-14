@@ -47,6 +47,7 @@
       'ENABLE_DIRECTORY_UPLOAD=0',
       'ENABLE_DOM4_EVENTS_CONSTRUCTOR=1',
       'ENABLE_DRAGGABLE_REGION=0',
+      'ENABLE_DRAG_SUPPORT=0',
       'ENABLE_ENCRYPTED_MEDIA=0',
       'ENABLE_ENCRYPTED_MEDIA_V2=0',
       'ENABLE_FILTERS=1',
@@ -168,8 +169,8 @@
       'WTF_USE_COORDINATED_GRAPHICS=1',
       'WTF_USE_CROSS_PLATFORM_CONTEXT_MENUS=1',
       'WTF_USE_GLIB=0',
-      'WTF_USE_ICU_UNICODE=1',
-      'WTF_USE_WCHAR_UNICODE=0',
+      'WTF_USE_ICU_UNICODE=0',
+      'WTF_USE_WCHAR_UNICODE=1',
       'WTF_USE_LEVELDB=0',
       'WTF_USE_PTHREADS=1',
       'WTF_USE_TEXTURE_MAPPER=1',
@@ -186,6 +187,7 @@
       'WTF_USE_WEBAUDIO_FFMPEG=0',
       'WTF_USE_FASTMALLOC=0',
       'WTF_USE_FAST_MALLOC=0',
+      'ENABLE_NETSCAPE_PLUGIN_API=0', #this should not be enabled, ever, it's being deprecated and is useless on JS platforms.
     ],
   },
 }

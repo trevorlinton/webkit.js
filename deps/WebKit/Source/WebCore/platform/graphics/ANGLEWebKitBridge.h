@@ -69,16 +69,14 @@ struct ANGLEShaderSymbol {
             || dataType == SH_SAMPLER_EXTERNAL_OES);
     }
 };
-
 class ANGLEWebKitBridge {
 public:
-
     ANGLEWebKitBridge(ShShaderOutput = SH_GLSL_OUTPUT, ShShaderSpec = SH_WEBGL_SPEC);
     ~ANGLEWebKitBridge();
     
     ShBuiltInResources getResources() { return m_resources; }
     void setResources(ShBuiltInResources);
-    
+
     bool compileShaderSource(const char* shaderSource, ANGLEShaderType, String& translatedShaderSource, String& shaderValidationLog, Vector<ANGLEShaderSymbol>& symbols, int extraCompileOptions = 0);
 
 private:
@@ -95,7 +93,6 @@ private:
 
     ShBuiltInResources m_resources;
 };
-
 } // namespace WebCore
 
 #endif

@@ -956,7 +956,7 @@ ObjectContentType FrameLoader::defaultObjectContentType(const URL& url, const St
     if (mimeType.isEmpty())
         mimeType = mimeTypeFromURL(url);
 
-#if !PLATFORM(MAC) && !PLATFORM(EFL) && !PLATFORM(NIX) // Mac has no PluginDatabase, nor does Nix or EFL
+#if !PLATFORM(MAC) && !PLATFORM(EFL) && !PLATFORM(NIX) && !PLATFORM(JS)// Mac has no PluginDatabase, nor does Nix or EFL
     if (mimeType.isEmpty()) {
         String decodedPath = decodeURLEscapeSequences(url.path());
         mimeType = PluginDatabase::installedPlugins()->MIMETypeForExtension(decodedPath.substring(decodedPath.reverseFind('.') + 1));
@@ -966,7 +966,7 @@ ObjectContentType FrameLoader::defaultObjectContentType(const URL& url, const St
     if (mimeType.isEmpty())
         return ObjectContentFrame; // Go ahead and hope that we can display the content.
 
-#if !PLATFORM(MAC) && !PLATFORM(EFL) && !PLATFORM(NIX) // Mac has no PluginDatabase, nor does Nix or EFL
+#if !PLATFORM(MAC) && !PLATFORM(EFL) && !PLATFORM(NIX) && !PLATFORM(JS) // Mac has no PluginDatabase, nor does Nix or EFL
     bool plugInSupportsMIMEType = PluginDatabase::installedPlugins()->isMIMETypeRegistered(mimeType);
 #else
     bool plugInSupportsMIMEType = false;

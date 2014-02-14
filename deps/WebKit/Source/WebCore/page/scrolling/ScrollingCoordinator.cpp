@@ -34,7 +34,9 @@
 #include "MainFrame.h"
 #include "Page.h"
 #include "PlatformWheelEvent.h"
+#if !PLATFORM(JS)
 #include "PluginViewBase.h"
+#endif
 #include "Region.h"
 #include "RenderView.h"
 #include "ScrollAnimator.h"
@@ -139,7 +141,7 @@ Region ScrollingCoordinator::computeNonFastScrollableRegion(const Frame* frame, 
             nonFastScrollableRegion.unite(box);
         }
     }
-
+#if !PLATFORM(JS)
     for (auto it = frameView->children().begin(), end = frameView->children().end(); it != end; ++it) {
         if (!(*it)->isPluginViewBase())
             continue;
@@ -147,7 +149,7 @@ Region ScrollingCoordinator::computeNonFastScrollableRegion(const Frame* frame, 
         if (pluginViewBase->wantsWheelEvents())
             nonFastScrollableRegion.unite(pluginViewBase->frameRect());
     }
-
+#endif
     for (Frame* subframe = frame->tree().firstChild(); subframe; subframe = subframe->tree().nextSibling())
         nonFastScrollableRegion.unite(computeNonFastScrollableRegion(subframe, offset));
 

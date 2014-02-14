@@ -33,6 +33,7 @@
 typedef wchar_t UChar;
 typedef uint32_t UChar32;
 
+
 enum UBlockCode { UBLOCK_UNKNOWN, UBLOCK_ARABIC };
 
 enum UCharCategory {
@@ -111,6 +112,30 @@ enum { UNORM_UNICODE_3_2 };
 
 #define U_GET_GC_MASK(c) U_MASK(u_charType(c))
 
+#if PLATFORM(JS)
+extern "C" {
+  UBlockCode ublock_getCode(UChar32 character);
+  int unorm_normalize(const UChar* source, int32_t sourceLength, UNormalizationMode mode, int32_t options, UChar* result, int32_t resultLength, UErrorCode* status);
+  UCharDirection u_charDirection(UChar32);
+  UChar32 u_charMirror(UChar32);
+  int8_t u_charType(UChar32);
+  UChar32 u_foldCase(UChar32 character, unsigned options);
+  uint8_t u_getCombiningClass(UChar32);
+  int u_getIntPropertyValue(UChar32, UProperty);
+  bool u_isalnum(UChar32 character);
+  bool u_isprint(UChar32 character);
+  bool u_ispunct(UChar32 character);
+  bool u_isspace(UChar32 character);
+  int u_memcasecmp(const UChar*, const UChar*, int sourceLength, unsigned options);
+  bool u_print(UChar32 character);
+  int u_strFoldCase(UChar* result, int resultLength, const UChar* source, int sourceLength, unsigned options, UErrorCode*);
+  int u_strToLower(UChar* result, int resultLength, const UChar* source, int sourceLength, const char* locale, UErrorCode*);
+  int u_strToUpper(UChar* result, int resultLength, const UChar* source, int sourceLength, const char* locale, UErrorCode*);
+  UChar32 u_tolower(UChar32 character);
+  UChar32 u_totitle(UChar32 character);
+  UChar32 u_toupper(UChar32 character);
+}
+#else
 inline UBlockCode ublock_getCode(UChar32 character) { return (character & ~0xFF) == 0x600 ? UBLOCK_ARABIC : UBLOCK_UNKNOWN; }
 WTF_EXPORT_PRIVATE int unorm_normalize(const UChar* source, int32_t sourceLength, UNormalizationMode mode, int32_t options, UChar* result, int32_t resultLength, UErrorCode* status);
 WTF_EXPORT_PRIVATE UCharDirection u_charDirection(UChar32);
@@ -131,5 +156,5 @@ WTF_EXPORT_PRIVATE int u_strToUpper(UChar* result, int resultLength, const UChar
 inline UChar32 u_tolower(UChar32 character) { return towlower(character); }
 inline UChar32 u_totitle(UChar32 character) { return towupper(character); }
 inline UChar32 u_toupper(UChar32 character) { return towupper(character); }
-
+#endif
 #endif // WTF_UnicodeWchar_h

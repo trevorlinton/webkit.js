@@ -88,8 +88,10 @@ class PageDebuggable;
 class PageGroup;
 class PageThrottler;
 class PlugInClient;
+#if !PLATFORM(JS)
 class PluginData;
 class PluginViewBase;
+#endif
 class PointerLockController;
 class ProgressTracker;
 class Range;
@@ -148,10 +150,10 @@ public:
     RenderTheme& theme() const { return *m_theme; }
 
     ViewportArguments viewportArguments() const;
-
+#if !PLATFORM(JS)
     static void refreshPlugins(bool reload);
     PluginData& pluginData() const;
-
+#endif
     void setCanStartMedia(bool);
     bool canStartMedia() const { return m_canStartMedia; }
 
@@ -437,9 +439,9 @@ private:
 
     void setTimerAlignmentInterval(double);
     double timerAlignmentInterval() const;
-
+#if !PLATFORM(JS)
     Vector<Ref<PluginViewBase>> pluginViews();
-
+#endif
     void throttleTimers();
     void unthrottleTimers();
 
@@ -466,9 +468,9 @@ private:
 
     const std::unique_ptr<BackForwardController> m_backForwardController;
     const RefPtr<MainFrame> m_mainFrame;
-
+#if !PLATFORM(JS)
     mutable RefPtr<PluginData> m_pluginData;
-
+#endif
     RefPtr<RenderTheme> m_theme;
 
     EditorClient* m_editorClient;

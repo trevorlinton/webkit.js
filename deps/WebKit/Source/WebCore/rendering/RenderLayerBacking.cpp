@@ -46,7 +46,9 @@
 #include "InspectorInstrumentation.h"
 #include "KeyframeList.h"
 #include "MainFrame.h"
+#if !PLATFORM(JS)
 #include "PluginViewBase.h"
+#endif
 #include "ProgressTracker.h"
 #include "RenderFlowThread.h"
 #include "RenderIFrame.h"
@@ -612,7 +614,7 @@ bool RenderLayerBacking::updateGraphicsLayerConfiguration()
     
     if (isDirectlyCompositedImage())
         updateImageContents();
-
+#if !PLATFORM(JS)
     if (renderer().isEmbeddedObject() && toRenderEmbeddedObject(&renderer())->allowsAcceleratedCompositing()) {
         PluginViewBase* pluginViewBase = toPluginViewBase(toRenderWidget(&renderer())->widget());
 #if PLATFORM(IOS)
@@ -625,6 +627,7 @@ bool RenderLayerBacking::updateGraphicsLayerConfiguration()
             m_graphicsLayer->setContentsToMedia(pluginViewBase->platformLayer());
 #endif
     }
+#endif
 #if ENABLE(VIDEO)
     else if (renderer().isVideo()) {
         HTMLMediaElement* mediaElement = toHTMLMediaElement(renderer().element());
@@ -1710,6 +1713,7 @@ bool RenderLayerBacking::paintsChildren() const
 
 static bool isRestartedPlugin(RenderObject* renderer)
 {
+#if !PLATFORM(JS)
     if (!renderer->isEmbeddedObject())
         return false;
 
@@ -1718,11 +1722,18 @@ static bool isRestartedPlugin(RenderObject* renderer)
         return false;
 
     return toHTMLPlugInElement(element)->isRestartedPlugin();
+#else
+    return false;
+#endif
 }
 
 static bool isCompositedPlugin(RenderObject* renderer)
 {
+#if !PLATFORM(JS)
     return renderer->isEmbeddedObject() && toRenderEmbeddedObject(renderer)->allowsAcceleratedCompositing();
+#else
+    return false;
+#endif
 }
 
 // A "simple container layer" is a RenderLayer which has no visible content to render.

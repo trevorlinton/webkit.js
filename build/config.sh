@@ -1,10 +1,10 @@
 #!/bin/sh
-./deps/WebKit/Source/WebCore/make-export-file-generator ./deps/WebKit/Source/WebCore/WebCore.exp.in ./webcore_bindings/derived/ExportFileGenerator.cpp
+# ./deps/WebKit/Source/WebCore/make-export-file-generator ./deps/WebKit/Source/WebCore/WebCore.exp.in ./webcore_bindings/derived/ExportFileGenerator.cpp
 
-if [ "$?" -ne "0" ]; then
-  echo "Failed to derive exports, check stdout for errors."
-  exit 1
-fi
+# if [ "$?" -ne "0" ]; then
+#  echo "Failed to derive exports, check stdout for errors."
+#  exit 1
+# fi
 
 perl -I deps/WebKit/Source/WebCore/bindings/scripts deps/WebKit/Source/WebCore/dom/make_event_factory.pl --input deps/WebKit/Source/WebCore/dom/EventNames.in --outputDir=webcore_bindings/derived
 

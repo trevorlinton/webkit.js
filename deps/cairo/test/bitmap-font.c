@@ -30,8 +30,10 @@
 #include <unistd.h>
 
 #include <cairo-ft.h>
+#if !PLATFORM(JS)
 #include <fontconfig/fontconfig.h>
 #include <fontconfig/fcfreetype.h>
+#endif
 
 #define FONT "6x13.pcf"
 #define TEXT_SIZE 13
