@@ -1,3 +1,4 @@
+```C++
 Curl_clone_ssl_config
 Curl_free_ssl_config
 Curl_rand
