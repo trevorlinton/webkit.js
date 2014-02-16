@@ -165,7 +165,9 @@
     (&name)
 
 #elif defined(HAVE_PTHREAD_SETSPECIFIC)
-
+#ifdef TARGET_EMSCRIPTEN
+#error "Cannot implement pthreads on javascript."
+#endif
 #include <pthread.h>
 
 #  define PIXMAN_DEFINE_THREAD_LOCAL(type, name)			\

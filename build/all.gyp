@@ -17,6 +17,7 @@
         'freetype2',
         'harfbuzz',
         'cairo',
+        'curl',
         'zlib',
         'webcore',
       ],
@@ -54,6 +55,7 @@
         '<@(webcore_platform_files)',
         '<@(webcore_history_files)',
         '<@(webcore_editing_files)',
+        '<@(webcore_storage_files)',
         #'<(DEPTH)/sqlite/sqlite3.c',
       ],
       'sources/':[
@@ -61,14 +63,15 @@
         ['exclude', '(leveldb/|skia|glx/|cg/|ca/|avfoundation/|wince/|Modules/|soup/|ios/|nix/|WinCE|Gtk)'],
         ['exclude', '(blackberry|win/|linux/|glib/|cocoa/|gtk/|cf/|mac/|efl/|appcache/)'],
         ['exclude', '(ExportFileGenerator\\.cpp$|loader/EmptyClients.cpp$|CF\\.cpp$)'],
-        ['exclude', '(IOS\\.|Mac\\.|Win\\.|XMLHttpRequest|TextBreakIteratorWchar)'],
-        ['exclude', '(TCSystemAlloc|FastMalloc|ThemeSafari|PlugInElement|PlugInImageElement|JSAbstractView|InspectorWebBackend|AllInOne)'],
+        ['exclude', '(IOS\\.|Mac\\.|Win\\.|XMLHttpRequest)'], #TextBreakIteratorWchar
+        ['exclude', '(ThemeSafari|PlugInElement|PlugInImageElement|JSAbstractView|InspectorWebBackend|AllInOne)'],
         ['exclude', '(OpenTypeUtilities|HarfBuzzFaceCoreText|graphics/FontPlatformData\\.cpp$)'],
         ['exclude', '(GraphicsContext3DOpenGL\\.cpp$|platform/sql/)'], # We use OpenGLES v2
-        ['exclude', '(LocaleICU\\.cpp$|TextCodecUTF8\\.cpp$|TextEncodingRegistry\\.cpp$)'],
+        ['exclude', '(LocaleICU\\.cpp$)'], # |TextCodecUTF8\\.cpp$|TextEncodingRegistry\\.cpp$)'
         ['exclude', '(LocalToScriptMappingICU\\.cpp$|LocaleToScriptMappingICU)'],
         ['exclude', '(TextEncodingDetectorICU\\.cpp$|TextEncodingDetectorICU|TextBreakIteratorICU\\.cpp$)'],
-        ['exclude', '(ExportFileGenerator\\.cpp$|SmartReplaceICU\\.cpp$|SubframeLoader\\.cpp$)'],
+        ['exclude', '(TextBreakIteratorICU\\.cpp$|TextCodecICU\\.cpp$|enchant/)'],
+        ['exclude', '(ExportFileGenerator\\.cpp$|SmartReplaceICU\\.cpp$)'],
         ['exclude', '(HTMLObjectElement\\.cpp$|RenderEmbeddedObject\\.cpp$|Extensions3DOpenGL\\.cpp$)'], # We use OpenGLES V2
         ['exclude', '(DragController\\.cpp$|JSDOMPlugin\\.cpp$)'],
       ],
@@ -153,7 +156,7 @@
         '<(DEPTH)/deps/WebKit/Source/WebCore/page/scrolling',
         '<(DEPTH)/deps/WebKit/Source/WebCore/workers',
         '<(DEPTH)/deps/WebKit/Source/WebCore/xml/parser',
-        #'<(DEPTH)/deps/WebKit/Source/WebCore/plugins',
+        '<(DEPTH)/deps/WebKit/Source/WebCore/plugins',
         '<(DEPTH)/deps/WebKit/Source/WebCore/mathml',
         '<(DEPTH)/deps/WebKit/Source/WebCore/bindings/generic',
         '<(DEPTH)/deps/WebKit/Source/WebCore/bridge/jsc',
@@ -184,7 +187,7 @@
         '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/mediasource',
         '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/mediastream',
         '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/quota',
-        #'<(DEPTH)/deps/WebKit/Source/WebCore/Modules/plugins',
+        '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/plugins',
         '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/indexeddb',
         '<(DEPTH)/deps/WebKit/Source/WebCore/Modules/indexeddb/leveldb',
         '<(DEPTH)/webcore_bindings',
@@ -233,7 +236,6 @@
       'target_name': 'jpeg_turbo',
       'type': 'shared_library',
       'dependencies': [
-        'generate_exports',
       ],
       'defines': [
       ],
@@ -261,7 +263,6 @@
       'target_name': 'png',
       'type': 'shared_library',
       'dependencies': [
-        'generate_exports',
       ],
       'defines': [
       ],
@@ -281,7 +282,6 @@
       'target_name': 'freetype2',
       'type': 'shared_library',
       'dependencies': [
-        'generate_exports',
       ],
       'defines': [
       ],
@@ -453,7 +453,6 @@
       'target_name': 'cairo',
       'type': 'shared_library',
       'dependencies': [
-        'generate_exports',
       ],
       'defines': [
         'HAVE_CONFIG_H',
@@ -483,6 +482,31 @@
       'cc':'<(emscripten_cc)',
       'cxx':'<(emscripten_cc)',
       'cflags':['-DTARGET_EMSCRIPTEN -include <(DEPTH)/deps/cairo/config/config.h -isysroot <(emscripten_sysroot)'],
+      'ld':'<(emscripten_ld)',
+      'ldflags':['<(emscripten_ldflags)'],
+    },
+    {
+      'target_name': 'curl',
+      'type': 'shared_library',
+      'dependencies': [
+      ],
+      'defines': [
+      ],
+      'sources': [
+        '<@(curl)',
+      ],
+      'sources/': [
+        ['exclude', '(docs/|m4/|packages/|perl/|tests/|vs/|winbuild/|CMake/|tool_|vtls/)'],
+        ['exclude', '(macos/)'],
+      ],
+      'include_dirs': [
+        '<(DEPTH)/deps/curl',
+        '<(DEPTH)/deps/curl/include',
+        '<(DEPTH)/deps/curl/lib',
+      ],
+      'cc':'<(emscripten_cc)',
+      'cxx':'<(emscripten_cc)',
+      'cflags':['-DTARGET_EMSCRIPTEN -isysroot <(emscripten_sysroot)'],
       'ld':'<(emscripten_ld)',
       'ldflags':['<(emscripten_ldflags)'],
     },
@@ -531,40 +555,40 @@
       'ld':'<(emscripten_ld)',
       'ldflags':['<(emscripten_ldflags)'],
     },
-    {
-      'target_name':'generate_exports',
-      'type':'none',
-      'dependencies':[
-        'exports',
-      ],
-      'actions': [
-      {
-        'action_name': 'generate',
-        'inputs': [
-          '<(PRODUCT_DIR)/exports',
-        ],
-        'outputs': [
-          '<(DEPTH)/build/emscripten.settings',
-        ],
-        'action': ['bash','-c','<(DEPTH)/tools/generate_exports.sh'],
-      }],
-    },
-    {
-      'target_name': 'exports',
-      'type': 'executable',
-      'defines': [
-        '<@(feature_defines)',
-      ],
-      'sources': [
-        '<(DEPTH)/webcore_bindings/derived/ExportFileGenerator.cpp',
-      ],
-      'include_dirs': [
-        '<(DEPTH)/deps/WebKit/Source/WTF',
-      ],
-      'cc':'c++',
-      'cxx':'c++',
-      'cflags':['-arch x86_64 -UWTF_PLATFORM_MAC -std=c++0x'],
-      'ld':'c++',
-    },
+    #    {
+    #  'target_name':'generate_exports',
+    #  'type':'none',
+    #  'dependencies':[
+    #    'exports',
+    #  ],
+    #  'actions': [
+    #  {
+    #    'action_name': 'generate',
+    #    'inputs': [
+    #      '<(PRODUCT_DIR)/exports',
+    #    ],
+    #    'outputs': [
+    #      '<(DEPTH)/build/emscripten.settings',
+    #    ],
+    #    'action': ['bash','-c','<(DEPTH)/tools/generate_exports.sh'],
+    #  }],
+    #},
+    #{
+    #  'target_name': 'exports',
+    #  'type': 'executable',
+    #  'defines': [
+    #    '<@(feature_defines)',
+    #  ],
+    #  'sources': [
+    #    '<(DEPTH)/webcore_bindings/derived/ExportFileGenerator.cpp',
+    #  ],
+    #  'include_dirs': [
+    #    '<(DEPTH)/deps/WebKit/Source/WTF',
+    #  ],
+    #  'cc':'c++',
+    #  'cxx':'c++',
+    #  'cflags':['-arch x86_64 -UWTF_PLATFORM_MAC -std=c++0x'],
+    #  'ld':'c++',
+    #},
   ],  # targets
 }

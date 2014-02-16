@@ -50,7 +50,7 @@
 
 namespace WTF {
 
-#if USE(PTHREADS)
+#if USE(PTHREADS) && !PLATFORM(JS)
 static pthread_once_t initializeLogFileOnceKey = PTHREAD_ONCE_INIT;
 #endif
 
@@ -91,7 +91,7 @@ static void initializeLogFileOnce()
 
 static void initializeLogFile()
 {
-#if USE(PTHREADS)
+#if USE(PTHREADS) && !PLATFORM(JS)
     pthread_once(&initializeLogFileOnceKey, initializeLogFileOnce);
 #else
     if (!file)

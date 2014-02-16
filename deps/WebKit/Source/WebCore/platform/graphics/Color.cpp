@@ -33,6 +33,10 @@
 #include <wtf/MathExtras.h>
 #include <wtf/text/StringBuilder.h>
 
+#if PLATFORM(JS)
+#include <math.h>
+#endif
+
 namespace WebCore {
 
 #if !COMPILER(MSVC)

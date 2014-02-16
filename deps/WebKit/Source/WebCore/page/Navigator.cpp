@@ -97,14 +97,17 @@ String Navigator::userAgent() const
         
     return m_frame->loader().userAgent(m_frame->document()->url());
 }
-#if !PLATFORM(JS)
 DOMPluginArray* Navigator::plugins() const
 {
+#if !PLATFORM(JS)
     if (!m_plugins)
         m_plugins = DOMPluginArray::create(m_frame);
     return m_plugins.get();
-}
+#else
+    return NULL;
 #endif
+}
+
 DOMMimeTypeArray* Navigator::mimeTypes() const
 {
     if (!m_mimeTypes)

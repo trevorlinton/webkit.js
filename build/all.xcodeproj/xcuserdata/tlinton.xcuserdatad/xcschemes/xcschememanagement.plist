@@ -44,6 +44,11 @@
 			<key>orderHint</key>
 			<integer>16</integer>
 		</dict>
+		<key>curl.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>37</integer>
+		</dict>
 		<key>export_generator.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -378,6 +383,11 @@
 			<true/>
 		</dict>
 		<key>EFF7ADF3A6C176C1B8C60CD7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F565472E1961359418CBDC66</key>
 		<dict>
 			<key>primary</key>
 			<true/>

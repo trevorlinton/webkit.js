@@ -37,6 +37,7 @@ VPATH = \
     $(WebCore)/Modules/mediasource \
     $(WebCore)/Modules/mediastream \
     $(WebCore)/Modules/notifications \
+    $(WebCore)/Modules/plugins \
     $(WebCore)/Modules/quota \
     $(WebCore)/Modules/speech \
     $(WebCore)/Modules/webaudio \
@@ -57,6 +58,7 @@ VPATH = \
     $(WebCore)/inspector \
     $(WebCore)/loader/appcache \
     $(WebCore)/page \
+    $(WebCore)/plugins \
     $(WebCore)/storage \
     $(WebCore)/xml \
     $(WebCore)/workers \
@@ -138,6 +140,7 @@ BINDING_IDLS = \
     $(WebCore)/Modules/notifications/NotificationCenter.idl \
     $(WebCore)/Modules/notifications/NotificationPermissionCallback.idl \
     $(WebCore)/Modules/notifications/WorkerGlobalScopeNotifications.idl \
+    $(WebCore)/Modules/plugins/QuickTimePluginReplacement.idl \
     $(WebCore)/Modules/quota/DOMWindowQuota.idl \
     $(WebCore)/Modules/quota/NavigatorStorageQuota.idl \
     $(WebCore)/Modules/quota/StorageInfo.idl \
@@ -473,6 +476,8 @@ BINDING_IDLS = \
     $(WebCore)/page/WorkerNavigator.idl \
     $(WebCore)/plugins/DOMMimeType.idl \
     $(WebCore)/plugins/DOMMimeTypeArray.idl \
+    $(WebCore)/plugins/DOMPlugin.idl \
+    $(WebCore)/plugins/DOMPluginArray.idl \
     $(WebCore)/storage/Storage.idl \
     $(WebCore)/storage/StorageEvent.idl \
     $(WebCore)/svg/SVGAElement.idl \
@@ -677,6 +682,7 @@ all : \
     HTMLNames.cpp \
     JSHTMLElementWrapperFactory.cpp \
     JSSVGElementWrapperFactory.cpp \
+    PlugInsResources.h \
     SVGElementFactory.cpp \
     SVGNames.cpp \
     UserAgentScripts.h \
@@ -838,9 +844,9 @@ ifeq ($(WTF_PLATFORM_IOS), 1)
 endif
 endif
 
-# ifeq ($(OS),MACOS)
-#	USER_AGENT_STYLE_SHEETS := $(USER_AGENT_STYLE_SHEETS) $(WebCore)/Modules/plugins/QuickTimePluginReplacement.css
-# endif
+ifeq ($(OS),MACOS)
+	USER_AGENT_STYLE_SHEETS := $(USER_AGENT_STYLE_SHEETS) $(WebCore)/Modules/plugins/QuickTimePluginReplacement.css
+endif
 
 UserAgentStyleSheets.h : css/make-css-file-arrays.pl bindings/scripts/preprocessor.pm $(USER_AGENT_STYLE_SHEETS) $(PLATFORM_FEATURE_DEFINES)
 	perl -I$(WebCore)/bindings/scripts $< --defines "$(FEATURE_DEFINES)" $@ UserAgentStyleSheetsData.cpp $(USER_AGENT_STYLE_SHEETS)
@@ -858,9 +864,9 @@ ifeq ($(WTF_PLATFORM_IOS), 1)
 endif
 endif
 
-# ifeq ($(OS),MACOS)
-#	USER_AGENT_SCRIPTS := $(USER_AGENT_SCRIPTS) $(WebCore)/Modules/plugins/QuickTimePluginReplacement.js
-# endif
+ifeq ($(OS),MACOS)
+	USER_AGENT_SCRIPTS := $(USER_AGENT_SCRIPTS) $(WebCore)/Modules/plugins/QuickTimePluginReplacement.js
+endif
 
 UserAgentScripts.h : css/make-css-file-arrays.pl bindings/scripts/preprocessor.pm $(USER_AGENT_SCRIPTS) $(PLATFORM_FEATURE_DEFINES)
 	perl -I$(WebCore)/bindings/scripts $< --defines "$(FEATURE_DEFINES)" $@ UserAgentScriptsData.cpp $(USER_AGENT_SCRIPTS)
@@ -869,10 +875,10 @@ UserAgentScripts.h : css/make-css-file-arrays.pl bindings/scripts/preprocessor.p
 
 # plugIns resources
 
-# PLUG_INS_RESOURCES = $(WebCore)/Resources/plugIns.js
+PLUG_INS_RESOURCES = $(WebCore)/Resources/plugIns.js
 
-# PlugInsResources.h : css/make-css-file-arrays.pl bindings/scripts/preprocessor.pm $(PLUG_INS_RESOURCES) $(PLATFORM_FEATURE_DEFINES)
-# 	perl -I$(WebCore)/bindings/scripts $< --defines "$(FEATURE_DEFINES)" $@ PlugInsResourcesData.cpp $(PLUG_INS_RESOURCES)
+PlugInsResources.h : css/make-css-file-arrays.pl bindings/scripts/preprocessor.pm $(PLUG_INS_RESOURCES) $(PLATFORM_FEATURE_DEFINES)
+	perl -I$(WebCore)/bindings/scripts $< --defines "$(FEATURE_DEFINES)" $@ PlugInsResourcesData.cpp $(PLUG_INS_RESOURCES)
 
 # --------
 
@@ -1023,7 +1029,7 @@ IDL_INCLUDES = \
     $(WebCore)/inspector \
     $(WebCore)/loader/appcache \
     $(WebCore)/page \
-#    $(WebCore)/plugins \
+    $(WebCore)/plugins \
     $(WebCore)/storage \
     $(WebCore)/svg \
     $(WebCore)/workers \
@@ -1124,10 +1130,10 @@ InjectedScriptCanvasModuleSource.h : InjectedScriptCanvasModuleSource.js
 # Mac-specific rules
 
 ifeq ($(OS),MACOS)
-#
-# OBJC_DOM_HEADERS=$(filter-out DOMDOMWindow.h DOMDOMMimeType.h DOMDOMPlugin.h,$(DOM_CLASSES:%=DOM%.h))
-#
-# all : $(OBJC_DOM_HEADERS)
+
+OBJC_DOM_HEADERS=$(filter-out DOMDOMWindow.h DOMDOMMimeType.h DOMDOMPlugin.h,$(DOM_CLASSES:%=DOM%.h))
+
+all : $(OBJC_DOM_HEADERS)
 
 all : CharsetData.cpp
 
