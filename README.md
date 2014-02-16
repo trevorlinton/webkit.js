@@ -1,7 +1,7 @@
 webkit.js
 =========
 
-An experimental port of WebKit (Specifically, webcore) to JavaScript aimed at running in both node.js and browsers. This is currently non-functional and is intended for developers and contributors.
+An experimental port of WebKit (Specifically, webcore) to JavaScript aimed at running in both node.js and browsers. This is currently semi-functional and is intended for developers and contributors.
 
 See the [webkit.js Google Group](https://groups.google.com/forum/#!forum/webkitjs) for Discussions & Questions
 
@@ -18,47 +18,39 @@ Status
 ----
 
 **Toolchain**
-- (GOOD) The new build system compiles on Linux, Windows (cygwin) and MacOS X. Uses gyp to generate project files in addition custom scripts. So far these seems fairly stable and will not change significantly.
+- (GREAT) The new build system compiles on Linux, Windows (cygwin) and MacOS X. Uses gyp to generate project files in addition custom scripts. So far these seems fairly stable and will not change significantly.
 
 **Building**
-- (GREAT) Currently the latest nightly WebKit builds with cairo, freetype, libjpeg, libpng and other dependencies.  
+- (GREAT) Currently the latest nightly WebKit builds with cairo, freetype2, libjpeg, libpng and other dependencies.  
 
 **Linking**
-- (BAD) There's a list of undefined symbols that need to be resolved, use llvm-nm on a .a, .so, .lib to find and tackle unresolved issues.  The exported symbols need to be defined using embind. This will provide javascript to C++ api's quickly and easily, the classes that need to be bound are (initially): WebCore::Page, WebCore::PageClients, WebCore::Frame (and subsequent Clients mapped to javascript events) need to be built.  This is mostly grunt work, not a whole lot of thinking required, perhaps an automated script could be used to generate these, however it requires parsing C++. 
-
-**Tests**
-- (NON EXISTENT) Tests for JavaScript<->C++ needs to be developed (non-layout related code)
-- (BAD) Unit tests that integrate with WebKit's LayoutTests
+- (GOOD) Only a small few dependencies need to be brought in.  See UnresolvedSymbolsDemangled.md for more information.
 
 **Supported Features**
-* (GOOD) Features that are *not* currently supported:
+* (GREAT) Nearly the entire HTML5, CSS3 and SVG rendering is supported; the following features are not supported and probably will never be.
 
-    * Accelerated 2D Canvas
-    * CSS Image Resolution
-    * CSS Image Orientation
-    * CSS3 Text
+    * CSS Orientation
     * Draggable Regions
     * Encrypted Media
-    * Font Load Events
     * Input Speech
-    * Audio
-    * **Supported** ~~Video~~
     * Media Streams
     * JavaScript Debugger / Inspector
-    * MHTML
-    * PDF/PDFKit
     * Quota's
     * Web Workers
     * Web Sockets
     * Shadow DOM
     * Web Timing
-    * **Supported** ~~XSLT~~
-    * Native Widgets (IFRAME, Buttons, Text Boxes, etc.)
-    * Any Resource Loaders
-    * **Supported** ~~Font Rendering~~
+    * Native OS Widgets
+    * IFrames (although this can be emulated on some platforms)
+  
+Fonts are rendered via freetype2, fontconfig and cairo for consistent font rendering across all platforms. Native video and audio decoding is supported but not included in the regular build. Eventually i'll post instructions on compiling in native video/audio support.
+
+**Tests**
+- (BAD) Tests for JavaScript<->C++ needs to be developed (non-layout related code)
+- (BAD) Unit tests that integrate with WebKit's LayoutTests
 
 **Frameworks**
-- (NON EXISTENT) Frameworks to easily perform common tasks with the renderer under various contexts.
+- (BAD) Frameworks to easily perform common tasks with the renderer under various contexts.
 
 **Documentation**
 - (BAD) Lots and lots of documentation, currently this is it.
@@ -97,15 +89,29 @@ solutions = [
 ```
 * Note, you should change the git repo URL if you have forked this. 
 * Open a terminal (or cygwin) and navigate to your folder, run:
+* Getting Dependencies:
 ```
 gclient sync
 ```
-* Execute:
+* Configuring:
 ```
 ./build/config.sh
 ```
-* You should now have project files built for your platform. In Mac OS X you can open build/all.xcodeproj, or in windows build/all.vcproj. 
-* Compiling, either build in Xcode/MSVS or execute: ```ninja -C Release``` at the root.
+* You should now have project files built for your platform. In Mac OS X you can open build/all.xcodeproj, or in windows build/all.vcproj. To build go to the root folder and run:
+* Building:
+```
+ninja -C Release
+```
+
+Running
+--------------
+I currently don't have any running online demos, the API is so influx that most of the testing is done by hand and not stable so it wouldn't be prudent to provide a working demo that never worked.  However heres a guide to get it running until there's an initial API, demos and examples available:
+
+1. Load webkit.js into a webworker
+2. You can use the mangled C++ function symbols to create, execute or begin a render.  See webkit's webview implementation for more info on the classes/objects that must be initialized. Specifically WebCore::Page.  See c++filt (CLI tool) for more information on how to demangle symbols (or mangle them).
+3. Once initialized be sure to use emsrcipten's webgl hooks to forward rendering to any context you'd like, there should be a way to hook onto the GraphicsContextClient in webcore and ask for INT32(r,g,b,a) differences.
+4. Note you'll need to use EventHandler class to forward in mouse clicks and keyboard events for interaction.
+5. If WebKit crashes it will attempt to write a "core" file, this will have a stack trace that can be used in gdb to figure out where something went wrong. In the browser this is through emscripten's emulated "file system", effectively just a huge text blob.
 
 Contributing
 --------------
@@ -135,18 +141,18 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * Becareful adding files/changing settings in your native IDE/toolchain, these settings are intially set in `build/config.sh` and `build/all.gyp` (and related files). While not all settings will be overwritten with a new config, there's a chance some of your settings may need to be added to these files.
 
 **Roadmap**
-* **DONE** A build toolchain similar to GYP/gconfig. QtWebkit has one already, possibly re-map that.
-* **DONE** Create "Debug" and "Release" modes that allow for easier debugging. In addition creating anything that helps debug and spot problems easier.
+* **DONE** ~~A build toolchain similar to GYP/gconfig. QtWebkit has one already, possibly re-map that.~~
+* **DONE** ~~Create "Debug" and "Release" modes that allow for easier debugging. In addition creating anything that helps debug and spot problems easier.~~
 * Scripts to auto-generate code with Emscripten JS Bindings (e.g., IDL generation, and some other bindings/scripts tasks)
-* **DONE** Integration of WTF library into WebCore
+* **DONE** ~~Integration of WTF library into WebCore~~
 * Closer examination of optimization/best practices/guidance on Emscripten.
 * Closer examination of optimization/best practices/guidance on compiling WebCore/renderer.
 * Removal of "oddity" code (e.g., no mans land code, existing dead code, platform specific code)
 * **Bad Idea -** ~~Start smaller with GYP and only develop one pass layout system from CSS/HTML/DOM code with minimal features and build up.~~
 * **Bad Idea -** ~~Take each file one by one in ./webkitjs/debug/ and port?...~~
 * Conversation, topics, discussions on best practices, methods and use cases
-* Dependency and/or symbol graph that rebuilds automatically after a compile (expressed as a HTML doc?) The core reason for this is to visualize dependencies between classes, unresolved symbols still to be developed, and spot key integration points. This can be done by regex over the existing ./webkitjs/debug for symbols and building a D3 graph to show the symbols dependency possibly? Is there already key software that does this? Can emscripten/llvm spit this out?
-* Identify what key import symbols may require significant retooling.
+* ~~Dependency and/or symbol graph that rebuilds automatically after a compile (expressed as a HTML doc?) The core reason for this is to visualize dependencies between classes, unresolved symbols still to be developed, and spot key integration points. This can be done by regex over the existing ./webkitjs/debug for symbols and building a D3 graph to show the symbols dependency possibly? Is there already key software that does this? Can emscripten/llvm spit this out?~~
+* ~~Identify what key import symbols may require significant retooling.~~
 * **DONE** ~~Integrate libxml.js (rather than depending on browser pass through decoding to a buffer)~~
 * **DONE** ~~Integrate libxslt.js (currently unsupported)~~
 * **DONE** ~~Integrate ffmpeg.js ?.... pure JavaScript video support?..... .~~
