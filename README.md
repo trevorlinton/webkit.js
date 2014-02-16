@@ -136,21 +136,16 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * The code within the WebKit folder is pulled from upstream, be careful not to move any files, remove any files or heavily refactor any source file as it will cause headaches when merging.
 * Enabling/disabling settings within the `build/features.gypi` will have a lot of consequences, most of the disabled features are disabled because there's no possible work around for including the platform specific or network layer code (bindings to forward this to the native browser/nodejs module will need to be built).
 * A good amount of the bindings and code within the WebCore are auto generated from scripts, be careful when you have build errors to make sure you're not modifying a "Derived Sources" file, otherwise you'll find your changes will be just over-written the next time this script runs.
-* The current webkit.js "binary" was compiled exposing its symbols, this results in a heavy file size (current 111MB - 2/4/14). However with isolated symbols and -O2 optimizations plus minimization this will come down to 5MB from my tests once we have a proper list of exported symbols (and don't export everything).
+* The current webkit.js "binary" was compiled exposing its symbols, this results in a heavy file size (current 24MB - 2/16/14). However with isolated symbols and -O2 optimizations plus minimization this will come down to 5MB from my tests once we have a proper list of exported symbols (and don't export everything).
 * Do not modify code within `deps/WebKit/WebKitBuild`, `build/out`, `build/Release`, `Release`, `webcore_bindings/derived` or `build/Debug` these files are over-written when WebKit is built, so its somewhat pointless unless you're testing.
 * Becareful adding files/changing settings in your native IDE/toolchain, these settings are intially set in `build/config.sh` and `build/all.gyp` (and related files). While not all settings will be overwritten with a new config, there's a chance some of your settings may need to be added to these files.
 
 **Roadmap**
 * **DONE** ~~A build toolchain similar to GYP/gconfig. QtWebkit has one already, possibly re-map that.~~
 * **DONE** ~~Create "Debug" and "Release" modes that allow for easier debugging. In addition creating anything that helps debug and spot problems easier.~~
-* Scripts to auto-generate code with Emscripten JS Bindings (e.g., IDL generation, and some other bindings/scripts tasks)
 * **DONE** ~~Integration of WTF library into WebCore~~
-* Closer examination of optimization/best practices/guidance on Emscripten.
-* Closer examination of optimization/best practices/guidance on compiling WebCore/renderer.
-* Removal of "oddity" code (e.g., no mans land code, existing dead code, platform specific code)
 * **Bad Idea -** ~~Start smaller with GYP and only develop one pass layout system from CSS/HTML/DOM code with minimal features and build up.~~
 * **Bad Idea -** ~~Take each file one by one in ./webkitjs/debug/ and port?...~~
-* Conversation, topics, discussions on best practices, methods and use cases
 * ~~Dependency and/or symbol graph that rebuilds automatically after a compile (expressed as a HTML doc?) The core reason for this is to visualize dependencies between classes, unresolved symbols still to be developed, and spot key integration points. This can be done by regex over the existing ./webkitjs/debug for symbols and building a D3 graph to show the symbols dependency possibly? Is there already key software that does this? Can emscripten/llvm spit this out?~~
 * ~~Identify what key import symbols may require significant retooling.~~
 * **DONE** ~~Integrate libxml.js (rather than depending on browser pass through decoding to a buffer)~~
@@ -161,7 +156,16 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * **DONE** ~~Integrate zlib (rather than depending on browser pass through decoding to a buffer)~~
 * **Bad Idea -** ~~Use embind/cppfilter.js to automatically generate all the WebCore C++ interfaces (derived from WebCore.exp.in) directly into JavaScript, then simply reuse existing webcore demos/examples.~~
 * **In Progress -**Generate a webkit.js API based on the WebCore C++ interfaces exported to JavaScript with embind/cppfilter.js.
-
+* Generate simple JavaScript library to create, use and manage webkit.js rendering.
+* Create examples, demos and how-to guides (documentation, etc).
+* Create hooks into webkit layout tests to ensure functionality.
+* Scripts to auto-generate code with Emscripten JavaScript Bindings to enable DOM interactions with JavaScript (e.g., IDL generation, and some other bindings/scripts tasks)
+* 
+* Removal of "oddity" code (e.g., no mans land code, existing dead code, platform specific code) and optimization of file size and runtime
+* Benchmark harnass between different browsers and webkit.js
+* Conversation, topics, discussions on best practices, methods and use cases
+* Closer examination of optimization/best practices/guidance on Emscripten.
+* Closer examination of optimization/best practices/guidance on compiling WebCore/renderer.
 
 License
 ----
