@@ -55,7 +55,9 @@ typedef CRITICAL_SECTION hb_mutex_impl_t;
 
 
 #elif !defined(HB_NO_MT) && (defined(HAVE_PTHREAD) || defined(__APPLE__))
-
+#ifdef TARGET_EMSCRIPTEN
+#error "Cannot implement pthreads on javascript."
+#endif
 #include <pthread.h>
 typedef pthread_mutex_t hb_mutex_impl_t;
 #define HB_MUTEX_IMPL_INIT	PTHREAD_MUTEX_INITIALIZER

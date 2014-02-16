@@ -166,7 +166,7 @@ static String findPluginMIMETypeFromURL(Page* page, const String& url)
         return String();
 
     String extension = url.substring(dotIndex + 1);
-
+#if !PLATFORM(JS)
     const PluginData& pluginData = page->pluginData();
 
     for (size_t i = 0; i < pluginData.mimes().size(); ++i) {
@@ -176,7 +176,7 @@ static String findPluginMIMETypeFromURL(Page* page, const String& url)
                 return mimeClassInfo.type;
         }
     }
-
+#endif
     return String();
 }
 
@@ -192,6 +192,7 @@ static void logPluginRequest(Page* page, const String& mimeType, const String& u
         if (!newMIMEType)
             return;
     }
+#if !PLATFORM(JS)
 
     String pluginFile = page->pluginData().pluginFileForMimeType(newMIMEType);
     String description = !pluginFile ? newMIMEType : pluginFile;
@@ -206,6 +207,7 @@ static void logPluginRequest(Page* page, const String& mimeType, const String& u
         chromeClient.logDiagnosticMessage(DiagnosticLoggingKeys::pageContainsPluginKey(), description, DiagnosticLoggingKeys::noopKey());
 
     page->sawPlugin(description);
+#endif
 }
 
 bool SubframeLoader::requestObject(HTMLPlugInImageElement& ownerElement, const String& url, const AtomicString& frameName, const String& mimeType, const Vector<String>& paramNames, const Vector<String>& paramValues)
@@ -395,6 +397,9 @@ bool SubframeLoader::allowPlugins(ReasonForCallingAllowPlugins)
 
 bool SubframeLoader::shouldUsePlugin(const URL& url, const String& mimeType, bool shouldPreferPlugInsForImages, bool hasFallback, bool& useFallback)
 {
+#if PLATFORM(JS)
+  return false;
+#else
     if (m_frame.loader().client().shouldAlwaysUsePluginDocument(mimeType)) {
         useFallback = false;
         return true;
@@ -413,6 +418,7 @@ bool SubframeLoader::shouldUsePlugin(const URL& url, const String& mimeType, boo
     // it be handled as a plugin to show the broken plugin icon.
     useFallback = objectType == ObjectContentNone && hasFallback;
     return objectType == ObjectContentNone || objectType == ObjectContentNetscapePlugin || objectType == ObjectContentOtherPlugin;
+#endif
 }
 
 Document* SubframeLoader::document() const

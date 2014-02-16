@@ -93,6 +93,10 @@
 #include <wtf/text/StringBuilder.h>
 #include <wtf/text/StringImpl.h>
 
+#if PLATFORM(JS)
+#include <math.h>
+#endif
+
 #if ENABLE(CSS_IMAGE_SET)
 #include "CSSImageSetValue.h"
 #endif

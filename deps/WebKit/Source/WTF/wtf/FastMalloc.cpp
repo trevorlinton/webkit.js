@@ -83,7 +83,7 @@
 #include <limits>
 #if OS(WINDOWS)
 #include <windows.h>
-#else
+#elif !PLATFORM(JS)
 #include <pthread.h>
 #endif
 #include <string.h>
@@ -110,7 +110,7 @@
 #define ENABLE_TCMALLOC_HARDENING 1
 
 // Use a background thread to periodically scavenge memory to release back to the system
-#if PLATFORM(IOS)
+#if PLATFORM(IOS) || PLATFORM(JS)
 #define USE_BACKGROUND_THREAD_TO_SCAVENGE_MEMORY 0
 #else
 #define USE_BACKGROUND_THREAD_TO_SCAVENGE_MEMORY 1
@@ -2024,6 +2024,7 @@ ALWAYS_INLINE void TCMalloc_PageHeap::suspendScavenger()
 
 void TCMalloc_PageHeap::initializeScavenger()
 {
+#if !PLATFORM(JS)
     // Create a non-recursive mutex.
 #if !defined(PTHREAD_MUTEX_NORMAL) || PTHREAD_MUTEX_NORMAL == PTHREAD_MUTEX_DEFAULT
     pthread_mutex_init(&m_scavengeMutex, 0);
@@ -2041,19 +2042,25 @@ void TCMalloc_PageHeap::initializeScavenger()
     m_scavengeThreadActive = true;
     pthread_t thread;
     pthread_create(&thread, 0, runScavengerThread, this);
+#endif
 }
 
 void* TCMalloc_PageHeap::runScavengerThread(void* context)
 {
+#if !PLATFORM(JS)
+
     static_cast<TCMalloc_PageHeap*>(context)->scavengerThread();
 #if (COMPILER(MSVC) || COMPILER(SUNCC))
     // Without this, Visual Studio and Sun Studio will complain that this method does not return a value.
     return 0;
 #endif
+#endif
+
 }
 
 ALWAYS_INLINE void TCMalloc_PageHeap::signalScavenger()
 {
+#if !PLATFORM(JS)
     // shouldScavenge() should be called only when the pageheap_lock spinlock is held, additionally, 
     // m_scavengeThreadActive is only set to false whilst pageheap_lock is held. The caller must ensure this is
     // taken prior to calling this method. If the scavenger thread is sleeping and shouldScavenge() indicates there
@@ -2061,12 +2068,14 @@ ALWAYS_INLINE void TCMalloc_PageHeap::signalScavenger()
     ASSERT(pageheap_lock.IsHeld());
     if (!m_scavengeThreadActive && shouldScavenge())
         pthread_cond_signal(&m_scavengeCondition);
+#endif
 }
 
 #endif
 
 void TCMalloc_PageHeap::scavenge()
 {
+#if !PLATFORM(JS)
     size_t pagesToRelease = min_free_committed_pages_since_last_scavenge_ * kScavengePercentage;
     size_t targetPageCount = std::max<size_t>(kMinimumFreeCommittedPageCount, free_committed_pages_ - pagesToRelease);
 
@@ -2100,11 +2109,14 @@ void TCMalloc_PageHeap::scavenge()
     }
 
     min_free_committed_pages_since_last_scavenge_ = free_committed_pages_;
+#endif
 }
 
 ALWAYS_INLINE bool TCMalloc_PageHeap::shouldScavenge() const 
 {
-    return free_committed_pages_ > kMinimumFreeCommittedPageCount; 
+#if !PLATFORM(JS)
+    return free_committed_pages_ > kMinimumFreeCommittedPageCount;
+#endif
 }
 
 #endif  // USE_BACKGROUND_THREAD_TO_SCAVENGE_MEMORY

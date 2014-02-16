@@ -269,6 +269,8 @@ partial interface DOMWindow {
     attribute WebKitPointConstructor WebKitPoint;
     attribute DOMMimeTypeConstructor MimeType;
     attribute DOMMimeTypeArrayConstructor MimeTypeArray;
+    attribute DOMPluginConstructor Plugin;
+    attribute DOMPluginArrayConstructor PluginArray;
     attribute StorageConstructor Storage;
     attribute StorageEventConstructor StorageEvent;
     [Conditional=SVG] attribute SVGAElementConstructor SVGAElement;
