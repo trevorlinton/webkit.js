@@ -1,3 +1,7 @@
+Curl_clone_ssl_config
+Curl_free_ssl_config
+Curl_rand
+Curl_ssl_config_matches
 JSC::JSArrayBufferView::JSArrayBufferView(JSC::VM&, JSC::JSArrayBufferView::ConstructionContext&)
 JSC::VM::~VM()
 ShCompile
@@ -28,27 +32,12 @@ WebCore::fileSystemRepresentation(WTF::String const&)
 WebCore::fillWithEmptyClients(WebCore::Page::PageClients&)
 WebCore::getSupportedKeySizes(WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow>&)
 _cairo_path_fixed_stroke_to_polygon
-curl_easy_cleanup
-curl_easy_getinfo
-curl_easy_init
-curl_easy_pause
-curl_easy_setopt
-curl_easy_strerror
-curl_global_cleanup
-curl_global_init
-curl_multi_add_handle
-curl_multi_cleanup
-curl_multi_fdset
-curl_multi_info_read
-curl_multi_init
-curl_multi_perform
-curl_multi_remove_handle
-curl_share_init
-curl_share_setopt
-curl_slist_append
-curl_slist_free_all
-curl_version_info
 eglCreatePbufferSurface
+freeifaddrs
+getifaddrs
+getsockopt
 nextafter
 nextafterf
 pthread_create
+siglongjmp
+sigsetjmp
