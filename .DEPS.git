@@ -21,11 +21,9 @@ deps = {
     'deps/icu':'https://github.com/trevorlinton/icu4c.git',
     'deps/libjpeg_turbo':'https://github.com/trevorlinton/libjpeg-turbo.git',
     'deps/skia':'https://github.com/trevorlinton/skia.git',
-    'deps/freetype2':Var('google_url') + '/src/third_party/freetype2.git',
     'deps/libxml2':'https://github.com/trevorlinton/libxml2.git',
     'deps/curl':'https://github.com/trevorlinton/curl.git',
     'tools/deps2git':Var('google_url') + '/tools/deps2git.git',
-    'tools/gyp':Var('google_url') + '/../external/gyp.git',
 }
 
 deps_os = {
