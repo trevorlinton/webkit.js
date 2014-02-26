@@ -265,11 +265,13 @@ EGLAPI EGLBoolean EGLAPIENTRY eglGetConfigAttrib(EGLDisplay dpy, EGLConfig confi
 EGLAPI EGLSurface EGLAPIENTRY eglCreateWindowSurface(EGLDisplay dpy, EGLConfig config,
 				  EGLNativeWindowType win,
 				  const EGLint *attrib_list);
+#ifndef TARGET_EMSCRIPTEN
 EGLAPI EGLSurface EGLAPIENTRY eglCreatePbufferSurface(EGLDisplay dpy, EGLConfig config,
 				   const EGLint *attrib_list);
 EGLAPI EGLSurface EGLAPIENTRY eglCreatePixmapSurface(EGLDisplay dpy, EGLConfig config,
 				  EGLNativePixmapType pixmap,
 				  const EGLint *attrib_list);
+#endif
 EGLAPI EGLBoolean EGLAPIENTRY eglDestroySurface(EGLDisplay dpy, EGLSurface surface);
 EGLAPI EGLBoolean EGLAPIENTRY eglQuerySurface(EGLDisplay dpy, EGLSurface surface,
 			   EGLint attribute, EGLint *value);
@@ -278,9 +280,9 @@ EGLAPI EGLBoolean EGLAPIENTRY eglBindAPI(EGLenum api);
 EGLAPI EGLenum EGLAPIENTRY eglQueryAPI(void);
 
 EGLAPI EGLBoolean EGLAPIENTRY eglWaitClient(void);
-
+#ifndef TARGET_EMSCRIPTEN
 EGLAPI EGLBoolean EGLAPIENTRY eglReleaseThread(void);
-
+#endif
 EGLAPI EGLSurface EGLAPIENTRY eglCreatePbufferFromClientBuffer(
 	      EGLDisplay dpy, EGLenum buftype, EGLClientBuffer buffer,
 	      EGLConfig config, const EGLint *attrib_list);

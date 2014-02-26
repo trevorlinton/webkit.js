@@ -108,7 +108,7 @@ static void* lookupOpenGLFunctionAddress(const char* functionName, bool* success
     return target;
 }
 
-#if PLATFORM(NIX) && USE(OPENGL_ES_2)
+#if (PLATFORM(NIX) || PLATFORM(JS)) && USE(OPENGL_ES_2)
 
 // With Angle only EGL/GLES2 extensions are available through eglGetProcAddress, not the regular standardized functions.
 #define ASSIGN_FUNCTION_TABLE_ENTRY(FunctionName, success) \

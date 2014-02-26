@@ -179,9 +179,6 @@ JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionRemoveEventListene
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionDispatchEvent(JSC::ExecState*);
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionCaptureEvents(JSC::ExecState*);
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionReleaseEvents(JSC::ExecState*);
-#if ENABLE(SQL_DATABASE)
-JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionOpenDatabase(JSC::ExecState*);
-#endif
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionAtob(JSC::ExecState*);
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionBtoa(JSC::ExecState*);
 JSC::EncodedJSValue JSC_HOST_CALL jsDOMWindowPrototypeFunctionSetTimeout(JSC::ExecState*);
@@ -265,9 +262,6 @@ JSC::EncodedJSValue jsDOMWindowDocument(JSC::ExecState*, JSC::EncodedJSValue, JS
 JSC::EncodedJSValue jsDOMWindowStyleMedia(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsDOMWindowDevicePixelRatio(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowDevicePixelRatio(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowApplicationCache(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-JSC::EncodedJSValue jsDOMWindowSessionStorage(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-JSC::EncodedJSValue jsDOMWindowLocalStorage(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsDOMWindowConsole(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowConsole(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 #if ENABLE(CSS3_CONDITIONAL_RULES)
@@ -506,232 +500,6 @@ void setJSDOMWindowWebkitIDBRequestConstructor(JSC::ExecState*, JSC::EncodedJSVa
 JSC::EncodedJSValue jsDOMWindowWebkitIDBTransactionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowWebkitIDBTransactionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 #endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowWebkitIndexedDB(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIndexedDB(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
-#if ENABLE(QUOTA)
-JSC::EncodedJSValue jsDOMWindowWebkitStorageInfo(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
-#if ENABLE(SPEECH_SYNTHESIS)
-JSC::EncodedJSValue jsDOMWindowSpeechSynthesis(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIDBCursorConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowIDBCursorConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIDBCursorWithValueConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowIDBCursorWithValueConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIDBDatabaseConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowIDBDatabaseConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIDBFactoryConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowIDBFactoryConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIDBIndexConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowIDBIndexConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIDBKeyRangeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowIDBKeyRangeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIDBObjectStoreConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowIDBObjectStoreConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIDBOpenDBRequestConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowIDBOpenDBRequestConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIDBRequestConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowIDBRequestConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIDBTransactionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowIDBTransactionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(INDEXED_DATABASE)
-JSC::EncodedJSValue jsDOMWindowIDBVersionChangeEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowIDBVersionChangeEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(INDIE_UI)
-JSC::EncodedJSValue jsDOMWindowUIRequestEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowUIRequestEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_SOURCE)
-JSC::EncodedJSValue jsDOMWindowMediaSourceConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowMediaSourceConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_STREAM)
-JSC::EncodedJSValue jsDOMWindowAudioStreamTrackConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowAudioStreamTrackConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_STREAM)
-JSC::EncodedJSValue jsDOMWindowWebkitMediaStreamConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowWebkitMediaStreamConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_STREAM)
-JSC::EncodedJSValue jsDOMWindowMediaStreamEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowMediaStreamEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_STREAM)
-JSC::EncodedJSValue jsDOMWindowMediaStreamTrackConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowMediaStreamTrackConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_STREAM)
-JSC::EncodedJSValue jsDOMWindowMediaStreamTrackEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowMediaStreamTrackEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_STREAM)
-JSC::EncodedJSValue jsDOMWindowRTCIceCandidateConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowRTCIceCandidateConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_STREAM)
-JSC::EncodedJSValue jsDOMWindowWebkitRTCPeerConnectionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowWebkitRTCPeerConnectionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_STREAM)
-JSC::EncodedJSValue jsDOMWindowRTCSessionDescriptionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowRTCSessionDescriptionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_STREAM)
-JSC::EncodedJSValue jsDOMWindowVideoStreamTrackConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowVideoStreamTrackConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(LEGACY_NOTIFICATIONS) || ENABLE(NOTIFICATIONS)
-JSC::EncodedJSValue jsDOMWindowNotificationConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowNotificationConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(SPEECH_SYNTHESIS)
-JSC::EncodedJSValue jsDOMWindowSpeechSynthesisEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowSpeechSynthesisEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(SPEECH_SYNTHESIS)
-JSC::EncodedJSValue jsDOMWindowSpeechSynthesisUtteranceConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowSpeechSynthesisUtteranceConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowAnalyserNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowAnalyserNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowAudioBufferConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowAudioBufferConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowAudioBufferSourceNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowAudioBufferSourceNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowWebkitAudioContextConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowWebkitAudioContextConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowAudioDestinationNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowAudioDestinationNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowAudioListenerConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowAudioListenerConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowAudioNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowAudioNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowAudioParamConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowAudioParamConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowAudioProcessingEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowAudioProcessingEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowBiquadFilterNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowBiquadFilterNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowChannelMergerNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowChannelMergerNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowChannelSplitterNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowChannelSplitterNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowConvolverNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowConvolverNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowDelayNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowDelayNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowDynamicsCompressorNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowDynamicsCompressorNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowGainNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowGainNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(VIDEO) && ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowMediaElementAudioSourceNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowMediaElementAudioSourceNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_STREAM) && ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowMediaStreamAudioDestinationNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowMediaStreamAudioDestinationNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(MEDIA_STREAM) && ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowMediaStreamAudioSourceNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowMediaStreamAudioSourceNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowOfflineAudioCompletionEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowOfflineAudioCompletionEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowWebkitOfflineAudioContextConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowWebkitOfflineAudioContextConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowOscillatorNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowOscillatorNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowWebkitAudioPannerNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowWebkitAudioPannerNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowPeriodicWaveConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowPeriodicWaveConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowScriptProcessorNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowScriptProcessorNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(WEB_AUDIO)
-JSC::EncodedJSValue jsDOMWindowWaveShaperNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowWaveShaperNodeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-#if ENABLE(SQL_DATABASE)
-JSC::EncodedJSValue jsDOMWindowSQLExceptionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowSQLExceptionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-JSC::EncodedJSValue jsDOMWindowCloseEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowCloseEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#if ENABLE(WEB_SOCKETS)
-JSC::EncodedJSValue jsDOMWindowWebSocketConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowWebSocketConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
 JSC::EncodedJSValue jsDOMWindowCSSCharsetRuleConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowCSSCharsetRuleConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsDOMWindowCSSFontFaceRuleConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
@@ -816,8 +584,6 @@ JSC::EncodedJSValue jsDOMWindowClientRectConstructor(JSC::ExecState*, JSC::Encod
 void setJSDOMWindowClientRectConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsDOMWindowClientRectListConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowClientRectListConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowClipboardConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowClipboardConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsDOMWindowCommentConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowCommentConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsDOMWindowCompositionEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
@@ -940,18 +706,6 @@ JSC::EncodedJSValue jsDOMWindowWheelEventConstructor(JSC::ExecState*, JSC::Encod
 void setJSDOMWindowWheelEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsDOMWindowBlobConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowBlobConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowFileConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowFileConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#if ENABLE(BLOB)
-JSC::EncodedJSValue jsDOMWindowFileErrorConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowFileErrorConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-JSC::EncodedJSValue jsDOMWindowFileListConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowFileListConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#if ENABLE(BLOB)
-JSC::EncodedJSValue jsDOMWindowFileReaderConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowFileReaderConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
 JSC::EncodedJSValue jsDOMWindowFormDataConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowFormDataConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsDOMWindowDOMSettableTokenListConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
@@ -1264,18 +1018,6 @@ void setJSDOMWindowSpeechInputEventConstructor(JSC::ExecState*, JSC::EncodedJSVa
 #endif
 JSC::EncodedJSValue jsDOMWindowWebKitPointConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowWebKitPointConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowMimeTypeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowMimeTypeConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowMimeTypeArrayConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowMimeTypeArrayConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowPluginConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowPluginConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowPluginArrayConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowPluginArrayConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowStorageConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowStorageConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowStorageEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowStorageEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 #if ENABLE(SVG)
 JSC::EncodedJSValue jsDOMWindowSVGAElementConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowSVGAElementConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
@@ -1848,22 +1590,8 @@ void setJSDOMWindowSVGViewSpecConstructor(JSC::ExecState*, JSC::EncodedJSValue, 
 JSC::EncodedJSValue jsDOMWindowSVGZoomEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowSVGZoomEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 #endif
-#if ENABLE(SHARED_WORKERS)
-JSC::EncodedJSValue jsDOMWindowSharedWorkerConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowSharedWorkerConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
-JSC::EncodedJSValue jsDOMWindowWorkerConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowWorkerConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsDOMWindowDOMParserConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowDOMParserConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowXMLHttpRequestConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowXMLHttpRequestConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowXMLHttpRequestExceptionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowXMLHttpRequestExceptionConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowXMLHttpRequestProgressEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowXMLHttpRequestProgressEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-JSC::EncodedJSValue jsDOMWindowXMLHttpRequestUploadConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSDOMWindowXMLHttpRequestUploadConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsDOMWindowXMLSerializerConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSDOMWindowXMLSerializerConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsDOMWindowXPathEvaluatorConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);

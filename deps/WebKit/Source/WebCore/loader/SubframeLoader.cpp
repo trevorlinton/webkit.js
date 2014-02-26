@@ -129,8 +129,11 @@ bool SubframeLoader::pluginIsLoadable(HTMLPlugInImageElement& pluginElement, con
             pluginElement.fastGetAttribute(HTMLNames::typeAttr);
         if (!document()->contentSecurityPolicy()->allowObjectFromSource(url)
             || !document()->contentSecurityPolicy()->allowPluginType(mimeType, declaredMimeType, url)) {
+
+#if !PLATFORM(JS)
             RenderEmbeddedObject* renderer = pluginElement.renderEmbeddedObject();
             renderer->setPluginUnavailabilityReason(RenderEmbeddedObject::PluginBlockedByContentSecurityPolicy);
+#endif
             return false;
         }
 
@@ -312,8 +315,10 @@ PassRefPtr<Widget> SubframeLoader::createJavaAppletWidget(const IntSize& size, H
     if (!widget) {
         RenderEmbeddedObject* renderer = element.renderEmbeddedObject();
 
+#if !PLATFORM(JS)
         if (!renderer->isPluginUnavailable())
             renderer->setPluginUnavailabilityReason(RenderEmbeddedObject::PluginMissing);
+#endif
         return nullptr;
     }
 
@@ -448,9 +453,11 @@ bool SubframeLoader::loadPlugin(HTMLPlugInImageElement& pluginElement, const URL
     RefPtr<Widget> widget = m_frame.loader().client().createPlugin(contentSize, &pluginElement, url, paramNames, paramValues, mimeType, loadManually);
 
     if (!widget) {
+#if !PLATFORM(JS)
         if (!renderer->isPluginUnavailable())
             renderer->setPluginUnavailabilityReason(RenderEmbeddedObject::PluginMissing);
         return false;
+#endif
     }
 
     pluginElement.subframeLoaderDidCreatePlugIn(widget.get());

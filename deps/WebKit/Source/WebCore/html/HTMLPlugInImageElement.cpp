@@ -368,13 +368,12 @@ void HTMLPlugInImageElement::checkSnapshotStatus()
     // Notify the shadow root that the size changed so that we may update the overlay layout.
     ensureUserAgentShadowRoot().dispatchEvent(Event::create(eventNames().resizeEvent, true, false));
 }
-
+#if !PLATFORM(JS)
 static DOMWrapperWorld& plugInImageElementIsolatedWorld()
 {
     static DOMWrapperWorld& isolatedWorld = *DOMWrapperWorld::create(JSDOMWindow::commonVM()).leakRef();
     return isolatedWorld;
 }
-
 void HTMLPlugInImageElement::didAddUserAgentShadowRoot(ShadowRoot* root)
 {
     HTMLPlugInElement::didAddUserAgentShadowRoot(root);
@@ -420,6 +419,7 @@ void HTMLPlugInImageElement::didAddUserAgentShadowRoot(ShadowRoot* root)
     JSC::call(exec, overlay, callType, callData, globalObject, argList);
 }
 
+#endif
 bool HTMLPlugInImageElement::partOfSnapshotOverlay(Node* node)
 {
     DEFINE_STATIC_LOCAL(AtomicString, selector, (".snapshot-overlay", AtomicString::ConstructFromLiteral));

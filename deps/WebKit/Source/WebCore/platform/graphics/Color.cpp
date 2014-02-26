@@ -34,7 +34,7 @@
 #include <wtf/text/StringBuilder.h>
 
 #if PLATFORM(JS)
-#include <math.h>
+#include <cmath>
 #endif
 
 namespace WebCore {
@@ -101,7 +101,7 @@ static double calcHue(double temp1, double temp2, double hueVal)
 // all values are in the range of 0 to 1.0
 RGBA32 makeRGBAFromHSLA(double hue, double saturation, double lightness, double alpha)
 {
-    const double scaleFactor = nextafter(256.0, 0.0);
+  const double scaleFactor = ::nextafter(256.0, 0.0);
 
     if (!saturation) {
         int greyValue = static_cast<int>(lightness * scaleFactor);
@@ -120,10 +120,10 @@ RGBA32 makeRGBAFromHSLA(double hue, double saturation, double lightness, double 
 RGBA32 makeRGBAFromCMYKA(float c, float m, float y, float k, float a)
 {
     double colors = 1 - k;
-    int r = static_cast<int>(nextafter(256, 0) * (colors * (1 - c)));
-    int g = static_cast<int>(nextafter(256, 0) * (colors * (1 - m)));
-    int b = static_cast<int>(nextafter(256, 0) * (colors * (1 - y)));
-    return makeRGBA(r, g, b, static_cast<float>(nextafter(256, 0) * a));
+  int r = static_cast<int>(::nextafter(256, 0) * (colors * (1 - c)));
+  int g = static_cast<int>(::nextafter(256, 0) * (colors * (1 - m)));
+  int b = static_cast<int>(::nextafter(256, 0) * (colors * (1 - y)));
+  return makeRGBA(r, g, b, static_cast<float>(::nextafter(256, 0) * a));
 }
 
 // originally moved here from the CSS parser
@@ -275,7 +275,7 @@ Color Color::light() const
     if (m_color == black)
         return lightenedBlack;
     
-    const float scaleFactor = nextafterf(256.0f, 0.0f);
+  const float scaleFactor = ::nextafterf(256.0f, 0.0f);
 
     float r, g, b, a;
     getRGBA(r, g, b, a);
@@ -300,7 +300,7 @@ Color Color::dark() const
     if (m_color == white)
         return darkenedWhite;
     
-    const float scaleFactor = nextafterf(256.0f, 0.0f);
+  const float scaleFactor = ::nextafterf(256.0f, 0.0f);
 
     float r, g, b, a;
     getRGBA(r, g, b, a);

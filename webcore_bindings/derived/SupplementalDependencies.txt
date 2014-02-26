@@ -1,115 +1,3 @@
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/geolocation/Coordinates.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/geolocation/Geolocation.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/geolocation/Geoposition.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/geolocation/PositionCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/geolocation/PositionError.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/geolocation/PositionErrorCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBAny.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBCursor.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBCursorWithValue.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBDatabase.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBFactory.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBIndex.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBKeyRange.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBObjectStore.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBOpenDBRequest.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBRequest.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBTransaction.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/IDBVersionChangeEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indieui/UIRequestEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediacontrols/MediaControlsHost.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediasource/MediaSource.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediasource/SourceBuffer.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediasource/SourceBufferList.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediasource/VideoPlaybackQuality.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/AllAudioCapabilities.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/AllVideoCapabilities.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/AudioStreamTrack.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/CapabilityRange.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/MediaSourceStates.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/MediaStream.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/MediaStreamCapabilities.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/MediaStreamEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/MediaStreamTrack.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/MediaStreamTrackEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/MediaStreamTrackSourcesCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/MediaTrackConstraint.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/MediaTrackConstraintSet.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/MediaTrackConstraints.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/NavigatorUserMediaError.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/NavigatorUserMediaErrorCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/NavigatorUserMediaSuccessCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCDTMFSender.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCDTMFToneChangeEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCDataChannel.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCDataChannelEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCIceCandidate.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCIceCandidateEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCPeerConnection.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCPeerConnectionErrorCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCSessionDescription.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCSessionDescriptionCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCStatsCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCStatsReport.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/RTCStatsResponse.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/SourceInfo.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/VideoStreamTrack.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/notifications/Notification.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/notifications/NotificationCenter.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/notifications/NotificationPermissionCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/plugins/QuickTimePluginReplacement.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/StorageErrorCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/StorageInfo.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/StorageQuota.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/StorageQuotaCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/StorageUsageCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/speech/SpeechSynthesis.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/speech/SpeechSynthesisEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/speech/SpeechSynthesisUtterance.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/speech/SpeechSynthesisVoice.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/AnalyserNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/AudioBuffer.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/AudioBufferCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/AudioBufferSourceNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/AudioContext.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/AudioDestinationNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/AudioListener.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/AudioNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/AudioParam.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/AudioProcessingEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/BiquadFilterNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/ChannelMergerNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/ChannelSplitterNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/ConvolverNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/DelayNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/DynamicsCompressorNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/GainNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/MediaElementAudioSourceNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/MediaStreamAudioDestinationNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/MediaStreamAudioSourceNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/OfflineAudioCompletionEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/OfflineAudioContext.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/OscillatorNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/PannerNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/PeriodicWave.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/ScriptProcessorNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webaudio/WaveShaperNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/Database.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/DatabaseCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/DatabaseSync.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/SQLError.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/SQLException.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/SQLResultSet.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/SQLResultSetRowList.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/SQLStatementCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/SQLStatementErrorCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/SQLTransaction.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/SQLTransactionCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/SQLTransactionErrorCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/SQLTransactionSync.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/SQLTransactionSyncCallback.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/websockets/CloseEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/websockets/WebSocket.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/crypto/CryptoKey.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/crypto/CryptoKeyPair.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/crypto/SubtleCrypto.idl 
@@ -157,7 +45,6 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/dom/CharacterData.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/dom/ChildNode.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/dom/ClientRect.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/dom/ClientRectList.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/dom/Clipboard.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/dom/Comment.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/dom/CompositionEvent.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/dom/CustomEvent.idl 
@@ -221,16 +108,10 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/dom/WebKitTransitionEvent.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/dom/WheelEvent.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/fileapi/Blob.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/fileapi/File.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/fileapi/FileError.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/fileapi/FileException.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/fileapi/FileList.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/fileapi/FileReader.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/fileapi/FileReaderSync.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/DOMFormData.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/DOMSettableTokenList.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/DOMTokenList.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/html/DOMURL.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediasource/DOMURLMediaSource.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/html/DOMURL.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/HTMLAllCollection.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/HTMLAnchorElement.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/HTMLAppletElement.idl 
@@ -271,7 +152,7 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/HTMLLinkElement.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/HTMLMapElement.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/HTMLMarqueeElement.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/html/HTMLMediaElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/HTMLMediaElementMediaStream.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/html/HTMLMediaElement.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/HTMLMenuElement.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/HTMLMetaElement.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/HTMLMeterElement.idl 
@@ -347,32 +228,27 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/canvas/WebGLTexture.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/canvas/WebGLUniformLocation.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/canvas/WebGLVertexArrayObjectOES.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/AudioTrack.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediasource/AudioTrackMediaSource.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/AudioTrack.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/AudioTrackList.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/TextTrack.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediasource/TextTrackMediaSource.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/TextTrack.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/TextTrackCue.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/TextTrackCueList.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/TextTrackList.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/TrackEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/VideoTrack.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediasource/VideoTrackMediaSource.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/VideoTrack.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/html/track/VideoTrackList.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/inspector/CommandLineAPIHost.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/inspector/InspectorFrontendHost.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/inspector/JavaScriptCallFrame.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/inspector/ScriptProfile.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/inspector/ScriptProfileNode.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/loader/appcache/DOMApplicationCache.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/AbstractView.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/BarProp.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/Console.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/Crypto.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/DOMSecurityPolicy.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/DOMSelection.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/page/DOMWindow.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/DOMWindowWebDatabase.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/DOMWindowQuota.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/speech/DOMWindowSpeechSynthesis.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/page/WindowBase64.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/notifications/DOMWindowNotifications.idl /Tint/webkit.js/webcore_bindings/derived/DOMWindowConstructors.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/page/WindowTimers.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/DOMWindowIndexedDatabase.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/page/DOMWindow.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/page/WindowBase64.idl /Tint/webkit.js/webcore_bindings/derived/DOMWindowConstructors.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/page/WindowTimers.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/EventSource.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/History.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/Location.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/page/Navigator.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/NavigatorStorageQuota.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/geolocation/NavigatorGeolocation.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/mediastream/NavigatorMediaStream.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/page/Navigator.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/Performance.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/PerformanceNavigation.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/PerformanceTiming.idl 
@@ -381,13 +257,7 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/SpeechInputResult.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/SpeechInputResultList.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/WebKitPoint.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/page/WorkerNavigator.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/quota/WorkerNavigatorStorageQuota.idl
-/Tint/webkit.js/deps/WebKit/Source/WebCore/plugins/DOMMimeType.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/plugins/DOMMimeTypeArray.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/plugins/DOMPlugin.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/plugins/DOMPluginArray.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/storage/Storage.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/storage/StorageEvent.idl 
+/Tint/webkit.js/deps/WebKit/Source/WebCore/page/WorkerNavigator.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGAElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGURIReference.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGAltGlyphDefElement.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGAltGlyphElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGURIReference.idl
@@ -409,12 +279,12 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGAnimatedRect.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGAnimatedString.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGAnimatedTransformList.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGAnimationElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGTests.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGAnimationElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGTests.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGCircleElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGClipPathElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGColor.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGComponentTransferFunctionElement.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGCursorElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGTests.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGURIReference.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGCursorElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGURIReference.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGTests.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGDefsElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGDescElement.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGDocument.idl 
@@ -469,7 +339,7 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGLinearGradientElement.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGMPathElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGURIReference.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGMarkerElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGFitToViewBox.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
-/Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGMaskElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGTests.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGMaskElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGTests.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGMatrix.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGMetadataElement.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGMissingGlyphElement.idl 
@@ -498,7 +368,7 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGPathSegList.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGPathSegMovetoAbs.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGPathSegMovetoRel.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGPatternElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGFitToViewBox.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGTests.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGURIReference.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGPatternElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGFitToViewBox.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGURIReference.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGTests.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGPoint.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGPointList.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGPolygonElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
@@ -531,22 +401,7 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGViewElement.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGFitToViewBox.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGZoomAndPan.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGExternalResourcesRequired.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGViewSpec.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGFitToViewBox.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/svg/SVGZoomEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/testing/InternalSettings.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/testing/Internals.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/testing/MallocStatistics.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/testing/MemoryInfo.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/testing/TypeConversions.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/workers/DedicatedWorkerGlobalScope.idl /Tint/webkit.js/webcore_bindings/derived/DedicatedWorkerGlobalScopeConstructors.idl
-/Tint/webkit.js/deps/WebKit/Source/WebCore/workers/SharedWorker.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/workers/AbstractWorker.idl
-/Tint/webkit.js/deps/WebKit/Source/WebCore/workers/SharedWorkerGlobalScope.idl /Tint/webkit.js/webcore_bindings/derived/SharedWorkerGlobalScopeConstructors.idl
-/Tint/webkit.js/deps/WebKit/Source/WebCore/workers/Worker.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/workers/AbstractWorker.idl
-/Tint/webkit.js/deps/WebKit/Source/WebCore/workers/WorkerGlobalScope.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/indexeddb/WorkerGlobalScopeIndexedDatabase.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/notifications/WorkerGlobalScopeNotifications.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/page/WindowTimers.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/Modules/webdatabase/WorkerGlobalScopeWebDatabase.idl /Tint/webkit.js/webcore_bindings/derived/WorkerGlobalScopeConstructors.idl
-/Tint/webkit.js/deps/WebKit/Source/WebCore/workers/WorkerLocation.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/xml/DOMParser.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/xml/XMLHttpRequest.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/xml/XMLHttpRequestException.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/xml/XMLHttpRequestProgressEvent.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/xml/XMLHttpRequestUpload.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/xml/XMLSerializer.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/xml/XPathEvaluator.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/xml/XPathException.idl 

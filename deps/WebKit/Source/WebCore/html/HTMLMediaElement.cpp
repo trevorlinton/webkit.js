@@ -710,6 +710,7 @@ void HTMLMediaElement::removedFrom(ContainerNode& insertionPoint)
             exitFullscreen();
 
         if (m_player) {
+#if !PLATFORM(JS)
             JSC::VM* vm = JSDOMWindowBase::commonVM();
             JSC::JSLockHolder lock(vm);
 
@@ -719,6 +720,7 @@ void HTMLMediaElement::removedFrom(ContainerNode& insertionPoint)
 
             if (extraMemoryCostDelta > 0)
                 vm->heap.reportExtraMemoryCost(extraMemoryCostDelta);
+#endif
         }
     }
 

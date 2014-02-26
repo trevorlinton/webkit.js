@@ -142,7 +142,6 @@ JSC::EncodedJSValue jsMouseEventX(JSC::ExecState*, JSC::EncodedJSValue, JSC::Enc
 JSC::EncodedJSValue jsMouseEventY(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsMouseEventFromElement(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsMouseEventToElement(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-JSC::EncodedJSValue jsMouseEventDataTransfer(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsMouseEventConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 
 } // namespace WebCore

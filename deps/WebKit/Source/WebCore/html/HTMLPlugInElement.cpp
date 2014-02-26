@@ -124,7 +124,7 @@ void HTMLPlugInElement::resetInstance()
 {
     m_instance.clear();
 }
-
+#if !PLATFORM(JS)
 PassRefPtr<JSC::Bindings::Instance> HTMLPlugInElement::getInstance()
 {
     Frame* frame = document().frame();
@@ -141,7 +141,7 @@ PassRefPtr<JSC::Bindings::Instance> HTMLPlugInElement::getInstance()
 
     return m_instance;
 }
-
+#endif
 bool HTMLPlugInElement::guardedDispatchBeforeLoadEvent(const String& sourceURL)
 {
     // FIXME: Our current plug-in loading design can't guarantee the following

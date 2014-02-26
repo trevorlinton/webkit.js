@@ -29,20 +29,6 @@ include ../../build/features.make
 
 VPATH = \
     $(WebCore) \
-    $(WebCore)/Modules/encryptedmedia \
-    $(WebCore)/Modules/geolocation \
-    $(WebCore)/Modules/indexeddb \
-    $(WebCore)/Modules/indieui \
-    $(WebCore)/Modules/mediacontrols \
-    $(WebCore)/Modules/mediasource \
-    $(WebCore)/Modules/mediastream \
-    $(WebCore)/Modules/notifications \
-    $(WebCore)/Modules/plugins \
-    $(WebCore)/Modules/quota \
-    $(WebCore)/Modules/speech \
-    $(WebCore)/Modules/webaudio \
-    $(WebCore)/Modules/webdatabase \
-    $(WebCore)/Modules/websockets \
     $(WebCore)/bindings/generic \
     $(WebCore)/bindings/js \
     $(WebCore)/bindings/objc \
@@ -55,150 +41,12 @@ VPATH = \
     $(WebCore)/html/canvas \
     $(WebCore)/html/shadow \
     $(WebCore)/html/track \
-    $(WebCore)/inspector \
-    $(WebCore)/loader/appcache \
     $(WebCore)/page \
-    $(WebCore)/plugins \
-    $(WebCore)/storage \
     $(WebCore)/xml \
-    $(WebCore)/workers \
     $(WebCore)/svg \
-    $(WebCore)/testing \
-    $(WebCore)/websockets \
 #
 
 BINDING_IDLS = \
-    $(WebCore)/Modules/geolocation/Coordinates.idl \
-    $(WebCore)/Modules/geolocation/Geolocation.idl \
-    $(WebCore)/Modules/geolocation/Geoposition.idl \
-    $(WebCore)/Modules/geolocation/NavigatorGeolocation.idl \
-    $(WebCore)/Modules/geolocation/PositionCallback.idl \
-    $(WebCore)/Modules/geolocation/PositionError.idl \
-    $(WebCore)/Modules/geolocation/PositionErrorCallback.idl \
-    $(WebCore)/Modules/indexeddb/DOMWindowIndexedDatabase.idl \
-    $(WebCore)/Modules/indexeddb/IDBAny.idl \
-    $(WebCore)/Modules/indexeddb/IDBCursor.idl \
-    $(WebCore)/Modules/indexeddb/IDBCursorWithValue.idl \
-    $(WebCore)/Modules/indexeddb/IDBDatabase.idl \
-    $(WebCore)/Modules/indexeddb/IDBFactory.idl \
-    $(WebCore)/Modules/indexeddb/IDBIndex.idl \
-    $(WebCore)/Modules/indexeddb/IDBKeyRange.idl \
-    $(WebCore)/Modules/indexeddb/IDBObjectStore.idl \
-    $(WebCore)/Modules/indexeddb/IDBOpenDBRequest.idl \
-    $(WebCore)/Modules/indexeddb/IDBRequest.idl \
-    $(WebCore)/Modules/indexeddb/IDBTransaction.idl \
-    $(WebCore)/Modules/indexeddb/IDBVersionChangeEvent.idl \
-    $(WebCore)/Modules/indexeddb/WorkerGlobalScopeIndexedDatabase.idl \
-    $(WebCore)/Modules/indieui/UIRequestEvent.idl \
-    $(WebCore)/Modules/mediacontrols/MediaControlsHost.idl \
-	$(WebCore)/Modules/mediasource/DOMURLMediaSource.idl \
-	$(WebCore)/Modules/mediasource/AudioTrackMediaSource.idl \
-	$(WebCore)/Modules/mediasource/MediaSource.idl \
-	$(WebCore)/Modules/mediasource/SourceBuffer.idl \
-	$(WebCore)/Modules/mediasource/SourceBufferList.idl \
-    $(WebCore)/Modules/mediasource/SourceBuffer.idl \
-    $(WebCore)/Modules/mediasource/SourceBufferList.idl \
-	$(WebCore)/Modules/mediasource/TextTrackMediaSource.idl \
-	$(WebCore)/Modules/mediasource/VideoTrackMediaSource.idl \
-	$(WebCore)/Modules/mediasource/VideoPlaybackQuality.idl \
-	$(WebCore)/Modules/mediastream/AllVideoCapabilities.idl \
-	$(WebCore)/Modules/mediastream/AllAudioCapabilities.idl \
-	$(WebCore)/Modules/mediastream/AudioStreamTrack.idl \
-    $(WebCore)/Modules/mediastream/CapabilityRange.idl \
-    $(WebCore)/Modules/mediastream/HTMLMediaElementMediaStream.idl \
-    $(WebCore)/Modules/mediastream/MediaSourceStates.idl \
-	$(WebCore)/Modules/mediastream/MediaStream.idl \
-	$(WebCore)/Modules/mediastream/MediaStreamCapabilities.idl \
-    $(WebCore)/Modules/mediastream/MediaStreamEvent.idl \
-    $(WebCore)/Modules/mediastream/MediaStreamTrack.idl \
-    $(WebCore)/Modules/mediastream/MediaStreamTrackEvent.idl \
-    $(WebCore)/Modules/mediastream/MediaStreamTrackSourcesCallback.idl \
-    $(WebCore)/Modules/mediastream/MediaTrackConstraint.idl \
-    $(WebCore)/Modules/mediastream/MediaTrackConstraints.idl \
-    $(WebCore)/Modules/mediastream/MediaTrackConstraintSet.idl \
-    $(WebCore)/Modules/mediastream/NavigatorMediaStream.idl \
-    $(WebCore)/Modules/mediastream/NavigatorUserMediaError.idl \
-    $(WebCore)/Modules/mediastream/NavigatorUserMediaErrorCallback.idl \
-    $(WebCore)/Modules/mediastream/NavigatorUserMediaSuccessCallback.idl \
-    $(WebCore)/Modules/mediastream/RTCDTMFSender.idl \
-    $(WebCore)/Modules/mediastream/RTCDTMFToneChangeEvent.idl \
-    $(WebCore)/Modules/mediastream/RTCDataChannel.idl \
-    $(WebCore)/Modules/mediastream/RTCDataChannelEvent.idl \
-    $(WebCore)/Modules/mediastream/RTCIceCandidate.idl \
-    $(WebCore)/Modules/mediastream/RTCIceCandidateEvent.idl \
-    $(WebCore)/Modules/mediastream/RTCPeerConnection.idl \
-    $(WebCore)/Modules/mediastream/RTCPeerConnectionErrorCallback.idl \
-    $(WebCore)/Modules/mediastream/RTCSessionDescription.idl \
-    $(WebCore)/Modules/mediastream/RTCSessionDescriptionCallback.idl \
-    $(WebCore)/Modules/mediastream/RTCStatsCallback.idl \
-    $(WebCore)/Modules/mediastream/RTCStatsReport.idl \
-    $(WebCore)/Modules/mediastream/RTCStatsResponse.idl \
-	$(WebCore)/Modules/mediastream/VideoStreamTrack.idl \
-    $(WebCore)/Modules/mediastream/SourceInfo.idl \
-    $(WebCore)/Modules/notifications/DOMWindowNotifications.idl \
-    $(WebCore)/Modules/notifications/Notification.idl \
-    $(WebCore)/Modules/notifications/NotificationCenter.idl \
-    $(WebCore)/Modules/notifications/NotificationPermissionCallback.idl \
-    $(WebCore)/Modules/notifications/WorkerGlobalScopeNotifications.idl \
-    $(WebCore)/Modules/plugins/QuickTimePluginReplacement.idl \
-    $(WebCore)/Modules/quota/DOMWindowQuota.idl \
-    $(WebCore)/Modules/quota/NavigatorStorageQuota.idl \
-    $(WebCore)/Modules/quota/StorageInfo.idl \
-    $(WebCore)/Modules/quota/StorageErrorCallback.idl \
-    $(WebCore)/Modules/quota/StorageQuota.idl \
-    $(WebCore)/Modules/quota/StorageQuotaCallback.idl \
-    $(WebCore)/Modules/quota/StorageUsageCallback.idl \
-    $(WebCore)/Modules/quota/WorkerNavigatorStorageQuota.idl \
-    $(WebCore)/Modules/speech/DOMWindowSpeechSynthesis.idl \
-    $(WebCore)/Modules/speech/SpeechSynthesis.idl \
-    $(WebCore)/Modules/speech/SpeechSynthesisEvent.idl \
-    $(WebCore)/Modules/speech/SpeechSynthesisUtterance.idl \
-    $(WebCore)/Modules/speech/SpeechSynthesisVoice.idl \
-    $(WebCore)/Modules/webaudio/AudioBuffer.idl \
-    $(WebCore)/Modules/webaudio/AudioBufferCallback.idl \
-    $(WebCore)/Modules/webaudio/AudioBufferSourceNode.idl \
-    $(WebCore)/Modules/webaudio/ChannelMergerNode.idl \
-    $(WebCore)/Modules/webaudio/ChannelSplitterNode.idl \
-    $(WebCore)/Modules/webaudio/AudioContext.idl \
-    $(WebCore)/Modules/webaudio/AudioDestinationNode.idl \
-    $(WebCore)/Modules/webaudio/GainNode.idl \
-    $(WebCore)/Modules/webaudio/AudioListener.idl \
-    $(WebCore)/Modules/webaudio/AudioNode.idl \
-    $(WebCore)/Modules/webaudio/PannerNode.idl \
-    $(WebCore)/Modules/webaudio/AudioParam.idl \
-    $(WebCore)/Modules/webaudio/AudioProcessingEvent.idl \
-    $(WebCore)/Modules/webaudio/BiquadFilterNode.idl \
-    $(WebCore)/Modules/webaudio/ConvolverNode.idl \
-    $(WebCore)/Modules/webaudio/DelayNode.idl \
-    $(WebCore)/Modules/webaudio/DynamicsCompressorNode.idl \
-    $(WebCore)/Modules/webaudio/ScriptProcessorNode.idl \
-    $(WebCore)/Modules/webaudio/MediaElementAudioSourceNode.idl \
-    $(WebCore)/Modules/webaudio/MediaStreamAudioDestinationNode.idl \
-    $(WebCore)/Modules/webaudio/MediaStreamAudioSourceNode.idl \
-    $(WebCore)/Modules/webaudio/OscillatorNode.idl \
-    $(WebCore)/Modules/webaudio/OfflineAudioContext.idl \
-    $(WebCore)/Modules/webaudio/OfflineAudioCompletionEvent.idl \
-    $(WebCore)/Modules/webaudio/AnalyserNode.idl \
-    $(WebCore)/Modules/webaudio/WaveShaperNode.idl \
-    $(WebCore)/Modules/webaudio/PeriodicWave.idl \
-    $(WebCore)/Modules/webdatabase/DOMWindowWebDatabase.idl \
-    $(WebCore)/Modules/webdatabase/Database.idl \
-    $(WebCore)/Modules/webdatabase/DatabaseCallback.idl \
-    $(WebCore)/Modules/webdatabase/DatabaseSync.idl \
-    $(WebCore)/Modules/webdatabase/SQLError.idl \
-    $(WebCore)/Modules/webdatabase/SQLException.idl \
-    $(WebCore)/Modules/webdatabase/SQLResultSet.idl \
-    $(WebCore)/Modules/webdatabase/SQLResultSetRowList.idl \
-    $(WebCore)/Modules/webdatabase/SQLStatementCallback.idl \
-    $(WebCore)/Modules/webdatabase/SQLStatementErrorCallback.idl \
-    $(WebCore)/Modules/webdatabase/SQLTransaction.idl \
-    $(WebCore)/Modules/webdatabase/SQLTransactionCallback.idl \
-    $(WebCore)/Modules/webdatabase/SQLTransactionErrorCallback.idl \
-    $(WebCore)/Modules/webdatabase/SQLTransactionSync.idl \
-    $(WebCore)/Modules/webdatabase/SQLTransactionSyncCallback.idl \
-    $(WebCore)/Modules/webdatabase/WorkerGlobalScopeWebDatabase.idl \
-    $(WebCore)/Modules/websockets/CloseEvent.idl \
-    $(WebCore)/Modules/websockets/WebSocket.idl \
     $(WebCore)/crypto/CryptoKey.idl \
     $(WebCore)/crypto/CryptoKeyPair.idl \
     $(WebCore)/crypto/SubtleCrypto.idl \
@@ -247,7 +95,6 @@ BINDING_IDLS = \
     $(WebCore)/dom/ChildNode.idl \
     $(WebCore)/dom/ClientRect.idl \
     $(WebCore)/dom/ClientRectList.idl \
-    $(WebCore)/dom/Clipboard.idl \
     $(WebCore)/dom/Comment.idl \
     $(WebCore)/dom/CompositionEvent.idl \
     $(WebCore)/dom/CustomEvent.idl \
@@ -312,12 +159,6 @@ BINDING_IDLS = \
     $(WebCore)/dom/WebKitTransitionEvent.idl \
     $(WebCore)/dom/WheelEvent.idl \
     $(WebCore)/fileapi/Blob.idl \
-    $(WebCore)/fileapi/File.idl \
-    $(WebCore)/fileapi/FileError.idl \
-    $(WebCore)/fileapi/FileException.idl \
-    $(WebCore)/fileapi/FileList.idl \
-    $(WebCore)/fileapi/FileReader.idl \
-    $(WebCore)/fileapi/FileReaderSync.idl \
     $(WebCore)/html/DOMFormData.idl \
     $(WebCore)/html/DOMSettableTokenList.idl \
     $(WebCore)/html/DOMTokenList.idl \
@@ -447,11 +288,6 @@ BINDING_IDLS = \
     $(WebCore)/html/track/TrackEvent.idl \
     $(WebCore)/html/track/VideoTrack.idl \
     $(WebCore)/html/track/VideoTrackList.idl \
-    $(WebCore)/inspector/CommandLineAPIHost.idl \
-    $(WebCore)/inspector/InspectorFrontendHost.idl \
-    $(WebCore)/inspector/ScriptProfile.idl \
-    $(WebCore)/inspector/ScriptProfileNode.idl \
-    $(WebCore)/loader/appcache/DOMApplicationCache.idl \
     $(WebCore)/page/AbstractView.idl \
     $(WebCore)/page/BarProp.idl \
     $(WebCore)/page/Console.idl \
@@ -474,12 +310,6 @@ BINDING_IDLS = \
     $(WebCore)/page/WindowBase64.idl \
     $(WebCore)/page/WindowTimers.idl \
     $(WebCore)/page/WorkerNavigator.idl \
-    $(WebCore)/plugins/DOMMimeType.idl \
-    $(WebCore)/plugins/DOMMimeTypeArray.idl \
-    $(WebCore)/plugins/DOMPlugin.idl \
-    $(WebCore)/plugins/DOMPluginArray.idl \
-    $(WebCore)/storage/Storage.idl \
-    $(WebCore)/storage/StorageEvent.idl \
     $(WebCore)/svg/SVGAElement.idl \
     $(WebCore)/svg/SVGAltGlyphDefElement.idl \
     $(WebCore)/svg/SVGAltGlyphElement.idl \
@@ -629,23 +459,7 @@ BINDING_IDLS = \
     $(WebCore)/svg/SVGViewSpec.idl \
     $(WebCore)/svg/SVGZoomAndPan.idl \
     $(WebCore)/svg/SVGZoomEvent.idl \
-    $(WebCore)/testing/Internals.idl \
-    $(WebCore)/testing/InternalSettings.idl \
-    $(WebCore)/testing/MallocStatistics.idl \
-    $(WebCore)/testing/MemoryInfo.idl \
-    $(WebCore)/testing/TypeConversions.idl \
-    $(WebCore)/workers/AbstractWorker.idl \
-    $(WebCore)/workers/DedicatedWorkerGlobalScope.idl \
-    $(WebCore)/workers/SharedWorker.idl \
-    $(WebCore)/workers/SharedWorkerGlobalScope.idl \
-    $(WebCore)/workers/Worker.idl \
-    $(WebCore)/workers/WorkerGlobalScope.idl \
-    $(WebCore)/workers/WorkerLocation.idl \
     $(WebCore)/xml/DOMParser.idl \
-    $(WebCore)/xml/XMLHttpRequest.idl \
-    $(WebCore)/xml/XMLHttpRequestException.idl \
-    $(WebCore)/xml/XMLHttpRequestProgressEvent.idl \
-    $(WebCore)/xml/XMLHttpRequestUpload.idl \
     $(WebCore)/xml/XMLSerializer.idl \
     $(WebCore)/xml/XPathEvaluator.idl \
     $(WebCore)/xml/XPathException.idl \
@@ -682,7 +496,6 @@ all : \
     HTMLNames.cpp \
     JSHTMLElementWrapperFactory.cpp \
     JSSVGElementWrapperFactory.cpp \
-    PlugInsResources.h \
     SVGElementFactory.cpp \
     SVGNames.cpp \
     UserAgentScripts.h \
@@ -857,12 +670,12 @@ UserAgentStyleSheets.h : css/make-css-file-arrays.pl bindings/scripts/preprocess
 
 USER_AGENT_SCRIPTS = 
 
-ifeq ($(findstring ENABLE_MEDIA_CONTROLS_SCRIPT,$(FEATURE_DEFINES)), ENABLE_MEDIA_CONTROLS_SCRIPT)
-	USER_AGENT_SCRIPTS := $(USER_AGENT_SCRIPTS) $(WebCore)/Modules/mediacontrols/mediaControlsApple.js
-ifeq ($(WTF_PLATFORM_IOS), 1)
-	USER_AGENT_SCRIPTS := $(USER_AGENT_SCRIPTS) $(WebCore)/Modules/mediacontrols/mediaControlsiOS.js
-endif
-endif
+# ifeq ($(findstring ENABLE_MEDIA_CONTROLS_SCRIPT,$(FEATURE_DEFINES)), ENABLE_MEDIA_CONTROLS_SCRIPT)
+# 	USER_AGENT_SCRIPTS := $(USER_AGENT_SCRIPTS) $(WebCore)/Modules/mediacontrols/mediaControlsApple.js
+# ifeq ($(WTF_PLATFORM_IOS), 1)
+# 	USER_AGENT_SCRIPTS := $(USER_AGENT_SCRIPTS) $(WebCore)/Modules/mediacontrols/mediaControlsiOS.js
+# endif
+# endif
 
 ifeq ($(OS),MACOS)
 	USER_AGENT_SCRIPTS := $(USER_AGENT_SCRIPTS) $(WebCore)/Modules/plugins/QuickTimePluginReplacement.js
@@ -875,10 +688,10 @@ UserAgentScripts.h : css/make-css-file-arrays.pl bindings/scripts/preprocessor.p
 
 # plugIns resources
 
-PLUG_INS_RESOURCES = $(WebCore)/Resources/plugIns.js
+# PLUG_INS_RESOURCES = $(WebCore)/Resources/plugIns.js
 
-PlugInsResources.h : css/make-css-file-arrays.pl bindings/scripts/preprocessor.pm $(PLUG_INS_RESOURCES) $(PLATFORM_FEATURE_DEFINES)
-	perl -I$(WebCore)/bindings/scripts $< --defines "$(FEATURE_DEFINES)" $@ PlugInsResourcesData.cpp $(PLUG_INS_RESOURCES)
+# PlugInsResources.h : css/make-css-file-arrays.pl bindings/scripts/preprocessor.pm $(PLUG_INS_RESOURCES) $(PLATFORM_FEATURE_DEFINES)
+# 	perl -I$(WebCore)/bindings/scripts $< --defines "$(FEATURE_DEFINES)" $@ PlugInsResourcesData.cpp $(PLUG_INS_RESOURCES)
 
 # --------
 
@@ -1018,7 +831,6 @@ preprocess_idls_script = perl $(addprefix -I $(WebCore)/, $(sort $(dir $(1)))) $
 # JS bindings generator
 
 IDL_INCLUDES = \
-    $(WebCore)/Modules \
     $(WebCore)/css \
     $(WebCore)/dom \
     $(WebCore)/fileapi \
@@ -1026,13 +838,8 @@ IDL_INCLUDES = \
     $(WebCore)/html/canvas \
     $(WebCore)/html/shadow \
     $(WebCore)/html/track \
-    $(WebCore)/inspector \
-    $(WebCore)/loader/appcache \
     $(WebCore)/page \
-    $(WebCore)/plugins \
-    $(WebCore)/storage \
     $(WebCore)/svg \
-    $(WebCore)/workers \
     $(WebCore)/xml
 
 IDL_COMMON_ARGS = $(IDL_INCLUDES:%=--include %) --write-dependencies --outputDir .
@@ -1063,67 +870,6 @@ JS%.h : %.idl $(JS_BINDINGS_SCRIPTS) $(IDL_ATTRIBUTES_FILE) $(WINDOW_CONSTRUCTOR
 	$(call generator_script, $(JS_BINDINGS_SCRIPTS)) $(IDL_COMMON_ARGS) --defines "$(FEATURE_DEFINES) $(ADDITIONAL_IDL_DEFINES) LANGUAGE_JAVASCRIPT" --generator JS --idlAttributesFile $(IDL_ATTRIBUTES_FILE) --supplementalDependencyFile $(SUPPLEMENTAL_DEPENDENCY_FILE) $<
 
 -include $(SUPPLEMENTAL_MAKEFILE_DEPS)
-
-# Inspector interfaces generator
-
-INSPECTOR_DOMAINS = \
-    $(WebCore)/inspector/protocol/ApplicationCache.json \
-    $(WebCore)/inspector/protocol/CSS.json \
-    $(WebCore)/inspector/protocol/Canvas.json \
-    $(WebCore)/inspector/protocol/Console.json \
-    $(WebCore)/inspector/protocol/DOM.json \
-    $(WebCore)/inspector/protocol/DOMDebugger.json \
-    $(WebCore)/inspector/protocol/DOMStorage.json \
-    $(WebCore)/inspector/protocol/Database.json \
-    $(WebCore)/inspector/protocol/HeapProfiler.json \
-    $(WebCore)/inspector/protocol/IndexedDB.json \
-    $(WebCore)/inspector/protocol/Input.json \
-    $(WebCore)/inspector/protocol/LayerTree.json \
-    $(WebCore)/inspector/protocol/Memory.json \
-    $(WebCore)/inspector/protocol/Network.json \
-    $(WebCore)/inspector/protocol/Page.json \
-    $(WebCore)/inspector/protocol/Profiler.json \
-    $(WebCore)/inspector/protocol/Timeline.json \
-    $(WebCore)/inspector/protocol/Worker.json \
-#
-
-INSPECTOR_GENERATOR_SCRIPTS = \
-	$(InspectorScripts)/CodeGeneratorInspector.py \
-	$(InspectorScripts)/CodeGeneratorInspectorStrings.py \
-#
-
-all : InspectorWeb.json
-
-InspectorWeb.json : $(InspectorScripts)/generate-combined-inspector-json.py $(INSPECTOR_DOMAINS)
-	python $(InspectorScripts)/generate-combined-inspector-json.py $(WebCore)/inspector/protocol > ./InspectorWeb.json
-
-all : InspectorWebFrontendDispatchers.h
-
-InspectorWebFrontendDispatchers.h : InspectorWeb.json $(InspectorScripts)/InspectorJS.json $(INSPECTOR_GENERATOR_SCRIPTS)
-	python $(InspectorScripts)/CodeGeneratorInspector.py ./InspectorWeb.json $(InspectorScripts)/InspectorJS.json --output_h_dir . --output_cpp_dir . --output_js_dir . --output_type Web
-
-all : InspectorOverlayPage.h
-
-InspectorOverlayPage.h : InspectorOverlayPage.html InspectorOverlayPage.css InspectorOverlayPage.js
-	python $(InspectorScripts)/inline-and-minify-stylesheets-and-scripts.py $(WebCore)/inspector/InspectorOverlayPage.html ./InspectorOverlayPage.combined.html
-	perl $(InspectorScripts)/xxd.pl InspectorOverlayPage_html ./InspectorOverlayPage.combined.html InspectorOverlayPage.h
-	rm -f ./InspectorOverlayPage.combined.html
-
-all : CommandLineAPIModuleSource.h
-
-CommandLineAPIModuleSource.h : CommandLineAPIModuleSource.js
-	python $(InspectorScripts)/jsmin.py <$(WebCore)/inspector/CommandLineAPIModuleSource.js > ./CommandLineAPIModuleSource.min.js
-	perl $(InspectorScripts)/xxd.pl CommandLineAPIModuleSource_js ./CommandLineAPIModuleSource.min.js CommandLineAPIModuleSource.h
-	rm -f ./CommandLineAPIModuleSource.min.js
-
-all : InjectedScriptCanvasModuleSource.h
-
-InjectedScriptCanvasModuleSource.h : InjectedScriptCanvasModuleSource.js
-	python $(InspectorScripts)/jsmin.py <$(WebCore)/inspector/InjectedScriptCanvasModuleSource.js > ./InjectedScriptCanvasModuleSource.min.js
-	perl $(InspectorScripts)/xxd.pl InjectedScriptCanvasModuleSource_js ./InjectedScriptCanvasModuleSource.min.js InjectedScriptCanvasModuleSource.h
-	rm -f ./InjectedScriptCanvasModuleSource.min.js
-
--include $(JS_DOM_HEADERS:.h=.dep)
 
 # ------------------------
 

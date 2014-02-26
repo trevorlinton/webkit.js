@@ -7,6 +7,9 @@
 // The results are assigned to s# temporaries, which are used by the main translator instead of
 // the original expression.
 //
+#if PLATFORM(JS)
+#include "config.h"
+#endif
 
 #include "compiler/UnfoldShortCircuit.h"
 

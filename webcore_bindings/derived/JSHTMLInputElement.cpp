@@ -23,13 +23,11 @@
 
 #include "EventListener.h"
 #include "ExceptionCode.h"
-#include "FileList.h"
 #include "HTMLFormElement.h"
 #include "HTMLInputElement.h"
 #include "HTMLNames.h"
 #include "JSDOMBinding.h"
 #include "JSEventListener.h"
-#include "JSFileList.h"
 #include "JSHTMLFormElement.h"
 #include "JSNodeList.h"
 #include "JSValidityState.h"
@@ -63,7 +61,6 @@ static const HashTableValue JSHTMLInputElementTableValues[] =
     { "dirName", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsHTMLInputElementDirName), (intptr_t)setJSHTMLInputElementDirName },
     { "disabled", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsHTMLInputElementDisabled), (intptr_t)setJSHTMLInputElementDisabled },
     { "form", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsHTMLInputElementForm), (intptr_t)0 },
-    { "files", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsHTMLInputElementFiles), (intptr_t)setJSHTMLInputElementFiles },
     { "formAction", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsHTMLInputElementFormAction), (intptr_t)setJSHTMLInputElementFormAction },
     { "formEnctype", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsHTMLInputElementFormEnctype), (intptr_t)setJSHTMLInputElementFormEnctype },
     { "formMethod", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsHTMLInputElementFormMethod), (intptr_t)setJSHTMLInputElementFormMethod },
@@ -322,19 +319,6 @@ EncodedJSValue jsHTMLInputElementForm(ExecState* exec, EncodedJSValue slotBase, 
     UNUSED_PARAM(exec);
     HTMLInputElement& impl = castedThis->impl();
     JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.form()));
-    return JSValue::encode(result);
-}
-
-
-EncodedJSValue jsHTMLInputElementFiles(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSHTMLInputElement* castedThis = jsDynamicCast<JSHTMLInputElement*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    HTMLInputElement& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.files()));
     return JSValue::encode(result);
 }
 
@@ -1060,23 +1044,6 @@ void setJSHTMLInputElementDisabled(ExecState* exec, EncodedJSValue thisValue, En
     if (exec->hadException())
         return;
     impl.setBooleanAttribute(WebCore::HTMLNames::disabledAttr, nativeValue);
-}
-
-
-void setJSHTMLInputElementFiles(ExecState* exec, EncodedJSValue thisValue, EncodedJSValue encodedValue)
-{
-    JSValue value = JSValue::decode(encodedValue);
-    UNUSED_PARAM(exec);
-    JSHTMLInputElement* castedThis = jsDynamicCast<JSHTMLInputElement*>(JSValue::decode(thisValue));
-    if (!castedThis) {
-        throwVMTypeError(exec);
-        return;
-    }
-    HTMLInputElement& impl = castedThis->impl();
-    FileList* nativeValue(toFileList(value));
-    if (exec->hadException())
-        return;
-    impl.setFiles(nativeValue);
 }
 
 

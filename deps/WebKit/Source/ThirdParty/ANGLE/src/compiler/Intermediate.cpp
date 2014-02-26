@@ -7,7 +7,9 @@
 //
 // Build the intermediate representation.
 //
-
+#if PLATFORM(JS)
+#include "config.h"
+#endif
 #include <float.h>
 #include <limits.h>
 #include <algorithm>

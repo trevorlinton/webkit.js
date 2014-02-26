@@ -5,7 +5,6 @@ Events interfaceName=Event
 HTMLEvents interfaceName=Event
 BeforeLoadEvent
 BeforeUnloadEvent
-CloseEvent
 CompositionEvent
 CustomEvent
 ErrorEvent
@@ -29,7 +28,6 @@ UIEvents interfaceName=UIEvent
 WebKitAnimationEvent
 WebKitTransitionEvent
 WheelEvent
-XMLHttpRequestProgressEvent
 AudioProcessingEvent conditional=WEB_AUDIO
 OfflineAudioCompletionEvent conditional=WEB_AUDIO
 MediaStreamEvent conditional=MEDIA_STREAM
@@ -42,7 +40,6 @@ SpeechRecognitionError conditional=SCRIPTED_SPEECH
 SpeechRecognitionEvent conditional=SCRIPTED_SPEECH
 SpeechSynthesisEvent conditional=SPEECH_SYNTHESIS
 WebGLContextEvent conditional=WEBGL
-StorageEvent
 SVGEvents interfaceName=Event, conditional=SVG
 SVGZoomEvent conditional=SVG
 SVGZoomEvents interfaceName=SVGZoomEvent, conditional=SVG

@@ -9,7 +9,9 @@
 // cannot be expressed in the files, and establish mappings between 
 // built-in functions and operators.
 //
-
+#if PLATFORM(JS)
+#include "config.h"
+#endif
 #include "compiler/Initialize.h"
 
 #include "compiler/intermediate.h"

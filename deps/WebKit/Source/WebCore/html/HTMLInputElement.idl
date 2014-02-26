@@ -29,7 +29,7 @@ interface HTMLInputElement : HTMLElement {
     [Reflect] attribute DOMString dirName;
     [Reflect] attribute boolean disabled;
     readonly attribute HTMLFormElement form;
-    attribute FileList files;
+    /* attribute FileList files; */
     [Reflect, URL] attribute DOMString formAction;
     [TreatNullAs=NullString] attribute DOMString formEnctype;
     [TreatNullAs=NullString] attribute DOMString formMethod;

@@ -29,7 +29,7 @@
 #else
 #if PLATFORM(JS)
 #include <GLES2/gl2.h>
-#include <GLES/gl.h>
+// #include <GLES/gl.h>
 #else
 #include <GL/gl.h>
 #include <GL/glext.h>

@@ -127,9 +127,9 @@ PassOwnPtr<GLContextEGL> GLContextEGL::createWindowContext(EGLNativeWindowType w
 
     return adoptPtr(new GLContextEGL(context, surface, WindowSurface));
 }
-
 PassOwnPtr<GLContextEGL> GLContextEGL::createPbufferContext(EGLContext sharingContext)
 {
+#if !PLATFORM(JS)
     EGLDisplay display = sharedEGLDisplay();
     if (display == EGL_NO_DISPLAY)
         return nullptr;
@@ -150,6 +150,9 @@ PassOwnPtr<GLContextEGL> GLContextEGL::createPbufferContext(EGLContext sharingCo
     }
 
     return adoptPtr(new GLContextEGL(context, surface, PbufferSurface));
+#else
+    return nullptr;
+#endif
 }
 
 PassOwnPtr<GLContextEGL> GLContextEGL::createPixmapContext(EGLContext sharingContext)
@@ -204,12 +207,13 @@ PassOwnPtr<GLContextEGL> GLContextEGL::createContext(EGLNativeWindowType window,
 
     EGLContext eglSharingContext = sharingContext ? static_cast<GLContextEGL*>(sharingContext)->m_context : 0;
     OwnPtr<GLContextEGL> context = window ? createWindowContext(window, sharingContext) : nullptr;
+#if !PLATFORM(JS)
     if (!context)
         context = createPixmapContext(eglSharingContext);
 
     if (!context)
         context = createPbufferContext(eglSharingContext);
-    
+#endif
     return context.release();
 }
 

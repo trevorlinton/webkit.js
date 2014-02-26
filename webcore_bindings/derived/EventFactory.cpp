@@ -46,8 +46,6 @@ PassRefPtr<Event> EventFactory::create(const String& type)
     if (type == "CSSFontFaceLoadEvent")
         return CSSFontFaceLoadEvent::create();
 #endif
-    if (type == "CloseEvent")
-        return CloseEvent::create();
     if (type == "CompositionEvent")
         return CompositionEvent::create();
     if (type == "CustomEvent")
@@ -178,8 +176,6 @@ PassRefPtr<Event> EventFactory::create(const String& type)
     if (type == "SpeechSynthesisEvent")
         return SpeechSynthesisEvent::create();
 #endif
-    if (type == "StorageEvent")
-        return StorageEvent::create();
     if (type == "TextEvent")
         return TextEvent::create();
 #if ENABLE(TOUCH_EVENTS)
@@ -214,8 +210,6 @@ PassRefPtr<Event> EventFactory::create(const String& type)
         return WebKitTransitionEvent::create();
     if (type == "WheelEvent")
         return WheelEvent::create();
-    if (type == "XMLHttpRequestProgressEvent")
-        return XMLHttpRequestProgressEvent::create();
     return 0;
 }
 

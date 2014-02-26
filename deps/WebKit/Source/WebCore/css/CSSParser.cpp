@@ -94,7 +94,7 @@
 #include <wtf/text/StringImpl.h>
 
 #if PLATFORM(JS)
-#include <math.h>
+#include <cmath>
 #endif
 
 #if ENABLE(CSS_IMAGE_SET)
@@ -6661,7 +6661,7 @@ static inline bool parseAlphaValue(const CharacterType*& string, const Character
     double alpha = 0;
     if (!parseDouble(string, end, terminator, alpha))
         return false;
-    value = negative ? 0 : static_cast<int>(alpha * nextafter(256.0, 0.0));
+  value = negative ? 0 : static_cast<int>(alpha * ::nextafter(256.0, 0.0));
     string = end;
     return true;
 }
@@ -6852,7 +6852,7 @@ bool CSSParser::parseColorParameters(CSSParserValue* value, int* colorArray, boo
         const double value = parsedDouble(v, ReleaseParsedCalcValue);
         // Convert the floating pointer number of alpha to an integer in the range [0, 256),
         // with an equal distribution across all 256 values.
-        colorArray[3] = static_cast<int>(std::max<double>(0, std::min<double>(1, value)) * nextafter(256.0, 0.0));
+      colorArray[3] = static_cast<int>(std::max<double>(0, std::min<double>(1, value)) * ::nextafter(256.0, 0.0));
     }
     return true;
 }

@@ -138,9 +138,9 @@ public:
     bool addTimeout(int timeoutId, DOMTimer* timer) { return m_timeouts.add(timeoutId, timer).isNewEntry; }
     void removeTimeout(int timeoutId) { m_timeouts.remove(timeoutId); }
     DOMTimer* findTimeout(int timeoutId) { return m_timeouts.get(timeoutId); }
-
+#if !PLATFORM(JS)
     JSC::VM* vm();
-
+#endif
     // Interval is in seconds.
     void adjustMinimumTimerInterval(double oldMinimumTimerInterval);
     virtual double minimumTimerInterval() const;

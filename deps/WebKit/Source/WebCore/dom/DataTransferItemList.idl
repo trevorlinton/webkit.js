@@ -38,7 +38,7 @@
     getter DataTransferItem item([Default=Undefined] optional unsigned long index);
 
     void clear();
-    void add(File? file);
+    /* void add(File? file); -- PLATFORM(JS) */
     [RaisesException] void add([Default=Undefined] optional DOMString data, 
              [Default=Undefined] optional DOMString type);
 };

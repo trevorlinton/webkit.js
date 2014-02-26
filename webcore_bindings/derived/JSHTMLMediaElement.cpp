@@ -27,7 +27,6 @@
 #include "EventListener.h"
 #include "ExceptionCode.h"
 #include "HTMLMediaElement.h"
-#include "HTMLMediaElementMediaStream.h"
 #include "HTMLNames.h"
 #include "JSDOMBinding.h"
 #include "JSEventListener.h"
@@ -45,11 +44,6 @@
 
 #if ENABLE(MEDIA_SOURCE)
 #include "JSVideoPlaybackQuality.h"
-#endif
-
-#if ENABLE(MEDIA_STREAM) && ENABLE(VIDEO)
-#include "JSMediaStream.h"
-#include "MediaStream.h"
 #endif
 
 using namespace JSC;
@@ -104,9 +98,6 @@ static const HashTableValue JSHTMLMediaElementTableValues[] =
 #endif
 #if ENABLE(IOS_AIRPLAY)
     { "onwebkitplaybacktargetavailabilitychanged", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsHTMLMediaElementOnwebkitplaybacktargetavailabilitychanged), (intptr_t)setJSHTMLMediaElementOnwebkitplaybacktargetavailabilitychanged },
-#endif
-#if ENABLE(MEDIA_STREAM) && ENABLE(VIDEO)
-    { "srcObject", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsHTMLMediaElementSrcObject), (intptr_t)setJSHTMLMediaElementSrcObject },
 #endif
     { "constructor", DontEnum | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsHTMLMediaElementConstructor), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
@@ -683,24 +674,6 @@ EncodedJSValue jsHTMLMediaElementOnwebkitplaybacktargetavailabilitychanged(ExecS
 
 #endif
 
-#if ENABLE(MEDIA_STREAM) && ENABLE(VIDEO)
-EncodedJSValue jsHTMLMediaElementSrcObject(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSHTMLMediaElement* castedThis = jsDynamicCast<JSHTMLMediaElement*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    bool isNull = false;
-    HTMLMediaElement& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(HTMLMediaElementMediaStream::srcObject(&impl, isNull)));
-    if (isNull)
-        return JSValue::encode(jsNull());
-    return JSValue::encode(result);
-}
-
-#endif
-
 EncodedJSValue jsHTMLMediaElementConstructor(ExecState* exec, EncodedJSValue thisValue, EncodedJSValue, PropertyName)
 {
     JSHTMLMediaElement* domObject = jsDynamicCast<JSHTMLMediaElement*>(JSValue::decode(thisValue));
@@ -1018,25 +991,6 @@ void setJSHTMLMediaElementOnwebkitplaybacktargetavailabilitychanged(ExecState* e
     UNUSED_PARAM(exec);
     HTMLMediaElement& impl = castedThis->impl();
     impl.setOnwebkitplaybacktargetavailabilitychanged(createJSAttributeEventListener(exec, value, castedThis));
-}
-
-#endif
-
-#if ENABLE(MEDIA_STREAM) && ENABLE(VIDEO)
-void setJSHTMLMediaElementSrcObject(ExecState* exec, EncodedJSValue thisValue, EncodedJSValue encodedValue)
-{
-    JSValue value = JSValue::decode(encodedValue);
-    UNUSED_PARAM(exec);
-    JSHTMLMediaElement* castedThis = jsDynamicCast<JSHTMLMediaElement*>(JSValue::decode(thisValue));
-    if (!castedThis) {
-        throwVMTypeError(exec);
-        return;
-    }
-    HTMLMediaElement& impl = castedThis->impl();
-    MediaStream* nativeValue(toMediaStream(value));
-    if (exec->hadException())
-        return;
-    HTMLMediaElementMediaStream::setSrcObject(&impl, nativeValue);
 }
 
 #endif

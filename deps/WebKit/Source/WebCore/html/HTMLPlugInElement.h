@@ -37,8 +37,9 @@ class Instance;
 }
 
 namespace WebCore {
-
+#if !PLATFORM(JS)
 class PluginReplacement;
+#endif
 class RenderEmbeddedObject;
 class RenderWidget;
 class Widget;
@@ -48,9 +49,9 @@ public:
     virtual ~HTMLPlugInElement();
 
     void resetInstance();
-
+#if !PLATFORM(JS)
     PassRefPtr<JSC::Bindings::Instance> getInstance();
-
+#endif
     Widget* pluginWidget() const;
 
     enum DisplayState {
@@ -122,10 +123,13 @@ private:
 
     virtual bool isKeyboardFocusable(KeyboardEvent*) const OVERRIDE;
     virtual bool isPluginElement() const OVERRIDE FINAL;
-
+#if !PLATFORM(JS)
     RefPtr<JSC::Bindings::Instance> m_instance;
+#endif
     Timer<HTMLPlugInElement> m_swapRendererTimer;
+#if !PLATFORM(JS)
     RefPtr<PluginReplacement> m_pluginReplacement;
+#endif
 #if ENABLE(NETSCAPE_PLUGIN_API)
     NPObject* m_NPObject;
 #endif

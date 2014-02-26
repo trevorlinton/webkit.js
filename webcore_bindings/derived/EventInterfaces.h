@@ -199,7 +199,6 @@
     \
     macro(BeforeLoadEvent) \
     macro(BeforeUnloadEvent) \
-    macro(CloseEvent) \
     macro(CompositionEvent) \
     macro(CustomEvent) \
     macro(ErrorEvent) \
@@ -214,14 +213,12 @@
     macro(PageTransitionEvent) \
     macro(PopStateEvent) \
     macro(ProgressEvent) \
-    macro(StorageEvent) \
     macro(TextEvent) \
     macro(TransitionEvent) \
     macro(UIEvent) \
     macro(WebKitAnimationEvent) \
     macro(WebKitTransitionEvent) \
     macro(WheelEvent) \
-    macro(XMLHttpRequestProgressEvent) \
     \
     DOM_EVENT_INTERFACES_FOR_EACH_CSP_NEXT(macro) \
     DOM_EVENT_INTERFACES_FOR_EACH_DEVICE_ORIENTATION(macro) \

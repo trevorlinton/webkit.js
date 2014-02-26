@@ -5,7 +5,9 @@
 //
 
 // debug.cpp: Debugging utilities.
-
+#if PLATFORM(JS)
+#include "config.h"
+#endif
 #include "compiler/debug.h"
 
 #include <stdarg.h>

@@ -1,339 +1,3 @@
-JSCoordinates.h: 
-DOMCoordinates.h: 
-WebDOMCoordinates.h: 
-JSGeolocation.h: 
-DOMGeolocation.h: 
-WebDOMGeolocation.h: 
-JSGeoposition.h: 
-DOMGeoposition.h: 
-WebDOMGeoposition.h: 
-JSPositionCallback.h: 
-DOMPositionCallback.h: 
-WebDOMPositionCallback.h: 
-JSPositionError.h: 
-DOMPositionError.h: 
-WebDOMPositionError.h: 
-JSPositionErrorCallback.h: 
-DOMPositionErrorCallback.h: 
-WebDOMPositionErrorCallback.h: 
-JSIDBAny.h: 
-DOMIDBAny.h: 
-WebDOMIDBAny.h: 
-JSIDBCursor.h: 
-DOMIDBCursor.h: 
-WebDOMIDBCursor.h: 
-JSIDBCursorWithValue.h: 
-DOMIDBCursorWithValue.h: 
-WebDOMIDBCursorWithValue.h: 
-JSIDBDatabase.h: 
-DOMIDBDatabase.h: 
-WebDOMIDBDatabase.h: 
-JSIDBFactory.h: 
-DOMIDBFactory.h: 
-WebDOMIDBFactory.h: 
-JSIDBIndex.h: 
-DOMIDBIndex.h: 
-WebDOMIDBIndex.h: 
-JSIDBKeyRange.h: 
-DOMIDBKeyRange.h: 
-WebDOMIDBKeyRange.h: 
-JSIDBObjectStore.h: 
-DOMIDBObjectStore.h: 
-WebDOMIDBObjectStore.h: 
-JSIDBOpenDBRequest.h: 
-DOMIDBOpenDBRequest.h: 
-WebDOMIDBOpenDBRequest.h: 
-JSIDBRequest.h: 
-DOMIDBRequest.h: 
-WebDOMIDBRequest.h: 
-JSIDBTransaction.h: 
-DOMIDBTransaction.h: 
-WebDOMIDBTransaction.h: 
-JSIDBVersionChangeEvent.h: 
-DOMIDBVersionChangeEvent.h: 
-WebDOMIDBVersionChangeEvent.h: 
-JSUIRequestEvent.h: 
-DOMUIRequestEvent.h: 
-WebDOMUIRequestEvent.h: 
-JSMediaControlsHost.h: 
-DOMMediaControlsHost.h: 
-WebDOMMediaControlsHost.h: 
-JSMediaSource.h: 
-DOMMediaSource.h: 
-WebDOMMediaSource.h: 
-JSSourceBuffer.h: 
-DOMSourceBuffer.h: 
-WebDOMSourceBuffer.h: 
-JSSourceBufferList.h: 
-DOMSourceBufferList.h: 
-WebDOMSourceBufferList.h: 
-JSVideoPlaybackQuality.h: 
-DOMVideoPlaybackQuality.h: 
-WebDOMVideoPlaybackQuality.h: 
-JSAllAudioCapabilities.h: 
-DOMAllAudioCapabilities.h: 
-WebDOMAllAudioCapabilities.h: 
-JSAllVideoCapabilities.h: 
-DOMAllVideoCapabilities.h: 
-WebDOMAllVideoCapabilities.h: 
-JSAudioStreamTrack.h: 
-DOMAudioStreamTrack.h: 
-WebDOMAudioStreamTrack.h: 
-JSCapabilityRange.h: 
-DOMCapabilityRange.h: 
-WebDOMCapabilityRange.h: 
-JSMediaSourceStates.h: 
-DOMMediaSourceStates.h: 
-WebDOMMediaSourceStates.h: 
-JSMediaStream.h: 
-DOMMediaStream.h: 
-WebDOMMediaStream.h: 
-JSMediaStreamCapabilities.h: 
-DOMMediaStreamCapabilities.h: 
-WebDOMMediaStreamCapabilities.h: 
-JSMediaStreamEvent.h: 
-DOMMediaStreamEvent.h: 
-WebDOMMediaStreamEvent.h: 
-JSMediaStreamTrack.h: 
-DOMMediaStreamTrack.h: 
-WebDOMMediaStreamTrack.h: 
-JSMediaStreamTrackEvent.h: 
-DOMMediaStreamTrackEvent.h: 
-WebDOMMediaStreamTrackEvent.h: 
-JSMediaStreamTrackSourcesCallback.h: 
-DOMMediaStreamTrackSourcesCallback.h: 
-WebDOMMediaStreamTrackSourcesCallback.h: 
-JSMediaTrackConstraint.h: 
-DOMMediaTrackConstraint.h: 
-WebDOMMediaTrackConstraint.h: 
-JSMediaTrackConstraintSet.h: 
-DOMMediaTrackConstraintSet.h: 
-WebDOMMediaTrackConstraintSet.h: 
-JSMediaTrackConstraints.h: 
-DOMMediaTrackConstraints.h: 
-WebDOMMediaTrackConstraints.h: 
-JSNavigatorUserMediaError.h: 
-DOMNavigatorUserMediaError.h: 
-WebDOMNavigatorUserMediaError.h: 
-JSNavigatorUserMediaErrorCallback.h: 
-DOMNavigatorUserMediaErrorCallback.h: 
-WebDOMNavigatorUserMediaErrorCallback.h: 
-JSNavigatorUserMediaSuccessCallback.h: 
-DOMNavigatorUserMediaSuccessCallback.h: 
-WebDOMNavigatorUserMediaSuccessCallback.h: 
-JSRTCDTMFSender.h: 
-DOMRTCDTMFSender.h: 
-WebDOMRTCDTMFSender.h: 
-JSRTCDTMFToneChangeEvent.h: 
-DOMRTCDTMFToneChangeEvent.h: 
-WebDOMRTCDTMFToneChangeEvent.h: 
-JSRTCDataChannel.h: 
-DOMRTCDataChannel.h: 
-WebDOMRTCDataChannel.h: 
-JSRTCDataChannelEvent.h: 
-DOMRTCDataChannelEvent.h: 
-WebDOMRTCDataChannelEvent.h: 
-JSRTCIceCandidate.h: 
-DOMRTCIceCandidate.h: 
-WebDOMRTCIceCandidate.h: 
-JSRTCIceCandidateEvent.h: 
-DOMRTCIceCandidateEvent.h: 
-WebDOMRTCIceCandidateEvent.h: 
-JSRTCPeerConnection.h: 
-DOMRTCPeerConnection.h: 
-WebDOMRTCPeerConnection.h: 
-JSRTCPeerConnectionErrorCallback.h: 
-DOMRTCPeerConnectionErrorCallback.h: 
-WebDOMRTCPeerConnectionErrorCallback.h: 
-JSRTCSessionDescription.h: 
-DOMRTCSessionDescription.h: 
-WebDOMRTCSessionDescription.h: 
-JSRTCSessionDescriptionCallback.h: 
-DOMRTCSessionDescriptionCallback.h: 
-WebDOMRTCSessionDescriptionCallback.h: 
-JSRTCStatsCallback.h: 
-DOMRTCStatsCallback.h: 
-WebDOMRTCStatsCallback.h: 
-JSRTCStatsReport.h: 
-DOMRTCStatsReport.h: 
-WebDOMRTCStatsReport.h: 
-JSRTCStatsResponse.h: 
-DOMRTCStatsResponse.h: 
-WebDOMRTCStatsResponse.h: 
-JSSourceInfo.h: 
-DOMSourceInfo.h: 
-WebDOMSourceInfo.h: 
-JSVideoStreamTrack.h: 
-DOMVideoStreamTrack.h: 
-WebDOMVideoStreamTrack.h: 
-JSNotification.h: 
-DOMNotification.h: 
-WebDOMNotification.h: 
-JSNotificationCenter.h: 
-DOMNotificationCenter.h: 
-WebDOMNotificationCenter.h: 
-JSNotificationPermissionCallback.h: 
-DOMNotificationPermissionCallback.h: 
-WebDOMNotificationPermissionCallback.h: 
-JSQuickTimePluginReplacement.h: 
-DOMQuickTimePluginReplacement.h: 
-WebDOMQuickTimePluginReplacement.h: 
-JSStorageErrorCallback.h: 
-DOMStorageErrorCallback.h: 
-WebDOMStorageErrorCallback.h: 
-JSStorageInfo.h: 
-DOMStorageInfo.h: 
-WebDOMStorageInfo.h: 
-JSStorageQuota.h: 
-DOMStorageQuota.h: 
-WebDOMStorageQuota.h: 
-JSStorageQuotaCallback.h: 
-DOMStorageQuotaCallback.h: 
-WebDOMStorageQuotaCallback.h: 
-JSStorageUsageCallback.h: 
-DOMStorageUsageCallback.h: 
-WebDOMStorageUsageCallback.h: 
-JSSpeechSynthesis.h: 
-DOMSpeechSynthesis.h: 
-WebDOMSpeechSynthesis.h: 
-JSSpeechSynthesisEvent.h: 
-DOMSpeechSynthesisEvent.h: 
-WebDOMSpeechSynthesisEvent.h: 
-JSSpeechSynthesisUtterance.h: 
-DOMSpeechSynthesisUtterance.h: 
-WebDOMSpeechSynthesisUtterance.h: 
-JSSpeechSynthesisVoice.h: 
-DOMSpeechSynthesisVoice.h: 
-WebDOMSpeechSynthesisVoice.h: 
-JSAnalyserNode.h: 
-DOMAnalyserNode.h: 
-WebDOMAnalyserNode.h: 
-JSAudioBuffer.h: 
-DOMAudioBuffer.h: 
-WebDOMAudioBuffer.h: 
-JSAudioBufferCallback.h: 
-DOMAudioBufferCallback.h: 
-WebDOMAudioBufferCallback.h: 
-JSAudioBufferSourceNode.h: 
-DOMAudioBufferSourceNode.h: 
-WebDOMAudioBufferSourceNode.h: 
-JSAudioContext.h: 
-DOMAudioContext.h: 
-WebDOMAudioContext.h: 
-JSAudioDestinationNode.h: 
-DOMAudioDestinationNode.h: 
-WebDOMAudioDestinationNode.h: 
-JSAudioListener.h: 
-DOMAudioListener.h: 
-WebDOMAudioListener.h: 
-JSAudioNode.h: 
-DOMAudioNode.h: 
-WebDOMAudioNode.h: 
-JSAudioParam.h: 
-DOMAudioParam.h: 
-WebDOMAudioParam.h: 
-JSAudioProcessingEvent.h: 
-DOMAudioProcessingEvent.h: 
-WebDOMAudioProcessingEvent.h: 
-JSBiquadFilterNode.h: 
-DOMBiquadFilterNode.h: 
-WebDOMBiquadFilterNode.h: 
-JSChannelMergerNode.h: 
-DOMChannelMergerNode.h: 
-WebDOMChannelMergerNode.h: 
-JSChannelSplitterNode.h: 
-DOMChannelSplitterNode.h: 
-WebDOMChannelSplitterNode.h: 
-JSConvolverNode.h: 
-DOMConvolverNode.h: 
-WebDOMConvolverNode.h: 
-JSDelayNode.h: 
-DOMDelayNode.h: 
-WebDOMDelayNode.h: 
-JSDynamicsCompressorNode.h: 
-DOMDynamicsCompressorNode.h: 
-WebDOMDynamicsCompressorNode.h: 
-JSGainNode.h: 
-DOMGainNode.h: 
-WebDOMGainNode.h: 
-JSMediaElementAudioSourceNode.h: 
-DOMMediaElementAudioSourceNode.h: 
-WebDOMMediaElementAudioSourceNode.h: 
-JSMediaStreamAudioDestinationNode.h: 
-DOMMediaStreamAudioDestinationNode.h: 
-WebDOMMediaStreamAudioDestinationNode.h: 
-JSMediaStreamAudioSourceNode.h: 
-DOMMediaStreamAudioSourceNode.h: 
-WebDOMMediaStreamAudioSourceNode.h: 
-JSOfflineAudioCompletionEvent.h: 
-DOMOfflineAudioCompletionEvent.h: 
-WebDOMOfflineAudioCompletionEvent.h: 
-JSOfflineAudioContext.h: 
-DOMOfflineAudioContext.h: 
-WebDOMOfflineAudioContext.h: 
-JSOscillatorNode.h: 
-DOMOscillatorNode.h: 
-WebDOMOscillatorNode.h: 
-JSPannerNode.h: 
-DOMPannerNode.h: 
-WebDOMPannerNode.h: 
-JSPeriodicWave.h: 
-DOMPeriodicWave.h: 
-WebDOMPeriodicWave.h: 
-JSScriptProcessorNode.h: 
-DOMScriptProcessorNode.h: 
-WebDOMScriptProcessorNode.h: 
-JSWaveShaperNode.h: 
-DOMWaveShaperNode.h: 
-WebDOMWaveShaperNode.h: 
-JSDatabase.h: 
-DOMDatabase.h: 
-WebDOMDatabase.h: 
-JSDatabaseCallback.h: 
-DOMDatabaseCallback.h: 
-WebDOMDatabaseCallback.h: 
-JSDatabaseSync.h: 
-DOMDatabaseSync.h: 
-WebDOMDatabaseSync.h: 
-JSSQLError.h: 
-DOMSQLError.h: 
-WebDOMSQLError.h: 
-JSSQLException.h: 
-DOMSQLException.h: 
-WebDOMSQLException.h: 
-JSSQLResultSet.h: 
-DOMSQLResultSet.h: 
-WebDOMSQLResultSet.h: 
-JSSQLResultSetRowList.h: 
-DOMSQLResultSetRowList.h: 
-WebDOMSQLResultSetRowList.h: 
-JSSQLStatementCallback.h: 
-DOMSQLStatementCallback.h: 
-WebDOMSQLStatementCallback.h: 
-JSSQLStatementErrorCallback.h: 
-DOMSQLStatementErrorCallback.h: 
-WebDOMSQLStatementErrorCallback.h: 
-JSSQLTransaction.h: 
-DOMSQLTransaction.h: 
-WebDOMSQLTransaction.h: 
-JSSQLTransactionCallback.h: 
-DOMSQLTransactionCallback.h: 
-WebDOMSQLTransactionCallback.h: 
-JSSQLTransactionErrorCallback.h: 
-DOMSQLTransactionErrorCallback.h: 
-WebDOMSQLTransactionErrorCallback.h: 
-JSSQLTransactionSync.h: 
-DOMSQLTransactionSync.h: 
-WebDOMSQLTransactionSync.h: 
-JSSQLTransactionSyncCallback.h: 
-DOMSQLTransactionSyncCallback.h: 
-WebDOMSQLTransactionSyncCallback.h: 
-JSCloseEvent.h: 
-DOMCloseEvent.h: 
-WebDOMCloseEvent.h: 
-JSWebSocket.h: 
-DOMWebSocket.h: 
-WebDOMWebSocket.h: 
 JSCryptoKey.h: 
 DOMCryptoKey.h: 
 WebDOMCryptoKey.h: 
@@ -476,9 +140,6 @@ WebDOMClientRect.h:
 JSClientRectList.h: 
 DOMClientRectList.h: 
 WebDOMClientRectList.h: 
-JSClipboard.h: 
-DOMClipboard.h: 
-WebDOMClipboard.h: 
 JSComment.h: 
 DOMComment.h: 
 WebDOMComment.h: 
@@ -670,24 +331,6 @@ WebDOMWheelEvent.h:
 JSBlob.h: 
 DOMBlob.h: 
 WebDOMBlob.h: 
-JSFile.h: 
-DOMFile.h: 
-WebDOMFile.h: 
-JSFileError.h: 
-DOMFileError.h: 
-WebDOMFileError.h: 
-JSFileException.h: 
-DOMFileException.h: 
-WebDOMFileException.h: 
-JSFileList.h: 
-DOMFileList.h: 
-WebDOMFileList.h: 
-JSFileReader.h: 
-DOMFileReader.h: 
-WebDOMFileReader.h: 
-JSFileReaderSync.h: 
-DOMFileReaderSync.h: 
-WebDOMFileReaderSync.h: 
 JSDOMFormData.h: 
 DOMDOMFormData.h: 
 WebDOMDOMFormData.h: 
@@ -697,10 +340,9 @@ WebDOMDOMSettableTokenList.h:
 JSDOMTokenList.h: 
 DOMDOMTokenList.h: 
 WebDOMDOMTokenList.h: 
-JSDOMURL.h: DOMURLMediaSource.idl
-DOMDOMURL.h: DOMURLMediaSource.idl
-WebDOMDOMURL.h: DOMURLMediaSource.idl
-DOMURLMediaSource.idl:
+JSDOMURL.h: 
+DOMDOMURL.h: 
+WebDOMDOMURL.h: 
 JSHTMLAllCollection.h: 
 DOMHTMLAllCollection.h: 
 WebDOMHTMLAllCollection.h: 
@@ -821,10 +463,9 @@ WebDOMHTMLMapElement.h:
 JSHTMLMarqueeElement.h: 
 DOMHTMLMarqueeElement.h: 
 WebDOMHTMLMarqueeElement.h: 
-JSHTMLMediaElement.h: HTMLMediaElementMediaStream.idl
-DOMHTMLMediaElement.h: HTMLMediaElementMediaStream.idl
-WebDOMHTMLMediaElement.h: HTMLMediaElementMediaStream.idl
-HTMLMediaElementMediaStream.idl:
+JSHTMLMediaElement.h: 
+DOMHTMLMediaElement.h: 
+WebDOMHTMLMediaElement.h: 
 JSHTMLMenuElement.h: 
 DOMHTMLMenuElement.h: 
 WebDOMHTMLMenuElement.h: 
@@ -1050,17 +691,15 @@ WebDOMWebGLUniformLocation.h:
 JSWebGLVertexArrayObjectOES.h: 
 DOMWebGLVertexArrayObjectOES.h: 
 WebDOMWebGLVertexArrayObjectOES.h: 
-JSAudioTrack.h: AudioTrackMediaSource.idl
-DOMAudioTrack.h: AudioTrackMediaSource.idl
-WebDOMAudioTrack.h: AudioTrackMediaSource.idl
-AudioTrackMediaSource.idl:
+JSAudioTrack.h: 
+DOMAudioTrack.h: 
+WebDOMAudioTrack.h: 
 JSAudioTrackList.h: 
 DOMAudioTrackList.h: 
 WebDOMAudioTrackList.h: 
-JSTextTrack.h: TextTrackMediaSource.idl
-DOMTextTrack.h: TextTrackMediaSource.idl
-WebDOMTextTrack.h: TextTrackMediaSource.idl
-TextTrackMediaSource.idl:
+JSTextTrack.h: 
+DOMTextTrack.h: 
+WebDOMTextTrack.h: 
 JSTextTrackCue.h: 
 DOMTextTrackCue.h: 
 WebDOMTextTrackCue.h: 
@@ -1073,31 +712,15 @@ WebDOMTextTrackList.h:
 JSTrackEvent.h: 
 DOMTrackEvent.h: 
 WebDOMTrackEvent.h: 
-JSVideoTrack.h: VideoTrackMediaSource.idl
-DOMVideoTrack.h: VideoTrackMediaSource.idl
-WebDOMVideoTrack.h: VideoTrackMediaSource.idl
-VideoTrackMediaSource.idl:
+JSVideoTrack.h: 
+DOMVideoTrack.h: 
+WebDOMVideoTrack.h: 
 JSVideoTrackList.h: 
 DOMVideoTrackList.h: 
 WebDOMVideoTrackList.h: 
-JSCommandLineAPIHost.h: 
-DOMCommandLineAPIHost.h: 
-WebDOMCommandLineAPIHost.h: 
-JSInspectorFrontendHost.h: 
-DOMInspectorFrontendHost.h: 
-WebDOMInspectorFrontendHost.h: 
 JSJavaScriptCallFrame.h: 
 DOMJavaScriptCallFrame.h: 
 WebDOMJavaScriptCallFrame.h: 
-JSScriptProfile.h: 
-DOMScriptProfile.h: 
-WebDOMScriptProfile.h: 
-JSScriptProfileNode.h: 
-DOMScriptProfileNode.h: 
-WebDOMScriptProfileNode.h: 
-JSDOMApplicationCache.h: 
-DOMDOMApplicationCache.h: 
-WebDOMDOMApplicationCache.h: 
 JSAbstractView.h: 
 DOMAbstractView.h: 
 WebDOMAbstractView.h: 
@@ -1116,17 +739,12 @@ WebDOMDOMSecurityPolicy.h:
 JSDOMSelection.h: 
 DOMDOMSelection.h: 
 WebDOMDOMSelection.h: 
-JSDOMWindow.h: DOMWindowWebDatabase.idl DOMWindowQuota.idl DOMWindowSpeechSynthesis.idl WindowBase64.idl DOMWindowNotifications.idl DOMWindowConstructors.idl WindowTimers.idl DOMWindowIndexedDatabase.idl
-DOMDOMWindow.h: DOMWindowWebDatabase.idl DOMWindowQuota.idl DOMWindowSpeechSynthesis.idl WindowBase64.idl DOMWindowNotifications.idl DOMWindowConstructors.idl WindowTimers.idl DOMWindowIndexedDatabase.idl
-WebDOMDOMWindow.h: DOMWindowWebDatabase.idl DOMWindowQuota.idl DOMWindowSpeechSynthesis.idl WindowBase64.idl DOMWindowNotifications.idl DOMWindowConstructors.idl WindowTimers.idl DOMWindowIndexedDatabase.idl
-DOMWindowWebDatabase.idl:
-DOMWindowQuota.idl:
-DOMWindowSpeechSynthesis.idl:
+JSDOMWindow.h: WindowBase64.idl DOMWindowConstructors.idl WindowTimers.idl
+DOMDOMWindow.h: WindowBase64.idl DOMWindowConstructors.idl WindowTimers.idl
+WebDOMDOMWindow.h: WindowBase64.idl DOMWindowConstructors.idl WindowTimers.idl
 WindowBase64.idl:
-DOMWindowNotifications.idl:
 DOMWindowConstructors.idl:
 WindowTimers.idl:
-DOMWindowIndexedDatabase.idl:
 JSEventSource.h: 
 DOMEventSource.h: 
 WebDOMEventSource.h: 
@@ -1136,12 +754,9 @@ WebDOMHistory.h:
 JSLocation.h: 
 DOMLocation.h: 
 WebDOMLocation.h: 
-JSNavigator.h: NavigatorStorageQuota.idl NavigatorGeolocation.idl NavigatorMediaStream.idl
-DOMNavigator.h: NavigatorStorageQuota.idl NavigatorGeolocation.idl NavigatorMediaStream.idl
-WebDOMNavigator.h: NavigatorStorageQuota.idl NavigatorGeolocation.idl NavigatorMediaStream.idl
-NavigatorStorageQuota.idl:
-NavigatorGeolocation.idl:
-NavigatorMediaStream.idl:
+JSNavigator.h: 
+DOMNavigator.h: 
+WebDOMNavigator.h: 
 JSPerformance.h: 
 DOMPerformance.h: 
 WebDOMPerformance.h: 
@@ -1166,28 +781,9 @@ WebDOMSpeechInputResultList.h:
 JSWebKitPoint.h: 
 DOMWebKitPoint.h: 
 WebDOMWebKitPoint.h: 
-JSWorkerNavigator.h: WorkerNavigatorStorageQuota.idl
-DOMWorkerNavigator.h: WorkerNavigatorStorageQuota.idl
-WebDOMWorkerNavigator.h: WorkerNavigatorStorageQuota.idl
-WorkerNavigatorStorageQuota.idl:
-JSDOMMimeType.h: 
-DOMDOMMimeType.h: 
-WebDOMDOMMimeType.h: 
-JSDOMMimeTypeArray.h: 
-DOMDOMMimeTypeArray.h: 
-WebDOMDOMMimeTypeArray.h: 
-JSDOMPlugin.h: 
-DOMDOMPlugin.h: 
-WebDOMDOMPlugin.h: 
-JSDOMPluginArray.h: 
-DOMDOMPluginArray.h: 
-WebDOMDOMPluginArray.h: 
-JSStorage.h: 
-DOMStorage.h: 
-WebDOMStorage.h: 
-JSStorageEvent.h: 
-DOMStorageEvent.h: 
-WebDOMStorageEvent.h: 
+JSWorkerNavigator.h: 
+DOMWorkerNavigator.h: 
+WebDOMWorkerNavigator.h: 
 JSSVGAElement.h: SVGURIReference.idl SVGExternalResourcesRequired.idl
 DOMSVGAElement.h: SVGURIReference.idl SVGExternalResourcesRequired.idl
 WebDOMSVGAElement.h: SVGURIReference.idl SVGExternalResourcesRequired.idl
@@ -1254,11 +850,11 @@ WebDOMSVGAnimatedString.h:
 JSSVGAnimatedTransformList.h: 
 DOMSVGAnimatedTransformList.h: 
 WebDOMSVGAnimatedTransformList.h: 
-JSSVGAnimationElement.h: SVGTests.idl SVGExternalResourcesRequired.idl
-DOMSVGAnimationElement.h: SVGTests.idl SVGExternalResourcesRequired.idl
-WebDOMSVGAnimationElement.h: SVGTests.idl SVGExternalResourcesRequired.idl
-SVGTests.idl:
+JSSVGAnimationElement.h: SVGExternalResourcesRequired.idl SVGTests.idl
+DOMSVGAnimationElement.h: SVGExternalResourcesRequired.idl SVGTests.idl
+WebDOMSVGAnimationElement.h: SVGExternalResourcesRequired.idl SVGTests.idl
 SVGExternalResourcesRequired.idl:
+SVGTests.idl:
 JSSVGCircleElement.h: SVGExternalResourcesRequired.idl
 DOMSVGCircleElement.h: SVGExternalResourcesRequired.idl
 WebDOMSVGCircleElement.h: SVGExternalResourcesRequired.idl
@@ -1273,12 +869,12 @@ WebDOMSVGColor.h:
 JSSVGComponentTransferFunctionElement.h: 
 DOMSVGComponentTransferFunctionElement.h: 
 WebDOMSVGComponentTransferFunctionElement.h: 
-JSSVGCursorElement.h: SVGTests.idl SVGURIReference.idl SVGExternalResourcesRequired.idl
-DOMSVGCursorElement.h: SVGTests.idl SVGURIReference.idl SVGExternalResourcesRequired.idl
-WebDOMSVGCursorElement.h: SVGTests.idl SVGURIReference.idl SVGExternalResourcesRequired.idl
-SVGTests.idl:
+JSSVGCursorElement.h: SVGURIReference.idl SVGExternalResourcesRequired.idl SVGTests.idl
+DOMSVGCursorElement.h: SVGURIReference.idl SVGExternalResourcesRequired.idl SVGTests.idl
+WebDOMSVGCursorElement.h: SVGURIReference.idl SVGExternalResourcesRequired.idl SVGTests.idl
 SVGURIReference.idl:
 SVGExternalResourcesRequired.idl:
+SVGTests.idl:
 JSSVGDefsElement.h: SVGExternalResourcesRequired.idl
 DOMSVGDefsElement.h: SVGExternalResourcesRequired.idl
 WebDOMSVGDefsElement.h: SVGExternalResourcesRequired.idl
@@ -1477,11 +1073,11 @@ DOMSVGMarkerElement.h: SVGFitToViewBox.idl SVGExternalResourcesRequired.idl
 WebDOMSVGMarkerElement.h: SVGFitToViewBox.idl SVGExternalResourcesRequired.idl
 SVGFitToViewBox.idl:
 SVGExternalResourcesRequired.idl:
-JSSVGMaskElement.h: SVGTests.idl SVGExternalResourcesRequired.idl
-DOMSVGMaskElement.h: SVGTests.idl SVGExternalResourcesRequired.idl
-WebDOMSVGMaskElement.h: SVGTests.idl SVGExternalResourcesRequired.idl
-SVGTests.idl:
+JSSVGMaskElement.h: SVGExternalResourcesRequired.idl SVGTests.idl
+DOMSVGMaskElement.h: SVGExternalResourcesRequired.idl SVGTests.idl
+WebDOMSVGMaskElement.h: SVGExternalResourcesRequired.idl SVGTests.idl
 SVGExternalResourcesRequired.idl:
+SVGTests.idl:
 JSSVGMatrix.h: 
 DOMSVGMatrix.h: 
 WebDOMSVGMatrix.h: 
@@ -1567,13 +1163,13 @@ WebDOMSVGPathSegMovetoAbs.h:
 JSSVGPathSegMovetoRel.h: 
 DOMSVGPathSegMovetoRel.h: 
 WebDOMSVGPathSegMovetoRel.h: 
-JSSVGPatternElement.h: SVGFitToViewBox.idl SVGTests.idl SVGURIReference.idl SVGExternalResourcesRequired.idl
-DOMSVGPatternElement.h: SVGFitToViewBox.idl SVGTests.idl SVGURIReference.idl SVGExternalResourcesRequired.idl
-WebDOMSVGPatternElement.h: SVGFitToViewBox.idl SVGTests.idl SVGURIReference.idl SVGExternalResourcesRequired.idl
+JSSVGPatternElement.h: SVGFitToViewBox.idl SVGURIReference.idl SVGExternalResourcesRequired.idl SVGTests.idl
+DOMSVGPatternElement.h: SVGFitToViewBox.idl SVGURIReference.idl SVGExternalResourcesRequired.idl SVGTests.idl
+WebDOMSVGPatternElement.h: SVGFitToViewBox.idl SVGURIReference.idl SVGExternalResourcesRequired.idl SVGTests.idl
 SVGFitToViewBox.idl:
-SVGTests.idl:
 SVGURIReference.idl:
 SVGExternalResourcesRequired.idl:
+SVGTests.idl:
 JSSVGPoint.h: 
 DOMSVGPoint.h: 
 WebDOMSVGPoint.h: 
@@ -1690,63 +1286,9 @@ SVGFitToViewBox.idl:
 JSSVGZoomEvent.h: 
 DOMSVGZoomEvent.h: 
 WebDOMSVGZoomEvent.h: 
-JSInternalSettings.h: 
-DOMInternalSettings.h: 
-WebDOMInternalSettings.h: 
-JSInternals.h: 
-DOMInternals.h: 
-WebDOMInternals.h: 
-JSMallocStatistics.h: 
-DOMMallocStatistics.h: 
-WebDOMMallocStatistics.h: 
-JSMemoryInfo.h: 
-DOMMemoryInfo.h: 
-WebDOMMemoryInfo.h: 
-JSTypeConversions.h: 
-DOMTypeConversions.h: 
-WebDOMTypeConversions.h: 
-JSDedicatedWorkerGlobalScope.h: DedicatedWorkerGlobalScopeConstructors.idl
-DOMDedicatedWorkerGlobalScope.h: DedicatedWorkerGlobalScopeConstructors.idl
-WebDOMDedicatedWorkerGlobalScope.h: DedicatedWorkerGlobalScopeConstructors.idl
-DedicatedWorkerGlobalScopeConstructors.idl:
-JSSharedWorker.h: AbstractWorker.idl
-DOMSharedWorker.h: AbstractWorker.idl
-WebDOMSharedWorker.h: AbstractWorker.idl
-AbstractWorker.idl:
-JSSharedWorkerGlobalScope.h: SharedWorkerGlobalScopeConstructors.idl
-DOMSharedWorkerGlobalScope.h: SharedWorkerGlobalScopeConstructors.idl
-WebDOMSharedWorkerGlobalScope.h: SharedWorkerGlobalScopeConstructors.idl
-SharedWorkerGlobalScopeConstructors.idl:
-JSWorker.h: AbstractWorker.idl
-DOMWorker.h: AbstractWorker.idl
-WebDOMWorker.h: AbstractWorker.idl
-AbstractWorker.idl:
-JSWorkerGlobalScope.h: WorkerGlobalScopeIndexedDatabase.idl WorkerGlobalScopeNotifications.idl WindowTimers.idl WorkerGlobalScopeWebDatabase.idl WorkerGlobalScopeConstructors.idl
-DOMWorkerGlobalScope.h: WorkerGlobalScopeIndexedDatabase.idl WorkerGlobalScopeNotifications.idl WindowTimers.idl WorkerGlobalScopeWebDatabase.idl WorkerGlobalScopeConstructors.idl
-WebDOMWorkerGlobalScope.h: WorkerGlobalScopeIndexedDatabase.idl WorkerGlobalScopeNotifications.idl WindowTimers.idl WorkerGlobalScopeWebDatabase.idl WorkerGlobalScopeConstructors.idl
-WorkerGlobalScopeIndexedDatabase.idl:
-WorkerGlobalScopeNotifications.idl:
-WindowTimers.idl:
-WorkerGlobalScopeWebDatabase.idl:
-WorkerGlobalScopeConstructors.idl:
-JSWorkerLocation.h: 
-DOMWorkerLocation.h: 
-WebDOMWorkerLocation.h: 
 JSDOMParser.h: 
 DOMDOMParser.h: 
 WebDOMDOMParser.h: 
-JSXMLHttpRequest.h: 
-DOMXMLHttpRequest.h: 
-WebDOMXMLHttpRequest.h: 
-JSXMLHttpRequestException.h: 
-DOMXMLHttpRequestException.h: 
-WebDOMXMLHttpRequestException.h: 
-JSXMLHttpRequestProgressEvent.h: 
-DOMXMLHttpRequestProgressEvent.h: 
-WebDOMXMLHttpRequestProgressEvent.h: 
-JSXMLHttpRequestUpload.h: 
-DOMXMLHttpRequestUpload.h: 
-WebDOMXMLHttpRequestUpload.h: 
 JSXMLSerializer.h: 
 DOMXMLSerializer.h: 
 WebDOMXMLSerializer.h: 

@@ -47,7 +47,9 @@
 #include "ResourceHandle.h"
 #include "SecurityOrigin.h"
 #include "Settings.h"
+#if !PLATFORM(JS)
 #include "StorageNamespace.h"
+#endif
 #include "WindowFeatures.h"
 #include <wtf/PassRefPtr.h>
 #include <wtf/RefPtr.h>
@@ -190,10 +192,10 @@ Page* Chrome::createWindow(Frame* frame, const FrameLoadRequest& request, const 
     Page* newPage = m_client.createWindow(frame, request, features, action);
     if (!newPage)
         return 0;
-
+#if !PLATFORM(JS)
     if (StorageNamespace* oldSessionStorage = m_page.sessionStorage(false))
         newPage->setSessionStorage(oldSessionStorage->copy(newPage));
-
+#endif
     return newPage;
 }
 

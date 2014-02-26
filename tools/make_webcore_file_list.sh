@@ -22,6 +22,7 @@ echo "    'variables': {"
 ./gyplist.sh webcore_loader_files .. '/deps/WebKit/Source/WebCore/loader/'
 ./gyplist.sh webcore_css_files .. '/deps/WebKit/Source/WebCore/css/'
 ./gyplist.sh webcore_platform_geometry_files .. '/deps/WebKit/Source/WebCore/platform/geometry/'
+./gyplist.sh webcore_angle_files .. '/deps/WebKit/Source/ThirdParty/ANGLE/'
 ./gyplist.sh webcore_derived_files .. '/webcore_bindings/'
 
 # ./gyplist.sh ffmpeg .. '/deps/ffmpeg/'

@@ -159,10 +159,10 @@
     WebKitPoint webkitConvertPointFromNodeToPage([Default=Undefined] optional Node node, 
                                                  [Default=Undefined] optional WebKitPoint p);
 
-    readonly attribute DOMApplicationCache applicationCache;
+    // readonly attribute DOMApplicationCache applicationCache;
 
-    [GetterRaisesException] readonly attribute Storage sessionStorage;
-    [GetterRaisesException] readonly attribute Storage localStorage;
+    // [GetterRaisesException] readonly attribute Storage sessionStorage;
+    // [GetterRaisesException] readonly attribute Storage localStorage;
 
 #if defined(ENABLE_ORIENTATION_EVENTS) && ENABLE_ORIENTATION_EVENTS
     // This is the interface orientation in degrees. Some examples are:

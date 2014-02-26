@@ -21,10 +21,8 @@
 #include "config.h"
 #include "JSMouseEvent.h"
 
-#include "Clipboard.h"
 #include "EventTarget.h"
 #include "ExceptionCode.h"
-#include "JSClipboard.h"
 #include "JSDOMBinding.h"
 #include "JSDOMWindow.h"
 #include "JSDictionary.h"
@@ -65,7 +63,6 @@ static const HashTableValue JSMouseEventTableValues[] =
     { "y", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsMouseEventY), (intptr_t)0 },
     { "fromElement", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsMouseEventFromElement), (intptr_t)0 },
     { "toElement", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsMouseEventToElement), (intptr_t)0 },
-    { "dataTransfer", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsMouseEventDataTransfer), (intptr_t)0 },
     { "constructor", DontEnum | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsMouseEventConstructor), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
@@ -447,19 +444,6 @@ EncodedJSValue jsMouseEventToElement(ExecState* exec, EncodedJSValue slotBase, E
     UNUSED_PARAM(exec);
     MouseEvent& impl = castedThis->impl();
     JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.toElement()));
-    return JSValue::encode(result);
-}
-
-
-EncodedJSValue jsMouseEventDataTransfer(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSMouseEvent* castedThis = jsDynamicCast<JSMouseEvent*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    MouseEvent& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.dataTransfer()));
     return JSValue::encode(result);
 }
 

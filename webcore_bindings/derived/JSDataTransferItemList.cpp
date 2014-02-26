@@ -29,7 +29,6 @@
 #include "ExceptionCode.h"
 #include "JSDOMBinding.h"
 #include "JSDataTransferItem.h"
-#include "JSFile.h"
 #include <runtime/Error.h>
 #include <runtime/PropertyNameArray.h>
 #include <wtf/GetPtr.h>
@@ -53,7 +52,7 @@ static const HashTableValue JSDataTransferItemListPrototypeTableValues[] =
 {
     { "item", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDataTransferItemListPrototypeFunctionItem), (intptr_t)0 },
     { "clear", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDataTransferItemListPrototypeFunctionClear), (intptr_t)0 },
-    { "add", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDataTransferItemListPrototypeFunctionAdd), (intptr_t)1 },
+    { "add", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsDataTransferItemListPrototypeFunctionAdd), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
@@ -181,24 +180,7 @@ EncodedJSValue JSC_HOST_CALL jsDataTransferItemListPrototypeFunctionClear(ExecSt
     return JSValue::encode(jsUndefined());
 }
 
-static EncodedJSValue JSC_HOST_CALL jsDataTransferItemListPrototypeFunctionAdd1(ExecState* exec)
-{
-    JSValue thisValue = exec->hostThisValue();
-    JSDataTransferItemList* castedThis = jsDynamicCast<JSDataTransferItemList*>(thisValue);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    ASSERT_GC_OBJECT_INHERITS(castedThis, JSDataTransferItemList::info());
-    DataTransferItemList& impl = castedThis->impl();
-    if (exec->argumentCount() < 1)
-        return throwVMError(exec, createNotEnoughArgumentsError(exec));
-    File* file(toFile(exec->argument(0)));
-    if (exec->hadException())
-        return JSValue::encode(jsUndefined());
-    impl.add(file);
-    return JSValue::encode(jsUndefined());
-}
-
-static EncodedJSValue JSC_HOST_CALL jsDataTransferItemListPrototypeFunctionAdd2(ExecState* exec)
+EncodedJSValue JSC_HOST_CALL jsDataTransferItemListPrototypeFunctionAdd(ExecState* exec)
 {
     JSValue thisValue = exec->hostThisValue();
     JSDataTransferItemList* castedThis = jsDynamicCast<JSDataTransferItemList*>(thisValue);
@@ -216,17 +198,6 @@ static EncodedJSValue JSC_HOST_CALL jsDataTransferItemListPrototypeFunctionAdd2(
     impl.add(data, type, ec);
     setDOMException(exec, ec);
     return JSValue::encode(jsUndefined());
-}
-
-EncodedJSValue JSC_HOST_CALL jsDataTransferItemListPrototypeFunctionAdd(ExecState* exec)
-{
-    size_t argsCount = exec->argumentCount();
-    JSValue arg0(exec->argument(0));
-    if ((argsCount == 1 && (arg0.isNull() || (arg0.isObject() && asObject(arg0)->inherits(JSFile::info())))))
-        return jsDataTransferItemListPrototypeFunctionAdd1(exec);
-    if (argsCount == 0 || argsCount == 1 || argsCount == 2)
-        return jsDataTransferItemListPrototypeFunctionAdd2(exec);
-    return throwVMTypeError(exec);
 }
 
 

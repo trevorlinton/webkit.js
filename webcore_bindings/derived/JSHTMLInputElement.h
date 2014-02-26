@@ -147,8 +147,6 @@ void setJSHTMLInputElementDirName(JSC::ExecState*, JSC::EncodedJSValue, JSC::Enc
 JSC::EncodedJSValue jsHTMLInputElementDisabled(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSHTMLInputElementDisabled(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsHTMLInputElementForm(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-JSC::EncodedJSValue jsHTMLInputElementFiles(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSHTMLInputElementFiles(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsHTMLInputElementFormAction(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSHTMLInputElementFormAction(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsHTMLInputElementFormEnctype(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);

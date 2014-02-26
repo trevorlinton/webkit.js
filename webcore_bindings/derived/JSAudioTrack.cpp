@@ -25,17 +25,11 @@
 #include "JSAudioTrack.h"
 
 #include "AudioTrack.h"
-#include "AudioTrackMediaSource.h"
 #include "Element.h"
 #include "JSNodeCustom.h"
 #include "URL.h"
 #include <runtime/JSString.h>
 #include <wtf/GetPtr.h>
-
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-#include "JSSourceBuffer.h"
-#include "SourceBuffer.h"
-#endif
 
 using namespace JSC;
 
@@ -50,9 +44,6 @@ static const HashTableValue JSAudioTrackTableValues[] =
     { "label", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsAudioTrackLabel), (intptr_t)0 },
     { "language", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsAudioTrackLanguage), (intptr_t)setJSAudioTrackLanguage },
     { "enabled", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsAudioTrackEnabled), (intptr_t)setJSAudioTrackEnabled },
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-    { "sourceBuffer", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsAudioTrackSourceBuffer), (intptr_t)0 },
-#endif
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
@@ -173,21 +164,6 @@ EncodedJSValue jsAudioTrackEnabled(ExecState* exec, EncodedJSValue slotBase, Enc
     return JSValue::encode(result);
 }
 
-
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-EncodedJSValue jsAudioTrackSourceBuffer(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSAudioTrack* castedThis = jsDynamicCast<JSAudioTrack*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    AudioTrack& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(AudioTrackMediaSource::sourceBuffer(&impl)));
-    return JSValue::encode(result);
-}
-
-#endif
 
 void JSAudioTrack::put(JSCell* cell, ExecState* exec, PropertyName propertyName, JSValue value, PutPropertySlot& slot)
 {

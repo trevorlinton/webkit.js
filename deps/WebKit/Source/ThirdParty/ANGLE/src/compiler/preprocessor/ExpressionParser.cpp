@@ -1,4 +1,7 @@
 /* Apple Note: For the avoidance of doubt, Apple elects to distribute this file under the terms of the BSD license. */
+#if PLATFORM(JS)
+#include "config.h"
+#endif
 
 /* A Bison parser, made by GNU Bison 3.0.1.  */
 
