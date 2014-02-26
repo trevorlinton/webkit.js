@@ -4,6 +4,12 @@ xcuserdata/
 /xcuserdata
 *.xcuserstate
 *.xcscheme
+/tools/all.xcodeproj
+/tools/all.vcproj
+/tools/all.sln
+./tools/all.xcodeproj
+./tools/all.vcproj
+./tools/all.sln
 ./Release
 ./Debug
 /Debug
