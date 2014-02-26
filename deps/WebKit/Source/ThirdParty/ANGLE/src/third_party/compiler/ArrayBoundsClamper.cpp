@@ -22,6 +22,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#if PLATFORM(JS)
+#include "config.h"
+#endif
 
 #include "third_party/compiler/ArrayBoundsClamper.h"
 

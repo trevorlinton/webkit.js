@@ -25,11 +25,9 @@
 #include "JSDOMURL.h"
 
 #include "DOMURL.h"
-#include "DOMURLMediaSource.h"
 #include "ExceptionCode.h"
 #include "JSBlob.h"
 #include "JSDOMBinding.h"
-#include "JSMediaSource.h"
 #include "URL.h"
 #include <runtime/Error.h>
 #include <wtf/GetPtr.h>
@@ -102,7 +100,7 @@ static const HashTableValue JSDOMURLPrototypeTableValues[] =
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
-static const HashTable JSDOMURLPrototypeTable = { 8, 7, JSDOMURLPrototypeTableValues, 0 };
+static const HashTable JSDOMURLPrototypeTable = { 4, 3, JSDOMURLPrototypeTableValues, 0 };
 static const HashTable& getJSDOMURLPrototypeTable(ExecState* exec)
 {
     return getHashTableForGlobalData(exec->vm(), JSDOMURLPrototypeTable);
@@ -178,7 +176,7 @@ JSValue JSDOMURL::getConstructor(VM& vm, JSGlobalObject* globalObject)
     return getDOMConstructor<JSDOMURLConstructor>(vm, jsCast<JSDOMGlobalObject*>(globalObject));
 }
 
-static EncodedJSValue JSC_HOST_CALL jsDOMURLConstructorFunctionCreateObjectURL1(ExecState* exec)
+EncodedJSValue JSC_HOST_CALL jsDOMURLConstructorFunctionCreateObjectURL(ExecState* exec)
 {
     if (exec->argumentCount() < 1)
         return throwVMError(exec, createNotEnoughArgumentsError(exec));
@@ -205,40 +203,6 @@ EncodedJSValue JSC_HOST_CALL jsDOMURLConstructorFunctionRevokeObjectURL(ExecStat
         return JSValue::encode(jsUndefined());
     DOMURL::revokeObjectURL(scriptContext, url);
     return JSValue::encode(jsUndefined());
-}
-
-#if ENABLE(MEDIA_SOURCE)
-static EncodedJSValue JSC_HOST_CALL jsDOMURLConstructorFunctionCreateObjectURL2(ExecState* exec)
-{
-    if (exec->argumentCount() < 1)
-        return throwVMError(exec, createNotEnoughArgumentsError(exec));
-    ScriptExecutionContext* scriptContext = jsCast<JSDOMGlobalObject*>(exec->lexicalGlobalObject())->scriptExecutionContext();
-    if (!scriptContext)
-        return JSValue::encode(jsUndefined());
-    MediaSource* source(toMediaSource(exec->argument(0)));
-    if (exec->hadException())
-        return JSValue::encode(jsUndefined());
-
-    JSC::JSValue result = jsStringOrNull(exec, DOMURLMediaSource::createObjectURL(scriptContext, source));
-    return JSValue::encode(result);
-}
-
-#endif
-
-EncodedJSValue JSC_HOST_CALL jsDOMURLConstructorFunctionCreateObjectURL(ExecState* exec)
-{
-    size_t argsCount = exec->argumentCount();
-    JSValue arg0(exec->argument(0));
-    if ((argsCount == 1 && (arg0.isNull() || (arg0.isObject() && asObject(arg0)->inherits(JSBlob::info())))))
-        return jsDOMURLConstructorFunctionCreateObjectURL1(exec);
-#if ENABLE(MEDIA_SOURCE)
-    if ((argsCount == 1 && (arg0.isNull() || (arg0.isObject() && asObject(arg0)->inherits(JSMediaSource::info())))))
-        return jsDOMURLConstructorFunctionCreateObjectURL2(exec);
-#endif
-
-    if (argsCount < 1)
-        return throwVMError(exec, createNotEnoughArgumentsError(exec));
-    return throwVMTypeError(exec);
 }
 
 bool JSDOMURLOwner::isReachableFromOpaqueRoots(JSC::Handle<JSC::Unknown> handle, void*, SlotVisitor& visitor)

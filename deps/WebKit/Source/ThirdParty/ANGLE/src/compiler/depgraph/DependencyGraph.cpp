@@ -5,7 +5,9 @@
 //
 
 #pragma warning(disable: 4718)
-
+#if PLATFORM(JS)
+#include "config.h"
+#endif
 #include "compiler/depgraph/DependencyGraph.h"
 #include "compiler/depgraph/DependencyGraphBuilder.h"
 

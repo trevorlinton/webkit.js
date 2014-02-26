@@ -7,7 +7,9 @@
 // the use of intrinsic functions which (implicitly or explicitly) compute
 // gradients of functions with discontinuities. 
 //
-
+#if PLATFORM(JS)
+#include "config.h"
+#endif
 #include "compiler/DetectDiscontinuity.h"
 
 #include "compiler/ParseContext.h"

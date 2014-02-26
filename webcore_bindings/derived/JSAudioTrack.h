@@ -131,9 +131,6 @@ JSC::EncodedJSValue jsAudioTrackLanguage(JSC::ExecState*, JSC::EncodedJSValue, J
 void setJSAudioTrackLanguage(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsAudioTrackEnabled(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSAudioTrackEnabled(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-JSC::EncodedJSValue jsAudioTrackSourceBuffer(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
 
 } // namespace WebCore
 

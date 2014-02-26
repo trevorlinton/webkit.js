@@ -36,16 +36,10 @@
 #include "JSTextTrackCueList.h"
 #include "TextTrack.h"
 #include "TextTrackCueList.h"
-#include "TextTrackMediaSource.h"
 #include "URL.h"
 #include <runtime/Error.h>
 #include <runtime/JSString.h>
 #include <wtf/GetPtr.h>
-
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-#include "JSSourceBuffer.h"
-#include "SourceBuffer.h"
-#endif
 
 using namespace JSC;
 
@@ -63,9 +57,6 @@ static const HashTableValue JSTextTrackTableValues[] =
     { "cues", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsTextTrackCues), (intptr_t)0 },
     { "activeCues", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsTextTrackActiveCues), (intptr_t)0 },
     { "oncuechange", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsTextTrackOncuechange), (intptr_t)setJSTextTrackOncuechange },
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-    { "sourceBuffer", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsTextTrackSourceBuffer), (intptr_t)0 },
-#endif
     { "constructor", DontEnum | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsTextTrackConstructor), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
@@ -270,21 +261,6 @@ EncodedJSValue jsTextTrackOncuechange(ExecState* exec, EncodedJSValue slotBase, 
     return JSValue::encode(jsNull());
 }
 
-
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-EncodedJSValue jsTextTrackSourceBuffer(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSTextTrack* castedThis = jsDynamicCast<JSTextTrack*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    TextTrack& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(TextTrackMediaSource::sourceBuffer(&impl)));
-    return JSValue::encode(result);
-}
-
-#endif
 
 EncodedJSValue jsTextTrackConstructor(ExecState* exec, EncodedJSValue thisValue, EncodedJSValue, PropertyName)
 {

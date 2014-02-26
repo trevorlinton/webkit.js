@@ -77,7 +77,7 @@ URL SecurityOrigin::extractInnerURL(const URL& url)
 
 static PassRefPtr<SecurityOrigin> getCachedOrigin(const URL& url)
 {
-#if ENABLE(BLOB)
+#if ENABLE(BLOB) && !PLATFORM(JS)
     if (url.protocolIs("blob"))
         return ThreadableBlobRegistry::getCachedOrigin(url);
 #else

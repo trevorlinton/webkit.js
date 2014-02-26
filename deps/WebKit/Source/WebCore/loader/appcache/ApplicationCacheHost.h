@@ -39,7 +39,9 @@
 #include <wtf/Vector.h>
 
 namespace WebCore {
+#if !PLATFORM(JS)
     class DOMApplicationCache;
+#endif
     class DocumentLoader;
     class Frame;
     class ResourceLoader;
@@ -47,10 +49,12 @@ namespace WebCore {
     class ResourceRequest;
     class ResourceResponse;
     class SubstituteData;
+#if !PLATFORM(JS)
     class ApplicationCache;
     class ApplicationCacheGroup;
     class ApplicationCacheResource;
     class ApplicationCacheStorage;
+#endif
 
     class ApplicationCacheHost {
         WTF_MAKE_NONCOPYABLE(ApplicationCacheHost); WTF_MAKE_FAST_ALLOCATED;
@@ -118,8 +122,10 @@ namespace WebCore {
 
         void maybeLoadMainResource(ResourceRequest&, SubstituteData&);
         void maybeLoadMainResourceForRedirect(ResourceRequest&, SubstituteData&);
+#if !PLATFORM(JS)
         bool maybeLoadFallbackForMainResponse(const ResourceRequest&, const ResourceResponse&);
         void mainResourceDataReceived(const char* data, int length, long long encodedDataLength, bool allAtOnce);
+#endif
         void finishedLoadingMainResource();
         void failedLoadingMainResource();
 
@@ -137,8 +143,9 @@ namespace WebCore {
         bool update();
         bool swapCache();
         void abort();
-
+#if !PLATFORM(JS)
         void setDOMApplicationCache(DOMApplicationCache*);
+#endif
         void notifyDOMApplicationCache(EventID, int progressTotal, int progressDone);
 
         void stopLoadingInFrame(Frame*);
@@ -149,10 +156,10 @@ namespace WebCore {
         void fillResourceList(ResourceInfoList*);
         CacheInfo applicationCacheInfo();
 #endif
-
+#if !PLATFORM(JS)
         bool shouldLoadResourceFromApplicationCache(const ResourceRequest&, ApplicationCacheResource*&);
         bool getApplicationCacheFallbackResource(const ResourceRequest&, ApplicationCacheResource*&, ApplicationCache* = 0);
-
+#endif
     private:
         bool isApplicationCacheEnabled();
         DocumentLoader* documentLoader() const { return m_documentLoader; }
@@ -163,35 +170,35 @@ namespace WebCore {
             int progressDone;
             DeferredEvent(EventID id, int total, int done) : eventID(id), progressTotal(total), progressDone(done) { }
         };
-
+#if !PLATFORM(JS)
         DOMApplicationCache* m_domApplicationCache;
+#endif
         DocumentLoader* m_documentLoader;
         bool m_defersEvents; // Events are deferred until after document onload.
         Vector<DeferredEvent> m_deferredEvents;
 
         void dispatchDOMEvent(EventID, int progressTotal, int progressDone);
-
+#if !PLATFORM(JS)
         friend class ApplicationCacheGroup;
         friend class ApplicationCacheStorage;
-
         bool scheduleLoadFallbackResourceFromApplicationCache(ResourceLoader*, ApplicationCache* = 0);
         void setCandidateApplicationCacheGroup(ApplicationCacheGroup* group);
         ApplicationCacheGroup* candidateApplicationCacheGroup() const { return m_candidateApplicationCacheGroup; }
         void setApplicationCache(PassRefPtr<ApplicationCache> applicationCache);
         ApplicationCache* applicationCache() const { return m_applicationCache.get(); }
         ApplicationCache* mainResourceApplicationCache() const { return m_mainResourceApplicationCache.get(); }
+#endif
         bool maybeLoadFallbackForMainError(const ResourceRequest&, const ResourceError&);
 
-
+#if !PLATFORM(JS)
         // The application cache that the document loader is associated with (if any).
         RefPtr<ApplicationCache> m_applicationCache;
-
         // Before an application cache has finished loading, this will be the candidate application
         // group that the document loader is associated with.
         ApplicationCacheGroup* m_candidateApplicationCacheGroup;
-
         // This is the application cache the main resource was loaded from (if any).
         RefPtr<ApplicationCache> m_mainResourceApplicationCache;
+#endif
     };
 
 }  // namespace WebCore

@@ -158,6 +158,7 @@ cairo_egl_device_create (EGLDisplay dpy, EGLContext egl)
     ctx->base.destroy = _egl_destroy;
 
     if (!_egl_make_current_surfaceless (ctx)) {
+#ifndef TARGET_EMSCRIPTEN
 	/* Fall back to dummy surface, meh. */
 	EGLint config_attribs[] = {
 	    EGL_CONFIG_ID, 0,
@@ -184,6 +185,7 @@ cairo_egl_device_create (EGLDisplay dpy, EGLContext egl)
 	    free (ctx);
 	    return _cairo_gl_context_create_in_error (CAIRO_STATUS_NO_MEMORY);
 	}
+#endif
     }
 
     status = _cairo_gl_dispatch_init (&ctx->base.dispatch, eglGetProcAddress);

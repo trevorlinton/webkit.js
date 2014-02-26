@@ -406,7 +406,7 @@ double ScriptExecutionContext::timerAlignmentInterval() const
 ScriptExecutionContext::Task::~Task()
 {
 }
-
+#if !PLATFORM(JS)
 JSC::VM* ScriptExecutionContext::vm()
 {
      if (isDocument())
@@ -418,7 +418,7 @@ JSC::VM* ScriptExecutionContext::vm()
     ASSERT_NOT_REACHED();
     return 0;
 }
-
+#endif
 #if ENABLE(SQL_DATABASE)
 void ScriptExecutionContext::setDatabaseContext(DatabaseContext* databaseContext)
 {

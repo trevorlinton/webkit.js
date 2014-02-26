@@ -950,6 +950,7 @@ void XMLHttpRequest::abortError()
 
 void XMLHttpRequest::dropProtection()
 {
+#if !PLATFORM(JS)
     // The XHR object itself holds on to the responseText, and
     // thus has extra cost even independent of any
     // responseText or responseXML objects it has handed
@@ -961,6 +962,7 @@ void XMLHttpRequest::dropProtection()
     vm->heap.reportExtraMemoryCost(m_responseBuilder.length() * 2);
 
     unsetPendingActivity(this);
+#endif
 }
 
 void XMLHttpRequest::overrideMimeType(const String& override)

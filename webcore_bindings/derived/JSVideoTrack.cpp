@@ -28,14 +28,8 @@
 #include "JSNodeCustom.h"
 #include "URL.h"
 #include "VideoTrack.h"
-#include "VideoTrackMediaSource.h"
 #include <runtime/JSString.h>
 #include <wtf/GetPtr.h>
-
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-#include "JSSourceBuffer.h"
-#include "SourceBuffer.h"
-#endif
 
 using namespace JSC;
 
@@ -50,9 +44,6 @@ static const HashTableValue JSVideoTrackTableValues[] =
     { "label", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsVideoTrackLabel), (intptr_t)0 },
     { "language", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsVideoTrackLanguage), (intptr_t)setJSVideoTrackLanguage },
     { "selected", DontDelete, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsVideoTrackSelected), (intptr_t)setJSVideoTrackSelected },
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-    { "sourceBuffer", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsVideoTrackSourceBuffer), (intptr_t)0 },
-#endif
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
@@ -173,21 +164,6 @@ EncodedJSValue jsVideoTrackSelected(ExecState* exec, EncodedJSValue slotBase, En
     return JSValue::encode(result);
 }
 
-
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-EncodedJSValue jsVideoTrackSourceBuffer(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSVideoTrack* castedThis = jsDynamicCast<JSVideoTrack*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    VideoTrack& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(VideoTrackMediaSource::sourceBuffer(&impl)));
-    return JSValue::encode(result);
-}
-
-#endif
 
 void JSVideoTrack::put(JSCell* cell, ExecState* exec, PropertyName propertyName, JSValue value, PutPropertySlot& slot)
 {

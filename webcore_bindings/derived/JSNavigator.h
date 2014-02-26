@@ -142,9 +142,6 @@ protected:
 
 JSC::EncodedJSValue JSC_HOST_CALL jsNavigatorPrototypeFunctionJavaEnabled(JSC::ExecState*);
 JSC::EncodedJSValue JSC_HOST_CALL jsNavigatorPrototypeFunctionGetStorageUpdates(JSC::ExecState*);
-#if ENABLE(MEDIA_STREAM)
-JSC::EncodedJSValue JSC_HOST_CALL jsNavigatorPrototypeFunctionWebkitGetUserMedia(JSC::ExecState*);
-#endif
 // Attributes
 
 JSC::EncodedJSValue jsNavigatorAppCodeName(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
@@ -153,23 +150,12 @@ JSC::EncodedJSValue jsNavigatorAppVersion(JSC::ExecState*, JSC::EncodedJSValue, 
 JSC::EncodedJSValue jsNavigatorLanguage(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsNavigatorUserAgent(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsNavigatorPlatform(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-JSC::EncodedJSValue jsNavigatorPlugins(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-JSC::EncodedJSValue jsNavigatorMimeTypes(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsNavigatorProduct(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsNavigatorProductSub(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsNavigatorVendor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsNavigatorVendorSub(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsNavigatorCookieEnabled(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsNavigatorOnLine(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#if ENABLE(GEOLOCATION)
-JSC::EncodedJSValue jsNavigatorGeolocation(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
-#if ENABLE(QUOTA)
-JSC::EncodedJSValue jsNavigatorWebkitTemporaryStorage(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
-#if ENABLE(QUOTA)
-JSC::EncodedJSValue jsNavigatorWebkitPersistentStorage(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
 JSC::EncodedJSValue jsNavigatorConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 
 } // namespace WebCore

@@ -131,9 +131,6 @@ JSC::EncodedJSValue jsVideoTrackLanguage(JSC::ExecState*, JSC::EncodedJSValue, J
 void setJSVideoTrackLanguage(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 JSC::EncodedJSValue jsVideoTrackSelected(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSVideoTrackSelected(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-JSC::EncodedJSValue jsVideoTrackSourceBuffer(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
 
 } // namespace WebCore
 

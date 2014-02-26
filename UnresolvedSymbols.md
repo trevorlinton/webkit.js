@@ -1,43 +1,12 @@
-_cairo_path_fixed_stroke_to_polygon
-_ZN3WTF37scheduleDispatchFunctionsOnMainThreadEv
-pthread_create
-_ZN7WebCore20fillWithEmptyClientsERNS_4Page11PageClientsE
-_ZN7WebCore20ApplicationCacheHostC1EPNS_14DocumentLoaderE
-_ZN7WebCore20ApplicationCacheHostD1Ev
-_ZN7WebCore21SerializedScriptValue9nullValueEv
-_ZN7WebCore21SerializedScriptValueD1Ev
-_ZN7WebCore20RenderEmbeddedObject29setPluginUnavailabilityReasonENS0_26PluginUnavailabilityReasonE
-_ZN3JSC17JSArrayBufferViewC2ERNS_2VMERNS0_19ConstructionContextE
-_ZN7WebCore22HTMLPlugInImageElementC2ERKNS_13QualifiedNameERNS_8DocumentEbNS_28PreferPlugInsForImagesOptionE
-_ZN7WebCore22HTMLPlugInImageElementD2Ev
-_ZN7WebCore17addImpurePropertyERKN3WTF12AtomicStringE
-_ZN7WebCore20getSupportedKeySizesERN3WTF6VectorINS0_6StringELj0ENS0_15CrashOnOverflowEEE
-_ZN7WebCore10Pasteboard13createPrivateEv
-_ZN7WebCore10Pasteboard21createForCopyAndPasteEv
-_ZN7WebCore19JSLazyEventListener18createForDOMWindowERNS_5FrameERKNS_13QualifiedNameERKN3WTF12AtomicStringE
 nextafter
-_ZN7WebCore21createScriptCallStackEjb
-_ZN7WebCore22ThreadableBlobRegistry15getCachedOriginERKNS_3URLE
-_ZN3JSC2VMD1Ev
-_ZN7WebCore15ScriptCallFrameD1Ev
-ShInitialize
-ShDestruct
-ShConstructCompiler
-ShCompile
-ShGetInfoLog
-ShGetObjectCode
-ShGetVariableInfo
-ShGetInfo
-ShInitBuiltInResources
 nextafterf
-eglCreatePbufferSurface
-_ZN7WebCore24fileSystemRepresentationERKN3WTF6StringE
+warning: Legacy GL function (glVertexPointer) called. You need to compile with -s LEGACY_GL_EMULATION=1 to enable legacy GL emulation.
+warning: Legacy GL function (glGenVertexArrays) called. You need to compile with -s LEGACY_GL_EMULATION=1 to enable legacy GL emulation.
+warning: Legacy GL function (glMatrixMode) called. You need to compile with -s LEGACY_GL_EMULATION=1 to enable legacy GL emulation.
+warning: Legacy GL function (glBegin) called. You need to compile with -s LEGACY_GL_EMULATION=1 to enable legacy GL emulation.
+warning: Legacy GL function (glLoadIdentity) called. You need to compile with -s LEGACY_GL_EMULATION=1 to enable legacy GL emulation.
 getsockopt
-Curl_rand
 sigsetjmp
 siglongjmp
 getifaddrs
 freeifaddrs
-Curl_clone_ssl_config
-Curl_free_ssl_config
-Curl_ssl_config_matches

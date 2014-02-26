@@ -119,12 +119,6 @@ JSC::EncodedJSValue jsWorkerNavigatorAppVersion(JSC::ExecState*, JSC::EncodedJSV
 JSC::EncodedJSValue jsWorkerNavigatorPlatform(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsWorkerNavigatorUserAgent(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsWorkerNavigatorOnLine(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#if ENABLE(QUOTA)
-JSC::EncodedJSValue jsWorkerNavigatorWebkitTemporaryStorage(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
-#if ENABLE(QUOTA)
-JSC::EncodedJSValue jsWorkerNavigatorWebkitPersistentStorage(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
 
 } // namespace WebCore
 

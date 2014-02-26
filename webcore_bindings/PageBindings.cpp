@@ -25,7 +25,7 @@
 #include "ScriptCachedFrameData.h"
 #include "PlatformKeyboardEvent.h"
 #include "ApplicationCacheHost.h"
-#include "EmptyClients.h"
+//#include "EmptyClients.h"
 #include "EventHandler.h"
 #include "BitmapImage.h"
 #include "Editor.h"
@@ -40,11 +40,39 @@
 #include "MIMETypeRegistry.h"
 #include "ScrollbarTheme.h"
 #include "RenderTheme.h"
+#include "ScriptCallStack.h"
+#include "HTMLImageLoader.h"
+#include "MouseEvent.h"
+#include "SerializedScriptValue.h"
+#include "HTMLFrameOwnerElement.h"
 
 using namespace JSC;
 using namespace Inspector;
 
+
+void WTF::scheduleDispatchFunctionsOnMainThread() {
+  notImplemented();
+}
+
 namespace WebCore {
+
+  RenderPtr<RenderElement> HTMLPlugInElement::createElementRenderer(PassRef<RenderStyle> style) { return nullptr; }
+  void HTMLPlugInElement::defaultEventHandler(Event* event) { notImplemented(); }
+  void HTMLPlugInElement::didAddUserAgentShadowRoot(ShadowRoot* root) { notImplemented(); }
+  bool HTMLPlugInElement::requestObject(const String& url, const String& mimeType, const Vector<String>& paramNames, const Vector<String>& paramValues) { return false; }
+  void HTMLPlugInElement::setDisplayState(DisplayState state) { notImplemented(); }
+  void HTMLPlugInElement::swapRendererTimerFired(Timer<HTMLPlugInElement>*) { notImplemented(); }
+  void HTMLPlugInElement::willDetachRenderers() { notImplemented(); }
+
+  RefPtr<ScriptCallStack> createScriptCallStack(unsigned int, bool) {
+    return nullptr;
+  }
+
+
+  void addImpureProperty(const AtomicString& propertyName)
+  {
+    notImplemented();
+  }
 
   /* Sort of Implemented */
   PassRefPtr<Image> Image::loadPlatformResource(char const*) {
@@ -130,6 +158,14 @@ namespace WebCore {
     return String();
   }
 
+  PassRefPtr<SerializedScriptValue> SerializedScriptValue::nullValue() {
+    return nullptr;
+  }
+  SerializedScriptValue::~SerializedScriptValue() { notImplemented(); }
+  PassRefPtr<JSLazyEventListener> JSLazyEventListener::createForDOMWindow(Frame& frame, const QualifiedName& attributeName, const AtomicString& attributeValue)
+  {
+    return nullptr;
+  }
   /* Not Implemented */
   PassRefPtr<RenderTheme> RenderTheme::themeForPage(WebCore::Page*) { notImplemented(); }
   ScrollbarTheme* ScrollbarTheme::nativeTheme() { notImplemented(); }
@@ -155,7 +191,7 @@ namespace WebCore {
   DOMWrapperWorld::~DOMWrapperWorld() { notImplemented(); }
   void Icon::paint(GraphicsContext*, IntRect const&) { notImplemented(); }
   Icon::~Icon() { notImplemented(); }
-  JSC::VM* JSDOMWindowBase::commonVM() { notImplemented(); }
+  //JSC::VM* JSDOMWindowBase::commonVM() { notImplemented(); }
   void JSDOMWindowBase::updateDocument() { notImplemented(); }
   void JSDOMWindowBase::willRemoveFromWindowShell() { notImplemented(); }
   const ScriptCallFrame& ScriptCallStack::at(size_t a) const { notImplemented(); }
@@ -166,39 +202,68 @@ namespace WebCore {
   void ScriptCachedFrameData::restore(WebCore::Frame& b) { notImplemented(); }
   bool PlatformKeyboardEvent::currentCapsLockState() { return false; }
   void PlatformKeyboardEvent::getCurrentModifierState(bool& a, bool& b, bool& c, bool& d) { notImplemented(); }
-  //ApplicationCacheHost::ApplicationCacheHost(WebCore::DocumentLoader* a) { notImplemented(); }
-  bool ApplicationCacheHost::canCacheInPageCache() { notImplemented(); }
+
+  ApplicationCacheHost::ApplicationCacheHost(WebCore::DocumentLoader* a) { notImplemented(); }
+  bool ApplicationCacheHost::canCacheInPageCache() { return false; }
   void ApplicationCacheHost::failedLoadingMainResource() { notImplemented(); }
   void ApplicationCacheHost::finishedLoadingMainResource() { notImplemented(); }
   void ApplicationCacheHost::maybeLoadFallbackSynchronously(WebCore::ResourceRequest const&, WebCore::ResourceError&, WebCore::ResourceResponse&, WTF::Vector<char, 0u, WTF::CrashOnOverflow>&) { notImplemented(); }
   void ApplicationCacheHost::maybeLoadMainResource(WebCore::ResourceRequest&, WebCore::SubstituteData&) { notImplemented(); }
   void ApplicationCacheHost::maybeLoadMainResourceForRedirect(WebCore::ResourceRequest&, WebCore::SubstituteData&) { notImplemented(); }
-  bool ApplicationCacheHost::maybeLoadSynchronously(WebCore::ResourceRequest&, WebCore::ResourceError&, WebCore::ResourceResponse&, WTF::Vector<char, 0u, WTF::CrashOnOverflow>&) { notImplemented(); }
+  bool ApplicationCacheHost::maybeLoadSynchronously(WebCore::ResourceRequest&, WebCore::ResourceError&, WebCore::ResourceResponse&, WTF::Vector<char, 0u, WTF::CrashOnOverflow>&) { return false; }
   void ApplicationCacheHost::selectCacheWithManifest(WebCore::URL const&) { notImplemented(); }
   void ApplicationCacheHost::selectCacheWithoutManifest() { notImplemented(); }
   void ApplicationCacheHost::stopDeferringEvents() { notImplemented(); }
   void ApplicationCacheHost::stopLoadingInFrame(WebCore::Frame*) { notImplemented(); }
-  //ApplicationCacheHost::~ApplicationCacheHost() { notImplemented(); }
+  ApplicationCacheHost::~ApplicationCacheHost() { notImplemented(); }
+
   void BitmapImage::invalidatePlatformData() { notImplemented(); }
   Blob::Blob() { notImplemented(); }
   void Editor::pasteWithPasteboard(WebCore::Pasteboard*, bool) { notImplemented(); }
-  PassRefPtr<PopupMenu> EmptyChromeClient::createPopupMenu(WebCore::PopupMenuClient*) const { notImplemented(); }
-  PassRefPtr<SearchPopupMenu> EmptyChromeClient::createSearchPopupMenu(WebCore::PopupMenuClient*) const { notImplemented(); }
-  void EmptyChromeClient::runOpenPanel(WebCore::Frame*, WTF::PassRefPtr<WebCore::FileChooser>) { notImplemented(); }
+  //PassRefPtr<PopupMenu> EmptyChromeClient::createPopupMenu(WebCore::PopupMenuClient*) const { notImplemented(); }
+  //PassRefPtr<SearchPopupMenu> EmptyChromeClient::createSearchPopupMenu(WebCore::PopupMenuClient*) const { notImplemented(); }
+  //void EmptyChromeClient::runOpenPanel(WebCore::Frame*, WTF::PassRefPtr<WebCore::FileChooser>) { notImplemented(); }
   bool EventHandler::passMouseMoveEventToSubframe(WebCore::MouseEventWithHitTestResults&, WebCore::Frame*, WebCore::HitTestResult*) { notImplemented(); }
   bool EventHandler::tabsToAllFormControls(WebCore::KeyboardEvent*) const { notImplemented(); }
   void GCController::garbageCollectSoon() { notImplemented(); }
   bool HTMLObjectElement::containsJavaApplet() const { notImplemented(); }
   PassRefPtr<HTMLObjectElement> HTMLObjectElement::create(WebCore::QualifiedName const&, WebCore::Document&, WebCore::HTMLFormElement*, bool) { notImplemented(); }
   void HTMLObjectElement::renderFallbackContent() { notImplemented(); }
-  void HTMLPlugInElement::collectStyleForPresentationAttribute(WebCore::QualifiedName const&, WTF::AtomicString const&, WebCore::MutableStyleProperties&) { notImplemented(); }
+
+  WebCore::HTMLPlugInElement::HTMLPlugInElement(WebCore::QualifiedName const& a, WebCore::Document& b)
+  : HTMLFrameOwnerElement(a, b)
+  , m_inBeforeLoadEventHandler(false)
+  , m_swapRendererTimer(this, &HTMLPlugInElement::swapRendererTimerFired)
+  , m_isCapturingMouseEvents(false)
+  , m_displayState(Playing)
+  { notImplemented(); }
+  WebCore::HTMLPlugInElement::~HTMLPlugInElement() { notImplemented(); }
+  void HTMLPlugInElement::collectStyleForPresentationAttribute(WebCore::QualifiedName const& a, WTF::AtomicString const& b, WebCore::MutableStyleProperties& c) { notImplemented(); }
   bool HTMLPlugInElement::guardedDispatchBeforeLoadEvent(WTF::String const&) { notImplemented(); }
   bool HTMLPlugInElement::isKeyboardFocusable(WebCore::KeyboardEvent*) const { notImplemented(); }
   bool HTMLPlugInElement::isPluginElement() const { notImplemented(); }
   bool HTMLPlugInElement::isPresentationAttribute(WebCore::QualifiedName const&) const { notImplemented(); }
   bool HTMLPlugInElement::supportsFocus() const { notImplemented(); }
   bool HTMLPlugInElement::willRespondToMouseClickEvents() { notImplemented(); }
-  //HTMLPlugInImageElement::HTMLPlugInImageElement(WebCore::QualifiedName const&, WebCore::Document&, bool, WebCore::PreferPlugInsForImagesOption) { notImplemented(); }
+
+  HTMLPlugInImageElement::HTMLPlugInImageElement(const QualifiedName& tagName, Document& document, bool createdByParser, PreferPlugInsForImagesOption preferPlugInsForImagesOption)
+  : HTMLPlugInElement(tagName, document)
+  , m_needsWidgetUpdate(!createdByParser)
+  , m_shouldPreferPlugInsForImages(preferPlugInsForImagesOption == ShouldPreferPlugInsForImages)
+  , m_needsDocumentActivationCallbacks(false)
+  , m_simulatedMouseClickTimer(this, &HTMLPlugInImageElement::simulatedMouseClickTimerFired, 0.75)
+  , m_removeSnapshotTimer(this, &HTMLPlugInImageElement::removeSnapshotTimerFired)
+  , m_createdDuringUserGesture(false)
+  , m_isRestartedPlugin(false)
+  , m_needsCheckForSizeChange(false)
+  , m_plugInWasCreated(false)
+  , m_deferredPromotionToPrimaryPlugIn(false)
+  , m_snapshotDecision(SnapshotNotYetDecided)
+  {
+    setHasCustomStyleResolveCallbacks();
+  }
+  void HTMLPlugInImageElement::removeSnapshotTimerFired(Timer<HTMLPlugInImageElement>*) { notImplemented(); }
+  void HTMLPlugInImageElement::simulatedMouseClickTimerFired(DeferrableOneShotTimer<HTMLPlugInImageElement>*) { notImplemented(); }
   bool HTMLPlugInImageElement::allowedToLoadFrameURL(WTF::String const&) { notImplemented(); }
   void HTMLPlugInImageElement::checkSnapshotStatus() { notImplemented(); }
   RenderPtr<RenderElement> HTMLPlugInImageElement::createElementRenderer(WTF::PassRef<WebCore::RenderStyle>) { notImplemented(); }
@@ -218,8 +283,10 @@ namespace WebCore {
   void HTMLPlugInImageElement::willDetachRenderers() { notImplemented(); }
   bool HTMLPlugInImageElement::willRecalcStyle(WebCore::Style::Change) { notImplemented(); }
   bool HTMLPlugInImageElement::wouldLoadAsNetscapePlugin(WTF::String const&, WTF::String const&) { notImplemented(); }
-  //HTMLPlugInImageElement::~HTMLPlugInImageElement() { notImplemented(); }
+  HTMLPlugInImageElement::~HTMLPlugInImageElement() { notImplemented(); }
   void systemBeep() { notImplemented(); }
+  void getSupportedKeySizes(WTF::Vector<WTF::String>&) { notImplemented(); }
+  WebCore::ScriptCallFrame::~ScriptCallFrame() { notImplemented(); }
 }
 
 namespace WTF {
@@ -295,22 +362,12 @@ namespace JSC {
   void HandleSet::writeBarrier(JSC::JSValue*, JSC::JSValue const&) { notImplemented(); }
   void Heap::reportExtraMemoryCostSlowCase(unsigned int) { notImplemented(); }
 
-  JSArrayBufferView::ConstructionContext::ConstructionContext(JSC::VM&, JSC::Structure*, WTF::PassRefPtr<JSC::ArrayBuffer>, unsigned int, unsigned int) { notImplemented(); }
-
-  //JSArrayBufferView::JSArrayBufferView(JSC::VM& a, JSC::JSArrayBufferView::ConstructionContext& b) { notImplemented(); }
-  void JSArrayBufferView::finishCreation(JSC::VM& a) { notImplemented(); }
   ExecState* JSGlobalObject::globalExec() { notImplemented(); }
-
-  JSLockHolder::JSLockHolder(JSC::ExecState*) { notImplemented(); }
-  JSLockHolder::JSLockHolder(JSC::VM*) { notImplemented(); }
-  JSLockHolder::~JSLockHolder() { notImplemented(); }
 
   void *MarkedAllocator::allocateSlowCase(unsigned int) { notImplemented(); }
 
   SourceProvider::SourceProvider(WTF::String const& a, WTF::TextPosition const& b) { notImplemented(); }
   SourceProvider::~SourceProvider() { notImplemented(); }
-
-  //Structure::Structure(JSC::VM&, JSC::JSGlobalObject*, JSC::JSValue, JSC::TypeInfo const&, JSC::ClassInfo const*, unsigned char, unsigned int) { notImplemented(); }
 
   namespace Yarr {
     YarrPattern::YarrPattern(WTF::String const& a, bool b, bool c, char const** d) { notImplemented(); }
@@ -320,6 +377,5 @@ namespace JSC {
   void evaluate(JSC::ExecState* a, JSC::SourceCode const& b, JSC::JSValue c, JSC::JSValue* d) { notImplemented(); }
   void weakClearSlowCase(JSC::WeakImpl*&) { notImplemented(); }
 
-  //VM::~VM() { notImplemented(); }
 }
 

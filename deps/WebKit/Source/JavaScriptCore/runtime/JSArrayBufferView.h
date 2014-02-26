@@ -27,6 +27,9 @@
 #define JSArrayBufferView_h
 
 #include "JSObject.h"
+#if PLATFORM(JS)
+#include "NotImplemented.h"
+#endif
 
 namespace JSC {
 
@@ -104,8 +107,12 @@ public:
 
     static size_t allocationSize(size_t inlineCapacity)
     {
+#if !PLATFORM(JS)
         ASSERT_UNUSED(inlineCapacity, !inlineCapacity);
         return sizeof(JSArrayBufferView);
+#else
+	return 0;
+#endif
     }
         
 protected:
@@ -116,11 +123,18 @@ protected:
         enum InitializationMode { ZeroFill, DontInitialize };
         
         JS_EXPORT_PRIVATE ConstructionContext(VM&, Structure*, uint32_t length, uint32_t elementSize, InitializationMode = ZeroFill);
-        
+#if !PLATFORM(JS)
         JS_EXPORT_PRIVATE ConstructionContext(
             VM&, Structure*, PassRefPtr<ArrayBuffer>,
             unsigned byteOffset, unsigned length);
-        
+#else
+        JS_EXPORT_PRIVATE ConstructionContext(
+            VM& vm, Structure* struture, PassRefPtr<ArrayBuffer>,
+            unsigned byteOffset, unsigned length)
+        {
+            notImplemented();
+        }
+#endif
         enum DataViewTag { DataView };
         ConstructionContext(
             Structure*, PassRefPtr<ArrayBuffer>,
@@ -141,10 +155,19 @@ protected:
         TypedArrayMode m_mode;
         Butterfly* m_butterfly;
     };
-    
+#if !PLATFORM(JS)
     JS_EXPORT_PRIVATE JSArrayBufferView(VM&, ConstructionContext&);
     JS_EXPORT_PRIVATE void finishCreation(VM&);
-    
+#else
+    JS_EXPORT_PRIVATE JSArrayBufferView(VM& vm, ConstructionContext&)
+    : JSNonFinalObject(vm, NULL, NULL)
+    {
+      notImplemented();
+    }
+    JS_EXPORT_PRIVATE void finishCreation(VM&) {
+      notImplemented();
+    }
+#endif
     static bool getOwnPropertySlot(JSObject*, ExecState*, PropertyName, PropertySlot&);
     static void put(JSCell*, ExecState*, PropertyName, JSValue, PutPropertySlot&);
     static bool defineOwnProperty(JSObject*, ExecState*, PropertyName, const PropertyDescriptor&, bool shouldThrow);

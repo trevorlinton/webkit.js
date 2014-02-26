@@ -40,8 +40,6 @@
 #include "CSSFontFaceLoadEvent.h"
 #include "JSCSSFontFaceLoadEvent.h"
 #endif
-#include "CloseEvent.h"
-#include "JSCloseEvent.h"
 #include "CompositionEvent.h"
 #include "JSCompositionEvent.h"
 #include "CustomEvent.h"
@@ -150,8 +148,6 @@
 #include "SpeechSynthesisEvent.h"
 #include "JSSpeechSynthesisEvent.h"
 #endif
-#include "StorageEvent.h"
-#include "JSStorageEvent.h"
 #include "TextEvent.h"
 #include "JSTextEvent.h"
 #if ENABLE(TOUCH_EVENTS)
@@ -184,7 +180,5 @@
 #include "JSWebKitTransitionEvent.h"
 #include "WheelEvent.h"
 #include "JSWheelEvent.h"
-#include "XMLHttpRequestProgressEvent.h"
-#include "JSXMLHttpRequestProgressEvent.h"
 
 #endif // EventHeaders_h

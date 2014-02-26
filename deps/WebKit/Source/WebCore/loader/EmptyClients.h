@@ -240,8 +240,7 @@ public:
 };
 
 // FIXME (bug 116233): Get rid of EmptyFrameLoaderClient. It is a travesty.
-#if PLATFORM(JS)
-#else
+
 class EmptyFrameLoaderClient : public FrameLoaderClient {
     WTF_MAKE_NONCOPYABLE(EmptyFrameLoaderClient); WTF_MAKE_FAST_ALLOCATED;
 public:
@@ -419,7 +418,7 @@ public:
 
     virtual bool isEmptyFrameLoaderClient() OVERRIDE { return true; }
 };
-#endif
+
 
 class EmptyTextCheckerClient : public TextCheckerClient {
 public:

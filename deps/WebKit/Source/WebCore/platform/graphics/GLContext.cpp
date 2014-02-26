@@ -19,7 +19,7 @@
 #include "config.h"
 #include "GLContext.h"
 
-#if USE(OPENGL) || (PLATFORM(NIX) && USE(OPENGL_ES_2))
+#if USE(OPENGL) || (( PLATFORM(NIX) || PLATFORM(JS) ) && USE(OPENGL_ES_2))
 
 #if USE(EGL)
 #include "GLContextEGL.h"

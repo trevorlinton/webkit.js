@@ -79,9 +79,11 @@ void HTMLImageLoader::notifyFinished(CachedResource*)
     bool loadError = cachedImage->errorOccurred() || cachedImage->response().httpStatusCode() >= 400;
     if (!loadError) {
         if (!element->inDocument()) {
+#if !PLATFORM(JS)
             JSC::VM* vm = JSDOMWindowBase::commonVM();
             JSC::JSLockHolder lock(vm);
             vm->heap.reportExtraMemoryCost(cachedImage->encodedSize());
+#endif
         }
     }
 

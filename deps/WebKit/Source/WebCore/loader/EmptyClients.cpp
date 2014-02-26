@@ -60,10 +60,10 @@ void fillWithEmptyClients(Page::PageClients& pageClients)
 
     static NeverDestroyed<EmptyEditorClient> dummyEditorClient;
     pageClients.editorClient = &dummyEditorClient.get();
-
+#if !PLATFORM(JS)
     static NeverDestroyed<EmptyInspectorClient> dummyInspectorClient;
     pageClients.inspectorClient = &dummyInspectorClient.get();
-
+#endif
     static NeverDestroyed<EmptyFrameLoaderClient> dummyFrameLoaderClient;
     pageClients.loaderClientForMainFrame = &dummyFrameLoaderClient.get();
 }

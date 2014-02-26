@@ -21,33 +21,13 @@
 #include "config.h"
 #include "JSNavigator.h"
 
-#include "DOMMimeTypeArray.h"
-#include "DOMPluginArray.h"
-#include "Dictionary.h"
 #include "ExceptionCode.h"
 #include "JSDOMBinding.h"
-#include "JSDOMMimeTypeArray.h"
-#include "JSDOMPluginArray.h"
-#include "JSNavigatorUserMediaErrorCallback.h"
-#include "JSNavigatorUserMediaSuccessCallback.h"
 #include "Navigator.h"
-#include "NavigatorGeolocation.h"
-#include "NavigatorMediaStream.h"
-#include "NavigatorStorageQuota.h"
 #include "URL.h"
 #include <runtime/Error.h>
 #include <runtime/JSString.h>
 #include <wtf/GetPtr.h>
-
-#if ENABLE(GEOLOCATION)
-#include "Geolocation.h"
-#include "JSGeolocation.h"
-#endif
-
-#if ENABLE(QUOTA)
-#include "JSStorageQuota.h"
-#include "StorageQuota.h"
-#endif
 
 using namespace JSC;
 
@@ -63,28 +43,17 @@ static const HashTableValue JSNavigatorTableValues[] =
     { "language", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorLanguage), (intptr_t)0 },
     { "userAgent", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorUserAgent), (intptr_t)0 },
     { "platform", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorPlatform), (intptr_t)0 },
-    { "plugins", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorPlugins), (intptr_t)0 },
-    { "mimeTypes", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorMimeTypes), (intptr_t)0 },
     { "product", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorProduct), (intptr_t)0 },
     { "productSub", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorProductSub), (intptr_t)0 },
     { "vendor", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorVendor), (intptr_t)0 },
     { "vendorSub", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorVendorSub), (intptr_t)0 },
     { "cookieEnabled", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorCookieEnabled), (intptr_t)0 },
     { "onLine", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorOnLine), (intptr_t)0 },
-#if ENABLE(GEOLOCATION)
-    { "geolocation", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorGeolocation), (intptr_t)0 },
-#endif
-#if ENABLE(QUOTA)
-    { "webkitTemporaryStorage", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorWebkitTemporaryStorage), (intptr_t)0 },
-#endif
-#if ENABLE(QUOTA)
-    { "webkitPersistentStorage", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorWebkitPersistentStorage), (intptr_t)0 },
-#endif
     { "constructor", DontEnum | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsNavigatorConstructor), (intptr_t)0 },
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
-static const HashTable JSNavigatorTable = { 68, 63, JSNavigatorTableValues, 0 };
+static const HashTable JSNavigatorTable = { 35, 31, JSNavigatorTableValues, 0 };
 /* Hash table for constructor */
 
 static const HashTableValue JSNavigatorConstructorTableValues[] =
@@ -119,13 +88,10 @@ static const HashTableValue JSNavigatorPrototypeTableValues[] =
 {
     { "javaEnabled", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsNavigatorPrototypeFunctionJavaEnabled), (intptr_t)0 },
     { "getStorageUpdates", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsNavigatorPrototypeFunctionGetStorageUpdates), (intptr_t)0 },
-#if ENABLE(MEDIA_STREAM)
-    { "webkitGetUserMedia", JSC::Function, NoIntrinsic, (intptr_t)static_cast<NativeFunction>(jsNavigatorPrototypeFunctionWebkitGetUserMedia), (intptr_t)2 },
-#endif
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
-static const HashTable JSNavigatorPrototypeTable = { 8, 7, JSNavigatorPrototypeTableValues, 0 };
+static const HashTable JSNavigatorPrototypeTable = { 4, 3, JSNavigatorPrototypeTableValues, 0 };
 const ClassInfo JSNavigatorPrototype::s_info = { "NavigatorPrototype", &Base::s_info, &JSNavigatorPrototypeTable, 0, CREATE_METHOD_TABLE(JSNavigatorPrototype) };
 
 JSObject* JSNavigatorPrototype::self(VM& vm, JSGlobalObject* globalObject)
@@ -254,32 +220,6 @@ EncodedJSValue jsNavigatorPlatform(ExecState* exec, EncodedJSValue slotBase, Enc
 }
 
 
-EncodedJSValue jsNavigatorPlugins(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSNavigator* castedThis = jsDynamicCast<JSNavigator*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    Navigator& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.plugins()));
-    return JSValue::encode(result);
-}
-
-
-EncodedJSValue jsNavigatorMimeTypes(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSNavigator* castedThis = jsDynamicCast<JSNavigator*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    Navigator& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(impl.mimeTypes()));
-    return JSValue::encode(result);
-}
-
-
 EncodedJSValue jsNavigatorProduct(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
 {
     JSNavigator* castedThis = jsDynamicCast<JSNavigator*>(JSValue::decode(thisValue));
@@ -358,51 +298,6 @@ EncodedJSValue jsNavigatorOnLine(ExecState* exec, EncodedJSValue slotBase, Encod
 }
 
 
-#if ENABLE(GEOLOCATION)
-EncodedJSValue jsNavigatorGeolocation(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSNavigator* castedThis = jsDynamicCast<JSNavigator*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    Navigator& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(NavigatorGeolocation::geolocation(&impl)));
-    return JSValue::encode(result);
-}
-
-#endif
-
-#if ENABLE(QUOTA)
-EncodedJSValue jsNavigatorWebkitTemporaryStorage(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSNavigator* castedThis = jsDynamicCast<JSNavigator*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    Navigator& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(NavigatorStorageQuota::webkitTemporaryStorage(&impl)));
-    return JSValue::encode(result);
-}
-
-#endif
-
-#if ENABLE(QUOTA)
-EncodedJSValue jsNavigatorWebkitPersistentStorage(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSNavigator* castedThis = jsDynamicCast<JSNavigator*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    Navigator& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(NavigatorStorageQuota::webkitPersistentStorage(&impl)));
-    return JSValue::encode(result);
-}
-
-#endif
-
 EncodedJSValue jsNavigatorConstructor(ExecState* exec, EncodedJSValue thisValue, EncodedJSValue, PropertyName)
 {
     JSNavigator* domObject = jsDynamicCast<JSNavigator*>(JSValue::decode(thisValue));
@@ -442,37 +337,6 @@ EncodedJSValue JSC_HOST_CALL jsNavigatorPrototypeFunctionGetStorageUpdates(ExecS
     impl.getStorageUpdates();
     return JSValue::encode(jsUndefined());
 }
-
-#if ENABLE(MEDIA_STREAM)
-EncodedJSValue JSC_HOST_CALL jsNavigatorPrototypeFunctionWebkitGetUserMedia(ExecState* exec)
-{
-    JSValue thisValue = exec->hostThisValue();
-    JSNavigator* castedThis = jsDynamicCast<JSNavigator*>(thisValue);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    ASSERT_GC_OBJECT_INHERITS(castedThis, JSNavigator::info());
-    Navigator& impl = castedThis->impl();
-    if (exec->argumentCount() < 2)
-        return throwVMError(exec, createNotEnoughArgumentsError(exec));
-    ExceptionCode ec = 0;
-    Dictionary options(exec, exec->argument(0));
-    if (exec->hadException())
-        return JSValue::encode(jsUndefined());
-    if (!exec->argument(1).isFunction())
-        return throwVMTypeError(exec);
-    RefPtr<NavigatorUserMediaSuccessCallback> successCallback = JSNavigatorUserMediaSuccessCallback::create(asObject(exec->uncheckedArgument(1)), castedThis->globalObject());
-    RefPtr<NavigatorUserMediaErrorCallback> errorCallback;
-    if (!exec->argument(2).isUndefinedOrNull()) {
-        if (!exec->uncheckedArgument(2).isFunction())
-            return throwVMTypeError(exec);
-        errorCallback = JSNavigatorUserMediaErrorCallback::create(asObject(exec->uncheckedArgument(2)), castedThis->globalObject());
-    }
-    NavigatorMediaStream::webkitGetUserMedia(&impl, options, successCallback, errorCallback, ec);
-    setDOMException(exec, ec);
-    return JSValue::encode(jsUndefined());
-}
-
-#endif
 
 static inline bool isObservable(JSNavigator* jsNavigator)
 {

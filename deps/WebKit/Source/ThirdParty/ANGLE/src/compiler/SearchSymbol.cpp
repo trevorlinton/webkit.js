@@ -5,6 +5,9 @@
 //
 // SearchSymbol is an AST traverser to detect the use of a given symbol name
 //
+#if PLATFORM(JS)
+#include "config.h"
+#endif
 
 #include "compiler/SearchSymbol.h"
 

@@ -198,6 +198,7 @@ static void* wtfThreadEntryPoint(void* param)
 
 ThreadIdentifier createThreadInternal(ThreadFunction entryPoint, void* data, const char*)
 {
+#if !PLATFORM(JS)
     auto invocation = std::make_unique<ThreadFunctionInvocation>(entryPoint, data);
     pthread_t threadHandle;
     if (pthread_create(&threadHandle, 0, wtfThreadEntryPoint, invocation.get())) {
@@ -210,6 +211,9 @@ ThreadIdentifier createThreadInternal(ThreadFunction entryPoint, void* data, con
     UNUSED_PARAM(leakedInvocation);
 
     return establishIdentifierForPthreadHandle(threadHandle);
+#else
+    return 0;
+#endif
 }
 
 void initializeCurrentThreadInternal(const char* threadName)

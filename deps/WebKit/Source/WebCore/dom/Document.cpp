@@ -107,7 +107,9 @@
 #include "PageGroup.h"
 #include "PageTransitionEvent.h"
 #include "PlatformLocale.h"
+#if !PLATFORM(JS)
 #include "PlugInsResources.h"
+#endif
 #include "PluginDocument.h"
 #include "PointerLockController.h"
 #include "PopStateEvent.h"
@@ -6098,6 +6100,7 @@ void Document::didAssociateFormControlsTimerFired(Timer<Document>* timer)
 
 void Document::ensurePlugInsInjectedScript(DOMWrapperWorld& world)
 {
+#if !PLATFORM(JS)
     if (m_hasInjectedPlugInsScript)
         return;
 
@@ -6109,6 +6112,9 @@ void Document::ensurePlugInsInjectedScript(DOMWrapperWorld& world)
     m_frame->mainFrame().script().evaluateInWorld(ScriptSourceCode(jsString), world);
 
     m_hasInjectedPlugInsScript = true;
+#else
+    return;
+#endif
 }
 
 } // namespace WebCore

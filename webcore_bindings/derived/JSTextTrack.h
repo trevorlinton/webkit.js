@@ -168,9 +168,6 @@ JSC::EncodedJSValue jsTextTrackCues(JSC::ExecState*, JSC::EncodedJSValue, JSC::E
 JSC::EncodedJSValue jsTextTrackActiveCues(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsTextTrackOncuechange(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSTextTrackOncuechange(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#if ENABLE(MEDIA_SOURCE) && ENABLE(VIDEO_TRACK)
-JSC::EncodedJSValue jsTextTrackSourceBuffer(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-#endif
 JSC::EncodedJSValue jsTextTrackConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 
 } // namespace WebCore

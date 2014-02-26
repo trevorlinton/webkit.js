@@ -36,6 +36,9 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #else
+#ifdef TARGET_EMSCRIPTEN
+#error "Cannot use emscripten with GL, intended for GL ES 2 only."
+#endif
 #include "Extensions3DOpenGL.h"
 #include "OpenGLShims.h"
 #include <GL/gl.h>

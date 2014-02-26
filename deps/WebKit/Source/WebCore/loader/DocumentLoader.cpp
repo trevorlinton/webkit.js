@@ -595,8 +595,11 @@ void DocumentLoader::responseReceived(CachedResource* resource, const ResourceRe
 {
     ASSERT_UNUSED(resource, m_mainResource == resource);
     Ref<DocumentLoader> protect(*this);
+#if PLATFORM(JS)
+    bool willLoadFallback = false;
+#else
     bool willLoadFallback = m_applicationCacheHost->maybeLoadFallbackForMainResponse(request(), response);
-
+#endif
     // The memory cache doesn't understand the application cache or its caching rules. So if a main resource is served
     // from the application cache, ensure we don't save the result for future use.
     if (willLoadFallback)
@@ -885,8 +888,9 @@ void DocumentLoader::dataReceived(CachedResource* resource, const char* data, in
 
     if (m_identifierForLoadWithoutResourceLoader)
         frameLoader()->notifier().dispatchDidReceiveData(this, m_identifierForLoadWithoutResourceLoader, data, length, -1);
-
+#if !PLATFORM(JS)
     m_applicationCacheHost->mainResourceDataReceived(data, length, -1, false);
+#endif
     m_timeOfLastDataReceived = monotonicallyIncreasingTime();
 
     if (!isMultipartReplacingLoad())
@@ -954,8 +958,9 @@ void DocumentLoader::detachFromFrame()
     stopLoading();
     if (m_mainResource && m_mainResource->hasClient(this))
         m_mainResource->removeClient(this);
-
+#if !PLATFORM(JS)
     m_applicationCacheHost->setDOMApplicationCache(0);
+#endif
     InspectorInstrumentation::loaderDetachedFromFrame(m_frame, this);
     m_frame = 0;
 }

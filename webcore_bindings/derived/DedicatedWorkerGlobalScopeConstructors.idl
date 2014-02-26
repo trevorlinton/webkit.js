@@ -1,3 +1,2 @@
 partial interface DedicatedWorkerGlobalScope {
-    attribute DedicatedWorkerGlobalScopeConstructor DedicatedWorkerGlobalScope;
 };

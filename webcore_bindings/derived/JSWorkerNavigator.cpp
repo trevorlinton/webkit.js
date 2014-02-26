@@ -23,14 +23,8 @@
 
 #include "URL.h"
 #include "WorkerNavigator.h"
-#include "WorkerNavigatorStorageQuota.h"
 #include <runtime/JSString.h>
 #include <wtf/GetPtr.h>
-
-#if ENABLE(QUOTA)
-#include "JSStorageQuota.h"
-#include "StorageQuota.h"
-#endif
 
 using namespace JSC;
 
@@ -45,12 +39,6 @@ static const HashTableValue JSWorkerNavigatorTableValues[] =
     { "platform", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWorkerNavigatorPlatform), (intptr_t)0 },
     { "userAgent", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWorkerNavigatorUserAgent), (intptr_t)0 },
     { "onLine", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWorkerNavigatorOnLine), (intptr_t)0 },
-#if ENABLE(QUOTA)
-    { "webkitTemporaryStorage", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWorkerNavigatorWebkitTemporaryStorage), (intptr_t)0 },
-#endif
-#if ENABLE(QUOTA)
-    { "webkitPersistentStorage", DontDelete | ReadOnly, NoIntrinsic, (intptr_t)static_cast<PropertySlot::GetValueFunc>(jsWorkerNavigatorWebkitPersistentStorage), (intptr_t)0 },
-#endif
     { 0, 0, NoIntrinsic, 0, 0 }
 };
 
@@ -181,36 +169,6 @@ EncodedJSValue jsWorkerNavigatorOnLine(ExecState* exec, EncodedJSValue slotBase,
     return JSValue::encode(result);
 }
 
-
-#if ENABLE(QUOTA)
-EncodedJSValue jsWorkerNavigatorWebkitTemporaryStorage(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSWorkerNavigator* castedThis = jsDynamicCast<JSWorkerNavigator*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    WorkerNavigator& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(WorkerNavigatorStorageQuota::webkitTemporaryStorage(&impl)));
-    return JSValue::encode(result);
-}
-
-#endif
-
-#if ENABLE(QUOTA)
-EncodedJSValue jsWorkerNavigatorWebkitPersistentStorage(ExecState* exec, EncodedJSValue slotBase, EncodedJSValue thisValue, PropertyName)
-{
-    JSWorkerNavigator* castedThis = jsDynamicCast<JSWorkerNavigator*>(JSValue::decode(thisValue));
-    UNUSED_PARAM(slotBase);
-    if (!castedThis)
-        return throwVMTypeError(exec);
-    UNUSED_PARAM(exec);
-    WorkerNavigator& impl = castedThis->impl();
-    JSValue result = toJS(exec, castedThis->globalObject(), WTF::getPtr(WorkerNavigatorStorageQuota::webkitPersistentStorage(&impl)));
-    return JSValue::encode(result);
-}
-
-#endif
 
 static inline bool isObservable(JSWorkerNavigator* jsWorkerNavigator)
 {

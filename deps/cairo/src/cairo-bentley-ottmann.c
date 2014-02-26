@@ -2091,7 +2091,7 @@ run_test (const char		*test_name,
 }
 
 #define MAX_RANDOM 300
-
+#ifndef TARGET_EMSCRIPTEN
 int
 main (void)
 {
@@ -2129,4 +2129,5 @@ main (void)
 
     return 0;
 }
+#endif
 #endif

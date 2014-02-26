@@ -210,10 +210,6 @@ void setJSHTMLMediaElementOnwebkitcurrentplaybacktargetiswirelesschanged(JSC::Ex
 JSC::EncodedJSValue jsHTMLMediaElementOnwebkitplaybacktargetavailabilitychanged(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 void setJSHTMLMediaElementOnwebkitplaybacktargetavailabilitychanged(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
 #endif
-#if ENABLE(MEDIA_STREAM) && ENABLE(VIDEO)
-JSC::EncodedJSValue jsHTMLMediaElementSrcObject(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
-void setJSHTMLMediaElementSrcObject(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue);
-#endif
 JSC::EncodedJSValue jsHTMLMediaElementConstructor(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 // Constants
 

@@ -35,6 +35,7 @@
 #include <limits.h>
 #include <limits>
 #include <math.h>
+#include <cmath>
 #include <stdlib.h>
 #include <wtf/MathExtras.h>
 #include <wtf/SaturatedArithmetic.h>
@@ -168,8 +169,8 @@ public:
         if (static_cast<int>(floatValue * kEffectiveFixedPointDenominator) == m_value)
             return floatValue;
         if (floatValue > 0)
-            return nextafterf(floatValue, std::numeric_limits<float>::max());
-        return nextafterf(floatValue, std::numeric_limits<float>::min());
+      return ::nextafterf(floatValue, std::numeric_limits<float>::max());
+      return ::nextafterf(floatValue, std::numeric_limits<float>::min());
     }
 #else
     int toInt() const { return m_value; }
