@@ -1,7 +1,7 @@
 {
   'includes': [
     'features.gypi',
-    'sources.gypi',
+    'derived.gypi',
     'common.gypi',
   ],
   'variables': {
