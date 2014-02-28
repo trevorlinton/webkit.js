@@ -95,7 +95,7 @@ gclient sync
 ```
 * Configuring:
 ```
-./build/config.sh
+./config.sh
 ```
 * You should now have project files built for your platform. In Mac OS X you can open build/all.xcodeproj, or in windows build/all.vcproj. To build go to the root folder and run:
 * Building:
@@ -113,6 +113,8 @@ I currently don't have any running online demos, the API is so influx that most 
 4. Note you'll need to use EventHandler class to forward in mouse clicks and keyboard events for interaction.
 5. If WebKit crashes it will attempt to write a "core" file, this will have a stack trace that can be used in gdb to figure out where something went wrong. In the browser this is through emscripten's emulated "file system", effectively just a huge text blob.
 
+You can also try running `node webkit.js <html>` from a commandline. It will most likely through a llvm-trap though.
+
 Contributing
 --------------
 
@@ -125,11 +127,11 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * `/deps/WebKit/Source/WebCore/bindings/scripts` This is an important folder where WebKit autogenerates bindings
 * `/deps/WebKit/Source/WTF/` is a cross-platform library for common tasks such as HashMaps, etc.
 * `/deps/WebKit/Source/WTF/PlatformJS.h` these are C++ pre-process settings for PLATFORM(JS)
-* `/build/features.gypi` You can turn various features in WebCore on and off here
-* `/build/common.gypi` You can change various compiler settings, system paths, etc.
-* `/build/all.gypi` This contains the build arch and is the first file used when generating project files with gyp.
-* `/build/sources.gypi` This file contains the list of all of the sources to compile.
-* `/build/config.sh` This autogenerates the project files, it also tries to find em++/emcc and all of your tools, if config files, check the file to make sure its finding emscripten and clang.
+* `/features.gypi` You can turn various features in WebCore on and off here
+* `/common.gypi` You can change various compiler settings, system paths, etc.
+* `/all.gypi` This contains the build arch and is the first file used when generating project files with gyp.
+* `/sources.gypi` This file contains the list of all of the sources to compile.
+* `/config.sh` This autogenerates the project files, it also tries to find em++/emcc and all of your tools, if config files, check the file to make sure its finding emscripten and clang.
 
 **It's important to know**
 

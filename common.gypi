@@ -1,7 +1,7 @@
 {
 	'variables':{
 		'perl_exe':'/usr/bin/perl',
-		'emscripten_libtype':'shared_library',
+		'emscripten_libtype':'static_library', # shared_library produces duplicate symbols.
 		'emscripten_cc':'<!(echo $EMSCRIPTEN_ROOT)/emcc',
 		'emscripten_cxx':'<!(echo $EMSCRIPTEN_ROOT)/em++',
 		'emscripten_sysroot':'<!(echo $EMSCRIPTEN_ROOT)/system/',
@@ -9,7 +9,7 @@
 		'cflags':'-Wno-warn-absolute-paths -isysroot <(emscripten_sysroot)',
 		'cflags_cc':'-std=c++0x',
 		'ldflags':'',
-		'webcore_excludes':'(SSLHandle\\.cpp$|leveldb/|skia|glx/|cg/|ca/|avfoundation/|wince/|Modules/|soup/|ios/|nix/|plugin/|plugins/|blackberry/|WinCE|Gtk|storage/|win/|linux/|glib/|cocoa/|gtk/|cf/|mac/|efl/|appcache/|ExportFileGenerator\\.cpp$|loader/EmptyClients.cpp$|CF\\.cpp$|IOS\\.|Mac\\.|Win\\.|XMLHttpRequest|ThemeSafari|PlugInElement|PlugInImageElement|JSAbstractView|InspectorWebBackend|AllInOne|OpenTypeUtilities|HarfBuzzFaceCoreText|graphics/FontPlatformData\\.cpp$|GraphicsContext3DOpenGL\\.cpp$|platform/sql/|ICU\\.cpp$|enchant/|ExportFileGenerator\\.cpp$|SmartReplaceICU\\.cpp$|HTMLObjectElement\\.cpp$|RenderEmbeddedObject\\.cpp$|Extensions3DOpenGL\\.cpp$|DragController\\.cpp$|JSDOMPlugin\\.cpp$|derived/JS)',
+		'webcore_excludes':'(SSLHandle\\.cpp$|leveldb/|skia|glx/|cg/|ca/|avfoundation/|wince/|Modules/|soup/|ios/|nix/|plugin/|plugins/|blackberry/|WinCE|Gtk|storage/|win/|linux/|glib/|cocoa/|gtk/|cf/|mac/|efl/|appcache/|ExportFileGenerator\\.cpp$|CF\\.cpp$|IOS\\.|Mac\\.|Win\\.|XMLHttpRequest|ThemeSafari|PlugInElement|PlugInImageElement|JSAbstractView|InspectorWebBackend|AllInOne|OpenTypeUtilities|HarfBuzzFaceCoreText|graphics/FontPlatformData\\.cpp$|GraphicsContext3DOpenGL\\.cpp$|platform/sql/|ICU\\.cpp$|enchant/|ExportFileGenerator\\.cpp$|SmartReplaceICU\\.cpp$|HTMLObjectElement\\.cpp$|RenderEmbeddedObject\\.cpp$|Extensions3DOpenGL\\.cpp$|DragController\\.cpp$|JSDOMPlugin\\.cpp$|derived/JS|posix/|debug.cpp$|ANGLE/src/common/|_win.cpp$)', #InitializeParseContext|ossource_posix.cpp$
 	},
 	'target_defaults': {
 		'default_configuration': 'Release',
