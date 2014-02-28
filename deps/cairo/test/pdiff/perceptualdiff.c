@@ -89,6 +89,7 @@ static bool Yee_Compare(args_t *args)
     return false;
 }
 
+#ifndef TARGET_EMSCRIPTEN
 int main(int argc, char **argv)
 {
     args_t args;
@@ -103,3 +104,4 @@ int main(int argc, char **argv)
     }
     return ! Yee_Compare(&args);
 }
+#endif

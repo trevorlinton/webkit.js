@@ -39,7 +39,7 @@ typedef int ANGLEGetInfoType;
 #else
 typedef size_t ANGLEGetInfoType;
 #endif
-
+/*
 #if PLATFORM(JS)
   void ShInitBuiltInResources(ShBuiltInResources* resources) {
     // Constants.
@@ -68,7 +68,7 @@ typedef size_t ANGLEGetInfoType;
     resources->ArrayIndexClampingStrategy = SH_CLAMP_WITH_CLAMP_INTRINSIC;
   }
 #endif
-
+*/
 inline static ANGLEGetInfoType getValidationResultValue(const ShHandle compiler, ShShaderInfo shaderInfo)
 {
     ANGLEGetInfoType value = 0;

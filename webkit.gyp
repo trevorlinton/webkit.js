@@ -33,6 +33,7 @@
         'webcore_history',
         'webcore_editing',
         'webcore_storage',
+        'webcore_angle',
       ],
       'sources':[
         '<(DEPTH)/src/ChromeClientJS.cpp',
@@ -50,7 +51,7 @@
       'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
       'include_dirs':['<@(webcore_includes)'],
       'cflags+':['-include ../deps/WebKit/Source/WebCore/WebCorePrefix.h'],
-      'ldflags+':['-s EXPORTED_FUNCTIONS="[\'_main\']" -s FULL_ES2=1'],
+      'ldflags+':['-s EXPORTED_FUNCTIONS="[\'_main\']" -s FULL_ES2=1 --remove-duplicates'],
     },
     {
       'target_name':'webcore_xml',
@@ -173,6 +174,14 @@
       'cflags+':['-include ../deps/WebKit/Source/WebCore/WebCorePrefix.h'],
     },
     {
+      'target_name': 'webcore_angle',
+      'defines+': ['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'sources': ['<@(webcore_angle_files)',],
+      'sources/':[ ['exclude','<(webcore_excludes)'] ],
+      'include_dirs':['<@(webcore_includes)'],
+      'cflags+':['-include ../deps/WebKit/Source/WebCore/WebCorePrefix.h'],
+    },
+    {
       'target_name': 'xml',
       'sources':['<@(libxml2)',],
       'include_dirs':[
@@ -241,7 +250,7 @@
         'HAVE_UINT64_T',
       ],
       'sources': ['<@(cairo)',],
-      'sources/': [['exclude', '(prefs/|perf/|util/|test/|os2|win32|beos|qt|boilerplate|arm-|sse2|pdf|quartz|script-|wgl|xcb|vg-|-drm|skia-|tee-|xlib-|xml-|-vmx|utils/|cogl|egl-|directfb-|glx-|check-has-hidden|pixman-region.c$|perceptualdiff\\.c$|cairo-ps-surface\\.c$|cairo-pdf-surface\\.c$|cairo-svg-surface\\.c$|cairo-contour\\.c$$|cairo-path-stroke-polygon\\.c$|cairo-time\\.c$)'],],
+      'sources/': [['exclude', '(prefs/|perf/|util/|test/|os2|win32|beos|qt|boilerplate|arm-|sse2|pdf|quartz|script-|wgl|xcb|vg-|-drm|skia-|tee-|xlib-|xml-|-vmx|utils/|cogl|egl-|directfb-|glx-|check-has-hidden|pixman-region.c$|perceptualdiff\\.c$|cairo-ps-surface\\.c$|cairo-pdf-surface\\.c$|cairo-svg-surface\\.c$|cairo-time\\.c$)'],], #cairo-path-stroke-polygon\\.c$|cairo-contour\\.c$
       'include_dirs': [
         '<(DEPTH)/deps/cairo',
         '<(DEPTH)/deps/cairo/src',
@@ -252,7 +261,7 @@
         '<(DEPTH)/deps/freetype2/include/freetype/config/',
       ],
       'cxx':'<(emscripten_cc)',
-      'cflags+':['-DTARGET_EMSCRIPTEN -include ../deps/cairo/config/config.h'],
+      'cflags+':['-include ../deps/cairo/config/config.h'],
     },
     {
       'target_name': 'curl',
@@ -271,5 +280,21 @@
       'include_dirs':['<(DEPTH)/deps/zlib',],
       'cxx':'<(emscripten_cc)',
     },
+    #{
+    #  'target_name':'webcore_derived_sources',
+    #  'type':'none',
+    #  'sources':[
+    #    '<(DEPTH)/WebKit/Source/WebCore/dom/EventNames.in',
+    #    '<(DEPTH)/WebKit/Source/WebCore/DerivedSources.make',
+    #  ],
+    #  'actions':[
+    #    {
+    #      'action_name':'generate',
+    #      'inputs':['<(_sources)'],
+    #      'outputs':['<(DEPTH)/src/derived/derived.STAMP'],
+    #      'action':['bash -c "/usr/bin/perl -I <(DEPTH)/deps/WebKit/Source/WebCore/bindings/scripts <(DEPTH)/deps/WebKit/Source/WebCore/dom/make_event_factory.pl --input  <(DEPTH)/deps/WebKit/Source/WebCore/dom/EventNames.in  --outputDir=<(DEPTH)/webcore_bindings/derived ; export SRCROOT=<(DEPTH)/deps/WebKit/Source/WebCore ; export SOURCE_ROOT=<(DEPTH)/deps/WebKit/Source/WebCore ; export WebCore=<(DEPTH)/deps/WebKit/Source/WebCore ; export InspectorScripts=<(DEPTH)/deps/WebKit/Source/JavaScriptCore/inspector/scripts/ ; make -C <(DEPTH)/src/derived -f <(DEPTH)/deps/WebKit/Source/WebCore/DerivedSources.make ; touch <(DEPTH)/src/derived/derived.STAMP'],
+    #    },
+    #  ],
+    #}
   ],
 }

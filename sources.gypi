@@ -122,6 +122,8 @@
 		  '<(DEPTH)/deps/cairo',
 		  '<(DEPTH)/deps/cairo/src',
 		  '<(DEPTH)/deps/libxml2/include',
+      '<(DEPTH)/deps/WebKit/Source/ThirdParty/ANGLE/src/',
+      '<(DEPTH)/deps/WebKit/Source/ThirdParty/ANGLE/include/',
 		],
 		'zlib_files':[
 			'<(DEPTH)/deps/zlib/adler32.c',
