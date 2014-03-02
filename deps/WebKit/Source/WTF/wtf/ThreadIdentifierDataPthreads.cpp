@@ -51,31 +51,42 @@ void threadDidExit(ThreadIdentifier);
 
 ThreadIdentifierData::~ThreadIdentifierData()
 {
+#if !PLATFORM(JS)
     threadDidExit(m_identifier);
+#endif
 }
 
 void ThreadIdentifierData::initializeOnce()
 {
+#if !PLATFORM(JS)
     if (pthread_key_create(&m_key, destruct))
         CRASH();
+#endif
 }
 
 ThreadIdentifier ThreadIdentifierData::identifier()
 {
+#if !PLATFORM(JS)
     ASSERT(m_key != PTHREAD_KEYS_MAX);
     ThreadIdentifierData* threadIdentifierData = static_cast<ThreadIdentifierData*>(pthread_getspecific(m_key));
 
     return threadIdentifierData ? threadIdentifierData->m_identifier : 0;
+#else
+    return 0;
+#endif
 }
 
 void ThreadIdentifierData::initialize(ThreadIdentifier id)
 {
+#if !PLATFORM(JS)
     ASSERT(!identifier());
     pthread_setspecific(m_key, new ThreadIdentifierData(id));
+#endif
 }
 
 void ThreadIdentifierData::destruct(void* data)
 {
+#if !PLATFORM(JS)
     ThreadIdentifierData* threadIdentifierData = static_cast<ThreadIdentifierData*>(data);
     ASSERT(threadIdentifierData);
 
@@ -87,6 +98,7 @@ void ThreadIdentifierData::destruct(void* data)
     threadIdentifierData->m_isDestroyedOnce = true;
     // Re-setting the value for key causes another destruct() call after all other thread-specific destructors were called.
     pthread_setspecific(m_key, threadIdentifierData);
+#endif
 }
 
 } // namespace WTF

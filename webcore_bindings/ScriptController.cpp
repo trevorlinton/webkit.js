@@ -79,6 +79,20 @@ ScriptController::~ScriptController()
     
 }
 
+bool ScriptController::canExecuteScripts(ReasonForCallingCanExecuteScripts reason) {
+  notImplemented();
+  return false;
+}
+
+void ScriptController::updateDocument() {
+  // TODO, What should we do here?
+  notImplemented();
+}
+void ScriptController::updatePlatformScriptObjects() {
+  // TODO, What should we do here?
+  notImplemented();
+}
+
 void ScriptController::destroyWindowShell(DOMWrapperWorld& world) { notImplemented(); }
 
 JSDOMWindowShell* ScriptController::createWindowShell(DOMWrapperWorld& world) { notImplemented(); }
@@ -109,7 +123,6 @@ void ScriptController::attachDebugger(JSC::Debugger* debugger) { notImplemented(
 
 void ScriptController::attachDebugger(JSDOMWindowShell* shell, JSC::Debugger* debugger) { notImplemented(); }
 
-void ScriptController::updateDocument() { notImplemented(); }
 
 Bindings::RootObject* ScriptController::cacheableBindingRootObject() { notImplemented(); }
 
@@ -125,7 +138,6 @@ void ScriptController::collectIsolatedContexts(Vector<std::pair<JSC::ExecState*,
 
 PassRefPtr<JSC::Bindings::Instance> ScriptController::createScriptInstanceForWidget(Widget* widget) { notImplemented(); }
 
-void ScriptController::updatePlatformScriptObjects() { notImplemented(); }
 
 void ScriptController::disconnectPlatformScriptObjects() { notImplemented(); }
 
@@ -136,8 +148,6 @@ void ScriptController::clearScriptObjects() { notImplemented(); }
 Deprecated::ScriptValue ScriptController::executeScriptInWorld(DOMWrapperWorld& world, const String& script, bool forceUserGesture)  { notImplemented(); }
 
 bool ScriptController::shouldBypassMainWorldContentSecurityPolicy() { notImplemented(); }
-
-bool ScriptController::canExecuteScripts(ReasonForCallingCanExecuteScripts reason) { notImplemented(); }
 
 Deprecated::ScriptValue ScriptController::executeScript(const String& script, bool forceUserGesture) { notImplemented(); }
 

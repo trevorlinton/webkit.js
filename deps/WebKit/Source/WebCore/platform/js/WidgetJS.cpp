@@ -77,12 +77,12 @@ void Widget::setCursor(const Cursor& cursor)
 
 void Widget::show()
 {
-    notImplemented();
+    //TODO: Should we do anything here?
 }
 
 void Widget::hide()
 {
-    notImplemented();
+    //TODO: Should we do anything here?
 }
 
 void Widget::paint(GraphicsContext*, const IntRect&)
