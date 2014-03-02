@@ -23,7 +23,7 @@ namespace WebCore {
   ChromeClientJS::ChromeClientJS()
   {
     EM_ASM(
-           console.log("WebKit: ChromeClientJS::new();");
+           console.log("WebKit: ChromeClientJS::ChromeClientJS();");
            );
   }
   void ChromeClientJS::chromeDestroyed()

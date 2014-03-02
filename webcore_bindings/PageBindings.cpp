@@ -55,6 +55,55 @@ void WTF::scheduleDispatchFunctionsOnMainThread() {
 }
 
 namespace WebCore {
+  static bool timerActive;
+  static unsigned timerInterval;
+  static void (*sharedTimerFiredFunction)();
+
+  void sharedTimerRun(void *args) {
+    if(timerActive) {
+      sharedTimerFiredFunction();
+      emscripten_async_call(sharedTimerRun, NULL, timerInterval);
+    }
+  }
+
+  void stopSharedTimer()
+  {
+    if (timerActive) {
+      timerActive = false;
+    }
+  }
+
+  void setSharedTimerFiredFunction(void (*f)())
+  {
+    sharedTimerFiredFunction = f;
+    if(timerInterval && timerInterval > 0) {
+      timerActive = true;
+    }
+  }
+
+  void setSharedTimerFireInterval(double interval)
+  {
+    ASSERT(sharedTimerFiredFunction);
+
+    unsigned intervalInMS;
+    if (interval < 0)
+      intervalInMS = 0;
+    else {
+      interval *= 1000;
+      intervalInMS = (unsigned)interval;
+    }
+
+    stopSharedTimer();
+    timerInterval = intervalInMS;
+    timerActive = true;
+  }
+
+  ApplicationCacheHost::ApplicationCacheHost(WebCore::DocumentLoader* documentLoader)
+  : m_documentLoader(documentLoader)
+  , m_defersEvents(true)
+  {
+    ASSERT(m_documentLoader);
+  }
 
   RenderPtr<RenderElement> HTMLPlugInElement::createElementRenderer(PassRef<RenderStyle> style) { return nullptr; }
   void HTMLPlugInElement::defaultEventHandler(Event* event) { notImplemented(); }
@@ -96,15 +145,13 @@ namespace WebCore {
   void ResourceHandle::continueWillSendRequest(WebCore::ResourceRequest const&) {
     notImplemented();
   }
-  // TODO: Implement this
-  RuntimeEnabledFeatures& RuntimeEnabledFeatures::sharedFeatures() {
-    notImplemented();
-  }
 
   // TODO: Implement this
   FloatRect screenRect(WebCore::Widget*) { notImplemented(); }
 
-  char* localizedString(char const* in) { notImplemented(); }
+  char* localizedString(char const* in) {
+    return NULL;
+  }
 
   struct ExtensionMap {
     const char* extension;
@@ -167,16 +214,13 @@ namespace WebCore {
     return nullptr;
   }
   /* Not Implemented */
-  PassRefPtr<RenderTheme> RenderTheme::themeForPage(WebCore::Page*) { notImplemented(); }
   ScrollbarTheme* ScrollbarTheme::nativeTheme() { notImplemented(); }
   void platformUserPreferredLanguages() { notImplemented(); }
   int screenDepthPerComponent(WebCore::Widget*) { notImplemented(); }
   bool screenIsMonochrome(WebCore::Widget*) { return false; }
   void setSSLVerifyOptions(WebCore::ResourceHandle*) { notImplemented(); }
-  void setSharedTimerFireInterval(double) { notImplemented(); }
-  void setSharedTimerFiredFunction(void (*)()) { notImplemented(); }
+
   void signedPublicKeyAndChallengeString(unsigned int, WTF::String const&, WebCore::URL const&) { notImplemented(); }
-  void stopSharedTimer() { notImplemented(); }
   void willCreatePossiblyOrphanedTreeByRemovalSlowCase(WebCore::Node*) { notImplemented(); }
   bool RenderEmbeddedObject::allowsAcceleratedCompositing() const { return false; }
   RenderPtr<RenderEmbeddedObject> RenderEmbeddedObject::createForApplet(WebCore::HTMLAppletElement& a, WTF::PassRef<WebCore::RenderStyle> b) { notImplemented(); }
@@ -203,7 +247,6 @@ namespace WebCore {
   bool PlatformKeyboardEvent::currentCapsLockState() { return false; }
   void PlatformKeyboardEvent::getCurrentModifierState(bool& a, bool& b, bool& c, bool& d) { notImplemented(); }
 
-  ApplicationCacheHost::ApplicationCacheHost(WebCore::DocumentLoader* a) { notImplemented(); }
   bool ApplicationCacheHost::canCacheInPageCache() { return false; }
   void ApplicationCacheHost::failedLoadingMainResource() { notImplemented(); }
   void ApplicationCacheHost::finishedLoadingMainResource() { notImplemented(); }

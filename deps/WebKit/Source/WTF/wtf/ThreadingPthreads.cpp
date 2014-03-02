@@ -146,8 +146,10 @@ void initializeThreading()
 
 void lockAtomicallyInitializedStaticMutex()
 {
+#if !PLATFORM(JS)
     ASSERT(atomicallyInitializedStaticMutex);
     atomicallyInitializedStaticMutex->lock();
+#endif
 }
 
 void unlockAtomicallyInitializedStaticMutex()
@@ -176,11 +178,15 @@ static ThreadIdentifier identifierByPthreadHandle(const pthread_t& pthreadHandle
 
 static ThreadIdentifier establishIdentifierForPthreadHandle(const pthread_t& pthreadHandle)
 {
+#if !PLATFORM(JS)
     ASSERT(!identifierByPthreadHandle(pthreadHandle));
     MutexLocker locker(threadMapMutex());
     static ThreadIdentifier identifierCount = 1;
     threadMap().add(identifierCount, std::make_unique<PthreadState>(pthreadHandle));
     return identifierCount++;
+#else
+    return 0;
+#endif
 }
 
 static pthread_t pthreadHandleForIdentifierWithLockAlreadyHeld(ThreadIdentifier id)
