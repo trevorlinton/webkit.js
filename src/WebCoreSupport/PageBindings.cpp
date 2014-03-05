@@ -10,7 +10,7 @@
 #include "ScriptValue.h"
 #include "ScriptCallFrame.h"
 #include "ScriptCallStack.h"
-#include "NotImplemented.h"
+#include "Debugger.h"
 #include "Cursor.h"
 #include "APICast.h"
 #include "InspectorValues.h"

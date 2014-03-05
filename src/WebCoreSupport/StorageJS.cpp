@@ -28,7 +28,7 @@
 
 #include "Document.h"
 #include "ExceptionCode.h"
-#include "NotImplemented.h"
+#include "Debugger.h"
 #include "Frame.h"
 #include "Page.h"
 #include "SchemeRegistry.h"
@@ -41,7 +41,8 @@ namespace WebCore {
 
 PassRefPtr<Storage> Storage::create(Frame* frame, PassRefPtr<StorageArea> storageArea)
 {
-    return adoptRef(new Storage(frame, storageArea));
+  notImplemented();
+  return adoptRef(new Storage(frame, storageArea));
 }
 
 Storage::Storage(Frame* frame, PassRefPtr<StorageArea> storageArea)
@@ -60,16 +61,19 @@ Storage::~Storage()
 
 unsigned Storage::length(ExceptionCode& ec) const
 {
+  notImplemented();
   return 0;
 }
 
 String Storage::key(unsigned index, ExceptionCode& ec) const
 {
+  notImplemented();
   return String();
 }
 
 String Storage::getItem(const String& key, ExceptionCode& ec) const
 {
+  notImplemented();
   return key;
 }
 
@@ -93,12 +97,14 @@ void Storage::clear(ExceptionCode& ec)
 
 bool Storage::contains(const String& key, ExceptionCode& ec) const
   {
+    notImplemented();
     return false;
   }
 
 
 bool Storage::isDisabledByPrivateBrowsing() const
 {
+  notImplemented();
   return false;
 }
 

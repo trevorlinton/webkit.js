@@ -25,7 +25,7 @@
 
 #include "config.h"
 #include "SharedBuffer.h"
-
+#include "Debugger.h"
 #include "FileSystem.h"
 
 #include <fcntl.h>
@@ -37,6 +37,7 @@ namespace WebCore {
 
 PassRefPtr<SharedBuffer> SharedBuffer::createWithContentsOfFile(const String& filePath)
 {
+    webkitTrace();
     if (filePath.isEmpty())
         return 0;
 

@@ -25,7 +25,7 @@
 
 #include "config.h"
 #include "StorageArea.h"
-#include "NotImplemented.h"
+#include "Debugger.h"
 #include "Document.h"
 #include "ExceptionCode.h"
 #include "Frame.h"
@@ -73,26 +73,31 @@ PassRefPtr<StorageArea> StorageArea::copy()
 
 bool StorageArea::canAccessStorage(Frame* frame)
 {
+  notImplemented();
   return false;
 }
 
 StorageType StorageArea::storageType() const
 {
-    return LocalStorage;
+  notImplemented();
+  return LocalStorage;
 }
 
 unsigned StorageArea::length()
 {
+  notImplemented();
   return 0;
 }
 
 String StorageArea::key(unsigned index)
 {
+  notImplemented();
   return String();
 }
 
 String StorageArea::item(const String& key)
 {
+  notImplemented();
   return key;
 }
 
@@ -114,6 +119,7 @@ void StorageArea::clear(Frame* sourceFrame)
 
 bool StorageArea::contains(const String& key)
   {
+    notImplemented();
     return false;
   }
 /*
@@ -150,6 +156,7 @@ void StorageArea::blockUntilImportComplete() const
 
 size_t StorageArea::memoryBytesUsedByCache()
 {
+  notImplemented();
     return 0;
 }
 /*

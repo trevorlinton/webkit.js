@@ -25,7 +25,7 @@
 
 #include "config.h"
 #include "StorageNamespace.h"
-
+#include "Debugger.h"
 #include "PlatformStrategies.h"
 #include "StorageStrategy.h"
 
@@ -33,17 +33,20 @@ namespace WebCore {
 
 PassRefPtr<StorageNamespace> StorageNamespace::localStorageNamespace(PageGroup* pageGroup)
 {
-    return platformStrategies()->storageStrategy()->localStorageNamespace(pageGroup);
+  webkitTrace();
+  return platformStrategies()->storageStrategy()->localStorageNamespace(pageGroup);
 }
 
 PassRefPtr<StorageNamespace> StorageNamespace::transientLocalStorageNamespace(PageGroup* pageGroup, SecurityOrigin* securityOrigin)
 {
-    return platformStrategies()->storageStrategy()->transientLocalStorageNamespace(pageGroup, securityOrigin);
+  webkitTrace();
+  return platformStrategies()->storageStrategy()->transientLocalStorageNamespace(pageGroup, securityOrigin);
 }
 
 PassRefPtr<StorageNamespace> StorageNamespace::sessionStorageNamespace(Page* page)
 {
-    return platformStrategies()->storageStrategy()->sessionStorageNamespace(page);
+  webkitTrace();
+  return platformStrategies()->storageStrategy()->sessionStorageNamespace(page);
 }
 
 } // namespace WebCore

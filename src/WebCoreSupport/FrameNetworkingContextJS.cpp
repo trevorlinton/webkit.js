@@ -22,12 +22,13 @@
 #include "FrameNetworkingContextJS.h"
 
 #include "NetworkStorageSession.h"
-#include "NotImplemented.h"
+#include "Debugger.h"
 
 namespace WebCore {
 
 NetworkStorageSession& FrameNetworkingContextJS::storageSession() const
 {
+    notImplemented();
     return NetworkStorageSession::defaultStorageSession();
 }
 
