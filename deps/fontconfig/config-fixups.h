@@ -26,6 +26,18 @@
 /* just a hack to build the fat binaries:
  * https://bugs.freedesktop.org/show_bug.cgi?id=20208
  */
+#ifdef TARGET_EMSCRIPTEN
+#ifdef SIZEOF_VOID_P
+#undef SIZEOF_VOID_P
+#endif
+#ifdef ALIGNOF_DOUBLE
+#undef ALIGNOF_DOUBLE
+#endif
+
+# define SIZEOF_VOID_P 4
+# define ALIGNOF_DOUBLE 8
+#else
+
 #ifdef __APPLE__
 # include <machine/endian.h>
 # undef SIZEOF_VOID_P
@@ -37,4 +49,6 @@
 #  define SIZEOF_VOID_P 4
 #  define ALIGNOF_DOUBLE 4
 # endif
+#endif
+
 #endif

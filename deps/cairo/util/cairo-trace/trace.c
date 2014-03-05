@@ -17,7 +17,9 @@
  */
 
 #define _GNU_SOURCE
-
+#ifdef TARGET_EMSCRIPTEN
+#error "Accidently included utilities with TARGET_EMSCRIPTEN, bailing compile."
+#endif
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif

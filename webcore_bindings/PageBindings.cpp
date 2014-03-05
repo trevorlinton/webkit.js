@@ -387,7 +387,9 @@ namespace Inspector {
 
 namespace Deprecated {
 
-ScriptValue::~ScriptValue() { notImplemented(); }
+ScriptValue::~ScriptValue() {
+}
+
 bool ScriptValue::getString(ExecState* scriptState, String& result) const { return false; }
 
 }

@@ -57,13 +57,13 @@
 #define HAVE_FT_BITMAP_SIZE_Y_PPEM 0
 
 /* Define to 1 if you have the `FT_Get_BDF_Property' function. */
-/* #undef HAVE_FT_GET_BDF_PROPERTY */
+#define HAVE_FT_GET_BDF_PROPERTY 1
 
 /* Define to 1 if you have the `FT_Get_Next_Char' function. */
-/* #undef HAVE_FT_GET_NEXT_CHAR */
+#define HAVE_FT_GET_NEXT_CHAR 1
 
 /* Define to 1 if you have the `FT_Get_PS_Font_Info' function. */
-/* #undef HAVE_FT_GET_PS_FONT_INFO */
+#define HAVE_FT_GET_PS_FONT_INFO 1
 
 /* Define to 1 if you have the `FT_Get_X11_Font_Format' function. */
 /* #undef HAVE_FT_GET_X11_FONT_FORMAT */
@@ -72,7 +72,7 @@
 /* #undef HAVE_FT_HAS_PS_GLYPH_NAMES */
 
 /* Define to 1 if you have the `FT_Select_Size' function. */
-/* #undef HAVE_FT_SELECT_SIZE */
+#define HAVE_FT_SELECT_SIZE 1
 
 /* Define to 1 if you have the `geteuid' function. */
 #define HAVE_GETEUID 1
@@ -198,7 +198,7 @@
 #define HAVE_STRUCT_STATFS_F_FLAGS 1
 
 /* Define to 1 if `f_fstypename' is a member of `struct statfs'. */
-#define HAVE_STRUCT_STATFS_F_FSTYPENAME 1
+/* #undef HAVE_STRUCT_STATFS_F_FSTYPENAME */
 
 /* Define to 1 if `f_basetype' is a member of `struct statvfs'. */
 /* #undef HAVE_STRUCT_STATVFS_F_BASETYPE */
@@ -225,7 +225,7 @@
 
 /* Define to 1 if you have the <sys/statfs.h> header file. */
 /* #undef HAVE_SYS_STATFS_H */
-
+#define HAVE_SYS_STATFS_H 1
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
 

@@ -59,55 +59,64 @@ FcFileScanFontConfig (FcFontSet		*set,
     FcBool	ret = FcTrue;
     int		id;
     int		count = 0;
-
     id = 0;
-    do
+
+  do
+  {
+    font = 0;
+    /*
+     * Nothing in the cache, scan the file
+     */
+    if (FcDebug () & FC_DBG_SCAN)
     {
-	font = 0;
-	/*
-	 * Nothing in the cache, scan the file
-	 */
-	if (FcDebug () & FC_DBG_SCAN)
-	{
-	    printf ("\tScanning file %s...", file);
-	    fflush (stdout);
-	}
-	font = FcFreeTypeQuery (file, id, blanks, &count);
-	if (FcDebug () & FC_DBG_SCAN)
-	    printf ("done\n");
+        printf ("\tScanning file %s...", file);
+        fflush (stdout);
+    }
+    font = FcFreeTypeQuery (file, id, blanks, &count);
+    if (FcDebug () & FC_DBG_SCAN)
+        printf ("done\n");
 
-	/*
-	 * Edit pattern with user-defined rules
-	 */
-	if (font && config && !FcConfigSubstitute (config, font, FcMatchScan))
-	{
-	    FcPatternDestroy (font);
-	    font = NULL;
-	    ret = FcFalse;
-	}
+    /*
+     * Edit pattern with user-defined rules
+     */
+    if(!font && (FcDebug() & FC_DBG_SCANV)) {
+        fprintf(stderr, "Font is empty\n");
+    }
+    if(!config && (FcDebug() & FC_DBG_SCANV)) {
+      fprintf(stderr, "Config is empty\n");
+    }
+    if (font && config && !FcConfigSubstitute (config, font, FcMatchScan))
+    {
+        fprintf(stderr, "Font failed to load: %s\n", file);
+        FcPatternDestroy (font);
+        font = NULL;
+        ret = FcFalse;
+    }
 
-	/*
-	 * Add the font
-	 */
-	if (font)
-	{
-	    if (FcDebug() & FC_DBG_SCANV)
-	    {
-		printf ("Final font pattern:\n");
-		FcPatternPrint (font);
-	    }
-	    if (!FcFontSetAdd (set, font))
-	    {
-		FcPatternDestroy (font);
-		font = NULL;
-		ret = FcFalse;
-	    }
-	}
-	else if (font)
-	    FcPatternDestroy (font);
-	id++;
-    } while (font && ret && id < count);
-    return ret;
+    /*
+     * Add the font
+     */
+    if (font)
+    {
+        if (FcDebug() & FC_DBG_SCANV)
+        {
+            printf ("Final font pattern:\n");
+            FcPatternPrint (font);
+        }
+        if (!FcFontSetAdd (set, font))
+        {
+            FcPatternDestroy (font);
+            font = NULL;
+            ret = FcFalse;
+        }
+    }
+    else {
+      fprintf(stderr, "FontConfig is screwed.. but font still failed to load.\n");
+      FcPatternDestroy (font);
+    }
+    id++;
+  } while (font && ret && id < count);
+  return ret;
 }
 
 FcBool

@@ -1735,12 +1735,16 @@ FcFreeTypeQuery(const FcChar8	*file,
     FT_Library	    ftLibrary;
     FcPattern	    *pat = NULL;
 
-    if (FT_Init_FreeType (&ftLibrary))
-	return NULL;
-
-    if (FT_New_Face (ftLibrary, (char *) file, id, &face))
-	goto bail;
-
+    if (FT_Init_FreeType (&ftLibrary)) {
+      if (FcDebug () & FC_DBG_SCANV)
+        fprintf(stderr, "FT_Init_FreeType return success, seems like it failed.\n");
+      return NULL;
+    }
+    if (FT_New_Face (ftLibrary, (char *) file, id, &face)) {
+      if (FcDebug () & FC_DBG_SCANV)
+        fprintf(stderr, "FT_New_Face failed, well. I think. Scanning: %s\n", file);
+      goto bail;
+    }
     *count = face->num_faces;
 
     pat = FcFreeTypeQueryFace (face, file, id, blanks);

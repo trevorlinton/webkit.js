@@ -72,13 +72,13 @@ ECHO="printf %s\\n"
 
 # The host system.
 host_alias=
-host=i386-apple-darwin13.0.0
-host_os=darwin13.0.0
+host=i386-apple-darwin13.1.0
+host_os=darwin13.1.0
 
 # The build system.
 build_alias=
-build=i386-apple-darwin13.0.0
-build_os=darwin13.0.0
+build=i386-apple-darwin13.1.0
+build_os=darwin13.1.0
 
 # A sed program that does not truncate output.
 SED="/usr/bin/sed"
@@ -141,7 +141,7 @@ want_nocaseglob="no"
 sharedlib_from_linklib_cmd="printf %s\\n"
 
 # The archiver.
-AR="ar"
+AR="/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emar"
 
 # Flags to create an archive.
 AR_FLAGS="cru"
@@ -153,7 +153,7 @@ archiver_list_spec=""
 STRIP="strip"
 
 # Commands used to install an old-style archive.
-RANLIB="ranlib"
+RANLIB="/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emranlib"
 old_postinstall_cmds="chmod 644 \$oldlib~\$RANLIB \$oldlib"
 old_postuninstall_cmds=""
 
@@ -161,10 +161,10 @@ old_postuninstall_cmds=""
 lock_old_archive_extraction=yes
 
 # A C compiler.
-LTCC="gcc"
+LTCC="/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emcc"
 
 # LTCC compiler flags.
-LTCFLAGS="-g -O2 -D_THREAD_SAFE -pthread"
+LTCFLAGS=""
 
 # Take the output of nm and produce a listing of raw symbols and C names.
 global_symbol_pipe="sed -n -e 's/^.*[	 ]\\([BCDEGRST][BCDEGRST]*\\)[	 ][	 ]*_\\([_A-Za-z][_A-Za-z0-9]*\\)\$/\\1 _\\2 \\2/p' | sed '/ __gnu_lto/d'"
@@ -222,7 +222,7 @@ extract_expsyms_cmds=""
 
 # Variables whose values should be saved in libtool wrapper scripts and
 # restored at link time.
-variables_saved_for_relink="PATH DYLD_LIBRARY_PATH  GCC_EXEC_PREFIX COMPILER_PATH LIBRARY_PATH"
+variables_saved_for_relink="PATH DYLD_LIBRARY_PATH LD_RUN_PATH GCC_EXEC_PREFIX COMPILER_PATH LIBRARY_PATH"
 
 # Do we need the "lib" prefix for modules?
 need_lib_prefix=no
@@ -234,7 +234,7 @@ need_version=no
 version_type=darwin
 
 # Shared library runtime path variable.
-runpath_var=
+runpath_var=LD_RUN_PATH
 
 # Shared library path variable.
 shlibpath_var=DYLD_LIBRARY_PATH
@@ -272,7 +272,7 @@ finish_eval=""
 hardcode_into_libs=no
 
 # Compile-time system search path for libraries.
-sys_lib_search_path_spec="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/5.0  /usr/local/lib"
+sys_lib_search_path_spec="/Users/tlinton/Library/Emscripten/clang/3.2_64bit/lib/clang/3.2  /usr/local/lib"
 
 # Run-time system search path for libraries.
 sys_lib_dlsearch_path_spec="/usr/local/lib /lib /usr/lib"
@@ -292,7 +292,7 @@ striplib="strip -x"
 
 
 # The linker used to build libraries.
-LD="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld"
+LD="/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emcc"
 
 # How to create reloadable object files.
 reload_flag=" -r"
@@ -302,7 +302,7 @@ reload_cmds="\$LTCC \$LTCFLAGS -nostdlib \${wl}-r -o \$output\$reload_objs"
 old_archive_cmds="\$AR \$AR_FLAGS \$oldlib\$oldobjs~\$RANLIB \$oldlib"
 
 # A language specific compiler.
-CC="gcc"
+CC="/Users/tlinton/Library/Emscripten/emscripten/1.8.2/emcc"
 
 # Is the compiler the GNU compiler?
 with_gcc=yes
@@ -323,16 +323,16 @@ link_static_flag=""
 compiler_c_o="yes"
 
 # Whether or not to add -lc for building shared libraries.
-build_libtool_need_lc=no
+build_libtool_need_lc=yes
 
 # Whether or not to disallow shared libs when runtime libs are static.
 allow_libtool_libs_with_static_runtimes=no
 
 # Compiler flag to allow reflexive dlopens.
-export_dynamic_flag_spec=""
+export_dynamic_flag_spec="\${wl}--export-dynamic"
 
 # Compiler flag to generate shared objects directly from archives.
-whole_archive_flag_spec="\`for conv in \$convenience\\\"\\\"; do test  -n \\\"\$conv\\\" && new_convenience=\\\"\$new_convenience \${wl}-force_load,\$conv\\\"; done; func_echo_all \\\"\$new_convenience\\\"\`"
+whole_archive_flag_spec=""
 
 # Whether the compiler copes with passing no objects directly.
 compiler_needs_object="no"
@@ -344,26 +344,26 @@ old_archive_from_new_cmds=""
 old_archive_from_expsyms_cmds=""
 
 # Commands used to build a shared archive.
-archive_cmds="\$CC -dynamiclib \$allow_undefined_flag -o \$lib \$libobjs \$deplibs \$compiler_flags -install_name \$rpath/\$soname \$verstring \$single_module"
-archive_expsym_cmds="sed 's,^,_,' < \$export_symbols > \$output_objdir/\${libname}-symbols.expsym~\$CC -dynamiclib \$allow_undefined_flag -o \$lib \$libobjs \$deplibs \$compiler_flags -install_name \$rpath/\$soname \$verstring \$single_module \${wl}-exported_symbols_list,\$output_objdir/\${libname}-symbols.expsym"
+archive_cmds="\$CC -shared \$pic_flag \$libobjs \$deplibs \$compiler_flags \${wl}-soname \$wl\$soname -o \$lib"
+archive_expsym_cmds="\$CC -shared \$pic_flag \$libobjs \$deplibs \$compiler_flags \${wl}-soname \$wl\$soname \${wl}-retain-symbols-file \$wl\$export_symbols -o \$lib"
 
 # Commands used to build a loadable module if different from building
 # a shared archive.
-module_cmds="\$CC \$allow_undefined_flag -o \$lib -bundle \$libobjs \$deplibs \$compiler_flags"
-module_expsym_cmds="sed -e 's,^,_,' < \$export_symbols > \$output_objdir/\${libname}-symbols.expsym~\$CC \$allow_undefined_flag -o \$lib -bundle \$libobjs \$deplibs \$compiler_flags \${wl}-exported_symbols_list,\$output_objdir/\${libname}-symbols.expsym"
+module_cmds=""
+module_expsym_cmds=""
 
 # Whether we are building with GNU ld or not.
-with_gnu_ld="no"
+with_gnu_ld="yes"
 
 # Flag that allows shared libraries with undefined symbols to be built.
-allow_undefined_flag="\${wl}-undefined \${wl}dynamic_lookup"
+allow_undefined_flag=""
 
 # Flag that enforces no undefined symbols.
 no_undefined_flag=""
 
 # Flag to hardcode $libdir into a binary during linking.
 # This must work even if $libdir does not exist
-hardcode_libdir_flag_spec=""
+hardcode_libdir_flag_spec="\${wl}-rpath \${wl}\$libdir"
 
 # If ld is used when linking, flag to hardcode $libdir into a binary
 # during linking.  This must work even if $libdir does not exist.
@@ -393,14 +393,14 @@ hardcode_shlibpath_var=unsupported
 # Set to "yes" if building a shared library automatically hardcodes DIR
 # into the library and all subsequent libraries and executables linked
 # against it.
-hardcode_automatic=yes
+hardcode_automatic=no
 
 # Set to yes if linker adds runtime paths of dependent libraries
 # to runtime path list.
 inherit_rpath=no
 
 # Whether libtool must link a program against all its dependency libraries.
-link_all_deplibs=yes
+link_all_deplibs=unknown
 
 # Set to "yes" if exported symbols are required.
 always_export_symbols=no

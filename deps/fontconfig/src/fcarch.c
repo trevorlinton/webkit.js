@@ -55,10 +55,11 @@ FC_ASSERT_STATIC (0x08 + 2*SIZEOF_VOID_P == sizeof (FcPattern));
 FC_ASSERT_STATIC (0x08 + 2*SIZEOF_VOID_P == sizeof (FcCharSet));
 FC_ASSERT_STATIC (0x08 + 6*SIZEOF_VOID_P == sizeof (FcCache));
 
-
+#ifndef TARGET_EMSCRIPTEN
 int
 main (int argc FC_UNUSED, char **argv FC_UNUSED)
 {
     printf ("%s\n", FC_ARCHITECTURE);
     return 0;
 }
+#endif

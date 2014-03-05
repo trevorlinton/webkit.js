@@ -53,9 +53,20 @@ int main(int argc, char **argv) {
   EM_ASM(
          console.log("WebKit: settingsInitialized;");
          );
+
   page->settings().setMediaEnabled(false);
   page->settings().setScriptEnabled(false);
   page->settings().setPluginsEnabled(false);
+  page->settings().setMinimumLogicalFontSize(9);
+  page->settings().setDefaultFontSize(10);
+  page->settings().setDefaultFixedFontSize(13);
+  page->settings().setDownloadableBinaryFontsEnabled(false);
+  page->settings().setAcceleratedDrawingEnabled(true);
+  page->settings().setScreenFontSubstitutionEnabled(false);
+  page->settings().setStandardFontFamily("Helvetica");
+  page->settings().setMinimumFontSize(6);
+  page->setGroupName("Main");
+
 
   Frame& frame = page->mainFrame();
   EM_ASM(

@@ -129,12 +129,15 @@ FcInitLoadConfigAndFonts (void)
     FcConfig	*config = FcInitLoadConfig ();
 
     FcInitDebug ();
-    if (!config)
-	return 0;
+    if (!config) {
+      fprintf(stderr, "Failed to initialize fonts from FcInitLoadConfig()");
+      return 0;
+    }
     if (!FcConfigBuildFonts (config))
     {
-	FcConfigDestroy (config);
-	return 0;
+      fprintf(stderr, "Failed to initialize fonts from FcConfigBuildFonts()");
+      FcConfigDestroy (config);
+      return 0;
     }
     return config;
 }

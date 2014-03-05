@@ -372,13 +372,13 @@ FcConfigAddDirList (FcConfig *config, FcSetName set, FcStrSet *dirSet)
 	
     while ((dir = FcStrListNext (dirlist)))
     {
-	if (FcDebug () & FC_DBG_FONTSET)
-	    printf ("adding fonts from%s\n", dir);
-	cache = FcDirCacheRead (dir, FcFalse, config);
-	if (!cache)
-	    continue;
-	FcConfigAddCache (config, cache, set, dirSet);
-	FcDirCacheUnload (cache);
+      if (FcDebug () & FC_DBG_FONTSET)
+        printf ("adding fonts from%s\n", dir);
+      cache = FcDirCacheRead (dir, FcFalse, config);
+      if (!cache)
+        continue;
+      FcConfigAddCache (config, cache, set, dirSet);
+      FcDirCacheUnload (cache);
     }
     FcStrListDone (dirlist);
     return FcTrue;
@@ -396,21 +396,22 @@ FcConfigBuildFonts (FcConfig *config)
 
     if (!config)
     {
-	config = FcConfigGetCurrent ();
-	if (!config)
-	    return FcFalse;
+      config = FcConfigGetCurrent ();
+      if (!config)
+        return FcFalse;
     }
-	
     fonts = FcFontSetCreate ();
     if (!fonts)
-	return FcFalse;
-
+      return FcFalse;
     FcConfigSetFonts (config, fonts, FcSetSystem);
 
-    if (!FcConfigAddDirList (config, FcSetSystem, config->fontDirs))
-	return FcFalse;
+  if (!FcConfigAddDirList (config, FcSetSystem, config->fontDirs)) {
+    if(FcDebug ())
+      fprintf(stderr,"Failed to get list of available fonts.");
+    return FcFalse;
+  }
     if (FcDebug () & FC_DBG_FONTSET)
-	FcFontSetPrint (fonts);
+      FcFontSetPrint (fonts);
     return FcTrue;
 }
 

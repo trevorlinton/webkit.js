@@ -182,7 +182,7 @@ FcDirChecksum (const FcChar8 *dir, time_t *checksum)
 #endif
 
     Adler32Init (&ctx);
-
+#ifndef TARGET_EMSCRIPTEN
     n = scandir ((const char *)dir, &files,
 #ifdef HAVE_STRUCT_DIRENT_D_TYPE
 		 &FcDirChecksumScandirFilter,
@@ -190,6 +190,123 @@ FcDirChecksum (const FcChar8 *dir, time_t *checksum)
 		 NULL,
 #endif
 		 &FcDirChecksumScandirSorter);
+#else
+
+#ifndef HAVE_STRUCT_DIRENT_D_TYPE
+#define HAVE_STRUCT_DIRENT_D_TYPE
+#endif
+  //TODO: Fix this so we don't have to hardcode it to get around scandir.
+  int pos = 0;
+  files = malloc(sizeof(struct direct *)*12);
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)301684;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationMono-Bold.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  pos++;
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)277912;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationMono-BoldItalic.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  pos++;
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)274984;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationMono-Italic.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  pos++;
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)313408;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationMono-Regular.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  pos++;
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)353936;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationSans-Bold.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  pos++;
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)349724;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationSans-BoldItalic.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  pos++;
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)355608;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationSans-Italic.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  pos++;
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)350200;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationSans-Regular.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  pos++;
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)365112;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationSerif-Bold.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  pos++;
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)371060;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationSerif-BoldItalic.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  pos++;
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)370968;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationSerif-Italic.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  pos++;
+
+  files[pos] = malloc(sizeof(struct dirent));
+  files[pos]->d_ino = pos;
+  files[pos]->d_off = pos;
+  files[pos]->d_reclen = (unsigned short)388352;
+  files[pos]->d_type = DT_REG;
+  strcpy(files[pos]->d_name,"LiberationSerif-Regular.ttf");
+  //files[pos]->d_namlen = strlen(files[pos]->d_name);
+  n=pos+1;
+#endif
     if (n == -1)
 	return -1;
 
@@ -261,6 +378,12 @@ FcStatChecksum (const FcChar8 *file, struct stat *statb)
 static int
 FcFStatFs (int fd, FcStatFS *statb)
 {
+#ifdef TARGET_EMSCRIPTEN
+  memset (statb, 0, sizeof (FcStatFS));
+  statb->is_remote_fs = FcFalse;
+  statb->is_mtime_broken = FcTrue;
+  return 0;
+#else
     const char *p = NULL;
     int ret = -1;
     FcBool flag = FcFalse;
@@ -320,6 +443,7 @@ FcFStatFs (int fd, FcStatFS *statb)
     }
 
     return ret;
+#endif
 }
 
 FcBool

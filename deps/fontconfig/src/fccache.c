@@ -257,7 +257,16 @@ static int32_t
 FcRandom(void)
 {
     int32_t result;
+#if TARGET_EMSCRIPTEN
+  static FcBool initialized = FcFalse;
 
+  if (initialized != FcTrue)
+  {
+    srand(time(NULL));
+    initialized = FcTrue;
+  }
+  result = rand();
+#else
 #if HAVE_RANDOM_R
     static struct random_data fcrandbuf;
     static char statebuf[256];
@@ -304,7 +313,7 @@ FcRandom(void)
 #else
 # error no random number generator function available.
 #endif
-
+#endif // TARGET_EMSCRIPTEN
     return result;
 }
 

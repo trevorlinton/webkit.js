@@ -42,10 +42,6 @@ class HarfBuzzFace;
 
 namespace WebCore {
 
-// #if PLATFORM(JS)
-// typedef void *FcPattern;
-// #endif
-
 class FontPlatformData {
 public:
     FontPlatformData(WTF::HashTableDeletedValueType)

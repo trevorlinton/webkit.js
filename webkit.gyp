@@ -18,6 +18,7 @@
         'cairo',
         'curl',
         'zlib',
+        'fontconfig',
         'webcore_xml',
         'webcore_wtf',
         'webcore_svg',
@@ -59,14 +60,14 @@
         '<(DEPTH)/src/RuntimeEnabledFeaturesJS.h',
         '<(DEPTH)/src/WebKit.cpp',
       ],
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'include_dirs':['<@(webcore_includes)'],
       'cflags+':['-include ../deps/WebKit/Source/WebCore/WebCorePrefix.h'],
-      'ldflags+':['-s EXPORTED_FUNCTIONS="[\'_main\']" -s FULL_ES2=1'],
+      'ldflags+':['-s EXPORTED_FUNCTIONS="[\'_main\']" -s FULL_ES2=1 --embed-files ../src/assets/fontconfig/fonts@/usr/share/fonts --embed-files ../src/assets/fontconfig/config/fonts.conf@/etc/fonts/fonts.conf --embed-files ../src/assets/fontconfig/cache@/usr/local/var/cache/fontconfig'],
     },
     {
       'target_name':'webcore_xml',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_xml_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -74,7 +75,7 @@
     },
     {
       'target_name':'webcore_wtf',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_wtf_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -82,7 +83,7 @@
     },
     {
       'target_name':'webcore_svg',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT'],
       'sources':['<@(webcore_svg_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -90,7 +91,7 @@
     },
     {
       'target_name':'webcore_loader',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_loader_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -98,7 +99,7 @@
     },
     {
       'target_name':'webcore_html',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_html_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -106,7 +107,7 @@
     },
     {
       'target_name':'webcore_dom',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_dom_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -114,7 +115,7 @@
     },
     {
       'target_name':'webcore_css',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_css_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -122,7 +123,7 @@
     },
     {
       'target_name':'webcore_rendering',
-      'defines+': ['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+': ['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_rendering_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -130,7 +131,7 @@
     },
     {
       'target_name':'webcore_page',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_page_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -138,7 +139,7 @@
     },
     {
       'target_name':'webcore_style',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_style_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -146,7 +147,7 @@
     },
     {
       'target_name':'webcore_derived',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_derived_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -154,7 +155,7 @@
     },
     {
       'target_name':'webcore_platform',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_platform_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -162,7 +163,7 @@
     },
     {
       'target_name':'webcore_history',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_history_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -170,7 +171,7 @@
     },
     {
       'target_name':'webcore_editing',
-      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources':['<@(webcore_editing_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -178,7 +179,7 @@
     },
     {
       'target_name': 'webcore_storage',
-      'defines+': ['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+': ['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources': ['<@(webcore_storage_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -186,7 +187,7 @@
     },
     {
       'target_name': 'webcore_angle',
-      'defines+': ['<@(feature_defines)','CAIRO_HAS_FT_FONT',],
+      'defines+': ['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
       'sources': ['<@(webcore_angle_files)',],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
       'include_dirs':['<@(webcore_includes)'],
@@ -220,13 +221,12 @@
     },
     {
       'target_name': 'freetype2',
-      'sources': ['<@(freetype2_files)',],
-      'sources/': [ ['exclude', '(builds/|autofit/|ftmac.c)'] ],
+      'sources': ['<@(freetype2)',],
+      'sources/': [ ['exclude', '(builds/|autofit/|ftmac\\.c$|util/|/tools|ftbase\\.c$|/bdf\\.c$|ftcache\\.c$|cff\\.c$|type1cid\\.c$|gxvalid\\.c$|otvalid\\.c$|pcf\\.c$|pfr\\.c$|raster\\.c$|sfnt\\.c$|smooth\\.c$|truetype\\.c$|/type1\\.c$|/type42\\.c$|ftzopen\\.c$|psaux\\.c$|pshinter\\.c$|psnames\\.c$|ttsbit0\\.c$|gxvfgen\\.c$|infutil\\.c$)'] ],
       'defines+': [
         'FT_CONFIG_OPTION_SYSTEM_ZLIB',
         'FT2_BUILD_LIBRARY',
         'FT_CONFIG_CONFIG_H=<ftconfig.h>',
-        'FT_CONFIG_MODULES_H=<ftmodule.h>',
       ],
       'include_dirs': [
         '<(DEPTH)/deps/freetype2',
@@ -259,6 +259,7 @@
         'CAIRO_NO_MUTEX',
         'CAIRO_HAS_FT_FONT',
         'HAVE_UINT64_T',
+        'CAIRO_HAS_FC_FONT',
       ],
       'sources': ['<@(cairo)',],
       'sources/': [['exclude', '(prefs/|perf/|util/|test/|os2|win32|beos|qt|boilerplate|arm-|sse2|pdf|quartz|script-|wgl|xcb|vg-|-drm|skia-|tee-|xlib-|xml-|-vmx|utils/|cogl|egl-|directfb-|glx-|check-has-hidden|pixman-region.c$|perceptualdiff\\.c$|cairo-ps-surface\\.c$|cairo-pdf-surface\\.c$|cairo-svg-surface\\.c$|cairo-time\\.c$)'],], #cairo-path-stroke-polygon\\.c$|cairo-contour\\.c$
@@ -270,9 +271,27 @@
         '<(DEPTH)/deps/freetype2',
         '<(DEPTH)/deps/freetype2/include',
         '<(DEPTH)/deps/freetype2/include/freetype/config/',
+        '<(DEPTH)/deps/fontconfig',
       ],
       'cxx':'<(emscripten_cc)',
       'cflags+':['-include ../deps/cairo/config/config.h'],
+    },
+    {
+      'target_name': 'fontconfig',
+      'defines+': ['FONTCONFIG_PATH="/usr/lib/fontconfig/"','FC_CACHEDIR="/usr/lib/fontconfig/cache"','ENABLE_LIBXML2'],
+      'sources': ['<@(fontconfig_files)',],
+      #'sources/': [['exclude', '(fcobjs.c$)'],],
+      'include_dirs': [
+        '<(DEPTH)/deps/fontconfig',
+        '<(DEPTH)/deps/fontconfig/src',
+        '<(DEPTH)/deps/fontconfig/config',
+        '<(DEPTH)/deps/freetype2',
+        '<(DEPTH)/deps/freetype2/include',
+        '<(DEPTH)/deps/freetype2/include/freetype/config/',
+        '<(DEPTH)/deps/libxml2/include/',
+      ],
+      'cxx':'<(emscripten_cc)',
+      'cflags+':['-include ../deps/fontconfig/config/config.h'],
     },
     {
       'target_name': 'curl',

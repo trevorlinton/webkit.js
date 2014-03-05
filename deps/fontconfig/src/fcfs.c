@@ -32,7 +32,7 @@ FcFontSetCreate (void)
 
     s = (FcFontSet *) malloc (sizeof (FcFontSet));
     if (!s)
-	return 0;
+      return 0;
     s->nfont = 0;
     s->sfont = 0;
     s->fonts = 0;
