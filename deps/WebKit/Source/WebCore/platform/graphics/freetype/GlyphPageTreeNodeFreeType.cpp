@@ -35,10 +35,9 @@
 #include "UTF16UChar32Iterator.h"
 #include <cairo-ft.h>
 #include <cairo.h>
-#if !PLATFORM(JS)
 #include <fontconfig/fontconfig.h>
 #include <fontconfig/fcfreetype.h>
-#endif
+
 namespace WebCore {
 
 bool GlyphPage::fill(unsigned offset, unsigned length, UChar* buffer, unsigned bufferLength, const SimpleFontData* fontData)
@@ -56,17 +55,14 @@ bool GlyphPage::fill(unsigned offset, unsigned length, UChar* buffer, unsigned b
         UChar32 character = iterator.next();
         if (character == iterator.end())
             break;
-#if !PLATFORM(JS)
+
         Glyph glyph = FcFreeTypeCharIndex(face, character);
         if (!glyph)
-#endif
             setGlyphDataForIndex(offset + i, 0, 0);
-#if !PLATFORM(JS)
         else {
             setGlyphDataForIndex(offset + i, glyph, fontData);
             haveGlyphs = true;
         }
-#endif
     }
 
     cairo_ft_scaled_font_unlock_face(scaledFont);

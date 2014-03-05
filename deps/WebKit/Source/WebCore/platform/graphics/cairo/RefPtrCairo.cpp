@@ -23,9 +23,7 @@
 
 #if USE(FREETYPE)
 #include <cairo-ft.h>
-#if !PLATFORM(JS)
 #include <fontconfig/fcfreetype.h>
-#endif
 #endif
 
 namespace WTF {
@@ -105,18 +103,14 @@ template<> void derefIfNotNull(cairo_region_t* ptr)
 #if USE(FREETYPE)
 template<> void refIfNotNull(FcPattern* ptr)
 {
-#if !PLATFORM(JS)
     if (LIKELY(ptr != 0))
         FcPatternReference(ptr);
-#endif
 }
 
 template<> void derefIfNotNull(FcPattern* ptr)
 {
-#if !PLATFORM(JS)
     if (LIKELY(ptr != 0))
         FcPatternDestroy(ptr);
-#endif
 }
 
 #endif

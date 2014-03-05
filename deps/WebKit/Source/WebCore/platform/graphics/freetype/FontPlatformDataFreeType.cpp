@@ -29,10 +29,8 @@
 #include "FontDescription.h"
 #include <cairo-ft.h>
 #include <cairo.h>
-#if !PLATFORM(JS)
 #include <fontconfig/fontconfig.h>
 #include <fontconfig/fcfreetype.h>
-#endif
 #include <ft2build.h>
 #include FT_TRUETYPE_TABLES_H
 #include <wtf/text/WTFString.h>
@@ -43,7 +41,6 @@
 
 namespace WebCore {
 
-#if !PLATFORM(JS)
 cairo_subpixel_order_t convertFontConfigSubpixelOrder(int fontConfigOrder)
 {
     switch (fontConfigOrder) {
@@ -106,7 +103,6 @@ void setCairoFontOptionsFromFontConfigPattern(cairo_font_options_t* options, FcP
     if (FcPatternGetBool(pattern, FC_HINTING, 0, &booleanResult) == FcResultMatch && !booleanResult)
         cairo_font_options_set_hint_style(options, CAIRO_HINT_STYLE_NONE);
 }
-#endif
 
 static cairo_font_options_t* getDefaultFontOptions()
 {
@@ -129,7 +125,7 @@ static void rotateCairoMatrixForVerticalOrientation(cairo_matrix_t* matrix)
     cairo_matrix_rotate(matrix, -M_PI_2);
     cairo_matrix_translate(matrix, 0.0, 1.0);
 }
-#if !PLATFORM(JS)
+
 FontPlatformData::FontPlatformData(FcPattern* pattern, const FontDescription& fontDescription)
     : m_pattern(pattern)
     , m_fallbacks(0)
@@ -159,7 +155,7 @@ FontPlatformData::FontPlatformData(FcPattern* pattern, const FontDescription& fo
             m_syntheticBold = m_syntheticBold || weight < FC_WEIGHT_DEMIBOLD;
     }
 }
-#endif
+
 FontPlatformData::FontPlatformData(float size, bool bold, bool italic)
     : m_fallbacks(0)
     , m_size(size)
@@ -203,13 +199,13 @@ FontPlatformData& FontPlatformData::operator=(const FontPlatformData& other)
     m_pattern = other.m_pattern;
     m_orientation = other.m_orientation;
     m_horizontalOrientationMatrix = other.m_horizontalOrientationMatrix;
-#if !PLATFORM(JS)
+
     if (m_fallbacks) {
         FcFontSetDestroy(m_fallbacks);
         // This will be re-created on demand.
         m_fallbacks = 0;
     }
-#endif
+
     if (m_scaledFont && m_scaledFont != hashTableDeletedFontValue())
         cairo_scaled_font_destroy(m_scaledFont);
     m_scaledFont = cairo_scaled_font_reference(other.m_scaledFont);
@@ -240,12 +236,12 @@ FontPlatformData::FontPlatformData(const FontPlatformData& other, float size)
 
 FontPlatformData::~FontPlatformData()
 {
-#if !PLATFORM(JS)
+
     if (m_fallbacks) {
         FcFontSetDestroy(m_fallbacks);
         m_fallbacks = 0;
     }
-#endif
+
     if (m_scaledFont && m_scaledFont != hashTableDeletedFontValue())
         cairo_scaled_font_destroy(m_scaledFont);
 }
@@ -268,9 +264,7 @@ bool FontPlatformData::operator==(const FontPlatformData& other) const
     // FcPatternEqual does not support null pointers as arguments.
     if ((m_pattern && !other.m_pattern)
         || (!m_pattern && other.m_pattern)
-#if !PLATFORM(JS)
         || (m_pattern != other.m_pattern && !FcPatternEqual(m_pattern.get(), other.m_pattern.get()))
-#endif
         )
         return false;
 
@@ -303,7 +297,7 @@ void FontPlatformData::initializeWithFontFace(cairo_font_face_t* fontFace, const
     if (!m_pattern)
         cairo_matrix_init_scale(&fontMatrix, realSize, realSize);
     else {
-#if !PLATFORM(JS)
+
         setCairoFontOptionsFromFontConfigPattern(options, m_pattern.get());
 
         // FontConfig may return a list of transformation matrices with the pattern, for instance,
@@ -324,7 +318,7 @@ void FontPlatformData::initializeWithFontFace(cairo_font_face_t* fontFace, const
 
         // The matrix from FontConfig does not include the scale. 
         cairo_matrix_scale(&fontMatrix, realSize, realSize);
-#endif
+
     }
 
     if (syntheticOblique()) {
@@ -351,15 +345,12 @@ bool FontPlatformData::hasCompatibleCharmap()
     cairo_ft_scaled_font_unlock_face(m_scaledFont);
     return hasCompatibleCharmap;
 }
-
+#if !PLATFORM(JS)
 PassRefPtr<OpenTypeVerticalData> FontPlatformData::verticalData() const
 {
-#if !PLATFORM(JS)
     ASSERT(hash());
     return fontCache()->getVerticalData(String::number(hash()), *this);
-#endif
 }
-
 PassRefPtr<SharedBuffer> FontPlatformData::openTypeTable(uint32_t table) const
 {
     FT_Face freeTypeFace = cairo_ft_scaled_font_lock_face(m_scaledFont);
@@ -386,6 +377,7 @@ PassRefPtr<SharedBuffer> FontPlatformData::openTypeTable(uint32_t table) const
     return buffer.release();
 }
 
+#endif
 void FontPlatformData::setOrientation(FontOrientation orientation)
 {
     ASSERT(m_scaledFont);

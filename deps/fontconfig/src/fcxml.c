@@ -26,7 +26,71 @@
 #include <fcntl.h>
 #include <stdarg.h>
 #include <dirent.h>
-
+#ifdef TARGET_EMSCRIPTEN
+static char *default_font_data = "<?xml version=\"1.0\"?> \
+<!DOCTYPE fontconfig SYSTEM \"fonts.dtd\"> \
+<fontconfig> \
+<cachedir>/usr/lib/fontconfig/cache</cachedir> \
+<dir>/usr/lib/fontconfig/cache</dir> \
+<match target=\"pattern\"> \
+<test qual=\"any\" name=\"family\"><string>mono</string></test> \
+<edit name=\"family\" mode=\"assign\"><string>monospace</string></edit> \
+</match> \
+<match target=\"pattern\"> \
+<test qual=\"all\" name=\"family\" mode=\"not_eq\"><string>sans-serif</string></test> \
+<test qual=\"all\" name=\"family\" mode=\"not_eq\"><string>serif</string></test> \
+<test qual=\"all\" name=\"family\" mode=\"not_eq\"><string>monospace</string></test> \
+<edit name=\"family\" mode=\"append_last\"><string>sans-serif</string></edit> \
+</match> \
+<include ignore_missing=\"yes\" prefix=\"xdg\">fontconfig/fonts.conf</include> \
+<include ignore_missing=\"yes\">conf.d</include> \
+<include ignore_missing=\"yes\">local.conf</include> \
+<alias> \
+<family>Times</family> \
+<prefer><family>Times New Roman</family></prefer> \
+<default><family>serif</family></default> \
+</alias> \
+<alias> \
+<family>Helvetica</family> \
+<prefer><family>Arial</family></prefer> \
+<default><family>sans</family></default> \
+</alias> \
+<alias> \
+<family>Courier</family> \
+<prefer><family>Courier New</family></prefer> \
+<default><family>monospace</family></default> \
+</alias> \
+<alias> \
+<family>serif</family> \
+<prefer><family>Times New Roman</family></prefer> \
+</alias> \
+<alias> \
+<family>sans</family> \
+<prefer><family>Arial</family></prefer> \
+</alias> \
+<alias> \
+<family>monospace</family> \
+<prefer><family>Andale Mono</family></prefer> \
+</alias> \
+<match target=\"pattern\"> \
+<test name=\"family\" mode=\"eq\"> \
+<string>Courier New</string> \
+</test> \
+<edit name=\"family\" mode=\"prepend\"> \
+<string>monospace</string> \
+</edit> \
+</match> \
+<match target=\"pattern\"> \
+<test name=\"family\" mode=\"eq\"> \
+<string>Courier</string> \
+</test> \
+<edit name=\"family\" mode=\"prepend\"> \
+<string>monospace</string> \
+</edit> \
+</match> \
+</fontconfig> \
+";
+#endif
 #ifdef ENABLE_LIBXML2
 
 #include <libxml/parser.h>
@@ -2917,6 +2981,7 @@ pfnGetSystemWindowsDirectory pGetSystemWindowsDirectory = NULL;
 pfnSHGetFolderPathA pSHGetFolderPathA = NULL;
 #endif
 
+#ifndef TARGET_EMSCRIPTEN
 FcBool
 FcConfigParseAndLoad (FcConfig	    *config,
 		      const FcChar8 *name,
@@ -3057,11 +3122,119 @@ bail0:
 	if (name)
 	    FcConfigMessage (0, FcSevereError, "Cannot load config file \"%s\"", name);
 	else
-	    FcConfigMessage (0, FcSevereError, "Cannot load default config file");
+	    FcConfigMessage (0, FcSevereError, "Cannot load default config file: \"%s\"", filename);
 	return FcFalse;
     }
     return FcTrue;
 }
+
+
+
+#else /* DEFINED TARGET_EMSCRIPTEN */
+
+//xmlCreatePushParserCtxt(xmlSAXHandlerPtr sax, void *user_data,
+//  const char *chunk, int size, const char *filename) {
+
+FcBool
+FcConfigParseAndLoad (FcConfig	    *config,
+                      const FcChar8 *name,
+                      FcBool	    complain)
+{
+  XML_Parser	    p;
+  FcConfigParse   parse;
+  FcBool          error = FcTrue;
+  int		    fd;
+  int		    len;
+  xmlSAXHandler   sax;
+  char            buf[BUFSIZ];
+  FcChar8         *filename = FcConfigFilename (name);
+  char            *def = "/etc/fonts/fonts.conf";
+
+  if (!filename) {
+    if (FcDebug () & FC_DBG_CONFIG)
+      fprintf(stderr,"filename is undefined, setting default.\n");
+    filename = FcConfigFilename ((FcChar8 *)def);
+    //goto bail0;
+  } else {
+    if (FcDebug () & FC_DBG_CONFIG)
+      fprintf(stderr,"Parsing: %s",(char *)filename);
+  }
+
+  if (FcStrSetMember (config->configFiles, filename))
+  {
+    if (FcDebug () & FC_DBG_CONFIG)
+      fprintf(stderr,"Cannot execute FcStrSetMember in fcxml.c\n");
+    FcStrFree (filename);
+    return FcTrue;
+  }
+
+  if (!FcStrSetAdd (config->configFiles, filename))
+  {
+    if (FcDebug () & FC_DBG_CONFIG)
+      fprintf(stderr,"Cannot execute FcStrSetAdd in fcxml.c\n");
+    FcStrFree (filename);
+    goto bail0;
+  }
+
+  if (FcDebug () & FC_DBG_CONFIG)
+    printf ("\tLoading config file %s\n", filename);
+
+  fd = FcOpen ((char *) filename, O_RDONLY);
+  if (fd == -1) {
+    FcStrFree (filename);
+    goto bail0;
+  }
+
+  memset(&sax, 0, sizeof(sax));
+
+  sax.internalSubset = FcInternalSubsetDecl;
+  sax.externalSubset = FcExternalSubsetDecl;
+  sax.startElement = FcStartElement;
+  sax.endElement = FcEndElement;
+  sax.characters = FcCharacterData;
+
+  p = xmlCreatePushParserCtxt (&sax, &parse, NULL, 0, (const char *) filename);
+  FcStrFree (filename);
+
+  if (!p)
+    goto bail1;
+
+  if (!FcConfigParseInit (&parse, name, config, p)) {
+    fprintf(stderr,"Failed to FcConfigParseInt in fcxml.c\n");
+    goto bail2;
+  }
+
+  do {
+      len = read (fd, buf, BUFSIZ);
+      if (len < 0) {
+        FcConfigMessage (&parse, FcSevereError, "failed reading config file");
+        goto bail3;
+      }
+
+      if (xmlParseChunk (p, buf, len, len == 0)) {
+          FcConfigMessage (&parse, FcSevereError, "%s",
+                           XML_ErrorString (XML_GetErrorCode (p)));
+          goto bail3;
+      }
+  } while (len != 0);
+
+  error = parse.error;
+bail3:
+  FcConfigCleanup (&parse);
+bail2:
+  XML_ParserFree (p);
+bail1:
+bail0:
+  if (error)
+  {
+    FcConfigMessage (0, FcSevereError, "Error parsing and setting up configuration for fonts.");
+    return FcFalse;
+  }
+  return FcTrue;
+}
+
+#endif
+
 #define __fcxml__
 #include "fcaliastail.h"
 #undef __fcxml__

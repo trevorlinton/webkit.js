@@ -43,10 +43,8 @@
 #include "UTF16UChar32Iterator.h"
 #include <cairo-ft.h>
 #include <cairo.h>
-#if !PLATFORM(JS)
 #include <fontconfig/fontconfig.h>
 #include <fontconfig/fcfreetype.h>
-#endif
 #include <ft2build.h>
 #include FT_TRUETYPE_TABLES_H
 #include FT_TRUETYPE_TAGS_H
@@ -130,12 +128,10 @@ bool SimpleFontData::containsCharacters(const UChar* characters, int bufferLengt
     UTF16UChar32Iterator iterator(characters, bufferLength);
     UChar32 character = iterator.next();
     while (character != iterator.end()) {
-#if !PLATFORM(JS)
         if (!FcFreeTypeCharIndex(face, character)) {
             cairo_ft_scaled_font_unlock_face(m_platformData.scaledFont());
             return false;
         }
-#endif
         character = iterator.next();
     }
 
