@@ -449,10 +449,10 @@ FcFontSetPrint (const FcFontSet *s)
 	FcPatternPrint (s->fonts[i]);
     }
 }
-#if DEBUG
-int FcDebugVal = 0xffffffff;
+// #if DEBUG
+int FcDebugVal;
 void FcInitDebug(void) {}
-#else
+/*#else
 int FcDebugVal;
 
 void
@@ -471,7 +471,7 @@ FcInitDebug (void)
 	}
     }
 }
-#endif
+#endif*/
 #define __fcdbg__
 #include "fcaliastail.h"
 #undef __fcdbg__

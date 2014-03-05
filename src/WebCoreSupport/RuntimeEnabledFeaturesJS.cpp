@@ -31,7 +31,7 @@
 
 #include "config.h"
 #include "RuntimeEnabledFeatures.h"
-
+#include "Debugger.h"
 #include "DatabaseManager.h"
 #include "MediaPlayer.h"
 #include "SharedWorkerRepository.h"
@@ -109,10 +109,12 @@ RuntimeEnabledFeatures::RuntimeEnabledFeatures()
     , m_isFontLoadEventsEnabled(false)
 #endif
 {
+    webkitTrace();
 }
 
 RuntimeEnabledFeatures& RuntimeEnabledFeatures::sharedFeatures()
 {
+    webkitTrace();
     static NeverDestroyed<RuntimeEnabledFeatures> runtimeEnabledFeatures;
 
     return runtimeEnabledFeatures;
@@ -121,6 +123,7 @@ RuntimeEnabledFeatures& RuntimeEnabledFeatures::sharedFeatures()
 #if ENABLE(JAVASCRIPT_I18N_API)
 bool RuntimeEnabledFeatures::javaScriptI18NAPIEnabled()
 {
+    webkitTrace();
     return m_isJavaScriptI18NAPIEnabled;
 }
 #endif
@@ -128,41 +131,49 @@ bool RuntimeEnabledFeatures::javaScriptI18NAPIEnabled()
 #if ENABLE(VIDEO)
 bool RuntimeEnabledFeatures::audioEnabled() const
 {
+    webkitTrace();
     return MediaPlayer::isAvailable();
 }
 
 bool RuntimeEnabledFeatures::htmlMediaElementEnabled() const
 {
+    webkitTrace();
     return MediaPlayer::isAvailable();
 }
 
 bool RuntimeEnabledFeatures::htmlAudioElementEnabled() const
 {
+    webkitTrace();
     return MediaPlayer::isAvailable();
 }
 
 bool RuntimeEnabledFeatures::htmlVideoElementEnabled() const
 {
+    webkitTrace();
     return MediaPlayer::isAvailable();
 }
 
 bool RuntimeEnabledFeatures::htmlSourceElementEnabled() const
 {
+    webkitTrace();
     return MediaPlayer::isAvailable();
 }
 
 bool RuntimeEnabledFeatures::mediaControllerEnabled() const
 {
+    webkitTrace();
     return MediaPlayer::isAvailable();
 }
 
 bool RuntimeEnabledFeatures::mediaErrorEnabled() const
 {
+    webkitTrace();
     return MediaPlayer::isAvailable();
 }
 
 bool RuntimeEnabledFeatures::timeRangesEnabled() const
 {
+    webkitTrace();
     return MediaPlayer::isAvailable();
 }
 #endif
@@ -170,6 +181,7 @@ bool RuntimeEnabledFeatures::timeRangesEnabled() const
 #if ENABLE(SHARED_WORKERS)
 bool RuntimeEnabledFeatures::sharedWorkerEnabled() const
 {
+    webkitTrace();
     return SharedWorkerRepository::isAvailable();
 }
 #endif
@@ -177,6 +189,7 @@ bool RuntimeEnabledFeatures::sharedWorkerEnabled() const
 #if ENABLE(WEB_SOCKETS)
 bool RuntimeEnabledFeatures::webSocketEnabled() const
 {
+    webkitTrace();
     return WebSocket::isAvailable();
 }
 #endif

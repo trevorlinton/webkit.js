@@ -3,7 +3,6 @@
 
 #include "config.h"
 #include <emscripten.h>
-#include "NotImplemented.h"
 #include "Frame.h"
 
 namespace WebCore {

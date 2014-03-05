@@ -58,6 +58,7 @@
 #include "SubframeLoader.h"
 #include "URL.h"
 #include <wtf/Atomics.h>
+#include "Debugger.h"
 
 #if ENABLE(NETWORK_PROCESS)
 #include "BlobRegistryProxy.h"
@@ -71,51 +72,61 @@ namespace WebCore {
 
 void WebKitJSStrategies::initialize()
 {
+  webkitTrace();
     static NeverDestroyed<WebKitJSStrategies> platformStrategies;
     setPlatformStrategies(&platformStrategies.get());
 }
 
 WebKitJSStrategies::WebKitJSStrategies()
 {
+  webkitTrace();
 }
 
 CookiesStrategy* WebKitJSStrategies::createCookiesStrategy()
 {
+  webkitTrace();
     return this;
 }
 
 DatabaseStrategy* WebKitJSStrategies::createDatabaseStrategy()
 {
+  webkitTrace();
     return this;
 }
 
 LoaderStrategy* WebKitJSStrategies::createLoaderStrategy()
 {
+  webkitTrace();
     return this;
 }
 
 PasteboardStrategy* WebKitJSStrategies::createPasteboardStrategy()
 {
+  webkitTrace();
     return this;
 }
 
 PluginStrategy* WebKitJSStrategies::createPluginStrategy()
 {
+  webkitTrace();
     return this;
 }
 
 SharedWorkerStrategy* WebKitJSStrategies::createSharedWorkerStrategy()
 {
+  webkitTrace();
     return this;
 }
 
 StorageStrategy* WebKitJSStrategies::createStorageStrategy()
 {
+  webkitTrace();
     return this;
 }
 
 VisitedLinkStrategy* WebKitJSStrategies::createVisitedLinkStrategy()
 {
+  webkitTrace();
     return this;
 }
 
@@ -123,31 +134,37 @@ VisitedLinkStrategy* WebKitJSStrategies::createVisitedLinkStrategy()
 
 String WebKitJSStrategies::cookiesForDOM(const NetworkStorageSession& session, const URL& firstParty, const URL& url)
 {
+  webkitTrace();
     return WebCore::cookiesForDOM(session, firstParty, url);
 }
 
 void WebKitJSStrategies::setCookiesFromDOM(const NetworkStorageSession& session, const URL& firstParty, const URL& url, const String& cookieString)
 {
+  webkitTrace();
     WebCore::setCookiesFromDOM(session, firstParty, url, cookieString);
 }
 
 bool WebKitJSStrategies::cookiesEnabled(const NetworkStorageSession& session, const URL& firstParty, const URL& url)
 {
-    return WebCore::cookiesEnabled(session, firstParty, url);
+  webkitTrace();
+   return WebCore::cookiesEnabled(session, firstParty, url);
 }
 
 String WebKitJSStrategies::cookieRequestHeaderFieldValue(const NetworkStorageSession& session, const URL& firstParty, const URL& url)
 {
-    return WebCore::cookieRequestHeaderFieldValue(session, firstParty, url);
+  webkitTrace();
+   return WebCore::cookieRequestHeaderFieldValue(session, firstParty, url);
 }
 
 bool WebKitJSStrategies::getRawCookies(const NetworkStorageSession& session, const URL& firstParty, const URL& url, Vector<Cookie>& rawCookies)
 {
-    return WebCore::getRawCookies(session, firstParty, url, rawCookies);
+  webkitTrace();
+   return WebCore::getRawCookies(session, firstParty, url, rawCookies);
 }
 
 void WebKitJSStrategies::deleteCookie(const NetworkStorageSession& session, const URL& url, const String& cookieName)
 {
+  webkitTrace();
     WebCore::deleteCookie(session, url, cookieName);
 }
 
@@ -156,6 +173,7 @@ void WebKitJSStrategies::deleteCookie(const NetworkStorageSession& session, cons
 #if ENABLE(SQL_DATABASE)
 AbstractDatabaseServer* WebKitJSStrategies::getDatabaseServer()
 {
+  webkitTrace();
     return DatabaseStrategy::getDatabaseServer();
 }
 #endif // ENABLE(SQL_DATABASE)
@@ -163,6 +181,7 @@ AbstractDatabaseServer* WebKitJSStrategies::getDatabaseServer()
 #if ENABLE(INDEXED_DATABASE)
 PassRefPtr<IDBFactoryBackendInterface> WebKitJSStrategies::createIDBFactoryBackend(const String& databaseDirectoryIdentifier)
 {
+  webkitTrace();
 #if !ENABLE(DATABASE_PROCESS)
     return DatabaseStrategy::createIDBFactoryBackend(databaseDirectoryIdentifier);
 #endif
@@ -176,7 +195,8 @@ PassRefPtr<IDBFactoryBackendInterface> WebKitJSStrategies::createIDBFactoryBacke
 #if ENABLE(NETWORK_PROCESS)
 ResourceLoadScheduler* WebKitJSStrategies::resourceLoadScheduler()
 {
-    static ResourceLoadScheduler* scheduler;
+  webkitTrace();
+   static ResourceLoadScheduler* scheduler;
     if (!scheduler) {
         if (WebProcess::shared().usesNetworkProcess())
             scheduler = &WebProcess::shared().webResourceLoadScheduler();
@@ -189,7 +209,8 @@ ResourceLoadScheduler* WebKitJSStrategies::resourceLoadScheduler()
 
 void WebKitJSStrategies::loadResourceSynchronously(NetworkingContext* context, unsigned long resourceLoadIdentifier, const ResourceRequest& request, StoredCredentials storedCredentials, ClientCredentialPolicy clientCredentialPolicy, ResourceError& error, ResourceResponse& response, Vector<char>& data)
 {
-    if (!WebProcess::shared().usesNetworkProcess()) {
+  webkitTrace();
+   if (!WebProcess::shared().usesNetworkProcess()) {
         LoaderStrategy::loadResourceSynchronously(context, resourceLoadIdentifier, request, storedCredentials, clientCredentialPolicy, error, response, data);
         return;
     }
@@ -225,6 +246,7 @@ void WebKitJSStrategies::loadResourceSynchronously(NetworkingContext* context, u
 #if ENABLE(BLOB)
 BlobRegistry* WebKitJSStrategies::createBlobRegistry()
 {
+  webkitTrace();
     if (!WebProcess::shared().usesNetworkProcess())
         return LoaderStrategy::createBlobRegistry();
     return new BlobRegistryProxy;    
@@ -236,10 +258,12 @@ BlobRegistry* WebKitJSStrategies::createBlobRegistry()
 
 void WebKitJSStrategies::refreshPlugins()
 {
+  webkitTrace();
 }
 
 void WebKitJSStrategies::getPluginInfo(const WebCore::Page* page, Vector<WebCore::PluginInfo>& plugins)
 {
+  webkitTrace();
     UNUSED_PARAM(page);
     UNUSED_PARAM(plugins);
 }
@@ -248,7 +272,8 @@ void WebKitJSStrategies::getPluginInfo(const WebCore::Page* page, Vector<WebCore
 
 bool WebKitJSStrategies::isAvailable() const
 {
-    // Shared workers do not work across multiple processes, and using network process is tied to multiple secondary process model. 
+  webkitTrace();
+    // Shared workers do not work across multiple processes, and using network process is tied to multiple secondary process model.
     //return !WebProcess::shared().usesNetworkProcess();
   return true;
 }
@@ -257,11 +282,13 @@ bool WebKitJSStrategies::isAvailable() const
 
 PassRefPtr<StorageNamespace> WebKitJSStrategies::localStorageNamespace(PageGroup* pageGroup)
 {
+  webkitTrace();
     return StorageStrategy::localStorageNamespace(pageGroup);
 }
 
 PassRefPtr<StorageNamespace> WebKitJSStrategies::transientLocalStorageNamespace(PageGroup* pageGroup, SecurityOrigin*securityOrigin)
 {
+  webkitTrace();
 /*#if ENABLE(UI_PROCESS_STORAGE)
     UNUSED_PARAM(securityOrigin);
     // FIXME: This could be more clever and made to work across processes.
@@ -273,6 +300,7 @@ PassRefPtr<StorageNamespace> WebKitJSStrategies::transientLocalStorageNamespace(
 
 PassRefPtr<StorageNamespace> WebKitJSStrategies::sessionStorageNamespace(Page* page)
 {
+  webkitTrace();
   return StorageNamespaceImpl::sessionStorageNamespace(page);
 //#if ENABLE(UI_PROCESS_STORAGE)
  //   return StorageNamespace::createSessionStorageNamespace(WebPage::fromCorePage(page));
@@ -285,12 +313,14 @@ PassRefPtr<StorageNamespace> WebKitJSStrategies::sessionStorageNamespace(Page* p
 
 bool WebKitJSStrategies::isLinkVisited(Page*, LinkHash linkHash, const URL&, const AtomicString&)
 {
+  webkitTrace();
   //TODO:isLinkVisited
   return false; //return WebProcess::shared().isLinkVisited(linkHash);
 }
 
 void WebKitJSStrategies::addVisitedLink(Page*, LinkHash linkHash)
 {
+  webkitTrace();
   //TODO:addVisitedLink
    // WebProcess::shared().addVisitedLink(linkHash);
 }

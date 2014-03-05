@@ -1,7 +1,7 @@
 
 #include "config.h"
 #include <emscripten.h>
-#include "NotImplemented.h"
+#include "Debugger.h"
 #include "DocumentLoaderJS.h"
 #include "FrameLoaderClientJS.h"
 #include "FrameLoaderTypes.h"
@@ -15,144 +15,94 @@ namespace WebCore {
     return static_cast<FrameLoaderClient *>(new FrameLoaderClientJS());
   }
   FrameLoaderClientJS::FrameLoaderClientJS() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::FrameLoaderClientJS();");
-           );
+    notImplemented();
   }
   
   FrameLoaderClientJS::~FrameLoaderClientJS() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::~FrameLoaderClientJS();");
-           );
+    notImplemented();
   }
 
 
   bool FrameLoaderClientJS::hasHTMLView() const {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::hasHTMLView();");
-           );
+    notImplemented();
     return true;
   }
   void FrameLoaderClientJS::frameLoaderDestroyed() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::frameLoaderDestroyed();");
-           );
+    notImplemented();
   }
 
   bool FrameLoaderClientJS::hasWebView() const  {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::hasWebView();");
-           );
+    notImplemented();
     return true;
   }
 
   void FrameLoaderClientJS::makeRepresentation(DocumentLoader*) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::makeRepresentation();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::forceLayout() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::forceLayout();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::forceLayoutForNonHTML() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::forceLayoutForNonHTML();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::setCopiesOnScroll() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::setCopiesOnScroll();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::detachedFromParent2() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::detachedFromParent2();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::detachedFromParent3() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::detachedFromParent3();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::assignIdentifierToInitialRequest(unsigned long identifier, DocumentLoader*, const ResourceRequest&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::nassignIdentifierToInitialRequest();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::dispatchWillSendRequest(DocumentLoader*, unsigned long identifier, ResourceRequest&, const ResourceResponse& redirectResponse) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchWillSendRequest();");
-           );
+    notImplemented();
   }
   bool FrameLoaderClientJS::shouldUseCredentialStorage(DocumentLoader*, unsigned long identifier) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::shouldUseCredentialStorage();");
-           );
+    notImplemented();
     return false;
   }
   void FrameLoaderClientJS::dispatchDidReceiveAuthenticationChallenge(DocumentLoader*, unsigned long identifier, const AuthenticationChallenge&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidReceiveAuthenticationChallenge();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidCancelAuthenticationChallenge(DocumentLoader*, unsigned long identifier, const AuthenticationChallenge&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidCancelAuthenticationChallenge();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::dispatchDidReceiveResponse(DocumentLoader*, unsigned long identifier, const ResourceResponse&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidReceiveResponse();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidReceiveContentLength(DocumentLoader*, unsigned long identifier, int dataLength) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidReceiveContentLength();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidFinishLoading(DocumentLoader*, unsigned long identifier) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidFinishLoading();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidFailLoading(DocumentLoader*, unsigned long identifier, const ResourceError&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidFailLoading();");
-           );
+    notImplemented();
   }
   bool FrameLoaderClientJS::dispatchDidLoadResourceFromMemoryCache(DocumentLoader*, const ResourceRequest&, const ResourceResponse&, int length) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidLoadResourceFromMemoryCache();");
-           );
+    notImplemented();
     return false;
   }
 
   void FrameLoaderClientJS::dispatchDidHandleOnloadEvents() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidHandleOnloadEvents();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidReceiveServerRedirectForProvisionalLoad() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidReceiveServerRedirectForProvisionalLoad();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidCancelClientRedirect() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidCancelClientRedirect();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchWillPerformClientRedirect(const URL&, double interval, double fireDate) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchWillPerformClientRedirect();");
-           );
+    notImplemented();
   }
 /*  void FrameLoaderClientJS::dispatchDidNavigateWithinPage() {
     EM_ASM(
@@ -160,74 +110,46 @@ namespace WebCore {
            );
   }*/
   void FrameLoaderClientJS::dispatchDidChangeLocationWithinPage() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidChangeLocationWithinPage();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidPushStateWithinPage() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidPushStateWithinPage();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidReplaceStateWithinPage() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidReplaceStateWithinPage();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidPopStateWithinPage() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidPopStateWithinPage();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchWillClose() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchWillClose();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidReceiveIcon() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidReceiveIcon();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidStartProvisionalLoad() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidStartProvisionalLoad();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidReceiveTitle(const StringWithDirection&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidReceiveTitle();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidChangeIcons(IconType) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidChangeIcons();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidCommitLoad() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidCommitLoad();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidFailProvisionalLoad(const ResourceError&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidFailProvisionalLoad();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidFailLoad(const ResourceError&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidFailLoad();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidFinishDocumentLoad() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidFinishDocumentLoad();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDidFinishLoad() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDidFinishLoad();");
-           );
+    notImplemented();
   }
 
 /*  void FrameLoaderClientJS::dispatchDidLayout() {
@@ -242,335 +164,242 @@ namespace WebCore {
   }*/
 
   Frame* FrameLoaderClientJS::dispatchCreatePage(const NavigationAction&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchCreatePage();");
-           );
+    notImplemented();
     return 0;
   }
   void FrameLoaderClientJS::dispatchShow() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchShow();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::dispatchDecidePolicyForResponse(const ResourceResponse&, const ResourceRequest&, FramePolicyFunction) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDecidePolicyForResponse();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDecidePolicyForNewWindowAction(const NavigationAction&, const ResourceRequest&, PassRefPtr<FormState>, const String& frameName, FramePolicyFunction)
   {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDecidePolicyForNewWindowAction();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchDecidePolicyForNavigationAction(const NavigationAction&, const ResourceRequest&, PassRefPtr<FormState>, FramePolicyFunction) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchDecidePolicyForNavigationAction();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::cancelPolicyCheck() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::cancelPolicyCheck();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::dispatchUnableToImplementPolicy(const ResourceError&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchUnableToImplementPolicy();");
-           );
+    notImplemented();
   }
 
   /*void FrameLoaderClientJS::dispatchWillRequestResource(CachedResourceRequest*) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+   notImplemented();
   }*/
 
   void FrameLoaderClientJS::dispatchWillSendSubmitEvent(PassRefPtr<FormState>) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchWillSendSubmitEvent();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::dispatchWillSubmitForm(PassRefPtr<FormState>, FramePolicyFunction) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::dispatchWillSubmitForm();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::revertToProvisionalState(DocumentLoader*) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::revertToProvisionalState();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::setMainDocumentError(DocumentLoader*, const ResourceError&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::setMainDocumentError();");
-           );
+    notImplemented();
   }
 
   /*void FrameLoaderClientJS::willChangeEstimatedProgress() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+   notImplemented();
   }
   void FrameLoaderClientJS::didChangeEstimatedProgress() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+   notImplemented();
   }*/
   void FrameLoaderClientJS::postProgressStartedNotification() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::postProgressStartedNotification();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::postProgressEstimateChangedNotification() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::postProgressEstimateChangedNotification();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::postProgressFinishedNotification() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::postProgressFinishedNotification();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::setMainFrameDocumentReady(bool ready) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::setMainFrameDocumentReady();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::startDownload(const ResourceRequest&, const String& suggestedName) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::willChangeTitle(DocumentLoader* loader) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::willChangeTitle();");
-           );
-
+    notImplemented();
   }
   void FrameLoaderClientJS::didChangeTitle(DocumentLoader* loader) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::didChangeTitle();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::committedLoad(DocumentLoader* loader, const char* name, int c) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::finishedLoading(DocumentLoader*) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::updateGlobalHistory() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::updateGlobalHistoryRedirectLinks() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
   }
 
   bool FrameLoaderClientJS::shouldGoToHistoryItem(HistoryItem*) const {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return false;
   }
   bool FrameLoaderClientJS::shouldStopLoadingForHistoryItem(HistoryItem*) const {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return false;
   }
  /* void FrameLoaderClientJS::updateGlobalHistoryItemForPage() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+  notImplemented();
   }*/
 
   /*void FrameLoaderClientJS::didDisownOpener() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+   notImplemented();
   }*/
 
   void FrameLoaderClientJS::didDisplayInsecureContent() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
   }
 
   void FrameLoaderClientJS::didRunInsecureContent(SecurityOrigin*, const URL&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::didDetectXSS(const URL&, bool didBlockEntirePage) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
   }
 
  ResourceError FrameLoaderClientJS::cancelledError(const ResourceRequest&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+   notImplemented();
    return ResourceError();
   }
   ResourceError FrameLoaderClientJS::blockedError(const ResourceRequest&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return ResourceError();
   }
   ResourceError FrameLoaderClientJS::cannotShowURLError(const ResourceRequest&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return ResourceError();
   }
   ResourceError FrameLoaderClientJS::interruptedForPolicyChangeError(const ResourceRequest&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return ResourceError();
   }
 
   ResourceError FrameLoaderClientJS::cannotShowMIMETypeError(const ResourceResponse&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return ResourceError();
   }
   ResourceError FrameLoaderClientJS::fileDoesNotExistError(const ResourceResponse&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return ResourceError();
   }
   ResourceError FrameLoaderClientJS::pluginWillHandleLoadError(const ResourceResponse&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return ResourceError();
   }
 
   bool FrameLoaderClientJS::shouldFallBack(const ResourceError&) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return false;
   }
 
   bool FrameLoaderClientJS::canHandleRequest(const ResourceRequest&) const {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return true;
   }
   bool FrameLoaderClientJS::canShowMIMEType(const String& MIMEType) const {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return true;
   }
   bool FrameLoaderClientJS::canShowMIMETypeAsHTML(const String& MIMEType) const {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return true;
   }
   bool FrameLoaderClientJS::representationExistsForURLScheme(const String& URLScheme) const {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return true;
   }
   String FrameLoaderClientJS::generatedMIMETypeForURLScheme(const String& URLScheme) const {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
     return "text/html";
   }
 
   void FrameLoaderClientJS::frameLoadCompleted() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::saveViewStateToItem(HistoryItem*) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::restoreViewState() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
+    notImplemented();
   }
   void FrameLoaderClientJS::provisionalLoadStarted() {
-
+    notImplemented();
   }
   void FrameLoaderClientJS::didFinishLoad() {
-
+    notImplemented();
   }
   void FrameLoaderClientJS::prepareForDataSourceReplacement() {
-
+    notImplemented();
   }
 
   PassRefPtr<DocumentLoader> FrameLoaderClientJS::createDocumentLoader(const ResourceRequest& request, const SubstituteData& subtituteData) {
+    webkitTrace();
     RefPtr<WebCore::DocumentLoader> loader = WebCore::DocumentLoaderJS::create(request, subtituteData);
     return loader.release();
   }
   void FrameLoaderClientJS::setTitle(const StringWithDirection&, const URL&) {
-
+    notImplemented();
   }
 
   String FrameLoaderClientJS::userAgent(const URL&) {
+    webkitTrace();
     return "webkit.js";
   }
 
   void FrameLoaderClientJS::savePlatformDataToCachedFrame(CachedFrame*) {
-
+    notImplemented();
   }
   void FrameLoaderClientJS::transitionToCommittedFromCachedFrame(CachedFrame*) {
-
+    notImplemented();
   }
   void FrameLoaderClientJS::transitionToCommittedForNewPage() {
-
+    notImplemented();
   }
 
   void FrameLoaderClientJS::didSaveToPageCache() {
-
+    notImplemented();
   }
   void FrameLoaderClientJS::didRestoreFromPageCache() {
-
+    notImplemented();
   }
 
   void FrameLoaderClientJS::dispatchDidBecomeFrameset(bool) {
-
+    notImplemented();
   } // Can change due to navigation or DOM modification.
 
   bool FrameLoaderClientJS::canCachePage() const {
+    notImplemented();
     return false;
   }
   void FrameLoaderClientJS::convertMainResourceLoadToDownload(DocumentLoader*, const ResourceRequest&, const ResourceResponse&) {
-
+    notImplemented();
   }
 
   PassRefPtr<Frame> FrameLoaderClientJS::createFrame(const URL& url, const String& name, HTMLFrameOwnerElement* ownerElement, const String& referrer, bool allowsScrolling, int marginWidth, int marginHeight)
   {
+    notImplemented();
     /*Frame* parentFrame = m_frame;
     WebCore::Page* page = core(webView);
     ASSERT(page == parentFrame->page());
@@ -597,13 +426,14 @@ namespace WebCore {
     return nullptr;
   }
   void FrameLoaderClientJS::recreatePlugin(Widget* plugin) {
-
+    notImplemented();
   }
   void FrameLoaderClientJS::redirectDataToPlugin(Widget* pluginWidget) {
-
+    notImplemented();
   }
 
   PassRefPtr<Widget> FrameLoaderClientJS::createJavaAppletWidget(const IntSize&, HTMLAppletElement*, const URL& baseURL, const Vector<String>& paramNames, const Vector<String>& paramValues) {
+    notImplemented();
     return nullptr;
   }
 
@@ -611,26 +441,29 @@ namespace WebCore {
   }*/
 
   ObjectContentType FrameLoaderClientJS::objectContentType(const URL&, const String& mimeType, bool shouldPreferPlugInsForImages) {
+    notImplemented();
     return ObjectContentType();
   }
   String FrameLoaderClientJS::overrideMediaType() const {
+    notImplemented();
     return WTF::String();
   }
 
   void FrameLoaderClientJS::dispatchDidClearWindowObjectInWorld(DOMWrapperWorld&) {
-
+    notImplemented();
   }
   void FrameLoaderClientJS::documentElementAvailable() {
-
+    notImplemented();
   }
   void FrameLoaderClientJS::didPerformFirstNavigation() const {
-
+    notImplemented();
   } // "Navigation" here means a transition from one page to another that ends up in the back/forward list.
 
   void FrameLoaderClientJS::registerForIconNotification(bool listen) {
-
+    notImplemented();
   }
   PassRefPtr<FrameNetworkingContext> FrameLoaderClientJS::createNetworkingContext() {
+    notImplemented();
     return nullptr;
   }
 /*

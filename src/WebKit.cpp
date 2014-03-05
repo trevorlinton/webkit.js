@@ -30,29 +30,24 @@ static RuntimeEnabledFeatures* features;
 }
 
 int main(int argc, char **argv) {
-  EM_ASM(
-         console.log("WebKit: main();");
-         );
+
+  fprintf(stderr,"WebKit: main();\n");
+
   WebKitJSStrategies::initialize();
-  EM_ASM(
-         console.log("WebKit: setPlatformStrategies();");
-         );
+
+  fprintf(stderr,"WebKit: setPlatformStrategies();\n");
 
   Page::PageClients pageClients;
   fillWithEmptyClients(pageClients);
-  EM_ASM(
-         console.log("WebKit: fillWithEmptyClients();");
-         );
+  fprintf(stderr,"WebKit: fillWithEmptyClients();\n");
+  
   pageClients.chromeClient = ChromeClientJS::createClient();
   pageClients.loaderClientForMainFrame = FrameLoaderClientJS::createClient();
 
-  EM_ASM(
-         console.log("WebKit: Page::Page();");
-         );
+  fprintf(stderr,"WebKit: Page::Page();\n");
+
   page = std::make_unique<Page>(pageClients);
-  EM_ASM(
-         console.log("WebKit: settingsInitialized;");
-         );
+  fprintf(stderr,"WebKit: settingsInitialized;\n");
 
   page->settings().setMediaEnabled(false);
   page->settings().setScriptEnabled(false);
@@ -69,17 +64,14 @@ int main(int argc, char **argv) {
 
 
   Frame& frame = page->mainFrame();
-  EM_ASM(
-         console.log("WebKit: got main frame;");
-         );
+  fprintf(stderr,"WebKit: got main frame;\n");
+
   frame.setView(FrameView::create(frame));
-  EM_ASM(
-         console.log("WebKit: creating frame view;");
-         );
+  fprintf(stderr,"WebKit: creating frame view;\n");
+
   frame.init();
-  EM_ASM(
-         console.log("WebKit: frameInitialized;");
-         );
+  fprintf(stderr,"WebKit: frameInitialized;\n");
+
   FrameLoader& loader = frame.loader();
   loader.forceSandboxFlags(SandboxAll);
 
@@ -87,24 +79,18 @@ int main(int argc, char **argv) {
   frame.view()->setTransparent(true);
 
   ASSERT(loader.activeDocumentLoader()); // DocumentLoader should have been created by frame->init().
-  EM_ASM(
-         console.log("WebKit: frameLoaderInitialized;");
-         );
+  fprintf(stderr,"WebKit: frameLoaderInitialized;\n");
+
   loader.activeDocumentLoader()->writer().setMIMEType("text/html");
-  EM_ASM(
-         console.log("WebKit: setMimeType();");
-         );
+  fprintf(stderr,"WebKit: setMimeType();\n");
+
   loader.activeDocumentLoader()->writer().begin(URL()); // create the empty document
-  EM_ASM(
-         console.log("WebKit: begin(URL);");
-         );
+  fprintf(stderr,"WebKit: begin(URL);\n");
+
   loader.activeDocumentLoader()->writer().addData(argv[0], strlen(argv[0])); // Go ahead and render whatever is in argv[0].
-  EM_ASM(
-         console.log("WebKit: added data();");
-         );
+  fprintf(stderr,"WebKit: added data();\n");
+
   loader.activeDocumentLoader()->writer().end();
-  EM_ASM(
-         console.log("WebKit: finished;");
-         );
+  fprintf(stderr,"WebKit: finished;\n");
 
 }

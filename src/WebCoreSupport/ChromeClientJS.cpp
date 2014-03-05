@@ -3,7 +3,7 @@
  */
 #include "config.h"
 #include <emscripten.h>
-#include "NotImplemented.h"
+#include "Debugger.h"
 #include "ChromeClientJS.h"
 
 using namespace WebCore;
@@ -17,248 +17,195 @@ namespace WebCore {
   //}
 
   ChromeClient* ChromeClientJS::createClient() {
+    webkitTrace();
     return static_cast<ChromeClient *>(new ChromeClientJS());
   }
 
   ChromeClientJS::ChromeClientJS()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::ChromeClientJS();");
-           );
+    notImplemented();
   }
   void ChromeClientJS::chromeDestroyed()
   {
+    webkitTrace();
     delete this;
   }
 
   FloatRect ChromeClientJS::windowRect()
   {
+    webkitTrace();
     return m_pageRect;
     
   }
 
   void ChromeClientJS::setWindowRect(const FloatRect& rect)
   {
+    webkitTrace();
     m_pageRect = rect;
   }
 
   FloatRect ChromeClientJS::pageRect()
   {
+    webkitTrace();
     return m_pageRect;
   }
 
   void ChromeClientJS::focus()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::focus();");
-    );
+    webkitTrace();
   }
 
   void ChromeClientJS::unfocus()
   {
-
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::unfocus();");
-    );
+    webkitTrace();
   }
 
   Page* ChromeClientJS::createWindow(Frame* frame, const FrameLoadRequest& frameLoadRequest, const WindowFeatures& coreFeatures, const NavigationAction&)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::createWindow();");
-    );
+    webkitTrace();
     return 0;
   }
 
   void ChromeClientJS::show()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::show();");
-    );
+    webkitTrace();
   }
 
   bool ChromeClientJS::canRunModal()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::canRunModal();");
-           );
+    webkitTrace();
     return false;
   }
 
   void ChromeClientJS::runModal()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::runModal();");
-           );
+    webkitTrace();
     notImplemented();
   }
 
   void ChromeClientJS::setToolbarsVisible(bool visible)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::setToolbarsVisible();");
-    );
+    webkitTrace();
   }
 
   bool ChromeClientJS::toolbarsVisible()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::toolbarsVisible();");
-    );
+    webkitTrace();
     return false;
   }
 
   void ChromeClientJS::setStatusbarVisible(bool visible)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::setStatusbarVisible();");
-           );
+    webkitTrace();
   }
 
   bool ChromeClientJS::statusbarVisible()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::statusbarVisible();");
-           );
+    webkitTrace();
     return false;
   }
 
   void ChromeClientJS::setScrollbarsVisible(bool visible)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::setScrollbarsVisible();");
-           );
+    webkitTrace();
   }
 
   bool ChromeClientJS::scrollbarsVisible()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::scrollbarsVisible();");
-           );
+    webkitTrace();
     return false;
   }
 
   void ChromeClientJS::setMenubarVisible(bool visible)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::setMenubarVisible();");
-           );
+    webkitTrace();
   }
 
   bool ChromeClientJS::menubarVisible()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::menubarVisible();");
-           );
+    webkitTrace();
     return false;
   }
 
   void ChromeClientJS::setResizable(bool)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::setResizable();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::closeWindowSoon()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::closeWindowSoon();");
-           );
+    webkitTrace();
   }
 
   bool ChromeClientJS::canTakeFocus(FocusDirection)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::canTakeFocus();");
-           );
+    webkitTrace();
     return true;
   }
 
   void ChromeClientJS::takeFocus(FocusDirection)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::takeFocus();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::focusedElementChanged(Element*)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::focusedElementChanged();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::focusedFrameChanged(Frame*)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::focusFrameChanged();");
-           );
+    webkitTrace();
   }
 
   bool ChromeClientJS::canRunBeforeUnloadConfirmPanel()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::canRunBeforeUnloadConfirmPanel();");
-           );
+    webkitTrace();
     return true;
   }
 
   bool ChromeClientJS::runBeforeUnloadConfirmPanel(const WTF::String& message, WebCore::Frame* frame)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::runBeforeUnloadConfirmPanel();");
-           );
+    webkitTrace();
     return true;
   }
 
   void ChromeClientJS::addMessageToConsole(WebCore::MessageSource source, WebCore::MessageLevel level, const WTF::String& message, unsigned lineNumber, unsigned columnNumber, const WTF::String& sourceId)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::addMessageToConsole();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::runJavaScriptAlert(Frame* frame, const String& message)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::runJavaScriptAlert();");
-           );
+    webkitTrace();
   }
 
   bool ChromeClientJS::runJavaScriptConfirm(Frame* frame, const String& message)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::runJavaScriptConfirm();");
-           );
+    webkitTrace();
     return true;
   }
 
   bool ChromeClientJS::runJavaScriptPrompt(Frame* frame, const String& message, const String& defaultValue, String& result)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::runJavaScriptPrompt();");
-           );
+    webkitTrace();
     return true;
   }
 
   void ChromeClientJS::setStatusbarText(const String& string)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::setScrollbarsVisible();");
-           );
+    webkitTrace();
   }
 
   bool ChromeClientJS::shouldInterruptJavaScript()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::shouldInterruptJavaScript();");
-           );
+    webkitTrace();
     return false;
   }
 
   KeyboardUIMode ChromeClientJS::keyboardUIMode()
   {
+    webkitTrace();
     return KeyboardAccessDefault;
   }
 
@@ -298,116 +245,85 @@ namespace WebCore {
 
   void ChromeClientJS::invalidateRootView(const IntRect&, bool immediate)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::invalidateRootView();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::invalidateContentsAndRootView(const IntRect& updateRect, bool immediate)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::invalidateContentsAndRootView();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::invalidateContentsForSlowScroll(const IntRect& updateRect, bool immediate)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::invalidateContentsForSlowScroll();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::scroll(const IntSize& delta, const IntRect& rectToScroll, const IntRect& clipRect)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::scroll();");
-           );
+    webkitTrace();
   }
 
   IntRect ChromeClientJS::rootViewToScreen(const IntRect& rect) const
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::rootViewToScreen();");
-           );
+    webkitTrace();
     return rect;
   }
 
   IntPoint ChromeClientJS::screenToRootView(const IntPoint& point) const
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::screenToRootView();");
-           );
+    webkitTrace();
     return point;
   }
 
   PlatformPageClient ChromeClientJS::platformPageClient() const
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::platformPageClient();");
-           );
+    webkitTrace();
     return 0;
   }
 
   void ChromeClientJS::contentsSizeChanged(Frame* frame, const IntSize& size) const
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::contentsSizeChanged();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::scrollbarsModeDidChange() const
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::scrollbarsModeDidChange();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::mouseDidMoveOverElement(const HitTestResult& hit, unsigned modifierFlags)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::mouseDidMoveOverElement();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::setToolTip(const String& toolTip, TextDirection)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::setToolTip();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::print(Frame* frame)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::print();");
-           );
+    webkitTrace();
   }
+
   void ChromeClientJS::reachedMaxAppCacheSize(int64_t spaceNeeded)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::reachedMaxAppCacheSize();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::reachedApplicationCacheOriginQuota(SecurityOrigin*, int64_t)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::reachedApplicationCacheOriginQuota();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::runOpenPanel(Frame*, PassRefPtr<FileChooser> prpFileChooser)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::runOpenPanel();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::loadIconForFiles(const Vector<WTF::String>& filenames, WebCore::FileIconLoader* loader)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::loadIconForFiles();");
-           );
+    webkitTrace();
   }
 
   /*void ChromeClientJS::dispatchViewportPropertiesDidChange(const ViewportArguments& arguments) const
@@ -419,39 +335,29 @@ namespace WebCore {
 
   void ChromeClientJS::setCursor(const Cursor& cursor)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::setCursor();");
-           );
+    webkitTrace();
   }
 
   void ChromeClientJS::setCursorHiddenUntilMouseMoves(bool)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::setCursorHiddenUntilMouseMoves();");
-           );
+    webkitTrace();
   }
 
   bool ChromeClientJS::selectItemWritingDirectionIsNatural()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::selectItemWritingDirectionIsNatural();");
-           );
+    webkitTrace();
     return false;
   }
 
   bool ChromeClientJS::selectItemAlignmentFollowsMenuWritingDirection()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::selectItemAlignmentFollowMenuWritingDirection();");
-           );
+    webkitTrace();
     return false;
   }
 
   bool ChromeClientJS::hasOpenedPopup() const
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::hasOpenedPopup();");
-           );
+    webkitTrace();
     return false;
   }
 
@@ -471,58 +377,40 @@ namespace WebCore {
 
   void ChromeClientJS::attachRootGraphicsLayer(Frame* frame, GraphicsLayer* rootLayer)
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::attachRootGraphicsLayer();");
-           );
+    notImplemented();
   }
   
   void ChromeClientJS::setNeedsOneShotDrawingSynchronization()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::setNeedsOneShotDrawingSynchronization();");
-           );
+    notImplemented();
   }
   
   void ChromeClientJS::scheduleCompositingLayerFlush()
   {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::scheduleCompositingLayerFlush();");
-           );
+    notImplemented();
   }
 
 
   PassRefPtr<PopupMenu> ChromeClientJS::createPopupMenu(PopupMenuClient*) const {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::createPopupMenu(PopupMenuClient*);");
-           );
+    notImplemented();
     return nullptr;
   }
 
   PassRefPtr<SearchPopupMenu> ChromeClientJS::createSearchPopupMenu(PopupMenuClient*) const {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::createSearchPopupMenu(PopupMenuClient*);");
-           );
+    notImplemented();
     return nullptr;
   }
   void ChromeClientJS::delegatedScrollRequested(const IntPoint&) {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::delegatedScrollRequested(const IntPoint&);");
-           );
+    notImplemented();
   }
   void ChromeClientJS::formStateDidChange(const WebCore::Node*) {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::formStateDidChange(const WebCore::Node*);");
-           );
+    notImplemented();
   }
   void ChromeClientJS::numWheelEventHandlersChanged(unsigned) {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::numWheelEventHandlersChanged(unsigned);");
-           );
+    notImplemented();
   }
   void ChromeClientJS::scheduleAnimation() {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::scheduleAnimation();");
-           );
+    notImplemented();
   }
 
   /*IntRect ChromeClientJS::windowResizerRect() const
