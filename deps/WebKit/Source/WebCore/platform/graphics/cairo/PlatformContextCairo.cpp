@@ -35,6 +35,10 @@
 #include "Pattern.h"
 #include <cairo.h>
 
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
+
 namespace WebCore {
 
 // In Cairo image masking is immediate, so to emulate image clipping we must save masking
@@ -83,6 +87,10 @@ public:
 PlatformContextCairo::PlatformContextCairo(cairo_t* cr)
     : m_cr(cr)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
     m_stateStack.append(State());
     m_state = &m_stateStack.last();
 }
@@ -156,6 +164,9 @@ static void drawPatternToCairoContext(cairo_t* cr, cairo_pattern_t* pattern, con
 
 void PlatformContextCairo::drawSurfaceToContext(cairo_surface_t* surface, const FloatRect& destRect, const FloatRect& originalSrcRect, GraphicsContext* context)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     // Avoid invalid cairo matrix with small values.
     if (std::fabs(destRect.width()) < 0.5f || std::fabs(destRect.height()) < 0.5f)
         return;
@@ -263,6 +274,10 @@ static inline void reduceSourceByAlpha(cairo_t* cr, float alpha)
 
 static void prepareCairoContextSource(cairo_t* cr, Pattern* pattern, Gradient* gradient, const Color& color, float globalAlpha)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
     if (pattern) {
         RefPtr<cairo_pattern_t> cairoPattern(adoptRef(pattern->createPlatformPattern(AffineTransform())));
         cairo_set_source(cr, cairoPattern.get());

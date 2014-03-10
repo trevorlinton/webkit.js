@@ -270,6 +270,9 @@ using WTF::fastMallocAllow;
 #pragma clang diagnostic ignored "-Winline-new-delete"
 #endif
 #endif
+#ifdef TARGET_EMSCRIPTEN
+#error "Cannot use C++ throw exceptions in emscripten"
+#endif
 WTF_PRIVATE_INLINE void* operator new(size_t size) throw (std::bad_alloc) { return fastMalloc(size); }
 WTF_PRIVATE_INLINE void* operator new(size_t size, const std::nothrow_t&) throw() { return fastMalloc(size); }
 WTF_PRIVATE_INLINE void operator delete(void* p) throw() { fastFree(p); }

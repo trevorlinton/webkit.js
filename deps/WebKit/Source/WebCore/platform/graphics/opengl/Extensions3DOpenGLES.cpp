@@ -29,12 +29,17 @@
 #include "Extensions3DOpenGLES.h"
 
 #include "GraphicsContext3D.h"
-#include "NotImplemented.h"
 #include <EGL/egl.h>
 #include <wtf/Vector.h>
 
 #if PLATFORM(BLACKBERRY)
 #include <BlackBerryPlatformLog.h>
+#endif
+
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#else
+#include "NotImplemented.h"
 #endif
 
 namespace WebCore {
@@ -55,6 +60,10 @@ Extensions3DOpenGLES::Extensions3DOpenGLES(GraphicsContext3D* context)
     , m_glGetnUniformfvEXT(0)
     , m_glGetnUniformivEXT(0)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
 }
 
 Extensions3DOpenGLES::~Extensions3DOpenGLES()

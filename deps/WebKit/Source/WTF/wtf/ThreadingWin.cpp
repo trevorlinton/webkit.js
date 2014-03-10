@@ -135,6 +135,9 @@ void initializeCurrentThreadInternal(const char* szThreadName)
     // FIXME: Implement thread name setting with MingW.
     UNUSED_PARAM(szThreadName);
 #else
+#ifdef TARGET_EMSCRIPTEN
+#error "Cannot include msvc specific code in emscripten."
+#endif
     THREADNAME_INFO info;
     info.dwType = 0x1000;
     info.szName = szThreadName;

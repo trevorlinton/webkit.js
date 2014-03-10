@@ -53,7 +53,7 @@
 #include <wtf/Threading.h>
 #include <wtf/text/TextPosition.h>
 
-#include "NotImplemented.h"
+#include "DebuggerJS.h"
 
 #pragma GCC diagnostic ignored "-Wreturn-type"
 
@@ -63,8 +63,9 @@ namespace WebCore {
 
 void ScriptController::initializeThreading()
 {
-    JSC::initializeThreading();
-    WTF::initializeMainThread();
+  webkitTrace();
+  JSC::initializeThreading();
+  WTF::initializeMainThread();
 }
 
 ScriptController::ScriptController(Frame& frame)
@@ -72,11 +73,12 @@ ScriptController::ScriptController(Frame& frame)
     , m_sourceURL(0)
     , m_paused(false)
 {
+  webkitTrace();
 }
 
 ScriptController::~ScriptController()
 {
-    
+  webkitTrace();
 }
 
 bool ScriptController::canExecuteScripts(ReasonForCallingCanExecuteScripts reason) {
@@ -141,13 +143,16 @@ PassRefPtr<JSC::Bindings::Instance> ScriptController::createScriptInstanceForWid
 
 void ScriptController::disconnectPlatformScriptObjects() { notImplemented(); }
 
-  void ScriptController::cleanupScriptObjectsForPlugin(void* nativeHandle) { notImplemented(); }
+void ScriptController::cleanupScriptObjectsForPlugin(void* nativeHandle) { notImplemented(); }
 
 void ScriptController::clearScriptObjects() { notImplemented(); }
 
 Deprecated::ScriptValue ScriptController::executeScriptInWorld(DOMWrapperWorld& world, const String& script, bool forceUserGesture)  { notImplemented(); }
 
-bool ScriptController::shouldBypassMainWorldContentSecurityPolicy() { notImplemented(); }
+bool ScriptController::shouldBypassMainWorldContentSecurityPolicy() {
+  notImplemented();
+  return true;
+}
 
 Deprecated::ScriptValue ScriptController::executeScript(const String& script, bool forceUserGesture) { notImplemented(); }
 

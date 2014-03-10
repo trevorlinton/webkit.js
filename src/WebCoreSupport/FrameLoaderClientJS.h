@@ -115,9 +115,10 @@ namespace WebCore {
     ResourceError fileDoesNotExistError(const ResourceResponse&);
     ResourceError pluginWillHandleLoadError(const ResourceResponse&);
     PassRefPtr<FrameNetworkingContext> createNetworkingContext();
+		void setFrame(Frame *);
   private:
     FrameLoaderClientJS();
-
+		Frame *m_frame = 0;
   };
 }
 

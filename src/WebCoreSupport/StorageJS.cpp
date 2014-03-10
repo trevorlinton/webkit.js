@@ -28,7 +28,7 @@
 
 #include "Document.h"
 #include "ExceptionCode.h"
-#include "Debugger.h"
+#include "DebuggerJS.h"
 #include "Frame.h"
 #include "Page.h"
 #include "SchemeRegistry.h"

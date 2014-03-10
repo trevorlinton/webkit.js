@@ -34,8 +34,11 @@
 #include "EGLContext.h"
 #endif
 
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#else
 #include "NotImplemented.h"
-
+#endif
 namespace WebCore {
 
 #if USE(OPENGL_ES_2)
@@ -104,6 +107,10 @@ static void resolveResetStatusExtension()
 
 PassOwnPtr<GLPlatformContext> GLPlatformContext::createContext(GraphicsContext3D::RenderStyle renderStyle)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
 #if !USE(OPENGL_ES_2)
     if (!initializeOpenGLShims())
         return nullptr;
@@ -185,6 +192,10 @@ GLPlatformContext::GLPlatformContext()
     : m_contextHandle(0)
     , m_resetLostContext(false)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
 }
 
 GLPlatformContext::~GLPlatformContext()

@@ -196,6 +196,9 @@ pixman_have_vmx (void)
 #if defined(_MSC_VER)
 
 #if defined(USE_ARM_SIMD)
+#ifdef TARGET_EMSCRIPTEN
+#error "Cannot include MSVC specific code for emscripten build."
+#endif
 extern int pixman_msvc_try_arm_simd_op ();
 
 pixman_bool_t

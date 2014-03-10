@@ -410,9 +410,11 @@ FcConfigBuildFonts (FcConfig *config)
       fprintf(stderr,"Failed to get list of available fonts.");
     return FcFalse;
   }
-    if (FcDebug () & FC_DBG_FONTSET)
-      FcFontSetPrint (fonts);
-    return FcTrue;
+    //if (FcDebug () & FC_DBG_FONTSET)
+#ifdef DEBUG
+  FcFontSetPrint (fonts);
+#endif
+  return FcTrue;
 }
 
 FcBool

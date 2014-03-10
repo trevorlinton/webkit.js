@@ -18,7 +18,7 @@
 #include "RenderSlider.h"
 #include "RenderView.h"
 #include "StyleResolver.h"
-#include "Debugger.h"
+#include "DebuggerJS.h"
 
 using std::min;
 

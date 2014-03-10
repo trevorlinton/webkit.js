@@ -25,7 +25,7 @@
 
 #include "config.h"
 #include "SharedBuffer.h"
-#include "Debugger.h"
+#include "DebuggerJS.h"
 #include "FileSystem.h"
 
 #include <fcntl.h>

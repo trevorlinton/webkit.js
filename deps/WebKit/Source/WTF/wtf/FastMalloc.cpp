@@ -4511,6 +4511,9 @@ static inline void* cpp_alloc(size_t size, bool nothrow) {
 #ifdef PREANSINEW
     return p;
 #else
+#ifdef TARGET_EMSCRIPTEN
+#error "Cannot include threading/spin lock code in emscripten"
+#endif
     if (p == NULL) {  // allocation failed
       // Get the current new handler.  NB: this function is not
       // thread-safe.  We make a feeble stab at making it so here, but

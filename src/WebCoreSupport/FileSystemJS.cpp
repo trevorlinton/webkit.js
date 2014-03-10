@@ -28,7 +28,7 @@
 
 #include "config.h"
 #include "FileSystem.h"
-#include "Debugger.h"
+#include "DebuggerJS.h"
 #include "FileMetadata.h"
 #include <dirent.h>
 #include <errno.h>

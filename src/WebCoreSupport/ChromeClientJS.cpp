@@ -2,8 +2,9 @@
  * (c) 2014 True Interactions
  */
 #include "config.h"
+#include "FloatRect.h"
 #include <emscripten.h>
-#include "Debugger.h"
+#include "DebuggerJS.h"
 #include "ChromeClientJS.h"
 
 using namespace WebCore;
@@ -18,7 +19,9 @@ namespace WebCore {
 
   ChromeClient* ChromeClientJS::createClient() {
     webkitTrace();
-    return static_cast<ChromeClient *>(new ChromeClientJS());
+    ChromeClient* tmp = static_cast<ChromeClient *>(new ChromeClientJS());
+		tmp->setWindowRect(FloatRect(0,0,1024,768)); // TODO: Set this through JS?
+		return tmp;
   }
 
   ChromeClientJS::ChromeClientJS()
@@ -243,19 +246,22 @@ namespace WebCore {
            );
   }*/
 
-  void ChromeClientJS::invalidateRootView(const IntRect&, bool immediate)
+  void ChromeClientJS::invalidateRootView(const IntRect& updateRect, bool immediate)
   {
     webkitTrace();
+		fprintf(stderr,"InvalidateRootView: %i %i %i %i\n", updateRect.x(), updateRect.y(), updateRect.width(), updateRect.height());
   }
 
   void ChromeClientJS::invalidateContentsAndRootView(const IntRect& updateRect, bool immediate)
   {
     webkitTrace();
+		fprintf(stderr,"InvalidateRootView: %i %i %i %i\n", updateRect.x(), updateRect.y(), updateRect.width(), updateRect.height());
   }
 
   void ChromeClientJS::invalidateContentsForSlowScroll(const IntRect& updateRect, bool immediate)
   {
     webkitTrace();
+		fprintf(stderr,"InvalidateRootView: %i %i %i %i\n", updateRect.x(), updateRect.y(), updateRect.width(), updateRect.height());
   }
 
   void ChromeClientJS::scroll(const IntSize& delta, const IntRect& rectToScroll, const IntRect& clipRect)

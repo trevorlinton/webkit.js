@@ -1,7 +1,7 @@
 
 #include "config.h"
 #include <emscripten.h>
-#include "Debugger.h"
+#include "DebuggerJS.h"
 #include "DocumentLoaderJS.h"
 #include "FrameLoaderClientJS.h"
 #include "FrameLoaderTypes.h"
@@ -9,6 +9,8 @@
 #include "FrameJS.h"
 #include "FrameNetworkingContextJS.h"
 #include "RenderWidget.h"
+#include "FrameView.h"
+#include "MIMETYpeRegistry.h"
 
 namespace WebCore {
   FrameLoaderClient* FrameLoaderClientJS::createClient() {
@@ -32,15 +34,20 @@ namespace WebCore {
   }
 
   bool FrameLoaderClientJS::hasWebView() const  {
-    notImplemented();
-    return true;
+    webkitTrace();
+		return m_frame;
   }
 
   void FrameLoaderClientJS::makeRepresentation(DocumentLoader*) {
     notImplemented();
   }
   void FrameLoaderClientJS::forceLayout() {
-    notImplemented();
+    webkitTrace();
+		FrameView* view = m_frame->view();
+		view->setNeedsLayout();
+    if (view)
+			view->forceLayout(true);
+
   }
   void FrameLoaderClientJS::forceLayoutForNonHTML() {
     notImplemented();
@@ -164,8 +171,8 @@ namespace WebCore {
   }*/
 
   Frame* FrameLoaderClientJS::dispatchCreatePage(const NavigationAction&) {
-    notImplemented();
-    return 0;
+		webkitTrace();
+		return m_frame;
   }
   void FrameLoaderClientJS::dispatchShow() {
     notImplemented();
@@ -238,11 +245,17 @@ namespace WebCore {
     notImplemented();
   }
 
-  void FrameLoaderClientJS::committedLoad(DocumentLoader* loader, const char* name, int c) {
-    notImplemented();
+  void FrameLoaderClientJS::committedLoad(DocumentLoader* loader, const char* data, int length) {
+    webkitTrace();
+		ASSERT(loader->frame());
+		loader->commitData(data, length);
+
+		Frame* coreFrame = loader->frame();
+		if (coreFrame && coreFrame->document()->isMediaDocument())
+			loader->cancelMainResourceLoad(coreFrame->loader().client().pluginWillHandleLoadError(loader->response()));
   }
   void FrameLoaderClientJS::finishedLoading(DocumentLoader*) {
-    notImplemented();
+		notImplemented();
   }
 
   void FrameLoaderClientJS::updateGlobalHistory() {
@@ -319,8 +332,8 @@ namespace WebCore {
     return true;
   }
   bool FrameLoaderClientJS::canShowMIMEType(const String& MIMEType) const {
-    notImplemented();
-    return true;
+		webkitTrace();
+    return MIMETypeRegistry::canShowMIMEType(MIMEType);
   }
   bool FrameLoaderClientJS::canShowMIMETypeAsHTML(const String& MIMEType) const {
     notImplemented();
@@ -357,6 +370,8 @@ namespace WebCore {
   PassRefPtr<DocumentLoader> FrameLoaderClientJS::createDocumentLoader(const ResourceRequest& request, const SubstituteData& subtituteData) {
     webkitTrace();
     RefPtr<WebCore::DocumentLoader> loader = WebCore::DocumentLoaderJS::create(request, subtituteData);
+		//GRefPtr<WebKitWebDataSource> webDataSource(adoptGRef(kitNew(loader.get())));
+    //loader->setDataSource(webDataSource.get());
     return loader.release();
   }
   void FrameLoaderClientJS::setTitle(const StringWithDirection&, const URL&) {
@@ -375,8 +390,10 @@ namespace WebCore {
     notImplemented();
   }
   void FrameLoaderClientJS::transitionToCommittedForNewPage() {
-    notImplemented();
-  }
+		webkitTrace();
+		ASSERT(m_frame);
+    m_frame->createView(IntSize(1024, 768), WebCore::Color::transparent, true);
+	}
 
   void FrameLoaderClientJS::didSaveToPageCache() {
     notImplemented();
@@ -425,9 +442,11 @@ namespace WebCore {
     notImplemented();
     return nullptr;
   }
+
   void FrameLoaderClientJS::recreatePlugin(Widget* plugin) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::redirectDataToPlugin(Widget* pluginWidget) {
     notImplemented();
   }
@@ -444,9 +463,10 @@ namespace WebCore {
     notImplemented();
     return ObjectContentType();
   }
+
   String FrameLoaderClientJS::overrideMediaType() const {
     notImplemented();
-    return WTF::String();
+    return "text/html"; // This really neesds to be changed.
   }
 
   void FrameLoaderClientJS::dispatchDidClearWindowObjectInWorld(DOMWrapperWorld&) {
@@ -501,6 +521,9 @@ namespace WebCore {
   bool FrameLoaderClientJS::isEmptyFrameLoaderClientJS() { return false; }
   };*/
 
+	void FrameLoaderClientJS::setFrame(Frame *frame) {
+		m_frame = frame;
+	}
 } // namespace WebKit
 
 

@@ -41,6 +41,10 @@
 #endif
 #include <wtf/text/CString.h>
 
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
+
 namespace WebCore {
 
 static CoordinatedLayerID toCoordinatedLayerID(GraphicsLayer* layer)
@@ -130,6 +134,9 @@ CoordinatedGraphicsLayer::CoordinatedGraphicsLayer(GraphicsLayerClient* client)
     , m_animationStartedTimer(this, &CoordinatedGraphicsLayer::animationStartedTimerFired)
     , m_scrollableArea(0)
 {
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     static CoordinatedLayerID nextLayerID = 1;
     m_id = nextLayerID++;
 }

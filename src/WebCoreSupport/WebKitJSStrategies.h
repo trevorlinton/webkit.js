@@ -89,11 +89,6 @@ private:
     // WebCore::SharedWorkerStrategy
     virtual bool isAvailable() const OVERRIDE;
 
-    // WebCore::StorageStrategy.
-    virtual PassRefPtr<WebCore::StorageNamespace> localStorageNamespace(WebCore::PageGroup*) OVERRIDE;
-    virtual PassRefPtr<WebCore::StorageNamespace> transientLocalStorageNamespace(WebCore::PageGroup*, WebCore::SecurityOrigin*) OVERRIDE;
-    virtual PassRefPtr<WebCore::StorageNamespace> sessionStorageNamespace(WebCore::Page*) OVERRIDE;
-
     // WebCore::VisitedLinkStrategy
     virtual bool isLinkVisited(WebCore::Page*, WebCore::LinkHash, const WebCore::URL& baseURL, const WTF::AtomicString& attributeURL) OVERRIDE;
     virtual void addVisitedLink(WebCore::Page*, WebCore::LinkHash) OVERRIDE;

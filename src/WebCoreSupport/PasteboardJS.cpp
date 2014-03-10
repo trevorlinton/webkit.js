@@ -24,7 +24,7 @@
 #include "config.h"
 #include "Pasteboard.h"
 #include "PassOwnPtr.h"
-#include "NotImplemented.h"
+#include "DebuggerJS.h"
 
 using namespace WTF;
 

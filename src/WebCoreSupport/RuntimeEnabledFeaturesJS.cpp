@@ -31,7 +31,7 @@
 
 #include "config.h"
 #include "RuntimeEnabledFeatures.h"
-#include "Debugger.h"
+#include "DebuggerJS.h"
 #include "DatabaseManager.h"
 #include "MediaPlayer.h"
 #include "SharedWorkerRepository.h"
@@ -41,21 +41,21 @@
 namespace WebCore {
 
 RuntimeEnabledFeatures::RuntimeEnabledFeatures()
-    : m_isLocalStorageEnabled(true)
-    , m_isSessionStorageEnabled(true)
+    : m_isLocalStorageEnabled(false)
+    , m_isSessionStorageEnabled(false)
     , m_isWebkitNotificationsEnabled(false)
-    , m_isApplicationCacheEnabled(true)
+    , m_isApplicationCacheEnabled(false)
     , m_isDataTransferItemsEnabled(true)
-    , m_isGeolocationEnabled(true)
+    , m_isGeolocationEnabled(false)
     , m_isIndexedDBEnabled(false)
-    , m_isTouchEnabled(true)
-    , m_isDeviceMotionEnabled(true)
-    , m_isDeviceOrientationEnabled(true)
-    , m_isSpeechInputEnabled(true)
+    , m_isTouchEnabled(false)
+    , m_isDeviceMotionEnabled(false)
+    , m_isDeviceOrientationEnabled(false)
+    , m_isSpeechInputEnabled(false)
     , m_isCSSExclusionsEnabled(true)
     , m_isCSSShapesEnabled(true)
     , m_isCSSRegionsEnabled(false)
-    , m_isCSSCompositingEnabled(false)
+    , m_isCSSCompositingEnabled(true)
     , m_isLangAttributeAwareFormControlUIEnabled(false)
 #if ENABLE(SCRIPTED_SPEECH)
     , m_isScriptedSpeechEnabled(false)
