@@ -19,7 +19,9 @@
 
 #include "config.h"
 #include "WidgetBackingStoreCairo.h"
-
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 #include "CairoUtilities.h"
 #include "RefPtrCairo.h"
 #include <cairo.h>
@@ -32,12 +34,18 @@ static PassRefPtr<cairo_surface_t> createSurfaceForBackingStore(PlatformWidget w
     return adoptRef(gdk_window_create_similar_surface(gtk_widget_get_window(widget), CAIRO_CONTENT_COLOR_ALPHA, size.width(), size.height()));
 #else
     UNUSED_PARAM(widget);
-    return adoptRef(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, size.width(), size.height()));
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
+		return adoptRef(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, size.width(), size.height()));
 #endif
 }
 
 PassOwnPtr<WidgetBackingStore> WidgetBackingStoreCairo::create(PlatformWidget widget, const IntSize& size)
 {
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return adoptPtr(new WidgetBackingStoreCairo(widget, size));
 }
 

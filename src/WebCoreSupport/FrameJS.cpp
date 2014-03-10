@@ -1,5 +1,5 @@
 #include "FrameJS.h"
-#include "Debugger.h"
+#include "DebuggerJS.h"
 namespace WebCore {
   FrameJS::~FrameJS() {
     webkitTrace();

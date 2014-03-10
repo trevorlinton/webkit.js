@@ -8,7 +8,7 @@
 
 #include "config.h"
 #include <emscripten.h>
-#include "Debugger.h"
+#include "DebuggerJS.h"
 #include "DocumentLoaderJS.h"
 
 namespace WebCore {

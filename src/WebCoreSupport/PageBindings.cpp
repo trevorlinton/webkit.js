@@ -1,4 +1,5 @@
 #pragma GCC diagnostic ignored "-Wreturn-type"
+#include <emscripten.h>
 
 #include "config.h"
 #include <wtf/Forward.h>
@@ -10,7 +11,7 @@
 #include "ScriptValue.h"
 #include "ScriptCallFrame.h"
 #include "ScriptCallStack.h"
-#include "Debugger.h"
+#include "DebuggerJS.h"
 #include "Cursor.h"
 #include "APICast.h"
 #include "InspectorValues.h"
@@ -60,14 +61,16 @@ namespace WebCore {
   static void (*sharedTimerFiredFunction)();
 
   void sharedTimerRun(void *args) {
+		webkitTrace();
     if(timerActive) {
       sharedTimerFiredFunction();
-      emscripten_async_call(sharedTimerRun, NULL, timerInterval);
+      //emscripten_async_call(sharedTimerRun, args, timerInterval);
     }
   }
 
   void stopSharedTimer()
   {
+		webkitTrace();
     if (timerActive) {
       timerActive = false;
     }
@@ -75,6 +78,7 @@ namespace WebCore {
 
   void setSharedTimerFiredFunction(void (*f)())
   {
+		webkitTrace();
     sharedTimerFiredFunction = f;
     if(timerInterval && timerInterval > 0) {
       timerActive = true;
@@ -83,6 +87,7 @@ namespace WebCore {
 
   void setSharedTimerFireInterval(double interval)
   {
+		webkitTrace();
     ASSERT(sharedTimerFiredFunction);
 
     unsigned intervalInMS;
@@ -96,14 +101,21 @@ namespace WebCore {
     stopSharedTimer();
     timerInterval = intervalInMS;
     timerActive = true;
+		emscripten_async_call(sharedTimerRun, NULL, timerInterval);
   }
 
-  ApplicationCacheHost::ApplicationCacheHost(WebCore::DocumentLoader* documentLoader)
+
+  bool RenderEmbeddedObject::allowsAcceleratedCompositing() const {
+		webkitTrace();
+		return true;
+	}
+
+  /*ApplicationCacheHost::ApplicationCacheHost(WebCore::DocumentLoader* documentLoader)
   : m_documentLoader(documentLoader)
   , m_defersEvents(true)
   {
     ASSERT(m_documentLoader);
-  }
+  }*/
 
   RenderPtr<RenderElement> HTMLPlugInElement::createElementRenderer(PassRef<RenderStyle> style) { return nullptr; }
   void HTMLPlugInElement::defaultEventHandler(Event* event) { notImplemented(); }
@@ -128,7 +140,6 @@ namespace WebCore {
     // TODO: Implement this.
     notImplemented();
   }
-
   PassRefPtr<JSLazyEventListener> JSLazyEventListener::createForNode(WebCore::ContainerNode&, WebCore::QualifiedName const& a, WTF::AtomicString const& b) {
     notImplemented();
   }
@@ -222,7 +233,6 @@ namespace WebCore {
 
   void signedPublicKeyAndChallengeString(unsigned int, WTF::String const&, WebCore::URL const&) { notImplemented(); }
   void willCreatePossiblyOrphanedTreeByRemovalSlowCase(WebCore::Node*) { notImplemented(); }
-  bool RenderEmbeddedObject::allowsAcceleratedCompositing() const { return false; }
   RenderPtr<RenderEmbeddedObject> RenderEmbeddedObject::createForApplet(WebCore::HTMLAppletElement& a, WTF::PassRef<WebCore::RenderStyle> b) { notImplemented(); }
   Cursor::Cursor(Cursor const&) { notImplemented(); }
   Cursor& Cursor::operator=(const Cursor& cursor) { notImplemented(); }
@@ -247,25 +257,12 @@ namespace WebCore {
   bool PlatformKeyboardEvent::currentCapsLockState() { return false; }
   void PlatformKeyboardEvent::getCurrentModifierState(bool& a, bool& b, bool& c, bool& d) { notImplemented(); }
 
-  bool ApplicationCacheHost::canCacheInPageCache() { return false; }
-  void ApplicationCacheHost::failedLoadingMainResource() { notImplemented(); }
-  void ApplicationCacheHost::finishedLoadingMainResource() { notImplemented(); }
-  void ApplicationCacheHost::maybeLoadFallbackSynchronously(WebCore::ResourceRequest const&, WebCore::ResourceError&, WebCore::ResourceResponse&, WTF::Vector<char, 0u, WTF::CrashOnOverflow>&) { notImplemented(); }
-  void ApplicationCacheHost::maybeLoadMainResource(WebCore::ResourceRequest&, WebCore::SubstituteData&) { notImplemented(); }
-  void ApplicationCacheHost::maybeLoadMainResourceForRedirect(WebCore::ResourceRequest&, WebCore::SubstituteData&) { notImplemented(); }
-  bool ApplicationCacheHost::maybeLoadSynchronously(WebCore::ResourceRequest&, WebCore::ResourceError&, WebCore::ResourceResponse&, WTF::Vector<char, 0u, WTF::CrashOnOverflow>&) { return false; }
-  void ApplicationCacheHost::selectCacheWithManifest(WebCore::URL const&) { notImplemented(); }
-  void ApplicationCacheHost::selectCacheWithoutManifest() { notImplemented(); }
-  void ApplicationCacheHost::stopDeferringEvents() { notImplemented(); }
-  void ApplicationCacheHost::stopLoadingInFrame(WebCore::Frame*) { notImplemented(); }
-  ApplicationCacheHost::~ApplicationCacheHost() { notImplemented(); }
 
   void BitmapImage::invalidatePlatformData() { notImplemented(); }
   Blob::Blob() { notImplemented(); }
+  Blob::~Blob() { notImplemented(); }
   void Editor::pasteWithPasteboard(WebCore::Pasteboard*, bool) { notImplemented(); }
-  //PassRefPtr<PopupMenu> EmptyChromeClient::createPopupMenu(WebCore::PopupMenuClient*) const { notImplemented(); }
-  //PassRefPtr<SearchPopupMenu> EmptyChromeClient::createSearchPopupMenu(WebCore::PopupMenuClient*) const { notImplemented(); }
-  //void EmptyChromeClient::runOpenPanel(WebCore::Frame*, WTF::PassRefPtr<WebCore::FileChooser>) { notImplemented(); }
+
   bool EventHandler::passMouseMoveEventToSubframe(WebCore::MouseEventWithHitTestResults&, WebCore::Frame*, WebCore::HitTestResult*) { notImplemented(); }
   bool EventHandler::tabsToAllFormControls(WebCore::KeyboardEvent*) const { notImplemented(); }
   void GCController::garbageCollectSoon() { notImplemented(); }
@@ -374,6 +371,63 @@ namespace WTF {
     return malloc(n);
   }
 */
+  /*
+   bool ApplicationCacheHost::canCacheInPageCache() { return false; }
+   void ApplicationCacheHost::failedLoadingMainResource() { notImplemented(); }
+   void ApplicationCacheHost::finishedLoadingMainResource() { notImplemented(); }
+   void ApplicationCacheHost::maybeLoadFallbackSynchronously(WebCore::ResourceRequest const&, WebCore::ResourceError&, WebCore::ResourceResponse&, WTF::Vector<char, 0u, WTF::CrashOnOverflow>&) { notImplemented(); }
+   void ApplicationCacheHost::maybeLoadMainResource(WebCore::ResourceRequest&, WebCore::SubstituteData&) { notImplemented(); }
+   void ApplicationCacheHost::maybeLoadMainResourceForRedirect(WebCore::ResourceRequest&, WebCore::SubstituteData&) { notImplemented(); }
+   bool ApplicationCacheHost::maybeLoadSynchronously(WebCore::ResourceRequest&, WebCore::ResourceError&, WebCore::ResourceResponse&, WTF::Vector<char, 0u, WTF::CrashOnOverflow>&) { return false; }
+   void ApplicationCacheHost::selectCacheWithManifest(WebCore::URL const&) { notImplemented(); }
+   void ApplicationCacheHost::selectCacheWithoutManifest() { notImplemented(); }
+   void ApplicationCacheHost::stopDeferringEvents() { notImplemented(); }
+   void ApplicationCacheHost::stopLoadingInFrame(WebCore::Frame*) { notImplemented(); }
+   ApplicationCacheHost::~ApplicationCacheHost() { notImplemented(); }
+   bool ApplicationCacheHost::maybeLoadResource(ResourceLoader* loader, ResourceRequest& request, const URL& originalURL)
+   {
+   if (!isApplicationCacheEnabled())
+   return false;
+
+   if (request.url() != originalURL)
+   return false;
+
+   ApplicationCacheResource* resource;
+   if (!shouldLoadResourceFromApplicationCache(request, resource))
+   return false;
+
+   m_documentLoader->m_pendingSubstituteResources.set(loader, resource);
+   m_documentLoader->deliverSubstituteResourcesAfterDelay();
+
+   return true;
+   }
+
+   bool ApplicationCacheHost::maybeLoadFallbackForRedirect(ResourceLoader* resourceLoader, ResourceRequest& request, const ResourceResponse& redirectResponse)
+   {
+   if (!redirectResponse.isNull() && !protocolHostAndPortAreEqual(request.url(), redirectResponse.url()))
+   if (scheduleLoadFallbackResourceFromApplicationCache(resourceLoader))
+   return true;
+   return false;
+   }
+   bool ApplicationCacheHost::maybeLoadFallbackForResponse(ResourceLoader* resourceLoader, const ResourceResponse& response)
+   {
+   if (response.httpStatusCode() / 100 == 4 || response.httpStatusCode() / 100 == 5)
+   if (scheduleLoadFallbackResourceFromApplicationCache(resourceLoader))
+   return true;
+   return false;
+   }
+
+   bool ApplicationCacheHost::maybeLoadFallbackForError(ResourceLoader* resourceLoader, const ResourceError& error)
+   {
+   if (!error.isCancellation()) {
+   if (resourceLoader == m_documentLoader->mainResourceLoader())
+   return maybeLoadFallbackForMainError(resourceLoader->request(), error);
+   if (scheduleLoadFallbackResourceFromApplicationCache(resourceLoader))
+   return true;
+   }
+   return false;
+   }
+   */
 }
 
 namespace Inspector {

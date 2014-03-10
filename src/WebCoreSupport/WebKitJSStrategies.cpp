@@ -58,7 +58,7 @@
 #include "SubframeLoader.h"
 #include "URL.h"
 #include <wtf/Atomics.h>
-#include "Debugger.h"
+#include "DebuggerJS.h"
 
 #if ENABLE(NETWORK_PROCESS)
 #include "BlobRegistryProxy.h"
@@ -280,33 +280,37 @@ bool WebKitJSStrategies::isAvailable() const
 
 // StorageStrategy
 
-PassRefPtr<StorageNamespace> WebKitJSStrategies::localStorageNamespace(PageGroup* pageGroup)
+PassRefPtr<StorageNamespace> StorageStrategy::localStorageNamespace(PageGroup* pageGroup)
 {
-  webkitTrace();
-    return StorageStrategy::localStorageNamespace(pageGroup);
+  notImplemented();
+    //return StorageStrategy::localStorageNamespace(pageGroup);
+  return nullptr;
 }
 
-PassRefPtr<StorageNamespace> WebKitJSStrategies::transientLocalStorageNamespace(PageGroup* pageGroup, SecurityOrigin*securityOrigin)
+PassRefPtr<StorageNamespace> StorageStrategy::transientLocalStorageNamespace(PageGroup* pageGroup, SecurityOrigin*securityOrigin)
 {
-  webkitTrace();
+  notImplemented();
 /*#if ENABLE(UI_PROCESS_STORAGE)
     UNUSED_PARAM(securityOrigin);
     // FIXME: This could be more clever and made to work across processes.
     return StorageStrategy::sessionStorageNamespace(*pageGroup->pages().begin());
 #else*/
-    return StorageStrategy::transientLocalStorageNamespace(pageGroup, securityOrigin);
+    //return StorageStrategy::transientLocalStorageNamespace(pageGroup, securityOrigin);
 //#endif
+  return nullptr;
 }
 
-PassRefPtr<StorageNamespace> WebKitJSStrategies::sessionStorageNamespace(Page* page)
+PassRefPtr<StorageNamespace> StorageStrategy::sessionStorageNamespace(Page* page)
 {
-  webkitTrace();
-  return StorageNamespaceImpl::sessionStorageNamespace(page);
+  notImplemented();
+  //webkitTrace();
+  //return StorageNamespace::sessionStorageNamespace(page);
 //#if ENABLE(UI_PROCESS_STORAGE)
  //   return StorageNamespace::createSessionStorageNamespace(WebPage::fromCorePage(page));
 //#else
 //    return StorageStrategy::sessionStorageNamespace(page);
 //#endif
+  return nullptr;
 }
 
 // VisitedLinkStrategy

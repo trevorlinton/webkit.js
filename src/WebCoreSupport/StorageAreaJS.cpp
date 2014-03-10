@@ -25,7 +25,7 @@
 
 #include "config.h"
 #include "StorageArea.h"
-#include "Debugger.h"
+#include "DebuggerJS.h"
 #include "Document.h"
 #include "ExceptionCode.h"
 #include "Frame.h"

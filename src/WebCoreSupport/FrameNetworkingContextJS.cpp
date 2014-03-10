@@ -22,7 +22,7 @@
 #include "FrameNetworkingContextJS.h"
 
 #include "NetworkStorageSession.h"
-#include "Debugger.h"
+#include "DebuggerJS.h"
 
 namespace WebCore {
 

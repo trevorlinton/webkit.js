@@ -111,7 +111,7 @@ FcFileScanFontConfig (FcFontSet		*set,
         }
     }
     else {
-      fprintf(stderr, "FontConfig is screwed.. but font still failed to load.\n");
+      fprintf(stderr, "Failed to load font (no substitute or unknown type: %s\n",file);
       FcPatternDestroy (font);
     }
     id++;

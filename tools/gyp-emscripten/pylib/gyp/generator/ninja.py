@@ -813,11 +813,13 @@ class NinjaWriter:
       cflags_objcc = ['$cflags_cc'] + \
                      self.xcode_settings.GetCflagsObjCC(config_name)
       ldflags = ''
+      jsflags = ''
     elif self.flavor == 'win':
       cflags = self.msvs_settings.GetCflags(config_name)
       cflags_c = self.msvs_settings.GetCflagsC(config_name)
       cflags_cc = self.msvs_settings.GetCflagsCC(config_name)
       extra_defines = self.msvs_settings.GetComputedDefines(config_name)
+      jsflags = ''
       # See comment at cc_command for why there's two .pdb files.
       pdbpath_c = pdbpath_cc = self.msvs_settings.GetCompilerPdbName(
           config_name, self.ExpandSpecial)
@@ -843,6 +845,9 @@ class NinjaWriter:
 
     if config.get('ldflags', []):
       ldflags = config.get('ldflags', [])
+
+    if config.get('jsflags', []):
+      jsflags = config.get('jsflags', [])
 
     # Respect environment variables related to build, but target-specific
     # flags can still override them.
@@ -904,7 +909,9 @@ class NinjaWriter:
     self.WriteVariableList(ninja_file, 'cflags_cc',
                            map(self.ExpandSpecial, cflags_cc))
     self.WriteVariableList(ninja_file, 'ldflags',
-                          map(self.ExpandSpecial, ldflags))
+                           map(self.ExpandSpecial, ldflags))
+    self.WriteVariableList(ninja_file, 'jsflags',
+                           map(self.ExpandSpecial, jsflags))
 
     if self.flavor == 'mac':
       self.WriteVariableList(ninja_file, 'cflags_objc',
@@ -2014,7 +2021,7 @@ def GenerateOutputForConfig(target_list, target_dicts, data, params,
       'solink_js',
       description='SOLINK_JS $lib, POSTBUILDS',
       restat=True,
-      command='$ld $ldflags $in $solibs -o $soname',
+      command='$ld $ldflags $jsflags $in $solibs -o $soname',
       pool='link_pool')
     solink_module_suffix = '$in $solibs $libs$postbuilds'
     master_ninja.rule(

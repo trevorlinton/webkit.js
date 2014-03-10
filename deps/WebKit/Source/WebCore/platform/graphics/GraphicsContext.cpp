@@ -33,7 +33,9 @@
 #include "IntRect.h"
 #include "RoundedRect.h"
 #include "TextRun.h"
-
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 #include "stdio.h"
 
 namespace WebCore {
@@ -81,6 +83,9 @@ GraphicsContext::GraphicsContext(PlatformGraphicsContext* platformGraphicsContex
     : m_updatingControlTints(false)
     , m_transparencyCount(0)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     platformInit(platformGraphicsContext);
 }
 #else
@@ -88,6 +93,9 @@ GraphicsContext::GraphicsContext(PlatformGraphicsContext* platformGraphicsContex
     : m_updatingControlTints(false)
     , m_transparencyCount(0)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     platformInit(platformGraphicsContext, shouldUseContextColors);
 }
 #endif

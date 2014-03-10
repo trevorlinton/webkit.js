@@ -25,41 +25,44 @@
 
 #include "config.h"
 #include "Widget.h"
-
+#include "DebuggerJS.h"
 #include "ChromeClient.h"
 #include "Cursor.h"
 #include "Frame.h"
 #include "FrameView.h"
 #include "GraphicsContext.h"
 #include "IntRect.h"
-#include "NotImplemented.h"
 #include "Page.h"
 
 namespace WebCore {
 
 Widget::Widget(PlatformWidget widget)
     : m_parent(0)
-    , m_widget(0)
+    , m_widget(widget)
     , m_selfVisible(false)
     , m_parentVisible(false)
     , m_frame(0, 0, 0, 0)
 {
+		webkitTrace();
     init(widget);
 }
 
 Widget::~Widget()
 {
+		webkitTrace();
     ASSERT(!parent());
 }
 
 IntRect Widget::frameRect() const
 {
+		webkitTrace();
     return m_frame;
 }
 
 void Widget::setFrameRect(const IntRect& rect)
 {
-    m_frame = rect;
+		webkitTrace();
+		m_frame = rect;
     Widget::frameRectsChanged();
 }
 
@@ -77,11 +80,13 @@ void Widget::setCursor(const Cursor& cursor)
 
 void Widget::show()
 {
+		webkitTrace();
     //TODO: Should we do anything here?
 }
 
 void Widget::hide()
 {
+		webkitTrace();
     //TODO: Should we do anything here?
 }
 

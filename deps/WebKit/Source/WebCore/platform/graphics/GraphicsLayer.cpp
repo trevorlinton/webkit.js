@@ -39,7 +39,9 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/StringBuilder.h>
 #include <wtf/text/WTFString.h>
-
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 #ifndef NDEBUG
 #include <stdio.h>
 #endif
@@ -99,6 +101,9 @@ GraphicsLayer::GraphicsLayer(GraphicsLayerClient* client)
     , m_repaintCount(0)
     , m_customAppearance(NoCustomAppearance)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
 #ifndef NDEBUG
     if (m_client)
         m_client->verifyNotPainting();
@@ -325,6 +330,9 @@ void GraphicsLayer::setBackgroundColor(const Color& color)
 
 void GraphicsLayer::paintGraphicsLayerContents(GraphicsContext& context, const IntRect& clip)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (m_client) {
         IntSize offset = offsetFromRenderer();
         context.translate(-offset);

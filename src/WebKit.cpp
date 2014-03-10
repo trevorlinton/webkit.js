@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2014 True Interactions. BSD-style License
+ */
+
 #include <emscripten.h>
 
 #include "config.h"
@@ -19,25 +23,35 @@
 #include "RenderStyle.h"
 #include "Settings.h"
 #include "RuntimeEnabledFeaturesJS.h"
+#include <WTF/PassRef.h>
 
 #include "EmptyClients.h"
 
 using namespace WebCore;
+using namespace WTF;
 
 static std::unique_ptr<WebCore::Page> page;
+static Page::PageClients pageClients;
+
 namespace WebCore {
 static RuntimeEnabledFeatures* features;
 }
 
-int main(int argc, char **argv) {
+void tick() {
+}
 
+int main(int argc, char **argv) {
+  if(argc < 1) {
+    fprintf(stderr, "WebKit: Nothing to render.\n");
+    return -1;
+  }
+  fprintf(stderr,"WebKit: Rendering: %s\n", argv[1]);
   fprintf(stderr,"WebKit: main();\n");
 
   WebKitJSStrategies::initialize();
 
   fprintf(stderr,"WebKit: setPlatformStrategies();\n");
 
-  Page::PageClients pageClients;
   fillWithEmptyClients(pageClients);
   fprintf(stderr,"WebKit: fillWithEmptyClients();\n");
   
@@ -48,7 +62,7 @@ int main(int argc, char **argv) {
 
   page = std::make_unique<Page>(pageClients);
   fprintf(stderr,"WebKit: settingsInitialized;\n");
-
+	page->settings().forceCompositingMode();
   page->settings().setMediaEnabled(false);
   page->settings().setScriptEnabled(false);
   page->settings().setPluginsEnabled(false);
@@ -60,11 +74,24 @@ int main(int argc, char **argv) {
   page->settings().setScreenFontSubstitutionEnabled(false);
   page->settings().setStandardFontFamily("Helvetica");
   page->settings().setMinimumFontSize(6);
+	page->settings().setAcceleratedCompositingEnabled(true);
+	page->settings().setJavaEnabled(false);
+	page->settings().setTiledBackingStoreEnabled(true);
+	page->settings().setUsePreHTML5ParserQuirks(true);
+	page->settings().setWebGLEnabled(true);
+	page->settings().setWebSecurityEnabled(false);
+
   page->setGroupName("Main");
 
-
-  Frame& frame = page->mainFrame();
+	unsigned layoutMilestones = DidFirstLayout | DidFirstVisuallyNonEmptyLayout;
+	page->addLayoutMilestones(static_cast<LayoutMilestones>(layoutMilestones));
+	page->setIsVisible(true, true);
+	page->setIsInWindow(true);
+	page->setIsPainting(true);
+	Frame& frame = page->mainFrame();
   fprintf(stderr,"WebKit: got main frame;\n");
+
+	((FrameLoaderClientJS *)pageClients.loaderClientForMainFrame)->setFrame(&frame);
 
   frame.setView(FrameView::create(frame));
   fprintf(stderr,"WebKit: creating frame view;\n");
@@ -87,10 +114,13 @@ int main(int argc, char **argv) {
   loader.activeDocumentLoader()->writer().begin(URL()); // create the empty document
   fprintf(stderr,"WebKit: begin(URL);\n");
 
-  loader.activeDocumentLoader()->writer().addData(argv[0], strlen(argv[0])); // Go ahead and render whatever is in argv[0].
+  loader.activeDocumentLoader()->writer().addData(argv[1], strlen(argv[1])); // Go ahead and render whatever is in argv[0].
   fprintf(stderr,"WebKit: added data();\n");
 
   loader.activeDocumentLoader()->writer().end();
   fprintf(stderr,"WebKit: finished;\n");
+
+	emscripten_set_main_loop(&tick, 60, true);
+
 
 }

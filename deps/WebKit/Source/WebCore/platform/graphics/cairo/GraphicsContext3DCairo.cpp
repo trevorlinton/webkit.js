@@ -34,7 +34,6 @@
 #include "GraphicsContext3DPrivate.h"
 #include "Image.h"
 #include "ImageSource.h"
-#include "NotImplemented.h"
 #include "PlatformContextCairo.h"
 #include "RefPtrCairo.h"
 #include <cairo.h>
@@ -56,10 +55,20 @@
 #include "OpenGLShims.h"
 #endif
 
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#else 
+#include "NotImplemented.h"
+#endif
+
 namespace WebCore {
 
 PassRefPtr<GraphicsContext3D> GraphicsContext3D::create(GraphicsContext3D::Attributes attributes, HostWindow* hostWindow, GraphicsContext3D::RenderStyle renderStyle)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
     // This implementation doesn't currently support rendering directly to the HostWindow.
     if (renderStyle == RenderDirectlyToHostWindow)
         return 0;
@@ -93,6 +102,10 @@ GraphicsContext3D::GraphicsContext3D(GraphicsContext3D::Attributes attributes, H
     , m_multisampleColorBuffer(0)
     , m_private(GraphicsContext3DPrivate::create(this, renderStyle))
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
     makeContextCurrent();
 
     validateAttributes();

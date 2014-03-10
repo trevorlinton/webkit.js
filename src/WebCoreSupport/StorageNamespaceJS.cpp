@@ -25,7 +25,7 @@
 
 #include "config.h"
 #include "StorageNamespace.h"
-#include "Debugger.h"
+#include "DebuggerJS.h"
 #include "PlatformStrategies.h"
 #include "StorageStrategy.h"
 

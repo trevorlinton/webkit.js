@@ -34,10 +34,18 @@
 #include "TileCairo.h"
 #include <cairo.h>
 
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
+
 namespace WebCore {
 
 PassRefPtr<Tile> TiledBackingStoreBackend::createTile(TiledBackingStore* backingStore, const Tile::Coordinate& tileCoordinate)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
     return TileCairo::create(backingStore, tileCoordinate);
 }
 

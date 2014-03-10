@@ -63,7 +63,9 @@
 #elif PLATFORM(WIN)
 #include <cairo-win32.h>
 #endif
-
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 using namespace std;
 
 namespace WebCore {
@@ -178,11 +180,18 @@ GraphicsContext::GraphicsContext(cairo_t* cr)
     : m_updatingControlTints(false),
       m_transparencyCount(0)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_data = new GraphicsContextPlatformPrivateToplevel(new PlatformContextCairo(cr));
 }
 
 void GraphicsContext::platformInit(PlatformContextCairo* platformContext)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
     m_data = new GraphicsContextPlatformPrivate(platformContext);
     if (platformContext)
         m_data->syncContext(platformContext->cr());
@@ -208,6 +217,10 @@ AffineTransform GraphicsContext::getCTM(IncludeDeviceScale) const
 
 PlatformContextCairo* GraphicsContext::platformContext() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
     return m_data->platformContext;
 }
 
@@ -1107,6 +1120,10 @@ InterpolationQuality GraphicsContext::imageInterpolationQuality() const
 
 bool GraphicsContext::isAcceleratedContext() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
     return cairo_surface_get_type(cairo_get_target(platformContext()->cr())) == CAIRO_SURFACE_TYPE_GL;
 }
 
