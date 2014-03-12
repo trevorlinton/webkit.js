@@ -111,7 +111,7 @@ int main(int argc, char **argv) {
 
   page = std::make_unique<Page>(pageClients);
   fprintf(stderr,"WebKit: settingsInitialized;\n");
-	page->settings().forceCompositingMode();
+	//page->settings().forceCompositingMode();
   page->settings().setMediaEnabled(false);
   page->settings().setScriptEnabled(false);
   page->settings().setPluginsEnabled(false);
@@ -119,21 +119,21 @@ int main(int argc, char **argv) {
   page->settings().setDefaultFontSize(10);
   page->settings().setDefaultFixedFontSize(13);
   page->settings().setDownloadableBinaryFontsEnabled(false);
-  page->settings().setAcceleratedDrawingEnabled(true);
+  //page->settings().setAcceleratedDrawingEnabled(true);
   page->settings().setScreenFontSubstitutionEnabled(false);
   page->settings().setStandardFontFamily("Helvetica");
   page->settings().setMinimumFontSize(6);
-	page->settings().setAcceleratedCompositingEnabled(true);
+	//page->settings().setAcceleratedCompositingEnabled(true);
 	page->settings().setJavaEnabled(false);
-	page->settings().setTiledBackingStoreEnabled(true);
+	//page->settings().setTiledBackingStoreEnabled(true);
 	page->settings().setUsePreHTML5ParserQuirks(true);
 	page->settings().setWebGLEnabled(true);
 	page->settings().setWebSecurityEnabled(false);
 
   page->setGroupName("Main");
 
-	unsigned layoutMilestones = DidFirstLayout | DidFirstVisuallyNonEmptyLayout;
-	page->addLayoutMilestones(static_cast<LayoutMilestones>(layoutMilestones));
+	//unsigned layoutMilestones = DidFirstLayout | DidFirstVisuallyNonEmptyLayout;
+	//page->addLayoutMilestones(static_cast<LayoutMilestones>(layoutMilestones));
 	page->setIsVisible(true, true);
 	page->setIsInWindow(true);
 	page->setIsPainting(true);
