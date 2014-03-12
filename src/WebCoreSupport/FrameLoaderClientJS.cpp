@@ -11,6 +11,8 @@
 #include "RenderWidget.h"
 #include "FrameView.h"
 #include "MIMETYpeRegistry.h"
+#include "Page.h"
+#include "MainFrame.h"
 
 namespace WebCore {
   FrameLoaderClient* FrameLoaderClientJS::createClient() {
@@ -390,9 +392,42 @@ namespace WebCore {
     notImplemented();
   }
   void FrameLoaderClientJS::transitionToCommittedForNewPage() {
+    ASSERT(m_frame);
 		webkitTrace();
-		ASSERT(m_frame);
+		//
+    //QBrush brush = m_webFrame->page()->palette().brush(QPalette::Base);
+    //QColor backgroundColor = brush.style() == Qt::SolidPattern ? brush.color() : QColor();
     m_frame->createView(IntSize(1024, 768), WebCore::Color::transparent, true);
+    //QWebPage* page = m_webFrame->page();
+    //const QSize preferredLayoutSize = page->preferredContentsSize();
+
+    //ScrollbarMode hScrollbar = (ScrollbarMode) m_webFrame->scrollBarPolicy(Qt::Horizontal);
+    //ScrollbarMode vScrollbar = (ScrollbarMode) m_webFrame->scrollBarPolicy(Qt::Vertical);
+    //bool hLock = hScrollbar != ScrollbarAuto;
+    //bool vLock = vScrollbar != ScrollbarAuto;
+
+    //IntSize currentVisibleContentSize = m_frame->view() ? m_frame->view()->actualVisibleContentRect().size() : IntSize();
+
+    /*m_frame->createView(m_webFrame->page()->viewportSize(),
+                        backgroundColor, !backgroundColor.alpha(),
+                        preferredLayoutSize.isValid() ? IntSize(preferredLayoutSize) : IntSize(),
+                        preferredLayoutSize.isValid(),
+                        hScrollbar, hLock,
+                        vScrollbar, vLock);*/
+
+    if (m_frame->isMainFrame()) {
+			fprintf(stderr,"WebKit: Is main frame, setting paint and scrolling delegates.\n");
+			m_frame->view()->setPaintsEntireContents(true);
+			m_frame->view()->setDelegatesScrolling(false);
+			//m_frame->view()->setPaintsEntireContents(page->d->client->viewResizesToContentsEnabled());
+			//m_frame->view()->setDelegatesScrolling(page->d->client->viewResizesToContentsEnabled());
+    }
+
+    // The HistoryController will update the scroll position later if needed.
+    //m_frame->view()->setActualVisibleContentRect(IntRect(IntPoint::zero(), currentVisibleContentSize));
+
+		//ASSERT(m_frame);
+    //m_frame->createView(IntSize(1024, 768), WebCore::Color::transparent, true);
 	}
 
   void FrameLoaderClientJS::didSaveToPageCache() {
@@ -466,7 +501,7 @@ namespace WebCore {
 
   String FrameLoaderClientJS::overrideMediaType() const {
     notImplemented();
-    return "text/html"; // This really neesds to be changed.
+    return String(); //return "text/html"; // This really neesds to be changed.
   }
 
   void FrameLoaderClientJS::dispatchDidClearWindowObjectInWorld(DOMWrapperWorld&) {

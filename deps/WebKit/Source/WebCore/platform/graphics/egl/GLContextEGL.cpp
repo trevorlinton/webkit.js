@@ -20,6 +20,9 @@
 #include "GLContextEGL.h"
 
 #if USE(EGL)
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 
 #include "GraphicsContext3D.h"
 #include <wtf/OwnPtr.h>
@@ -224,7 +227,10 @@ GLContextEGL::GLContextEGL(EGLContext context, EGLSurface surface, EGLSurfaceTyp
 #if USE(CAIRO)
     , m_cairoDevice(0)
 #endif
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
 }
 
 GLContextEGL::~GLContextEGL()
@@ -287,7 +293,10 @@ void GLContextEGL::waitNative()
 
 #if USE(CAIRO)
 cairo_device_t* GLContextEGL::cairoDevice()
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (m_cairoDevice)
         return m_cairoDevice;
 

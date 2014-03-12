@@ -72,7 +72,10 @@ namespace WebCore {
 
 // A helper which quickly fills a rectangle with a simple color fill.
 static inline void fillRectWithColor(cairo_t* cr, const FloatRect& rect, const Color& color)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (!color.alpha() && cairo_get_operator(cr) == CAIRO_OPERATOR_OVER)
         return;
     setSourceRGBAFromColor(cr, color);
@@ -81,7 +84,10 @@ static inline void fillRectWithColor(cairo_t* cr, const FloatRect& rect, const C
 }
 
 static void addConvexPolygonToContext(cairo_t* context, size_t numPoints, const FloatPoint* points)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     cairo_move_to(context, points[0].x(), points[0].y());
     for (size_t i = 1; i < numPoints; i++)
         cairo_line_to(context, points[i].x(), points[i].y());
@@ -95,7 +101,10 @@ enum PathDrawingStyle {
 };
 
 static inline void drawPathShadow(GraphicsContext* context, PathDrawingStyle drawingStyle)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     ShadowBlur& shadow = context->platformContext()->shadowBlur();
     if (shadow.type() == ShadowBlur::NoShadow)
         return;
@@ -153,7 +162,10 @@ static inline void drawPathShadow(GraphicsContext* context, PathDrawingStyle dra
 }
 
 static inline void fillCurrentCairoPath(GraphicsContext* context)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     cairo_t* cr = context->platformContext()->cr();
     cairo_save(cr);
 
@@ -164,13 +176,19 @@ static inline void fillCurrentCairoPath(GraphicsContext* context)
 }
 
 static inline void shadowAndFillCurrentCairoPath(GraphicsContext* context)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     drawPathShadow(context, Fill);
     fillCurrentCairoPath(context);
 }
 
 static inline void shadowAndStrokeCurrentCairoPath(GraphicsContext* context)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     drawPathShadow(context, Stroke);
     context->platformContext()->prepareForStroking(context->state());
     cairo_stroke(context->platformContext()->cr());
@@ -205,7 +223,10 @@ void GraphicsContext::platformDestroy()
 }
 
 AffineTransform GraphicsContext::getCTM(IncludeDeviceScale) const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return AffineTransform();
 
@@ -268,7 +289,10 @@ void GraphicsContext::drawRect(const IntRect& rect)
 }
 
 static double calculateStrokePatternOffset(int distance, int patternWidth)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     // Example: 80 pixels with a width of 30 pixels. Remainder is 20.
     // The maximum pixels of line we could paint will be 50 pixels.
     int remainder = distance % patternWidth;
@@ -295,7 +319,10 @@ static double calculateStrokePatternOffset(int distance, int patternWidth)
 }
 
 static void drawLineOnCairoContext(GraphicsContext* graphicsContext, cairo_t* context, const FloatPoint& point1, const FloatPoint& point2)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     StrokeStyle style = graphicsContext->strokeStyle();
     if (style == NoStroke)
         return;
@@ -346,7 +373,10 @@ static void drawLineOnCairoContext(GraphicsContext* graphicsContext, cairo_t* co
 
 // This is only used to draw borders, so we should not draw shadows.
 void GraphicsContext::drawLine(const IntPoint& point1, const IntPoint& point2)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -358,7 +388,10 @@ void GraphicsContext::drawLine(const IntPoint& point1, const IntPoint& point2)
 
 // This method is only used to draw the little circles used in lists.
 void GraphicsContext::drawEllipse(const IntRect& rect)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -385,7 +418,10 @@ void GraphicsContext::drawEllipse(const IntRect& rect)
 }
 
 void GraphicsContext::drawConvexPolygon(size_t npoints, const FloatPoint* points, bool shouldAntialias)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -415,7 +451,10 @@ void GraphicsContext::drawConvexPolygon(size_t npoints, const FloatPoint* points
 }
 
 void GraphicsContext::clipConvexPolygon(size_t numPoints, const FloatPoint* points, bool antialiased)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -438,7 +477,10 @@ void GraphicsContext::clipConvexPolygon(size_t numPoints, const FloatPoint* poin
 }
 
 void GraphicsContext::fillPath(const Path& path)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled() || path.isEmpty())
         return;
 
@@ -448,7 +490,10 @@ void GraphicsContext::fillPath(const Path& path)
 }
 
 void GraphicsContext::strokePath(const Path& path)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled() || path.isEmpty())
         return;
 
@@ -458,7 +503,10 @@ void GraphicsContext::strokePath(const Path& path)
 }
 
 void GraphicsContext::fillRect(const FloatRect& rect)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -468,7 +516,10 @@ void GraphicsContext::fillRect(const FloatRect& rect)
 }
 
 void GraphicsContext::fillRect(const FloatRect& rect, const Color& color, ColorSpace)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -479,7 +530,10 @@ void GraphicsContext::fillRect(const FloatRect& rect, const Color& color, ColorS
 }
 
 void GraphicsContext::clip(const FloatRect& rect)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -501,7 +555,10 @@ void GraphicsContext::clip(const FloatRect& rect)
 }
 
 void GraphicsContext::clipPath(const Path& path, WindRule clipRule)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -513,7 +570,10 @@ void GraphicsContext::clipPath(const Path& path, WindRule clipRule)
 }
 
 IntRect GraphicsContext::clipBounds() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     double x1, x2, y1, y2;
     cairo_clip_extents(platformContext()->cr(), &x1, &y1, &x2, &y2);
     return enclosingIntRect(FloatRect(x1, y1, x2 - x1, y2 - y1));
@@ -546,7 +606,10 @@ static inline StrokeStyle focusRingStrokeStyle()
 }
 
 void GraphicsContext::drawFocusRing(const Path& path, int width, int /* offset */, const Color& color)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     // FIXME: We should draw paths that describe a rectangle with rounded corners
     // so as to be consistent with how we draw rectangular focus rings.
     Color ringColor = color;
@@ -628,12 +691,18 @@ void GraphicsContext::drawFocusRing(const Vector<IntRect>& rects, int width, int
 }
 
 FloatRect GraphicsContext::computeLineBoundsForText(const FloatPoint& origin, float width, bool)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return FloatRect(origin, FloatSize(width, strokeThickness()));
 }
 
 void GraphicsContext::drawLineForText(const FloatPoint& origin, float width, bool printing)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -660,7 +729,10 @@ void GraphicsContext::updateDocumentMarkerResources()
 }
 
 void GraphicsContext::drawLineForDocumentMarker(const FloatPoint& origin, float width, DocumentMarkerLineStyle style)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -685,7 +757,10 @@ void GraphicsContext::drawLineForDocumentMarker(const FloatPoint& origin, float 
 }
 
 FloatRect GraphicsContext::roundToDevicePixels(const FloatRect& frect, RoundingMode)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     FloatRect result;
     double x = frect.x();
     double y = frect.y();
@@ -722,7 +797,10 @@ FloatRect GraphicsContext::roundToDevicePixels(const FloatRect& frect, RoundingM
 }
 
 void GraphicsContext::translate(float x, float y)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -732,19 +810,28 @@ void GraphicsContext::translate(float x, float y)
 }
 
 void GraphicsContext::setPlatformFillColor(const Color&, ColorSpace)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     // Cairo contexts can't hold separate fill and stroke colors
     // so we set them just before we actually fill or stroke
 }
 
 void GraphicsContext::setPlatformStrokeColor(const Color&, ColorSpace)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     // Cairo contexts can't hold separate fill and stroke colors
     // so we set them just before we actually fill or stroke
 }
 
 void GraphicsContext::setPlatformStrokeThickness(float strokeThickness)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -752,7 +839,10 @@ void GraphicsContext::setPlatformStrokeThickness(float strokeThickness)
 }
 
 void GraphicsContext::setPlatformStrokeStyle(StrokeStyle strokeStyle)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     static double dashPattern[] = {5.0, 5.0};
     static double dotPattern[] = {1.0, 1.0};
 
@@ -786,7 +876,10 @@ void GraphicsContext::setURLForRect(const URL&, const IntRect&)
 }
 
 void GraphicsContext::concatCTM(const AffineTransform& transform)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -797,7 +890,10 @@ void GraphicsContext::concatCTM(const AffineTransform& transform)
 }
 
 void GraphicsContext::setCTM(const AffineTransform& transform)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -808,7 +904,10 @@ void GraphicsContext::setCTM(const AffineTransform& transform)
 }
 
 void GraphicsContext::setPlatformShadow(FloatSize const& size, float, Color const&, ColorSpace)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -827,7 +926,10 @@ void GraphicsContext::setPlatformShadow(FloatSize const& size, float, Color cons
 }
 
 void GraphicsContext::clearPlatformShadow()
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -835,7 +937,10 @@ void GraphicsContext::clearPlatformShadow()
 }
 
 void GraphicsContext::beginPlatformTransparencyLayer(float opacity)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -845,7 +950,10 @@ void GraphicsContext::beginPlatformTransparencyLayer(float opacity)
 }
 
 void GraphicsContext::endPlatformTransparencyLayer()
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -857,12 +965,18 @@ void GraphicsContext::endPlatformTransparencyLayer()
 }
 
 bool GraphicsContext::supportsTransparencyLayers()
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return true;
 }
 
 void GraphicsContext::clearRect(const FloatRect& rect)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -876,7 +990,10 @@ void GraphicsContext::clearRect(const FloatRect& rect)
 }
 
 void GraphicsContext::strokeRect(const FloatRect& rect, float width)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -889,7 +1006,10 @@ void GraphicsContext::strokeRect(const FloatRect& rect, float width)
 }
 
 void GraphicsContext::setLineCap(LineCap lineCap)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -909,12 +1029,18 @@ void GraphicsContext::setLineCap(LineCap lineCap)
 }
 
 void GraphicsContext::setLineDash(const DashArray& dashes, float dashOffset)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     cairo_set_dash(platformContext()->cr(), dashes.data(), dashes.size(), dashOffset);
 }
 
 void GraphicsContext::setLineJoin(LineJoin lineJoin)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -934,7 +1060,10 @@ void GraphicsContext::setLineJoin(LineJoin lineJoin)
 }
 
 void GraphicsContext::setMiterLimit(float miter)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -942,12 +1071,18 @@ void GraphicsContext::setMiterLimit(float miter)
 }
 
 void GraphicsContext::setAlpha(float alpha)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     platformContext()->setGlobalAlpha(alpha);
 }
 
 void GraphicsContext::setPlatformCompositeOperation(CompositeOperator op, BlendMode blendOp)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -961,7 +1096,10 @@ void GraphicsContext::setPlatformCompositeOperation(CompositeOperator op, BlendM
 }
 
 void GraphicsContext::clip(const Path& path, WindRule windRule)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -982,12 +1120,18 @@ void GraphicsContext::clip(const Path& path, WindRule windRule)
 }
 
 void GraphicsContext::canvasClip(const Path& path, WindRule windRule)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     clip(path, windRule);
 }
 
 void GraphicsContext::clipOut(const Path& path)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -1004,7 +1148,10 @@ void GraphicsContext::clipOut(const Path& path)
 }
 
 void GraphicsContext::rotate(float radians)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -1013,7 +1160,10 @@ void GraphicsContext::rotate(float radians)
 }
 
 void GraphicsContext::scale(const FloatSize& size)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -1022,7 +1172,10 @@ void GraphicsContext::scale(const FloatSize& size)
 }
 
 void GraphicsContext::clipOut(const IntRect& r)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -1038,7 +1191,10 @@ void GraphicsContext::clipOut(const IntRect& r)
 }
 
 void GraphicsContext::fillRoundedRect(const IntRect& r, const IntSize& topLeft, const IntSize& topRight, const IntSize& bottomLeft, const IntSize& bottomRight, const Color& color, ColorSpace)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -1056,7 +1212,10 @@ void GraphicsContext::fillRoundedRect(const IntRect& r, const IntSize& topLeft, 
 }
 
 void GraphicsContext::fillRectWithRoundedHole(const IntRect& rect, const RoundedRect& roundedHoleRect, const Color& color, ColorSpace)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled() || !color.isValid())
         return;
 
@@ -1098,7 +1257,10 @@ GdkWindow* GraphicsContext::gdkWindow() const
 #endif
 
 void GraphicsContext::setPlatformShouldAntialias(bool enable)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -1109,12 +1271,18 @@ void GraphicsContext::setPlatformShouldAntialias(bool enable)
 }
 
 void GraphicsContext::setImageInterpolationQuality(InterpolationQuality quality)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     platformContext()->setImageInterpolationQuality(quality);
 }
 
 InterpolationQuality GraphicsContext::imageInterpolationQuality() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return platformContext()->imageInterpolationQuality();
 }
 
@@ -1129,18 +1297,27 @@ bool GraphicsContext::isAcceleratedContext() const
 
 #if ENABLE(3D_RENDERING) && USE(TEXTURE_MAPPER)
 TransformationMatrix GraphicsContext::get3DTransform() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     // FIXME: Can we approximate the transformation better than this?
     return getCTM().toTransformationMatrix();
 }
 
 void GraphicsContext::concat3DTransform(const TransformationMatrix& transform)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     concatCTM(transform.toAffineTransform());
 }
 
 void GraphicsContext::set3DTransform(const TransformationMatrix& transform)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     setCTM(transform.toAffineTransform());
 }
 #endif

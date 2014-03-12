@@ -56,7 +56,10 @@ FontPlatformData::FontPlatformData(WTF::HashTableDeletedValueType)
 #if PLATFORM(WIN)
     , m_useGDI(false)
 #endif
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
 }
 
 FontPlatformData::FontPlatformData()
@@ -84,7 +87,10 @@ FontPlatformData::FontPlatformData()
 #if PLATFORM(WIN)
     , m_useGDI(false)
 #endif
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
 }
 #endif
 
@@ -115,7 +121,10 @@ FontPlatformData::FontPlatformData(float size, bool syntheticBold, bool syntheti
 #if PLATFORM(WIN)
     , m_useGDI(false)
 #endif
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
 }
 
 #if OS(DARWIN) && USE(CG)
@@ -133,7 +142,10 @@ FontPlatformData::FontPlatformData(CGFontRef cgFont, float size, bool syntheticB
     , m_isColorBitmapFont(false)
     , m_isCompositeFontReference(false)
     , m_isPrinterFont(false)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
 }
 #endif
 
@@ -150,7 +162,10 @@ FontPlatformData::FontPlatformData(const FontPlatformData& source)
 #if OS(DARWIN)
     , m_isPrinterFont(source.m_isPrinterFont)
 #endif
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     platformDataInit(source);
 }
 

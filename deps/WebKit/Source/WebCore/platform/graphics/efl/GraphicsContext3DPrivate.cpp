@@ -25,7 +25,9 @@
 
 #include "HostWindow.h"
 #include "NotImplemented.h"
-
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 namespace WebCore {
 
 PassOwnPtr<GraphicsContext3DPrivate> GraphicsContext3DPrivate::create(GraphicsContext3D* context, HostWindow* hostWindow)
@@ -46,6 +48,9 @@ GraphicsContext3DPrivate::GraphicsContext3DPrivate(GraphicsContext3D* context, H
 
 bool GraphicsContext3DPrivate::initialize()
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (m_context->m_renderStyle == GraphicsContext3D::RenderDirectlyToHostWindow)
         return false;
 

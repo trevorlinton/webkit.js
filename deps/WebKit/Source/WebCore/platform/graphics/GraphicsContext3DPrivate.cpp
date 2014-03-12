@@ -40,6 +40,9 @@
 #else
 #include "OpenGLShims.h"
 #endif
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 
 #if USE(ACCELERATED_COMPOSITING) && USE(TEXTURE_MAPPER) && USE(TEXTURE_MAPPER_GL)
 #include <texmap/TextureMapperGL.h>
@@ -50,7 +53,10 @@ using namespace std;
 namespace WebCore {
 
 PassOwnPtr<GraphicsContext3DPrivate> GraphicsContext3DPrivate::create(GraphicsContext3D* context, GraphicsContext3D::RenderStyle renderStyle)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return adoptPtr(new GraphicsContext3DPrivate(context, renderStyle));
 }
 
@@ -58,6 +64,10 @@ GraphicsContext3DPrivate::GraphicsContext3DPrivate(GraphicsContext3D* context, G
     : m_context(context)
     , m_renderStyle(renderStyle)
 {
+
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     switch (renderStyle) {
     case GraphicsContext3D::RenderOffscreen:
         m_glContext = GLContext::createOffscreenContext(GLContext::sharingContext());
@@ -82,7 +92,10 @@ GraphicsContext3DPrivate::~GraphicsContext3DPrivate()
 }
 
 bool GraphicsContext3DPrivate::makeContextCurrent()
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return m_glContext ? m_glContext->makeContextCurrent() : false;
 }
 
@@ -93,7 +106,10 @@ PlatformGraphicsContext3D GraphicsContext3DPrivate::platformContext()
 
 #if USE(ACCELERATED_COMPOSITING) && USE(TEXTURE_MAPPER)
 void GraphicsContext3DPrivate::paintToTextureMapper(TextureMapper* textureMapper, const FloatRect& targetRect, const TransformationMatrix& matrix, float opacity)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (!m_glContext)
         return;
 

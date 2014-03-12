@@ -32,7 +32,6 @@
 #include "Editor.h"
 #include "GCController.h"
 #include "HTMLObjectElement.h"
-#include "HTMLPlugInElement.h"
 #include "Image.h"
 #include "RenderEmbeddedObject.h"
 #include "bindings/js/JSLazyEventListener.h"
@@ -56,54 +55,6 @@ void WTF::scheduleDispatchFunctionsOnMainThread() {
 }
 
 namespace WebCore {
-  static bool timerActive;
-  static unsigned timerInterval;
-  static void (*sharedTimerFiredFunction)();
-
-  void sharedTimerRun(void *args) {
-		webkitTrace();
-    if(timerActive) {
-      sharedTimerFiredFunction();
-      //emscripten_async_call(sharedTimerRun, args, timerInterval);
-    }
-  }
-
-  void stopSharedTimer()
-  {
-		webkitTrace();
-    if (timerActive) {
-      timerActive = false;
-    }
-  }
-
-  void setSharedTimerFiredFunction(void (*f)())
-  {
-		webkitTrace();
-    sharedTimerFiredFunction = f;
-    if(timerInterval && timerInterval > 0) {
-      timerActive = true;
-    }
-  }
-
-  void setSharedTimerFireInterval(double interval)
-  {
-		webkitTrace();
-    ASSERT(sharedTimerFiredFunction);
-
-    unsigned intervalInMS;
-    if (interval < 0)
-      intervalInMS = 0;
-    else {
-      interval *= 1000;
-      intervalInMS = (unsigned)interval;
-    }
-
-    stopSharedTimer();
-    timerInterval = intervalInMS;
-    timerActive = true;
-		emscripten_async_call(sharedTimerRun, NULL, timerInterval);
-  }
-
 
   bool RenderEmbeddedObject::allowsAcceleratedCompositing() const {
 		webkitTrace();
@@ -117,13 +68,9 @@ namespace WebCore {
     ASSERT(m_documentLoader);
   }*/
 
-  RenderPtr<RenderElement> HTMLPlugInElement::createElementRenderer(PassRef<RenderStyle> style) { return nullptr; }
-  void HTMLPlugInElement::defaultEventHandler(Event* event) { notImplemented(); }
-  void HTMLPlugInElement::didAddUserAgentShadowRoot(ShadowRoot* root) { notImplemented(); }
-  bool HTMLPlugInElement::requestObject(const String& url, const String& mimeType, const Vector<String>& paramNames, const Vector<String>& paramValues) { return false; }
-  void HTMLPlugInElement::setDisplayState(DisplayState state) { notImplemented(); }
-  void HTMLPlugInElement::swapRendererTimerFired(Timer<HTMLPlugInElement>*) { notImplemented(); }
-  void HTMLPlugInElement::willDetachRenderers() { notImplemented(); }
+ 
+
+
 
   RefPtr<ScriptCallStack> createScriptCallStack(unsigned int, bool) {
     return nullptr;
@@ -270,61 +217,7 @@ namespace WebCore {
   PassRefPtr<HTMLObjectElement> HTMLObjectElement::create(WebCore::QualifiedName const&, WebCore::Document&, WebCore::HTMLFormElement*, bool) { notImplemented(); }
   void HTMLObjectElement::renderFallbackContent() { notImplemented(); }
 
-  WebCore::HTMLPlugInElement::HTMLPlugInElement(WebCore::QualifiedName const& a, WebCore::Document& b)
-  : HTMLFrameOwnerElement(a, b)
-  , m_inBeforeLoadEventHandler(false)
-  , m_swapRendererTimer(this, &HTMLPlugInElement::swapRendererTimerFired)
-  , m_isCapturingMouseEvents(false)
-  , m_displayState(Playing)
-  { notImplemented(); }
-  WebCore::HTMLPlugInElement::~HTMLPlugInElement() { notImplemented(); }
-  void HTMLPlugInElement::collectStyleForPresentationAttribute(WebCore::QualifiedName const& a, WTF::AtomicString const& b, WebCore::MutableStyleProperties& c) { notImplemented(); }
-  bool HTMLPlugInElement::guardedDispatchBeforeLoadEvent(WTF::String const&) { notImplemented(); }
-  bool HTMLPlugInElement::isKeyboardFocusable(WebCore::KeyboardEvent*) const { notImplemented(); }
-  bool HTMLPlugInElement::isPluginElement() const { notImplemented(); }
-  bool HTMLPlugInElement::isPresentationAttribute(WebCore::QualifiedName const&) const { notImplemented(); }
-  bool HTMLPlugInElement::supportsFocus() const { notImplemented(); }
-  bool HTMLPlugInElement::willRespondToMouseClickEvents() { notImplemented(); }
-
-  HTMLPlugInImageElement::HTMLPlugInImageElement(const QualifiedName& tagName, Document& document, bool createdByParser, PreferPlugInsForImagesOption preferPlugInsForImagesOption)
-  : HTMLPlugInElement(tagName, document)
-  , m_needsWidgetUpdate(!createdByParser)
-  , m_shouldPreferPlugInsForImages(preferPlugInsForImagesOption == ShouldPreferPlugInsForImages)
-  , m_needsDocumentActivationCallbacks(false)
-  , m_simulatedMouseClickTimer(this, &HTMLPlugInImageElement::simulatedMouseClickTimerFired, 0.75)
-  , m_removeSnapshotTimer(this, &HTMLPlugInImageElement::removeSnapshotTimerFired)
-  , m_createdDuringUserGesture(false)
-  , m_isRestartedPlugin(false)
-  , m_needsCheckForSizeChange(false)
-  , m_plugInWasCreated(false)
-  , m_deferredPromotionToPrimaryPlugIn(false)
-  , m_snapshotDecision(SnapshotNotYetDecided)
-  {
-    setHasCustomStyleResolveCallbacks();
-  }
-  void HTMLPlugInImageElement::removeSnapshotTimerFired(Timer<HTMLPlugInImageElement>*) { notImplemented(); }
-  void HTMLPlugInImageElement::simulatedMouseClickTimerFired(DeferrableOneShotTimer<HTMLPlugInImageElement>*) { notImplemented(); }
-  bool HTMLPlugInImageElement::allowedToLoadFrameURL(WTF::String const&) { notImplemented(); }
-  void HTMLPlugInImageElement::checkSnapshotStatus() { notImplemented(); }
-  RenderPtr<RenderElement> HTMLPlugInImageElement::createElementRenderer(WTF::PassRef<WebCore::RenderStyle>) { notImplemented(); }
-  void HTMLPlugInImageElement::defaultEventHandler(WebCore::Event*) { notImplemented(); }
-  void HTMLPlugInImageElement::didAddUserAgentShadowRoot(WebCore::ShadowRoot*) { notImplemented(); }
-  void HTMLPlugInImageElement::didAttachRenderers() { notImplemented(); }
-  void HTMLPlugInImageElement::didMoveToNewDocument(WebCore::Document*) { notImplemented(); }
-  void HTMLPlugInImageElement::dispatchPendingMouseClick() { notImplemented(); }
-  void HTMLPlugInImageElement::documentDidResumeFromPageCache() { notImplemented(); }
-  void HTMLPlugInImageElement::documentWillSuspendForPageCache() { notImplemented(); }
-  void HTMLPlugInImageElement::finishParsingChildren() { notImplemented(); }
-  bool HTMLPlugInImageElement::isImageType() { notImplemented(); }
-  RenderEmbeddedObject* HTMLPlugInImageElement::renderEmbeddedObject() const { notImplemented(); }
-  bool HTMLPlugInImageElement::requestObject(WTF::String const&, WTF::String const&, WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow> const&, WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow> const&) { notImplemented(); }
-  void HTMLPlugInImageElement::setDisplayState(HTMLPlugInElement::DisplayState) { notImplemented(); }
-  void HTMLPlugInImageElement::updateSnapshot(WTF::PassRefPtr<WebCore::Image>) { notImplemented(); }
-  void HTMLPlugInImageElement::willDetachRenderers() { notImplemented(); }
-  bool HTMLPlugInImageElement::willRecalcStyle(WebCore::Style::Change) { notImplemented(); }
-  bool HTMLPlugInImageElement::wouldLoadAsNetscapePlugin(WTF::String const&, WTF::String const&) { notImplemented(); }
-  HTMLPlugInImageElement::~HTMLPlugInImageElement() { notImplemented(); }
-  void systemBeep() { notImplemented(); }
+	void systemBeep() { notImplemented(); }
   void getSupportedKeySizes(WTF::Vector<WTF::String>&) { notImplemented(); }
   WebCore::ScriptCallFrame::~ScriptCallFrame() { notImplemented(); }
 }

@@ -97,6 +97,10 @@ void GraphicsLayerTextureMapper::willBeDestroyed()
 */
 void GraphicsLayerTextureMapper::setNeedsDisplay()
 {
+
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (!drawsContent())
         return;
 
@@ -285,6 +289,10 @@ void GraphicsLayerTextureMapper::setMasksToBounds(bool value)
 */
 void GraphicsLayerTextureMapper::setDrawsContent(bool value)
 {
+
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (value == drawsContent())
         return;
     GraphicsLayer::setDrawsContent(value);
@@ -450,6 +458,10 @@ void GraphicsLayerTextureMapper::flushCompositingStateForThisLayerOnly()
 
 void GraphicsLayerTextureMapper::prepareBackingStoreIfNeeded()
 {
+
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (!shouldHaveBackingStore()) {
         m_backingStore.clear();
         m_changeMask |= BackingStoreChange;
@@ -491,7 +503,10 @@ static void toTextureMapperLayerVector(const Vector<GraphicsLayer*>& layers, Vec
 }
 
 void GraphicsLayerTextureMapper::commitLayerChanges()
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (m_changeMask == NoChanges)
         return;
 
@@ -587,7 +602,10 @@ void GraphicsLayerTextureMapper::commitLayerChanges()
 /* \reimp (GraphicsLayer.h)
 */
 void GraphicsLayerTextureMapper::flushCompositingState(const FloatRect& rect)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (!m_layer->textureMapper())
         return;
 

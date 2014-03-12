@@ -21,7 +21,11 @@
 #include "TextureMapperImageBuffer.h"
 
 #include "GraphicsLayer.h"
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#else
 #include "NotImplemented.h"
+#endif
 
 #if USE(TEXTURE_MAPPER)
 namespace WebCore {
@@ -30,6 +34,9 @@ static const int s_maximumAllowedImageBufferDimension = 4096;
 
 void BitmapTextureImageBuffer::updateContents(const void* data, const IntRect& targetRect, const IntPoint& sourceOffset, int bytesPerLine, UpdateContentsFlag)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
 #if PLATFORM(CAIRO)
     RefPtr<cairo_surface_t> surface = adoptRef(cairo_image_surface_create_for_data(static_cast<unsigned char*>(data()),
                                                                                    CAIRO_FORMAT_ARGB32,
@@ -47,6 +54,9 @@ void BitmapTextureImageBuffer::updateContents(const void* data, const IntRect& t
 
 void BitmapTextureImageBuffer::updateContents(TextureMapper*, GraphicsLayer* sourceLayer, const IntRect& targetRect, const IntPoint& sourceOffset, UpdateContentsFlag)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     GraphicsContext* context = m_image->context();
 
     context->clearRect(targetRect);
@@ -62,21 +72,33 @@ void BitmapTextureImageBuffer::updateContents(TextureMapper*, GraphicsLayer* sou
 
 void BitmapTextureImageBuffer::didReset()
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_image = ImageBuffer::create(contentSize());
 }
 
 void BitmapTextureImageBuffer::updateContents(Image* image, const IntRect& targetRect, const IntPoint& offset, UpdateContentsFlag)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_image->context()->drawImage(image, ColorSpaceDeviceRGB, targetRect, IntRect(offset, targetRect.size()), CompositeCopy, ImageOrientationDescription());
 }
 
 IntSize TextureMapperImageBuffer::maxTextureSize() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return IntSize(s_maximumAllowedImageBufferDimension, s_maximumAllowedImageBufferDimension);
 }
 
 void TextureMapperImageBuffer::beginClip(const TransformationMatrix& matrix, const FloatRect& rect)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     GraphicsContext* context = currentContext();
     if (!context)
         return;
@@ -104,6 +126,9 @@ void TextureMapperImageBuffer::beginClip(const TransformationMatrix& matrix, con
 
 void TextureMapperImageBuffer::drawTexture(const BitmapTexture& texture, const FloatRect& targetRect, const TransformationMatrix& matrix, float opacity, unsigned /* exposedEdges */)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     GraphicsContext* context = currentContext();
     if (!context)
         return;
@@ -124,6 +149,9 @@ void TextureMapperImageBuffer::drawTexture(const BitmapTexture& texture, const F
 
 void TextureMapperImageBuffer::drawSolidColor(const FloatRect& rect, const TransformationMatrix& matrix, const Color& color)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     GraphicsContext* context = currentContext();
     if (!context)
         return;

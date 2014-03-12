@@ -24,20 +24,37 @@
 #include "Settings.h"
 #include "RuntimeEnabledFeaturesJS.h"
 #include <WTF/PassRef.h>
+#include "Frame.h"
+#include "GraphicsContext.h"
 
 #include "EmptyClients.h"
+
+#include "EGL/egl.h"
+#include "cairo.h"
+#include "cairo-gl.h"
+#include "PlatformContextCairo.h"
 
 using namespace WebCore;
 using namespace WTF;
 
 static std::unique_ptr<WebCore::Page> page;
 static Page::PageClients pageClients;
+static cairo_surface_t* surf = NULL;
+static cairo_t* cr;
+static unsigned char* surf_data;
+static GraphicsContext *g_context;
 
 namespace WebCore {
 static RuntimeEnabledFeatures* features;
 }
 
 void tick() {
+#if USE(TILED_BACKING_STORE)
+	//if(page->mainFrame().tiledBackingStore()) {
+	//	page->mainFrame().tiledBackingStorePaintBegin();
+	//	page->mainFrame().tiledBackingStorePaint(g_context, IntRect(0,0,1024,768));
+	//}
+#endif
 }
 
 int main(int argc, char **argv) {
@@ -45,7 +62,39 @@ int main(int argc, char **argv) {
     fprintf(stderr, "WebKit: Nothing to render.\n");
     return -1;
   }
-  fprintf(stderr,"WebKit: Rendering: %s\n", argv[1]);
+
+	//cairo.h
+	//cairo-gl.h
+	// CAIRO DEVICE? EGL?....
+	//EGLDisplay display = eglGetCurrentDisplay();
+	//EGLContext context = eglGetCurrentContext();
+	//EGLSurface surface = eglGetCurrentSurface(0);
+	//cairo_public cairo_device_t *c_device = cairo_egl_device_create(display, context);
+	//cairo_public cairo_surface_t *c_surface = cairo_gl_surface_create_for_egl(c_device, surface, 1024, 768);
+	//cairo_public cairo_surface_t * cairo_gl_surface = cairo_gl_surface_create (cairo_device_t *device,);
+	//cairo_public cairo_t *cairo_handle = cairo_create (cairo_surface_t *target);
+	//
+	//
+	/*
+#if USE(TILED_BACKING_STORE)
+	void *p=0;
+	if (WebCore::TiledBackingStore* backingStore = page->mainFrame().tiledBackingStore()) {
+		// FIXME: We should set the backing store viewport earlier than in paint
+		//backingStore->adjustVisibleRect();
+		// QWebFrame::render is a public API, bypass it for tiled rendering so behavior does not need to change.
+		WebCore::GraphicsContext context(p);
+		page->mainFrame().tiledBackingStorePaint(&context, IntRect(1024,768));
+		return;
+	}
+#endif
+	*/
+
+	//
+	//static cairo_bool_t _cairo_surface_is_gl (cairo_surface_t *surface)
+	//cr = create_cairo_context (1024, 768, 4, &surf, &surf_data);
+	//g_context = new GraphicsContext(cr);
+
+	fprintf(stderr,"WebKit: Rendering: %s\n", argv[1]);
   fprintf(stderr,"WebKit: main();\n");
 
   WebKitJSStrategies::initialize();
@@ -93,8 +142,8 @@ int main(int argc, char **argv) {
 
 	((FrameLoaderClientJS *)pageClients.loaderClientForMainFrame)->setFrame(&frame);
 
-  frame.setView(FrameView::create(frame));
-  fprintf(stderr,"WebKit: creating frame view;\n");
+  //rame.setView(FrameView::create(frame));
+  //fprintf(stderr,"WebKit: creating frame view;\n");
 
   frame.init();
   fprintf(stderr,"WebKit: frameInitialized;\n");
