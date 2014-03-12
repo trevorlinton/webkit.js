@@ -50,6 +50,10 @@
 #include <cairo-gl.h>
 #endif
 
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
+
 using namespace std;
 
 namespace WebCore {
@@ -96,6 +100,9 @@ ImageBuffer::ImageBuffer(const IntSize& size, float /* resolutionScale */, Color
     , m_size(size)
     , m_logicalSize(size)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     success = false;  // Make early return mean error.
 
 #if ENABLE(ACCELERATED_2D_CANVAS)

@@ -112,6 +112,9 @@ void TiledBackingStore::invalidate(const IntRect& contentsDirtyRect)
                 continue;
             // Pass the full rect to each tile as coveredDirtyRect might not
             // contain them completely and we don't want partial tile redraws.
+#if PLATFORM(JS)
+					fprintf(stderr, "WebKit: TiledBackingStore: invalidate: invalidating currentTile (x,y,w,h): %i %i %i %i\n",dirtyRect.x(),dirtyRect.y(),dirtyRect.width(),dirtyRect.height());
+#endif
             currentTile->invalidate(dirtyRect);
         }
     }

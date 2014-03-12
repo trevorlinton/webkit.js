@@ -608,7 +608,7 @@ void RenderLayerCompositor::updateCompositingLayers(CompositingUpdateType update
     // Compositing layers will be updated in Document::implicitClose() if suppressed here.
 		if (!m_renderView.document().visualUpdatesAllowed()) {
 #if PLATFORM(JS)
-			fprintf(stderr,"WebKit: updateCompositingLayers: visualUpdatedAllowed return true");
+			fprintf(stderr,"WebKit: updateCompositingLayers: visualUpdatedAllowed return true\n");
 #endif
         return;
 		}
@@ -616,19 +616,19 @@ void RenderLayerCompositor::updateCompositingLayers(CompositingUpdateType update
     // Avoid updating the layers with old values. Compositing layers will be updated after the layout is finished.
 		if (m_renderView.needsLayout()) {
 #if PLATFORM(JS)
-			fprintf(stderr,"WebKit: updateCompositingLayers: needsLayout return true");
+			fprintf(stderr,"WebKit: updateCompositingLayers: needsLayout return true\n");
 #endif
         return;
 		}
 		if (m_forceCompositingMode && !m_compositing) {
 #if PLATFORM(JS)
-			fprintf(stderr,"WebKit: updateCompositingLayers: enableCompositing will be ran.");
+			fprintf(stderr,"WebKit: updateCompositingLayers: enableCompositing will be ran.\n");
 #endif
         enableCompositingMode(true);
 		}
 		if (!m_reevaluateCompositingAfterLayout && !m_compositing) {
 #if PLATFORM(JS)
-			fprintf(stderr,"WebKit: updateCompositingLayers: m_compositing && m_reevaluateCompositingAfterLayout were both false.");
+			fprintf(stderr,"WebKit: updateCompositingLayers: m_compositing && m_reevaluateCompositingAfterLayout were both false.\n");
 #endif
         return;
 		}

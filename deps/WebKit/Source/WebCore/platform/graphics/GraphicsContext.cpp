@@ -102,13 +102,19 @@ GraphicsContext::GraphicsContext(PlatformGraphicsContext* platformGraphicsContex
 
 GraphicsContext::~GraphicsContext()
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     ASSERT(m_stack.isEmpty());
     ASSERT(!m_transparencyCount);
     platformDestroy();
 }
 
 void GraphicsContext::save()
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -118,7 +124,10 @@ void GraphicsContext::save()
 }
 
 void GraphicsContext::restore()
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -135,6 +144,9 @@ void GraphicsContext::restore()
 #if PLATFORM(IOS)
 void GraphicsContext::drawRaisedEllipse(const FloatRect& rect, const Color& ellipseColor, ColorSpace ellipseColorSpace, const Color& shadowColor, ColorSpace shadowColorSpace)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -155,19 +167,28 @@ void GraphicsContext::drawRaisedEllipse(const FloatRect& rect, const Color& elli
 #endif
 
 void GraphicsContext::setStrokeThickness(float thickness)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     m_state.strokeThickness = thickness;
     setPlatformStrokeThickness(thickness);
 }
 
 void GraphicsContext::setStrokeStyle(StrokeStyle style)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     m_state.strokeStyle = style;
     setPlatformStrokeStyle(style);
 }
 
 void GraphicsContext::setStrokeColor(const Color& color, ColorSpace colorSpace)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     m_state.strokeColor = color;
     m_state.strokeColorSpace = colorSpace;
     m_state.strokeGradient.clear();
@@ -176,7 +197,10 @@ void GraphicsContext::setStrokeColor(const Color& color, ColorSpace colorSpace)
 }
 
 void GraphicsContext::setShadow(const FloatSize& offset, float blur, const Color& color, ColorSpace colorSpace)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     m_state.shadowOffset = offset;
     m_state.shadowBlur = blur;
     m_state.shadowColor = color;
@@ -185,7 +209,10 @@ void GraphicsContext::setShadow(const FloatSize& offset, float blur, const Color
 }
 
 void GraphicsContext::setLegacyShadow(const FloatSize& offset, float blur, const Color& color, ColorSpace colorSpace)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     m_state.shadowOffset = offset;
     m_state.shadowBlur = blur;
     m_state.shadowColor = color;
@@ -197,7 +224,10 @@ void GraphicsContext::setLegacyShadow(const FloatSize& offset, float blur, const
 }
 
 void GraphicsContext::clearShadow()
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     m_state.shadowOffset = FloatSize();
     m_state.shadowBlur = 0;
     m_state.shadowColor = Color();
@@ -206,13 +236,19 @@ void GraphicsContext::clearShadow()
 }
 
 bool GraphicsContext::hasShadow() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return m_state.shadowColor.isValid() && m_state.shadowColor.alpha()
            && (m_state.shadowBlur || m_state.shadowOffset.width() || m_state.shadowOffset.height());
 }
 
 bool GraphicsContext::getShadow(FloatSize& offset, float& blur, Color& color, ColorSpace& colorSpace) const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     offset = m_state.shadowOffset;
     blur = m_state.shadowBlur;
     color = m_state.shadowColor;
@@ -222,13 +258,19 @@ bool GraphicsContext::getShadow(FloatSize& offset, float& blur, Color& color, Co
 }
 
 bool GraphicsContext::hasBlurredShadow() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return m_state.shadowColor.isValid() && m_state.shadowColor.alpha() && m_state.shadowBlur;
 }
 
 #if USE(CAIRO)
 bool GraphicsContext::mustUseShadowBlur() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     // We can't avoid ShadowBlur if the shadow has blur.
     if (hasBlurredShadow())
         return true;
@@ -245,37 +287,58 @@ bool GraphicsContext::mustUseShadowBlur() const
 #endif
 
 float GraphicsContext::strokeThickness() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return m_state.strokeThickness;
 }
 
 StrokeStyle GraphicsContext::strokeStyle() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return m_state.strokeStyle;
 }
 
 Color GraphicsContext::strokeColor() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return m_state.strokeColor;
 }
 
 ColorSpace GraphicsContext::strokeColorSpace() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return m_state.strokeColorSpace;
 }
 
 WindRule GraphicsContext::fillRule() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.fillRule;
 }
 
 void GraphicsContext::setFillRule(WindRule fillRule)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_state.fillRule = fillRule;
 }
 
 void GraphicsContext::setFillColor(const Color& color, ColorSpace colorSpace)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     m_state.fillColor = color;
     m_state.fillColorSpace = colorSpace;
     m_state.fillGradient.clear();
@@ -285,53 +348,83 @@ void GraphicsContext::setFillColor(const Color& color, ColorSpace colorSpace)
 
 Color GraphicsContext::fillColor() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.fillColor;
 }
 
 ColorSpace GraphicsContext::fillColorSpace() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.fillColorSpace;
 }
 
 void GraphicsContext::setShouldAntialias(bool b)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_state.shouldAntialias = b;
     setPlatformShouldAntialias(b);
 }
 
 bool GraphicsContext::shouldAntialias() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.shouldAntialias;
 }
 
 void GraphicsContext::setShouldSmoothFonts(bool b)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     m_state.shouldSmoothFonts = b;
     setPlatformShouldSmoothFonts(b);
 }
 
 bool GraphicsContext::shouldSmoothFonts() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.shouldSmoothFonts;
 }
 
 void GraphicsContext::setShouldSubpixelQuantizeFonts(bool b)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_state.shouldSubpixelQuantizeFonts = b;
 }
 
 bool GraphicsContext::shouldSubpixelQuantizeFonts() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.shouldSubpixelQuantizeFonts;
 }
 
 const GraphicsContextState& GraphicsContext::state() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return m_state;
 }
 
 void GraphicsContext::setStrokePattern(PassRefPtr<Pattern> pattern)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     ASSERT(pattern);
     if (!pattern) {
         setStrokeColor(Color::black, ColorSpaceDeviceRGB);
@@ -342,7 +435,10 @@ void GraphicsContext::setStrokePattern(PassRefPtr<Pattern> pattern)
 }
 
 void GraphicsContext::setFillPattern(PassRefPtr<Pattern> pattern)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     ASSERT(pattern);
     if (!pattern) {
         setFillColor(Color::black, ColorSpaceDeviceRGB);
@@ -354,6 +450,9 @@ void GraphicsContext::setFillPattern(PassRefPtr<Pattern> pattern)
 
 void GraphicsContext::setStrokeGradient(PassRefPtr<Gradient> gradient)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     ASSERT(gradient);
     if (!gradient) {
         setStrokeColor(Color::black, ColorSpaceDeviceRGB);
@@ -365,6 +464,9 @@ void GraphicsContext::setStrokeGradient(PassRefPtr<Gradient> gradient)
 
 void GraphicsContext::setFillGradient(PassRefPtr<Gradient> gradient)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     ASSERT(gradient);
     if (!gradient) {
         setFillColor(Color::black, ColorSpaceDeviceRGB);
@@ -375,43 +477,67 @@ void GraphicsContext::setFillGradient(PassRefPtr<Gradient> gradient)
 }
 
 Gradient* GraphicsContext::fillGradient() const
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     return m_state.fillGradient.get();
 }
 
 Gradient* GraphicsContext::strokeGradient() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.strokeGradient.get();
 }
 
 Pattern* GraphicsContext::fillPattern() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.fillPattern.get();
 }
 
 Pattern* GraphicsContext::strokePattern() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.strokePattern.get();
 }
 
 void GraphicsContext::setShadowsIgnoreTransforms(bool ignoreTransforms)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_state.shadowsIgnoreTransforms = ignoreTransforms;
 }
 
 bool GraphicsContext::shadowsIgnoreTransforms() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.shadowsIgnoreTransforms;
 }
 
 void GraphicsContext::beginTransparencyLayer(float opacity)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     beginPlatformTransparencyLayer(opacity);
     ++m_transparencyCount;
 }
 
 void GraphicsContext::endTransparencyLayer()
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     endPlatformTransparencyLayer();
     ASSERT(m_transparencyCount > 0);
     --m_transparencyCount;
@@ -419,6 +545,9 @@ void GraphicsContext::endTransparencyLayer()
 
 bool GraphicsContext::isInTransparencyLayer() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return (m_transparencyCount > 0) && supportsTransparencyLayers();
 }
 
@@ -429,17 +558,27 @@ bool GraphicsContext::updatingControlTints() const
 
 void GraphicsContext::setUpdatingControlTints(bool b)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     setPaintingDisabled(b);
     m_updatingControlTints = b;
 }
 
 void GraphicsContext::setPaintingDisabled(bool f)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_state.paintingDisabled = f;
 }
 
 bool GraphicsContext::paintingDisabled() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+
     return m_state.paintingDisabled;
 }
 
@@ -448,7 +587,10 @@ bool GraphicsContext::paintingDisabled() const
 #if !PLATFORM(IOS)
 #if !USE(WINGDI)
 void GraphicsContext::drawText(const Font& font, const TextRun& run, const FloatPoint& point, int from, int to)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -488,7 +630,9 @@ float GraphicsContext::drawBidiText(const Font& font, const TextRun& run, const 
 #else
         return 0;
 #endif
-
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     BidiResolver<TextRunIterator, BidiCharacterRun> bidiResolver;
 #if !PLATFORM(IOS)
     bidiResolver.setStatus(BidiStatus(run.direction(), run.directionalOverride()));
@@ -548,6 +692,9 @@ float GraphicsContext::drawBidiText(const Font& font, const TextRun& run, const 
 
 void GraphicsContext::drawHighlightForText(const Font& font, const TextRun& run, const FloatPoint& point, int h, const Color& backgroundColor, ColorSpace colorSpace, int from, int to)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -556,6 +703,9 @@ void GraphicsContext::drawHighlightForText(const Font& font, const TextRun& run,
 
 void GraphicsContext::drawImage(Image* image, ColorSpace styleColorSpace, const IntPoint& p, CompositeOperator op, ImageOrientationDescription description)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (!image)
         return;
     drawImage(image, styleColorSpace, FloatRect(IntRect(p, image->size())), FloatRect(FloatPoint(), FloatSize(image->size())), op, description);
@@ -563,6 +713,9 @@ void GraphicsContext::drawImage(Image* image, ColorSpace styleColorSpace, const 
 
 void GraphicsContext::drawImage(Image* image, ColorSpace styleColorSpace, const IntRect& r, CompositeOperator op, ImageOrientationDescription description, bool useLowQualityScale)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (!image)
         return;
     drawImage(image, styleColorSpace, FloatRect(r), FloatRect(FloatPoint(), FloatSize(image->size())), op, description, useLowQualityScale);
@@ -570,23 +723,36 @@ void GraphicsContext::drawImage(Image* image, ColorSpace styleColorSpace, const 
 
 void GraphicsContext::drawImage(Image* image, ColorSpace styleColorSpace, const IntPoint& dest, const IntRect& srcRect, CompositeOperator op, ImageOrientationDescription description)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     drawImage(image, styleColorSpace, FloatRect(IntRect(dest, srcRect.size())), FloatRect(srcRect), op, description);
 }
 
 void GraphicsContext::drawImage(Image* image, ColorSpace styleColorSpace, const FloatRect& dest, const FloatRect& src, CompositeOperator op, ImageOrientationDescription description, bool useLowQualityScale)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     drawImage(image, styleColorSpace, dest, src, op, BlendModeNormal, description, useLowQualityScale);
 }
 
 void GraphicsContext::drawImage(Image* image, ColorSpace styleColorSpace, const FloatRect& dest)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (!image)
         return;
     drawImage(image, styleColorSpace, dest, FloatRect(IntRect(IntPoint(), image->size())));
 }
 
 void GraphicsContext::drawImage(Image* image, ColorSpace styleColorSpace, const FloatRect& dest, const FloatRect& src, CompositeOperator op, BlendMode blendMode, ImageOrientationDescription description, bool useLowQualityScale)
-{    if (paintingDisabled() || !image)
+{
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
+		if (paintingDisabled() || !image)
         return;
 
     InterpolationQuality previousInterpolationQuality = InterpolationDefault;
@@ -605,6 +771,9 @@ void GraphicsContext::drawImage(Image* image, ColorSpace styleColorSpace, const 
 
 void GraphicsContext::drawTiledImage(Image* image, ColorSpace styleColorSpace, const IntRect& destRect, const IntPoint& srcPoint, const IntSize& tileSize, CompositeOperator op, bool useLowQualityScale, BlendMode blendMode)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled() || !image)
         return;
 
@@ -620,6 +789,9 @@ void GraphicsContext::drawTiledImage(Image* image, ColorSpace styleColorSpace, c
 void GraphicsContext::drawTiledImage(Image* image, ColorSpace styleColorSpace, const IntRect& dest, const IntRect& srcRect,
     const FloatSize& tileScaleFactor, Image::TileRule hRule, Image::TileRule vRule, CompositeOperator op, bool useLowQualityScale)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled() || !image)
         return;
 
@@ -640,6 +812,9 @@ void GraphicsContext::drawTiledImage(Image* image, ColorSpace styleColorSpace, c
 
 void GraphicsContext::drawImageBuffer(ImageBuffer* image, ColorSpace styleColorSpace, const IntPoint& p, CompositeOperator op, BlendMode blendMode)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (!image)
         return;
     drawImageBuffer(image, styleColorSpace, FloatRect(IntRect(p, image->logicalSize())), FloatRect(FloatPoint(), FloatSize(image->logicalSize())), op, blendMode);
@@ -647,6 +822,9 @@ void GraphicsContext::drawImageBuffer(ImageBuffer* image, ColorSpace styleColorS
 
 void GraphicsContext::drawImageBuffer(ImageBuffer* image, ColorSpace styleColorSpace, const IntRect& r, CompositeOperator op, BlendMode blendMode, bool useLowQualityScale)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (!image)
         return;
     drawImageBuffer(image, styleColorSpace, FloatRect(r), FloatRect(FloatPoint(), FloatSize(image->logicalSize())), op, blendMode, useLowQualityScale);
@@ -654,16 +832,25 @@ void GraphicsContext::drawImageBuffer(ImageBuffer* image, ColorSpace styleColorS
 
 void GraphicsContext::drawImageBuffer(ImageBuffer* image, ColorSpace styleColorSpace, const IntPoint& dest, const IntRect& srcRect, CompositeOperator op, BlendMode blendMode)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     drawImageBuffer(image, styleColorSpace, FloatRect(IntRect(dest, srcRect.size())), FloatRect(srcRect), op, blendMode);
 }
 
 void GraphicsContext::drawImageBuffer(ImageBuffer* image, ColorSpace styleColorSpace, const IntRect& dest, const IntRect& srcRect, CompositeOperator op, BlendMode blendMode, bool useLowQualityScale)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     drawImageBuffer(image, styleColorSpace, FloatRect(dest), FloatRect(srcRect), op, blendMode, useLowQualityScale);
 }
 
 void GraphicsContext::drawImageBuffer(ImageBuffer* image, ColorSpace styleColorSpace, const FloatRect& dest)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (!image)
         return;
     drawImageBuffer(image, styleColorSpace, dest, FloatRect(IntRect(IntPoint(), image->logicalSize())));
@@ -671,6 +858,9 @@ void GraphicsContext::drawImageBuffer(ImageBuffer* image, ColorSpace styleColorS
 
 void GraphicsContext::drawImageBuffer(ImageBuffer* image, ColorSpace styleColorSpace, const FloatRect& dest, const FloatRect& src, CompositeOperator op, BlendMode blendMode, bool useLowQualityScale)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled() || !image)
         return;
 
@@ -686,11 +876,17 @@ void GraphicsContext::drawImageBuffer(ImageBuffer* image, ColorSpace styleColorS
 
 void GraphicsContext::clip(const IntRect& rect)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     clip(FloatRect(rect));
 }
 
 void GraphicsContext::clipRoundedRect(const RoundedRect& rect)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -708,6 +904,9 @@ void GraphicsContext::clipRoundedRect(const RoundedRect& rect)
 void GraphicsContext::clipRoundedRect(const FloatRect& rect, const FloatSize& topLeft, const FloatSize& topRight,
     const FloatSize& bottomLeft, const FloatSize& bottomRight)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -718,6 +917,9 @@ void GraphicsContext::clipRoundedRect(const FloatRect& rect, const FloatSize& to
 
 void GraphicsContext::clipOutRoundedRect(const RoundedRect& rect)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -733,6 +935,9 @@ void GraphicsContext::clipOutRoundedRect(const RoundedRect& rect)
 
 void GraphicsContext::clipToImageBuffer(ImageBuffer* buffer, const FloatRect& rect)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled())
         return;
     buffer->clip(this, rect);
@@ -748,6 +953,9 @@ IntRect GraphicsContext::clipBounds() const
 
 TextDrawingModeFlags GraphicsContext::textDrawingMode() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.textDrawingMode;
 }
 
@@ -760,7 +968,10 @@ void GraphicsContext::setTextDrawingMode(TextDrawingModeFlags mode)
 }
 
 void GraphicsContext::fillRect(const FloatRect& rect, Gradient& gradient)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     if (paintingDisabled())
         return;
     gradient.fill(this, rect);
@@ -768,6 +979,9 @@ void GraphicsContext::fillRect(const FloatRect& rect, Gradient& gradient)
 
 void GraphicsContext::fillRect(const FloatRect& rect, const Color& color, ColorSpace styleColorSpace, CompositeOperator op, BlendMode blendMode)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -779,6 +993,9 @@ void GraphicsContext::fillRect(const FloatRect& rect, const Color& color, ColorS
 
 void GraphicsContext::fillRoundedRect(const RoundedRect& rect, const Color& color, ColorSpace colorSpace, BlendMode blendMode)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
 
     if (rect.isRounded()) {
         setCompositeOperation(compositeOperation(), blendMode);
@@ -817,7 +1034,10 @@ void GraphicsContext::fillRectWithRoundedHole(const IntRect& rect, const Rounded
 #endif
 
 void GraphicsContext::setCompositeOperation(CompositeOperator compositeOperation, BlendMode blendMode)
-{
+	{
+#if PLATFORM(JS)
+		webkitTrace();
+#endif
     m_state.compositeOperator = compositeOperation;
     m_state.blendMode = blendMode;
     setPlatformCompositeOperation(compositeOperation, blendMode);
@@ -825,11 +1045,17 @@ void GraphicsContext::setCompositeOperation(CompositeOperator compositeOperation
 
 CompositeOperator GraphicsContext::compositeOperation() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.compositeOperator;
 }
 
 BlendMode GraphicsContext::blendModeOperation() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_state.blendMode;
 }
 
@@ -884,6 +1110,9 @@ bool GraphicsContext::isAcceleratedContext() const
 
 void GraphicsContext::adjustLineToPixelBoundaries(FloatPoint& p1, FloatPoint& p2, float strokeWidth, StrokeStyle penStyle)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     // For odd widths, we add in 0.5 to the appropriate x/y so that the float arithmetic
     // works out.  For example, with a border width of 3, WebKit will pass us (y1+y2)/2, e.g.,
     // (50+53)/2 = 103/2 = 51 when we want 51.5.  It is always true that an even width gave
@@ -913,11 +1142,17 @@ void GraphicsContext::adjustLineToPixelBoundaries(FloatPoint& p1, FloatPoint& p2
 
 static bool scalesMatch(AffineTransform a, AffineTransform b)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return a.xScale() == b.xScale() && a.yScale() == b.yScale();
 }
 
 std::unique_ptr<ImageBuffer> GraphicsContext::createCompatibleBuffer(const IntSize& size, bool hasAlpha) const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     // Make the buffer larger if the context's transform is scaling it so we need a higher
     // resolution than one pixel per unit. Also set up a corresponding scale factor on the
     // graphics context.
@@ -937,6 +1172,9 @@ std::unique_ptr<ImageBuffer> GraphicsContext::createCompatibleBuffer(const IntSi
 
 bool GraphicsContext::isCompatibleWithBuffer(ImageBuffer* buffer) const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     GraphicsContext* bufferContext = buffer->context();
 
     return scalesMatch(getCTM(), bufferContext->getCTM()) && isAcceleratedContext() == bufferContext->isAcceleratedContext();
@@ -950,22 +1188,34 @@ void GraphicsContext::platformApplyDeviceScaleFactor(float)
 
 void GraphicsContext::applyDeviceScaleFactor(float deviceScaleFactor)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     scale(FloatSize(deviceScaleFactor, deviceScaleFactor));
     platformApplyDeviceScaleFactor(deviceScaleFactor);
 }
 
 void GraphicsContext::fillEllipse(const FloatRect& ellipse)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     platformFillEllipse(ellipse);
 }
 
 void GraphicsContext::strokeEllipse(const FloatRect& ellipse)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     platformStrokeEllipse(ellipse);
 }
 
 void GraphicsContext::fillEllipseAsPath(const FloatRect& ellipse)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     Path path;
     path.addEllipse(ellipse);
     fillPath(path);
@@ -973,6 +1223,9 @@ void GraphicsContext::fillEllipseAsPath(const FloatRect& ellipse)
 
 void GraphicsContext::strokeEllipseAsPath(const FloatRect& ellipse)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     Path path;
     path.addEllipse(ellipse);
     strokePath(path);
@@ -981,6 +1234,9 @@ void GraphicsContext::strokeEllipseAsPath(const FloatRect& ellipse)
 #if !USE(CG)
 void GraphicsContext::platformFillEllipse(const FloatRect& ellipse)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 
@@ -989,6 +1245,9 @@ void GraphicsContext::platformFillEllipse(const FloatRect& ellipse)
 
 void GraphicsContext::platformStrokeEllipse(const FloatRect& ellipse)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (paintingDisabled())
         return;
 

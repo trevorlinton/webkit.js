@@ -244,7 +244,38 @@ namespace WebCore {
     EM_ASM(
            console.log("WebKit: ChromeClientJS::forcePaint();");
            );
-  }*/
+  }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 // Methods used by HostWindow.
+	 virtual bool supportsImmediateInvalidation() { return false; }
+	 //virtual void invalidateRootView(const IntRect&, bool immediate) = 0;
+	 //virtual void invalidateContentsAndRootView(const IntRect&, bool immediate) = 0;
+	 //virtual void invalidateContentsForSlowScroll(const IntRect&, bool immediate) = 0;
+	 //virtual void scroll(const IntSize&, const IntRect&, const IntRect&) = 0;
+	 #if USE(TILED_BACKING_STORE)
+	 //virtual void delegatedScrollRequested(const IntPoint&) = 0;
+	 #endif
+	 virtual IntPoint screenToRootView(const IntPoint&) const = 0;
+	 virtual IntRect rootViewToScreen(const IntRect&) const = 0;
+	 virtual PlatformPageClient platformPageClient() const = 0;
+	 virtual void scrollbarsModeDidChange() const = 0;
+	 #if ENABLE(CURSOR_SUPPORT)
+	 virtual void setCursor(const Cursor&) = 0;
+	 virtual void setCursorHiddenUntilMouseMoves(bool) = 0;
+	 #endif
+	 #if ENABLE(REQUEST_ANIMATION_FRAME) && !USE(REQUEST_ANIMATION_FRAME_TIMER)
+	 virtual void scheduleAnimation() = 0;
+	 #endif
+
+	 */
 
   void ChromeClientJS::invalidateRootView(const IntRect& updateRect, bool immediate)
   {
@@ -332,13 +363,6 @@ namespace WebCore {
     webkitTrace();
   }
 
-  /*void ChromeClientJS::dispatchViewportPropertiesDidChange(const ViewportArguments& arguments) const
-  {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::dispatchViewportPropertiesDidChange();");
-           );
-  }*/
-
   void ChromeClientJS::setCursor(const Cursor& cursor)
   {
     webkitTrace();
@@ -367,20 +391,6 @@ namespace WebCore {
     return false;
   }
 
-  /*PassRefPtr<WebCore::PopupMenu> ChromeClientJS::createPopupMenu(WebCore::PopupMenuClient* client) const
-  {
-    EM_ASM(
-           console.log("createPopupMenu();");
-           );
-  }*/
-
-  /*PassRefPtr<WebCore::SearchPopupMenu> ChromeClientJS::createSearchPopupMenu(WebCore::PopupMenuClient* client) const
-  {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::createSearchPopupMenu();");
-           );
-  }*/
-
   void ChromeClientJS::attachRootGraphicsLayer(Frame* frame, GraphicsLayer* rootLayer)
   {
     notImplemented();
@@ -395,7 +405,6 @@ namespace WebCore {
   {
     notImplemented();
   }
-
 
   PassRefPtr<PopupMenu> ChromeClientJS::createPopupMenu(PopupMenuClient*) const {
     notImplemented();
@@ -418,6 +427,27 @@ namespace WebCore {
   void ChromeClientJS::scheduleAnimation() {
     notImplemented();
   }
+
+  /*void ChromeClientJS::dispatchViewportPropertiesDidChange(const ViewportArguments& arguments) const
+	 {
+	 EM_ASM(
+	 console.log("WebKit: ChromeClientJS::dispatchViewportPropertiesDidChange();");
+	 );
+	 }*/
+
+  /*PassRefPtr<WebCore::PopupMenu> ChromeClientJS::createPopupMenu(WebCore::PopupMenuClient* client) const
+	 {
+	 EM_ASM(
+	 console.log("createPopupMenu();");
+	 );
+	 }*/
+
+  /*PassRefPtr<WebCore::SearchPopupMenu> ChromeClientJS::createSearchPopupMenu(WebCore::PopupMenuClient* client) const
+	 {
+	 EM_ASM(
+	 console.log("WebKit: ChromeClientJS::createSearchPopupMenu();");
+	 );
+	 }*/
 
   /*IntRect ChromeClientJS::windowResizerRect() const
   {

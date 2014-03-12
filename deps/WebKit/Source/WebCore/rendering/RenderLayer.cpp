@@ -109,6 +109,9 @@
 #include "TranslateTransformOperation.h"
 #include <wtf/StdLibExtras.h>
 #include <wtf/text/CString.h>
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 
 #if ENABLE(CSS_FILTERS)
 #include "FEColorMatrix.h"
@@ -209,6 +212,9 @@ RenderLayer::RenderLayer(RenderLayerModelObject& rendererLayerModelObject)
     , m_staticBlockPosition(0)
     , m_enclosingPaginationLayer(0)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_isNormalFlowOnly = shouldBeNormalFlowOnly();
     m_isSelfPaintingLayer = shouldBeSelfPaintingLayer();
 
