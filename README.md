@@ -61,10 +61,6 @@ Very --very-- limited tests has shown some animations and support have been 30~3
 - Unit tests for the webkit API are underway.
 - Minimal support for WebKit LayoutTests supports 22% pass rate, this seems terrible until we found that these tests are failing because of XmlHttpRequest's can't get the appropriate resources and many of the unnecessary JavaScript <-> DOM API's are unnecessary as they're already implemented in the host systems but explicitly in WebCore. However both CSS3, HTML5, SVG, Filters, and Accelerated Compositing tests have performed very well.
 
-**Frameworks and APIs**
-
-- Currently the demo simply renders what HTML is passed in via the command line or a postMessage (as a worker).  Canvas objects and EGL windows are autocreated for it.  This simplistic approach does not give much control over rendering to the user but is a start for testing.
-
 **Documentation**
 
 - (BAD) Lots and lots of documentation, currently this is it.
@@ -166,7 +162,7 @@ Currently this can be ran by using postMessage and Emscripten's standard way of 
 
 Running in Node
 --------------
-This is the preferred way of running it, an EGL simple window should appear, if not file a bug. Debug messages are printed to stderr.
+This is the preferred way of running it, if using the debug version outputted on stderr should be traces, stdout contains bitblt's (As png's) of render changes, if not file a bug.
 
 ```
 $ node webkit.js "<html><body>Some HTML</body></html>"
