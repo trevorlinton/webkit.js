@@ -1692,6 +1692,7 @@ _cairo_surface_has_device_transform (cairo_surface_t *surface)
  **/
 cairo_status_t
 _cairo_surface_acquire_source_image (cairo_surface_t         *surface,
+<<<<<<< HEAD
 																		 cairo_image_surface_t  **image_out,
 																		 void                   **image_extra)
 {
@@ -1713,6 +1714,29 @@ _cairo_surface_acquire_source_image (cairo_surface_t         *surface,
 	_cairo_debug_check_image_surface_is_defined (&(*image_out)->base);
 
 	return CAIRO_STATUS_SUCCESS;
+=======
+				     cairo_image_surface_t  **image_out,
+				     void                   **image_extra)
+{
+    cairo_status_t status;
+
+    if (unlikely (surface->status))
+	return surface->status;
+
+    assert (!surface->finished);
+
+    if (surface->backend->acquire_source_image == NULL)
+	return CAIRO_INT_STATUS_UNSUPPORTED;
+
+    status = surface->backend->acquire_source_image (surface,
+						     image_out, image_extra);
+    if (unlikely (status))
+	return _cairo_surface_set_error (surface, status);
+
+    _cairo_debug_check_image_surface_is_defined (&(*image_out)->base);
+
+    return CAIRO_STATUS_SUCCESS;
+>>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
 }
 
 cairo_status_t

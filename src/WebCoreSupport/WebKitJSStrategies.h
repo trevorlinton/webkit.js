@@ -39,6 +39,7 @@
 
 namespace WebCore {
 
+<<<<<<< HEAD
 class  WebKitJSStrategies
 	: public WebCore::PlatformStrategies,
 		private WebCore::CookiesStrategy,
@@ -49,6 +50,9 @@ class  WebKitJSStrategies
 		private WebCore::SharedWorkerStrategy,
 		private WebCore::StorageStrategy,
 		private WebCore::VisitedLinkStrategy {
+=======
+class  WebKitJSStrategies : public WebCore::PlatformStrategies, private WebCore::CookiesStrategy, private WebCore::DatabaseStrategy, private WebCore::LoaderStrategy, private WebCore::PasteboardStrategy, private WebCore::PluginStrategy, private WebCore::SharedWorkerStrategy, private WebCore::StorageStrategy, private WebCore::VisitedLinkStrategy {
+>>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
     friend class NeverDestroyed< WebKitJSStrategies>;
 public:
     static void initialize();

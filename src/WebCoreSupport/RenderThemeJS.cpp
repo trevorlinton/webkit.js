@@ -18,7 +18,10 @@
 #include "RenderSlider.h"
 #include "RenderView.h"
 #include "StyleResolver.h"
+<<<<<<< HEAD
 #include "ScrollbarTheme.h"
+=======
+>>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
 #include "DebuggerJS.h"
 
 using std::min;
@@ -43,11 +46,14 @@ namespace WebCore {
     leftPadding
   };
 
+<<<<<<< HEAD
 
   ScrollbarTheme* ScrollbarTheme::nativeTheme() {
 		notImplemented();
 	}
 
+=======
+>>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
   PassRefPtr<RenderTheme> RenderThemeJS::create()
   {
     webkitTrace();
