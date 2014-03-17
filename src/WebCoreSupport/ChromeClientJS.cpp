@@ -11,22 +11,17 @@ using namespace WebCore;
 
 namespace WebCore {
 
-
-  //static PassOwnPtr<WidgetBackingStore> createBackingStore(GtkWidget* widget, const IntSize& size)
-  //{
-  //  return WebCore::WidgetBackingStoreCairo::create(widget, size);
-  //}
-
-  ChromeClient* ChromeClientJS::createClient() {
+  ChromeClient* ChromeClientJS::createClient(WebKit::WebView *view) {
     webkitTrace();
-    ChromeClient* tmp = static_cast<ChromeClient *>(new ChromeClientJS());
+    ChromeClient* tmp = static_cast<ChromeClient *>(new ChromeClientJS(view));
 		tmp->setWindowRect(FloatRect(0,0,1024,768)); // TODO: Set this through JS?
 		return tmp;
   }
 
-  ChromeClientJS::ChromeClientJS()
+  ChromeClientJS::ChromeClientJS(WebKit::WebView *view)
   {
-    notImplemented();
+		webkitTrace();
+		m_view = view;
   }
   void ChromeClientJS::chromeDestroyed()
   {
@@ -218,81 +213,22 @@ namespace WebCore {
     return IntRect();
   }
 
-  /*void ChromeClientJS::widgetSizeChanged(const IntSize& oldWidgetSize, IntSize newSize)
-  {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::widgetSizeChanged();");
-           );
-  }
-
-  void ChromeClientJS::performAllPendingScrolls()
-  {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::performAllPendingScrolls();");
-           );
-  }
-
-  void ChromeClientJS::paint(WebCore::Timer<ChromeClient>*)
-  {
-    EM_ASM(
-            console.log("WebKit: ChromeClientJS::paint();");
-            );
-  }
-
-  void ChromeClientJS::forcePaint()
-  {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::forcePaint();");
-           );
-  }
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 // Methods used by HostWindow.
-	 virtual bool supportsImmediateInvalidation() { return false; }
-	 //virtual void invalidateRootView(const IntRect&, bool immediate) = 0;
-	 //virtual void invalidateContentsAndRootView(const IntRect&, bool immediate) = 0;
-	 //virtual void invalidateContentsForSlowScroll(const IntRect&, bool immediate) = 0;
-	 //virtual void scroll(const IntSize&, const IntRect&, const IntRect&) = 0;
-	 #if USE(TILED_BACKING_STORE)
-	 //virtual void delegatedScrollRequested(const IntPoint&) = 0;
-	 #endif
-	 virtual IntPoint screenToRootView(const IntPoint&) const = 0;
-	 virtual IntRect rootViewToScreen(const IntRect&) const = 0;
-	 virtual PlatformPageClient platformPageClient() const = 0;
-	 virtual void scrollbarsModeDidChange() const = 0;
-	 #if ENABLE(CURSOR_SUPPORT)
-	 virtual void setCursor(const Cursor&) = 0;
-	 virtual void setCursorHiddenUntilMouseMoves(bool) = 0;
-	 #endif
-	 #if ENABLE(REQUEST_ANIMATION_FRAME) && !USE(REQUEST_ANIMATION_FRAME_TIMER)
-	 virtual void scheduleAnimation() = 0;
-	 #endif
-
-	 */
-
   void ChromeClientJS::invalidateRootView(const IntRect& updateRect, bool immediate)
   {
     webkitTrace();
-		fprintf(stderr,"InvalidateRootView: %i %i %i %i\n", updateRect.x(), updateRect.y(), updateRect.width(), updateRect.height());
+		m_view->invalidate(updateRect, immediate);
   }
 
   void ChromeClientJS::invalidateContentsAndRootView(const IntRect& updateRect, bool immediate)
   {
     webkitTrace();
-		fprintf(stderr,"InvalidateRootView: %i %i %i %i\n", updateRect.x(), updateRect.y(), updateRect.width(), updateRect.height());
+		m_view->invalidate(updateRect, immediate);
   }
 
   void ChromeClientJS::invalidateContentsForSlowScroll(const IntRect& updateRect, bool immediate)
   {
     webkitTrace();
-		fprintf(stderr,"InvalidateRootView: %i %i %i %i\n", updateRect.x(), updateRect.y(), updateRect.width(), updateRect.height());
+		m_view->invalidate(updateRect, immediate);
   }
 
   void ChromeClientJS::scroll(const IntSize& delta, const IntRect& rectToScroll, const IntRect& clipRect)
@@ -428,28 +364,79 @@ namespace WebCore {
     notImplemented();
   }
 
-  /*void ChromeClientJS::dispatchViewportPropertiesDidChange(const ViewportArguments& arguments) const
+  /*
+	 
+	 void ChromeClientJS::widgetSizeChanged(const IntSize& oldWidgetSize, IntSize newSize)
+	 {
+	 EM_ASM(
+	 console.log("WebKit: ChromeClientJS::widgetSizeChanged();");
+	 );
+	 }
+
+	 void ChromeClientJS::performAllPendingScrolls()
+	 {
+	 EM_ASM(
+	 console.log("WebKit: ChromeClientJS::performAllPendingScrolls();");
+	 );
+	 }
+
+	 void ChromeClientJS::paint(WebCore::Timer<ChromeClient>*)
+	 {
+	 EM_ASM(
+	 console.log("WebKit: ChromeClientJS::paint();");
+	 );
+	 }
+
+	 void ChromeClientJS::forcePaint()
+	 {
+	 EM_ASM(
+	 console.log("WebKit: ChromeClientJS::forcePaint();");
+	 );
+	 }
+
+	 // Methods used by HostWindow.
+	 virtual bool supportsImmediateInvalidation() { return false; }
+	 //virtual void invalidateRootView(const IntRect&, bool immediate) = 0;
+	 //virtual void invalidateContentsAndRootView(const IntRect&, bool immediate) = 0;
+	 //virtual void invalidateContentsForSlowScroll(const IntRect&, bool immediate) = 0;
+	 //virtual void scroll(const IntSize&, const IntRect&, const IntRect&) = 0;
+	 #if USE(TILED_BACKING_STORE)
+	 //virtual void delegatedScrollRequested(const IntPoint&) = 0;
+	 #endif
+	 virtual IntPoint screenToRootView(const IntPoint&) const = 0;
+	 virtual IntRect rootViewToScreen(const IntRect&) const = 0;
+	 virtual PlatformPageClient platformPageClient() const = 0;
+	 virtual void scrollbarsModeDidChange() const = 0;
+	 #if ENABLE(CURSOR_SUPPORT)
+	 virtual void setCursor(const Cursor&) = 0;
+	 virtual void setCursorHiddenUntilMouseMoves(bool) = 0;
+	 #endif
+	 #if ENABLE(REQUEST_ANIMATION_FRAME) && !USE(REQUEST_ANIMATION_FRAME_TIMER)
+	 virtual void scheduleAnimation() = 0;
+	 #endif
+
+	 void ChromeClientJS::dispatchViewportPropertiesDidChange(const ViewportArguments& arguments) const
 	 {
 	 EM_ASM(
 	 console.log("WebKit: ChromeClientJS::dispatchViewportPropertiesDidChange();");
 	 );
-	 }*/
+	 }
 
-  /*PassRefPtr<WebCore::PopupMenu> ChromeClientJS::createPopupMenu(WebCore::PopupMenuClient* client) const
+	 PassRefPtr<WebCore::PopupMenu> ChromeClientJS::createPopupMenu(WebCore::PopupMenuClient* client) const
 	 {
 	 EM_ASM(
 	 console.log("createPopupMenu();");
 	 );
-	 }*/
+	 }
 
-  /*PassRefPtr<WebCore::SearchPopupMenu> ChromeClientJS::createSearchPopupMenu(WebCore::PopupMenuClient* client) const
+  PassRefPtr<WebCore::SearchPopupMenu> ChromeClientJS::createSearchPopupMenu(WebCore::PopupMenuClient* client) const
 	 {
 	 EM_ASM(
 	 console.log("WebKit: ChromeClientJS::createSearchPopupMenu();");
 	 );
-	 }*/
+	 }
 
-  /*IntRect ChromeClientJS::windowResizerRect() const
+  IntRect ChromeClientJS::windowResizerRect() const
   {
     return IntRect();
   }
@@ -466,8 +453,7 @@ namespace WebCore {
            console.log("WebKit: ChromeClientJS::scrollbarsModeDidChange();");
            );
   }
-*/
-  /*ChromeClientJS::CompositingTriggerFlags ChromeClientJS::allowedCompositingTriggers() const
+	ChromeClientJS::CompositingTriggerFlags ChromeClientJS::allowedCompositingTriggers() const
   {
     EM_ASM(
            console.log("WebKit: ChromeClientJS::allowCompositingTriggers();");

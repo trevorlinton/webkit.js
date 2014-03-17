@@ -227,6 +227,7 @@ png_text_compress(png_structp png_ptr,
    /* This is the same compression loop as in png_write_row() */
    do
    {
+
       /* Compress the data */
       ret = deflate(&png_ptr->zstream, Z_NO_FLUSH);
       if (ret != Z_OK)
@@ -283,6 +284,7 @@ png_text_compress(png_structp png_ptr,
    /* Finish the compression */
    do
    {
+
       /* Tell zlib we are finished */
       ret = deflate(&png_ptr->zstream, Z_FINISH);
 
@@ -1930,7 +1932,7 @@ png_write_finish_row(png_structp png_ptr)
       to flush the compressor */
    do
    {
-      /* Tell the compressor we are done */
+		  /* Tell the compressor we are done */
       ret = deflate(&png_ptr->zstream, Z_FINISH);
       /* Check for an error */
       if (ret == Z_OK)
@@ -2749,7 +2751,7 @@ png_write_find_filter(png_structp png_ptr, png_row_infop row_info)
 #endif /* PNG_WRITE_FILTER_SUPPORTED */
    /* Do the actual writing of the filtered row data from the chosen filter. */
 
-   png_write_filtered_row(png_ptr, best_row);
+   png_write_filtered_row(png_ptr, best_row); 
 
 #ifdef PNG_WRITE_FILTER_SUPPORTED
 #ifdef PNG_WRITE_WEIGHTED_FILTER_SUPPORTED
@@ -2783,7 +2785,7 @@ png_write_filtered_row(png_structp png_ptr, png_bytep filtered_row)
    do
    {
       int ret; /* Return of zlib */
-
+		 
       /* Compress the data */
       ret = deflate(&png_ptr->zstream, Z_NO_FLUSH);
       /* Check for compression errors */

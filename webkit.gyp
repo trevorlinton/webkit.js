@@ -38,10 +38,11 @@
 				'webcore_support',
       ],
       'sources':[
+				'<(DEPTH)/src/WebView.h',
 				'<(DEPTH)/src/WebKit.cpp',
       ],
       'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
-      'include_dirs':['<@(webcore_includes)'],
+      'include_dirs':['<@(webcore_includes)','<(DEPTH)/src/',],
       'cflags+':['-include ../deps/WebKit/Source/WebCore/WebCorePrefix.h'],
       'ldflags+':[''],
 			'jsflags+':[''],
@@ -86,7 +87,7 @@
 				'<(DEPTH)/src/EmscriptenSupport.cpp',
 			],
       'sources/':[ ['exclude','<(webcore_excludes)'] ],
-      'include_dirs':['<@(webcore_includes)'],
+      'include_dirs':['<@(webcore_includes)','<(DEPTH)/src/',],
       'cflags+':['-include ../deps/WebKit/Source/WebCore/WebCorePrefix.h'],
     },
     {
@@ -240,15 +241,14 @@
     {
       'target_name':'png',
       'sources':['<@(libpng)',],
-      'include_dirs':['<(DEPTH)/deps/libpng', ],
+      'include_dirs':['<(DEPTH)/deps/libpng', '<(DEPTH)/deps/zlib/' ],
       'cxx':'<(emscripten_cc)',
     },
     {
       'target_name': 'freetype2',
       'sources': ['<@(freetype2)',],
-      'sources/': [ ['exclude', '(builds/|autofit/af|ftmac\\.c$|util/|/tools|ftbase\\.c$|/bdf\\.c$|ftcache\\.c$|cff\\.c$|type1cid\\.c$|gxvalid\\.c$|otvalid\\.c$|pcf\\.c$|pfr\\.c$|raster\\.c$|sfnt\\.c$|smooth\\.c$|truetype\\.c$|/type1\\.c$|/type42\\.c$|ftzopen\\.c$|psaux\\.c$|pshinter\\.c$|psnames\\.c$|ttsbit0\\.c$|gxvfgen\\.c$|infutil\\.c$)'] ],
+      'sources/': [ ['exclude', '(builds/|util/|/tools|autofit/af|gzip/ad|gzip/inf|gzip/z|ftmac\\.c$|ftbase\\.c$|/bdf\\.c$|ftcache\\.c$|cff\\.c$|type1cid\\.c$|gxvalid\\.c$|otvalid\\.c$|pcf\\.c$|pfr\\.c$|raster\\.c$|sfnt\\.c$|/smooth\\.c$|/truetype\\.c$|/type1\\.c$|/type42\\.c$|ftzopen\\.c$|psaux\\.c$|pshinter\\.c$|psnames\\.c$|ttsbit0\\.c$|gxvfgen\\.c$|infutil\\.c$)'] ],
       'defines+': [
-        'FT_CONFIG_OPTION_SYSTEM_ZLIB',
         'FT2_BUILD_LIBRARY',
         'FT_CONFIG_CONFIG_H=<ftconfig.h>',
       ],
@@ -256,6 +256,7 @@
         '<(DEPTH)/deps/freetype2',
         '<(DEPTH)/deps/freetype2/include',
         '<(DEPTH)/deps/freetype2/include/freetype/config',
+				'<(DEPTH)/deps/zlib'
       ],
     },
     {
@@ -296,6 +297,7 @@
         '<(DEPTH)/deps/freetype2/include',
         '<(DEPTH)/deps/freetype2/include/freetype/config/',
         '<(DEPTH)/deps/fontconfig',
+				'<(DEPTH)/src/WebCoreSupport/',
       ],
       'cxx':'<(emscripten_cc)',
       'cflags+':['-include ../deps/cairo/config/config.h'],

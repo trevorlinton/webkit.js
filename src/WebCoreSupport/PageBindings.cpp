@@ -172,7 +172,7 @@ namespace WebCore {
     return nullptr;
   }
   /* Not Implemented */
-  ScrollbarTheme* ScrollbarTheme::nativeTheme() { notImplemented(); }
+
   void platformUserPreferredLanguages() { notImplemented(); }
   int screenDepthPerComponent(WebCore::Widget*) { notImplemented(); }
   bool screenIsMonochrome(WebCore::Widget*) { return false; }

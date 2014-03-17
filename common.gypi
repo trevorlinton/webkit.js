@@ -6,7 +6,7 @@
 		'emscripten_cxx':'<!(echo $EMSCRIPTEN_ROOT)/em++',
 		'emscripten_sysroot':'<!(echo $EMSCRIPTEN_ROOT)/system/',
 		'emscripten_ld':'<!(echo $EMSCRIPTEN_ROOT)/emcc',
-		'emscripten_linktojs':'-s EXPORTED_FUNCTIONS="[\'_main\']" --embed-files ../src/assets/fontconfig/fonts@/usr/share/fonts --embed-files ../src/assets/fontconfig/config/fonts.conf@/etc/fonts/fonts.conf --embed-files ../src/assets/fontconfig/cache@/usr/local/var/cache/fontconfig -s FULL_ES2=1 ',
+		'emscripten_linktojs':'-s EXPORTED_FUNCTIONS="[\'_main\']" --embed-files ../src/assets/fontconfig/fonts@/usr/share/fonts --embed-files ../src/assets/fontconfig/config/fonts.conf@/etc/fonts/fonts.conf --embed-files ../src/assets/fontconfig/cache@/usr/local/var/cache/fontconfig -s FULL_ES2=1 -s TOTAL_MEMORY=50331648 -s OUTLINING_LIMIT=120000',
 		'cflags':'-Wno-warn-absolute-paths -isysroot <(emscripten_sysroot)',
 		'cflags_cc':'-std=c++0x',
 		'ldflags':'',
@@ -28,10 +28,10 @@
 			},
 			'Debug': {
 				'defines+': ['DEBUG','TARGET_EMSCRIPTEN'],
-				'cflags+':['<(cflags) -O0'], # -g4
+				'cflags+':['<(cflags) -O1'], # -g4
 				'cflags_cc+':['<(cflags_cc)'],
 				'ldflags+':['<(ldflags)'],
-				'jsflags+':['<(emscripten_linktojs) -O0'],
+				'jsflags+':['<(emscripten_linktojs) -O1'],
 			},
 		},
 	},

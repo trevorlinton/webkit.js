@@ -18,6 +18,7 @@
 #include "RenderSlider.h"
 #include "RenderView.h"
 #include "StyleResolver.h"
+#include "ScrollbarTheme.h"
 #include "DebuggerJS.h"
 
 using std::min;
@@ -41,6 +42,11 @@ namespace WebCore {
     bottomPadding,
     leftPadding
   };
+
+
+  ScrollbarTheme* ScrollbarTheme::nativeTheme() {
+		notImplemented();
+	}
 
   PassRefPtr<RenderTheme> RenderThemeJS::create()
   {

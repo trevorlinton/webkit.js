@@ -1148,7 +1148,7 @@ void PNGAPI
 png_set_compression_buffer_size(png_structp png_ptr,
     png_uint_32 size)
 {
-    if (png_ptr == NULL)
+	  if (png_ptr == NULL)
        return;
     png_free(png_ptr, png_ptr->zbuf);
     png_ptr->zbuf_size = (png_size_t)size;

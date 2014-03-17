@@ -51,7 +51,7 @@ WTFLogChannel* notImplementedLoggingChannel();
 */
 #if PLATFORM(JS)
 #define notImplemented() { \
-  printf("WebKit: Unimplemented: %s:%i\n", __FILE__, __LINE__); \
+  fprintf(stderr,"WebKit: Unimplemented: %s:%i\n", __FILE__, __LINE__); \
     }
 #else
 #define notImplemented() do { \

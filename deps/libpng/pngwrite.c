@@ -489,8 +489,7 @@ png_create_write_struct_2(png_const_charp user_png_ver, png_voidp error_ptr,
 #else
    png_ptr = (png_structp)png_create_struct(PNG_STRUCT_PNG);
 #endif /* PNG_USER_MEM_SUPPORTED */
-   if (png_ptr == NULL)
-      return (NULL);
+	 if (png_ptr == NULL) return (NULL);
 
    /* Added at libpng-1.2.6 */
 #ifdef PNG_SET_USER_LIMITS_SUPPORTED
@@ -506,7 +505,7 @@ png_create_write_struct_2(png_const_charp user_png_ver, png_voidp error_ptr,
 #endif
    {
       png_free(png_ptr, png_ptr->zbuf);
-      png_ptr->zbuf = NULL;
+		  png_ptr->zbuf = NULL;
 #ifdef PNG_USER_MEM_SUPPORTED
       png_destroy_struct_2((png_voidp)png_ptr,
          (png_free_ptr)free_fn, (png_voidp)mem_ptr);
@@ -568,7 +567,7 @@ png_create_write_struct_2(png_const_charp user_png_ver, png_voidp error_ptr,
      }
    }
 
-   /* Initialize zbuf - compression buffer */
+	 /* Initialize zbuf - compression buffer */
    png_ptr->zbuf_size = PNG_ZBUF_SIZE;
    png_ptr->zbuf = (png_bytep)png_malloc(png_ptr,
      (png_uint_32)png_ptr->zbuf_size);
@@ -987,7 +986,7 @@ png_write_flush(png_structp png_ptr)
 
    png_debug(1, "in png_write_flush");
 
-   if (png_ptr == NULL)
+   if (png_ptr == NULL) 
       return;
    /* We have already written out all of the data */
    if (png_ptr->row_number >= png_ptr->num_rows)
@@ -996,7 +995,7 @@ png_write_flush(png_structp png_ptr)
    do
    {
       int ret;
-
+		 
       /* Compress the data */
       ret = deflate(&png_ptr->zstream, Z_SYNC_FLUSH);
       wrote_IDAT = 0;

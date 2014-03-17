@@ -3,15 +3,17 @@
  */
 
 #include <emscripten.h>
+#include <cstdio>
 
 #include "config.h"
+#include "WebView.h"
 #include "Page.h"
 #include "Frame.h"
 #include "MainFrame.h"
 #include "ChromeClientJS.h"
 #include "FrameLoaderClientJS.h"
 #include "WebKitJSStrategies.h"
-
+#include "DebuggerJS.h"
 #include "Chrome.h"
 #include "DocumentLoader.h"
 #include "ElementIterator.h"
@@ -23,8 +25,6 @@
 #include "RenderStyle.h"
 #include "Settings.h"
 #include "RuntimeEnabledFeaturesJS.h"
-#include <WTF/PassRef.h>
-#include "Frame.h"
 #include "GraphicsContext.h"
 
 #include "EmptyClients.h"
@@ -37,32 +37,244 @@
 using namespace WebCore;
 using namespace WTF;
 
-static std::unique_ptr<WebCore::Page> page;
-static Page::PageClients pageClients;
-static cairo_surface_t* surf = NULL;
-static cairo_t* cr;
-static unsigned char* surf_data;
-static GraphicsContext *g_context;
-
 namespace WebCore {
 static RuntimeEnabledFeatures* features;
 }
 
-void tick() {
-#if USE(TILED_BACKING_STORE)
-	//if(page->mainFrame().tiledBackingStore()) {
-	//	page->mainFrame().tiledBackingStorePaintBegin();
-	//	page->mainFrame().tiledBackingStorePaint(g_context, IntRect(0,0,1024,768));
-	//}
-#endif
+namespace WebKit {
+	WebView::WebView()
+	{
+		fillWithEmptyClients(m_pageClients);
+	}
+
+	bool WebView::initialize() {
+		webkitTrace();
+
+		cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, 1024, 768);
+		cairo_status_t surface_error = cairo_surface_status(surface);
+		if(surface_error != CAIRO_STATUS_SUCCESS) {
+			fprintf(stderr, "WebKit: FATAL: Cannot create surface:\n%s\n",cairo_status_to_string(surface_error));
+			abort();
+		}
+		cairo_t *graphics = cairo_create(surface);
+		context = new GraphicsContext(graphics);
+
+		WebKitJSStrategies::initialize();
+		m_pageClients.chromeClient = WebCore::ChromeClientJS::createClient(this);
+		m_pageClients.loaderClientForMainFrame = WebCore::FrameLoaderClientJS::createClient();
+		m_page = std::make_unique<WebCore::Page>(m_pageClients);
+
+		//m_page->settings().forceCompositingMode();
+		m_page->settings().setMediaEnabled(false);
+		m_page->settings().setScriptEnabled(false);
+		m_page->settings().setPluginsEnabled(false);
+		m_page->settings().setMinimumLogicalFontSize(9);
+		m_page->settings().setDefaultFontSize(10);
+		m_page->settings().setDefaultFixedFontSize(13);
+		m_page->settings().setDownloadableBinaryFontsEnabled(false);
+		m_page->settings().setMockScrollbarsEnabled(true);
+		//m_page->settings().setAcceleratedDrawingEnabled(true);
+		m_page->settings().setScreenFontSubstitutionEnabled(true);
+		m_page->settings().setStandardFontFamily("Liberation");
+		m_page->settings().setMinimumFontSize(6);
+		//m_page->settings().setAcceleratedCompositingEnabled(true);
+		m_page->settings().setJavaEnabled(false);
+		//m_page->settings().setTiledBackingStoreEnabled(true);
+		m_page->settings().setUsePreHTML5ParserQuirks(true);
+		m_page->settings().setWebGLEnabled(true);
+		m_page->settings().setWebSecurityEnabled(false);
+		m_page->setGroupName(L"Main");
+
+		WebCore::MainFrame& frame = m_page->mainFrame();
+		ASSERT(frame.isMainFrame());
+		((WebCore::FrameLoaderClientJS *)m_pageClients.loaderClientForMainFrame)->setFrame(&frame);
+
+		m_page->setIsVisible(true, true);
+		m_page->setIsInWindow(true);
+		//m_page->setIsPainting(true);
+
+		frame.init();
+
+		frame.view()->setCanHaveScrollbars(true);
+		frame.view()->setTransparent(true);
+
+		if(m_page)
+			return true;
+		else
+			return false;
+	}
+	void WebView::tictoc() {
+		webkitTrace();
+	}
+
+	void WebView::setUrl(char *) {
+		webkitTrace();
+	}
+	char *WebView::getUrl() {
+		webkitTrace();
+		return NULL;
+	}
+	void WebView::setViewPortSize(FloatRect view) {
+		m_viewPortSize = view;
+	}
+	FloatRect& WebView::getViewPortSize() {
+		return m_viewPortSize;
+	}
+	void WebView::setHtml(char *data, int length) {
+		webkitTrace();
+
+		WebCore::MainFrame& frame = m_page->mainFrame();
+		ASSERT(frame.isMainFrame());
+
+		WebCore::FrameLoader& loader = frame.loader();
+		ASSERT(loader.activeDocumentLoader());
+
+		((WebCore::FrameLoaderClientJS *)m_pageClients.loaderClientForMainFrame)->setFrame(&frame);
+
+		loader.activeDocumentLoader()->writer().begin(URL());
+		loader.activeDocumentLoader()->writer().addData(data, length);
+		loader.activeDocumentLoader()->writer().end();
+	}
+	char *WebView::getHtml() {
+		webkitTrace();
+		return NULL;
+	}
+	void WebView::render(GraphicsContext* context, IntRect clip) {
+		webkitTrace();
+	}
+
+	cairo_status_t flushbitmap(void *ignored, const unsigned char* data, unsigned int length)
+	{
+		int out = std::fwrite(data, sizeof(char), length, stdout);
+		fprintf(stderr, "flushbitmap: length: %i wrote: %i\n",length, out);
+
+		return length == out ? CAIRO_STATUS_SUCCESS : CAIRO_STATUS_WRITE_ERROR;
+	}
+
+	BitmapImage *WebView::render(IntRect clip) {
+		webkitTrace();
+		if(clip.width()==0 || clip.height()==0) {
+			fprintf(stderr, "WebKit: Not rendering; the clip is empty.\n");
+			return NULL;
+		}
+		cairo_status_t c_error;
+
+		FrameView *view = m_page->mainFrame().view();
+		view->layout();
+		view->paint(context, clip);
+
+		cairo_surface_t *surface = cairo_get_target(context->platformContext()->cr());
+		cairo_status_t surface_error = cairo_surface_status(surface);
+		if(surface_error != CAIRO_STATUS_SUCCESS) {
+			fprintf(stderr, "WebKit: FATAL: Cannot create surface:\n%s\n",cairo_status_to_string(surface_error));
+			abort();
+		}
+		if((c_error = cairo_surface_write_to_png_stream(surface, flushbitmap, NULL)) != CAIRO_STATUS_SUCCESS) {
+			fprintf(stderr, "WebKit: Error, cannot write new bitmap:\n%s\n",cairo_status_to_string(c_error));
+		}
+		//if((c_error = cairo_surface_write_to_png(surface, "img.png")) != CAIRO_STATUS_SUCCESS) {
+		//	fprintf(stderr, "WebKit: Error, cannot write new bitmap:\n%s\n", cairo_status_to_string(c_error));
+		//	abort();
+		//}
+		//cairo_surface_destroy(surface);
+
+
+		return NULL;
+	}
+
+	void WebView::invalidate(WebCore::IntRect rect, int immediate) {
+		webkitTrace();
+		this->render(rect);
+	}
+
+	void WebView::resizeEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::paintEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::changeEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::mouseMoveEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::mousePressEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::mouseDoubleClickEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::mouseReleaseEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::contextMenuEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::wheelEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::keyPressEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::keyReleaseEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::dragEnterEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::dragLeaveEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::dragMoveEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::dropEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::focusInEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::focusOutEvent(void *) {
+		webkitTrace();
+	}
+	void WebView::inputMethodEvent(void *) {
+		webkitTrace();
+	}
+	bool WebView::focusNextPrevChild(bool next) {
+		webkitTrace();
+		return false;
+	}
+
 }
+
+void tick() { }
 
 int main(int argc, char **argv) {
   if(argc < 1) {
     fprintf(stderr, "WebKit: Nothing to render.\n");
     return -1;
   }
+	WebKit::WebView* view = new WebKit::WebView();
+	view->initialize();
+	view->setViewPortSize(WebCore::FloatRect(0,0,1024,768));
+	view->setHtml(argv[1], strlen(argv[1]));
 
+	fprintf(stderr, "WebKit: Entering main loop.\n");
+	emscripten_set_main_loop(&tick, 60, true);
+
+	/** These are ticks and node.js main support. **/
+
+	//void tick() {
+	//#if USE(TILED_BACKING_STORE)
+	//if(page->mainFrame().tiledBackingStore()) {
+	//	page->mainFrame().tiledBackingStorePaintBegin();
+	//	page->mainFrame().tiledBackingStorePaint(g_context, IntRect(0,0,1024,768));
+	//}
+	//#endif
+	//}
+
+	//void
 	//cairo.h
 	//cairo-gl.h
 	// CAIRO DEVICE? EGL?....
@@ -94,82 +306,6 @@ int main(int argc, char **argv) {
 	//cr = create_cairo_context (1024, 768, 4, &surf, &surf_data);
 	//g_context = new GraphicsContext(cr);
 
-	fprintf(stderr,"WebKit: Rendering: %s\n", argv[1]);
-  fprintf(stderr,"WebKit: main();\n");
-
-  WebKitJSStrategies::initialize();
-
-  fprintf(stderr,"WebKit: setPlatformStrategies();\n");
-
-  fillWithEmptyClients(pageClients);
-  fprintf(stderr,"WebKit: fillWithEmptyClients();\n");
-  
-  pageClients.chromeClient = ChromeClientJS::createClient();
-  pageClients.loaderClientForMainFrame = FrameLoaderClientJS::createClient();
-
-  fprintf(stderr,"WebKit: Page::Page();\n");
-
-  page = std::make_unique<Page>(pageClients);
-  fprintf(stderr,"WebKit: settingsInitialized;\n");
-	//page->settings().forceCompositingMode();
-  page->settings().setMediaEnabled(false);
-  page->settings().setScriptEnabled(false);
-  page->settings().setPluginsEnabled(false);
-  page->settings().setMinimumLogicalFontSize(9);
-  page->settings().setDefaultFontSize(10);
-  page->settings().setDefaultFixedFontSize(13);
-  page->settings().setDownloadableBinaryFontsEnabled(false);
-  //page->settings().setAcceleratedDrawingEnabled(true);
-  page->settings().setScreenFontSubstitutionEnabled(false);
-  page->settings().setStandardFontFamily("Helvetica");
-  page->settings().setMinimumFontSize(6);
-	//page->settings().setAcceleratedCompositingEnabled(true);
-	page->settings().setJavaEnabled(false);
-	//page->settings().setTiledBackingStoreEnabled(true);
-	page->settings().setUsePreHTML5ParserQuirks(true);
-	page->settings().setWebGLEnabled(true);
-	page->settings().setWebSecurityEnabled(false);
-
-  page->setGroupName("Main");
-
-	//unsigned layoutMilestones = DidFirstLayout | DidFirstVisuallyNonEmptyLayout;
-	//page->addLayoutMilestones(static_cast<LayoutMilestones>(layoutMilestones));
-	page->setIsVisible(true, true);
-	page->setIsInWindow(true);
-	page->setIsPainting(true);
-	Frame& frame = page->mainFrame();
-  fprintf(stderr,"WebKit: got main frame;\n");
-
-	((FrameLoaderClientJS *)pageClients.loaderClientForMainFrame)->setFrame(&frame);
-
-  //rame.setView(FrameView::create(frame));
-  //fprintf(stderr,"WebKit: creating frame view;\n");
-
-  frame.init();
-  fprintf(stderr,"WebKit: frameInitialized;\n");
-
-  FrameLoader& loader = frame.loader();
-  loader.forceSandboxFlags(SandboxAll);
-
-  frame.view()->setCanHaveScrollbars(false); // ignore view info.
-  frame.view()->setTransparent(true);
-
-  ASSERT(loader.activeDocumentLoader()); // DocumentLoader should have been created by frame->init().
-  fprintf(stderr,"WebKit: frameLoaderInitialized;\n");
-
-  loader.activeDocumentLoader()->writer().setMIMEType("text/html");
-  fprintf(stderr,"WebKit: setMimeType();\n");
-
-  loader.activeDocumentLoader()->writer().begin(URL()); // create the empty document
-  fprintf(stderr,"WebKit: begin(URL);\n");
-
-  loader.activeDocumentLoader()->writer().addData(argv[1], strlen(argv[1])); // Go ahead and render whatever is in argv[0].
-  fprintf(stderr,"WebKit: added data();\n");
-
-  loader.activeDocumentLoader()->writer().end();
-  fprintf(stderr,"WebKit: finished;\n");
-
-	emscripten_set_main_loop(&tick, 60, true);
 
 
 }

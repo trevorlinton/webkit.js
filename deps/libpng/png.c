@@ -17,7 +17,7 @@
 #include "png.h"
 
 /* Generate a compiler error if there is an old png.h in the search path. */
-typedef version_1_2_46 Your_png_h_is_not_version_1_2_46;
+typedef version_1_2_45 Your_png_h_is_not_version_1_2_45;
 
 /* Version information for C files.  This had better match the version
  * string defined in png.h.
@@ -648,7 +648,7 @@ png_get_io_ptr(png_structp png_ptr)
  * use your own read or write routines, you can call either png_set_read_fn()
  * or png_set_write_fn() instead of png_init_io().  If you have defined
  * PNG_NO_STDIO, you must use a function of your own because "FILE *" isn't
- * necessarily available.
+ * necessarily available. 
  */
 void PNGAPI
 png_init_io(png_structp png_ptr, png_FILE_p fp)
@@ -800,9 +800,8 @@ png_handle_as_unknown(png_structp png_ptr, png_bytep chunk_name)
 int PNGAPI
 png_reset_zstream(png_structp png_ptr)
 {
-   if (png_ptr == NULL)
-      return Z_STREAM_ERROR;
-   return (inflateReset(&png_ptr->zstream));
+	if (png_ptr == NULL) return Z_STREAM_ERROR;
+	return (inflateReset(&png_ptr->zstream));
 }
 #endif /* defined(PNG_READ_SUPPORTED) || defined(PNG_WRITE_SUPPORTED) */
 

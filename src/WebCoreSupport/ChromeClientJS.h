@@ -5,12 +5,13 @@
 #define all_ChromeClientJS_h
 
 #include "ChromeClient.h"
+#include "WebView.h"
 
 namespace WebCore {
 
 class ChromeClientJS : WebCore::ChromeClient {
 public:
-  static ChromeClient* createClient();
+  static ChromeClient* createClient(WebKit::WebView *);
   FloatRect windowRect() OVERRIDE;
   void setWindowRect(const FloatRect& rect) OVERRIDE;
   FloatRect pageRect() OVERRIDE;
@@ -80,8 +81,9 @@ public:
   PlatformPageClient platformPageClient() const;
   void scrollbarsModeDidChange() const;
 private:
-  ChromeClientJS();
+  ChromeClientJS(WebKit::WebView *);
   FloatRect m_pageRect;
+	WebKit::WebView *m_view;
 };
 
 }

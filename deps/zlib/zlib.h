@@ -1548,6 +1548,7 @@ ZEXTERN int ZEXPORT inflateBackInit_ OF((z_streamp strm, int windowBits,
                                          unsigned char FAR *window,
                                          const char *version,
                                          int stream_size));
+
 #define deflateInit(strm, level) \
         deflateInit_((strm), (level),       ZLIB_VERSION, sizeof(z_stream))
 #define inflateInit(strm) \
