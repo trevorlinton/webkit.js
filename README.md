@@ -13,26 +13,16 @@ Goals
   - Develop a framework for prototyping CSS filters, HTML elements and attributes.
   - Experimental harness for pure JavaScript rendering performance.
   - Develop a JavaScript based browser in nodejs (just for fun).
-  - Refactor webkit.cpp to a normalized set of JS classes.
 
 Status
 ----
 
-**Toolchain**
+**Current Issues**
 
-- webkit.js uses the same toolchain as Chromium -- gyp and ninja.  This was chosen for the greatest integration and output in addition to being easily modified to support javascript compilation via emscripten. 
-
-*Why'd we use GYP?*
-
-- Use your favoriate IDE, after configuring project files for Xcode, Visual Studio, make and ninja are produced.
-
-- Simplifies development system to one project file for a large array of development environments.
-
-- Downside is you MUST build with ninja (see building later).
-
-**Building**
-
-- Currently the build works on both Windows, Xcode and Linux (please file a bug if you have issues). All features listed below compile without any OS, Browser or JS dependencies.
+* Exploring the best way of debugging and painting in both node and browser contexts. 
+* Firefox complains of too many variables
+* Chrome complains of heap space issues
+* Exploring an efficient worker -> canvas bitblt and forwarding GLESv2 contexts to a WebGL context
 
 **Supported Features**
 
@@ -52,59 +42,14 @@ The entire HTML5, CSS3 and SVG rendering is supported; the following features ar
 * Native OS Widgets (Input, Select, etc are support, but not native widget styles; this could be added at a considerable size penalty)
 * IFrames (This can never be supported in the Browser but could be built out in node -- unfortunately the rendering contexts and iframes are extremely bound to javascript context and no work is being done to resolve this.  Not to mention blank-check cross domain XmlHttpRequest will never be supported by any major browser vendor.)
 
-**Performance & Capabilities**
-
-Very --very-- limited tests has shown some animations and support have been 30~35% faster (in isolated circumstances) than Firefox, Chrome and Safari (however official tests need much more development before this is any sort of offical claim, right now it's alot of hope and excitement). 
-
-**Tests**
-
-- Unit tests for the webkit API are underway.
-- Minimal support for WebKit LayoutTests supports 22% pass rate, this seems terrible until we found that these tests are failing because of XmlHttpRequest's can't get the appropriate resources and many of the unnecessary JavaScript <-> DOM API's are unnecessary as they're already implemented in the host systems but explicitly in WebCore. However both CSS3, HTML5, SVG, Filters, and Accelerated Compositing tests have performed very well.
-
-**Documentation**
-
-- (BAD) Lots and lots of documentation, currently this is it.
-
-**Debugging**
-
-If you use `bin/webkit.js` you'll receive updates from the main loop's progress; however if there's a crash or you need to debug issues you'll most likely want to use `bin/webkit.debug.js`.  This allows you to see full stack traces of the C++ methods invoked if it hits a core dump/llvm-trap. In addition you can see the full function call trace for major classes such as Page, (all)Clients, WebFrame, Frame, GraphicsContext, etc. Unfortuantely without better debugging tools the traces are a good alternative.  You can also try using  Chrome's standard debugger, but it doesn't seem to enjoy 110MB files -- try Firefox instead.
-
-- (GREAT) The new build system compiles on Linux, Windows (cygwin) and MacOS X. Uses gyp to generate project files in addition custom scripts. So far these seems fairly stable and will not change significantly.
-
-**Building**
-- (GREAT) Currently the latest nightly WebKit builds with cairo, freetype2, libjpeg, libpng and other dependencies.  
-
-**Linking**
-- (GOOD) Only a small few dependencies need to be brought in.  See UnresolvedSymbolsDemangled.md for more information.
-
-**Supported Features**
-* (GREAT) Nearly the entire HTML5, CSS3 and SVG rendering is supported; the following features are not supported and probably will never be.
-
-    * CSS Orientation
-    * Draggable Regions
-    * Encrypted Media
-    * Input Speech
-    * Media Streams
-    * JavaScript Debugger / Inspector
-    * Quota's
-    * Web Workers
-    * Web Sockets
-    * Shadow DOM
-    * Web Timing
-    * Native OS Widgets
-    * IFrames (although this can be emulated on some platforms)
-  
 Fonts are rendered via freetype2, fontconfig and cairo for consistent font rendering across all platforms. Native video and audio decoding is supported but not included in the regular build. Eventually i'll post instructions on compiling in native video/audio support.
 
-**Tests**
-- (BAD) Tests for JavaScript<->C++ needs to be developed (non-layout related code)
-- (BAD) Unit tests that integrate with WebKit's LayoutTests
+**Performance**
 
-**Frameworks**
-- (BAD) Frameworks to easily perform common tasks with the renderer under various contexts.
-
-**Documentation**
-- (BAD) Lots and lots of documentation, currently this is it.
+* Most webpages render in similar or runtimes as any other browser (without Javascript DOM interactions or CSS animations).
+* Animations in CSS tend to perform 3~10% slower than in browsers.
+* Javascript based animations in isolated tests have shown a 30~35% gain in rendering speed, this, however seems to be limited by quite a bit of JIT factors and heavily influenced by the outlining limit set by emscripten (essentially too large of functions cannot be optimized heavily).  In addition it can take a white for the JIT optimizations (on V8) to kick in and thus has inconsistant performance.
+* Seems viable for a useful framework for rendering snapshots, unclear on using it as a live renderer.
 
 Building
 -----------
@@ -157,12 +102,12 @@ ninja -C Debug
 
 Running in the Browser
 --------------
-Currently this can be ran by using postMessage and Emscripten's standard way of posting arguments into a "main" method within a browser.  Make sure to run it as a webworker otherwise say goodbye to your UI. Debug messages are printed to the debug console.
+Currently this can be ran by using postMessage and Emscripten's standard way of posting arguments into a "main" method within a browser.  Make sure to run it as a worker otherwise say goodbye to your browser. Debug messages are printed to the debug console. Firefox tends to work better than Chrome.
 
 
 Running in Node
 --------------
-This is the preferred way of running it, if using the debug version outputted on stderr should be traces, stdout contains bitblt's (As png's) of render changes, if not file a bug.
+This is the preferred way of running it, using the debug version traces will be printed to stder. stdout contains bitblt's (As png's) of render changes, this will change once a best-of-breed method of painting is found.
 
 ```
 $ node webkit.js "<html><body>Some HTML</body></html>"
@@ -184,14 +129,15 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * `/common.gypi` You can change various compiler settings, system paths, etc.
 * `/all.gypi` This contains the build arch and is the first file used when generating project files with gyp.
 * `/sources.gypi` This file contains the list of all of the sources to compile.
-* `/derived.gypi` This file is autogenerated by make-source-files.sh in the tools directory, it hunts down any changes vs. what's in derived.gypi currently and adds it in.  This is convenient only when you've done a pull from WebKit and need to make sure you've properly added/removed files based on what's happened upstream. 
+* `/derived.gypi` This file is auto-generated by make-source-files.sh in the tools directory, it hunts down any changes vs. what's in derived.gypi currently and adds it in.  This is convenient only when you've done a pull from WebKit and need to make sure you've properly added/removed files based on what's happened upstream. 
 * `/config.sh` This autogenerates the project files, it also tries to find em++/emcc and all of your tools, if config files, check the file to make sure its finding emscripten and clang.
-* `/src/` This contains all of the derived sources, bindings, and custom code to link in with WebCore and bind it to canvas, node and javascript contexts. This will also be where the API will be built.
+* `/src` This contains all of the derived sources, bindings, and custom code to link in with WebCore and bind it to canvas, node and javascript contexts. This will also be where the API will be built.
+* `/bin` This contains the latest builds for debug and release modes.  Note that the debug builds are compressed for the sake of github.
 
 **It's important to know**
 
 * The code within the WebKit folder is pulled from upstream, be careful not to move any files, remove any files or heavily refactor any source file as it will cause headaches when merging.
-* Enabling/disabling settings within the `build/features.gypi` will have a lot of consequences, most of the disabled features are disabled because there's no possible work around for including the platform specific or network layer code (bindings to forward this to the native browser/nodejs module will need to be built).
+* Enabling/disabling settings within the `features.gypi` will have a lot of consequences, most of the disabled features are disabled because there's no possible work around for including the platform specific or network layer code (bindings to forward this to the native browser/nodejs module will need to be built). In addition, if features.gypi is modified that you update featurs.make within the tools folder.
 * A good amount of the bindings and code within the WebCore are auto generated from scripts, be careful when you have build errors to make sure you're not modifying a "Derived Sources" file, otherwise you'll find your changes will be just over-written the next time this script runs.
 * Do not modify code within `src/WebCoreDerived`, it's autogenerated and will most likely be overwritten if the derived sources needs to rebuild.
 * Becareful adding files/changing settings in your native IDE/toolchain, these settings are intially set in `config.sh` and `common.gypi` (and related gypi/gyp files). While not all settings will be overwritten with a new config, there's a chance some of your settings may need to be added to these files.
@@ -211,10 +157,12 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * **DONE** ~~Integrate libpng.js (rather than depending on browser pass through decoding to a buffer)~~
 * **DONE** ~~Integrate libjpeg-turbo.js/libjpeg.js (rather than depending on browser pass through decoding to a buffer)~~
 * **DONE** ~~Integrate zlib (rather than depending on browser pass through decoding to a buffer)~~
-* **DONE** --Integrate both node and web browser environments for testing demo of basic HTML--
-* **DONE** --Integrate support for Resource loading and proxy loading via emscripten--
+* **DONE** ~~Integrate both node and web browser environments for testing demo of basic HTML~~
+* **DONE** ~~Integrate support for font resource loading and virtual file system for fontconfig~~
 * **Bad Idea -** ~~Use embind/cppfilter.js to automatically generate all the WebCore C++ interfaces (derived from WebCore.exp.in) directly into JavaScript, then simply reuse existing webcore demos/examples.~~
-* **In Progress -**Generate a webkit.js API based on the WebCore C++ interfaces exported to JavaScript with embind/cppfilter.js.
+* **In Progress -** Generate a webkit.js API based on the WebCore C++ interfaces exported to JavaScript.
+* **In Progress - ** Explore best methods for creating demo's and painting within WebKitJS.cpp to the host context.
+* **In Progress - ** Experiment with emscripten outlining, lto, and optimization techniques to prevent variable/heap/stack limitations and reduce code size.
 * Generate simple JavaScript library to create, use and manage webkit.js rendering.
 * Create examples, demos and how-to guides (documentation, etc).
 * Create hooks into webkit layout tests to ensure functionality.
