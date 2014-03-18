@@ -46,11 +46,8 @@
 #ifndef _CAIROINT_H_
 #define _CAIROINT_H_
 
-<<<<<<< HEAD
 #include "DebuggerJS.h"
 
-=======
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
 #if HAVE_CONFIG_H
 #include "config.h"
 #endif

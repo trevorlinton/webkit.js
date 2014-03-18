@@ -5,6 +5,8 @@
 		  '<(emscripten_sysroot)/include/GLES2',
 		  '<(emscripten_sysroot)/include/EGL',
 		  '<(DEPTH)/deps/WebKit/Source/WTF/',
+			'<(DEPTH)/deps/zlib',
+			'<(DEPTH)/deps/libpng',
 		  '<(DEPTH)/deps/WebKit/Source/WTF/wtf',
 		  '<(SHARED_INTERMEDIATE_DIR)/WebCore',
 		  '<(SHARED_INTERMEDIATE_DIR)/WebCore/bindings',

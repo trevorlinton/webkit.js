@@ -18,10 +18,7 @@
 #include "RenderSlider.h"
 #include "RenderView.h"
 #include "StyleResolver.h"
-<<<<<<< HEAD
 #include "ScrollbarTheme.h"
-=======
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
 #include "DebuggerJS.h"
 
 using std::min;
@@ -46,14 +43,11 @@ namespace WebCore {
     leftPadding
   };
 
-<<<<<<< HEAD
 
   ScrollbarTheme* ScrollbarTheme::nativeTheme() {
 		notImplemented();
 	}
 
-=======
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
   PassRefPtr<RenderTheme> RenderThemeJS::create()
   {
     webkitTrace();
@@ -114,10 +108,10 @@ namespace WebCore {
     completedRect.contract(remaining, 0);
 
     paintSliderThumb(renderObject, paintInfo, completedRect);
-    
+
     return true;
   }
-  
+
 #endif
 
   //ThemeControlState RenderThemeJS::determineState(RenderObject* o) const
@@ -224,7 +218,7 @@ namespace WebCore {
   }
 
   bool RenderThemeJS::isControlStyled(const RenderStyle* style, const BorderData& border,
-                                          const FillLayer& background, const Color& backgroundColor) const
+																			const FillLayer& background, const Color& backgroundColor) const
   {
     webkitTrace();
     return true;
@@ -433,9 +427,9 @@ namespace WebCore {
   {
     webkitTrace();
     /*if (style->appearance() == MenulistPart)
-      return popupButtonPadding(controlSizeForFont(style))[leftPadding];
-    if (style->appearance() == MenulistButtonPart)
-      return styledPopupPaddingLeft;*/
+		 return popupButtonPadding(controlSizeForFont(style))[leftPadding];
+		 if (style->appearance() == MenulistButtonPart)
+		 return styledPopupPaddingLeft;*/
     return 0;
   }
 
@@ -443,12 +437,12 @@ namespace WebCore {
   {
     webkitTrace();
     /*if (style->appearance() == MenulistPart)
-      return popupButtonPadding(controlSizeForFont(style))[rightPadding];
-    if (style->appearance() == MenulistButtonPart) {
-      float fontScale = style->fontSize() / baseFontSize;
-      float arrowWidth = baseArrowWidth * fontScale;
-      return static_cast<int>(ceilf(arrowWidth + arrowPaddingLeft + arrowPaddingRight + paddingBeforeSeparator));
-    }*/
+		 return popupButtonPadding(controlSizeForFont(style))[rightPadding];
+		 if (style->appearance() == MenulistButtonPart) {
+		 float fontScale = style->fontSize() / baseFontSize;
+		 float arrowWidth = baseArrowWidth * fontScale;
+		 return static_cast<int>(ceilf(arrowWidth + arrowPaddingLeft + arrowPaddingRight + paddingBeforeSeparator));
+		 }*/
     return 0;
   }
 
@@ -456,9 +450,9 @@ namespace WebCore {
   {
     webkitTrace();
     /*if (style->appearance() == MenulistPart)
-      return popupButtonPadding(controlSizeForFont(style))[topPadding];
-    if (style->appearance() == MenulistButtonPart)
-      return styledPopupPaddingTop;*/
+		 return popupButtonPadding(controlSizeForFont(style))[topPadding];
+		 if (style->appearance() == MenulistButtonPart)
+		 return styledPopupPaddingTop;*/
     return 0;
   }
 
@@ -466,9 +460,9 @@ namespace WebCore {
   {
     webkitTrace();
     /*if (style->appearance() == MenulistPart)
-      return popupButtonPadding(controlSizeForFont(style))[bottomPadding];
-    if (style->appearance() == MenulistButtonPart)
-      return styledPopupPaddingBottom;*/
+		 return popupButtonPadding(controlSizeForFont(style))[bottomPadding];
+		 if (style->appearance() == MenulistButtonPart)
+		 return styledPopupPaddingBottom;*/
     return 0;
   }
 
@@ -541,8 +535,8 @@ namespace WebCore {
 
   bool RenderThemeJS::paintSearchField(RenderObject* o, const PaintInfo& paintInfo, const IntRect& r)
   {
-      webkitTrace();
-      return false;
+		webkitTrace();
+		return false;
   }
 
   const IntSize* RenderThemeJS::searchFieldSizes() const
@@ -663,4 +657,3 @@ namespace WebCore {
   }
   
 } // namespace WebCore
-

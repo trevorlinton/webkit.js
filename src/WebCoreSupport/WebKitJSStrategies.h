@@ -39,27 +39,23 @@
 
 namespace WebCore {
 
-<<<<<<< HEAD
-class  WebKitJSStrategies
+	class  WebKitJSStrategies
 	: public WebCore::PlatformStrategies,
-		private WebCore::CookiesStrategy,
-		private WebCore::DatabaseStrategy,
-		private WebCore::LoaderStrategy,
-		private WebCore::PasteboardStrategy,
-		private WebCore::PluginStrategy,
-		private WebCore::SharedWorkerStrategy,
-		private WebCore::StorageStrategy,
-		private WebCore::VisitedLinkStrategy {
-=======
-class  WebKitJSStrategies : public WebCore::PlatformStrategies, private WebCore::CookiesStrategy, private WebCore::DatabaseStrategy, private WebCore::LoaderStrategy, private WebCore::PasteboardStrategy, private WebCore::PluginStrategy, private WebCore::SharedWorkerStrategy, private WebCore::StorageStrategy, private WebCore::VisitedLinkStrategy {
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
+	private WebCore::CookiesStrategy,
+	private WebCore::DatabaseStrategy,
+	private WebCore::LoaderStrategy,
+	private WebCore::PasteboardStrategy,
+	private WebCore::PluginStrategy,
+	private WebCore::SharedWorkerStrategy,
+	private WebCore::StorageStrategy,
+	private WebCore::VisitedLinkStrategy {
     friend class NeverDestroyed< WebKitJSStrategies>;
-public:
+	public:
     static void initialize();
-    
-private:
-     WebKitJSStrategies();
-    
+
+	private:
+		WebKitJSStrategies();
+
     // WebCore::PlatformStrategies
     virtual WebCore::CookiesStrategy* createCookiesStrategy() OVERRIDE;
     virtual WebCore::DatabaseStrategy* createDatabaseStrategy() OVERRIDE;
@@ -108,48 +104,48 @@ private:
 
     // WebCore::PasteboardStrategy
 
-  /*#if PLATFORM(IOS)
-    virtual void writeToPasteboard(const WebCore::PasteboardWebContent&) OVERRIDE;
-    virtual void writeToPasteboard(const WebCore::PasteboardImage&) OVERRIDE;
-    virtual void writeToPasteboard(const String& pasteboardType, const String&) OVERRIDE;
-    virtual int getPasteboardItemsCount() OVERRIDE;
-    virtual String readStringFromPasteboard(int index, const String& pasteboardType) OVERRIDE;
-    virtual PassRefPtr<WebCore::SharedBuffer> readBufferFromPasteboard(int index, const String& pasteboardType) OVERRIDE;
-    virtual WebCore::URL readURLFromPasteboard(int index, const String& pasteboardType) OVERRIDE;
-    virtual long changeCount() OVERRIDE;
-#endif
-#if PLATFORM(MAC)
-    virtual void getTypes(Vector<String>& types, const String& pasteboardName) OVERRIDE;
-    virtual PassRefPtr<WebCore::SharedBuffer> bufferForType(const String& pasteboardType, const String& pasteboardName) OVERRIDE;
-    virtual void getPathnamesForType(Vector<String>& pathnames, const String& pasteboardType, const String& pasteboardName) OVERRIDE;
-    virtual String stringForType(const String& pasteboardType, const String& pasteboardName) OVERRIDE;
-    virtual long changeCount(const String& pasteboardName) OVERRIDE;
-    virtual String uniqueName() OVERRIDE;
-    virtual WebCore::Color color(const String& pasteboardName) OVERRIDE;
-    virtual WebCore::URL url(const String& pasteboardName) OVERRIDE;
+		/*#if PLATFORM(IOS)
+		 virtual void writeToPasteboard(const WebCore::PasteboardWebContent&) OVERRIDE;
+		 virtual void writeToPasteboard(const WebCore::PasteboardImage&) OVERRIDE;
+		 virtual void writeToPasteboard(const String& pasteboardType, const String&) OVERRIDE;
+		 virtual int getPasteboardItemsCount() OVERRIDE;
+		 virtual String readStringFromPasteboard(int index, const String& pasteboardType) OVERRIDE;
+		 virtual PassRefPtr<WebCore::SharedBuffer> readBufferFromPasteboard(int index, const String& pasteboardType) OVERRIDE;
+		 virtual WebCore::URL readURLFromPasteboard(int index, const String& pasteboardType) OVERRIDE;
+		 virtual long changeCount() OVERRIDE;
+		 #endif
+		 #if PLATFORM(MAC)
+		 virtual void getTypes(Vector<String>& types, const String& pasteboardName) OVERRIDE;
+		 virtual PassRefPtr<WebCore::SharedBuffer> bufferForType(const String& pasteboardType, const String& pasteboardName) OVERRIDE;
+		 virtual void getPathnamesForType(Vector<String>& pathnames, const String& pasteboardType, const String& pasteboardName) OVERRIDE;
+		 virtual String stringForType(const String& pasteboardType, const String& pasteboardName) OVERRIDE;
+		 virtual long changeCount(const String& pasteboardName) OVERRIDE;
+		 virtual String uniqueName() OVERRIDE;
+		 virtual WebCore::Color color(const String& pasteboardName) OVERRIDE;
+		 virtual WebCore::URL url(const String& pasteboardName) OVERRIDE;
 
-    virtual long addTypes(const Vector<String>& pasteboardTypes, const String& pasteboardName) OVERRIDE;
-    virtual long setTypes(const Vector<String>& pasteboardTypes, const String& pasteboardName) OVERRIDE;
-    virtual long copy(const String& fromPasteboard, const String& toPasteboard) OVERRIDE;
-    virtual long setBufferForType(PassRefPtr<WebCore::SharedBuffer>, const String& pasteboardType, const String& pasteboardName) OVERRIDE;
-    virtual long setPathnamesForType(const Vector<String>&, const String& pasteboardType, const String& pasteboardName) OVERRIDE;
-    virtual long setStringForType(const String&, const String& pasteboardType, const String& pasteboardName) OVERRIDE;
-#endif
+		 virtual long addTypes(const Vector<String>& pasteboardTypes, const String& pasteboardName) OVERRIDE;
+		 virtual long setTypes(const Vector<String>& pasteboardTypes, const String& pasteboardName) OVERRIDE;
+		 virtual long copy(const String& fromPasteboard, const String& toPasteboard) OVERRIDE;
+		 virtual long setBufferForType(PassRefPtr<WebCore::SharedBuffer>, const String& pasteboardType, const String& pasteboardName) OVERRIDE;
+		 virtual long setPathnamesForType(const Vector<String>&, const String& pasteboardType, const String& pasteboardName) OVERRIDE;
+		 virtual long setStringForType(const String&, const String& pasteboardType, const String& pasteboardName) OVERRIDE;
+		 #endif
 
-#if ENABLE(NETSCAPE_PLUGIN_API)
-    // WebCore::PluginStrategy implementation.
-    void populatePluginCache();
-    bool m_pluginCacheIsPopulated;
-    bool m_shouldRefreshPlugins;
-    Vector<WebCore::PluginInfo> m_cachedPlugins;
-    Vector<WebCore::PluginInfo> m_cachedApplicationPlugins;
-#endif // ENABLE(NETSCAPE_PLUGIN_API) */
-};
-/*
-#if ENABLE(NETSCAPE_PLUGIN_API)
-void handleDidGetPlugins(uint64_t requestID, const Vector<WebCore::PluginInfo>&, const Vector<WebCore::PluginInfo>& applicationPlugins);
-#endif // ENABLE(NETSCAPE_PLUGIN_API)
-*/
+		 #if ENABLE(NETSCAPE_PLUGIN_API)
+		 // WebCore::PluginStrategy implementation.
+		 void populatePluginCache();
+		 bool m_pluginCacheIsPopulated;
+		 bool m_shouldRefreshPlugins;
+		 Vector<WebCore::PluginInfo> m_cachedPlugins;
+		 Vector<WebCore::PluginInfo> m_cachedApplicationPlugins;
+		 #endif // ENABLE(NETSCAPE_PLUGIN_API) */
+	};
+	/*
+	 #if ENABLE(NETSCAPE_PLUGIN_API)
+	 void handleDidGetPlugins(uint64_t requestID, const Vector<WebCore::PluginInfo>&, const Vector<WebCore::PluginInfo>& applicationPlugins);
+	 #endif // ENABLE(NETSCAPE_PLUGIN_API)
+	 */
 } // namespace WebKit
 
 #endif //  WebKitJSStrategies_h

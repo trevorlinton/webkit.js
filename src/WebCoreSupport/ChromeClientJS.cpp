@@ -11,35 +11,17 @@ using namespace WebCore;
 
 namespace WebCore {
 
-<<<<<<< HEAD
   ChromeClient* ChromeClientJS::createClient(WebKit::WebView *view) {
     webkitTrace();
     ChromeClient* tmp = static_cast<ChromeClient *>(new ChromeClientJS(view));
-=======
-
-  //static PassOwnPtr<WidgetBackingStore> createBackingStore(GtkWidget* widget, const IntSize& size)
-  //{
-  //  return WebCore::WidgetBackingStoreCairo::create(widget, size);
-  //}
-
-  ChromeClient* ChromeClientJS::createClient() {
-    webkitTrace();
-    ChromeClient* tmp = static_cast<ChromeClient *>(new ChromeClientJS());
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
 		tmp->setWindowRect(FloatRect(0,0,1024,768)); // TODO: Set this through JS?
 		return tmp;
   }
 
-<<<<<<< HEAD
   ChromeClientJS::ChromeClientJS(WebKit::WebView *view)
   {
 		webkitTrace();
 		m_view = view;
-=======
-  ChromeClientJS::ChromeClientJS()
-  {
-    notImplemented();
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
   }
   void ChromeClientJS::chromeDestroyed()
   {
@@ -51,7 +33,7 @@ namespace WebCore {
   {
     webkitTrace();
     return m_pageRect;
-    
+
   }
 
   void ChromeClientJS::setWindowRect(const FloatRect& rect)
@@ -231,96 +213,22 @@ namespace WebCore {
     return IntRect();
   }
 
-<<<<<<< HEAD
   void ChromeClientJS::invalidateRootView(const IntRect& updateRect, bool immediate)
   {
     webkitTrace();
 		m_view->invalidate(updateRect, immediate);
-=======
-  /*void ChromeClientJS::widgetSizeChanged(const IntSize& oldWidgetSize, IntSize newSize)
-  {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::widgetSizeChanged();");
-           );
-  }
-
-  void ChromeClientJS::performAllPendingScrolls()
-  {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::performAllPendingScrolls();");
-           );
-  }
-
-  void ChromeClientJS::paint(WebCore::Timer<ChromeClient>*)
-  {
-    EM_ASM(
-            console.log("WebKit: ChromeClientJS::paint();");
-            );
-  }
-
-  void ChromeClientJS::forcePaint()
-  {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::forcePaint();");
-           );
-  }
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 // Methods used by HostWindow.
-	 virtual bool supportsImmediateInvalidation() { return false; }
-	 //virtual void invalidateRootView(const IntRect&, bool immediate) = 0;
-	 //virtual void invalidateContentsAndRootView(const IntRect&, bool immediate) = 0;
-	 //virtual void invalidateContentsForSlowScroll(const IntRect&, bool immediate) = 0;
-	 //virtual void scroll(const IntSize&, const IntRect&, const IntRect&) = 0;
-	 #if USE(TILED_BACKING_STORE)
-	 //virtual void delegatedScrollRequested(const IntPoint&) = 0;
-	 #endif
-	 virtual IntPoint screenToRootView(const IntPoint&) const = 0;
-	 virtual IntRect rootViewToScreen(const IntRect&) const = 0;
-	 virtual PlatformPageClient platformPageClient() const = 0;
-	 virtual void scrollbarsModeDidChange() const = 0;
-	 #if ENABLE(CURSOR_SUPPORT)
-	 virtual void setCursor(const Cursor&) = 0;
-	 virtual void setCursorHiddenUntilMouseMoves(bool) = 0;
-	 #endif
-	 #if ENABLE(REQUEST_ANIMATION_FRAME) && !USE(REQUEST_ANIMATION_FRAME_TIMER)
-	 virtual void scheduleAnimation() = 0;
-	 #endif
-
-	 */
-
-  void ChromeClientJS::invalidateRootView(const IntRect& updateRect, bool immediate)
-  {
-    webkitTrace();
-		fprintf(stderr,"InvalidateRootView: %i %i %i %i\n", updateRect.x(), updateRect.y(), updateRect.width(), updateRect.height());
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
   }
 
   void ChromeClientJS::invalidateContentsAndRootView(const IntRect& updateRect, bool immediate)
   {
     webkitTrace();
-<<<<<<< HEAD
 		m_view->invalidate(updateRect, immediate);
-=======
-		fprintf(stderr,"InvalidateRootView: %i %i %i %i\n", updateRect.x(), updateRect.y(), updateRect.width(), updateRect.height());
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
   }
 
   void ChromeClientJS::invalidateContentsForSlowScroll(const IntRect& updateRect, bool immediate)
   {
     webkitTrace();
-<<<<<<< HEAD
 		m_view->invalidate(updateRect, immediate);
-=======
-		fprintf(stderr,"InvalidateRootView: %i %i %i %i\n", updateRect.x(), updateRect.y(), updateRect.width(), updateRect.height());
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
   }
 
   void ChromeClientJS::scroll(const IntSize& delta, const IntRect& rectToScroll, const IntRect& clipRect)
@@ -423,12 +331,12 @@ namespace WebCore {
   {
     notImplemented();
   }
-  
+
   void ChromeClientJS::setNeedsOneShotDrawingSynchronization()
   {
     notImplemented();
   }
-  
+
   void ChromeClientJS::scheduleCompositingLayerFlush()
   {
     notImplemented();
@@ -456,9 +364,8 @@ namespace WebCore {
     notImplemented();
   }
 
-<<<<<<< HEAD
   /*
-	 
+
 	 void ChromeClientJS::widgetSizeChanged(const IntSize& oldWidgetSize, IntSize newSize)
 	 {
 	 EM_ASM(
@@ -509,74 +416,48 @@ namespace WebCore {
 	 #endif
 
 	 void ChromeClientJS::dispatchViewportPropertiesDidChange(const ViewportArguments& arguments) const
-=======
-  /*void ChromeClientJS::dispatchViewportPropertiesDidChange(const ViewportArguments& arguments) const
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
 	 {
 	 EM_ASM(
 	 console.log("WebKit: ChromeClientJS::dispatchViewportPropertiesDidChange();");
 	 );
-<<<<<<< HEAD
 	 }
 
 	 PassRefPtr<WebCore::PopupMenu> ChromeClientJS::createPopupMenu(WebCore::PopupMenuClient* client) const
-=======
-	 }*/
-
-  /*PassRefPtr<WebCore::PopupMenu> ChromeClientJS::createPopupMenu(WebCore::PopupMenuClient* client) const
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
 	 {
 	 EM_ASM(
 	 console.log("createPopupMenu();");
 	 );
-<<<<<<< HEAD
 	 }
 
-  PassRefPtr<WebCore::SearchPopupMenu> ChromeClientJS::createSearchPopupMenu(WebCore::PopupMenuClient* client) const
-=======
-	 }*/
-
-  /*PassRefPtr<WebCore::SearchPopupMenu> ChromeClientJS::createSearchPopupMenu(WebCore::PopupMenuClient* client) const
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
+	 PassRefPtr<WebCore::SearchPopupMenu> ChromeClientJS::createSearchPopupMenu(WebCore::PopupMenuClient* client) const
 	 {
 	 EM_ASM(
 	 console.log("WebKit: ChromeClientJS::createSearchPopupMenu();");
 	 );
-<<<<<<< HEAD
 	 }
 
-  IntRect ChromeClientJS::windowResizerRect() const
-=======
+	 IntRect ChromeClientJS::windowResizerRect() const
+	 {
+	 return IntRect();
+	 }
+	 PlatformPageClient ChromeClientJS::platformPageClient() const
+	 {
+	 EM_ASM(
+	 console.log("WebKit: ChromeClientJS::scrollbarsModeDidChange();");
+	 );
+	 return NULL;
+	 }
+	 void ChromeClientJS::scrollbarsModeDidChange() const
+	 {
+	 EM_ASM(
+	 console.log("WebKit: ChromeClientJS::scrollbarsModeDidChange();");
+	 );
+	 }
+	 ChromeClientJS::CompositingTriggerFlags ChromeClientJS::allowedCompositingTriggers() const
+	 {
+	 EM_ASM(
+	 console.log("WebKit: ChromeClientJS::allowCompositingTriggers();");
+	 );
+	 return false;
 	 }*/
-
-  /*IntRect ChromeClientJS::windowResizerRect() const
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
-  {
-    return IntRect();
-  }
-  PlatformPageClient ChromeClientJS::platformPageClient() const
-  {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::scrollbarsModeDidChange();");
-           );
-    return NULL;
-  }
-  void ChromeClientJS::scrollbarsModeDidChange() const
-  {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::scrollbarsModeDidChange();");
-           );
-  }
-<<<<<<< HEAD
-	ChromeClientJS::CompositingTriggerFlags ChromeClientJS::allowedCompositingTriggers() const
-=======
-*/
-  /*ChromeClientJS::CompositingTriggerFlags ChromeClientJS::allowedCompositingTriggers() const
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
-  {
-    EM_ASM(
-           console.log("WebKit: ChromeClientJS::allowCompositingTriggers();");
-           );
-    return false;
-  }*/
 }

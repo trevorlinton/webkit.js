@@ -23,9 +23,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if PLATFORM(JS)
-#include <emscripten.h>
-#endif
 #ifndef NotImplemented_h
 #define NotImplemented_h
 
@@ -42,22 +39,17 @@
 #else
 
 namespace WebCore {
-WTFLogChannel* notImplementedLoggingChannel();
+	WTFLogChannel* notImplementedLoggingChannel();
 }
-/*
- EM_ASM({ \
- console.log('WebKit: Unimplemented: '+$0+' '+$1); \
- },__FILE__,__LINE__); \
-*/
+
 #if PLATFORM(JS)
+
 #define notImplemented() { \
-<<<<<<< HEAD
-  fprintf(stderr,"WebKit: Unimplemented: %s:%i\n", __FILE__, __LINE__); \
-=======
-  printf("WebKit: Unimplemented: %s:%i\n", __FILE__, __LINE__); \
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
-    }
+		fprintf(stderr,"WebKit: Unimplemented: %s:%i\n", __FILE__, __LINE__); \
+}
+
 #else
+
 #define notImplemented() do { \
         static bool havePrinted = false; \
         if (!havePrinted && !supressNotImplementedWarning()) { \
@@ -65,7 +57,8 @@ WTFLogChannel* notImplementedLoggingChannel();
             havePrinted = true; \
         } \
     } while (0)
-#endif
-#endif // NDEBUG
 
+#endif
+
+#endif // NDEBUG
 #endif // NotImplemented_h

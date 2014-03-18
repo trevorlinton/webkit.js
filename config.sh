@@ -1,4 +1,13 @@
 #!/bin/sh
+if [ -d "$JAVA_HEAP_SIZE" ]; then
+export JAVA_HEAP_SIZE="2048m"
+fi
+
+if [ -d "$JAVAFLAGS" ]; then
+export JAVAFLAGS="-client -d32"
+export JAVA_FLAGS=$JAVAFLAGS
+fi
+
 export EMSCRIPTEN_ROOT=`em-config EMSCRIPTEN_ROOT`
 export NINJA_ROOT=`which ninja`
  

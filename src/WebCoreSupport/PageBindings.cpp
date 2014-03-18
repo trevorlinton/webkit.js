@@ -62,13 +62,13 @@ namespace WebCore {
 	}
 
   /*ApplicationCacheHost::ApplicationCacheHost(WebCore::DocumentLoader* documentLoader)
-  : m_documentLoader(documentLoader)
-  , m_defersEvents(true)
-  {
-    ASSERT(m_documentLoader);
-  }*/
+	 : m_documentLoader(documentLoader)
+	 , m_defersEvents(true)
+	 {
+	 ASSERT(m_documentLoader);
+	 }*/
 
- 
+
 
 
 
@@ -172,11 +172,7 @@ namespace WebCore {
     return nullptr;
   }
   /* Not Implemented */
-<<<<<<< HEAD
 
-=======
-  ScrollbarTheme* ScrollbarTheme::nativeTheme() { notImplemented(); }
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
   void platformUserPreferredLanguages() { notImplemented(); }
   int screenDepthPerComponent(WebCore::Widget*) { notImplemented(); }
   bool screenIsMonochrome(WebCore::Widget*) { return false; }
@@ -227,47 +223,47 @@ namespace WebCore {
 }
 
 namespace WTF {
-/*
-  void *fastCalloc(unsigned int n_elements, unsigned int element_size) {
-    return calloc(n_elements, element_size);
-  }
+	/*
+	 void *fastCalloc(unsigned int n_elements, unsigned int element_size) {
+	 return calloc(n_elements, element_size);
+	 }
 
-  void fastFree(void* ptr) {
-    free(ptr);
-  }
+	 void fastFree(void* ptr) {
+	 free(ptr);
+	 }
 
-  void *fastMalloc(unsigned int n) {
-    return malloc(n);
-  }
+	 void *fastMalloc(unsigned int n) {
+	 return malloc(n);
+	 }
 
-  unsigned int fastMallocGoodSize(unsigned int bytes) {
-    return bytes;
-  }
+	 unsigned int fastMallocGoodSize(unsigned int bytes) {
+	 return bytes;
+	 }
 
-  void *fastRealloc(void* p, unsigned int n) {
-    return realloc(p, n);
-  }
+	 void *fastRealloc(void* p, unsigned int n) {
+	 return realloc(p, n);
+	 }
 
-  char* fastStrDup(const char* src)
-  {
-    size_t len = strlen(src) + 1;
-    char* dup = static_cast<char*>(fastMalloc(len));
-    memcpy(dup, src, len);
-    return dup;
-  }
-  void* fastZeroedMalloc(size_t n)
-  {
-    void* result = fastMalloc(n);
-    memset(result, 0, n);
-    return result;
-  }
-  void scheduleDispatchFunctionsOnMainThread() { return; }
+	 char* fastStrDup(const char* src)
+	 {
+	 size_t len = strlen(src) + 1;
+	 char* dup = static_cast<char*>(fastMalloc(len));
+	 memcpy(dup, src, len);
+	 return dup;
+	 }
+	 void* fastZeroedMalloc(size_t n)
+	 {
+	 void* result = fastMalloc(n);
+	 memset(result, 0, n);
+	 return result;
+	 }
+	 void scheduleDispatchFunctionsOnMainThread() { return; }
 
-  TryMallocReturnValue tryFastMalloc(size_t n)
-  {
-    return malloc(n);
-  }
-*/
+	 TryMallocReturnValue tryFastMalloc(size_t n)
+	 {
+	 return malloc(n);
+	 }
+	 */
   /*
    bool ApplicationCacheHost::canCacheInPageCache() { return false; }
    void ApplicationCacheHost::failedLoadingMainResource() { notImplemented(); }
@@ -338,10 +334,10 @@ namespace Inspector {
 
 namespace Deprecated {
 
-ScriptValue::~ScriptValue() {
-}
+	ScriptValue::~ScriptValue() {
+	}
 
-bool ScriptValue::getString(ExecState* scriptState, String& result) const { return false; }
+	bool ScriptValue::getString(ExecState* scriptState, String& result) const { return false; }
 
 }
 
@@ -372,6 +368,5 @@ namespace JSC {
   }
   void evaluate(JSC::ExecState* a, JSC::SourceCode const& b, JSC::JSValue c, JSC::JSValue* d) { notImplemented(); }
   void weakClearSlowCase(JSC::WeakImpl*&) { notImplemented(); }
-
+	
 }
-

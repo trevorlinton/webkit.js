@@ -66,12 +66,6 @@ _cairo_error (cairo_status_t status)
 {
     CAIRO_ENSURE_UNIQUE;
     assert (_cairo_status_is_error (status));
-<<<<<<< HEAD
-		//if(status == CAIRO_STATUS_NO_MEMORY)
-		//	abort();
-=======
-
->>>>>>> d8f1c288a52291cf8552be3120d6339ed79bcd14
     return status;
 }
 
