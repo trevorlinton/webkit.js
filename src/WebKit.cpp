@@ -146,8 +146,6 @@ namespace WebKit {
 	cairo_status_t flushbitmap(void *ignored, const unsigned char* data, unsigned int length)
 	{
 		int out = std::fwrite(data, sizeof(char), length, stdout);
-		fprintf(stderr, "flushbitmap: length: %i wrote: %i\n",length, out);
-
 		return length == out ? CAIRO_STATUS_SUCCESS : CAIRO_STATUS_WRITE_ERROR;
 	}
 

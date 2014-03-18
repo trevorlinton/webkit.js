@@ -197,8 +197,8 @@ FcDirChecksum (const FcChar8 *dir, time_t *checksum)
 #endif
   //TODO: Fix this so we don't have to hardcode it to get around scandir.
   int pos = 0;
-  files = malloc(sizeof(struct direct *)*12);
-
+  files = malloc(sizeof(struct direct *)*1); // multiply by 12 for all fonts.
+/*
   files[pos] = malloc(sizeof(struct dirent));
   files[pos]->d_ino = pos;
   files[pos]->d_off = pos;
@@ -261,7 +261,7 @@ FcDirChecksum (const FcChar8 *dir, time_t *checksum)
   strcpy(files[pos]->d_name,"LiberationSans-Italic.ttf");
   //files[pos]->d_namlen = strlen(files[pos]->d_name);
   pos++;
-
+*/
   files[pos] = malloc(sizeof(struct dirent));
   files[pos]->d_ino = pos;
   files[pos]->d_off = pos;
@@ -269,8 +269,8 @@ FcDirChecksum (const FcChar8 *dir, time_t *checksum)
   files[pos]->d_type = DT_REG;
   strcpy(files[pos]->d_name,"LiberationSans-Regular.ttf");
   //files[pos]->d_namlen = strlen(files[pos]->d_name);
-  pos++;
-
+  //pos++;
+/*
   files[pos] = malloc(sizeof(struct dirent));
   files[pos]->d_ino = pos;
   files[pos]->d_off = pos;
@@ -305,6 +305,8 @@ FcDirChecksum (const FcChar8 *dir, time_t *checksum)
   files[pos]->d_type = DT_REG;
   strcpy(files[pos]->d_name,"LiberationSerif-Regular.ttf");
   //files[pos]->d_namlen = strlen(files[pos]->d_name);
+*/
+
   n=pos+1;
 #endif
     if (n == -1)

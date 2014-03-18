@@ -1371,7 +1371,6 @@ _render_glyph_outline (FT_Face                    face,
 #endif
 
 		if (fterror != 0) {
-			fprintf(stderr, "cairo-ft-font.c: 1374\n");
 			return _cairo_error (CAIRO_STATUS_NO_MEMORY);
 		}
 
@@ -1379,12 +1378,10 @@ _render_glyph_outline (FT_Face                    face,
 																								face->glyph,
 																								render_mode);
 		if (bitmap_size < 0) {
-			fprintf(stderr, "cairo-ft-font.c: 1382\n");
-	    return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+			return _cairo_error (CAIRO_STATUS_NO_MEMORY);
 		}
 		bitmap.buffer = calloc (1, bitmap_size);
 		if (bitmap.buffer == NULL) {
-			fprintf(stderr, "cairo-ft-font.c: 1386\n");
 			return _cairo_error (CAIRO_STATUS_NO_MEMORY);
 		}
 		_fill_xrender_bitmap (&bitmap, face->glyph, render_mode,

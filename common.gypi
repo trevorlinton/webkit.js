@@ -6,6 +6,8 @@
 		'emscripten_cxx':'<!(echo $EMSCRIPTEN_ROOT)/em++',
 		'emscripten_sysroot':'<!(echo $EMSCRIPTEN_ROOT)/system/',
 		'emscripten_ld':'<!(echo $EMSCRIPTEN_ROOT)/emcc',
+		# see configuration Release and Debug below for specific optimizations
+		# by release types.
 		'emscripten_linktojs':'-s EXPORTED_FUNCTIONS="[\'_main\']" --embed-files ../src/assets/fontconfig/fonts@/usr/share/fonts --embed-files ../src/assets/fontconfig/config/fonts.conf@/etc/fonts/fonts.conf --embed-files ../src/assets/fontconfig/cache@/usr/local/var/cache/fontconfig -s FULL_ES2=1 -s TOTAL_MEMORY=50331648 -s OUTLINING_LIMIT=120000',
 		'cflags':'-Wno-warn-absolute-paths -isysroot <(emscripten_sysroot)',
 		'cflags_cc':'-std=c++0x',
@@ -21,17 +23,36 @@
 		'configurations': {
 			'Release': {
 				'defines+': ['NDEBUG','TARGET_EMSCRIPTEN'],
-				'cflags+':['<(cflags) -Oz'], # -g0
+				'cflags+':['<(cflags) -Oz -g0'],
 				'cflags_cc+':['<(cflags_cc)'],
 				'ldflags+':['<(ldflags)'],
-				'jsflags+':['<(emscripten_linktojs) -O3 -s INLINING_LIMIT=1 -s AGGRESSIVE_VARIABLE_ELIMINATION=1 -s CLOSURE_ANNOTATIONS=1 --closure 1 --llvm-opts 3 --llvm-lto 3'],
+				# do not use optimizations: -s AGGRESSIVE_VARIABLE_ELIMINATION=1,
+				#		this produces "unknown number" runtime bad JS syntax errors. Never use.
+				# known unsafe optimizations: --closure 1 -s CLOSURE_ANNOTATIONS=1 --llvm-lto 3
+				#		unsure why the closure opts / llvm-lto are unsafe. for now we'll leave it off
+				#		although it doesn't seem to do damage from limited tests, it can buy us a 3MB savings
+				#		it should also be known that adding closure compilations takes an additional 30 minutes
+				#		of compile time and only saves us space, if used, do it only for a to production release.
+				# does not make sense but: optmizations on the final LLVM BYTE CODE to JS shouldn't use -Oz/-Os
+				#		but should use -O3. -Oz/-Os supposadly (from the docs) map to -O2, so we actually get
+				#		better(?) optimization but using -O3. We may want to gut check this, as it doesn't
+				#		seem accurate.
+				'jsflags+':['<(emscripten_linktojs) -O3 -g0 -s INLINING_LIMIT=1 --llvm-opts 3'],
 			},
 			'Debug': {
 				'defines+': ['DEBUG','TARGET_EMSCRIPTEN'],
-				'cflags+':['<(cflags) -O1'], # -g4
+				'cflags+':['<(cflags) -O0 -g4'],
 				'cflags_cc+':['<(cflags_cc)'],
 				'ldflags+':['<(ldflags)'],
-				'jsflags+':['<(emscripten_linktojs) -O1 -s LABEL_DEBUG=1'],
+				# -s LABEL_DEBUG=1 is not supported in 1.13.0+ of emscripten.
+				#		It's supposed to be, but.. hell.
+				# Building with -s ASSERTIONS=1 may help for some reason? why?
+				#		this was kicked out of a Debug run that hit an
+				#		llvm-trap however it already had a full stacktrace.
+				# -s NAMED_GLOBALS=0 should prevent too many local variable errors.
+				#		i'm not sure if this is true as Firefox routinely complains of local variable erros
+				#		not global variable errors, we will see.
+				'jsflags+':['<(emscripten_linktojs) -O0 -g4 -s NAMED_GLOBALS=0'],
 			},
 		},
 	},

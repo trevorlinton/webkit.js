@@ -186,15 +186,12 @@ write_png (cairo_surface_t	*surface,
 																								&image_extra);
 
 	if (status == CAIRO_INT_STATUS_UNSUPPORTED) {
-		fprintf(stderr, "CAIRO_STATUS_SURFACE_TYPE_MISMATCH\n");
 		return _cairo_error (CAIRO_STATUS_SURFACE_TYPE_MISMATCH);
 	} else if (unlikely (status)) {
-		fprintf(stderr, "unlikely(status)\n");
 		return status;
 	}
 	/* PNG complains about "Image width or height is zero in IHDR" */
 	if (image->width == 0 || image->height == 0) {
-		fprintf(stderr,"image would be empty, bailing.\n");
 		status = _cairo_error (CAIRO_STATUS_WRITE_ERROR);
 		goto BAIL1;
 	}
@@ -205,14 +202,11 @@ write_png (cairo_surface_t	*surface,
 	clone = _cairo_image_surface_coerce (image);
 	status = clone->base.status;
 	if (unlikely (status)){
-		fprintf(stderr, "unlikely(status) #2\n");
 		goto BAIL1;
 	}
 
-	fprintf(stderr, "_cairo_malloc_ab: clone->height: %i, sizeof(png_byte*): %i\n",clone->height,sizeof(png_byte*));
 	rows = _cairo_malloc_ab (clone->height, sizeof (png_byte*));
 	if (unlikely (rows == NULL)) {
-		fprintf(stderr, "_cairo_malloc_ab: failed to allocate rows. no memory man...\n");
 		status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
 		goto BAIL2;
 	}
@@ -223,14 +217,12 @@ write_png (cairo_surface_t	*surface,
 																 png_simple_error_callback,
 																 png_simple_warning_callback);
 	if (unlikely (png == NULL)) {
-		fprintf(stderr, "_cairo_malloc_ab: failed to allocate (png_create_write_struct)\n");
 		status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
 		goto BAIL3;
 	}
 
 	info = png_create_info_struct (png);
 	if (unlikely (info == NULL)) {
-		fprintf(stderr, "_cairo_malloc_ab: failed to allocate (png_create_info_struct)\n");
 		status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
 		goto BAIL4;
 	}
@@ -365,7 +357,6 @@ cairo_surface_write_to_png (cairo_surface_t	*surface,
 	cairo_status_t status;
 
 	if (surface->status) {
-		fprintf(stderr, "Surface is already botched..?\n");
 		return surface->status;
 	}
 	if (surface->finished)
@@ -375,7 +366,6 @@ cairo_surface_write_to_png (cairo_surface_t	*surface,
 	if (fp == NULL) {
 		switch (errno) {
 			case ENOMEM:
-				fprintf(stderr, "Cannot find memory when opening file..?\n");
 				return _cairo_error (CAIRO_STATUS_NO_MEMORY);
 			default:
 				return _cairo_error (CAIRO_STATUS_WRITE_ERROR);
@@ -433,11 +423,9 @@ cairo_surface_write_to_png_stream (cairo_surface_t	*surface,
 	struct png_write_closure_t png_closure;
 
 	if (surface->status) {
-		fprintf(stderr, "surface->status: seems it was botched from the beginning?\n");
 		return surface->status;
 	}
 	if (surface->finished) {
-		fprintf(stderr, "surface->finished: I have no idea what this means.\n");
 		return _cairo_error (CAIRO_STATUS_SURFACE_FINISHED);
 	}
 	png_closure.write_func = write_func;
