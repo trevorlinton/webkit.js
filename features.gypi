@@ -166,7 +166,7 @@
       'WTF_USE_CAIRO=1',
       'WTF_USE_FREETYPE=1',
       'WTF_USE_HARFBUZZ=1',
-      'WTF_USE_COORDINATED_GRAPHICS=1',
+      'WTF_USE_COORDINATED_GRAPHICS=0', # space saving, not sure if we need it.
       'WTF_USE_CROSS_PLATFORM_CONTEXT_MENUS=1',
       'WTF_USE_GLIB=0',
       'WTF_USE_ICU_UNICODE=0',
