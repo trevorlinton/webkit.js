@@ -22,9 +22,10 @@
 #include "config.h"
 
 #include "FormData.h"
-
+#if ENABLE(BLOB)
 #include "BlobData.h"
 #include "BlobRegistryImpl.h"
+#endif
 #include "BlobURL.h"
 #include "Chrome.h"
 #include "ChromeClient.h"
@@ -198,7 +199,7 @@ void FormData::appendKeyValuePairItems(const FormDataList& list, const TextEncod
             FormDataBuilder::beginMultiPartHeader(header, m_boundary.data(), key.data());
 
             bool shouldGenerateFile = false;
-
+#if ENABLE(BLOB)
             // If the current type is blob, then we also need to include the filename
             if (value.blob()) {
                 String name;
@@ -242,11 +243,12 @@ void FormData::appendKeyValuePairItems(const FormDataList& list, const TextEncod
                 ASSERT(Blob::isNormalizedContentType(contentType));
                 FormDataBuilder::addContentTypeToMultiPartHeader(header, contentType.ascii());
             }
-
+#endif
             FormDataBuilder::finishMultiPartHeader(header);
 
             // Append body
             appendData(header.data(), header.size());
+#if ENABLE(BLOB)
             if (value.blob()) {
                 if (value.blob()->isFile()) {
                     File* file = toFile(value.blob());
@@ -254,11 +256,10 @@ void FormData::appendKeyValuePairItems(const FormDataList& list, const TextEncod
                     if (!file->path().isEmpty())
                         appendFile(file->path(), shouldGenerateFile);
                 }
-#if ENABLE(BLOB)
                 else
                     appendBlob(value.blob()->url());
-#endif
             } else
+#endif
                 appendData(value.data().data(), value.data().length());
             appendData("\r\n", 2);
         } else {
@@ -511,9 +512,11 @@ static bool decodeElement(Decoder& decoder, FormDataElement& element)
         int64_t fileLength;
         if (!decoder.decodeInt64(fileLength))
             return false;
+#if ENABLE(BLOB)
         if (fileLength != BlobDataItem::toEndOfFile && fileLength < fileStart)
             return false;
-        double expectedFileModificationTime;
+#endif
+			double expectedFileModificationTime;
         if (!decoder.decodeDouble(expectedFileModificationTime))
             return false;
 

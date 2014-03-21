@@ -27,8 +27,9 @@
 
 #ifndef MessageEvent_h
 #define MessageEvent_h
-
+#if ENABLE(BLOB)
 #include "Blob.h"
+#endif
 #include "DOMWindow.h"
 #include "Event.h"
 #include "MessagePort.h"
@@ -68,10 +69,12 @@ public:
     {
         return adoptRef(new MessageEvent(data, origin));
     }
+#if ENABLE(BLOB)
     static PassRefPtr<MessageEvent> create(PassRefPtr<Blob> data, const String& origin = String())
     {
         return adoptRef(new MessageEvent(data, origin));
     }
+#endif
     static PassRefPtr<MessageEvent> create(PassRefPtr<ArrayBuffer> data, const String& origin = String())
     {
         return adoptRef(new MessageEvent(data, origin));
@@ -103,15 +106,19 @@ public:
         DataTypeScriptValue,
         DataTypeSerializedScriptValue,
         DataTypeString,
+#if ENABLE(BLOB)
         DataTypeBlob,
+#endif
         DataTypeArrayBuffer
     };
     DataType dataType() const { return m_dataType; }
     const Deprecated::ScriptValue& dataAsScriptValue() const { ASSERT(m_dataType == DataTypeScriptValue); return m_dataAsScriptValue; }
     PassRefPtr<SerializedScriptValue> dataAsSerializedScriptValue() const { ASSERT(m_dataType == DataTypeSerializedScriptValue); return m_dataAsSerializedScriptValue; }
     String dataAsString() const { ASSERT(m_dataType == DataTypeString); return m_dataAsString; }
+#if ENABLE(BLOB)
     Blob* dataAsBlob() const { ASSERT(m_dataType == DataTypeBlob); return m_dataAsBlob.get(); }
-    ArrayBuffer* dataAsArrayBuffer() const { ASSERT(m_dataType == DataTypeArrayBuffer); return m_dataAsArrayBuffer.get(); }
+#endif
+		ArrayBuffer* dataAsArrayBuffer() const { ASSERT(m_dataType == DataTypeArrayBuffer); return m_dataAsArrayBuffer.get(); }
 
 private:
     MessageEvent();
@@ -120,15 +127,19 @@ private:
     MessageEvent(PassRefPtr<SerializedScriptValue> data, const String& origin, const String& lastEventId, PassRefPtr<EventTarget> source, PassOwnPtr<MessagePortArray>);
 
     explicit MessageEvent(const String& data, const String& origin);
+#if ENABLE(BLOB)
     explicit MessageEvent(PassRefPtr<Blob> data, const String& origin);
-    explicit MessageEvent(PassRefPtr<ArrayBuffer> data, const String& origin);
+#endif
+		explicit MessageEvent(PassRefPtr<ArrayBuffer> data, const String& origin);
 
     DataType m_dataType;
     Deprecated::ScriptValue m_dataAsScriptValue;
     RefPtr<SerializedScriptValue> m_dataAsSerializedScriptValue;
     String m_dataAsString;
+#if ENABLE(BLOB)
     RefPtr<Blob> m_dataAsBlob;
-    RefPtr<ArrayBuffer> m_dataAsArrayBuffer;
+#endif
+		RefPtr<ArrayBuffer> m_dataAsArrayBuffer;
     String m_origin;
     String m_lastEventId;
     RefPtr<EventTarget> m_source;

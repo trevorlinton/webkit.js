@@ -206,8 +206,6 @@ namespace WebCore {
 
 
   void BitmapImage::invalidatePlatformData() { notImplemented(); }
-  Blob::Blob() { notImplemented(); }
-  Blob::~Blob() { notImplemented(); }
   void Editor::pasteWithPasteboard(WebCore::Pasteboard*, bool) { notImplemented(); }
 
   bool EventHandler::passMouseMoveEventToSubframe(WebCore::MouseEventWithHitTestResults&, WebCore::Frame*, WebCore::HitTestResult*) { notImplemented(); }

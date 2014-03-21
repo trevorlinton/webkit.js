@@ -25,8 +25,9 @@
 
 #include "config.h"
 #include "LoaderStrategy.h"
-
+#if ENABLE(BLOB)
 #include "BlobRegistryImpl.h"
+#endif
 #include "ResourceHandle.h"
 #include "ResourceLoadScheduler.h"
 

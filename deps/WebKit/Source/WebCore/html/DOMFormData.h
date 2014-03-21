@@ -37,8 +37,9 @@
 #include <wtf/RefCounted.h>
 
 namespace WebCore {
-
+#if ENABLE(BLOB)
 class Blob;
+#endif
 class HTMLFormElement;
 class TextEncoding;
 
@@ -48,8 +49,9 @@ public:
     static PassRefPtr<DOMFormData> create(const TextEncoding& encoding) { return adoptRef(new DOMFormData(encoding)); }
 
     void append(const String& name, const String& value);
+#if ENABLE(BLOB)
     void append(const String& name, Blob*, const String& filename = String());
-
+#endif
 private:
     explicit DOMFormData(const TextEncoding&);
     explicit DOMFormData(HTMLFormElement*);

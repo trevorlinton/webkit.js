@@ -86,7 +86,7 @@ MessageEvent::MessageEvent(const String& data, const String& origin)
     , m_origin(origin)
 {
 }
-
+#if ENABLE(BLOB)
 MessageEvent::MessageEvent(PassRefPtr<Blob> data, const String& origin)
     : Event(eventNames().messageEvent, false, false)
     , m_dataType(DataTypeBlob)
@@ -94,7 +94,7 @@ MessageEvent::MessageEvent(PassRefPtr<Blob> data, const String& origin)
     , m_origin(origin)
 {
 }
-
+#endif
 MessageEvent::MessageEvent(PassRefPtr<ArrayBuffer> data, const String& origin)
     : Event(eventNames().messageEvent, false, false)
     , m_dataType(DataTypeArrayBuffer)

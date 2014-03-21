@@ -37,7 +37,9 @@
 #include "Frame.h"
 #include "InspectorConsoleInstrumentation.h"
 #include "InspectorController.h"
+#if !PLATFORM(JS)
 #include "JSMainThreadExecState.h"
+#endif
 #include "Page.h"
 #include "ScriptArguments.h"
 #include "ScriptCallStack.h"
@@ -151,7 +153,11 @@ void PageConsole::addMessage(MessageSource source, MessageLevel level, const Str
     unsigned column = 0;
     if (document && document->parsing() && !document->isInDocumentWrite() && document->scriptableDocumentParser()) {
         ScriptableDocumentParser* parser = document->scriptableDocumentParser();
-        if (!parser->isWaitingForScripts() && !JSMainThreadExecState::currentState()) {
+        if (!parser->isWaitingForScripts()
+#if !PLATFORM(JS)
+							&& !JSMainThreadExecState::currentState()
+#endif
+				) {
             TextPosition position = parser->textPosition();
             line = position.m_line.oneBasedInt();
             column = position.m_column.oneBasedInt();

@@ -68,12 +68,9 @@
 #else
 #if USE(OPENGL_ES_2)
 #include "OpenGLESShims.h"
-#elif PLATFORM(MAC)
+#elif PLATFORM(MAC) && !PLATFORM(JS)
 #include <OpenGL/gl.h>
 #elif PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX)
-#ifdef PLATFORM(JS)
-#error "Including opengl shims when requested OpenGLES."
-#endif
 #include "OpenGLShims.h"
 #endif
 #endif

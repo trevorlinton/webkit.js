@@ -155,16 +155,18 @@ bool FileInputType::appendFormData(FormDataList& encoding, bool multipart) const
         return true;
     }
 
+#if ENABLE(BLOB)
     // If no filename at all is entered, return successful but empty.
     // Null would be more logical, but Netscape posts an empty file. Argh.
     if (!numFiles) {
-        encoding.appendBlob(element().name(), File::create(""));
-        return true;
+				encoding.appendBlob(element().name(), File::create(""));
+				return true;
     }
 
     for (unsigned i = 0; i < numFiles; ++i)
         encoding.appendBlob(element().name(), fileList->item(i));
-    return true;
+#endif
+		return true;
 }
 
 bool FileInputType::valueMissing(const String& value) const

@@ -49,7 +49,7 @@ static String getContentTypeFromFileName(const String& name, File::ContentTypeLo
     }
     return type;
 }
-
+#if ENABLE(BLOB)
 static std::unique_ptr<BlobData> createBlobDataForFileWithType(const String& path, const String& contentType)
 {
     auto blobData = std::make_unique<BlobData>();
@@ -68,7 +68,7 @@ static std::unique_ptr<BlobData> createBlobDataForFileWithName(const String& pat
 {
     return createBlobDataForFileWithType(path, getContentTypeFromFileName(fileSystemName, policy));
 }
-
+#endif
 #if ENABLE(DIRECTORY_UPLOAD)
 PassRefPtr<File> File::createWithRelativePath(const String& path, const String& relativePath)
 {
@@ -79,15 +79,19 @@ PassRefPtr<File> File::createWithRelativePath(const String& path, const String& 
 #endif
 
 File::File(const String& path, ContentTypeLookupPolicy policy)
-    : Blob(createBlobDataForFile(path, policy), -1)
-    , m_path(path)
+#if ENABLE(BLOB)
+		: Blob(createBlobDataForFile(path, policy), -1),
+#endif
+		m_path(path)
     , m_name(pathGetFileName(path))
 {
 }
 
 File::File(const String& path, const URL& url, const String& type)
-    : Blob(url, type, -1)
-    , m_path(path)
+#if ENABLE(BLOB)
+    : Blob(url, type, -1),
+#endif
+		m_path(path)
 {
     m_name = pathGetFileName(path);
     // FIXME: File object serialization/deserialization does not include
@@ -96,8 +100,10 @@ File::File(const String& path, const URL& url, const String& type)
 }
 
 File::File(const String& path, const String& name, ContentTypeLookupPolicy policy)
-    : Blob(createBlobDataForFileWithName(path, name, policy), -1)
-    , m_path(path)
+#if ENABLE(BLOB)
+		: Blob(createBlobDataForFileWithName(path, name, policy), -1),
+#endif
+		m_path(path)
     , m_name(name)
 {
 }

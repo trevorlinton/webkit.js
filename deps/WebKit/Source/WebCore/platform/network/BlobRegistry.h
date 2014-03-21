@@ -30,7 +30,7 @@
 
 #ifndef BlobRegistry_h
 #define BlobRegistry_h
-
+#if ENABLE(BLOB)
 #include <wtf/PassOwnPtr.h>
 
 namespace WebCore {
@@ -60,5 +60,5 @@ protected:
 };
 
 } // namespace WebCore
-
+#endif
 #endif // BlobRegistry_h

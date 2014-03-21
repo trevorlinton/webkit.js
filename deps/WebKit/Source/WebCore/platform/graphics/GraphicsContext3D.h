@@ -53,7 +53,7 @@
 #include "ANGLEWebKitBridge.h"
 #endif
 
-#if PLATFORM(MAC)
+#if PLATFORM(MAC) && !PLATFORM(JS)
 #if PLATFORM(IOS)
 #include <OpenGLES/ES2/gl.h>
 #ifdef __OBJC__

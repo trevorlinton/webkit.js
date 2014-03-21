@@ -34,7 +34,9 @@
 #include "URL.h"
 #include "SchemeRegistry.h"
 #include "SecurityPolicy.h"
+#if !PLATFORM(JS)
 #include "ThreadableBlobRegistry.h"
+#endif
 #include <wtf/MainThread.h>
 #include <wtf/StdLibExtras.h>
 #include <wtf/text/StringBuilder.h>

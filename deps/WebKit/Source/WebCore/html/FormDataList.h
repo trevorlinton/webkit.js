@@ -20,8 +20,9 @@
 
 #ifndef FormDataList_h
 #define FormDataList_h
-
+#if ENABLE(BLOB)
 #include "Blob.h"
+#endif
 #include "TextEncoding.h"
 #include <wtf/Forward.h>
 #include <wtf/text/CString.h>
@@ -34,16 +35,21 @@ public:
     public:
         Item() { }
         Item(const WTF::CString& data) : m_data(data) { }
+#if ENABLE(BLOB)
         Item(PassRefPtr<Blob> blob, const String& filename) : m_blob(blob), m_filename(filename) { }
-
+#endif
         const WTF::CString& data() const { return m_data; }
+#if ENABLE(BLOB)
         Blob* blob() const { return m_blob.get(); }
-        const String& filename() const { return m_filename; }
+#endif
+				const String& filename() const { return m_filename; }
 
     private:
         WTF::CString m_data;
+#if ENABLE(BLOB)
         RefPtr<Blob> m_blob;
-        String m_filename;
+#endif
+				String m_filename;
     };
 
     FormDataList(const TextEncoding&);
@@ -63,20 +69,22 @@ public:
         appendString(key);
         appendString(String::number(value));
     }
+#if ENABLE(BLOB)
     void appendBlob(const String& key, PassRefPtr<Blob> blob, const String& filename = String())
     {
         appendString(key);
         appendBlob(blob, filename);
     }
-
+#endif
     const Vector<Item>& items() const { return m_items; }
     const TextEncoding& encoding() const { return m_encoding; }
 
 private:
     void appendString(const CString&);
     void appendString(const String&);
+#if ENABLE(BLOB)
     void appendBlob(PassRefPtr<Blob>, const String& filename);
-
+#endif
     TextEncoding m_encoding;
     Vector<Item> m_items;
 };

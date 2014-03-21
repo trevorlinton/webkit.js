@@ -22,7 +22,7 @@
 
 #include "config.h"
 #include "Font.h"
-
+#include "FontOrientation.h"
 #include "FloatRect.h"
 #include "FontCache.h"
 #include "FontGlyphs.h"
@@ -232,20 +232,22 @@ void Font::drawGlyphBuffer(GraphicsContext* context, const TextRun& run, const G
 #endif
         drawGlyphs(context, fontData, glyphBuffer, lastFrom, nextGlyph - lastFrom, startPoint);
         point.setX(nextX);
+#if ENABLE(SVG_FONTS)
     }
+#endif
 }
 
-inline static float offsetToMiddleOfGlyph(const SimpleFontData* fontData, Glyph glyph)
+inline static float offsetToMiddleOfGlyph(const WebCore::SimpleFontData* fontData, WebCore::Glyph glyph)
 {
-    if (fontData->platformData().orientation() == Horizontal) {
-        FloatRect bounds = fontData->boundsForGlyph(glyph);
+		if (fontData->platformData().orientation() == WebCore::Horizontal) {
+				WebCore::FloatRect bounds = fontData->boundsForGlyph(glyph);
         return bounds.x() + bounds.width() / 2;
     }
     // FIXME: Use glyph bounds once they make sense for vertical fonts.
     return fontData->widthForGlyph(glyph) / 2;
 }
 
-inline static float offsetToMiddleOfGlyphAtIndex(const GlyphBuffer& glyphBuffer, size_t i)
+inline static float offsetToMiddleOfGlyphAtIndex(const WebCore::GlyphBuffer& glyphBuffer, size_t i)
 {
     return offsetToMiddleOfGlyph(glyphBuffer.fontDataAt(i), glyphBuffer.glyphAt(i));
 }

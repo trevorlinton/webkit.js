@@ -30,8 +30,9 @@
 #include <wtf/Vector.h>
 
 namespace WebCore {
-
+#if ENABLE(BLOB)
 class BlobRegistry;
+#endif
 class NetworkingContext;
 class ResourceError;
 class ResourceLoadScheduler;

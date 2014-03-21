@@ -7514,6 +7514,9 @@ typedef void (APIENTRYP PFNGLGETQUERYOBJECTUIVARBPROC) (GLuint id, GLenum pname,
 #ifndef GL_ARB_shader_objects
 #define GL_ARB_shader_objects 1
 #ifdef GL_GLEXT_PROTOTYPES
+#if PLATFORM(JS)
+#error "Why are we including old GL stubs?"
+#endif
 GLAPI void APIENTRY glDeleteObjectARB (GLhandleARB obj);
 GLAPI GLhandleARB APIENTRY glGetHandleARB (GLenum pname);
 GLAPI void APIENTRY glDetachObjectARB (GLhandleARB containerObj, GLhandleARB attachedObj);
@@ -7554,6 +7557,9 @@ GLAPI void APIENTRY glGetUniformfvARB (GLhandleARB programObj, GLint location, G
 GLAPI void APIENTRY glGetUniformivARB (GLhandleARB programObj, GLint location, GLint *params);
 GLAPI void APIENTRY glGetShaderSourceARB (GLhandleARB obj, GLsizei maxLength, GLsizei *length, GLcharARB *source);
 #endif /* GL_GLEXT_PROTOTYPES */
+#if PLATFORM(JS)
+#error "Why are we including GL stubs in JS?"
+	
 typedef void (APIENTRYP PFNGLDELETEOBJECTARBPROC) (GLhandleARB obj);
 typedef GLhandleARB (APIENTRYP PFNGLGETHANDLEARBPROC) (GLenum pname);
 typedef void (APIENTRYP PFNGLDETACHOBJECTARBPROC) (GLhandleARB containerObj, GLhandleARB attachedObj);

@@ -25,6 +25,9 @@
 
 #ifndef Extensions3DOpenGL_h
 #define Extensions3DOpenGL_h
+#if PLATFORM(JS)
+#error "OpenGL Legacy support is not used on emscripten/js"
+#endif
 
 #include "Extensions3DOpenGLCommon.h"
 

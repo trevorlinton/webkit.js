@@ -25,8 +25,12 @@
 
 #ifndef File_h
 #define File_h
-
+#if ENABLE(BLOB)
 #include "Blob.h"
+#else
+#include "ScriptWrappable.h"
+#include <wtf/RefCounted.h>
+#endif
 #include <wtf/PassRefPtr.h>
 #include <wtf/text/WTFString.h>
 
@@ -34,8 +38,11 @@ namespace WebCore {
 
 struct FileMetadata;
 class URL;
-
+#if ENABLE(BLOB)
 class File : public Blob {
+#else
+class File : public ScriptWrappable, public RefCounted<File> {
+#endif
 public:
     // AllContentTypes should only be used when the full path/name are trusted; otherwise, it could
     // allow arbitrary pages to determine what applications an user has installed.
@@ -66,9 +73,13 @@ public:
             return adoptRef(new File(path, policy));
         return adoptRef(new File(path, name, policy));
     }
-
-    virtual unsigned long long size() const OVERRIDE;
-    virtual bool isFile() const OVERRIDE { return true; }
+#if ENABLE(BLOB)
+		virtual unsigned long long size() const OVERRIDE;
+		virtual bool isFile() const OVERRIDE { return true; }
+#else
+		unsigned long long size() const;
+		bool isFile() const { return true; }
+#endif
 
     const String& path() const { return m_path; }
     const String& name() const { return m_name; }
@@ -99,6 +110,7 @@ private:
 #endif
 };
 
+#if ENABLE(BLOB)
 inline File* toFile(Blob* blob)
 {
     ASSERT_WITH_SECURITY_IMPLICATION(!blob || blob->isFile());
@@ -110,7 +122,7 @@ inline const File* toFile(const Blob* blob)
     ASSERT_WITH_SECURITY_IMPLICATION(!blob || blob->isFile());
     return static_cast<const File*>(blob);
 }
-
+#endif
 } // namespace WebCore
 
 #endif // File_h

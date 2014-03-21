@@ -40,10 +40,10 @@ void FormDataList::appendString(const CString& s)
 {
     m_items.append(s);
 }
-
+#if ENABLE(BLOB)
 void FormDataList::appendBlob(PassRefPtr<Blob> blob, const String& filename)
 {
     m_items.append(Item(blob, filename));
 }
-
+#endif
 } // namespace

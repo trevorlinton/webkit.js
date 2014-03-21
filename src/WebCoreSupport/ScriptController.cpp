@@ -32,7 +32,7 @@
 #include "InspectorInstrumentation.h"
 #include "JSDOMWindow.h"
 #include "JSDocument.h"
-#include "JSMainThreadExecState.h"
+// #include "JSMainThreadExecState.h"
 #include "NP_jsobject.h"
 #include "Page.h"
 #include "PageGroup.h"

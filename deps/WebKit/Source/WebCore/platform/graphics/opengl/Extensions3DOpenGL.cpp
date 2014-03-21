@@ -26,6 +26,9 @@
 #include "config.h"
 
 #if USE(3D_GRAPHICS)
+#if PLATFORM(JS)
+#error "OpenGL Legacy support is not used on emscripten/js"
+#endif
 
 #include "Extensions3DOpenGL.h"
 
@@ -35,10 +38,10 @@
 #if PLATFORM(IOS)
 #include "ANGLE/ShaderLang.h"
 #include <OpenGLES/ES2/glext.h>
-#elif PLATFORM(MAC)
+#elif PLATFORM(MAC) && !PLATFORM(JS)
 #include "ANGLE/ShaderLang.h"
 #include <OpenGL/gl.h>
-#elif PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX) || PLATFORM(JS)
+#elif PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX)
 #include "OpenGLShims.h"
 #endif
 

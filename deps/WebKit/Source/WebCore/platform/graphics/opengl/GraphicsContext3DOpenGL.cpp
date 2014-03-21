@@ -28,6 +28,10 @@
 
 #if USE(3D_GRAPHICS)
 
+#if PLATFORM(JS)
+#error "Do not use OpenGL For 3D Graphics Contexts with JS, use OpenGLES."
+#endif
+
 #include "GraphicsContext3D.h"
 #if PLATFORM(IOS)
 #include "GraphicsContext3DIOS.h"
@@ -49,9 +53,9 @@
 // From <OpenGLES/glext.h>
 #define GL_RGBA32F_ARB                      0x8814
 #define GL_RGB32F_ARB                       0x8815
-#elif PLATFORM(MAC)
+#elif PLATFORM(MAC) && !PLATFORM(JS)
 #include <OpenGL/gl.h>
-#elif PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX) || PLATFORM(JS)
+#elif PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX)
 #include "OpenGLShims.h"
 #endif
 

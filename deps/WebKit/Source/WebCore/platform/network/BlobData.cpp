@@ -27,7 +27,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+#if ENABLE(BLOB)
 #include "config.h"
 #include "BlobData.h"
 
@@ -113,3 +113,4 @@ BlobDataHandle::~BlobDataHandle()
 }
 
 } // namespace WebCore
+#endif

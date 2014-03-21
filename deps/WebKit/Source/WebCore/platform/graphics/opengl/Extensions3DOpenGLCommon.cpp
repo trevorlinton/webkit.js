@@ -43,9 +43,9 @@
 #include "OpenGLESShims.h"
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
-#elif PLATFORM(MAC)
+#elif PLATFORM(MAC) && !PLATFORM(JS)
 #include <OpenGL/gl.h>
-#elif PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX) || PLATFORM(JS)
+#elif PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX)
 #include "OpenGLShims.h"
 #endif
 #endif

@@ -61,6 +61,9 @@
 #include <assert.h>
 
 #if CAIRO_HAS_GL_SURFACE
+#ifdef TARGET_EMSCRIPTEN
+#error "GLES v2 should be used, not GL with JavaScript Emscripten."
+#endif
 #include <GL/gl.h>
 #include <GL/glext.h>
 #elif CAIRO_HAS_GLESV2_SURFACE
