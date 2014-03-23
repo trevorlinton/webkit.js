@@ -40,7 +40,7 @@
 				# for some bizzare reason adding -g0 onto this causes the compiler to slow to a crawl and
 				#		take up gigabytes (13+) of memory. Don't do it.
 				# Using ASM_JS=0 is necessary at the moment since browsers limit the amount of local vars.
-				'jsflags+':['<(emscripten_linktojs) -O3 --llvm-opts 3'],
+				'jsflags+':['<(emscripten_linktojs) -O3 --llvm-opts 3 --proxy-to-worker'],
 			},
 			'Debug': {
 				'defines+': ['DEBUG','TARGET_EMSCRIPTEN'],

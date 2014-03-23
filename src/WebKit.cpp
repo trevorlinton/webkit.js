@@ -50,14 +50,15 @@ namespace WebKit {
 	bool WebView::initialize() {
 		webkitTrace();
 
-		cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, 1024, 768);
+		/*cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, 1024, 768);
 		cairo_status_t surface_error = cairo_surface_status(surface);
 		if(surface_error != CAIRO_STATUS_SUCCESS) {
 			fprintf(stderr, "WebKit: FATAL: Cannot create surface:\n%s\n",cairo_status_to_string(surface_error));
 			abort();
 		}
 		cairo_t *graphics = cairo_create(surface);
-		context = new GraphicsContext(graphics);
+		context = new GraphicsContext(graphics);*/
+		//context = new GraphicsContext3D
 
 		WebKitJSStrategies::initialize();
 		m_pageClients.chromeClient = WebCore::ChromeClientJS::createClient(this);
@@ -73,7 +74,7 @@ namespace WebKit {
 		m_page->settings().setDefaultFixedFontSize(13);
 		m_page->settings().setDownloadableBinaryFontsEnabled(false);
 		m_page->settings().setMockScrollbarsEnabled(true);
-		//m_page->settings().setAcceleratedDrawingEnabled(true);
+		m_page->settings().setAcceleratedDrawingEnabled(true);
 		m_page->settings().setScreenFontSubstitutionEnabled(true);
 		m_page->settings().setStandardFontFamily("Liberation");
 		m_page->settings().setMinimumFontSize(6);
@@ -103,6 +104,11 @@ namespace WebKit {
 		else
 			return false;
 	}
+
+	WebCore::Page* WebView::page() {
+		return m_page.release();
+	}
+
 	void WebView::tictoc() {
 		webkitTrace();
 	}
@@ -155,12 +161,12 @@ namespace WebKit {
 			fprintf(stderr, "WebKit: Not rendering; the clip is empty.\n");
 			return NULL;
 		}
-		cairo_status_t c_error;
+		//cairo_status_t c_error;
 
 		FrameView *view = m_page->mainFrame().view();
 		view->layout();
 		view->paint(context, clip);
-
+/*
 		cairo_surface_t *surface = cairo_get_target(context->platformContext()->cr());
 		cairo_status_t surface_error = cairo_surface_status(surface);
 		if(surface_error != CAIRO_STATUS_SUCCESS) {
@@ -175,7 +181,7 @@ namespace WebKit {
 		//	abort();
 		//}
 		//cairo_surface_destroy(surface);
-
+*/
 
 		return NULL;
 	}

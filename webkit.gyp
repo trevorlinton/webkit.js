@@ -83,6 +83,8 @@
 			'<(DEPTH)/src/WebCoreSupport/ScriptValue.h',
 			'<(DEPTH)/src/WebCoreSupport/AbstractView.h',
 			'<(DEPTH)/src/WebCoreSupport/SharedTimer.cpp',
+			'<(DEPTH)/src/WebCoreSupport/AcceleratedContext.h',
+			'<(DEPTH)/src/WebCoreSupport/AcceleratedContext.cpp',
 			'<(DEPTH)/src/WebCoreSupport/Stubs/HTMLPluginElement.cpp',
 			'<(DEPTH)/src/EmscriptenSupport.cpp',
 		],

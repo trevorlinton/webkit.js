@@ -28,7 +28,7 @@ generator_default_variables = {
   'STATIC_LIB_SUFFIX': '.bc',
   'SHARED_LIB_PREFIX': 'lib',
   'SHARED_LIB_SUFFIX': '.so',
-  'JS_LIB_SUFFIX':     '.js',
+  'JS_LIB_SUFFIX':     '.html',
   'JS_LIB_PREFIX':     '',
 
   # Gyp expects the following variables to be expandable by the build
@@ -1496,7 +1496,7 @@ def CalculateVariables(default_variables, params):
     default_variables.setdefault('SHARED_LIB_SUFFIX', '.so')
     default_variables.setdefault('STATIC_LIB_SUFFIX', '.bc')
     default_variables.setdefault('JS_LIB_PREFIX', '')
-    default_variables.setdefault('JS_LIB_SUFFIX', '.js')
+    default_variables.setdefault('JS_LIB_SUFFIX', '.html')
     default_variables.setdefault('SHARED_LIB_DIR',
                                  generator_default_variables['PRODUCT_DIR'])
     default_variables.setdefault('LIB_DIR',
@@ -1520,7 +1520,7 @@ def CalculateVariables(default_variables, params):
     default_variables['SHARED_LIB_PREFIX'] = ''
     default_variables['SHARED_LIB_SUFFIX'] = '.dll'
     default_variables['JS_LIB_PREFIX'] = ''
-    default_variables['JS_LIB_SUFFIX'] = '.js'
+    default_variables['JS_LIB_SUFFIX'] = '.html'
 
     # Copy additional generator configuration data from VS, which is shared
     # by the Windows Ninja generator.
@@ -1538,7 +1538,7 @@ def CalculateVariables(default_variables, params):
     default_variables.setdefault('OS', operating_system)
     default_variables.setdefault('SHARED_LIB_SUFFIX', '.so')
     default_variables.setdefault('JS_LIB_PREFIX', '')
-    default_variables.setdefault('JS_LIB_SUFFIX', '.js')
+    default_variables.setdefault('JS_LIB_SUFFIX', '.html')
     default_variables.setdefault('SHARED_LIB_DIR',
                                  os.path.join('$!PRODUCT_DIR', 'lib'))
     default_variables.setdefault('LIB_DIR',

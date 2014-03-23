@@ -49,6 +49,7 @@ namespace WebKit {
     void focusOutEvent(void *);
     void inputMethodEvent(void *);
     bool focusNextPrevChild(bool next);
+		WebCore::Page *page();
 	private:
 		std::unique_ptr<WebCore::Page> m_page;
 		WebCore::Page::PageClients m_pageClients;
