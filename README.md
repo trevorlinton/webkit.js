@@ -102,16 +102,7 @@ ninja -C Debug
 
 Running in the Browser
 --------------
-Compiling will produce a "test.html", you can use this to play around with rendering.  The debug console (for both Release and Debug versions) shows trace outputs and gives you an idea of what's going on under the hood. Look for LLVM traps or abort()'s to see if the renderer is crashing.  File any bugs you may find with the traces please. See Current Status above for more information.  Note currently only release versions work in Firefox and Chrome due to limitations in the amount of funcitons/symbols browsers are willing to handle.
-
-
-Running in Node
---------------
-This is the preferred way of running it, using the debug version traces will be printed to stderr. stdout contains bitblt's (As png's) of render changes, this will change once a best-of-breed method of painting is found (see Current Status). Debug and Release versions work in node.
-
-```
-$ node webkit.js "<html><body>Some HTML</body></html>"
-```
+See demo.html and webkit.js in the "bin" folder, runs best in Firefox (Chrome/Safari seem to have large long hiccups and freezes due to garbage collection).
 
 Contributing
 --------------
