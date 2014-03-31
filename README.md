@@ -104,6 +104,10 @@ Running in the Browser
 --------------
 See demo.html and webkit.js in the "bin" folder, runs best in Firefox (Chrome/Safari seem to have large long hiccups and freezes due to garbage collection).
 
+Demo
+--------------
+http://trevorlinton.github.io/webkit.js/demo.html
+
 Contributing
 --------------
 
