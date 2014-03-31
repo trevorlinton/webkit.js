@@ -55,7 +55,7 @@
 
 #include "DebuggerJS.h"
 
-#pragma GCC diagnostic ignored "-Wreturn-type"
+// #pragma GCC diagnostic ignored "-Wreturn-type"
 
 using namespace JSC;
 
@@ -97,40 +97,40 @@ void ScriptController::updatePlatformScriptObjects() {
 
 void ScriptController::destroyWindowShell(DOMWrapperWorld& world) { notImplemented(); }
 
-JSDOMWindowShell* ScriptController::createWindowShell(DOMWrapperWorld& world) { notImplemented(); }
+JSDOMWindowShell* ScriptController::createWindowShell(DOMWrapperWorld& world) { notImplemented(); return NULL; }
 
-Deprecated::ScriptValue ScriptController::evaluateInWorld(const ScriptSourceCode& sourceCode, DOMWrapperWorld& world) { notImplemented(); }
+Deprecated::ScriptValue ScriptController::evaluateInWorld(const ScriptSourceCode& sourceCode, DOMWrapperWorld& world) { notImplemented(); return Deprecated::ScriptValue(); }
 
-Deprecated::ScriptValue ScriptController::evaluate(const ScriptSourceCode& sourceCode) { notImplemented(); }
+Deprecated::ScriptValue ScriptController::evaluate(const ScriptSourceCode& sourceCode) { notImplemented();  return Deprecated::ScriptValue(); }
 
-PassRefPtr<DOMWrapperWorld> ScriptController::createWorld() { notImplemented(); }
+PassRefPtr<DOMWrapperWorld> ScriptController::createWorld() { notImplemented(); return nullptr; }
 
 void ScriptController::getAllWorlds(Vector<Ref<DOMWrapperWorld>>& worlds) { notImplemented(); }
 
 void ScriptController::clearWindowShell(DOMWindow* newDOMWindow, bool goingIntoPageCache) { notImplemented(); }
 
-JSDOMWindowShell* ScriptController::initScript(DOMWrapperWorld& world) { notImplemented(); }
+JSDOMWindowShell* ScriptController::initScript(DOMWrapperWorld& world) { notImplemented(); return NULL; }
 
-TextPosition ScriptController::eventHandlerPosition() const { notImplemented(); }
+TextPosition ScriptController::eventHandlerPosition() const { notImplemented(); return TextPosition(); }
 
 void ScriptController::enableEval() { notImplemented(); }
 
 void ScriptController::disableEval(const String& errorMessage) { notImplemented(); }
 
-bool ScriptController::processingUserGesture() { notImplemented(); }
+	bool ScriptController::processingUserGesture() { notImplemented(); return false; }
 
-bool ScriptController::canAccessFromCurrentOrigin(Frame *frame) { notImplemented(); }
+bool ScriptController::canAccessFromCurrentOrigin(Frame *frame) { notImplemented(); return false; }
 
 void ScriptController::attachDebugger(JSC::Debugger* debugger) { notImplemented(); }
 
 void ScriptController::attachDebugger(JSDOMWindowShell* shell, JSC::Debugger* debugger) { notImplemented(); }
 
 
-Bindings::RootObject* ScriptController::cacheableBindingRootObject() { notImplemented(); }
+Bindings::RootObject* ScriptController::cacheableBindingRootObject() { notImplemented(); return NULL; }
 
-Bindings::RootObject* ScriptController::bindingRootObject() { notImplemented(); }
+Bindings::RootObject* ScriptController::bindingRootObject() { notImplemented(); return NULL; }
 
-PassRefPtr<Bindings::RootObject> ScriptController::createRootObject(void* nativeHandle) { notImplemented(); }
+PassRefPtr<Bindings::RootObject> ScriptController::createRootObject(void* nativeHandle) { notImplemented(); return nullptr; }
 
 #if 0
 void ScriptController::setCaptureCallStackForUncaughtExceptions(bool) { notImplemented(); }
@@ -138,7 +138,7 @@ void ScriptController::setCaptureCallStackForUncaughtExceptions(bool) { notImple
 void ScriptController::collectIsolatedContexts(Vector<std::pair<JSC::ExecState*, SecurityOrigin*>>& result) { notImplemented(); }
 #endif
 
-PassRefPtr<JSC::Bindings::Instance> ScriptController::createScriptInstanceForWidget(Widget* widget) { notImplemented(); }
+PassRefPtr<JSC::Bindings::Instance> ScriptController::createScriptInstanceForWidget(Widget* widget) { notImplemented(); return nullptr; }
 
 
 void ScriptController::disconnectPlatformScriptObjects() { notImplemented(); }
@@ -147,17 +147,17 @@ void ScriptController::cleanupScriptObjectsForPlugin(void* nativeHandle) { notIm
 
 void ScriptController::clearScriptObjects() { notImplemented(); }
 
-Deprecated::ScriptValue ScriptController::executeScriptInWorld(DOMWrapperWorld& world, const String& script, bool forceUserGesture)  { notImplemented(); }
+Deprecated::ScriptValue ScriptController::executeScriptInWorld(DOMWrapperWorld& world, const String& script, bool forceUserGesture)  { notImplemented(); return Deprecated::ScriptValue(); }
 
 bool ScriptController::shouldBypassMainWorldContentSecurityPolicy() {
   notImplemented();
   return true;
 }
 
-Deprecated::ScriptValue ScriptController::executeScript(const String& script, bool forceUserGesture) { notImplemented(); }
+Deprecated::ScriptValue ScriptController::executeScript(const String& script, bool forceUserGesture) { notImplemented(); return Deprecated::ScriptValue(); }
 
-Deprecated::ScriptValue ScriptController::executeScript(const ScriptSourceCode& sourceCode) { notImplemented(); }
+Deprecated::ScriptValue ScriptController::executeScript(const ScriptSourceCode& sourceCode) { notImplemented();return Deprecated::ScriptValue(); }
 
-bool ScriptController::executeIfJavaScriptURL(const URL& url, ShouldReplaceDocumentIfJavaScriptURL shouldReplaceDocumentIfJavaScriptURL) { notImplemented(); }
+	bool ScriptController::executeIfJavaScriptURL(const URL& url, ShouldReplaceDocumentIfJavaScriptURL shouldReplaceDocumentIfJavaScriptURL) { notImplemented(); return false;}
 
 } // namespace WebCore

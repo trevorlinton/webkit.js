@@ -47,7 +47,7 @@
 #include "cairo-path-fixed-private.h"
 #include "cairo-slope-private.h"
 
-#define DEBUG 0
+// #define DEBUG 0
 
 struct stroker {
     cairo_stroke_style_t style;

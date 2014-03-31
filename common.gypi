@@ -8,11 +8,11 @@
 		'emscripten_ld':'<!(echo $EMSCRIPTEN_ROOT)/emcc',
 		# see configuration Release and Debug below for specific optimizations
 		# by release types.
-		'emscripten_linktojs':'-s EXPORTED_FUNCTIONS="[\'_main\']" --embed-files ../src/assets/fontconfig/fonts@/usr/share/fonts --embed-files ../src/assets/fontconfig/config/fonts.conf@/etc/fonts/fonts.conf --embed-files ../src/assets/fontconfig/cache@/usr/local/var/cache/fontconfig -s TOTAL_MEMORY=50331648 -s OUTLINING_LIMIT=5000 -s FULL_ES2=1 -s ASM_JS=0', # --memory-init-file 1
-		'cflags':'-Wno-warn-absolute-paths -isysroot <(emscripten_sysroot)',
+		'emscripten_linktojs':'-s EXPORTED_FUNCTIONS="[\'_createWebKit\',\'_setHtml\',\'_setTransparent\',\'_scrollBy\',\'_resize\']" --embed-files ../src/assets/fontconfig/fonts@/usr/share/fonts --embed-files ../src/assets/fontconfig/config/fonts.conf@/etc/fonts/fonts.conf --embed-files ../src/assets/fontconfig/cache@/usr/local/var/cache/fontconfig -s TOTAL_MEMORY=50331648 -s LINKABLE=1 -s FULL_ES2=1 -s ASM_JS=0 --post-js ../src/webkit.api.js', # --memory-init-file 1 -s OUTLINING_LIMIT=5000 -s 
+		'cflags':'-Wno-warn-absolute-paths -fshort-wchar -isysroot <(emscripten_sysroot)',
 		'cflags_cc':'-std=c++0x',
 		'ldflags':'',
-		'webcore_excludes':'(SSLHandle\\.cpp$|leveldb/|skia|glx/|cg/|ca/|avfoundation/|wince/|Modules/|soup/|ios/|nix/|plugin/|plugins/|blackberry/|WinCE|Gtk|storage/|win/|linux/|glib/|cocoa/|gtk/|cf/|mac/|efl/|appcache/|ExportFileGenerator\\.cpp$|CF\\.cpp$|IOS\\.|Mac\\.|Win\\.|XMLHttpRequest|ThemeSafari|PlugInElement|PlugInImageElement|JSAbstractView|InspectorWebBackend|AllInOne|OpenTypeUtilities|HarfBuzzFaceCoreText|graphics/FontPlatformData\\.cpp$|GraphicsContext3DOpenGL\\.cpp$|platform/sql/|ICU\\.cpp$|enchant/|ExportFileGenerator\\.cpp$|SmartReplaceICU\\.cpp$|HTMLObjectElement\\.cpp$|RenderEmbeddedObject\\.cpp$|Extensions3DOpenGL\\.cpp$|DragController\\.cpp$|JSDOMPlugin\\.cpp$|WebCoreDerived/JS|posix/|debug.cpp$|ANGLE/src/common/|_win.cpp$|BlobResourceHandle\\.cpp$|BlobRegistryImpl\\.cpp$|BlobRegistry\\.cpp$|coordinated/|GraphicsContext3DOpenGL\\.cpp$|svg/)', #InitializeParseContext|ossource_posix.cpp$
+		'webcore_excludes':'(SSLHandle\\.cpp$|leveldb/|skia|glx/|cg/|ca/|avfoundation/|wince/|Modules/|soup/|ios/|nix/|plugin/|plugins/|blackberry/|WinCE|Gtk|storage/|win/|linux/|glib/|cocoa/|gtk/|cf/|mac/|efl/|appcache/|ExportFileGenerator\\.cpp$|CF\\.cpp$|IOS\\.|Mac\\.|Win\\.|XMLHttpRequest|ThemeSafari|PlugInElement|PlugInImageElement|JSAbstractView|InspectorWebBackend|AllInOne|OpenTypeUtilities|HarfBuzzFaceCoreText|graphics/FontPlatformData\\.cpp$|GraphicsContext3DOpenGL\\.cpp$|platform/sql/|ICU\\.cpp$|enchant/|ExportFileGenerator\\.cpp$|SmartReplaceICU\\.cpp$|HTMLObjectElement\\.cpp$|RenderEmbeddedObject\\.cpp$|Extensions3DOpenGL\\.cpp$|DragController\\.cpp$|JSDOMPlugin\\.cpp$|WebCoreDerived/JS|posix/|debug.cpp$|ANGLE/src/common/|_win.cpp$|BlobResourceHandle\\.cpp$|BlobRegistryImpl\\.cpp$|BlobRegistry\\.cpp$|GraphicsContext3DOpenGL\\.cpp$|svg/)', #InitializeParseContext|ossource_posix.cpp$|coordinated/
 	},
 	'target_defaults': {
 		'default_configuration': 'Release',
@@ -40,11 +40,11 @@
 				# for some bizzare reason adding -g0 onto this causes the compiler to slow to a crawl and
 				#		take up gigabytes (13+) of memory. Don't do it.
 				# Using ASM_JS=0 is necessary at the moment since browsers limit the amount of local vars.
-				'jsflags+':['<(emscripten_linktojs) -O3 --llvm-opts 3 --proxy-to-worker'],
+				'jsflags+':['<(emscripten_linktojs) -O3 --llvm-opts 3'], # --proxy-to-worker
 			},
 			'Debug': {
 				'defines+': ['DEBUG','TARGET_EMSCRIPTEN'],
-				'cflags+':['<(cflags) -O0'], # -g4 do not add this, it causes huge memory allocations on compile
+				'cflags+':['<(cflags) -O2'], # -g4 do not add this, it causes huge memory allocations on compile
 				'cflags_cc+':['<(cflags_cc)'],
 				'ldflags+':['<(ldflags)'],
 				# -s LABEL_DEBUG=1 is not supported in 1.13.0+ of emscripten.
@@ -57,7 +57,10 @@
 				#		not global variable errors, we will see.
 				# For some reason adding -g4 to this causes the compiler to slow to a crawl and take up
 				#		gigabytes of memory, don't do it.
-				'jsflags+':['<(emscripten_linktojs) -O0'],
+				# We add -O2 to get rid of dead functions, -g2 preserves the symbol names for a fairly
+				#		decent stack trace on an abort or heap/stack violation.  Using js-opts 0 disables any
+				#		mangaling of the javascript, this is the optimal way of debugging.
+				'jsflags+':['<(emscripten_linktojs) -O2 -g2 --js-opts 0'],
 			},
 		},
 	},

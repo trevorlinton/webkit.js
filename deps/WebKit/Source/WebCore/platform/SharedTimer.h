@@ -29,6 +29,10 @@
 #include <wtf/FastMalloc.h>
 #include <wtf/Noncopyable.h>
 
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
+
 namespace WebCore {
 
     // Each thread has its own single instance of shared timer, which implements this interface.
@@ -58,16 +62,25 @@ namespace WebCore {
     public:
         virtual void setFiredFunction(void (*function)())
         {
+#if PLATFORM(JS)
+					webkitTrace();
+#endif
             setSharedTimerFiredFunction(function);
         }
         
         virtual void setFireInterval(double interval)
         {
+#if PLATFORM(JS)
+					webkitTrace();
+#endif
             setSharedTimerFireInterval(interval);
         }
         
         virtual void stop()
         {
+#if PLATFORM(JS)
+					webkitTrace();
+#endif
             stopSharedTimer();
         }
     };

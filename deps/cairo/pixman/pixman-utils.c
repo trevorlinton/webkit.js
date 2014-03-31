@@ -55,91 +55,91 @@ _pixman_lookup_composite_function (pixman_implementation_t     *toplevel,
 				   pixman_implementation_t    **out_imp,
 				   pixman_composite_func_t     *out_func)
 {
-    pixman_implementation_t *imp;
-    cache_t *cache;
-    int i;
+	pixman_implementation_t *imp;
+	cache_t *cache;
+	int i;
 
-    /* Check cache for fast paths */
-    cache = PIXMAN_GET_THREAD_LOCAL (fast_path_cache);
+	/* Check cache for fast paths */
+	cache = PIXMAN_GET_THREAD_LOCAL (fast_path_cache);
 
-    for (i = 0; i < N_CACHED_FAST_PATHS; ++i)
-    {
-	const pixman_fast_path_t *info = &(cache->cache[i].fast_path);
-
-	/* Note that we check for equality here, not whether
-	 * the cached fast path matches. This is to prevent
-	 * us from selecting an overly general fast path
-	 * when a more specific one would work.
-	 */
-	if (info->op == op			&&
-	    info->src_format == src_format	&&
-	    info->mask_format == mask_format	&&
-	    info->dest_format == dest_format	&&
-	    info->src_flags == src_flags	&&
-	    info->mask_flags == mask_flags	&&
-	    info->dest_flags == dest_flags	&&
-	    info->func)
+	for (i = 0; i < N_CACHED_FAST_PATHS; ++i)
 	{
+		const pixman_fast_path_t *info = &(cache->cache[i].fast_path);
+
+		/* Note that we check for equality here, not whether
+		 * the cached fast path matches. This is to prevent
+		 * us from selecting an overly general fast path
+		 * when a more specific one would work.
+		 */
+		if (info->op == op			&&
+				info->src_format == src_format	&&
+				info->mask_format == mask_format	&&
+				info->dest_format == dest_format	&&
+				info->src_flags == src_flags	&&
+				info->mask_flags == mask_flags	&&
+				info->dest_flags == dest_flags	&&
+				info->func)
+		{
 	    *out_imp = cache->cache[i].imp;
 	    *out_func = cache->cache[i].fast_path.func;
 
 	    goto update_cache;
+		}
 	}
-    }
 
-    for (imp = toplevel; imp != NULL; imp = imp->delegate)
-    {
-	const pixman_fast_path_t *info = imp->fast_paths;
-
-	while (info->op != PIXMAN_OP_NONE)
+	for (imp = toplevel; imp != NULL; imp = imp->delegate)
 	{
-	    if ((info->op == op || info->op == PIXMAN_OP_any)		&&
-		/* Formats */
-		((info->src_format == src_format) ||
-		 (info->src_format == PIXMAN_any))			&&
-		((info->mask_format == mask_format) ||
-		 (info->mask_format == PIXMAN_any))			&&
-		((info->dest_format == dest_format) ||
-		 (info->dest_format == PIXMAN_any))			&&
-		/* Flags */
-		(info->src_flags & src_flags) == info->src_flags	&&
-		(info->mask_flags & mask_flags) == info->mask_flags	&&
-		(info->dest_flags & dest_flags) == info->dest_flags)
+		const pixman_fast_path_t *info = imp->fast_paths;
+
+		while (info->op != PIXMAN_OP_NONE)
+		{
+	    if ((info->op == op)		&&  // || info->op == (PIXMAN_N_OPERATORS + 1)
+					/* Formats */
+					((info->src_format == src_format) ||
+					 (info->src_format == PIXMAN_any))			&&
+					((info->mask_format == mask_format) ||
+					 (info->mask_format == PIXMAN_any))			&&
+					((info->dest_format == dest_format) ||
+					 (info->dest_format == PIXMAN_any))			&&
+					/* Flags */
+					(info->src_flags & src_flags) == info->src_flags	&&
+					(info->mask_flags & mask_flags) == info->mask_flags	&&
+					(info->dest_flags & dest_flags) == info->dest_flags)
 	    {
-		*out_imp = imp;
-		*out_func = info->func;
+				*out_imp = imp;
+				*out_func = info->func;
 
-		/* Set i to the last spot in the cache so that the
-		 * move-to-front code below will work
-		 */
-		i = N_CACHED_FAST_PATHS - 1;
+				/* Set i to the last spot in the cache so that the
+				 * move-to-front code below will work
+				 */
+				i = N_CACHED_FAST_PATHS - 1;
 
-		goto update_cache;
+				goto update_cache;
 	    }
 
 	    ++info;
+		}
 	}
-    }
-    return FALSE;
+	return FALSE;
 
 update_cache:
-    if (i)
-    {
-	while (i--)
+	if (i)
+	{
+		while (i--)
 	    cache->cache[i + 1] = cache->cache[i];
 
-	cache->cache[0].imp = *out_imp;
-	cache->cache[0].fast_path.op = op;
-	cache->cache[0].fast_path.src_format = src_format;
-	cache->cache[0].fast_path.src_flags = src_flags;
-	cache->cache[0].fast_path.mask_format = mask_format;
-	cache->cache[0].fast_path.mask_flags = mask_flags;
-	cache->cache[0].fast_path.dest_format = dest_format;
-	cache->cache[0].fast_path.dest_flags = dest_flags;
-	cache->cache[0].fast_path.func = *out_func;
-    }
-
-    return TRUE;
+		cache->cache[0].imp = *out_imp;
+		cache->cache[0].fast_path.op = op;
+		cache->cache[0].fast_path.src_format = src_format;
+		cache->cache[0].fast_path.src_flags = src_flags;
+		cache->cache[0].fast_path.mask_format = mask_format;
+		cache->cache[0].fast_path.mask_flags = mask_flags;
+		cache->cache[0].fast_path.dest_format = dest_format;
+		cache->cache[0].fast_path.dest_flags = dest_flags;
+		cache->cache[0].fast_path.func = *out_func;
+	}
+	
+	return TRUE;
 }
 
 pixman_bool_t

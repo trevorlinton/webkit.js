@@ -87,7 +87,7 @@ _cairo_gl_composite_set_mask (cairo_gl_composite_t *setup,
 {
     _cairo_gl_operand_destroy (&setup->mask);
     if (pattern == NULL)
-        return CAIRO_STATUS_SUCCESS;
+        return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
     return _cairo_gl_operand_init (&setup->mask, pattern, setup->dst,
 				   sample, extents);
@@ -776,10 +776,10 @@ _cairo_gl_composite_init (cairo_gl_composite_t *setup,
         if (op != CAIRO_OPERATOR_CLEAR &&
             op != CAIRO_OPERATOR_OVER &&
             op != CAIRO_OPERATOR_ADD)
-            return UNSUPPORTED ("unsupported component alpha operator");
+            return (cairo_status_t)UNSUPPORTED ("unsupported component alpha operator");
     } else {
         if (! _cairo_gl_operator_is_supported (op))
-            return UNSUPPORTED ("unsupported operator");
+            return (cairo_status_t)UNSUPPORTED ("unsupported operator");
     }
 
     setup->dst = dst;
@@ -820,24 +820,24 @@ _cairo_gl_composite_append_vertex_indices (cairo_gl_context_t	*ctx,
 	const int *indices_array = _cairo_array_index_const (indices, 0);
 	current_vertex_index = indices_array[number_of_indices - 1];
 
-	status = _cairo_array_append (indices, &current_vertex_index);
+	status = (cairo_int_status_t)_cairo_array_append (indices, &current_vertex_index);
 	if (unlikely (status))
 	    return status;
 
 	current_vertex_index++;
-	status =_cairo_array_append (indices, &current_vertex_index);
+	status = (cairo_int_status_t)_cairo_array_append (indices, &current_vertex_index);
 	if (unlikely (status))
 	    return status;
     }
 
     for (i = 0; i < number_of_new_indices; i++) {
-	status = _cairo_array_append (indices, &current_vertex_index);
+	status = (cairo_int_status_t)_cairo_array_append (indices, &current_vertex_index);
 	current_vertex_index++;
 	if (unlikely (status))
 	    return status;
     }
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 cairo_int_status_t

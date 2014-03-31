@@ -34,7 +34,7 @@
     #define supressNotImplementedWarning() false
 #endif
 
-#if LOG_DISABLED
+#if LOG_DISABLED && !PLATFORM(JS)
     #define notImplemented() ((void)0)
 #else
 
@@ -42,13 +42,12 @@ namespace WebCore {
 	WTFLogChannel* notImplementedLoggingChannel();
 }
 
-#if PLATFORM(JS)
+#if !PLATFORM(JS)
 
-#define notImplemented() { \
-		fprintf(stderr,"WebKit: Unimplemented: %s:%i\n", __FILE__, __LINE__); \
-}
-
-#else
+// #define notImplemented() { \
+//		fprintf(stderr,"WebKit: Unimplemented: %s:%i\n", __FILE__, __LINE__); \
+// }
+// #else
 
 #define notImplemented() do { \
         static bool havePrinted = false; \
@@ -57,7 +56,8 @@ namespace WebCore {
             havePrinted = true; \
         } \
     } while (0)
-
+#else
+#include "DebuggerJS.h"
 #endif
 
 #endif // NDEBUG

@@ -39,9 +39,5 @@ typedef unsigned char LChar;
 #error "Unknown Unicode implementation"
 #endif
 
-#if PLATFORM(JS)
-static_assert(sizeof(UChar) == 4, "UChar must be two bytes!");
-#else
 static_assert(sizeof(UChar) == 2, "UChar must be two bytes!");
-#endif
 #endif // WTF_UNICODE_H

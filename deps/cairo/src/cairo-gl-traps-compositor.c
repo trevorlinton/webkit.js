@@ -54,13 +54,13 @@
 static cairo_int_status_t
 acquire (void *abstract_dst)
 {
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static cairo_int_status_t
 release (void *abstract_dst)
 {
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static cairo_int_status_t
@@ -70,7 +70,7 @@ set_clip_region (void *_surface,
     cairo_gl_surface_t *surface = _surface;
 
     surface->clip_region = region;
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static cairo_int_status_t
@@ -97,11 +97,11 @@ draw_image_boxes (void *_dst,
 						   w, h,
 						   x, y);
 	    if (unlikely (status))
-		return status;
+		return (cairo_int_status_t)status;
 	}
     }
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static void
@@ -132,18 +132,18 @@ fill_boxes (void		*_dst,
     cairo_gl_context_t *ctx;
     cairo_int_status_t status;
 
-    status = _cairo_gl_composite_init (&setup, op, _dst, FALSE);
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&setup, op, _dst, FALSE);
     if (unlikely (status))
         goto FAIL;
 
    _cairo_gl_composite_set_solid_source (&setup, color);
 
-    status = _cairo_gl_composite_begin (&setup, &ctx);
+    status = (cairo_int_status_t)_cairo_gl_composite_begin (&setup, &ctx);
     if (unlikely (status))
         goto FAIL;
 
     emit_aligned_boxes (ctx, boxes);
-    status = _cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
+    status = (cairo_int_status_t)_cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
 
 FAIL:
     _cairo_gl_composite_fini (&setup);
@@ -168,7 +168,7 @@ composite_boxes (void			*_dst,
     cairo_gl_context_t *ctx;
     cairo_int_status_t status;
 
-    status = _cairo_gl_composite_init (&setup, op, _dst, FALSE);
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&setup, op, _dst, FALSE);
     if (unlikely (status))
         goto FAIL;
 
@@ -178,12 +178,12 @@ composite_boxes (void			*_dst,
     _cairo_gl_composite_set_mask_operand (&setup,
 					  source_to_operand (abstract_mask));
 
-    status = _cairo_gl_composite_begin (&setup, &ctx);
+    status = (cairo_int_status_t)_cairo_gl_composite_begin (&setup, &ctx);
     if (unlikely (status))
         goto FAIL;
 
     emit_aligned_boxes (ctx, boxes);
-    status = _cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
+    status = (cairo_int_status_t)_cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
 
 FAIL:
     _cairo_gl_composite_fini (&setup);
@@ -208,7 +208,7 @@ composite (void			*_dst,
     cairo_gl_context_t *ctx;
     cairo_int_status_t status;
 
-    status = _cairo_gl_composite_init (&setup, op, _dst, FALSE);
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&setup, op, _dst, FALSE);
     if (unlikely (status))
         goto FAIL;
 
@@ -218,13 +218,13 @@ composite (void			*_dst,
     _cairo_gl_composite_set_mask_operand (&setup,
 					  source_to_operand (abstract_mask));
 
-    status = _cairo_gl_composite_begin (&setup, &ctx);
+    status = (cairo_int_status_t)_cairo_gl_composite_begin (&setup, &ctx);
     if (unlikely (status))
         goto FAIL;
 
     /* XXX clip */
     _cairo_gl_composite_emit_rect (ctx, dst_x, dst_y, dst_x+width, dst_y+height, 0);
-    status = _cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
+    status = (cairo_int_status_t)_cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
 
 FAIL:
     _cairo_gl_composite_fini (&setup);
@@ -263,7 +263,7 @@ lerp (void			*dst,
     if (unlikely (status))
 	return status;
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static cairo_int_status_t
@@ -285,14 +285,14 @@ traps_to_operand (void *_dst,
 					     extents->height,
 					     NULL, 0);
     if (unlikely (pixman_image == NULL))
-	return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+	return (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 
     _pixman_image_add_traps (pixman_image, extents->x, extents->y, traps);
     image = _cairo_image_surface_create_for_pixman_image (pixman_image,
 							  pixman_format);
     if (unlikely (image->status)) {
 	pixman_image_unref (pixman_image);
-	return image->status;
+	return (cairo_int_status_t)image->status;
     }
 
     mask = _cairo_surface_create_similar_scratch (_dst,
@@ -301,7 +301,7 @@ traps_to_operand (void *_dst,
 						  extents->height);
     if (unlikely (mask->status)) {
 	cairo_surface_destroy (image);
-	return mask->status;
+	return (cairo_int_status_t)mask->status;
     }
 
     status = _cairo_gl_surface_draw_image ((cairo_gl_surface_t *)mask,
@@ -318,7 +318,7 @@ traps_to_operand (void *_dst,
 				 -extents->x, -extents->y);
     pattern.base.filter = CAIRO_FILTER_NEAREST;
     pattern.base.extend = CAIRO_EXTEND_NONE;
-    status = _cairo_gl_operand_init (operand, &pattern.base, _dst,
+    status = (cairo_status_t)_cairo_gl_operand_init (operand, &pattern.base, _dst,
 				     &_cairo_unbounded_rectangle,
 				     &_cairo_unbounded_rectangle);
     _cairo_pattern_fini (&pattern.base);
@@ -326,12 +326,12 @@ traps_to_operand (void *_dst,
     if (unlikely (status))
 	goto error;
 
-    operand->texture.owns_surface = mask;
-    return CAIRO_STATUS_SUCCESS;
+    operand->texture.owns_surface = (cairo_gl_surface_t *)mask;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
 error:
     cairo_surface_destroy (mask);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 static cairo_int_status_t
@@ -350,7 +350,7 @@ composite_traps (void			*_dst,
     cairo_gl_context_t *ctx;
     cairo_int_status_t status;
 
-    status = _cairo_gl_composite_init (&setup, op, _dst, FALSE);
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&setup, op, _dst, FALSE);
     if (unlikely (status))
         goto FAIL;
 
@@ -360,7 +360,7 @@ composite_traps (void			*_dst,
     if (unlikely (status))
 	goto FAIL;
 
-    status = _cairo_gl_composite_begin (&setup, &ctx);
+    status = (cairo_int_status_t)_cairo_gl_composite_begin (&setup, &ctx);
     if (unlikely (status))
         goto FAIL;
 
@@ -369,7 +369,7 @@ composite_traps (void			*_dst,
 				   dst_x, dst_y,
 				   dst_x+extents->width,
 				   dst_y+extents->height, 0);
-    status = _cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
+    status = (cairo_int_status_t)_cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
 
 FAIL:
     _cairo_gl_composite_fini (&setup);
@@ -445,9 +445,9 @@ composite_tristrip (void		*_dst,
 
     mask = tristrip_to_surface (_dst, extents, antialias, strip);
     if (unlikely (mask->base.status))
-	return mask->base.status;
+	return (cairo_int_status_t)mask->base.status;
 
-    status = _cairo_gl_composite_init (&setup, op, _dst, FALSE);
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&setup, op, _dst, FALSE);
     if (unlikely (status))
         goto FAIL;
 
@@ -456,7 +456,7 @@ composite_tristrip (void		*_dst,
 
     //_cairo_gl_composite_set_mask_surface (&setup, mask, 0, 0);
 
-    status = _cairo_gl_composite_begin (&setup, &ctx);
+    status = (cairo_int_status_t)_cairo_gl_composite_begin (&setup, &ctx);
     if (unlikely (status))
         goto FAIL;
 
@@ -465,7 +465,7 @@ composite_tristrip (void		*_dst,
 				   dst_x, dst_y,
 				   dst_x+extents->width,
 				   dst_y+extents->height, 0);
-    status = _cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
+    status =(cairo_int_status_t) _cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
 
 FAIL:
     _cairo_gl_composite_fini (&setup);
@@ -479,7 +479,7 @@ check_composite (const cairo_composite_rectangles_t *extents)
     if (! _cairo_gl_operator_is_supported (extents->op))
 	return UNSUPPORTED ("unsupported operator");
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 const cairo_compositor_t *

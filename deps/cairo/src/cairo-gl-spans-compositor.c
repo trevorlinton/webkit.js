@@ -263,18 +263,18 @@ fill_boxes (void		*_dst,
     cairo_int_status_t status;
 
     TRACE ((stderr, "%s\n", __FUNCTION__));
-    status = _cairo_gl_composite_init (&setup, op, _dst, FALSE);
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&setup, op, _dst, FALSE);
     if (unlikely (status))
         goto FAIL;
 
    _cairo_gl_composite_set_solid_source (&setup, color);
 
-    status = _cairo_gl_composite_begin (&setup, &ctx);
+    status = (cairo_int_status_t)_cairo_gl_composite_begin (&setup, &ctx);
     if (unlikely (status))
         goto FAIL;
 
     emit_aligned_boxes (ctx, boxes);
-    status = _cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
+    status = (cairo_int_status_t)_cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
 
 FAIL:
     _cairo_gl_composite_fini (&setup);
@@ -305,11 +305,11 @@ draw_image_boxes (void *_dst,
 						   w, h,
 						   x, y);
 	    if (unlikely (status))
-		return status;
+		return (cairo_int_status_t)status;
 	}
     }
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static cairo_int_status_t copy_boxes (void *_dst,
@@ -323,19 +323,19 @@ static cairo_int_status_t copy_boxes (void *_dst,
     cairo_int_status_t status;
 
     TRACE ((stderr, "%s\n", __FUNCTION__));
-    status = _cairo_gl_composite_init (&setup, CAIRO_OPERATOR_SOURCE, _dst, FALSE);
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&setup, CAIRO_OPERATOR_SOURCE, _dst, FALSE);
     if (unlikely (status))
         goto FAIL;
 
     _cairo_gl_composite_set_source_operand (&setup, source_to_operand (src));
     _cairo_gl_operand_translate (&setup.src, dx, dy);
 
-    status = _cairo_gl_composite_begin (&setup, &ctx);
+    status = (cairo_int_status_t)_cairo_gl_composite_begin (&setup, &ctx);
     if (unlikely (status))
         goto FAIL;
 
     emit_aligned_boxes (ctx, boxes);
-    status = _cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
+    status = (cairo_int_status_t)_cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
 
 FAIL:
     _cairo_gl_composite_fini (&setup);
@@ -362,7 +362,7 @@ composite_boxes (void			*_dst,
 
     TRACE ((stderr, "%s mask=(%d,%d), dst=(%d, %d)\n", __FUNCTION__,
 	    mask_x, mask_y, dst_x, dst_y));
-    status = _cairo_gl_composite_init (&setup, op, _dst, FALSE);
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&setup, op, _dst, FALSE);
     if (unlikely (status))
         goto FAIL;
 
@@ -374,12 +374,12 @@ composite_boxes (void			*_dst,
 					  source_to_operand (abstract_mask));
     _cairo_gl_operand_translate (&setup.mask, -mask_x, -mask_y);
 
-    status = _cairo_gl_composite_begin (&setup, &ctx);
+    status = (cairo_int_status_t)_cairo_gl_composite_begin (&setup, &ctx);
     if (unlikely (status))
         goto FAIL;
 
     emit_aligned_boxes (ctx, boxes);
-    status = _cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
+    status = (cairo_int_status_t)_cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
 
 FAIL:
     _cairo_gl_composite_fini (&setup);
@@ -412,7 +412,7 @@ _cairo_gl_span_renderer_init (cairo_abstract_span_renderer_t	*_r,
     } else if (! _cairo_gl_operator_is_supported (op))
 	return CAIRO_INT_STATUS_UNSUPPORTED;
 
-    status = _cairo_gl_composite_init (&r->setup,
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&r->setup,
                                        op, (cairo_gl_surface_t *)composite->surface,
                                        FALSE);
     if (unlikely (status))
@@ -438,7 +438,7 @@ _cairo_gl_span_renderer_init (cairo_abstract_span_renderer_t	*_r,
 
     _cairo_gl_composite_set_spans (&r->setup);
 
-    status = _cairo_gl_composite_begin (&r->setup, &r->ctx);
+    status = (cairo_int_status_t)_cairo_gl_composite_begin (&r->setup, &r->ctx);
     if (unlikely (status))
         goto FAIL;
 
@@ -460,7 +460,7 @@ _cairo_gl_span_renderer_init (cairo_abstract_span_renderer_t	*_r,
 	r->ymax = composite->unbounded.y + composite->unbounded.height;
     }
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
 FAIL:
     return status;

@@ -122,7 +122,7 @@ _cairo_gl_glyph_cache_add_glyph (cairo_gl_context_t *ctx,
 	status = _cairo_rtree_evict_random (&cache->rtree,
 				            width, height, &node);
 	if (status == CAIRO_INT_STATUS_SUCCESS) {
-	    status = _cairo_rtree_node_insert (&cache->rtree,
+	    status = (cairo_int_status_t)_cairo_rtree_node_insert (&cache->rtree,
 		                               node, width, height, &node);
 	}
     }
@@ -131,7 +131,7 @@ _cairo_gl_glyph_cache_add_glyph (cairo_gl_context_t *ctx,
 
     /* XXX: Make sure we use the mask texture. This should work automagically somehow */
     glActiveTexture (GL_TEXTURE1);
-    status = _cairo_gl_surface_draw_image (cache->surface, glyph_surface,
+    status = (cairo_int_status_t)_cairo_gl_surface_draw_image (cache->surface, glyph_surface,
                                            0, 0,
                                            glyph_surface->width, glyph_surface->height,
                                            node->x, node->y);
@@ -161,7 +161,7 @@ _cairo_gl_glyph_cache_add_glyph (cairo_gl_context_t *ctx,
 	glyph_private->p2.y /= GLYPH_CACHE_HEIGHT;
     }
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static cairo_gl_glyph_t *
@@ -240,11 +240,11 @@ render_glyphs (cairo_gl_surface_t	*dst,
 
     *has_component_alpha = FALSE;
 
-    status = _cairo_gl_context_acquire (dst->base.device, &ctx);
+    status = (cairo_int_status_t)_cairo_gl_context_acquire (dst->base.device, &ctx);
     if (unlikely (status))
-	return status;
+	return (cairo_status_t)status;
 
-    status = _cairo_gl_composite_init (&setup, op, dst, TRUE);
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&setup, op, dst, TRUE);
     if (unlikely (status))
 	goto FINISH;
 
@@ -274,7 +274,7 @@ render_glyphs (cairo_gl_surface_t	*dst,
 	    continue;
 	}
 	if (scaled_glyph->surface->format != last_format) {
-	    status = cairo_gl_context_get_glyph_cache (ctx,
+	    status = (cairo_int_status_t)cairo_gl_context_get_glyph_cache (ctx,
 						       scaled_glyph->surface->format,
                                                        &cache);
             if (unlikely (status))
@@ -286,8 +286,8 @@ render_glyphs (cairo_gl_surface_t	*dst,
 	    *has_component_alpha |= cache->surface->operand.texture.attributes.has_component_alpha;
 
 	    /* XXX Shoot me. */
-            status = _cairo_gl_composite_begin (&setup, &ctx);
-            status = _cairo_gl_context_release (ctx, status);
+            status = (cairo_int_status_t)_cairo_gl_composite_begin (&setup, &ctx);
+            status = (cairo_int_status_t)_cairo_gl_context_release (ctx, (cairo_status_t)status);
 	    if (unlikely (status))
 		goto FINISH;
 	}
@@ -331,12 +331,12 @@ render_glyphs (cairo_gl_surface_t	*dst,
                                         glyph->p2.x, glyph->p2.y);
     }
 
-    status = CAIRO_STATUS_SUCCESS;
+    status = (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
   FINISH:
-    status = _cairo_gl_context_release (ctx, status);
+    status = (cairo_int_status_t)_cairo_gl_context_release (ctx, (cairo_status_t)status);
 
     _cairo_gl_composite_fini (&setup);
-    return status;
+    return (cairo_status_t)status;
 }
 
 static cairo_int_status_t
@@ -358,7 +358,7 @@ render_glyphs_via_mask (cairo_gl_surface_t *dst,
                                     info->extents.width,
                                     info->extents.height);
     if (unlikely (mask->status))
-        return mask->status;
+        return (cairo_int_status_t)mask->status;
 
     status = render_glyphs ((cairo_gl_surface_t *) mask,
 			    info->extents.x, info->extents.y,
@@ -392,7 +392,7 @@ render_glyphs_via_mask (cairo_gl_surface_t *dst,
 
     cairo_surface_destroy (mask);
 
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 cairo_int_status_t
@@ -408,7 +408,7 @@ _cairo_gl_check_composite_glyphs (const cairo_composite_rectangles_t *extents,
     if (ceil (scaled_font->max_scale) >= GLYPH_CACHE_MAX_SIZE)
 	return UNSUPPORTED ("glyphs too large");
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 cairo_int_status_t
@@ -450,7 +450,7 @@ _cairo_gl_composite_glyphs (void			*_dst,
 	return render_glyphs_via_mask (dst, dst_x, dst_y,
 				       op, _src, info);
     } else {
-	return render_glyphs (dst, dst_x, dst_y,
+	return (cairo_int_status_t)render_glyphs (dst, dst_x, dst_y,
 			      op, _src, info,
 			      &has_component_alpha);
     }

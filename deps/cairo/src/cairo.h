@@ -38,10 +38,10 @@
 #ifndef CAIRO_H
 #define CAIRO_H
 
-#pragma GCC diagnostic ignored "-Wenum-conversion"
-#pragma GCC diagnostic ignored "-Wincompatible-pointer-types"
-#pragma GCC diagnostic ignored "-Wparentheses-equality"
-#pragma GCC diagnostic ignored "-Wtautological-constant-out-of-range-compare"
+// #pragma GCC diagnostic ignored "-Wenum-conversion"
+// #pragma GCC diagnostic ignored "-Wincompatible-pointer-types"
+// #pragma GCC diagnostic ignored "-Wparentheses-equality"
+// #pragma GCC diagnostic ignored "-Wtautological-constant-out-of-range-compare"
 #include "cairo-version.h"
 #include "cairo-features.h"
 #include "cairo-deprecated.h"

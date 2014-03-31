@@ -1117,7 +1117,7 @@ _cairo_matrix_to_pixman_matrix_offset (const cairo_matrix_t	*matrix,
 
     if (is_pixman_translation) {
 	*out_transform = pixman_identity_transform;
-	return CAIRO_INT_STATUS_NOTHING_TO_DO;
+	return (cairo_status_t)CAIRO_INT_STATUS_NOTHING_TO_DO;
     } else {
 	cairo_matrix_t m;
 

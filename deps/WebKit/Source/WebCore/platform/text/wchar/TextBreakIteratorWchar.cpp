@@ -67,8 +67,8 @@ public:
         currentPos = length;
         return currentPos;
     }
-    virtual int next() = 0;
-    virtual int previous() = 0;
+	virtual int next() { return 0; };
+	virtual int previous() { return 0; };
     int following(int position)
     {
         currentPos = position;

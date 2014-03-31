@@ -251,7 +251,7 @@ namespace WebCore {
   PlatformPageClient ChromeClientJS::platformPageClient() const
   {
     webkitTrace();
-    return 0;
+    return m_view;
   }
 
   void ChromeClientJS::contentsSizeChanged(Frame* frame, const IntSize& size) const

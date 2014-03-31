@@ -55,7 +55,6 @@ Widget::~Widget()
 
 IntRect Widget::frameRect() const
 {
-		webkitTrace();
     return m_frame;
 }
 

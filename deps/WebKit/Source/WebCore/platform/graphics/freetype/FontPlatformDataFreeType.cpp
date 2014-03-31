@@ -22,7 +22,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#pragma GCC diagnostic ignored "-Wreturn-type"
+// #pragma GCC diagnostic ignored "-Wreturn-type"
 #include "config.h"
 #include "FontPlatformData.h"
 

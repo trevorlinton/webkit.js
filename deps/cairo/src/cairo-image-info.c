@@ -134,7 +134,7 @@ _cairo_image_info_get_jpeg_info (cairo_image_info_t	*info,
 		return CAIRO_INT_STATUS_UNSUPPORTED;
 
 	    _jpeg_extract_info (info, p);
-	    return CAIRO_STATUS_SUCCESS;
+	    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
 	default:
 	    if (*p >= RST_begin && *p <= RST_end) {
@@ -150,7 +150,7 @@ _cairo_image_info_get_jpeg_info (cairo_image_info_t	*info,
 	}
     }
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 /* JPEG 2000 (image/jp2)
@@ -249,7 +249,7 @@ _cairo_image_info_get_jpx_info (cairo_image_info_t	*info,
     p = _jpx_get_box_contents (p);
     _jpx_extract_info (p, info);
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 /* PNG (image/png)
@@ -288,5 +288,5 @@ _cairo_image_info_get_png_info (cairo_image_info_t     *info,
     p += 4;
     info->height = _get_be32 (p);
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }

@@ -9,13 +9,13 @@
 #include <wtf/RefPtr.h>
 
 namespace WebCore {
-  static bool timerActive;
-  static unsigned timerInterval;
-  static void (*sharedTimerFiredFunction)();
+  static bool timerActive = false;
+  static unsigned timerInterval = 0;
+  static void (*sharedTimerFiredFunction)() = NULL;
 
   void sharedTimerRun(void *args) {
 		webkitTrace();
-    if(timerActive) {
+    if(timerActive && sharedTimerFiredFunction != NULL) {
       sharedTimerFiredFunction();
       //emscripten_async_call(sharedTimerRun, args, timerInterval);
     }

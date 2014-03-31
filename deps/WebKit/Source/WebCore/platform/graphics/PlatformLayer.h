@@ -45,7 +45,7 @@ class TextureMapperPlatformLayer;
 typedef TextureMapperPlatformLayer PlatformLayer;
 };
 #endif
-#elif PLATFORM(EFL) || PLATFORM(NIX) || PLATFORM(JS)
+#elif PLATFORM(EFL) || PLATFORM(NIX)
 #if USE(TEXTURE_MAPPER)
 namespace WebCore {
 class TextureMapperPlatformLayer;
@@ -57,8 +57,15 @@ namespace WebCore {
 class LayerWebKitThread;
 typedef LayerWebKitThread PlatformLayer;
 }
+#elif PLATFORM(JS)
+#if USE(TEXTURE_MAPPER)
+namespace WebCore {
+	class TextureMapperPlatformLayer;
+	typedef TextureMapperPlatformLayer PlatformLayer;
+};
 #else
 typedef void* PlatformLayer;
+#endif
 #endif
 
 #endif // USE(ACCELERATED_COMPOSITING)

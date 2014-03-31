@@ -171,7 +171,7 @@ public:
 
 inline bool TimerHeapLessThanFunction::operator()(const TimerBase* a, const TimerBase* b) const
 {
-    // The comparisons below are "backwards" because the heap puts the largest 
+    // The comparisons below are "backwards" because the heap puts the largest
     // element first and we want the lowest time to be the first one in the heap.
     double aFireTime = a->m_nextFireTime;
     double bFireTime = b->m_nextFireTime;

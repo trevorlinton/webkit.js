@@ -93,12 +93,12 @@ namespace WebCore {
     virtual bool paintMediaSliderThumb(RenderObject*, const PaintInfo&, const IntRect&);
 #endif
 
-// #if ENABLE(METER_ELEMENT)
+#if ENABLE(METER_ELEMENT)
     virtual IntSize meterSizeForBounds(const RenderMeter*, const IntRect&) const OVERRIDE;
     virtual bool supportsMeter(ControlPart) const OVERRIDE;
     virtual void adjustMeterStyle(StyleResolver*, RenderStyle*, Element*) const OVERRIDE;
     virtual bool paintMeter(RenderObject*, const PaintInfo&, const IntRect&) OVERRIDE;
-// #endif
+#endif
 
     virtual bool shouldShowPlaceholderWhenFocused() const { return true; }
 

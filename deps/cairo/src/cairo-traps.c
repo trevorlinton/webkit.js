@@ -572,7 +572,7 @@ _cairo_traps_extract_region (cairo_traps_t   *traps,
 	rects = _cairo_malloc_ab (traps->num_traps, sizeof (cairo_rectangle_int_t));
 
 	if (unlikely (rects == NULL))
-	    return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+	    return (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
     }
 
     rect_count = 0;
@@ -602,7 +602,7 @@ _cairo_traps_extract_region (cairo_traps_t   *traps,
 
 
     *region = cairo_region_create_rectangles (rects, rect_count);
-    status = (*region)->status;
+    status = (cairo_int_status_t)(*region)->status;
 
     if (rects != stack_rects)
 	free (rects);
@@ -806,9 +806,9 @@ _cairo_rasterise_polygon_to_traps (cairo_polygon_t			*polygon,
 						   r.x + r.width,
 						   r.y + r.height,
 						   fill_rule);
-    status = _cairo_mono_scan_converter_add_polygon (converter, polygon);
+    status = (cairo_int_status_t)_cairo_mono_scan_converter_add_polygon (converter, polygon);
     if (likely (status == CAIRO_INT_STATUS_SUCCESS))
-	status = converter->generate (converter, &renderer.base);
+	status = (cairo_int_status_t)converter->generate (converter, &renderer.base);
     converter->destroy (converter);
     return status;
 }

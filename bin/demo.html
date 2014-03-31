@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>webkit.js</title>
+  <style>
+    body {
+      font-family:arial;
+      margin:0;
+      padding:none;
+      background-color:#eee;
+    }
+    header {
+      height:30px;
+      background-color: white;
+      font-size:25px;
+      padding:10px;
+      font-family:'Helvetica Neue';
+      font-weight:300;
+    }
+    header div {
+      width:350px;
+      right:0;
+      top:15px;
+      position:absolute;
+      font-size:12px;
+      font-weight:normal;
+    }
+    canvas { 
+      padding:25px;
+      margin-left: auto; margin-right: auto; display: block;
+    }
+    #status {
+      display: block;
+      width:100%;
+      margin-left: 20px;
+      font-weight: bold;
+      color: rgb(120, 120, 120);
+    }
+    #progress {
+      height: 20px;
+      width: 30px;
+    }
+    #controls {
+    }
+    #output {
+      width: 49%;
+      height: 200px;
+      margin: 0 auto;
+      display: inline-block;
+      background-color: black;
+      color: white;
+      font-size:10px;
+      font-family: 'Lucida Console', Monaco, monospace;
+      outline: none;
+    }
+    #input {
+      width:49%;
+      height: 200px;
+      margin: 0 auto;
+      display: inline-block;
+      font-size:10px;
+      font-family: 'Lucida Console', Monaco, monospace;
+      outline: none;
+    }
+    #controls {
+      width:100%;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    #width, #height {
+      width:50px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    webkit.js demo
+    <div>
+      Viewport Size:
+      <input type="text" id="width" value="500"/>
+      <input type="text" id="height" value="300"/>
+      <input type="button" id="resize" value="Resize" />
+      <input type="button" id="render" value="Render" />
+    </div>
+  </header>
+  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+  <div id="controls">
+    <textarea id="output" rows="8"></textarea>
+    <textarea id="input" rows="8"><html><body>Hello World!</body></html></textarea>
+    
+  </div>
+  <div id="status">
+    <div class="spinner" id="spinner"></div>
+    <div class="emscripten" id="status">Downloading...</div>
+    <div class="emscripten"><progress value="0" max="100" id="progress" hidden=1></progress></div>
+  </div>
+  <script type='text/javascript'>
+    var statusElement = document.getElementById('status');
+    var progressElement = document.getElementById('progress');
+    var spinnerElement = document.getElementById('spinner');
+    document.getElementById('resize').addEventListener('click', function() {
+      WebKit.resize(parseInt(document.getElementById('width').value),parseInt(document.getElementById('height').value));
+    });
+    document.getElementById('render').addEventListener('click', function() {
+      WebKit.html(document.getElementById('input').value);
+    });
+    var Module = {
+      preRun: [],
+      postRun: [function() {
+        WebKit.create(400,400);
+      }],
+      print: (function() {
+          var element = document.getElementById('output');
+          element.value = 'webkit.js output log'; // clear browser cache
+          return function(text) {
+            text = Array.prototype.slice.call(arguments).join(' ');
+            element.value += text + "\n";
+            element.scrollTop = element.scrollHeight; // focus on bottom
+          };
+        })(),
+      printErr: (function() {
+          var element = document.getElementById('output');
+          element.value = 'webkit.js output log'; // clear browser cache
+          return function(text) {
+            text = Array.prototype.slice.call(arguments).join(' ');
+            element.value += text + "\n";
+            element.scrollTop = element.scrollHeight; // focus on bottom
+          };
+      })(),
+      canvas: document.getElementById('canvas'),
+      setStatus: function(text) {
+          if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+          if (text === Module.setStatus.text) return;
+          var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+            var now = Date.now();
+          if (m && now - Date.now() < 30) return; // if this is a progress update, skip it if too soon
+          if (m) {
+            text = m[1];
+            progressElement.value = parseInt(m[2])*100;
+            progressElement.max = parseInt(m[4])*100;
+            progressElement.hidden = false;
+            spinnerElement.hidden = false;
+          } else {
+            progressElement.value = null;
+            progressElement.max = null;
+            progressElement.hidden = true;
+            if (!text) spinnerElement.style.display = 'none';
+          }
+          statusElement.innerHTML = text;
+      },
+      totalDependencies: 0,
+      monitorRunDependencies: function(left) {
+          this.totalDependencies = Math.max(this.totalDependencies, left);
+          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+      }
+    };
+    Module.setStatus('Downloading...');
+    window.webkitWorker = new Worker('webkit.js');
+    window.webkitWorker.onmessage = function(e) {
+      if(e.data['call'] == 'ready') {
+        Module.setStatus('Running...');
+        WebKit.create(500,300);
+      }
+      else if (e.data['call'] == 'print' || e.data['call'] == 'printErr') {
+        var element = document.getElementById('output');
+        var text = e.data['value'];
+        element.value += text + "\n";
+        element.scrollTop = element.scrollHeight;
+      }
+      else if (e.data['call'] == 'canvas' && e.data['type'] == 'putImageData') {
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var imgdata = context.getImageData(e.data.dx,e.data.dy,e.data.width,e.data.height); 
+        //imgdata.data = new Uint8ClampedArray(e.data.imgdata, 0, e.data.imgdata.byteLength);
+        imgdata.data.buffer = e.data.imgdata;
+
+        var tmp = new Uint8ClampedArray(e.data.imgdata);
+        for(var i=0; i < imgdata.data.length; i++)
+          imgdata.data[i] = tmp[i];
+        context.putImageData(imgdata,e.data.dx,e.data.dy); 
+
+        console.log(e.data);
+        //,e.data.dirtyX,e.data.dirtyY,e.data.dirtyWidth,e.data.dirtyHeight
+      } else if (e.data['call'] == 'canvas' && e.data['type'] == 'drawImage') {
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var imgdata = context.getImageData(e.data.dx,e.data.dy,e.data.width,e.data.height); 
+        imgdata.data.buffer = e.data.imgdata;
+
+        var tmp = new Uint8ClampedArray(e.data.imgdata);
+        for(var i=0; i < imgdata.data.length; i++)
+          imgdata.data[i] = tmp[i];
+
+        context.putImageData(imgdata,e.data.dx,e.data.dy);
+        console.log(e.data);
+      } else if (e.data['call'] == 'canvas' && e.data['type'] == 'width') {
+        console.log('setting canvas width');
+        var canvas = document.getElementById('canvas');
+        canvas.width = e.data.value;
+      } else if (e.data['call'] == 'canvas' && e.data['type'] == 'height') {
+        console.log('setting canvas height');
+        var canvas = document.getElementById('canvas');
+        canvas.height = e.data.value;
+      } 
+    }
+    var WebKit = { };
+    WebKit.create = function(w,h) { window.webkitWorker.postMessage({call:'create',width:w,height:h}); }
+    WebKit.html = function(v) { window.webkitWorker.postMessage({call:'html',value:v}); }
+    WebKit.transparent = function(v) { window.webkitWorker.postMessage({call:'transparent',value:v}); }
+    WebKit.resize = function(w,h) { window.webkitWorker.postMessage({call:'resize',width:w,height:h}); }
+  </script>
+ 
+</body>
+</html>

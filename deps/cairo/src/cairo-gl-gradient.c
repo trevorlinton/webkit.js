@@ -217,12 +217,12 @@ _cairo_gl_gradient_create (cairo_gl_context_t           *ctx,
     gradient = _cairo_gl_gradient_lookup (ctx, hash, n_stops, stops);
     if (gradient) {
 	*gradient_out = _cairo_gl_gradient_reference (gradient);
-	return CAIRO_STATUS_SUCCESS;
+	return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
     }
 
     gradient = malloc (sizeof (cairo_gl_gradient_t) + sizeof (cairo_gradient_stop_t) * (n_stops - 1));
     if (gradient == NULL)
-	return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+	return (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 
     tex_width = _cairo_gl_gradient_sample_width (n_stops, stops);
 
@@ -258,13 +258,13 @@ _cairo_gl_gradient_create (cairo_gl_context_t           *ctx,
 	CAIRO_REFERENCE_COUNT_INIT (&gradient->ref_count, 1);
 
     *gradient_out = gradient;
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
 cleanup_data:
     free (data);
 cleanup_gradient:
     free (gradient);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 cairo_gl_gradient_t *

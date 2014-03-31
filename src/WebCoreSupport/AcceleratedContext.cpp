@@ -74,7 +74,7 @@ namespace WebKit {
     if (m_rootLayer)
 			return;
 
-    FloatSize pageSize = m_webView->getViewPortSize().size();
+    IntSize pageSize = m_webView->size();
     //if (!m_redirectedWindow) {
 			//if (m_redirectedWindow = RedirectedXCompositeWindow::create(pageSize))
 			//	m_redirectedWindow->setDamageNotifyCallback(redirectedWindowDamagedCallback, m_webView);
@@ -86,7 +86,7 @@ namespace WebKit {
 
     m_rootLayer = GraphicsLayer::create(0, this);
     m_rootLayer->setDrawsContent(false);
-    m_rootLayer->setSize(pageSize);
+    m_rootLayer->setSize(FloatSize(pageSize.width(),pageSize.height()));
 
     // The non-composited contents are a child of the root layer.
     m_nonCompositedContentLayer = GraphicsLayer::create(0, this);
@@ -179,7 +179,7 @@ namespace WebKit {
     if (!context)
 			return;
 
-    const FloatSize& windowSize = m_webView->getViewPortSize().size(); //m_redirectedWindow->size();
+    const IntSize& windowSize = m_webView->size(); //m_redirectedWindow->size();
     glViewport(0, 0, windowSize.width(), windowSize.height());
 
     if (purpose == ForResize) {
@@ -201,7 +201,7 @@ namespace WebKit {
     if (!context)
 			return;
 
-    const FloatSize& windowSize = m_webView->getViewPortSize().size(); //m_redirectedWindow->size();
+    const IntSize& windowSize = m_webView->size(); //m_redirectedWindow->size();
     glViewport(0, 0, windowSize.width(), windowSize.height());
     glClearColor(1, 1, 1, 1);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -276,7 +276,8 @@ namespace WebKit {
     if (m_rootLayer->size() == newSize)
 			return;
 
-		m_webView->setViewPortSize(FloatRect(0,0,newSize.width(),newSize.height()));
+		m_webView->resize(newSize.width(), newSize.height());
+		//setViewPortSize(FloatRect(0,0,newSize.width(),newSize.height()));
     //m_redirectedWindow->resize(newSize);
     // ? m_rootLayer->setSize(newSize);
 
@@ -337,7 +338,7 @@ namespace WebKit {
     if (!enabled())
 			return;
 
-    Frame& frame = m_webView->page()->mainFrame();
+    Frame& frame = m_webView->p()->corePage->mainFrame();
     if (!frame.contentRenderer() || !frame.view())
 			return;
     frame.view()->updateLayoutAndStyleIfNeededRecursive();

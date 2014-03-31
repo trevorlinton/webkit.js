@@ -9,28 +9,51 @@
 #include "MainFrame.h"
 #include "BitmapImage.h"
 #include "GraphicsContext.h"
-#include "FloatRect.h"
+#include "IntSize.h"
+#include "WebFrameJS.h"
 
+// Platform level surfaces.
 #include "cairo.h"
+#include "SDL.h"
+
+namespace WebCore {
+	class ChromeClientJS;
+	class FrameLoaderClientJS;
+	class WebFrameJS;
+}
 
 namespace WebKit {
+	class AcceleratedContext;
+
+	struct WebViewPrivate {
+		WebCore::GraphicsContext* context = NULL;
+		cairo_surface_t* cairo_surface = NULL;
+		cairo_t* cairo_device = NULL;
+    SDL_Surface* sdl_screen = NULL;
+    SDL_Surface* sdl_surface = NULL;
+    WebCore::Page* corePage = NULL;
+		WebCore::WebFrameJS* mainFrame = NULL;
+    bool transparent = false;
+    WebCore::IntSize size;
+	};
+
 	class WebView {
 	public:
-		WebView();
+		WebView(int width, int height);
+		~WebView();
 
-		bool initialize();
-		void tictoc();
-
+		void setTransparent(bool transparent) { m_private->transparent = transparent; };
+		bool transparent() { return m_private->transparent; };
+		
 		void setUrl(char *);
-		char *getUrl();
+		char *url();
 		void setHtml(char *, int len);
-		char *getHtml();
-		void render(WebCore::GraphicsContext* context, WebCore::IntRect clip);
-		WebCore::BitmapImage *render(WebCore::IntRect clip);
-		void setViewPortSize(WebCore::FloatRect size);
-		WebCore::FloatRect& getViewPortSize();
-		void invalidate(WebCore::IntRect rect, int immediate);
-    void resizeEvent(void *);
+		char *html();
+
+		void resize(int width, int height);
+		WebCore::IntSize size();
+		void scrollBy(int offsetX, int offsetY);
+		void resizeEvent(void *);
     void paintEvent(void *);
     void changeEvent(void *);
     void mouseMoveEvent(void *);
@@ -49,12 +72,19 @@ namespace WebKit {
     void focusOutEvent(void *);
     void inputMethodEvent(void *);
     bool focusNextPrevChild(bool next);
-		WebCore::Page *page();
+	protected:
+		friend class WebCore::ChromeClientJS;
+		friend class WebCore::FrameLoaderClientJS;
+		friend class WebCore::WebFrameJS;
+		friend class WebKit::AcceleratedContext;
+
+		WebViewPrivate* p() { return m_private; }
+		void invalidate(WebCore::IntRect rect, int immediate);
 	private:
-		std::unique_ptr<WebCore::Page> m_page;
-		WebCore::Page::PageClients m_pageClients;
-		WebCore::FloatRect m_viewPortSize;
-		WebCore::GraphicsContext *context;
+		void draw(WebCore::IntRect rect, int immediate);
+    void handleSDLEvent(const SDL_Event& event);
+		bool recreateSurface(int width, int height);
+		WebViewPrivate* m_private;
 	};
 }
 

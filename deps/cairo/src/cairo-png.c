@@ -181,18 +181,18 @@ write_png (cairo_surface_t	*surface,
 	int png_color_type;
 	int bpc;
 
-	status = _cairo_surface_acquire_source_image (surface,
+	status = (cairo_int_status_t)_cairo_surface_acquire_source_image (surface,
 																								&image,
 																								&image_extra);
 
 	if (status == CAIRO_INT_STATUS_UNSUPPORTED) {
-		return _cairo_error (CAIRO_STATUS_SURFACE_TYPE_MISMATCH);
+		return (cairo_status_t)_cairo_error (CAIRO_STATUS_SURFACE_TYPE_MISMATCH);
 	} else if (unlikely (status)) {
-		return status;
+		return (cairo_status_t)status;
 	}
 	/* PNG complains about "Image width or height is zero in IHDR" */
 	if (image->width == 0 || image->height == 0) {
-		status = _cairo_error (CAIRO_STATUS_WRITE_ERROR);
+		status = (cairo_int_status_t)_cairo_error (CAIRO_STATUS_WRITE_ERROR);
 		goto BAIL1;
 	}
 
@@ -200,14 +200,14 @@ write_png (cairo_surface_t	*surface,
 	 * by coercing them to a simpler format using pixman.
 	 */
 	clone = _cairo_image_surface_coerce (image);
-	status = clone->base.status;
+	status = (cairo_int_status_t)clone->base.status;
 	if (unlikely (status)){
 		goto BAIL1;
 	}
 
 	rows = _cairo_malloc_ab (clone->height, sizeof (png_byte*));
 	if (unlikely (rows == NULL)) {
-		status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
+		status = (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 		goto BAIL2;
 	}
 
@@ -217,13 +217,13 @@ write_png (cairo_surface_t	*surface,
 																 png_simple_error_callback,
 																 png_simple_warning_callback);
 	if (unlikely (png == NULL)) {
-		status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
+		status = (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 		goto BAIL3;
 	}
 
 	info = png_create_info_struct (png);
 	if (unlikely (info == NULL)) {
-		status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
+		status = (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 		goto BAIL4;
 	}
 
@@ -264,7 +264,7 @@ write_png (cairo_surface_t	*surface,
     case CAIRO_FORMAT_INVALID:
     case CAIRO_FORMAT_RGB16_565:
     default:
-			status = _cairo_error (CAIRO_STATUS_INVALID_FORMAT);
+			status = (cairo_int_status_t)_cairo_error (CAIRO_STATUS_INVALID_FORMAT);
 			goto BAIL4;
 	}
 
@@ -312,7 +312,7 @@ BAIL2:
 BAIL1:
 	_cairo_surface_release_source_image (surface, image, image_extra);
 
-	return status;
+	return (cairo_status_t)status;
 }
 
 static void

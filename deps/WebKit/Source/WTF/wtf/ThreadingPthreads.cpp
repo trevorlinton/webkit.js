@@ -218,6 +218,7 @@ ThreadIdentifier createThreadInternal(ThreadFunction entryPoint, void* data, con
 
     return establishIdentifierForPthreadHandle(threadHandle);
 #else
+		fprintf(stderr, "WebKit: *** CANNOT CREATE A THREAD, WERE JAVASCIRPT ***\n");
     return 0;
 #endif
 }

@@ -420,17 +420,17 @@ _cairo_rasterise_polygon_to_boxes (cairo_polygon_t			*polygon,
 						   r.x + r.width,
 						   r.y + r.height,
 						   fill_rule);
-    status = _cairo_mono_scan_converter_add_polygon (converter, polygon);
+    status = (cairo_int_status_t)_cairo_mono_scan_converter_add_polygon (converter, polygon);
     if (unlikely (status))
 	goto cleanup_converter;
 
     renderer.boxes = boxes;
     renderer.base.render_rows = span_to_boxes;
 
-    status = converter->generate (converter, &renderer.base);
+    status = (cairo_int_status_t)converter->generate (converter, &renderer.base);
 cleanup_converter:
     converter->destroy (converter);
-    return status;
+    return (cairo_status_t)status;
 }
 
 void

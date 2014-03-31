@@ -28,6 +28,10 @@
 #include <wtf/RefCounted.h>
 #include <wtf/text/WTFString.h>
 
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
+
 namespace WebCore {
 
 class FloatPoint;
@@ -175,7 +179,12 @@ public:
 #if ENABLE(8BIT_TEXTRUN)
     void setText(const LChar* c, unsigned len) { m_data.characters8 = c; m_len = len; m_is8Bit = true;}
 #endif
-    void setText(const UChar* c, unsigned len) { m_data.characters16 = c; m_len = len; m_is8Bit = false;}
+    void setText(const UChar* c, unsigned len) {
+#if PLATFORM(JS)
+			webkitTrace();
+#endif
+			m_data.characters16 = c; m_len = len; m_is8Bit = false;
+		}
     void setCharactersLength(unsigned charactersLength) { m_charactersLength = charactersLength; }
 
 #if ENABLE(SVG)

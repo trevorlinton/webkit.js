@@ -45,7 +45,7 @@ public:
     virtual cairo_device_t* cairoDevice();
 #endif
 
-#if ENABLE(WEBGL)
+#if ENABLE(WEBGL) || USE(3D_GRAPHICS)
     virtual PlatformGraphicsContext3D platformContext();
 #endif
 

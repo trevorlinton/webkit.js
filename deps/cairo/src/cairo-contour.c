@@ -68,7 +68,7 @@ __cairo_contour_add_point (cairo_contour_t *contour,
 				    sizeof (cairo_point_t),
 				    sizeof (cairo_contour_chain_t));
     if (unlikely (next == NULL))
-	return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+	return (cairo_int_status_t) _cairo_error (CAIRO_STATUS_NO_MEMORY);
 
     next->size_points = tail->size_points*2;
     next->num_points = 1;

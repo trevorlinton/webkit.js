@@ -134,7 +134,7 @@ _cairo_composite_rectangles_init_for_paint (cairo_composite_rectangles_t *extent
 				     &extents->bounded,
 				     &extents->source_sample_area);
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static cairo_int_status_t
@@ -169,7 +169,7 @@ _cairo_composite_rectangles_intersect (cairo_composite_rectangles_t *extents,
 	}
     }
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 cairo_int_status_t
@@ -413,7 +413,7 @@ _cairo_composite_rectangles_init_for_glyphs (cairo_composite_rectangles_t *exten
 						      &extents->mask,
 						      overlap);
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
     return _cairo_composite_rectangles_intersect (extents, clip);
 }
@@ -446,7 +446,7 @@ _cairo_composite_rectangles_add_to_damage (cairo_composite_rectangles_t *composi
     int n;
 
     for (n = 0; n < composite->clip->num_boxes; n++) {
-	status = _cairo_boxes_add (damage,
+	status = (cairo_int_status_t)_cairo_boxes_add (damage,
 			  CAIRO_ANTIALIAS_NONE,
 			  &composite->clip->boxes[n]);
 	if (unlikely (status))

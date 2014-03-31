@@ -2128,7 +2128,7 @@ _cairo_ft_scaled_glyph_init (void			*abstract_font,
 
 	face = _cairo_ft_unscaled_font_lock_face (unscaled);
 	if (!face)
-		return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+		return (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 
 	status = _cairo_ft_unscaled_font_set_scale (scaled_font->unscaled,
 																							&scaled_font->base.scale);
@@ -2335,7 +2335,7 @@ _cairo_ft_scaled_glyph_init (void			*abstract_font,
 	    status = _decompose_glyph_outline (face, &scaled_font->ft_options.base,
 																				 &path);
 		else
-	    status = CAIRO_INT_STATUS_UNSUPPORTED;
+	    status = (cairo_status_t)CAIRO_INT_STATUS_UNSUPPORTED;
 
 		if (unlikely (status))
 	    goto FAIL;
@@ -2347,7 +2347,7 @@ _cairo_ft_scaled_glyph_init (void			*abstract_font,
 FAIL:
 	_cairo_ft_unscaled_font_unlock_face (unscaled);
 
-	return status;
+	return (cairo_int_status_t)status;
 }
 
 static unsigned long
@@ -2383,7 +2383,7 @@ _cairo_ft_load_truetype_table (void	       *abstract_font,
 	cairo_ft_scaled_font_t *scaled_font = abstract_font;
 	cairo_ft_unscaled_font_t *unscaled = scaled_font->unscaled;
 	FT_Face face;
-	cairo_status_t status = CAIRO_INT_STATUS_UNSUPPORTED;
+	cairo_status_t status = (cairo_status_t)CAIRO_INT_STATUS_UNSUPPORTED;
 
 	/* We don't support the FreeType feature of loading a table
 	 * without specifying the size since this may overflow our
@@ -2409,7 +2409,7 @@ _cairo_ft_load_truetype_table (void	       *abstract_font,
 	_cairo_ft_unscaled_font_unlock_face (unscaled);
 #endif
 
-	return status;
+	return (cairo_int_status_t)status;
 }
 
 static cairo_int_status_t
@@ -2425,7 +2425,7 @@ _cairo_ft_index_to_ucs4(void	        *abstract_font,
 
 	face = _cairo_ft_unscaled_font_lock_face (unscaled);
 	if (!face)
-		return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+		return (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 
 	*ucs4 = (uint32_t) -1;
 	charcode = FT_Get_First_Char(face, &gindex);
@@ -2439,7 +2439,7 @@ _cairo_ft_index_to_ucs4(void	        *abstract_font,
 
 	_cairo_ft_unscaled_font_unlock_face (unscaled);
 
-	return CAIRO_STATUS_SUCCESS;
+	return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static cairo_bool_t
@@ -2465,7 +2465,7 @@ _cairo_index_to_glyph_name (void	         *abstract_font,
 
 	face = _cairo_ft_unscaled_font_lock_face (unscaled);
 	if (!face)
-		return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+		return (cairo_int_status_t) _cairo_error (CAIRO_STATUS_NO_MEMORY);
 
 	error = FT_Get_Glyph_Name (face, glyph_index, buffer, sizeof buffer);
 
@@ -2474,7 +2474,7 @@ _cairo_index_to_glyph_name (void	         *abstract_font,
 	if (error != FT_Err_Ok) {
 		/* propagate fatal errors from FreeType */
 		if (error == FT_Err_Out_Of_Memory)
-	    return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+	    return (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 
 		return CAIRO_INT_STATUS_UNSUPPORTED;
 	}
@@ -2495,14 +2495,14 @@ _cairo_index_to_glyph_name (void	         *abstract_font,
 	{
 		*glyph_array_index = glyph_index;
 
-		return CAIRO_STATUS_SUCCESS;
+		return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 	}
 
 	for (i = 0; i < num_glyph_names; i++) {
 		if (strcmp (glyph_names[i], buffer) == 0) {
 	    *glyph_array_index = i;
 
-	    return CAIRO_STATUS_SUCCESS;
+	    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 		}
 	}
 
@@ -2530,7 +2530,7 @@ _cairo_ft_load_type1_data (void	            *abstract_font,
 
 	face = _cairo_ft_unscaled_font_lock_face (unscaled);
 	if (!face)
-		return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+		return (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 
 #if HAVE_FT_LOAD_SFNT_TABLE
 	if (FT_IS_SFNT (face)) {
@@ -2544,7 +2544,7 @@ _cairo_ft_load_type1_data (void	            *abstract_font,
 			!(strcmp (font_format, "Type 1") == 0 ||
 				strcmp (font_format, "CFF") == 0))
 	{
-		status = CAIRO_INT_STATUS_UNSUPPORTED;
+		status = (cairo_status_t)CAIRO_INT_STATUS_UNSUPPORTED;
 		goto unlock;
 	}
 
@@ -2553,7 +2553,7 @@ _cairo_ft_load_type1_data (void	            *abstract_font,
 		*length = available_length;
 	} else {
 		if (*length > available_length) {
-	    status = CAIRO_INT_STATUS_UNSUPPORTED;
+	    status = (cairo_status_t)CAIRO_INT_STATUS_UNSUPPORTED;
 		} else if (face->stream->read != NULL) {
 	    /* Note that read() may be implemented as a macro, thanks POSIX!, so we
 	     * need to wrap the following usage in parentheses in order to
@@ -2574,7 +2574,7 @@ _cairo_ft_load_type1_data (void	            *abstract_font,
 unlock:
 	_cairo_ft_unscaled_font_unlock_face (unscaled);
 
-	return status;
+	return (cairo_int_status_t)status;
 }
 
 static const cairo_scaled_font_backend_t _cairo_ft_scaled_font_backend = {

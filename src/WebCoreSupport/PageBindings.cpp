@@ -1,4 +1,4 @@
-#pragma GCC diagnostic ignored "-Wreturn-type"
+// #pragma GCC diagnostic ignored "-Wreturn-type"
 #include <emscripten.h>
 
 #include "config.h"
@@ -55,12 +55,12 @@ void WTF::scheduleDispatchFunctionsOnMainThread() {
 }
 
 namespace WebCore {
-
+#if USE(ACCELERATED_COMPOSITING)
   bool RenderEmbeddedObject::allowsAcceleratedCompositing() const {
 		webkitTrace();
 		return true;
 	}
-
+#endif
   /*ApplicationCacheHost::ApplicationCacheHost(WebCore::DocumentLoader* documentLoader)
 	 : m_documentLoader(documentLoader)
 	 , m_defersEvents(true)
@@ -72,9 +72,6 @@ namespace WebCore {
 
 
 
-  RefPtr<ScriptCallStack> createScriptCallStack(unsigned int, bool) {
-    return nullptr;
-  }
 
 
   void addImpureProperty(const AtomicString& propertyName)
@@ -86,9 +83,12 @@ namespace WebCore {
   PassRefPtr<Image> Image::loadPlatformResource(char const*) {
     // TODO: Implement this.
     notImplemented();
+		return nullptr;
   }
-  PassRefPtr<JSLazyEventListener> JSLazyEventListener::createForNode(WebCore::ContainerNode&, WebCore::QualifiedName const& a, WTF::AtomicString const& b) {
+  PassRefPtr<JSLazyEventListener> JSLazyEventListener::createForNode(WebCore::ContainerNode&, WebCore::QualifiedName const& a, WTF::AtomicString const& b)
+	{
     notImplemented();
+		return nullptr;
   }
 
   // TODO: Implement this
@@ -105,7 +105,7 @@ namespace WebCore {
   }
 
   // TODO: Implement this
-  FloatRect screenRect(WebCore::Widget*) { notImplemented(); }
+  FloatRect screenRect(WebCore::Widget*) { notImplemented(); return FloatRect(0,0,1024,768); }
 
   char* localizedString(char const* in) {
     return NULL;
@@ -174,33 +174,48 @@ namespace WebCore {
   /* Not Implemented */
 
   void platformUserPreferredLanguages() { notImplemented(); }
-  int screenDepthPerComponent(WebCore::Widget*) { notImplemented(); }
+  int screenDepthPerComponent(WebCore::Widget*) { notImplemented(); return 32; }
   bool screenIsMonochrome(WebCore::Widget*) { return false; }
   void setSSLVerifyOptions(WebCore::ResourceHandle*) { notImplemented(); }
 
   void signedPublicKeyAndChallengeString(unsigned int, WTF::String const&, WebCore::URL const&) { notImplemented(); }
   void willCreatePossiblyOrphanedTreeByRemovalSlowCase(WebCore::Node*) { notImplemented(); }
-  RenderPtr<RenderEmbeddedObject> RenderEmbeddedObject::createForApplet(WebCore::HTMLAppletElement& a, WTF::PassRef<WebCore::RenderStyle> b) { notImplemented(); }
+  RenderPtr<RenderEmbeddedObject> RenderEmbeddedObject::createForApplet(WebCore::HTMLAppletElement& a, WTF::PassRef<WebCore::RenderStyle> b) { notImplemented(); return nullptr; }
   Cursor::Cursor(Cursor const&) { notImplemented(); }
-  Cursor& Cursor::operator=(const Cursor& cursor) { notImplemented(); }
+  Cursor& Cursor::operator=(const Cursor& cursor) { notImplemented(); return *this; }
   Cursor::~Cursor()  { notImplemented(); }
   File::File(WTF::String const& a, WTF::String const& b, File::ContentTypeLookupPolicy c) { notImplemented(); }
   File::File(WTF::String const& a, File::ContentTypeLookupPolicy b) { notImplemented(); }
   FileList::FileList() { notImplemented(); }
-  File* FileList::item(unsigned int a) const { notImplemented(); }
-  Vector<String> FileList::paths() const { notImplemented(); }
+  File* FileList::item(unsigned int a) const { notImplemented(); return NULL; }
+  Vector<String> FileList::paths() const { notImplemented(); return Vector<String>(1); }
   DOMWrapperWorld::~DOMWrapperWorld() { notImplemented(); }
   void Icon::paint(GraphicsContext*, IntRect const&) { notImplemented(); }
   Icon::~Icon() { notImplemented(); }
   //JSC::VM* JSDOMWindowBase::commonVM() { notImplemented(); }
   void JSDOMWindowBase::updateDocument() { notImplemented(); }
   void JSDOMWindowBase::willRemoveFromWindowShell() { notImplemented(); }
-  const ScriptCallFrame& ScriptCallStack::at(size_t a) const { notImplemented(); }
-  size_t ScriptCallStack::size() const { notImplemented(); }
+
+
+  RefPtr<ScriptCallStack> createScriptCallStack(unsigned int, bool) {
+    return nullptr;
+  }
+
+	ScriptCallFrame::ScriptCallFrame(const String& functionName, const String& scriptName, unsigned lineNumber, unsigned column)
+	{
+
+	}
+	const ScriptCallFrame& ScriptCallStack::at(size_t a) const {
+		notImplemented();
+		ScriptCallFrame *tmp = new ScriptCallFrame("","",0,0);
+		return *tmp;
+	}
+  size_t ScriptCallStack::size() const { notImplemented(); return 0; }
   ScriptCallStack::~ScriptCallStack() { notImplemented(); }
   ScriptCachedFrameData::ScriptCachedFrameData(WebCore::Frame& a) { notImplemented(); }
   ScriptCachedFrameData::~ScriptCachedFrameData() { notImplemented(); }
-  void ScriptCachedFrameData::restore(WebCore::Frame& b) { notImplemented(); }
+
+	void ScriptCachedFrameData::restore(WebCore::Frame& b) { notImplemented(); }
   bool PlatformKeyboardEvent::currentCapsLockState() { return false; }
   void PlatformKeyboardEvent::getCurrentModifierState(bool& a, bool& b, bool& c, bool& d) { notImplemented(); }
 
@@ -208,11 +223,11 @@ namespace WebCore {
   void BitmapImage::invalidatePlatformData() { notImplemented(); }
   void Editor::pasteWithPasteboard(WebCore::Pasteboard*, bool) { notImplemented(); }
 
-  bool EventHandler::passMouseMoveEventToSubframe(WebCore::MouseEventWithHitTestResults&, WebCore::Frame*, WebCore::HitTestResult*) { notImplemented(); }
-  bool EventHandler::tabsToAllFormControls(WebCore::KeyboardEvent*) const { notImplemented(); }
+  bool EventHandler::passMouseMoveEventToSubframe(WebCore::MouseEventWithHitTestResults&, WebCore::Frame*, WebCore::HitTestResult*) { notImplemented(); return false; }
+  bool EventHandler::tabsToAllFormControls(WebCore::KeyboardEvent*) const { notImplemented(); return false; }
   void GCController::garbageCollectSoon() { notImplemented(); }
-  bool HTMLObjectElement::containsJavaApplet() const { notImplemented(); }
-  PassRefPtr<HTMLObjectElement> HTMLObjectElement::create(WebCore::QualifiedName const&, WebCore::Document&, WebCore::HTMLFormElement*, bool) { notImplemented(); }
+  bool HTMLObjectElement::containsJavaApplet() const { notImplemented(); return false; }
+  PassRefPtr<HTMLObjectElement> HTMLObjectElement::create(WebCore::QualifiedName const&, WebCore::Document&, WebCore::HTMLFormElement*, bool) { notImplemented(); return nullptr; }
   void HTMLObjectElement::renderFallbackContent() { notImplemented(); }
 
 	void systemBeep() { notImplemented(); }
@@ -323,10 +338,10 @@ namespace WTF {
 
 namespace Inspector {
 
-  String InspectorValue::toJSONString() const { notImplemented(); }
-  PassRefPtr<InspectorObject> InspectorObject::create() { notImplemented(); }
-  PassRefPtr<InspectorString> InspectorString::create(const String& value) { notImplemented(); }
-  PassRefPtr<InspectorBasicValue> InspectorBasicValue::create(double value) { notImplemented(); }
+  String InspectorValue::toJSONString() const { notImplemented(); return String(); }
+  PassRefPtr<InspectorObject> InspectorObject::create() { notImplemented(); return nullptr; }
+  PassRefPtr<InspectorString> InspectorString::create(const String& value) { notImplemented(); return nullptr; }
+  PassRefPtr<InspectorBasicValue> InspectorBasicValue::create(double value) { notImplemented(); return nullptr; }
 
 }
 
@@ -352,17 +367,17 @@ namespace JSC {
   void HandleSet::writeBarrier(JSC::JSValue*, JSC::JSValue const&) { notImplemented(); }
   void Heap::reportExtraMemoryCostSlowCase(unsigned int) { notImplemented(); }
 
-  ExecState* JSGlobalObject::globalExec() { notImplemented(); }
+  ExecState* JSGlobalObject::globalExec() { notImplemented(); return NULL; }
 
-  void *MarkedAllocator::allocateSlowCase(unsigned int) { notImplemented(); }
+  void *MarkedAllocator::allocateSlowCase(unsigned int) { notImplemented(); return NULL; }
 
   SourceProvider::SourceProvider(WTF::String const& a, WTF::TextPosition const& b) { notImplemented(); }
   SourceProvider::~SourceProvider() { notImplemented(); }
 
   namespace Yarr {
     YarrPattern::YarrPattern(WTF::String const& a, bool b, bool c, char const** d) { notImplemented(); }
-    PassOwnPtr<JSC::Yarr::BytecodePattern> byteCompile(YarrPattern& a, WTF::BumpPointerAllocator* b) { notImplemented(); }
-    unsigned interpret(BytecodePattern* a, WTF::String const& b, unsigned int c, unsigned int* d) { notImplemented(); }
+    PassOwnPtr<JSC::Yarr::BytecodePattern> byteCompile(YarrPattern& a, WTF::BumpPointerAllocator* b) { notImplemented(); return nullptr; }
+    unsigned interpret(BytecodePattern* a, WTF::String const& b, unsigned int c, unsigned int* d) { notImplemented(); return 0; }
   }
   void evaluate(JSC::ExecState* a, JSC::SourceCode const& b, JSC::JSValue c, JSC::JSValue* d) { notImplemented(); }
   void weakClearSlowCase(JSC::WeakImpl*&) { notImplemented(); }

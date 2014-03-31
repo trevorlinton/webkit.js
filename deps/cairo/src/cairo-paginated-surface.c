@@ -186,9 +186,9 @@ _cairo_paginated_surface_set_size (cairo_surface_t	*surface,
 									   &recording_extents);
     status = paginated_surface->recording_surface->status;
     if (unlikely (status))
-	return _cairo_surface_set_error (surface, status);
+	return (cairo_status_t)_cairo_surface_set_error (surface, (cairo_int_status_t)status);
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static cairo_status_t
@@ -201,7 +201,7 @@ _cairo_paginated_surface_finish (void *abstract_surface)
 	/* Bypass some of the sanity checking in cairo-surface.c, as we
 	 * know that the surface is finished...
 	 */
-	status = _cairo_paginated_surface_show_page (surface);
+	status = (cairo_status_t)_cairo_paginated_surface_show_page (surface);
     }
 
      /* XXX We want to propagate any errors from destroy(), but those are not
@@ -263,7 +263,7 @@ _cairo_paginated_surface_acquire_source_image (void	       *abstract_surface,
 
     is_bounded = _cairo_surface_get_extents (surface->target, &extents);
     if (! is_bounded)
-	return CAIRO_INT_STATUS_UNSUPPORTED;
+	return (cairo_status_t)CAIRO_INT_STATUS_UNSUPPORTED;
 
     image = _cairo_paginated_surface_create_image_surface (surface,
 							   extents.width,
@@ -334,7 +334,7 @@ _paint_fallback_image (cairo_paginated_surface_t *surface,
 CLEANUP_IMAGE:
     cairo_surface_destroy (image);
 
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 static cairo_int_status_t
@@ -345,15 +345,15 @@ _paint_page (cairo_paginated_surface_t *surface)
     cairo_bool_t has_supported, has_page_fallback, has_finegrained_fallback;
 
     if (unlikely (surface->target->status))
-	return surface->target->status;
+	return (cairo_int_status_t)surface->target->status;
 
     analysis = _cairo_analysis_surface_create (surface->target);
     if (unlikely (analysis->status))
-	return _cairo_surface_set_error (surface->target, analysis->status);
+	return (cairo_int_status_t)_cairo_surface_set_error (surface->target, (cairo_int_status_t)analysis->status);
 
     surface->backend->set_paginated_mode (surface->target,
 	                                  CAIRO_PAGINATED_MODE_ANALYZE);
-    status = _cairo_recording_surface_replay_and_create_regions (surface->recording_surface,
+    status = (cairo_int_status_t)_cairo_recording_surface_replay_and_create_regions (surface->recording_surface,
 								 analysis);
     if (status)
 	goto FAIL;
@@ -403,7 +403,7 @@ _paint_page (cairo_paginated_surface_t *surface)
 	surface->backend->set_paginated_mode (surface->target,
 		                              CAIRO_PAGINATED_MODE_RENDER);
 
-	status = _cairo_recording_surface_replay_region (surface->recording_surface,
+	status = (cairo_int_status_t)_cairo_recording_surface_replay_region (surface->recording_surface,
 							 NULL,
 							 surface->target,
 							 CAIRO_RECORDING_REGION_NATIVE);
@@ -465,7 +465,7 @@ _start_page (cairo_paginated_surface_t *surface)
     if (! surface->backend->start_page)
 	return CAIRO_STATUS_SUCCESS;
 
-    return _cairo_surface_set_error (surface->target,
+    return (cairo_status_t)_cairo_surface_set_error (surface->target,
 	                        surface->backend->start_page (surface->target));
 }
 
@@ -475,13 +475,13 @@ _cairo_paginated_surface_copy_page (void *abstract_surface)
     cairo_status_t status;
     cairo_paginated_surface_t *surface = abstract_surface;
 
-    status = _start_page (surface);
+    status = (cairo_status_t)_start_page (surface);
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
-    status = _paint_page (surface);
+    status = (cairo_status_t)_paint_page (surface);
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
     surface->page_num++;
 
@@ -493,7 +493,7 @@ _cairo_paginated_surface_copy_page (void *abstract_surface)
      * the recording-surface. */
 
     cairo_surface_show_page (surface->target);
-    return cairo_surface_status (surface->target);
+    return (cairo_int_status_t)cairo_surface_status (surface->target);
 }
 
 static cairo_int_status_t
@@ -504,35 +504,35 @@ _cairo_paginated_surface_show_page (void *abstract_surface)
 
     status = _start_page (surface);
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
-    status = _paint_page (surface);
+    status = (cairo_status_t)_paint_page (surface);
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
     cairo_surface_show_page (surface->target);
-    status = surface->target->status;
+    status = (cairo_status_t)surface->target->status;
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
-    status = surface->recording_surface->status;
+    status = (cairo_status_t)surface->recording_surface->status;
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
     if (! surface->base.finished) {
 	cairo_surface_destroy (surface->recording_surface);
 
 	surface->recording_surface = _create_recording_surface_for_target (surface->target,
 									   surface->content);
-	status = surface->recording_surface->status;
+	status = (cairo_status_t)surface->recording_surface->status;
 	if (unlikely (status))
-	    return status;
+	    return (cairo_int_status_t)status;
 
 	surface->page_num++;
 	surface->base.is_clear = TRUE;
     }
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static cairo_bool_t
@@ -561,7 +561,7 @@ _cairo_paginated_surface_paint (void			*abstract_surface,
 {
     cairo_paginated_surface_t *surface = abstract_surface;
 
-    return _cairo_surface_paint (surface->recording_surface, op, source, clip);
+    return (cairo_int_status_t)_cairo_surface_paint (surface->recording_surface, op, source, clip);
 }
 
 static cairo_int_status_t
@@ -573,7 +573,7 @@ _cairo_paginated_surface_mask (void		*abstract_surface,
 {
     cairo_paginated_surface_t *surface = abstract_surface;
 
-    return _cairo_surface_mask (surface->recording_surface, op, source, mask, clip);
+    return (cairo_int_status_t)_cairo_surface_mask (surface->recording_surface, op, source, mask, clip);
 }
 
 static cairo_int_status_t
@@ -590,7 +590,7 @@ _cairo_paginated_surface_stroke (void			*abstract_surface,
 {
     cairo_paginated_surface_t *surface = abstract_surface;
 
-    return _cairo_surface_stroke (surface->recording_surface, op, source,
+    return (cairo_int_status_t)_cairo_surface_stroke (surface->recording_surface, op, source,
 				  path, style,
 				  ctm, ctm_inverse,
 				  tolerance, antialias,
@@ -609,7 +609,7 @@ _cairo_paginated_surface_fill (void			*abstract_surface,
 {
     cairo_paginated_surface_t *surface = abstract_surface;
 
-    return _cairo_surface_fill (surface->recording_surface, op, source,
+    return (cairo_int_status_t)_cairo_surface_fill (surface->recording_surface, op, source,
 				path, fill_rule,
 				tolerance, antialias,
 				clip);
@@ -639,7 +639,7 @@ _cairo_paginated_surface_show_text_glyphs (void			      *abstract_surface,
 {
     cairo_paginated_surface_t *surface = abstract_surface;
 
-    return _cairo_surface_show_text_glyphs (surface->recording_surface, op, source,
+    return (cairo_int_status_t)_cairo_surface_show_text_glyphs (surface->recording_surface, op, source,
 					    utf8, utf8_len,
 					    glyphs, num_glyphs,
 					    clusters, num_clusters,
@@ -680,7 +680,7 @@ _cairo_paginated_context_create (void *target)
 }
 
 static const cairo_surface_backend_t cairo_paginated_surface_backend = {
-    CAIRO_INTERNAL_SURFACE_TYPE_PAGINATED,
+    (cairo_surface_type_t)CAIRO_INTERNAL_SURFACE_TYPE_PAGINATED,
     _cairo_paginated_surface_finish,
 
     _cairo_paginated_context_create,

@@ -3103,6 +3103,9 @@ bool CSSParser::parseValue(CSSPropertyID propId, bool important)
 #if ENABLE(SVG)
     default:
         return parseSVGValue(propId, important);
+#else
+		default:
+				return false;
 #endif
     }
 

@@ -34,6 +34,10 @@
 #include "WebCoreThread.h"
 #endif
 
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
+
 namespace WebCore {
 
 // Time intervals are all in seconds.
@@ -113,10 +117,16 @@ public:
     typedef void (TimerFiredClass::*TimerFiredFunction)(Timer*);
 
     Timer(TimerFiredClass* o, TimerFiredFunction f)
-        : m_object(o), m_function(f) { }
+        : m_object(o), m_function(f) {
+#if PLATFORM(JS)
+					webkitTrace();
+#endif
+			}
 
 private:
-    virtual void fired() OVERRIDE { (m_object->*m_function)(this); }
+    virtual void fired() OVERRIDE {
+			(m_object->*m_function)(this);
+		}
 
     TimerFiredClass* m_object;
     TimerFiredFunction m_function;
@@ -124,6 +134,8 @@ private:
 
 inline bool TimerBase::isActive() const
 {
+#if PLATFORM(JS)
+#else
     // FIXME: Write this in terms of USE(WEB_THREAD) instead of PLATFORM(IOS).
 #if !PLATFORM(IOS)
     ASSERT(m_thread == currentThread());
@@ -136,7 +148,9 @@ inline bool TimerBase::isActive() const
     ASSERT(WebThreadIsCurrent() || pthread_main_np());
 #endif
 #endif // PLATFORM(IOS)
-    return m_nextFireTime;
+#endif // PLATFORM(JS)
+
+	return m_nextFireTime;
 }
 
 template <typename TimerFiredClass> class DeferrableOneShotTimer : protected TimerBase {

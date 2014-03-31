@@ -47,6 +47,7 @@ static bool vertexArrayObjectSupported = false;
 
 PassOwnPtr<GLTransportSurface> GLTransportSurface::createTransportSurface(const IntSize& size, SurfaceAttributes attributes)
 {
+#if USE(GRAPHICS_SURFACE)
     OwnPtr<GLTransportSurface> surface;
 #if USE(GLX)
     surface = adoptPtr(new GLXTransportSurface(size, attributes));
@@ -56,7 +57,7 @@ PassOwnPtr<GLTransportSurface> GLTransportSurface::createTransportSurface(const 
 
     if (surface && surface->handle() && surface->drawable())
         return surface.release();
-
+#endif
     return nullptr;
 }
 
@@ -210,10 +211,10 @@ void GLTransportSurface::initializeShaderProgram()
 PassOwnPtr<GLTransportSurfaceClient> GLTransportSurfaceClient::createTransportSurfaceClient(const PlatformBufferHandle handle, const IntSize& size, bool hasAlpha)
 {
     OwnPtr<GLTransportSurfaceClient> client;
-#if USE(GLX)
+#if USE(GLX) && USE(GRAPHICS_SURFACE)
     client = adoptPtr(new GLXTransportSurfaceClient(handle, hasAlpha));
     UNUSED_PARAM(size);
-#else
+#elif USE(EGL) && USE(GRAPHICS_SURFACE)
     client = EGLTransportSurface::createTransportSurfaceClient(handle, size, hasAlpha);
 #endif
 

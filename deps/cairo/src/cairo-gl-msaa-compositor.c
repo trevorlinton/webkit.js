@@ -86,7 +86,7 @@ _draw_traps (cairo_gl_context_t		*ctx,
 	     cairo_gl_composite_t	*setup,
 	     cairo_traps_t		*traps)
 {
-    cairo_int_status_t status = CAIRO_STATUS_SUCCESS;
+    cairo_int_status_t status = (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
     int i;
 
     for (i = 0; i < traps->num_traps; i++) {
@@ -122,7 +122,7 @@ _draw_triangle_fan (cairo_gl_context_t		*ctx,
 	    return status;
     }
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static cairo_int_status_t
@@ -153,7 +153,7 @@ _draw_clip (cairo_gl_context_t		*ctx,
      */
 
     _cairo_traps_init (&traps);
-    status = _cairo_bentley_ottmann_tessellate_polygon (&traps,
+    status = (cairo_int_status_t)_cairo_bentley_ottmann_tessellate_polygon (&traps,
 							&polygon,
 							fill_rule);
     _cairo_polygon_fini (&polygon);
@@ -272,7 +272,7 @@ _stroke_shaper_add_triangle (void			*closure,
 			     const cairo_point_t	 triangle[3])
 {
     struct _tristrip_composite_info *info = closure;
-    return _cairo_gl_composite_emit_triangle_as_tristrip (info->ctx,
+    return (cairo_status_t)_cairo_gl_composite_emit_triangle_as_tristrip (info->ctx,
 							  &info->setup,
 							  triangle);
 }
@@ -284,7 +284,7 @@ _stroke_shaper_add_triangle_fan (void			*closure,
 				 int			 npoints)
 {
     struct _tristrip_composite_info *info = closure;
-    return _draw_triangle_fan (info->ctx, &info->setup,
+    return (cairo_status_t)_draw_triangle_fan (info->ctx, &info->setup,
 			       midpoint, points, npoints);
 }
 
@@ -293,7 +293,7 @@ _stroke_shaper_add_quad (void			*closure,
 			 const cairo_point_t	 quad[4])
 {
     struct _tristrip_composite_info *info = closure;
-    return _cairo_gl_composite_emit_quad_as_tristrip (info->ctx, &info->setup,
+    return (cairo_status_t)_cairo_gl_composite_emit_quad_as_tristrip (info->ctx, &info->setup,
 						      quad);
 }
 
@@ -315,7 +315,7 @@ _cairo_gl_msaa_compositor_stroke (const cairo_compositor_t	*compositor,
     if (antialias != CAIRO_ANTIALIAS_NONE)
 	return CAIRO_INT_STATUS_UNSUPPORTED;
 
-    status = _cairo_gl_composite_init (&info.setup,
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&info.setup,
 				       composite->op,
 				       dst,
 				       FALSE /* assume_component_alpha */);
@@ -331,7 +331,7 @@ _cairo_gl_msaa_compositor_stroke (const cairo_compositor_t	*compositor,
     if (unlikely (status))
 	goto finish;
 
-    status = _cairo_gl_composite_begin_tristrip (&info.setup, &info.ctx);
+    status = (cairo_int_status_t)_cairo_gl_composite_begin_tristrip (&info.setup, &info.ctx);
     if (unlikely (status))
 	goto finish;
 
@@ -340,7 +340,7 @@ _cairo_gl_msaa_compositor_stroke (const cairo_compositor_t	*compositor,
     if (unlikely (status))
 	goto finish;
 
-    status = _cairo_path_fixed_stroke_to_shaper ((cairo_path_fixed_t *) path,
+    status = (cairo_int_status_t)_cairo_path_fixed_stroke_to_shaper ((cairo_path_fixed_t *) path,
 						 style,
 						 ctm,
 						 ctm_inverse,
@@ -360,7 +360,7 @@ finish:
     if (info.ctx) {
 	glDisable (GL_SCISSOR_TEST);
 	_disable_stencil_buffer ();
-	status = _cairo_gl_context_release (info.ctx, status);
+	status = (cairo_int_status_t)_cairo_gl_context_release (info.ctx, (cairo_status_t)status);
     }
 
     return status;
@@ -385,11 +385,11 @@ _cairo_gl_msaa_compositor_fill (const cairo_compositor_t	*compositor,
 	return CAIRO_INT_STATUS_UNSUPPORTED;
 
     _cairo_traps_init (&traps);
-    status = _cairo_path_fixed_fill_to_traps (path, fill_rule, tolerance, &traps);
+    status = (cairo_int_status_t)_cairo_path_fixed_fill_to_traps (path, fill_rule, tolerance, &traps);
     if (unlikely (status))
 	goto cleanup_traps;
 
-    status = _cairo_gl_composite_init (&setup,
+    status = (cairo_int_status_t)_cairo_gl_composite_init (&setup,
 				       composite->op,
 				       dst,
 				       FALSE /* assume_component_alpha */);
@@ -403,7 +403,7 @@ _cairo_gl_msaa_compositor_fill (const cairo_compositor_t	*compositor,
     if (unlikely (status))
 	goto cleanup_setup;
 
-    status = _cairo_gl_composite_begin_tristrip (&setup, &ctx);
+    status = (cairo_int_status_t)_cairo_gl_composite_begin_tristrip (&setup, &ctx);
     if (unlikely (status))
 	goto cleanup_setup;
 
@@ -423,7 +423,7 @@ cleanup_setup:
     if (ctx) {
 	glDisable (GL_SCISSOR_TEST);
 	_disable_stencil_buffer ();
-	status = _cairo_gl_context_release (ctx, status);
+	status = (cairo_int_status_t)_cairo_gl_context_release (ctx, (cairo_status_t)status);
     }
 cleanup_traps:
     _cairo_traps_fini (&traps);

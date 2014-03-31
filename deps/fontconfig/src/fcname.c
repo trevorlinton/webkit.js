@@ -86,7 +86,7 @@ FcObjectValidType (FcObject object, FcType type)
 		return FcTrue;
 	    break;
 	default:
-	    if (t->type == (unsigned int) -1 || type == t->type)
+	    if (type == t->type) //t->type == ((unsigned int) -1) || 
 		return FcTrue;
 	    break;
 	}

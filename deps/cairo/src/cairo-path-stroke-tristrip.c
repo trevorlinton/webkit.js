@@ -1052,7 +1052,7 @@ _cairo_path_fixed_stroke_to_tristrip (const cairo_path_fixed_t	*path,
     stroker.ctm_det_positive =
 	_cairo_matrix_compute_determinant (ctm) >= 0.0;
 
-    status = _cairo_pen_init (&stroker.pen,
+    status = (cairo_int_status_t)_cairo_pen_init (&stroker.pen,
 		              style->line_width / 2.0,
 			      tolerance, ctm);
     if (unlikely (status))
@@ -1072,7 +1072,7 @@ _cairo_path_fixed_stroke_to_tristrip (const cairo_path_fixed_t	*path,
 
     stroker.strip = strip;
 
-    status = _cairo_path_fixed_interpret (path,
+    status = (cairo_int_status_t)_cairo_path_fixed_interpret (path,
 					  move_to,
 					  line_to,
 					  curve_to,

@@ -187,7 +187,7 @@
 #endif
 
 #if !defined(ENABLE_METER_ELEMENT)
-#define ENABLE_METER_ELEMENT 1
+#define ENABLE_METER_ELEMENT 0
 #endif
 
 #if !defined(ENABLE_NAVIGATOR_CONTENT_UTILS)

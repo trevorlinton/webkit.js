@@ -1,4 +1,4 @@
-#pragma GCC diagnostic ignored "-Wreturn-type"
+// #pragma GCC diagnostic ignored "-Wreturn-type"
 
 #include "config.h"
 #include <wtf/Forward.h>
@@ -45,14 +45,15 @@
 #include "HTMLFrameOwnerElement.h"
 
 void errorOutIfUsed() {
+	fprintf(stderr, "Call to unused method\n");
 	abort();
 }
 
 namespace WebCore {
-RenderPtr<RenderElement> HTMLPlugInElement::createElementRenderer(PassRef<RenderStyle> style) { errorOutIfUsed(); }
+	RenderPtr<RenderElement> HTMLPlugInElement::createElementRenderer(PassRef<RenderStyle> style) { errorOutIfUsed(); return nullptr; }
 void HTMLPlugInElement::defaultEventHandler(Event* event) { errorOutIfUsed(); }
 void HTMLPlugInElement::didAddUserAgentShadowRoot(ShadowRoot* root) { errorOutIfUsed(); }
-	bool HTMLPlugInElement::requestObject(const String& url, const String& mimeType, const Vector<String>& paramNames, const Vector<String>& paramValues) { errorOutIfUsed(); }
+	bool HTMLPlugInElement::requestObject(const String& url, const String& mimeType, const Vector<String>& paramNames, const Vector<String>& paramValues) { errorOutIfUsed(); return false; }
 void HTMLPlugInElement::setDisplayState(DisplayState state) { errorOutIfUsed(); }
 void HTMLPlugInElement::swapRendererTimerFired(Timer<HTMLPlugInElement>*) { errorOutIfUsed(); }
 void HTMLPlugInElement::willDetachRenderers() { errorOutIfUsed(); }
@@ -65,12 +66,12 @@ WebCore::HTMLPlugInElement::HTMLPlugInElement(WebCore::QualifiedName const& a, W
 { errorOutIfUsed(); }
 WebCore::HTMLPlugInElement::~HTMLPlugInElement() { errorOutIfUsed(); }
 void HTMLPlugInElement::collectStyleForPresentationAttribute(WebCore::QualifiedName const& a, WTF::AtomicString const& b, WebCore::MutableStyleProperties& c) { errorOutIfUsed(); }
-bool HTMLPlugInElement::guardedDispatchBeforeLoadEvent(WTF::String const&) { errorOutIfUsed(); }
-bool HTMLPlugInElement::isKeyboardFocusable(WebCore::KeyboardEvent*) const { errorOutIfUsed(); }
-bool HTMLPlugInElement::isPluginElement() const { errorOutIfUsed(); }
-bool HTMLPlugInElement::isPresentationAttribute(WebCore::QualifiedName const&) const { errorOutIfUsed(); }
-bool HTMLPlugInElement::supportsFocus() const { errorOutIfUsed(); }
-bool HTMLPlugInElement::willRespondToMouseClickEvents() { errorOutIfUsed(); }
+	bool HTMLPlugInElement::guardedDispatchBeforeLoadEvent(WTF::String const&) { errorOutIfUsed(); return false; }
+	bool HTMLPlugInElement::isKeyboardFocusable(WebCore::KeyboardEvent*) const { errorOutIfUsed(); return false; }
+	bool HTMLPlugInElement::isPluginElement() const { errorOutIfUsed(); return false; }
+	bool HTMLPlugInElement::isPresentationAttribute(WebCore::QualifiedName const&) const { errorOutIfUsed(); return false; }
+	bool HTMLPlugInElement::supportsFocus() const { errorOutIfUsed(); return false; }
+	bool HTMLPlugInElement::willRespondToMouseClickEvents() { errorOutIfUsed(); return false;}
 
 HTMLPlugInImageElement::HTMLPlugInImageElement(const QualifiedName& tagName, Document& document, bool createdByParser, PreferPlugInsForImagesOption preferPlugInsForImagesOption)
 : HTMLPlugInElement(tagName, document)
@@ -90,9 +91,9 @@ HTMLPlugInImageElement::HTMLPlugInImageElement(const QualifiedName& tagName, Doc
 }
 void HTMLPlugInImageElement::removeSnapshotTimerFired(Timer<HTMLPlugInImageElement>*) { errorOutIfUsed(); }
 void HTMLPlugInImageElement::simulatedMouseClickTimerFired(DeferrableOneShotTimer<HTMLPlugInImageElement>*) { errorOutIfUsed(); }
-bool HTMLPlugInImageElement::allowedToLoadFrameURL(WTF::String const&) { errorOutIfUsed(); }
+	bool HTMLPlugInImageElement::allowedToLoadFrameURL(WTF::String const&) { errorOutIfUsed(); return false; }
 void HTMLPlugInImageElement::checkSnapshotStatus() { errorOutIfUsed(); }
-RenderPtr<RenderElement> HTMLPlugInImageElement::createElementRenderer(WTF::PassRef<WebCore::RenderStyle>) { errorOutIfUsed(); }
+	RenderPtr<RenderElement> HTMLPlugInImageElement::createElementRenderer(WTF::PassRef<WebCore::RenderStyle>) { errorOutIfUsed(); return nullptr; }
 void HTMLPlugInImageElement::defaultEventHandler(WebCore::Event*) { errorOutIfUsed(); }
 void HTMLPlugInImageElement::didAddUserAgentShadowRoot(WebCore::ShadowRoot*) { errorOutIfUsed(); }
 void HTMLPlugInImageElement::didAttachRenderers() { errorOutIfUsed(); }
@@ -101,13 +102,13 @@ void HTMLPlugInImageElement::dispatchPendingMouseClick() { errorOutIfUsed(); }
 void HTMLPlugInImageElement::documentDidResumeFromPageCache() { errorOutIfUsed(); }
 void HTMLPlugInImageElement::documentWillSuspendForPageCache() { errorOutIfUsed(); }
 void HTMLPlugInImageElement::finishParsingChildren() { errorOutIfUsed(); }
-bool HTMLPlugInImageElement::isImageType() { errorOutIfUsed(); }
-RenderEmbeddedObject* HTMLPlugInImageElement::renderEmbeddedObject() const { errorOutIfUsed(); }
-bool HTMLPlugInImageElement::requestObject(WTF::String const&, WTF::String const&, WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow> const&, WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow> const&) { errorOutIfUsed(); }
+	bool HTMLPlugInImageElement::isImageType() { errorOutIfUsed(); return false; }
+	RenderEmbeddedObject* HTMLPlugInImageElement::renderEmbeddedObject() const { errorOutIfUsed(); return NULL; }
+	bool HTMLPlugInImageElement::requestObject(WTF::String const&, WTF::String const&, WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow> const&, WTF::Vector<WTF::String, 0u, WTF::CrashOnOverflow> const&) { errorOutIfUsed(); return false; }
 void HTMLPlugInImageElement::setDisplayState(HTMLPlugInElement::DisplayState) { errorOutIfUsed(); }
 void HTMLPlugInImageElement::updateSnapshot(WTF::PassRefPtr<WebCore::Image>) { errorOutIfUsed(); }
 void HTMLPlugInImageElement::willDetachRenderers() { errorOutIfUsed(); }
-bool HTMLPlugInImageElement::willRecalcStyle(WebCore::Style::Change) { errorOutIfUsed(); }
-bool HTMLPlugInImageElement::wouldLoadAsNetscapePlugin(WTF::String const&, WTF::String const&) { errorOutIfUsed(); }
+	bool HTMLPlugInImageElement::willRecalcStyle(WebCore::Style::Change) { errorOutIfUsed(); return false; }
+	bool HTMLPlugInImageElement::wouldLoadAsNetscapePlugin(WTF::String const&, WTF::String const&) { errorOutIfUsed(); return false; }
 HTMLPlugInImageElement::~HTMLPlugInImageElement() { errorOutIfUsed(); }
 }

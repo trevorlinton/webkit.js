@@ -636,7 +636,7 @@ _cairo_path_fixed_stroke_rectilinear_to_boxes (const cairo_path_fixed_t	*path,
 	b.p2.x = box.p2.x + rectilinear_stroker.half_line_x;
 	b.p1.y = box.p1.y - rectilinear_stroker.half_line_y;
 	b.p2.y = box.p1.y + rectilinear_stroker.half_line_y;
-	status = _cairo_boxes_add (boxes, antialias, &b);
+	status = (cairo_int_status_t)_cairo_boxes_add (boxes, antialias, &b);
 	assert (status == CAIRO_INT_STATUS_SUCCESS);
 
 	/* left  (excluding top/bottom) */
@@ -644,7 +644,7 @@ _cairo_path_fixed_stroke_rectilinear_to_boxes (const cairo_path_fixed_t	*path,
 	b.p2.x = box.p1.x + rectilinear_stroker.half_line_x;
 	b.p1.y = box.p1.y + rectilinear_stroker.half_line_y;
 	b.p2.y = box.p2.y - rectilinear_stroker.half_line_y;
-	status = _cairo_boxes_add (boxes, antialias, &b);
+	status = (cairo_int_status_t)_cairo_boxes_add (boxes, antialias, &b);
 	assert (status == CAIRO_INT_STATUS_SUCCESS);
 
 	/* right  (excluding top/bottom) */
@@ -652,7 +652,7 @@ _cairo_path_fixed_stroke_rectilinear_to_boxes (const cairo_path_fixed_t	*path,
 	b.p2.x = box.p2.x + rectilinear_stroker.half_line_x;
 	b.p1.y = box.p1.y + rectilinear_stroker.half_line_y;
 	b.p2.y = box.p2.y - rectilinear_stroker.half_line_y;
-	status = _cairo_boxes_add (boxes, antialias, &b);
+	status = (cairo_int_status_t)_cairo_boxes_add (boxes, antialias, &b);
 	assert (status == CAIRO_INT_STATUS_SUCCESS);
 
 	/* bottom */
@@ -660,7 +660,7 @@ _cairo_path_fixed_stroke_rectilinear_to_boxes (const cairo_path_fixed_t	*path,
 	b.p2.x = box.p2.x + rectilinear_stroker.half_line_x;
 	b.p1.y = box.p2.y - rectilinear_stroker.half_line_y;
 	b.p2.y = box.p2.y + rectilinear_stroker.half_line_y;
-	status = _cairo_boxes_add (boxes, antialias, &b);
+	status = (cairo_int_status_t)_cairo_boxes_add (boxes, antialias, &b);
 	assert (status == CAIRO_INT_STATUS_SUCCESS);
 
 	goto done;
@@ -672,7 +672,7 @@ _cairo_path_fixed_stroke_rectilinear_to_boxes (const cairo_path_fixed_t	*path,
 					  boxes->num_limits);
     }
 
-    status = _cairo_path_fixed_interpret (path,
+    status = (cairo_int_status_t)_cairo_path_fixed_interpret (path,
 					  _cairo_rectilinear_stroker_move_to,
 					  rectilinear_stroker.dash.dashed ?
 					  _cairo_rectilinear_stroker_line_to_dashed :
@@ -684,14 +684,14 @@ _cairo_path_fixed_stroke_rectilinear_to_boxes (const cairo_path_fixed_t	*path,
 	goto BAIL;
 
     if (rectilinear_stroker.dash.dashed)
-	status = _cairo_rectilinear_stroker_emit_segments_dashed (&rectilinear_stroker);
+	status = (cairo_int_status_t)_cairo_rectilinear_stroker_emit_segments_dashed (&rectilinear_stroker);
     else
-	status = _cairo_rectilinear_stroker_emit_segments (&rectilinear_stroker);
+	status = (cairo_int_status_t)_cairo_rectilinear_stroker_emit_segments (&rectilinear_stroker);
     if (unlikely (status))
 	goto BAIL;
 
     /* As we incrementally tessellate, we do not eliminate self-intersections */
-    status = _cairo_bentley_ottmann_tessellate_boxes (boxes,
+    status = (cairo_int_status_t)_cairo_bentley_ottmann_tessellate_boxes (boxes,
 						      CAIRO_FILL_RULE_WINDING,
 						      boxes);
     if (unlikely (status))
@@ -699,7 +699,7 @@ _cairo_path_fixed_stroke_rectilinear_to_boxes (const cairo_path_fixed_t	*path,
 
 done:
     _cairo_rectilinear_stroker_fini (&rectilinear_stroker);
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
 BAIL:
     _cairo_rectilinear_stroker_fini (&rectilinear_stroker);

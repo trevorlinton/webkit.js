@@ -526,7 +526,7 @@ proxy_finish (void *abstract_surface)
 }
 
 static const cairo_surface_backend_t proxy_backend  = {
-    CAIRO_INTERNAL_SURFACE_TYPE_NULL,
+    (cairo_surface_type_t)CAIRO_INTERNAL_SURFACE_TYPE_NULL,
     proxy_finish,
     NULL,
 
@@ -708,7 +708,7 @@ _cairo_recording_surface_paint (void			  *abstract_surface,
     if (op == CAIRO_OPERATOR_CLEAR && clip == NULL) {
 	if (surface->optimize_clears) {
 	    _cairo_recording_surface_reset (surface);
-	    return CAIRO_STATUS_SUCCESS;
+	    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 	}
     }
 
@@ -720,41 +720,41 @@ _cairo_recording_surface_paint (void			  *abstract_surface,
 	_cairo_recording_surface_reset (surface);
 	if (is_identity_recording_pattern (source)) {
 	    cairo_surface_t *src = ((cairo_surface_pattern_t *)source)->surface;
-	    return _cairo_recording_surface_replay (src, &surface->base);
+	    return (cairo_int_status_t)_cairo_recording_surface_replay (src, &surface->base);
 	}
     }
 
-    status = _cairo_composite_rectangles_init_for_paint (&composite,
+    status = (cairo_status_t)_cairo_composite_rectangles_init_for_paint (&composite,
 							 &surface->base,
 							 op, source,
 							 clip);
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
     command = malloc (sizeof (cairo_command_paint_t));
     if (unlikely (command == NULL)) {
-	status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
+	status =(cairo_status_t) _cairo_error (CAIRO_STATUS_NO_MEMORY);
 	goto CLEANUP_COMPOSITE;
     }
 
-    status = _command_init (surface,
+    status = (cairo_status_t)_command_init (surface,
 			    &command->header, CAIRO_COMMAND_PAINT, op,
 			    &composite);
     if (unlikely (status))
 	goto CLEANUP_COMMAND;
 
-    status = _cairo_pattern_init_snapshot (&command->source.base, source);
+    status = (cairo_status_t)_cairo_pattern_init_snapshot (&command->source.base, source);
     if (unlikely (status))
 	goto CLEANUP_COMMAND;
 
-    status = _cairo_recording_surface_commit (surface, &command->header);
+    status = (cairo_status_t)_cairo_recording_surface_commit (surface, &command->header);
     if (unlikely (status))
 	goto CLEANUP_SOURCE;
 
     _cairo_recording_surface_destroy_bbtree (surface);
 
     _cairo_composite_rectangles_fini (&composite);
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
   CLEANUP_SOURCE:
     _cairo_pattern_fini (&command->source.base);
@@ -763,7 +763,7 @@ _cairo_recording_surface_paint (void			  *abstract_surface,
     free (command);
 CLEANUP_COMPOSITE:
     _cairo_composite_rectangles_fini (&composite);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 static cairo_int_status_t
@@ -780,41 +780,41 @@ _cairo_recording_surface_mask (void			*abstract_surface,
 
     TRACE ((stderr, "%s: surface=%d\n", __FUNCTION__, surface->base.unique_id));
 
-    status = _cairo_composite_rectangles_init_for_mask (&composite,
+    status = (cairo_status_t)_cairo_composite_rectangles_init_for_mask (&composite,
 							&surface->base,
 							op, source, mask,
 							clip);
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
     command = malloc (sizeof (cairo_command_mask_t));
     if (unlikely (command == NULL)) {
-	status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
+	status = (cairo_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 	goto CLEANUP_COMPOSITE;
     }
 
-    status = _command_init (surface,
+    status = (cairo_status_t)_command_init (surface,
 			    &command->header, CAIRO_COMMAND_MASK, op,
 			    &composite);
     if (unlikely (status))
 	goto CLEANUP_COMMAND;
 
-    status = _cairo_pattern_init_snapshot (&command->source.base, source);
+    status = (cairo_status_t)_cairo_pattern_init_snapshot (&command->source.base, source);
     if (unlikely (status))
 	goto CLEANUP_COMMAND;
 
-    status = _cairo_pattern_init_snapshot (&command->mask.base, mask);
+    status = (cairo_status_t)_cairo_pattern_init_snapshot (&command->mask.base, mask);
     if (unlikely (status))
 	goto CLEANUP_SOURCE;
 
-    status = _cairo_recording_surface_commit (surface, &command->header);
+    status = (cairo_status_t)_cairo_recording_surface_commit (surface, &command->header);
     if (unlikely (status))
 	goto CLEANUP_MASK;
 
     _cairo_recording_surface_destroy_bbtree (surface);
 
     _cairo_composite_rectangles_fini (&composite);
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
   CLEANUP_MASK:
     _cairo_pattern_fini (&command->mask.base);
@@ -825,7 +825,7 @@ _cairo_recording_surface_mask (void			*abstract_surface,
     free (command);
 CLEANUP_COMPOSITE:
     _cairo_composite_rectangles_fini (&composite);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 static cairo_int_status_t
@@ -847,35 +847,35 @@ _cairo_recording_surface_stroke (void			*abstract_surface,
 
     TRACE ((stderr, "%s: surface=%d\n", __FUNCTION__, surface->base.unique_id));
 
-    status = _cairo_composite_rectangles_init_for_stroke (&composite,
+    status = (cairo_status_t)_cairo_composite_rectangles_init_for_stroke (&composite,
 							  &surface->base,
 							  op, source,
 							  path, style, ctm,
 							  clip);
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
     command = malloc (sizeof (cairo_command_stroke_t));
     if (unlikely (command == NULL)) {
-	status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
+	status = (cairo_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 	goto CLEANUP_COMPOSITE;
     }
 
-    status = _command_init (surface,
+    status = (cairo_status_t)_command_init (surface,
 			    &command->header, CAIRO_COMMAND_STROKE, op,
 			    &composite);
     if (unlikely (status))
 	goto CLEANUP_COMMAND;
 
-    status = _cairo_pattern_init_snapshot (&command->source.base, source);
+    status = (cairo_status_t)_cairo_pattern_init_snapshot (&command->source.base, source);
     if (unlikely (status))
 	goto CLEANUP_COMMAND;
 
-    status = _cairo_path_fixed_init_copy (&command->path, path);
+    status = (cairo_status_t)_cairo_path_fixed_init_copy (&command->path, path);
     if (unlikely (status))
 	goto CLEANUP_SOURCE;
 
-    status = _cairo_stroke_style_init_copy (&command->style, style);
+    status = (cairo_status_t)_cairo_stroke_style_init_copy (&command->style, style);
     if (unlikely (status))
 	goto CLEANUP_PATH;
 
@@ -884,14 +884,14 @@ _cairo_recording_surface_stroke (void			*abstract_surface,
     command->tolerance = tolerance;
     command->antialias = antialias;
 
-    status = _cairo_recording_surface_commit (surface, &command->header);
+    status = (cairo_status_t)_cairo_recording_surface_commit (surface, &command->header);
     if (unlikely (status))
 	goto CLEANUP_STYLE;
 
     _cairo_recording_surface_destroy_bbtree (surface);
 
     _cairo_composite_rectangles_fini (&composite);
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
   CLEANUP_STYLE:
     _cairo_stroke_style_fini (&command->style);
@@ -904,7 +904,7 @@ _cairo_recording_surface_stroke (void			*abstract_surface,
     free (command);
 CLEANUP_COMPOSITE:
     _cairo_composite_rectangles_fini (&composite);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 static cairo_int_status_t
@@ -924,30 +924,30 @@ _cairo_recording_surface_fill (void			*abstract_surface,
 
     TRACE ((stderr, "%s: surface=%d\n", __FUNCTION__, surface->base.unique_id));
 
-    status = _cairo_composite_rectangles_init_for_fill (&composite,
+    status =(cairo_status_t) _cairo_composite_rectangles_init_for_fill (&composite,
 							&surface->base,
 							op, source, path,
 							clip);
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
     command = malloc (sizeof (cairo_command_fill_t));
     if (unlikely (command == NULL)) {
-	status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
+	status = (cairo_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
 	goto CLEANUP_COMPOSITE;
     }
 
-    status =_command_init (surface,
+    status = (cairo_status_t)_command_init (surface,
 			   &command->header, CAIRO_COMMAND_FILL, op,
 			   &composite);
     if (unlikely (status))
 	goto CLEANUP_COMMAND;
 
-    status = _cairo_pattern_init_snapshot (&command->source.base, source);
+    status = (cairo_status_t)_cairo_pattern_init_snapshot (&command->source.base, source);
     if (unlikely (status))
 	goto CLEANUP_COMMAND;
 
-    status = _cairo_path_fixed_init_copy (&command->path, path);
+    status = (cairo_status_t)_cairo_path_fixed_init_copy (&command->path, path);
     if (unlikely (status))
 	goto CLEANUP_SOURCE;
 
@@ -955,14 +955,14 @@ _cairo_recording_surface_fill (void			*abstract_surface,
     command->tolerance = tolerance;
     command->antialias = antialias;
 
-    status = _cairo_recording_surface_commit (surface, &command->header);
+    status = (cairo_status_t)_cairo_recording_surface_commit (surface, &command->header);
     if (unlikely (status))
 	goto CLEANUP_PATH;
 
     _cairo_recording_surface_destroy_bbtree (surface);
 
     _cairo_composite_rectangles_fini (&composite);
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
   CLEANUP_PATH:
     _cairo_path_fixed_fini (&command->path);
@@ -973,7 +973,7 @@ _cairo_recording_surface_fill (void			*abstract_surface,
     free (command);
 CLEANUP_COMPOSITE:
     _cairo_composite_rectangles_fini (&composite);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 static cairo_bool_t
@@ -1003,7 +1003,7 @@ _cairo_recording_surface_show_text_glyphs (void				*abstract_surface,
 
     TRACE ((stderr, "%s: surface=%d\n", __FUNCTION__, surface->base.unique_id));
 
-    status = _cairo_composite_rectangles_init_for_glyphs (&composite,
+    status = (cairo_status_t)_cairo_composite_rectangles_init_for_glyphs (&composite,
 							  &surface->base,
 							  op, source,
 							  scaled_font,
@@ -1011,7 +1011,7 @@ _cairo_recording_surface_show_text_glyphs (void				*abstract_surface,
 							  clip,
 							  NULL);
     if (unlikely (status))
-	return status;
+	return (cairo_int_status_t)status;
 
     command = malloc (sizeof (cairo_command_show_text_glyphs_t));
     if (unlikely (command == NULL)) {
@@ -1070,7 +1070,7 @@ _cairo_recording_surface_show_text_glyphs (void				*abstract_surface,
 	goto CLEANUP_SCALED_FONT;
 
     _cairo_composite_rectangles_fini (&composite);
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
   CLEANUP_SCALED_FONT:
     cairo_scaled_font_destroy (command->scaled_font);
@@ -1085,7 +1085,7 @@ _cairo_recording_surface_show_text_glyphs (void				*abstract_surface,
     free (command);
 CLEANUP_COMPOSITE:
     _cairo_composite_rectangles_fini (&composite);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 /**
@@ -1203,10 +1203,10 @@ _cairo_recording_surface_get_path (cairo_surface_t    *abstract_surface,
     cairo_int_status_t status;
 
     if (unlikely (abstract_surface->status))
-	return abstract_surface->status;
+	return (cairo_int_status_t)abstract_surface->status;
 
     surface = (cairo_recording_surface_t *) abstract_surface;
-    status = CAIRO_STATUS_SUCCESS;
+    status = (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
     num_elements = surface->commands.num_elements;
     elements = _cairo_array_index (&surface->commands, 0);
@@ -1234,21 +1234,21 @@ _cairo_recording_surface_get_path (cairo_surface_t    *abstract_surface,
 							&traps);
 
 	    if (status == CAIRO_INT_STATUS_SUCCESS)
-		status = _cairo_traps_path (&traps, path);
+		status = (cairo_int_status_t)_cairo_traps_path (&traps, path);
 
 	    _cairo_traps_fini (&traps);
 	    break;
 	}
 	case CAIRO_COMMAND_FILL:
 	{
-	    status = _cairo_path_fixed_append (path,
+	    status = (cairo_int_status_t)_cairo_path_fixed_append (path,
 					       &command->fill.path,
 					       0, 0);
 	    break;
 	}
 	case CAIRO_COMMAND_SHOW_TEXT_GLYPHS:
 	{
-	    status = _cairo_scaled_font_glyph_path (command->show_text_glyphs.scaled_font,
+	    status = (cairo_int_status_t)_cairo_scaled_font_glyph_path (command->show_text_glyphs.scaled_font,
 						    command->show_text_glyphs.glyphs,
 						    command->show_text_glyphs.num_glyphs,
 						    path);
@@ -1301,20 +1301,20 @@ _cairo_recording_surface_replay_internal (cairo_recording_surface_t	*surface,
     cairo_bool_t replay_all =
 	type == CAIRO_RECORDING_REPLAY &&
 	region == CAIRO_RECORDING_REGION_ALL;
-    cairo_int_status_t status = CAIRO_STATUS_SUCCESS;
+    cairo_int_status_t status = (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
     cairo_rectangle_int_t extents;
     cairo_bool_t use_indices = FALSE;
     const cairo_rectangle_int_t *r;
     int i, num_elements;
 
     if (unlikely (surface->base.status))
-	return surface->base.status;
+	return (cairo_status_t)surface->base.status;
 
     if (unlikely (target->status))
-	return target->status;
+	return (cairo_status_t)target->status;
 
     if (unlikely (surface->base.finished))
-	return _cairo_error (CAIRO_STATUS_SURFACE_FINISHED);
+	return (cairo_status_t)_cairo_error (CAIRO_STATUS_SURFACE_FINISHED);
 
     if (surface->base.is_clear)
 	return CAIRO_STATUS_SUCCESS;
@@ -1355,14 +1355,14 @@ _cairo_recording_surface_replay_internal (cairo_recording_surface_t	*surface,
 
 	switch (command->header.type) {
 	case CAIRO_COMMAND_PAINT:
-	    status = _cairo_surface_wrapper_paint (&wrapper,
+	    status = (cairo_int_status_t)_cairo_surface_wrapper_paint (&wrapper,
 						   command->header.op,
 						   &command->paint.source.base,
 						   command->header.clip);
 	    break;
 
 	case CAIRO_COMMAND_MASK:
-	    status = _cairo_surface_wrapper_mask (&wrapper,
+	    status = (cairo_int_status_t)_cairo_surface_wrapper_mask (&wrapper,
 						  command->header.op,
 						  &command->mask.source.base,
 						  &command->mask.mask.base,
@@ -1370,7 +1370,7 @@ _cairo_recording_surface_replay_internal (cairo_recording_surface_t	*surface,
 	    break;
 
 	case CAIRO_COMMAND_STROKE:
-	    status = _cairo_surface_wrapper_stroke (&wrapper,
+	    status = (cairo_int_status_t)_cairo_surface_wrapper_stroke (&wrapper,
 						    command->header.op,
 						    &command->stroke.source.base,
 						    &command->stroke.path,
@@ -1406,7 +1406,7 @@ _cairo_recording_surface_replay_internal (cairo_recording_surface_t	*surface,
 		    _cairo_clip_equal (command->header.clip,
 				       stroke_command->header.clip))
 		{
-		    status = _cairo_surface_wrapper_fill_stroke (&wrapper,
+		    status =(cairo_int_status_t) _cairo_surface_wrapper_fill_stroke (&wrapper,
 								 command->header.op,
 								 &command->fill.source.base,
 								 command->fill.fill_rule,
@@ -1425,7 +1425,7 @@ _cairo_recording_surface_replay_internal (cairo_recording_surface_t	*surface,
 		}
 	    }
 	    if (status == CAIRO_INT_STATUS_UNSUPPORTED) {
-		status = _cairo_surface_wrapper_fill (&wrapper,
+		status =(cairo_int_status_t) _cairo_surface_wrapper_fill (&wrapper,
 						      command->header.op,
 						      &command->fill.source.base,
 						      &command->fill.path,
@@ -1437,7 +1437,7 @@ _cairo_recording_surface_replay_internal (cairo_recording_surface_t	*surface,
 	    break;
 
 	case CAIRO_COMMAND_SHOW_TEXT_GLYPHS:
-	    status = _cairo_surface_wrapper_show_text_glyphs (&wrapper,
+	    status =(cairo_int_status_t) _cairo_surface_wrapper_show_text_glyphs (&wrapper,
 							      command->header.op,
 							      &command->show_text_glyphs.source.base,
 							      command->show_text_glyphs.utf8, command->show_text_glyphs.utf8_len,
@@ -1469,7 +1469,7 @@ _cairo_recording_surface_replay_internal (cairo_recording_surface_t	*surface,
 
 done:
     _cairo_surface_wrapper_fini (&wrapper);
-    return _cairo_surface_set_error (&surface->base, status);
+    return (cairo_status_t)_cairo_surface_set_error (&surface->base, status);
 }
 
 cairo_status_t
@@ -1505,14 +1505,14 @@ _cairo_recording_surface_replay_one (cairo_recording_surface_t	*surface,
     command = elements[index];
     switch (command->header.type) {
     case CAIRO_COMMAND_PAINT:
-	status = _cairo_surface_wrapper_paint (&wrapper,
+	status = (cairo_int_status_t)_cairo_surface_wrapper_paint (&wrapper,
 					       command->header.op,
 					       &command->paint.source.base,
 					       command->header.clip);
 	break;
 
     case CAIRO_COMMAND_MASK:
-	status = _cairo_surface_wrapper_mask (&wrapper,
+	status = (cairo_int_status_t)_cairo_surface_wrapper_mask (&wrapper,
 					      command->header.op,
 					      &command->mask.source.base,
 					      &command->mask.mask.base,
@@ -1520,7 +1520,7 @@ _cairo_recording_surface_replay_one (cairo_recording_surface_t	*surface,
 	break;
 
     case CAIRO_COMMAND_STROKE:
-	status = _cairo_surface_wrapper_stroke (&wrapper,
+	status = (cairo_int_status_t)_cairo_surface_wrapper_stroke (&wrapper,
 						command->header.op,
 						&command->stroke.source.base,
 						&command->stroke.path,
@@ -1533,7 +1533,7 @@ _cairo_recording_surface_replay_one (cairo_recording_surface_t	*surface,
 	break;
 
     case CAIRO_COMMAND_FILL:
-	status = _cairo_surface_wrapper_fill (&wrapper,
+	status = (cairo_int_status_t)_cairo_surface_wrapper_fill (&wrapper,
 					      command->header.op,
 					      &command->fill.source.base,
 					      &command->fill.path,
@@ -1544,7 +1544,7 @@ _cairo_recording_surface_replay_one (cairo_recording_surface_t	*surface,
 	break;
 
     case CAIRO_COMMAND_SHOW_TEXT_GLYPHS:
-	status = _cairo_surface_wrapper_show_text_glyphs (&wrapper,
+	status = (cairo_int_status_t)_cairo_surface_wrapper_show_text_glyphs (&wrapper,
 							  command->header.op,
 							  &command->show_text_glyphs.source.base,
 							  command->show_text_glyphs.utf8, command->show_text_glyphs.utf8_len,
@@ -1560,7 +1560,7 @@ _cairo_recording_surface_replay_one (cairo_recording_surface_t	*surface,
     }
 
     _cairo_surface_wrapper_fini (&wrapper);
-    return _cairo_surface_set_error (&surface->base, status);
+    return (cairo_status_t)_cairo_surface_set_error (&surface->base, status);
 }
 /**
  * _cairo_recording_surface_replay:
@@ -1687,7 +1687,7 @@ cairo_recording_surface_ink_extents (cairo_surface_t *surface,
 					 &bbox,
 					 NULL);
     if (unlikely (status))
-	status = _cairo_surface_set_error (surface, status);
+	status = (cairo_status_t)_cairo_surface_set_error (surface, (cairo_int_status_t)status);
 
 DONE:
     if (x0)

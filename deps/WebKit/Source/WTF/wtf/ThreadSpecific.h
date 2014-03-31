@@ -217,6 +217,50 @@ inline void ThreadSpecific<T>::set(T* ptr)
 }
 
 #elif PLATFORM(JS)
+	// This may be a VERY, VERY bad idea.
+	typedef unsigned long ThreadSpecificKey;
+
+	inline void threadSpecificKeyCreate(ThreadSpecificKey* key, void (*destructor)(void *))
+	{
+		fprintf(stderr, "WebKit: **** WARNING threadSpecificKeyCreate CALLED ****\n");
+	}
+
+	inline void threadSpecificKeyDelete(ThreadSpecificKey key)
+	{
+		fprintf(stderr, "WebKit: **** WARNING threadSpecificKeyDelete CALLED ****\n");
+	}
+
+	inline void threadSpecificSet(ThreadSpecificKey key, void* value)
+	{
+		fprintf(stderr, "WebKit: **** WARNING threadSpecificKeySet CALLED ****\n");
+	}
+
+	inline void* threadSpecificGet(ThreadSpecificKey key)
+	{
+		fprintf(stderr, "WebKit: **** WARNING threadSpecificKeyGet CALLED ****\n");
+    return 0;
+	}
+
+	template<typename T>
+	inline ThreadSpecific<T>::ThreadSpecific()
+	{
+		fprintf(stderr, "WebKit: **** WARNING ThreadSpecific<T>() CALLED ****\n");
+	}
+
+	template<typename T>
+	inline T* ThreadSpecific<T>::get()
+	{
+		fprintf(stderr, "WebKit: **** WARNING ThreadSpecific<T>::get() CALLED ****\n");
+
+    Data* data = 0;
+    return data ? data->value : 0;
+	}
+
+	template<typename T>
+	inline void ThreadSpecific<T>::set(T* ptr)
+	{
+		fprintf(stderr, "WebKit: **** WARNING ThreadSpecific<T>::set() CALLED ****\n");
+	}
 #else
 #error ThreadSpecific is not implemented for this platform.
 #endif
@@ -239,7 +283,8 @@ inline void ThreadSpecific<T>::destroy(void* ptr)
     pthread_setspecific(data->owner->m_key, 0);
 #elif OS(WINDOWS)
     TlsSetValue(tlsKeys()[data->owner->m_index], 0);
-#else
+#elif !PLATFORM(JS) 
+	// TODO: THIS MAY BE A VERY VERY BAD IDEA
 #error ThreadSpecific is not implemented for this platform.
 #endif
 

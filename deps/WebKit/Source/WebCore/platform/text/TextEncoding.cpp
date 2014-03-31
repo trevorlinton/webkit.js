@@ -101,7 +101,7 @@ CString TextEncoding::encode(const UChar* characters, size_t length, Unencodable
         sourceLength = normalizedLength;
     }
     return newTextCodec(*this)->encode(source, sourceLength, handling);
-#elif OS(WINDOWS) && USE(WCHAR_UNICODE)
+#elif OS(WINDOWS) && USE(WCHAR_UNICODE) || PLATFORM(JS)
     // normalization will be done by Windows CE API
     OwnPtr<TextCodec> textCodec = newTextCodec(*this);
     return textCodec.get() ? textCodec->encode(characters, length, handling) : CString();

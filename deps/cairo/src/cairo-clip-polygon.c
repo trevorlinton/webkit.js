@@ -79,7 +79,7 @@ _cairo_clip_get_polygon (const cairo_clip_t *clip,
     if (clip->path == NULL) {
 	*fill_rule = CAIRO_FILL_RULE_WINDING;
 	*antialias = CAIRO_ANTIALIAS_DEFAULT;
-	return _cairo_polygon_init_box_array (polygon,
+	return (cairo_int_status_t)_cairo_polygon_init_box_array (polygon,
 					      clip->boxes,
 					      clip->num_boxes);
     }
@@ -130,11 +130,11 @@ _cairo_clip_get_polygon (const cairo_clip_t *clip,
 	*fill_rule = CAIRO_FILL_RULE_WINDING;
     }
 
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 
 err:
     _cairo_polygon_fini (polygon);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 cairo_bool_t

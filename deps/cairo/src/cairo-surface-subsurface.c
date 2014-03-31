@@ -130,7 +130,7 @@ _cairo_surface_subsurface_paint (void *abstract_surface,
 					 -surface->extents.x, -surface->extents.y,
 					  op, source, target_clip);
     _cairo_clip_destroy (target_clip);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 static cairo_int_status_t
@@ -150,7 +150,7 @@ _cairo_surface_subsurface_mask (void *abstract_surface,
 					 -surface->extents.x, -surface->extents.y,
 					 op, source, mask, target_clip);
     _cairo_clip_destroy (target_clip);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 static cairo_int_status_t
@@ -174,7 +174,7 @@ _cairo_surface_subsurface_fill (void			*abstract_surface,
 					 op, source, path, fill_rule, tolerance, antialias,
 					 target_clip);
     _cairo_clip_destroy (target_clip);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 static cairo_int_status_t
@@ -201,7 +201,7 @@ _cairo_surface_subsurface_stroke (void				*abstract_surface,
 					   tolerance, antialias,
 					   target_clip);
     _cairo_clip_destroy (target_clip);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 static cairo_int_status_t
@@ -225,7 +225,7 @@ _cairo_surface_subsurface_glyphs (void			*abstract_surface,
 					   scaled_font, glyphs, num_glyphs,
 					   target_clip);
     _cairo_clip_destroy (target_clip);
-    return status;
+    return (cairo_int_status_t)status;
 }
 
 static cairo_status_t

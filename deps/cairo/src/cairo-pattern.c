@@ -3647,15 +3647,15 @@ _cairo_pattern_get_ink_extents (const cairo_pattern_t         *pattern,
 	    status = _cairo_recording_surface_get_ink_bbox ((cairo_recording_surface_t *)surface,
 						   &box, &imatrix);
 	    if (unlikely (status))
-		return status;
+		return (cairo_int_status_t)status;
 
 	    _cairo_box_round_to_rectangle (&box, extents);
-	    return CAIRO_STATUS_SUCCESS;
+	    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 	}
     }
 
     _cairo_pattern_get_extents (pattern, extents);
-    return CAIRO_STATUS_SUCCESS;
+    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
 }
 
 static unsigned long

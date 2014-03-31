@@ -46,6 +46,7 @@ namespace WebCore {
 
   ScrollbarTheme* ScrollbarTheme::nativeTheme() {
 		notImplemented();
+		return NULL;
 	}
 
   PassRefPtr<RenderTheme> RenderThemeJS::create()

@@ -3153,6 +3153,8 @@ PassRefPtr<CSSValue> ComputedStyleExtractor::propertyValue(CSSPropertyID propert
         case CSSPropertyWebkitSvgShadow:
             return svgPropertyValue(propertyID, DoNotUpdateLayout);
 #endif
+			default:
+				return 0;
     }
 
     logUnimplementedPropertyID(propertyID);

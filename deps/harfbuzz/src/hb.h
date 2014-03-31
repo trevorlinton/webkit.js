@@ -28,7 +28,7 @@
 #define HB_H
 #define HB_H_IN
 
-#pragma GCC diagnostic ignored "-Wunused-value" 
+// #pragma GCC diagnostic ignored "-Wunused-value"
 
 #include "hb-blob.h"
 #include "hb-buffer.h"

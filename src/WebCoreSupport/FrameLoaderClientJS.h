@@ -4,9 +4,11 @@
 #include "FrameLoaderClient.h"
 
 namespace WebCore {
+	class WebFrameJS;
+
   class FrameLoaderClientJS : FrameLoaderClient {
   public:
-    static FrameLoaderClient* createClient();
+    static FrameLoaderClient* createClient(WebFrameJS *frame);
     ~FrameLoaderClientJS();
     bool hasHTMLView() const;
     void frameLoaderDestroyed();
@@ -115,10 +117,9 @@ namespace WebCore {
     ResourceError fileDoesNotExistError(const ResourceResponse&);
     ResourceError pluginWillHandleLoadError(const ResourceResponse&);
     PassRefPtr<FrameNetworkingContext> createNetworkingContext();
-		void setFrame(Frame *);
   private:
-    FrameLoaderClientJS();
-		Frame *m_frame = 0;
+    FrameLoaderClientJS(WebFrameJS *frame);
+		WebFrameJS *m_frame = 0;
   };
 }
 

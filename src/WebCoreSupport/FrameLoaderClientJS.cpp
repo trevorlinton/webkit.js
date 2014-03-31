@@ -4,6 +4,7 @@
 #include "DebuggerJS.h"
 #include "DocumentLoaderJS.h"
 #include "FrameLoaderClientJS.h"
+#include "WebFrameJS.h"
 #include "FrameLoaderTypes.h"
 #include "ResourceError.h"
 #include "FrameJS.h"
@@ -13,12 +14,15 @@
 #include "MIMETYpeRegistry.h"
 #include "Page.h"
 #include "MainFrame.h"
+#include "WebView.h"
 
 namespace WebCore {
-  FrameLoaderClient* FrameLoaderClientJS::createClient() {
-    return static_cast<FrameLoaderClient *>(new FrameLoaderClientJS());
+  FrameLoaderClient* FrameLoaderClientJS::createClient(WebFrameJS *webframe) {
+    return static_cast<FrameLoaderClient *>(new FrameLoaderClientJS(webframe));
+
   }
-  FrameLoaderClientJS::FrameLoaderClientJS() {
+  FrameLoaderClientJS::FrameLoaderClientJS(WebFrameJS *webframe) {
+		m_frame = webframe;
     notImplemented();
   }
   
@@ -28,7 +32,7 @@ namespace WebCore {
 
 
   bool FrameLoaderClientJS::hasHTMLView() const {
-    notImplemented();
+    webkitTrace();
     return true;
   }
   void FrameLoaderClientJS::frameLoaderDestroyed() {
@@ -45,7 +49,7 @@ namespace WebCore {
   }
   void FrameLoaderClientJS::forceLayout() {
     webkitTrace();
-		FrameView* view = m_frame->view();
+		FrameView* view = m_frame->coreFrame()->view();
 		view->setNeedsLayout();
     if (view)
 			view->forceLayout(true);
@@ -161,20 +165,9 @@ namespace WebCore {
     notImplemented();
   }
 
-/*  void FrameLoaderClientJS::dispatchDidLayout() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
-  }
-  void FrameLoaderClientJS::dispatchDidLayout(LayoutMilestones) {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
-  }*/
-
   Frame* FrameLoaderClientJS::dispatchCreatePage(const NavigationAction&) {
 		webkitTrace();
-		return m_frame;
+		return m_frame->coreFrame();
   }
   void FrameLoaderClientJS::dispatchShow() {
     notImplemented();
@@ -198,10 +191,6 @@ namespace WebCore {
     notImplemented();
   }
 
-  /*void FrameLoaderClientJS::dispatchWillRequestResource(CachedResourceRequest*) {
-   notImplemented();
-  }*/
-
   void FrameLoaderClientJS::dispatchWillSendSubmitEvent(PassRefPtr<FormState>) {
     notImplemented();
   }
@@ -216,12 +205,6 @@ namespace WebCore {
     notImplemented();
   }
 
-  /*void FrameLoaderClientJS::willChangeEstimatedProgress() {
-   notImplemented();
-  }
-  void FrameLoaderClientJS::didChangeEstimatedProgress() {
-   notImplemented();
-  }*/
   void FrameLoaderClientJS::postProgressStartedNotification() {
     notImplemented();
   }
@@ -392,42 +375,11 @@ namespace WebCore {
     notImplemented();
   }
   void FrameLoaderClientJS::transitionToCommittedForNewPage() {
-    ASSERT(m_frame);
-		webkitTrace();
-		//
-    //QBrush brush = m_webFrame->page()->palette().brush(QPalette::Base);
-    //QColor backgroundColor = brush.style() == Qt::SolidPattern ? brush.color() : QColor();
-    m_frame->createView(IntSize(1024, 768), WebCore::Color::transparent, true);
-    //QWebPage* page = m_webFrame->page();
-    //const QSize preferredLayoutSize = page->preferredContentsSize();
-
-    //ScrollbarMode hScrollbar = (ScrollbarMode) m_webFrame->scrollBarPolicy(Qt::Horizontal);
-    //ScrollbarMode vScrollbar = (ScrollbarMode) m_webFrame->scrollBarPolicy(Qt::Vertical);
-    //bool hLock = hScrollbar != ScrollbarAuto;
-    //bool vLock = vScrollbar != ScrollbarAuto;
-
-    //IntSize currentVisibleContentSize = m_frame->view() ? m_frame->view()->actualVisibleContentRect().size() : IntSize();
-
-    /*m_frame->createView(m_webFrame->page()->viewportSize(),
-                        backgroundColor, !backgroundColor.alpha(),
-                        preferredLayoutSize.isValid() ? IntSize(preferredLayoutSize) : IntSize(),
-                        preferredLayoutSize.isValid(),
-                        hScrollbar, hLock,
-                        vScrollbar, vLock);*/
-
-    if (m_frame->isMainFrame()) {
-			fprintf(stderr,"WebKit: Is main frame, setting paint and scrolling delegates.\n");
-			m_frame->view()->setPaintsEntireContents(true);
-			m_frame->view()->setDelegatesScrolling(false);
-			//m_frame->view()->setPaintsEntireContents(page->d->client->viewResizesToContentsEnabled());
-			//m_frame->view()->setDelegatesScrolling(page->d->client->viewResizesToContentsEnabled());
-    }
-
-    // The HistoryController will update the scroll position later if needed.
-    //m_frame->view()->setActualVisibleContentRect(IntRect(IntPoint::zero(), currentVisibleContentSize));
-
-		//ASSERT(m_frame);
-    //m_frame->createView(IntSize(1024, 768), WebCore::Color::transparent, true);
+		WebKit::WebView* webView = m_frame->webView();
+		IntSize size = webView->p()->size;
+		bool transparent = webView->transparent();
+		Color backgroundColor = transparent ? Color::transparent : Color::white;
+		m_frame->coreFrame()->createView(size, backgroundColor, transparent);
 	}
 
   void FrameLoaderClientJS::didSaveToPageCache() {
@@ -556,9 +508,6 @@ namespace WebCore {
   bool FrameLoaderClientJS::isEmptyFrameLoaderClientJS() { return false; }
   };*/
 
-	void FrameLoaderClientJS::setFrame(Frame *frame) {
-		m_frame = frame;
-	}
 } // namespace WebKit
 
 

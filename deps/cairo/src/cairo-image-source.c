@@ -86,7 +86,7 @@ _pixman_transparent_image (void)
 	if (unlikely (image == NULL))
 	    return NULL;
 
-	if (_cairo_atomic_ptr_cmpxchg (&__pixman_transparent_image,
+	if (_cairo_atomic_ptr_cmpxchg ((void **)&__pixman_transparent_image,
 				       NULL, image))
 	{
 	    pixman_image_ref (image);
@@ -118,7 +118,7 @@ _pixman_black_image (void)
 	if (unlikely (image == NULL))
 	    return NULL;
 
-	if (_cairo_atomic_ptr_cmpxchg (&__pixman_black_image,
+	if (_cairo_atomic_ptr_cmpxchg ((void **)&__pixman_black_image,
 				       NULL, image))
 	{
 	    pixman_image_ref (image);
@@ -150,7 +150,7 @@ _pixman_white_image (void)
 	if (unlikely (image == NULL))
 	    return NULL;
 
-	if (_cairo_atomic_ptr_cmpxchg (&__pixman_white_image,
+	if (_cairo_atomic_ptr_cmpxchg ((void **)&__pixman_white_image,
 				       NULL, image))
 	{
 	    pixman_image_ref (image);
@@ -349,7 +349,7 @@ _pixman_image_for_gradient (const cairo_gradient_pattern_t *pattern,
 	return NULL;
 
     *ix = *iy = 0;
-    status = _cairo_matrix_to_pixman_matrix_offset (&matrix, pattern->base.filter,
+    status = (cairo_int_status_t)_cairo_matrix_to_pixman_matrix_offset (&matrix, pattern->base.filter,
 						    extents->x + extents->width/2.,
 						    extents->y + extents->height/2.,
 						    &pixman_transform, ix, iy);
@@ -528,7 +528,7 @@ _pixman_image_set_properties (pixman_image_t *pixman_image,
     pixman_transform_t pixman_transform;
     cairo_int_status_t status;
 
-    status = _cairo_matrix_to_pixman_matrix_offset (&pattern->matrix,
+    status = (cairo_int_status_t)_cairo_matrix_to_pixman_matrix_offset (&pattern->matrix,
 						    pattern->filter,
 						    extents->x + extents->width/2.,
 						    extents->y + extents->height/2.,
@@ -636,7 +636,7 @@ proxy_finish (void *abstract_surface)
 }
 
 static const cairo_surface_backend_t proxy_backend  = {
-    CAIRO_INTERNAL_SURFACE_TYPE_NULL,
+    (cairo_surface_type_t)CAIRO_INTERNAL_SURFACE_TYPE_NULL,
     proxy_finish,
     NULL,
 

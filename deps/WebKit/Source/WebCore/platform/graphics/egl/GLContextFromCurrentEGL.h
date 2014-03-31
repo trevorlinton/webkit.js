@@ -44,8 +44,10 @@ public:
 
     virtual bool canRenderToDefaultFramebuffer() OVERRIDE { return false; }
 
+#if USE(3D_GRAPHICS)
     virtual PlatformGraphicsContext3D platformContext() OVERRIDE { return this; }
-    virtual void waitNative() OVERRIDE { }
+#endif
+	virtual void waitNative() OVERRIDE { }
 
 private:
     static bool initialize();

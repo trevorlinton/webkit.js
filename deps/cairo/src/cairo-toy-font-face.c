@@ -165,15 +165,15 @@ _cairo_toy_font_face_create_impl_face (cairo_toy_font_face_t *font_face,
 	0 != strncmp (font_face->family, CAIRO_USER_FONT_FAMILY_DEFAULT,
 		      strlen (CAIRO_USER_FONT_FAMILY_DEFAULT)))
     {
-	status = backend->create_for_toy (font_face, impl_font_face);
+	status = (cairo_int_status_t)backend->create_for_toy (font_face, impl_font_face);
     }
 
     if (status == CAIRO_INT_STATUS_UNSUPPORTED) {
 	backend = &_cairo_user_font_face_backend;
-	status = backend->create_for_toy (font_face, impl_font_face);
+	status = (cairo_int_status_t)backend->create_for_toy (font_face, impl_font_face);
     }
 
-    return status;
+    return (cairo_status_t)status;
 }
 
 static cairo_status_t

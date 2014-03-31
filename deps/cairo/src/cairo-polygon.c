@@ -549,7 +549,7 @@ _cairo_polygon_add_contour (cairo_polygon_t *polygon,
     int i;
 
     if (contour->chain.num_points <= 1)
-	return CAIRO_INT_STATUS_SUCCESS;
+	return (cairo_status_t)CAIRO_INT_STATUS_SUCCESS;
 
     prev = &contour->chain.points[0];
     for (chain = &contour->chain; chain; chain = chain->next) {

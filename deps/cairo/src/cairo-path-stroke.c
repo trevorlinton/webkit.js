@@ -1331,7 +1331,7 @@ _cairo_path_fixed_stroke_to_traps (const cairo_path_fixed_t	*path,
     cairo_polygon_t polygon;
 
     _cairo_polygon_init (&polygon, traps->limits, traps->num_limits);
-    status = _cairo_path_fixed_stroke_to_polygon (path,
+    status = (cairo_int_status_t)_cairo_path_fixed_stroke_to_polygon (path,
 						  stroke_style,
 						  ctm,
 						  ctm_inverse,
@@ -1340,11 +1340,11 @@ _cairo_path_fixed_stroke_to_traps (const cairo_path_fixed_t	*path,
     if (unlikely (status))
 	goto BAIL;
 
-    status = _cairo_polygon_status (&polygon);
+    status = (cairo_int_status_t)_cairo_polygon_status (&polygon);
     if (unlikely (status))
 	goto BAIL;
 
-    status = _cairo_bentley_ottmann_tessellate_polygon (traps, &polygon,
+    status = (cairo_int_status_t)_cairo_bentley_ottmann_tessellate_polygon (traps, &polygon,
 							CAIRO_FILL_RULE_WINDING);
 
 BAIL:
