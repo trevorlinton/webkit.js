@@ -149,11 +149,11 @@ Contributing
 * **DONE** ~~Integrate both node and web browser environments for testing demo of basic HTML~~
 * **DONE** ~~Integrate support for font resource loading and virtual file system for fontconfig~~
 * **Bad Idea -** ~~Use embind/cppfilter.js to automatically generate all the WebCore C++ interfaces (derived from WebCore.exp.in) directly into JavaScript, then simply reuse existing webcore demos/examples.~~
-* **In Progress -** Generate a webkit.js API based on the WebCore C++ interfaces exported to JavaScript.
-* **In Progress -** Explore best methods for creating demo's and painting within WebKitJS.cpp to the host context.
-* **In Progress -** Experiment with emscripten outlining, lto, and optimization techniques to prevent variable/heap/stack limitations and reduce code size.
-* Generate simple JavaScript library to create, use and manage webkit.js rendering.
-* Create examples, demos and how-to guides (documentation, etc).
+* **DONE** ~~Generate a webkit.js API based on the WebCore C++ interfaces exported to JavaScript.~~
+* **DONE** ~~Explore best methods for creating demo's and painting within WebKitJS.cpp to the host context.~~
+* **DONE** ~~Experiment with emscripten outlining, lto, and optimization techniques to prevent variable/heap/stack limitations and reduce code size.~~
+* **DONE** ~~Generate simple JavaScript library to create, use and manage webkit.js rendering.~~
+* **In Progress** Create examples, demos and how-to guides (documentation, etc).
 * Create hooks into webkit layout tests to ensure functionality.
 * Scripts to auto-generate code with Emscripten JavaScript Bindings to enable DOM interactions with JavaScript (e.g., IDL generation, and some other bindings/scripts tasks)
 * Removal of "oddity" code (e.g., no mans land code, existing dead code, platform specific code) and optimization of file size and runtime
