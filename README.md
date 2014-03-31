@@ -19,10 +19,10 @@ Status
 
 **Current Issues**
 
-* Exploring the best way of debugging and painting in both node and browser contexts. 
-* Firefox complains of too many variables
-* Chrome complains of heap space issues
-* Exploring an efficient worker -> canvas bitblt and forwarding GLESv2 contexts to a WebGL context
+* Exploring the best way of debugging and painting in both node and browser contexts. Adding SDL to browsers to simplify setting up a canvas context and forwarding GL/ARGB bitblts and mouse events with ease.
+* Firefox complains of too many variables, this is only in Debug mode, you may get ASM validation errors, this is mainly due to a globally initialized variable somewhere.. Release works fine.
+* Chrome complains of heap space issues, this is only in Debug mode, 30+ will crash using debug. Release works fine.
+* Node will run and produce bitblt png's to stdout, this needs some native opengl modules and somehow forward SDL calls to this native GL context (for non-headless), for headless capture we'll need to add snapshot functionality to the library.
 
 **Supported Features**
 
@@ -46,9 +46,9 @@ Fonts are rendered via freetype2, fontconfig and cairo for consistent font rende
 
 **Performance**
 
-* Most webpages render in similar or runtimes as any other browser (without Javascript DOM interactions or CSS animations).
+* Most webpages render with similar performance as any other browser (without Javascript DOM interactions or CSS animations).
 * Animations in CSS tend to perform 3~10% slower than in browsers.
-* Javascript based animations in isolated tests have shown a 30~35% gain in rendering speed, this, however seems to be limited by quite a bit of JIT factors and heavily influenced by the outlining limit set by emscripten (essentially too large of functions cannot be optimized heavily).  In addition it can take a white for the JIT optimizations (on V8) to kick in and thus has inconsistant performance.
+* Javascript based animations in isolated tests have shown a 30~35% gain in rendering speed, this, however seems to be limited by quite a bit of JIT factors and heavily influenced by the outlining limit set by emscripten (essentially too large of functions cannot be optimized heavily).  In addition it can take a white for the JIT optimizations (on V8) to kick in and thus has inconsistant performance. This will change based on the JS bindings used to produce a full DOM representation.
 * Seems viable for a useful framework for rendering snapshots, unclear on using it as a live renderer.
 
 Building
@@ -102,12 +102,12 @@ ninja -C Debug
 
 Running in the Browser
 --------------
-Currently this can be ran by using postMessage and Emscripten's standard way of posting arguments into a "main" method within a browser.  Make sure to run it as a worker otherwise say goodbye to your browser. Debug messages are printed to the debug console. Firefox tends to work better than Chrome.
+Compiling will produce a "test.html", you can use this to play around with rendering.  The debug console (for both Release and Debug versions) shows trace outputs and gives you an idea of what's going on under the hood. Look for LLVM traps or abort()'s to see if the renderer is crashing.  File any bugs you may find with the traces please. See Current Status above for more information.  Note currently only release versions work in Firefox and Chrome due to limitations in the amount of funcitons/symbols browsers are willing to handle.
 
 
 Running in Node
 --------------
-This is the preferred way of running it, using the debug version traces will be printed to stder. stdout contains bitblt's (As png's) of render changes, this will change once a best-of-breed method of painting is found.
+This is the preferred way of running it, using the debug version traces will be printed to stderr. stdout contains bitblt's (As png's) of render changes, this will change once a best-of-breed method of painting is found (see Current Status). Debug and Release versions work in node.
 
 ```
 $ node webkit.js "<html><body>Some HTML</body></html>"
@@ -115,8 +115,6 @@ $ node webkit.js "<html><body>Some HTML</body></html>"
 
 Contributing
 --------------
-
-There's so much to be done any help is appreciated, at the moment I have a brutal wrapper/harness that can render DIV's with various colors to a WebGL surface in Chrome 32. It's not impressive but its a proof of concept.
 
 **Getting around the code**
 
@@ -161,8 +159,8 @@ There's so much to be done any help is appreciated, at the moment I have a bruta
 * **DONE** ~~Integrate support for font resource loading and virtual file system for fontconfig~~
 * **Bad Idea -** ~~Use embind/cppfilter.js to automatically generate all the WebCore C++ interfaces (derived from WebCore.exp.in) directly into JavaScript, then simply reuse existing webcore demos/examples.~~
 * **In Progress -** Generate a webkit.js API based on the WebCore C++ interfaces exported to JavaScript.
-* **In Progress - ** Explore best methods for creating demo's and painting within WebKitJS.cpp to the host context.
-* **In Progress - ** Experiment with emscripten outlining, lto, and optimization techniques to prevent variable/heap/stack limitations and reduce code size.
+* **In Progress -** Explore best methods for creating demo's and painting within WebKitJS.cpp to the host context.
+* **In Progress -** Experiment with emscripten outlining, lto, and optimization techniques to prevent variable/heap/stack limitations and reduce code size.
 * Generate simple JavaScript library to create, use and manage webkit.js rendering.
 * Create examples, demos and how-to guides (documentation, etc).
 * Create hooks into webkit layout tests to ensure functionality.
@@ -175,4 +173,6 @@ License
 ----
 [BSD License](http://www.webkit.org/coding/bsd-license.html). Use of this source code is governed by a BSD-style license that can be found in the LICENSE files contained in the root of the respective source code.
 
-&copy; True Interactions 2014
+&copy; True Interactions 2014 (www.trueinteractions.com)
+
+www.twitter.com/trevorlinton
