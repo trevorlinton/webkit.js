@@ -106,7 +106,7 @@ See demo.html and webkit.js in the "bin" folder, runs best in Firefox (Chrome/Sa
 
 Demo
 --------------
-http://trevorlinton.github.io/webkit.js/demo.html
+http://trevorlinton.github.io/webkit.js/demo.html (Firefox only, Chrome/Safari cause huge pauses because of garbage collection).
 
 Contributing
 --------------
