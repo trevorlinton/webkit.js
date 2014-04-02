@@ -19,10 +19,10 @@ Status
 
 **Current Issues**
 
-* Exploring the best way of debugging and painting in both node and browser contexts. Adding SDL to browsers to simplify setting up a canvas context and forwarding GL/ARGB bitblts and mouse events with ease.
-* Firefox complains of too many variables, this is only in Debug mode, you may get ASM validation errors, this is mainly due to a globally initialized variable somewhere.. Release works fine.
-* Chrome complains of heap space issues, this is only in Debug mode, 30+ will crash using debug. Release works fine.
-* Node will run and produce bitblt png's to stdout, this needs some native opengl modules and somehow forward SDL calls to this native GL context (for non-headless), for headless capture we'll need to add snapshot functionality to the library.
+* Exploring easier ways to bitblt outputs to canvas/webgl contexts for all browsers and nodejs(with a head, otherwise nodejs can just take headless snapshots).  Like with every other port, issues of endian-ness, RGBA (pre vs. per-pixel multiplied alpha) formats and bit size make this more complex than it feels like it should be. 
+* Optimizing the code for size and performance, release & debug modes work in all browsers, however Chrome/Safari/Opera have hiccups (long pauses) that may be due to GC issues.  It's somewhat unclear what the issue is, firefox is unaffected by this.  Emscripten optimizations, removal of dead code, reducing unnecessary library code will be a focus for the next while.
+* Enhancing the API.  Adding mouse event callbacks, scrolling, keyboard callbacks, and snapshot to it.  Until there's a stable (well tested) API this will remain as an experiment.
+
 
 **Supported Features**
 
