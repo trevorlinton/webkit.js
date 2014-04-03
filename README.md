@@ -19,10 +19,10 @@ Status
 
 **Current Issues**
 
-* Exploring the best way of debugging and painting in both node and browser contexts. Adding SDL to browsers to simplify setting up a canvas context and forwarding GL/ARGB bitblts and mouse events with ease.
-* Firefox complains of too many variables, this is only in Debug mode, you may get ASM validation errors, this is mainly due to a globally initialized variable somewhere.. Release works fine.
-* Chrome complains of heap space issues, this is only in Debug mode, 30+ will crash using debug. Release works fine.
-* Node will run and produce bitblt png's to stdout, this needs some native opengl modules and somehow forward SDL calls to this native GL context (for non-headless), for headless capture we'll need to add snapshot functionality to the library.
+* Exploring easier ways to bitblt outputs to canvas/webgl contexts for all browsers and nodejs(with a head, otherwise nodejs can just take headless snapshots).  Like with every other port, issues of endian-ness, RGBA (pre vs. per-pixel multiplied alpha) formats and bit size make this more complex than it feels like it should be. 
+* Optimizing the code for size and performance, release & debug modes work in all browsers, however Chrome/Safari/Opera have hiccups (long pauses) that may be due to GC issues.  It's somewhat unclear what the issue is, firefox is unaffected by this.  Emscripten optimizations, removal of dead code, reducing unnecessary library code will be a focus for the next while.
+* Enhancing the API.  Adding mouse event callbacks, scrolling, keyboard callbacks, and snapshot to it.  Until there's a stable (well tested) API this will remain as an experiment.
+
 
 **Supported Features**
 
@@ -102,16 +102,11 @@ ninja -C Debug
 
 Running in the Browser
 --------------
-Compiling will produce a "test.html", you can use this to play around with rendering.  The debug console (for both Release and Debug versions) shows trace outputs and gives you an idea of what's going on under the hood. Look for LLVM traps or abort()'s to see if the renderer is crashing.  File any bugs you may find with the traces please. See Current Status above for more information.  Note currently only release versions work in Firefox and Chrome due to limitations in the amount of funcitons/symbols browsers are willing to handle.
+See demo.html and webkit.js in the "bin" folder, runs best in Firefox (Chrome/Safari seem to have large long hiccups and freezes due to garbage collection).
 
-
-Running in Node
+Demo
 --------------
-This is the preferred way of running it, using the debug version traces will be printed to stderr. stdout contains bitblt's (As png's) of render changes, this will change once a best-of-breed method of painting is found (see Current Status). Debug and Release versions work in node.
-
-```
-$ node webkit.js "<html><body>Some HTML</body></html>"
-```
+http://trevorlinton.github.io/webkit.js/demo.html (Firefox only, Chrome/Safari cause huge pauses because of garbage collection).
 
 Contributing
 --------------
@@ -158,11 +153,11 @@ Contributing
 * **DONE** ~~Integrate both node and web browser environments for testing demo of basic HTML~~
 * **DONE** ~~Integrate support for font resource loading and virtual file system for fontconfig~~
 * **Bad Idea -** ~~Use embind/cppfilter.js to automatically generate all the WebCore C++ interfaces (derived from WebCore.exp.in) directly into JavaScript, then simply reuse existing webcore demos/examples.~~
-* **In Progress -** Generate a webkit.js API based on the WebCore C++ interfaces exported to JavaScript.
-* **In Progress -** Explore best methods for creating demo's and painting within WebKitJS.cpp to the host context.
-* **In Progress -** Experiment with emscripten outlining, lto, and optimization techniques to prevent variable/heap/stack limitations and reduce code size.
-* Generate simple JavaScript library to create, use and manage webkit.js rendering.
-* Create examples, demos and how-to guides (documentation, etc).
+* **DONE** ~~Generate a webkit.js API based on the WebCore C++ interfaces exported to JavaScript.~~
+* **DONE** ~~Explore best methods for creating demo's and painting within WebKitJS.cpp to the host context.~~
+* **DONE** ~~Experiment with emscripten outlining, lto, and optimization techniques to prevent variable/heap/stack limitations and reduce code size.~~
+* **DONE** ~~Generate simple JavaScript library to create, use and manage webkit.js rendering.~~
+* **In Progress** Create examples, demos and how-to guides (documentation, etc).
 * Create hooks into webkit layout tests to ensure functionality.
 * Scripts to auto-generate code with Emscripten JavaScript Bindings to enable DOM interactions with JavaScript (e.g., IDL generation, and some other bindings/scripts tasks)
 * Removal of "oddity" code (e.g., no mans land code, existing dead code, platform specific code) and optimization of file size and runtime
