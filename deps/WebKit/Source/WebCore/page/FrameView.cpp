@@ -870,7 +870,7 @@ void FrameView::updateCompositingLayersAfterLayout()
     RenderView* renderView = this->renderView();
     if (!renderView)
         return;
-#if PLATFORM(JS)
+#if PLATFORM(JS) && defined(DEBUG)
 		fprintf(stderr, "WebKit: FrameView::updateCompositingLayersAfterLayout() firing updateCompositingLayers.\n");
 #endif
     // This call will make sure the cached hasAcceleratedCompositing is updated from the pref
@@ -2509,7 +2509,7 @@ const unsigned cRepaintRectUnionThreshold = 25;
 
 void FrameView::repaintContentRectangle(const IntRect& r, bool immediate)
 {
-#if PLATFORM(JS)
+#if PLATFORM(JS) && defined(DEBUG)
 	webkitTrace();
 	fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: rect: x: %i y: %i h: %i w: %i immediate: %i\n", r.x(), r.y(), r.height(), r.width(), immediate);
 #endif
@@ -2537,11 +2537,11 @@ void FrameView::repaintContentRectangle(const IntRect& r, bool immediate)
         else
             m_repaintRects[0].unite(paintRect);
         m_repaintCount++;
-#if PLATFORM(JS)
+#if PLATFORM(JS) && defined(DEBUG)
 				fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: issuing repaint in: %f m_deferingRepaints is: %i\n", delay, m_deferringRepaints);
 #endif
 				if (!m_deferringRepaints) {
-#if PLATFORM(JS)
+#if PLATFORM(JS) && defined(DEBUG)
 						fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: issuing deferred paint in: %f\n", delay);
 #endif
             startDeferredRepaintTimer(delay);
@@ -2549,13 +2549,13 @@ void FrameView::repaintContentRectangle(const IntRect& r, bool immediate)
 
         return;
     } else {
-#if PLATFORM(JS)
+#if PLATFORM(JS) && defined(DEBUG)
 			fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: m_deferringRepaints=true || m_deferredRepaintTimer.isActive()=true || delay > 0\n");
 #endif
 		}
     
 		if (!shouldUpdate(immediate)) {
-#if PLATFORM(JS)
+#if PLATFORM(JS) && defined(DEBUG)
 				fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: shouldUpdate(immediate) returned false.\n");
 #endif
         return;
@@ -2563,7 +2563,7 @@ void FrameView::repaintContentRectangle(const IntRect& r, bool immediate)
 #if USE(TILED_BACKING_STORE)
     if (frame().tiledBackingStore()) {
         frame().tiledBackingStore()->invalidate(r);
-#if PLATFORM(JS)
+#if PLATFORM(JS) && defined(DEBUG)
 				fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: Using a tiled backing store, leaving.\n");
 #endif
         return;
@@ -2755,21 +2755,21 @@ void FrameView::doDeferredRepaints()
     if (!shouldUpdate()) {
         m_repaintRects.clear();
         m_repaintCount = 0;
-#if PLATFORM(JS)
+#if PLATFORM(JS) && defined(DEBUG)
 				fprintf(stderr, "WebKit: doDeferredRepaints: shouldUpdate was false, exiting\n");
 #endif
         return;
     }
     unsigned size = m_repaintRects.size();
-#if PLATFORM(JS)
+#if PLATFORM(JS) && defined(DEBUG)
 		fprintf(stderr, "WebKit: doDeferredRepaints: amount of repaint rects: %i\n",size);
 #endif
     for (unsigned i = 0; i < size; i++) {
 #if USE(TILED_BACKING_STORE)
         if (frame().tiledBackingStore()) {
-#if PLATFORM(JS)
+#if PLATFORM(JS) && defined(DEBUG)
 						fprintf(stderr, "WebKit: doDeferredRepaints: invalidating tiledBackingStore\n");
-//						fprintf(stderr, "WebKit: repaintRect size (x,y,w,h): %i %i %i %i\n", m_repaintRects[i].x(),m_repaintRects[i].y(),m_repaintRects[i].width(),m_repaintRects[i].height());
+						fprintf(stderr, "WebKit: repaintRect size (x,y,w,h): %i %i %i %i\n", m_repaintRects[i].x(),m_repaintRects[i].y(),m_repaintRects[i].width(),m_repaintRects[i].height());
 #endif
 						frame().tiledBackingStore()->invalidate(pixelSnappedIntRect(m_repaintRects[i]));
             continue;
@@ -2791,23 +2791,33 @@ bool FrameView::shouldUseLoadTimeDeferredRepaintDelay() const
 
     // Don't defer after the initial load of the page has been completed.
 		if (frame().tree().top().loader().isComplete()) {
-				fprintf(stderr, "WebKit: Document has finished loading, do not use deferred repaint.\n");
-        return false;
+#if PLATFORM(JS) && defined(DEBUG)
+			fprintf(stderr, "WebKit: Document has finished loading, do not use deferred repaint.\n");
+#endif
+				return false;
 		}
     Document* document = frame().document();
 		if (!document) {
+#if PLATFORM(JS) && defined(DEBUG)
 				fprintf(stderr, "WebKit: Document does not exist, do not use deferred repaint.\n");
+#endif
         return false;
 		}
 		if (document->parsing()) {
+#if PLATFORM(JS) && defined(DEBUG)
 				fprintf(stderr, "WebKit: Document is parsing, use deferred repaint.\n");
+#endif
         return true;
 		}
 		if (document->cachedResourceLoader()->requestCount()) {
+#if PLATFORM(JS) && defined(DEBUG)
 				fprintf(stderr, "WebKit: Request Cache Count is > 0, use deferred repaint.\n");
+#endif
         return true;
 		}
+#if PLATFORM(JS) && defined(DEBUG)
 		fprintf(stderr, "WebKit: default: use deferred repaint.\n");
+#endif
 		return false;
 }
 

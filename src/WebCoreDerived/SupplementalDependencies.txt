@@ -244,7 +244,7 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/Crypto.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/DOMSecurityPolicy.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/DOMSelection.idl 
-/Tint/webkit.js/deps/WebKit/Source/WebCore/page/DOMWindow.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/page/WindowBase64.idl /Tint/webkit.js/webcore_bindings/derived/DOMWindowConstructors.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/page/WindowTimers.idl
+/Tint/webkit.js/deps/WebKit/Source/WebCore/page/DOMWindow.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/page/WindowBase64.idl /Tint/webkit.js/deps/WebKit/Source/WebCore/page/WindowTimers.idl /Tint/webkit.js/src/WebCoreDerived/DOMWindowConstructors.idl
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/EventSource.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/History.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/page/Location.idl 
@@ -409,4 +409,4 @@
 /Tint/webkit.js/deps/WebKit/Source/WebCore/xml/XPathNSResolver.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/xml/XPathResult.idl 
 /Tint/webkit.js/deps/WebKit/Source/WebCore/xml/XSLTProcessor.idl 
-/Tint/webkit.js/webcore_bindings/derived/InternalSettingsGenerated.idl 
+/Tint/webkit.js/src/WebCoreDerived/InternalSettingsGenerated.idl 

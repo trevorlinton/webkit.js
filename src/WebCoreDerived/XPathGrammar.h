@@ -92,23 +92,23 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 54 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 54 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 { NumericOp::Opcode numericOpcode; 
-#line 57 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 57 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  EqTestOp::Opcode equalityTestOpcode; 
-#line 64 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 64 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  StringImpl* string; 
-#line 68 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 68 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  Step::Axis axis; 
-#line 74 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 74 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  LocationPath* locationPath; 
-#line 78 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 78 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  Step::NodeTest* nodeTest; 
-#line 82 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 82 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  Vector<std::unique_ptr<Expression>>* expressionVector; 
-#line 86 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 86 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  Step* step; 
-#line 90 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 90 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  Expression* expression; }
 /* Line 1529 of yacc.c.  */
 #line 113 "./XPathGrammar.hpp"

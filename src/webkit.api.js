@@ -43,7 +43,7 @@ function CanvasRenderingContext2D() {
 	this.drawImage = function(image,sx,sy,sw,sh,dx,dy,dw,dh) {
 		var outgoingBuffer = image.getContext('2d').getImageData().data.buffer;
 		outgoingBuffer = outgoingBuffer.slice(0,outgoingBuffer.byteLength);
-		proxy({call:'canvas',type:'drawImage',id:Math.random(),imgdata:outgoingBuffer,sx:sx,sy:sy,sw:sw,sh:sh,dx:dx,dy:dy,dw:dw,dh:dh,width:image.width,height:image.height});
+		proxy({call:'canvas',type:'drawImage',id:Math.random(),imgdata:outgoingBuffer,sx:sx,sy:sy,sw:sw,sh:sh,dx:dx,dy:dy,dw:dw,dh:dh});
 	}
 	this.getImageData = function(x,y,width,height) {
 		proxy({call:'canvas',type:'getImageData',id:Math.random()});

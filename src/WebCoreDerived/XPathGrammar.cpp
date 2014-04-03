@@ -124,7 +124,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 28 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 28 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 
 
 #include "config.h"
@@ -167,23 +167,23 @@ using namespace XPath;
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 54 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 54 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 { NumericOp::Opcode numericOpcode; 
-#line 57 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 57 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  EqTestOp::Opcode equalityTestOpcode; 
-#line 64 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 64 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  StringImpl* string; 
-#line 68 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 68 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  Step::Axis axis; 
-#line 74 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 74 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  LocationPath* locationPath; 
-#line 78 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 78 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  Step::NodeTest* nodeTest; 
-#line 82 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 82 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  Vector<std::unique_ptr<Expression>>* expressionVector; 
-#line 86 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 86 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  Step* step; 
-#line 90 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 90 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
  Expression* expression; }
 /* Line 193 of yacc.c.  */
 #line 190 "./XPathGrammar.cpp"
@@ -196,7 +196,7 @@ typedef union YYSTYPE
 
 
 /* Copy the second part of user declarations.  */
-#line 94 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 94 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 
 
 static int xpathyylex(YYSTYPE* yylval, Parser& parser) { return parser.lex(*yylval); }
@@ -1199,157 +1199,157 @@ yydestruct (yymsg, yytype, yyvaluep, parser)
   switch (yytype)
     {
       case 10: /* "FUNCTIONNAME" */
-#line 66 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 66 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ if ((yyvaluep->string)) (yyvaluep->string)->deref(); };
 #line 1205 "./XPathGrammar.cpp"
 	break;
       case 11: /* "LITERAL" */
-#line 66 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 66 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ if ((yyvaluep->string)) (yyvaluep->string)->deref(); };
 #line 1210 "./XPathGrammar.cpp"
 	break;
       case 12: /* "NAMETEST" */
-#line 66 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 66 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ if ((yyvaluep->string)) (yyvaluep->string)->deref(); };
 #line 1215 "./XPathGrammar.cpp"
 	break;
       case 13: /* "NUMBER" */
-#line 66 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 66 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ if ((yyvaluep->string)) (yyvaluep->string)->deref(); };
 #line 1220 "./XPathGrammar.cpp"
 	break;
       case 14: /* "NODETYPE" */
-#line 66 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 66 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ if ((yyvaluep->string)) (yyvaluep->string)->deref(); };
 #line 1225 "./XPathGrammar.cpp"
 	break;
       case 15: /* "VARIABLEREFERENCE" */
-#line 66 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 66 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ if ((yyvaluep->string)) (yyvaluep->string)->deref(); };
 #line 1230 "./XPathGrammar.cpp"
 	break;
       case 35: /* "Expr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1235 "./XPathGrammar.cpp"
 	break;
       case 36: /* "LocationPath" */
-#line 76 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 76 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->locationPath); };
 #line 1240 "./XPathGrammar.cpp"
 	break;
       case 37: /* "AbsoluteLocationPath" */
-#line 76 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 76 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->locationPath); };
 #line 1245 "./XPathGrammar.cpp"
 	break;
       case 38: /* "RelativeLocationPath" */
-#line 76 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 76 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->locationPath); };
 #line 1250 "./XPathGrammar.cpp"
 	break;
       case 39: /* "Step" */
-#line 88 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 88 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->step); };
 #line 1255 "./XPathGrammar.cpp"
 	break;
       case 41: /* "NodeTest" */
-#line 80 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 80 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->nodeTest); };
 #line 1260 "./XPathGrammar.cpp"
 	break;
       case 42: /* "OptionalPredicateList" */
-#line 84 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 84 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expressionVector); };
 #line 1265 "./XPathGrammar.cpp"
 	break;
       case 43: /* "PredicateList" */
-#line 84 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 84 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expressionVector); };
 #line 1270 "./XPathGrammar.cpp"
 	break;
       case 44: /* "Predicate" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1275 "./XPathGrammar.cpp"
 	break;
       case 45: /* "DescendantOrSelf" */
-#line 88 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 88 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->step); };
 #line 1280 "./XPathGrammar.cpp"
 	break;
       case 46: /* "AbbreviatedStep" */
-#line 88 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 88 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->step); };
 #line 1285 "./XPathGrammar.cpp"
 	break;
       case 47: /* "PrimaryExpr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1290 "./XPathGrammar.cpp"
 	break;
       case 48: /* "FunctionCall" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1295 "./XPathGrammar.cpp"
 	break;
       case 49: /* "ArgumentList" */
-#line 84 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 84 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expressionVector); };
 #line 1300 "./XPathGrammar.cpp"
 	break;
       case 50: /* "Argument" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1305 "./XPathGrammar.cpp"
 	break;
       case 51: /* "UnionExpr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1310 "./XPathGrammar.cpp"
 	break;
       case 52: /* "PathExpr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1315 "./XPathGrammar.cpp"
 	break;
       case 53: /* "FilterExpr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1320 "./XPathGrammar.cpp"
 	break;
       case 54: /* "OrExpr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1325 "./XPathGrammar.cpp"
 	break;
       case 55: /* "AndExpr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1330 "./XPathGrammar.cpp"
 	break;
       case 56: /* "EqualityExpr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1335 "./XPathGrammar.cpp"
 	break;
       case 57: /* "RelationalExpr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1340 "./XPathGrammar.cpp"
 	break;
       case 58: /* "AdditiveExpr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1345 "./XPathGrammar.cpp"
 	break;
       case 59: /* "MultiplicativeExpr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1350 "./XPathGrammar.cpp"
 	break;
       case 60: /* "UnaryExpr" */
-#line 92 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 	{ delete (yyvaluep->expression); };
 #line 1355 "./XPathGrammar.cpp"
 	break;
@@ -1660,14 +1660,14 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 105 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 105 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         parser.setParseResult(std::unique_ptr<Expression>((yyvsp[(1) - (1)].expression)));
     ;}
     break;
 
   case 4:
-#line 116 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 116 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.locationPath) = (yyvsp[(1) - (1)].locationPath);
         (yyval.locationPath)->setAbsolute();
@@ -1675,21 +1675,21 @@ yyreduce:
     break;
 
   case 6:
-#line 126 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 126 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.locationPath) = new LocationPath;
     ;}
     break;
 
   case 7:
-#line 131 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 131 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.locationPath) = (yyvsp[(2) - (2)].locationPath);
     ;}
     break;
 
   case 8:
-#line 136 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 136 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.locationPath) = (yyvsp[(2) - (2)].locationPath);
         (yyval.locationPath)->prependStep(std::unique_ptr<Step>((yyvsp[(1) - (2)].step)));
@@ -1697,7 +1697,7 @@ yyreduce:
     break;
 
   case 9:
-#line 144 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 144 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.locationPath) = new LocationPath;
         (yyval.locationPath)->appendStep(std::unique_ptr<Step>((yyvsp[(1) - (1)].step)));
@@ -1705,7 +1705,7 @@ yyreduce:
     break;
 
   case 10:
-#line 150 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 150 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.locationPath) = (yyvsp[(1) - (3)].locationPath);
         (yyval.locationPath)->appendStep(std::unique_ptr<Step>((yyvsp[(3) - (3)].step)));
@@ -1713,7 +1713,7 @@ yyreduce:
     break;
 
   case 11:
-#line 156 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 156 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.locationPath) = (yyvsp[(1) - (3)].locationPath);
         (yyval.locationPath)->appendStep(std::unique_ptr<Step>((yyvsp[(2) - (3)].step)));
@@ -1722,7 +1722,7 @@ yyreduce:
     break;
 
   case 12:
-#line 165 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 165 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         std::unique_ptr<Step::NodeTest> nodeTest((yyvsp[(1) - (2)].nodeTest));
         std::unique_ptr<Vector<std::unique_ptr<Expression>>> predicateList((yyvsp[(2) - (2)].expressionVector));
@@ -1734,7 +1734,7 @@ yyreduce:
     break;
 
   case 13:
-#line 175 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 175 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         String nametest = adoptRef((yyvsp[(1) - (2)].string));
         std::unique_ptr<Vector<std::unique_ptr<Expression>>> predicateList((yyvsp[(2) - (2)].expressionVector));
@@ -1754,7 +1754,7 @@ yyreduce:
     break;
 
   case 14:
-#line 193 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 193 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         std::unique_ptr<Step::NodeTest> nodeTest((yyvsp[(2) - (3)].nodeTest));
         std::unique_ptr<Vector<std::unique_ptr<Expression>>> predicateList((yyvsp[(3) - (3)].expressionVector));
@@ -1767,7 +1767,7 @@ yyreduce:
     break;
 
   case 15:
-#line 204 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 204 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         String nametest = adoptRef((yyvsp[(2) - (3)].string));
         std::unique_ptr<Vector<std::unique_ptr<Expression>>> predicateList((yyvsp[(3) - (3)].expressionVector));
@@ -1787,42 +1787,42 @@ yyreduce:
     break;
 
   case 18:
-#line 228 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 228 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.axis) = Step::AttributeAxis;
     ;}
     break;
 
   case 19:
-#line 235 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 235 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.nodeTest) = new Step::NodeTest(Step::NodeTest::AnyNodeTest);
     ;}
     break;
 
   case 20:
-#line 240 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 240 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.nodeTest) = new Step::NodeTest(Step::NodeTest::TextNodeTest);
     ;}
     break;
 
   case 21:
-#line 245 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 245 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.nodeTest) = new Step::NodeTest(Step::NodeTest::CommentNodeTest);
     ;}
     break;
 
   case 22:
-#line 250 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 250 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.nodeTest) = new Step::NodeTest(Step::NodeTest::ProcessingInstructionNodeTest);
     ;}
     break;
 
   case 23:
-#line 255 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 255 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         String literal = adoptRef((yyvsp[(3) - (4)].string));
         (yyval.nodeTest) = new Step::NodeTest(Step::NodeTest::ProcessingInstructionNodeTest, literal.stripWhiteSpace());
@@ -1830,14 +1830,14 @@ yyreduce:
     break;
 
   case 24:
-#line 263 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 263 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expressionVector) = nullptr;
     ;}
     break;
 
   case 26:
-#line 272 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 272 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expressionVector) = new Vector<std::unique_ptr<Expression>>;
         (yyval.expressionVector)->append(std::unique_ptr<Expression>((yyvsp[(1) - (1)].expression)));
@@ -1845,7 +1845,7 @@ yyreduce:
     break;
 
   case 27:
-#line 278 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 278 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expressionVector) = (yyvsp[(1) - (2)].expressionVector);
         (yyval.expressionVector)->append(std::unique_ptr<Expression>((yyvsp[(2) - (2)].expression)));
@@ -1853,35 +1853,35 @@ yyreduce:
     break;
 
   case 28:
-#line 286 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 286 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = (yyvsp[(2) - (3)].expression);
     ;}
     break;
 
   case 29:
-#line 293 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 293 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.step) = new Step(Step::DescendantOrSelfAxis, Step::NodeTest(Step::NodeTest::AnyNodeTest));
     ;}
     break;
 
   case 30:
-#line 300 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 300 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.step) = new Step(Step::SelfAxis, Step::NodeTest(Step::NodeTest::AnyNodeTest));
     ;}
     break;
 
   case 31:
-#line 305 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 305 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.step) = new Step(Step::ParentAxis, Step::NodeTest(Step::NodeTest::AnyNodeTest));
     ;}
     break;
 
   case 32:
-#line 312 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 312 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         String name = adoptRef((yyvsp[(1) - (1)].string));
         (yyval.expression) = new VariableReference(name);
@@ -1889,14 +1889,14 @@ yyreduce:
     break;
 
   case 33:
-#line 318 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 318 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = (yyvsp[(2) - (3)].expression);
     ;}
     break;
 
   case 34:
-#line 323 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 323 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         String literal = adoptRef((yyvsp[(1) - (1)].string));
         (yyval.expression) = new StringExpression(std::move(literal));
@@ -1904,7 +1904,7 @@ yyreduce:
     break;
 
   case 35:
-#line 329 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 329 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         String numeral = adoptRef((yyvsp[(1) - (1)].string));
         (yyval.expression) = new Number(numeral.toDouble());
@@ -1912,7 +1912,7 @@ yyreduce:
     break;
 
   case 37:
-#line 339 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 339 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         String name = adoptRef((yyvsp[(1) - (3)].string));
         (yyval.expression) = XPath::Function::create(name).release();
@@ -1922,7 +1922,7 @@ yyreduce:
     break;
 
   case 38:
-#line 347 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 347 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         String name = adoptRef((yyvsp[(1) - (4)].string));
         std::unique_ptr<Vector<std::unique_ptr<Expression>>> argumentList((yyvsp[(3) - (4)].expressionVector));
@@ -1933,7 +1933,7 @@ yyreduce:
     break;
 
   case 39:
-#line 358 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 358 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expressionVector) = new Vector<std::unique_ptr<Expression>>;
         (yyval.expressionVector)->append(std::unique_ptr<Expression>((yyvsp[(1) - (1)].expression)));
@@ -1941,7 +1941,7 @@ yyreduce:
     break;
 
   case 40:
-#line 364 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 364 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expressionVector) = (yyvsp[(1) - (3)].expressionVector);
         (yyval.expressionVector)->append(std::unique_ptr<Expression>((yyvsp[(3) - (3)].expression)));
@@ -1949,21 +1949,21 @@ yyreduce:
     break;
 
   case 43:
-#line 378 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 378 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = new Union(std::unique_ptr<Expression>((yyvsp[(1) - (3)].expression)), std::unique_ptr<Expression>((yyvsp[(3) - (3)].expression)));
     ;}
     break;
 
   case 44:
-#line 385 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 385 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = (yyvsp[(1) - (1)].locationPath);
     ;}
     break;
 
   case 46:
-#line 392 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 392 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyvsp[(3) - (3)].locationPath)->setAbsolute();
         (yyval.expression) = new Path(std::unique_ptr<Expression>((yyvsp[(1) - (3)].expression)), std::unique_ptr<LocationPath>((yyvsp[(3) - (3)].locationPath)));
@@ -1971,7 +1971,7 @@ yyreduce:
     break;
 
   case 47:
-#line 398 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 398 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyvsp[(3) - (3)].locationPath)->prependStep(std::unique_ptr<Step>((yyvsp[(2) - (3)].step)));
         (yyvsp[(3) - (3)].locationPath)->setAbsolute();
@@ -1980,7 +1980,7 @@ yyreduce:
     break;
 
   case 49:
-#line 409 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 409 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         std::unique_ptr<Vector<std::unique_ptr<Expression>>> predicateList((yyvsp[(2) - (2)].expressionVector));
         (yyval.expression) = new Filter(std::unique_ptr<Expression>((yyvsp[(1) - (2)].expression)), std::move(*predicateList));
@@ -1988,56 +1988,56 @@ yyreduce:
     break;
 
   case 51:
-#line 419 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 419 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = new LogicalOp(LogicalOp::OP_Or, std::unique_ptr<Expression>((yyvsp[(1) - (3)].expression)), std::unique_ptr<Expression>((yyvsp[(3) - (3)].expression)));
     ;}
     break;
 
   case 53:
-#line 428 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 428 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = new LogicalOp(LogicalOp::OP_And, std::unique_ptr<Expression>((yyvsp[(1) - (3)].expression)), std::unique_ptr<Expression>((yyvsp[(3) - (3)].expression)));
     ;}
     break;
 
   case 55:
-#line 437 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 437 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = new EqTestOp((yyvsp[(2) - (3)].equalityTestOpcode), std::unique_ptr<Expression>((yyvsp[(1) - (3)].expression)), std::unique_ptr<Expression>((yyvsp[(3) - (3)].expression)));
     ;}
     break;
 
   case 57:
-#line 446 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 446 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = new EqTestOp((yyvsp[(2) - (3)].equalityTestOpcode), std::unique_ptr<Expression>((yyvsp[(1) - (3)].expression)), std::unique_ptr<Expression>((yyvsp[(3) - (3)].expression)));
     ;}
     break;
 
   case 59:
-#line 455 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 455 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = new NumericOp(NumericOp::OP_Add, std::unique_ptr<Expression>((yyvsp[(1) - (3)].expression)), std::unique_ptr<Expression>((yyvsp[(3) - (3)].expression)));
     ;}
     break;
 
   case 60:
-#line 460 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 460 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = new NumericOp(NumericOp::OP_Sub, std::unique_ptr<Expression>((yyvsp[(1) - (3)].expression)), std::unique_ptr<Expression>((yyvsp[(3) - (3)].expression)));
     ;}
     break;
 
   case 62:
-#line 469 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 469 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = new NumericOp((yyvsp[(2) - (3)].numericOpcode), std::unique_ptr<Expression>((yyvsp[(1) - (3)].expression)), std::unique_ptr<Expression>((yyvsp[(3) - (3)].expression)));
     ;}
     break;
 
   case 64:
-#line 478 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 478 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
     {
         (yyval.expression) = new Negative(std::unique_ptr<Expression>((yyvsp[(2) - (2)].expression)));
     ;}
@@ -2259,6 +2259,6 @@ yyreturn:
 }
 
 
-#line 483 "../../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
+#line 483 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/xml/XPathGrammar.y"
 
 

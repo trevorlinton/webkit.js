@@ -739,12 +739,12 @@ WebDOMDOMSecurityPolicy.h:
 JSDOMSelection.h: 
 DOMDOMSelection.h: 
 WebDOMDOMSelection.h: 
-JSDOMWindow.h: WindowBase64.idl DOMWindowConstructors.idl WindowTimers.idl
-DOMDOMWindow.h: WindowBase64.idl DOMWindowConstructors.idl WindowTimers.idl
-WebDOMDOMWindow.h: WindowBase64.idl DOMWindowConstructors.idl WindowTimers.idl
+JSDOMWindow.h: WindowBase64.idl WindowTimers.idl DOMWindowConstructors.idl
+DOMDOMWindow.h: WindowBase64.idl WindowTimers.idl DOMWindowConstructors.idl
+WebDOMDOMWindow.h: WindowBase64.idl WindowTimers.idl DOMWindowConstructors.idl
 WindowBase64.idl:
-DOMWindowConstructors.idl:
 WindowTimers.idl:
+DOMWindowConstructors.idl:
 JSEventSource.h: 
 DOMEventSource.h: 
 WebDOMEventSource.h: 

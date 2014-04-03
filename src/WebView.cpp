@@ -220,9 +220,9 @@ namespace WebKit {
 				m_private->sdl_screen->w,
 				m_private->sdl_screen->h,
 				32,
-				0x00ff0000,
-				0x0000ff00,
 				0x000000ff,
+				0x0000ff00,
+				0x00ff0000,
 				0xff000000);
 
 		ASSERT(m_private->sdl_surface);
@@ -235,6 +235,7 @@ namespace WebKit {
 				m_private->sdl_surface->pitch);
 
 		m_private->cairo_device = cairo_create(m_private->cairo_surface);
+		cairo_set_antialias(m_private->cairo_device,CAIRO_ANTIALIAS_SUBPIXEL);
 		m_private->context = new GraphicsContext(m_private->cairo_device);
 
 		return true;

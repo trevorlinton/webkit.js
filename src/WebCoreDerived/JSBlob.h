@@ -102,7 +102,6 @@ public:
     }
 
     DECLARE_INFO;
-    static bool getOwnPropertySlot(JSC::JSObject*, JSC::ExecState*, JSC::PropertyName, JSC::PropertySlot&);
     static JSC::Structure* createStructure(JSC::VM& vm, JSC::JSGlobalObject* globalObject, JSC::JSValue prototype)
     {
         return JSC::Structure::create(vm, globalObject, prototype, JSC::TypeInfo(JSC::ObjectType, StructureFlags), info());
@@ -111,7 +110,7 @@ public:
 private:
     JSBlobPrototype(JSC::VM& vm, JSC::JSGlobalObject*, JSC::Structure* structure) : JSC::JSNonFinalObject(vm, structure) { }
 protected:
-    static const unsigned StructureFlags = JSC::OverridesGetOwnPropertySlot | Base::StructureFlags;
+    static const unsigned StructureFlags = Base::StructureFlags;
 };
 
 class JSBlobConstructor : public DOMConstructorObject {
@@ -140,9 +139,6 @@ protected:
     static JSC::ConstructType getConstructData(JSC::JSCell*, JSC::ConstructData&);
 };
 
-// Functions
-
-JSC::EncodedJSValue JSC_HOST_CALL jsBlobPrototypeFunctionSlice(JSC::ExecState*);
 // Attributes
 
 JSC::EncodedJSValue jsBlobSize(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);

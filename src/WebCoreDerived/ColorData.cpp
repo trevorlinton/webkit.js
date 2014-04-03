@@ -1,5 +1,5 @@
 /* C++ code produced by gperf version 3.0.3 */
-/* Command-line: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/gperf --key-positions='*' -D -s 2 --output-file=./ColorData.cpp ../../deps/WebKit/Source/WebCore/platform/ColorData.gperf  */
+/* Command-line: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/gperf --key-positions='*' -D -s 2 --output-file=./ColorData.cpp /Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf  */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -28,7 +28,7 @@
 #error "gperf generated tables don't work with this execution character set. Please report a bug to <bug-gnu-gperf@gnu.org>."
 #endif
 
-#line 1 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 1 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
 
 #include "HashTools.h"
 #include <string.h>
@@ -161,305 +161,305 @@ ColorDataHash::colordata_hash_function (register const char *str, register unsig
 
 static const struct NamedColor wordlist[] =
   {
-#line 145 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 145 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"red", 0xffff0000},
-#line 57 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 57 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkred", 0xff8b0000},
-#line 162 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 162 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"tan", 0xffd2b48c},
-#line 110 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 110 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"linen", 0xfffaf0e6},
-#line 153 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 153 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"sienna", 0xffa0522d},
-#line 84 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 84 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"indianred", 0xffcd5c5c},
-#line 163 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 163 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"teal", 0xff008080},
-#line 79 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 79 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"grey", 0xff808080},
-#line 80 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 80 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"green", 0xff008000},
-#line 78 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 78 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"gray", 0xff808080},
-#line 50 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 50 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkgrey", 0xffa9a9a9},
-#line 51 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 51 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkgreen", 0xff006400},
-#line 30 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 30 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"beige", 0xfff5f5dc},
-#line 131 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 131 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"orange", 0xffffa500},
-#line 49 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 49 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkgray", 0xffa9a9a9},
-#line 132 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 132 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"orangered", 0xffff4500},
-#line 87 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 87 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"khaki", 0xfff0e68c},
-#line 151 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 151 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"seagreen", 0xff2e8b57},
-#line 76 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 76 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"gold", 0xffffd700},
-#line 55 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 55 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkorange", 0xffff8c00},
-#line 52 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 52 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkkhaki", 0xffbdb76b},
-#line 85 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 85 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"indigo", 0xff4b0082},
-#line 77 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 77 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"goldenrod", 0xffdaa520},
-#line 112 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 112 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"maroon", 0xff800000},
-#line 74 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 74 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"gainsboro", 0xffdcdcdc},
-#line 108 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 108 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lime", 0xff00ff00},
-#line 81 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 81 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"greenyellow", 0xffadff2f},
-#line 48 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 48 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkgoldenrod", 0xffb8860b},
-#line 158 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 158 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"slategrey", 0xff708090},
-#line 157 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 157 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"slategray", 0xff708090},
-#line 149 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 149 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"salmon", 0xfffa8072},
-#line 59 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 59 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkseagreen", 0xff8fbc8f},
-#line 152 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 152 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"seashell", 0xfffff5ee},
-#line 58 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 58 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darksalmon", 0xffe9967a},
-#line 165 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 165 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"tomato", 0xffff6347},
-#line 164 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 164 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"thistle", 0xffd8bfd8},
-#line 62 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 62 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkslategrey", 0xff2f4f4f},
-#line 45 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 45 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"cyan", 0xff00ffff},
-#line 72 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 72 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"forestgreen", 0xff228b22},
-#line 68 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 68 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"dimgrey", 0xff696969},
-#line 61 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 61 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkslategray", 0xff2f4f4f},
-#line 124 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 124 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"mistyrose", 0xffffe4e1},
-#line 67 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 67 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"dimgray", 0xff696969},
-#line 47 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 47 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkcyan", 0xff008b8b},
-#line 32 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 32 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"black", 0xff000000},
-#line 111 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 111 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"magenta", 0xffff00ff},
-#line 109 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 109 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"limegreen", 0xff32cd32},
-#line 41 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 41 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"coral", 0xffff7f50},
-#line 53 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 53 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkmagenta", 0xff8b008b},
-#line 29 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 29 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"azure", 0xfff0ffff},
-#line 34 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 34 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"blue", 0xff0000ff},
-#line 128 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 128 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"oldlace", 0xfffdf5e6},
-#line 43 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 43 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"cornsilk", 0xfffff8dc},
-#line 46 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 46 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkblue", 0xff00008b},
-#line 155 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 155 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"skyblue", 0xff87ceeb},
-#line 70 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 70 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"firebrick", 0xffb22222},
-#line 133 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 133 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"orchid", 0xffda70d6},
-#line 97 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 97 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightgrey", 0xffd3d3d3},
-#line 98 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 98 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightgreen", 0xff90ee90},
-#line 107 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 107 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightyellow", 0xffffffe0},
-#line 96 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 96 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightgray", 0xffd3d3d3},
-#line 56 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 56 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkorchid", 0xff9932cc},
-#line 147 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 147 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"royalblue", 0xff4169e1},
-#line 27 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 27 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"aqua", 0xff00ffff},
-#line 161 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 161 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"steelblue", 0xff4682b4},
-#line 31 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 31 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"bisque", 0xffffe4c4},
-#line 44 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 44 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"crimson", 0xffdc143c},
-#line 156 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 156 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"slateblue", 0xff6a5acd},
-#line 69 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 69 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"dodgerblue", 0xff1e90ff},
-#line 33 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 33 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"blanchedalmond", 0xffffebcd},
-#line 101 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 101 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightseagreen", 0xff20b2aa},
-#line 105 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 105 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightslategrey", 0xff778899},
-#line 104 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 104 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightslategray", 0xff778899},
-#line 36 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 36 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"brown", 0xffa52a2a},
-#line 100 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 100 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightsalmon", 0xffffa07a},
-#line 159 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 159 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"snow", 0xfffffafa},
-#line 94 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 94 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightcyan", 0xffe0ffff},
-#line 146 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 146 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"rosybrown", 0xffbc8f8f},
-#line 150 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 150 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"sandybrown", 0xfff4a460},
-#line 60 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 60 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkslateblue", 0xff483d8b},
-#line 173 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 173 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"yellow", 0xffffff00},
-#line 93 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 93 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightcoral", 0xfff08080},
-#line 123 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 123 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"mintcream", 0xfff5fffa},
-#line 28 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 28 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"aquamarine", 0xff7fffd4},
-#line 148 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 148 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"saddlebrown", 0xff8b4513},
-#line 82 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 82 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"honeydew", 0xfff0fff0},
-#line 141 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 141 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"pink", 0xffffc0cb},
-#line 92 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 92 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightblue", 0xffadd8e6},
-#line 38 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 38 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"cadetblue", 0xff5f9ea0},
-#line 170 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 170 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"wheat", 0xfff5deb3},
-#line 90 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 90 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lawngreen", 0xff7cfc00},
-#line 171 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 171 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"white", 0xffffffff},
-#line 25 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 25 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"aliceblue", 0xfff0f8ff},
-#line 40 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 40 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"chocolate", 0xffd2691e},
-#line 174 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 174 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"yellowgreen", 0xff9acd32},
-#line 125 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 125 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"moccasin", 0xffffe4b5},
-#line 127 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 127 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"navy", 0xff000080},
-#line 39 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 39 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"chartreuse", 0xff7fff00},
-#line 86 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 86 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"ivory", 0xfffffff0},
-#line 135 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 135 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"palegreen", 0xff98fb98},
-#line 88 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 88 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lavender", 0xffe6e6fa},
-#line 83 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 83 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"hotpink", 0xffff69b4},
-#line 129 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 129 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"olive", 0xff808000},
-#line 73 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 73 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"fuchsia", 0xffff00ff},
-#line 117 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 117 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"mediumseagreen", 0xff3cb371},
-#line 154 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 154 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"silver", 0xffc0c0c0},
-#line 130 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 130 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"olivedrab", 0xff6b8e23},
-#line 63 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 63 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkturquoise", 0xff00ced1},
-#line 167 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 167 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"turquoise", 0xff40e0d0},
-#line 168 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 168 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"violet", 0xffee82ee},
-#line 169 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 169 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"violetred", 0xffd02090},
-#line 64 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 64 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkviolet", 0xff9400d3},
-#line 134 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 134 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"palegoldenrod", 0xffeee8aa},
-#line 172 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 172 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"whitesmoke", 0xfff5f5f5},
-#line 160 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 160 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"springgreen", 0xff00ff7f},
-#line 37 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 37 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"burlywood", 0xffdeb887},
-#line 140 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 140 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"peru", 0xffcd853f},
-#line 71 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 71 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"floralwhite", 0xfffffaf0},
-#line 99 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 99 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightpink", 0xffffb6c1},
-#line 54 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 54 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"darkolivegreen", 0xff556b2f},
-#line 75 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 75 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"ghostwhite", 0xfff8f8ff},
-#line 114 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 114 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"mediumblue", 0xff0000cd},
-#line 115 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 115 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"mediumorchid", 0xffba55d3},
-#line 106 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 106 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightsteelblue", 0xffb0c4de},
-#line 103 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 103 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightslateblue", 0xff8470ff},
-#line 166 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 166 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"transparent", 0x00000000},
-#line 66 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 66 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"deepskyblue", 0xff00bfff},
-#line 102 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 102 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightskyblue", 0xff87cefa},
-#line 95 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 95 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lightgoldenrodyellow", 0xfffafad2},
-#line 142 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 142 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"plum", 0xffdda0dd},
-#line 113 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 113 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"mediumaquamarine", 0xff66cdaa},
-#line 118 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 118 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"mediumslateblue", 0xff7b68ee},
-#line 35 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 35 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"blueviolet", 0xff8a2be2},
-#line 122 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 122 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"midnightblue", 0xff191970},
-#line 65 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 65 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"deeppink", 0xffff1493},
-#line 91 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 91 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lemonchiffon", 0xfffffacd},
-#line 26 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 26 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"antiquewhite", 0xfffaebd7},
-#line 136 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 136 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"paleturquoise", 0xffafeeee},
-#line 143 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 143 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"powderblue", 0xffb0e0e6},
-#line 126 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 126 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"navajowhite", 0xffffdead},
-#line 119 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 119 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"mediumspringgreen", 0xff00fa9a},
-#line 42 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 42 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"cornflowerblue", 0xff6495ed},
-#line 137 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 137 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"palevioletred", 0xffdb7093},
-#line 121 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 121 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"mediumvioletred", 0xffc71585},
-#line 144 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 144 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"purple", 0xff800080},
-#line 89 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 89 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"lavenderblush", 0xfffff0f5},
-#line 120 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 120 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"mediumturquoise", 0xff48d1cc},
-#line 139 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 139 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"peachpuff", 0xffffdab9},
-#line 116 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 116 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"mediumpurple", 0xff9370db},
-#line 138 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 138 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
     {"papayawhip", 0xffffefd5}
   };
 
@@ -595,7 +595,7 @@ ColorDataHash::findColorImpl (register const char *str, register unsigned int le
     }
   return 0;
 }
-#line 175 "../../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
+#line 175 "/Tint/webkit.js/tools/../deps/WebKit/Source/WebCore/platform/ColorData.gperf"
 
 const struct NamedColor* findColor(const char* str, unsigned int len)
 {

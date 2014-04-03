@@ -160,6 +160,7 @@ JSC::EncodedJSValue jsCSSRuleFONT_FACE_RULE(JSC::ExecState*, JSC::EncodedJSValue
 JSC::EncodedJSValue jsCSSRulePAGE_RULE(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsCSSRuleWEBKIT_KEYFRAMES_RULE(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsCSSRuleWEBKIT_KEYFRAME_RULE(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
+JSC::EncodedJSValue jsCSSRuleSUPPORTS_RULE(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsCSSRuleWEBKIT_REGION_RULE(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 JSC::EncodedJSValue jsCSSRuleWEBKIT_FILTER_RULE(JSC::ExecState*, JSC::EncodedJSValue, JSC::EncodedJSValue, JSC::PropertyName);
 

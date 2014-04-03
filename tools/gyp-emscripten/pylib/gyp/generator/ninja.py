@@ -2021,7 +2021,7 @@ def GenerateOutputForConfig(target_list, target_dicts, data, params,
       'solink_js',
       description='SOLINK_JS $lib, POSTBUILDS',
       restat=True,
-      command='$ld $ldflags $jsflags $in $solibs -o $soname',
+      command='$ld $ldflags $jsflags $in $solibs', # -o $soname // we don't use this, specify in ldflags
       pool='link_pool')
 			#  ; $ld $ldflags $jsflags $in $solibs -o test.html
     solink_module_suffix = '$in $solibs $libs$postbuilds'

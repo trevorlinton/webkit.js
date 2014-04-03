@@ -101,6 +101,7 @@ const char* const propertyNameStrings[numCSSProperties] = {
     "geometry",
     "height",
     "image-rendering",
+    "image-resolution",
     "left",
     "letter-spacing",
     "list-style",
@@ -346,6 +347,8 @@ const char* const propertyNameStrings[numCSSProperties] = {
     "-webkit-rtl-ordering",
     "-webkit-ruby-position",
     "-webkit-text-combine",
+    "-webkit-text-align-last",
+    "-webkit-text-justify",
     "-webkit-text-decoration",
     "-webkit-text-decoration-line",
     "-webkit-text-decoration-style",
@@ -389,6 +392,7 @@ const char* const propertyNameStrings[numCSSProperties] = {
     "-webkit-shape-image-threshold",
     "-webkit-wrap-flow",
     "-webkit-wrap-through",
+    "-webkit-overflow-scrolling",
     "buffered-rendering",
     "clip-path",
     "clip-rule",
@@ -530,6 +534,7 @@ font-stretch, CSSPropertyFontStretch
 geometry, CSSPropertyGeometry
 height, CSSPropertyHeight
 image-rendering, CSSPropertyImageRendering
+image-resolution, CSSPropertyImageResolution
 left, CSSPropertyLeft
 letter-spacing, CSSPropertyLetterSpacing
 list-style, CSSPropertyListStyle
@@ -775,6 +780,8 @@ z-index, CSSPropertyZIndex
 -webkit-rtl-ordering, CSSPropertyWebkitRtlOrdering
 -webkit-ruby-position, CSSPropertyWebkitRubyPosition
 -webkit-text-combine, CSSPropertyWebkitTextCombine
+-webkit-text-align-last, CSSPropertyWebkitTextAlignLast
+-webkit-text-justify, CSSPropertyWebkitTextJustify
 -webkit-text-decoration, CSSPropertyWebkitTextDecoration
 -webkit-text-decoration-line, CSSPropertyWebkitTextDecorationLine
 -webkit-text-decoration-style, CSSPropertyWebkitTextDecorationStyle
@@ -818,6 +825,7 @@ z-index, CSSPropertyZIndex
 -webkit-shape-image-threshold, CSSPropertyWebkitShapeImageThreshold
 -webkit-wrap-flow, CSSPropertyWebkitWrapFlow
 -webkit-wrap-through, CSSPropertyWebkitWrapThrough
+-webkit-overflow-scrolling, CSSPropertyWebkitOverflowScrolling
 buffered-rendering, CSSPropertyBufferedRendering
 clip-path, CSSPropertyClipPath
 clip-rule, CSSPropertyClipRule
@@ -1022,6 +1030,7 @@ static const bool isInheritedPropertyTable[numCSSProperties + 1] = {
     false, // CSSPropertyGeometry
     false, // CSSPropertyHeight
     true , // CSSPropertyImageRendering
+    true , // CSSPropertyImageResolution
     false, // CSSPropertyLeft
     true , // CSSPropertyLetterSpacing
     true , // CSSPropertyListStyle
@@ -1267,6 +1276,8 @@ static const bool isInheritedPropertyTable[numCSSProperties + 1] = {
     true , // CSSPropertyWebkitRtlOrdering
     true , // CSSPropertyWebkitRubyPosition
     true , // CSSPropertyWebkitTextCombine
+    true , // CSSPropertyWebkitTextAlignLast
+    true , // CSSPropertyWebkitTextJustify
     false, // CSSPropertyWebkitTextDecoration
     false, // CSSPropertyWebkitTextDecorationLine
     false, // CSSPropertyWebkitTextDecorationStyle
@@ -1310,6 +1321,7 @@ static const bool isInheritedPropertyTable[numCSSProperties + 1] = {
     false, // CSSPropertyWebkitShapeImageThreshold
     false, // CSSPropertyWebkitWrapFlow
     false, // CSSPropertyWebkitWrapThrough
+    true , // CSSPropertyWebkitOverflowScrolling
     false, // CSSPropertyBufferedRendering
     false, // CSSPropertyClipPath
     true , // CSSPropertyClipRule
