@@ -162,4 +162,19 @@ void IntRect::dump(PrintStream& out) const
     out.print(location(), " ", size());
 }
 
+#if USE(SKIA)
+IntRect::operator SkIRect() const
+{
+	SkIRect rect = { x(), y(), maxX(), maxY() };
+	return rect;
+}
+
+IntRect::operator SkRect() const
+{
+	SkRect rect;
+	rect.set(SkIntToScalar(x()), SkIntToScalar(y()), SkIntToScalar(maxX()), SkIntToScalar(maxY()));
+	return rect;
+}
+#endif
+
 } // namespace WebCore

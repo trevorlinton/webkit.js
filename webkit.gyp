@@ -1,10 +1,19 @@
+#
+#
+# BEFORE YOU MODIFY THIS, READ THIS.
+#
+#
+# We do not include native .gyp files from projects. Why? It's very easy with defines
+# and exclusions to just specify what you want, and what you dont.
+#
+# Files get into here through derived.gypi, the files included
 {
   'includes':[
 		'features.gypi',
 		'sources.gypi',
 		'derived.gypi',
 		'common.gypi',
-  ],
+	],
   'targets': [
 	{
 		'target_name':'webkit',
@@ -42,6 +51,8 @@
 			'<(DEPTH)/src/WebView.cpp',
 			'<(DEPTH)/src/Main.cpp',
 			'<(DEPTH)/src/webkit.api.js',
+			'<(DEPTH)/src/webkit.pre.js',
+			'<(DEPTH)/src/webkit.post.js',
 		],
 		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS'],
 		'include_dirs':['<@(webcore_includes)','<(DEPTH)/src/',],
@@ -90,6 +101,8 @@
 			'<(DEPTH)/src/WebCoreSupport/WebFrameJS.h',
 			'<(DEPTH)/src/WebCoreSupport/WebFrameJS.cpp',
 			'<(DEPTH)/src/WebCoreSupport/Stubs/HTMLPluginElement.cpp',
+			'<(DEPTH)/src/WebCoreSupport/cairosdl.h',
+			'<(DEPTH)/src/WebCoreSupport/cairosdl.c',
 			'<(DEPTH)/src/EmscriptenSupport.cpp',
 		],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
@@ -186,10 +199,16 @@
 	},
 	{
 		'target_name':'webcore_platform',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS'],
+		'defines+':[
+			'<@(feature_defines)',
+			'CAIRO_HAS_FT_FONT',
+			'CAIRO_HAS_FC_FONT',
+			'CAIRO_HAS_EGL_FUNCTIONS',
+			# 'SK_SUPPORT_DEPRECATED_SCALARROUND',
+		],
 		'sources':['<@(webcore_platform_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
-		'include_dirs':['<@(webcore_includes)'],
+		'include_dirs':['<@(webcore_includes)'], #,'<(DEPTH)/deps/skia/include/core/','<(DEPTH)/deps/skia/include/config/'
 		'cflags+':['-Werror -include ../deps/WebKit/Source/WebCore/WebCorePrefix.h'],
 	},
 	{
@@ -309,7 +328,6 @@
 		'target_name': 'fontconfig',
 		'defines+': ['FONTCONFIG_PATH="/usr/lib/fontconfig/"','FC_CACHEDIR="/usr/lib/fontconfig/cache"','ENABLE_LIBXML2'],
 		'sources': ['<@(fontconfig_files)',],
-		#'sources/': [['exclude', '(fcobjs.c$)'],],
 		'include_dirs': [
 			'<(DEPTH)/deps/fontconfig',
 			'<(DEPTH)/deps/fontconfig/src',
@@ -342,6 +360,9 @@
 		'cxx':'<(emscripten_cc)',
 		'cflags+':['-Werror'],
 	},
+
+	#'sources/': [['exclude', '(fcobjs.c$)'],],
+
 	#{
 	#  'target_name':'webcore_derived_sources',
 	#  'type':'none',

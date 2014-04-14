@@ -27,11 +27,13 @@
 #include "harfbuzz/FontPlatformDataHarfBuzz.h"
 #elif USE(WINGDI)
 #include "wince/FontPlatformData.h"
-#elif PLATFORM(EFL) || PLATFORM(GTK) || PLATFORM(NIX) || PLATFORM(JS)
+#elif PLATFORM(EFL) || PLATFORM(GTK) || PLATFORM(NIX)
 #include "freetype/FontPlatformData.h"
+#elif PLATFORM(JS) && USE(CAIRO)
+#include "freetype/FontPlatformData.h"
+#elif PLATFORM(JS) && USE(SKIA)
+#include "skia/FontPlatformDataSkia.h"
 #else
-
-#error "Somehow we're including old font data platform info."
 
 #ifndef FontPlatformData_h
 #define FontPlatformData_h
@@ -46,6 +48,10 @@
 #if USE(CAIRO)
 #include <wtf/HashFunctions.h>
 #include <cairo.h>
+#endif
+
+#if USE(SKIA)
+#include "SkTypeface.h"
 #endif
 
 #if OS(DARWIN)
@@ -192,6 +198,8 @@ public:
         return StringHasher::hashMemory<sizeof(hashCodes)>(hashCodes);
 #elif USE(CAIRO)
         return PtrHash<cairo_scaled_font_t*>::hash(m_scaledFont);
+#elif USE(SKIA)
+			return m_font ? static_cast<unsigned>(m_font->uniqueID()) : 0;
 #endif
     }
 
@@ -220,6 +228,8 @@ public:
         return m_font == hashTableDeletedFontValue();
 #elif USE(CAIRO)
         return m_scaledFont == hashTableDeletedFontValue();
+#elif USE(SKIA)
+				return m_font == hashTableDeletedFontValue();
 #endif
     }
 
@@ -247,6 +257,8 @@ private:
 
 #if USE(CAIRO)
     static cairo_scaled_font_t* hashTableDeletedFontValue() { return reinterpret_cast<cairo_scaled_font_t*>(-1); }
+#elif USE(SKIA)
+		static SkTypeface* hashTableDeletedFontValue() { return reinterpret_cast<SkTypeface*>(-1); }
 #endif
 
 public:
@@ -266,6 +278,8 @@ private:
     NSFont* m_font;
 #elif PLATFORM(WIN)
     RefPtr<SharedGDIObject<HFONT>> m_font;
+#elif USE(SKIA)
+		SkTypeface* m_font;
 #endif
 
 #if USE(CG)

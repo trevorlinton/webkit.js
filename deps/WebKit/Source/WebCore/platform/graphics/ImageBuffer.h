@@ -153,8 +153,10 @@ namespace WebCore {
         friend class GradientImage;
 
     private:
+#if USE(CG) || USE(CAIRO)
         ImageBufferData m_data;
-        IntSize m_size;
+#endif
+				IntSize m_size;
         IntSize m_logicalSize;
         float m_resolutionScale;
         OwnPtr<GraphicsContext> m_context;

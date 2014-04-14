@@ -2768,8 +2768,8 @@ void FrameView::doDeferredRepaints()
 #if USE(TILED_BACKING_STORE)
         if (frame().tiledBackingStore()) {
 #if PLATFORM(JS) && defined(DEBUG)
-						fprintf(stderr, "WebKit: doDeferredRepaints: invalidating tiledBackingStore\n");
-						fprintf(stderr, "WebKit: repaintRect size (x,y,w,h): %i %i %i %i\n", m_repaintRects[i].x(),m_repaintRects[i].y(),m_repaintRects[i].width(),m_repaintRects[i].height());
+						//fprintf(stderr, "WebKit: doDeferredRepaints: invalidating tiledBackingStore\n");
+						//fprintf(stderr, "WebKit: repaintRect size (x,y,w,h): %i %i %i %i\n", m_repaintRects[i].x(),m_repaintRects[i].y(),m_repaintRects[i].width(),m_repaintRects[i].height());
 #endif
 						frame().tiledBackingStore()->invalidate(pixelSnappedIntRect(m_repaintRects[i]));
             continue;

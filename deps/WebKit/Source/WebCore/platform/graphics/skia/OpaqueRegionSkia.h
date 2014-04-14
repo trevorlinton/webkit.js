@@ -30,9 +30,11 @@
 
 #ifndef OpaqueRegionSkia_h
 #define OpaqueRegionSkia_h
-
+#if PLATFORM(JS)
+#include "IntRect.h"
+#else
 #include "core/platform/graphics/IntRect.h"
-
+#endif
 #include "SkBitmap.h"
 #include "SkCanvas.h"
 #include "SkPaint.h"

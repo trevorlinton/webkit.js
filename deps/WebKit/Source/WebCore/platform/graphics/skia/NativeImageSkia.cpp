@@ -29,6 +29,21 @@
  */
 
 #include "config.h"
+#if PLATFORM(JS)
+#include "NativeImageSkia.h"
+
+// #include "PlatformInstrumentation.h"
+#include "FloatPoint.h"
+#include "FloatRect.h"
+#include "FloatSize.h"
+#include "GraphicsContext.h"
+#include "Image.h"
+#include "SkiaUtils.h"
+#include "SkMatrix.h"
+#include "SkPaint.h"
+#include "SkScalar.h"
+#include "SkShader.h"
+#else
 #include "core/platform/graphics/skia/NativeImageSkia.h"
 
 #include "core/platform/PlatformInstrumentation.h"
@@ -45,7 +60,7 @@
 #include "third_party/skia/include/core/SkPaint.h"
 #include "third_party/skia/include/core/SkScalar.h"
 #include "third_party/skia/include/core/SkShader.h"
-
+#endif
 #include <limits>
 #include <math.h>
 
@@ -222,7 +237,7 @@ SkBitmap NativeImageSkia::extractScaledImageFragment(const SkRect& srcRect, floa
 // scaling or translation.
 void NativeImageSkia::drawResampledBitmap(GraphicsContext* context, SkPaint& paint, const SkRect& srcRect, const SkRect& destRect) const
 {
-    TRACE_EVENT0("skia", "drawResampledBitmap");
+    // TRACE_EVENT0("skia", "drawResampledBitmap");
     // We want to scale |destRect| with transformation in the canvas to obtain
     // the final scale. The final scale is a combination of scale transform
     // in canvas and explicit scaling (srcRect and destRect).

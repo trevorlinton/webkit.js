@@ -31,6 +31,18 @@
  */
 
 #include "config.h"
+#if PLATFORM(JS)
+#include "FontCustomPlatformData.h"
+
+// #include "LayoutTestSupport.h"
+#include "NotImplemented.h"
+#include "SharedBuffer.h"
+#include "FontPlatformData.h"
+#include "OpenTypeSanitizer.h"
+#include "SkiaSharedBufferStream.h"
+#include "SkStream.h"
+#include "SkTypeface.h"
+#else
 #include "core/platform/graphics/FontCustomPlatformData.h"
 
 #include "core/platform/LayoutTestSupport.h"
@@ -41,6 +53,7 @@
 #include "core/platform/graphics/skia/SkiaSharedBufferStream.h"
 #include "third_party/skia/include/core/SkStream.h"
 #include "third_party/skia/include/core/SkTypeface.h"
+#endif
 #include "wtf/PassOwnPtr.h"
 
 namespace WebCore {

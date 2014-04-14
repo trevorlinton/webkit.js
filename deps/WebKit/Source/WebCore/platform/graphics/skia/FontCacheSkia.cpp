@@ -29,13 +29,21 @@
  */
 
 #include "config.h"
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#include "Font.h"
+#include "FontCache.h"
+#include "FontDescription.h"
+#include "SimpleFontData.h"
+#else
 #include <unicode/locid.h>
-#include "SkTypeface.h"
 #include "core/platform/NotImplemented.h"
 #include "core/platform/graphics/Font.h"
 #include "core/platform/graphics/FontCache.h"
 #include "core/platform/graphics/FontDescription.h"
 #include "core/platform/graphics/SimpleFontData.h"
+#endif
+#include "SkTypeface.h"
 #include "wtf/Assertions.h"
 #include "wtf/text/AtomicString.h"
 #include "wtf/text/CString.h"

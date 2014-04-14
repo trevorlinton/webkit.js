@@ -29,10 +29,16 @@
  */
 
 #include "config.h"
+#if PLATFORM(JS)
+#include "SkiaSharedBufferStream.h"
+#include "SkStream.h"
+#include "SharedBuffer.h"
+#else
 #include "core/platform/graphics/skia/SkiaSharedBufferStream.h"
 
 #include "third_party/skia/include/core/SkStream.h"
 #include "core/platform/SharedBuffer.h"
+#endif
 #include <algorithm>
 #include <cstring>
 

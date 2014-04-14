@@ -13,7 +13,11 @@
 #include "WebFrameJS.h"
 
 // Platform level surfaces.
+#if USE(CAIRO)
 #include "cairo.h"
+#elif USE(SKIA)
+#endif
+
 #include "SDL.h"
 
 namespace WebCore {
@@ -27,8 +31,10 @@ namespace WebKit {
 
 	struct WebViewPrivate {
 		WebCore::GraphicsContext* context = NULL;
+#if USE(CAIRO)
 		cairo_surface_t* cairo_surface = NULL;
 		cairo_t* cairo_device = NULL;
+#endif
     SDL_Surface* sdl_screen = NULL;
     SDL_Surface* sdl_surface = NULL;
     WebCore::Page* corePage = NULL;

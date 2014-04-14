@@ -46,6 +46,10 @@ namespace WebCore {
 class PlatformContextCairo;
 }
 typedef WebCore::PlatformContextCairo PlatformGraphicsContext;
+#elif USE(SKIA)
+#include "SkCanvas.h"
+typedef SkCanvas PlatformGraphicsContext;
+
 #elif USE(WINGDI)
 typedef struct HDC__ PlatformGraphicsContext;
 #elif PLATFORM(BLACKBERRY)
@@ -69,7 +73,9 @@ typedef struct HDC__* HDC;
 typedef unsigned char UInt8;
 #endif
 #endif
-
+#if USE(SKIA)
+class SkCanvas;
+#endif
 namespace WebCore {
 
 #if USE(WINGDI)
@@ -143,6 +149,9 @@ namespace WebCore {
             , emojiDrawingEnabled(true)
             , shouldUseContextColors(true)
 #endif
+#if USE(SKIA)
+						, m_pendingCanvasSave(false)
+#endif
             , shouldAntialias(true)
             , shouldSmoothFonts(true)
             , shouldSubpixelQuantizeFonts(true)
@@ -197,6 +206,7 @@ namespace WebCore {
         bool shadowsUseLegacyRadius : 1;
 #endif
         bool drawLuminanceMask : 1;
+				bool m_pendingCanvasSave : 1;
     };
 
 #if PLATFORM(IOS)
@@ -213,6 +223,28 @@ namespace WebCore {
 #endif
         ~GraphicsContext();
 
+#if USE(SKIA)
+				// Returns the canvas used for painting, NOT guaranteed to be non-null.
+				// Accessing the backing canvas this way flushes all queued save ops,
+				// so it should be avoided. Use the corresponding draw/matrix/clip methods instead.
+				SkCanvas* canvas()
+				{
+					// Flush any pending saves.
+					realizeCanvasSave();
+
+					return platformContext();
+				}
+				const SkCanvas* canvas() const { return platformContext(); }
+				// Apply deferred canvas state saves
+				void realizeCanvasSave()
+				{
+					if (!m_state.m_pendingCanvasSave)
+						return;
+
+					platformContext()->save();
+					m_state.m_pendingCanvasSave = false;
+				}
+#endif
         PlatformGraphicsContext* platformContext() const;
 
         float strokeThickness() const;
@@ -249,6 +281,9 @@ namespace WebCore {
 
         void setShouldSmoothFonts(bool);
         bool shouldSmoothFonts() const;
+#if USE(SKIA)
+				SkMatrix getTotalMatrix() const;
+#endif
 
         // Normally CG enables subpixel-quantization because it improves the performance of aligning glyphs.
         // In some cases we have to disable to to ensure a high-quality output of the glyphs.

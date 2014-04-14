@@ -29,9 +29,13 @@
  */
 
 #include "config.h"
+#if USE(SKIA)
+#include "GlyphPageTreeNode.h"
+#include "SimpleFontData.h"
+#else
 #include "core/platform/graphics/GlyphPageTreeNode.h"
-
 #include "core/platform/graphics/SimpleFontData.h"
+#endif
 
 #include "SkPaint.h"
 #include "SkTemplates.h"

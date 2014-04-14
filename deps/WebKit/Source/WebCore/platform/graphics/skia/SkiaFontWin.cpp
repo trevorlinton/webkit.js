@@ -29,6 +29,7 @@
  */
 
 #include "config.h"
+
 #include "core/platform/graphics/skia/SkiaFontWin.h"
 
 #include "core/platform/graphics/Gradient.h"

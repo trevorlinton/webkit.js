@@ -42,6 +42,18 @@ FloatRect::FloatRect(const IntRect& r)
 {
 }
 
+#if USE(SKIA)
+	FloatRect::FloatRect(const SkRect& r) : m_location(r.fLeft, r.fTop), m_size(r.width(), r.height())
+	{
+	}
+
+	FloatRect::operator SkRect() const
+	{
+		SkRect rect = { x(), y(), maxX(), maxY() };
+		return rect;
+	}
+#endif
+
 FloatRect FloatRect::narrowPrecision(double x, double y, double width, double height)
 {
     return FloatRect(narrowPrecisionToFloat(x), narrowPrecisionToFloat(y), narrowPrecisionToFloat(width), narrowPrecisionToFloat(height));

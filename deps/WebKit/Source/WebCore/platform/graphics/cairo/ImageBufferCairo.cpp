@@ -52,6 +52,7 @@
 
 #if PLATFORM(JS)
 #include "DebuggerJS.h"
+#include "cairosdl.h"
 #endif
 
 using namespace std;
@@ -186,7 +187,12 @@ void ImageBuffer::platformTransformColorSpace(const Vector<int>& lookUpTable)
             *pixel = premultipliedARGBFromColor(pixelColor);
         }
     }
+#if PLATFORM(JS)
+		cairo_surface_mark_dirty_rectangle(m_data.m_surface.get(), 0, 0, m_size.width(), m_size.height());
+		//cairosdl_surface_mark_dirty_rect(m_data.m_surface.get(), 0, 0, m_size.width(), m_size.height());
+#else
     cairo_surface_mark_dirty_rectangle(m_data.m_surface.get(), 0, 0, m_size.width(), m_size.height());
+#endif
 }
 
 PassRefPtr<cairo_surface_t> copySurfaceToImageAndAdjustRect(cairo_surface_t* surface, IntRect& rect)
@@ -355,9 +361,12 @@ void ImageBuffer::putByteArray(Multiply multiplied, Uint8ClampedArray* source, c
         }
         srcRows += srcBytesPerRow;
     }
-
+#if PLATFORM(JS)
+		cairo_surface_mark_dirty_rectangle(imageSurface.get(), destx, desty, numColumns, numRows);
+		//cairosdl_surface_mark_dirty_rect(imageSurface.get(), destx, desty, numColumns, numRows);
+#else
     cairo_surface_mark_dirty_rectangle(imageSurface.get(), destx, desty, numColumns, numRows);
-
+#endif
     if (imageSurface != m_data.m_surface.get())
         copyRectFromOneSurfaceToAnother(imageSurface.get(), m_data.m_surface.get(), IntSize(), IntRect(0, 0, numColumns, numRows), IntSize(destPoint.x() + sourceRect.x(), destPoint.y() + sourceRect.y()), CAIRO_OPERATOR_SOURCE);
 }
@@ -406,8 +415,13 @@ void ImageBufferData::paintToTextureMapper(TextureMapper* textureMapper, const F
 
     // Cairo may change the active context, so we make sure to change it back after flushing.
     GLContext* previousActiveContext = GLContext::getCurrent();
+#if PLATFORM(JS)
+		cairo_surface_flush(m_surface.get());
+		//cairosdl_surface_flush(m_surface.get());
+#else
     cairo_surface_flush(m_surface.get());
-    previousActiveContext->makeContextCurrent();
+#endif
+		previousActiveContext->makeContextCurrent();
 
     static_cast<TextureMapperGL*>(textureMapper)->drawTexture(m_texture, TextureMapperGL::ShouldBlend, m_size, targetRect, matrix, opacity);
 }

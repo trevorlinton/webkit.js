@@ -28,6 +28,9 @@
 #define FloatRect_h
 
 #include "FloatPoint.h"
+#if USE(SKIA)
+#include "SkRect.h"
+#endif
 #include <wtf/Vector.h>
 
 #if PLATFORM(IOS)
@@ -76,7 +79,10 @@ public:
     FloatRect(float x, float y, float width, float height)
         : m_location(FloatPoint(x, y)), m_size(FloatSize(width, height)) { }
     FloatRect(const IntRect&);
-
+#if USE(SKIA)
+		FloatRect(const SkRect& r);
+		operator SkRect() const;
+#endif
     static FloatRect narrowPrecision(double x, double y, double width, double height);
 
     FloatPoint location() const { return m_location; }

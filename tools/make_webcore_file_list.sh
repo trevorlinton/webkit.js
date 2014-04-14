@@ -23,7 +23,7 @@ echo "    'variables': {"
 ./gyplist.sh webcore_css_files .. '/deps/WebKit/Source/WebCore/css/'
 ./gyplist.sh webcore_platform_geometry_files .. '/deps/WebKit/Source/WebCore/platform/geometry/'
 ./gyplist.sh webcore_angle_files .. '/deps/WebKit/Source/ThirdParty/ANGLE/'
-./gyplist.sh webcore_derived_files .. '/webcore_bindings/'
+./gyplist.sh webcore_derived_files .. '/src/WebCoreDerived/'
 
 # ./gyplist.sh ffmpeg .. '/deps/ffmpeg/'
 ./gyplist.sh freetype2 .. '/deps/freetype2'
@@ -34,6 +34,8 @@ echo "    'variables': {"
 ./gyplist.sh harfbuzz .. '/deps/harfbuzz'
 ./gyplist.sh cairo .. '/deps/cairo'
 ./gyplist.sh curl .. '/deps/curl'
+./gyplist.sh skia .. '/deps/skia'
+./gyplist.sh jsoncpp .. '/deps/jsoncpp'
 # ./gyplist.sh fontconfig .. '/deps/fontconfig'
 echo "    },"
 echo "}"

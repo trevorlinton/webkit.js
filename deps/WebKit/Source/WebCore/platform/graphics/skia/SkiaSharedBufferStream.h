@@ -31,8 +31,13 @@
 #ifndef SkiaSharedBufferStream_h
 #define SkiaSharedBufferStream_h
 
+#if PLATFORM(JS)
+#include "SharedBuffer.h"
+#include "SkStream.h"
+#else
 #include "core/platform/SharedBuffer.h"
 #include "third_party/skia/include/core/SkStream.h"
+#endif
 #include "wtf/PassRefPtr.h"
 #include "wtf/RefPtr.h"
 

@@ -157,29 +157,6 @@
       }
     };
     Module.setStatus('Downloading...');
-    function bitblt_it(imgdata, src) {
-      // TODO: I'll try not to go on a rant, between pre-multiplied,
-      // various colorspaces to pick from your lovely image has gone
-      // through (h*w*4)^5 translations between SDL, Cairo/Skia, GL, Specialty
-      // containers, canvas then your video card. One day, some day,
-      // we'll all find a way to get along and stop this non-sense. 
-      //
-      // For now loop through and standardize to the Canvas RGBA 
-      // non-premultipled surfaces.. such insanity.
-      //
-      // Source: per-pixel-multiplied ARGB surface
-      // Destination: pre-multiplied RGBA surface
-      var tmp = new Uint8ClampedArray(src);
-      for(var i=0; i < imgdata.data.length/4; i=i+4){
-        imgdata.data[i+3] = tmp[i+3]; //tmp[i]; // Set A
-        //var p = tmp[i] < 1 ? 0 : (255/tmp[i]);
-        imgdata.data[i] = tmp[i+2];//tmp[i+1];//*p; // R
-        imgdata.data[i+1] = tmp[i+1];//tmp[i+2];//*p; // G
-        imgdata.data[i+2] = tmp[i];//tmp[i+3];//*p; // B
-        
-      }
-      //return tmp;
-    }
     window.webkitWorker = new Worker('webkit.js');
     window.webkitWorker.onmessage = function(e) {
       if(e.data['call'] == 'ready') {
@@ -193,42 +170,36 @@
         element.scrollTop = element.scrollHeight;
       }
       else if (e.data['call'] == 'canvas' && e.data['type'] == 'putImageData') {
+        var values = e.data;
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
-        context.clearRect(e.data.dx,e.data.dy,e.data.width,e.data.height);
-        var imgdata = context.getImageData(e.data.dx,e.data.dy,e.data.width,e.data.height); 
-        //imgdata.data = new Uint8ClampedArray(e.data.imgdata, 0, e.data.imgdata.byteLength);
-        //imgdata.data.buffer = e.data.imgdata;
-        //bitblt_it(imgdata,e.data.imgdata);
-        //var tmp = new Uint8ClampedArray(e.data.imgdata);
-        //for(var i=0; i < imgdata.data.length; i++)
-        //  imgdata.data[i] = tmp[i];
-        imgdata.data.set(new Uint8ClampedArray(e.data.imgdata));
-        console.log('put image data at: '+e.data.dx+' '+e.data.dy+' for '+e.data.width+' '+e.data.height);
-        context.putImageData(imgdata,e.data.dx,e.data.dy); 
-
-        console.log(e.data);
-        //,e.data.dirtyX,e.data.dirtyY,e.data.dirtyWidth,e.data.dirtyHeight
+        context.clearRect(values.dx,values.dy,values.width,values.height);
+        var backbuffer = context.getImageData(values.dx,values.dy,values.width,values.height);
+        backbuffer.data.set(new Uint8ClampedArray(values.imagedata));
+        context.putImageData(backbuffer,values.dx,values.dy);
       } else if (e.data['call'] == 'canvas' && e.data['type'] == 'drawImage') {
+        /*console.log('call to drawImage');
+        console.log(e.data);
+        if(typeof(e.data.imagedata) == 'undefined' || e.data.imagedata.length==0){
+          console.log('error, empty drawimage');
+          console.warn(e.data);
+          return;
+        }
+        var values = e.data;
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
-        context.clearRect(e.data.dx,e.data.dy,e.data.width,e.data.height);
-        var imgdata = context.getImageData(e.data.dx,e.data.dy,e.data.width,e.data.height); 
-        imgdata.data.set(new Uint8ClampedArray(e.data.imgdata));
-        //bitblt_it(imgdata,e.data.imgdata);
-        console.log('draw at: '+e.data.dx+' '+e.data.dy+' for '+e.data.width+' '+e.data.height);
-        //function(image,sx,sy,sw,sh,dx,dy,dw,dh)
-        //function(image,dx,dy,dirtyX,dirtyY,dirtyWidth,dirtyHeight)
-        context.putImageData(imgdata,e.data.dx,e.data.dy);
-        console.log(e.data);
+        context.clearRect(values.dx,values.dy,values.dw,values.dh);
+        var backbuffer = context.getImageData(values.dx,values.dy,values.dw,values.dh);
+        backbuffer.data.set(new Uint8ClampedArray(values.imagedata));
+        context.putImageData(backbuffer,values.dx,values.dy);*/
       } else if (e.data['call'] == 'canvas' && e.data['type'] == 'width') {
-        console.log('setting canvas width');
+        console.log('width: '+e.data.width);
         var canvas = document.getElementById('canvas');
-        canvas.width = e.data.value;
+        canvas.width = e.data.width;
       } else if (e.data['call'] == 'canvas' && e.data['type'] == 'height') {
-        console.log('setting canvas height');
+        console.log('height: '+e.data.height);
         var canvas = document.getElementById('canvas');
-        canvas.height = e.data.value;
+        canvas.height = e.data.height;
       } 
     }
     var WebKit = { };

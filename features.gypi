@@ -175,19 +175,20 @@
 			# Graphics Subsystems
 			'WTF_USE_FREETYPE=1',
 			'WTF_USE_HARFBUZZ=1',
-			'WTF_USE_CAIRO=1',
+			'WTF_USE_CAIRO=1', # THIS OR SKIA.
+			'WTF_USE_SKIA=0',
 			# Enabling opengl es requires egl as well.
 			# accelerated compositing needs opengl, i believe.
       'WTF_USE_OPENGL_ES_2=1',
       'WTF_USE_EGL=1',
 			'WTF_USE_ACCELERATED_COMPOSITING=1',
 			# turning on any of the below tend to require one another...
-      'WTF_USE_TEXTURE_MAPPER=1',
-      'WTF_USE_TEXTURE_MAPPER_GL=1',
-      'WTF_USE_TILED_BACKING_STORE=1',
+      'WTF_USE_TEXTURE_MAPPER=1', # requires cairo, won't work with skia.
+      'WTF_USE_TEXTURE_MAPPER_GL=1', # requires cairo, won't work with skia.
+      'WTF_USE_TILED_BACKING_STORE=1', # requires cairo, won't work with skia.
 			'WTF_USE_3D_GRAPHICS=1',
-			'WTF_USE_COORDINATED_GRAPHICS=1',
-      'WTF_USE_GRAPHICS_SURFACE=1',
+			'WTF_USE_COORDINATED_GRAPHICS=1', # requires cairo, won't work with skia.
+      'WTF_USE_GRAPHICS_SURFACE=1', # requires cairo, won't work with skia.
 
 			# GLX and OpenGL are explicitly turned off in
 			# favor for OPENGL_ES_2 and EGL.

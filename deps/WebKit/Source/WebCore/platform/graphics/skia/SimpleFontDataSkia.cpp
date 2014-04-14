@@ -27,10 +27,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 #include "config.h"
-#include "core/platform/graphics/SimpleFontData.h"
+#if USE(SKIA)
 
+#if PLATFORM(JS)
+#include "SimpleFontData.h"
+#include "SkPaint.h"
+#include "SkTypeface.h"
+#include "SkTypes.h"
+#include "FloatRect.h"
+#include "FontDescription.h"
+#include "wtf/unicode/Unicode.h"
+#else
 #include <unicode/normlzr.h>
 #include "SkPaint.h"
 #include "SkTypeface.h"
@@ -42,6 +50,7 @@
 
 #if OS(WINDOWS)
 #include "core/platform/win/HWndDC.h"
+#endif
 #endif
 
 namespace WebCore {
@@ -283,3 +292,5 @@ bool SimpleFontData::canRenderCombiningCharacterSequence(const UChar* characters
 #endif
 
 } // namespace WebCore
+
+#endif // USE(SKIA)

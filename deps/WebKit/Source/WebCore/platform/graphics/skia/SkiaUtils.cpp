@@ -29,7 +29,15 @@
  */
 
 #include "config.h"
+#if PLATFORM(JS)
+#include "SkiaUtils.h"
 
+#include "SkColorPriv.h"
+#include "SkMatrix.h"
+#include "SkRegion.h"
+#include "GraphicsContext.h"
+#include "ImageBuffer.h"
+#else
 #include "core/platform/graphics/skia/SkiaUtils.h"
 
 #include "SkColorPriv.h"
@@ -37,7 +45,7 @@
 #include "SkRegion.h"
 #include "core/platform/graphics/GraphicsContext.h"
 #include "core/platform/graphics/ImageBuffer.h"
-
+#endif
 namespace WebCore {
 
 static const struct CompositOpToXfermodeMode {

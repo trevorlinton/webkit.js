@@ -35,7 +35,11 @@
 #include "SkRect.h"
 #include "SkSize.h"
 #include "SkXfermode.h"
+#if PLATFORM(JS)
+#include "GraphicsTypes.h"
+#else
 #include "core/platform/graphics/GraphicsTypes.h"
+#endif
 #include "wtf/Forward.h"
 #include "wtf/PassRefPtr.h"
 #include "wtf/RefCounted.h"

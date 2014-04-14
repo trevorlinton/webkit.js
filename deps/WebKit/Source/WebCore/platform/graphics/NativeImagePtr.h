@@ -34,6 +34,8 @@ typedef struct CGImage* CGImageRef;
 #include "RefPtrCairo.h"
 #elif USE(WINGDI)
 #include "SharedBitmap.h"
+#elif USE(SKIA)
+#include "NativeImageSkia.h"
 #elif PLATFORM(BLACKBERRY)
 namespace BlackBerry {
 namespace Platform {
@@ -55,6 +57,8 @@ typedef RefPtr<cairo_surface_t> NativeImagePtr;
 typedef PassRefPtr<cairo_surface_t> PassNativeImagePtr;
 #elif USE(WINGDI)
 typedef RefPtr<SharedBitmap> NativeImagePtr;
+#elif USE(SKIA)
+typedef RefPtr<NativeImageSkia> NativeImagePtr;
 #elif PLATFORM(BLACKBERRY)
 typedef BlackBerry::Platform::Graphics::TiledImage* NativeImagePtr;
 #endif

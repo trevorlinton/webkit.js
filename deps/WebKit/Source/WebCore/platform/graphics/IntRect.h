@@ -28,6 +28,9 @@
 
 #include "IntPoint.h"
 #include <wtf/Vector.h>
+#if USE(SKIA)
+#include "SkRect.h"
+#endif
 
 #if USE(CG)
 typedef struct CGRect CGRect;
@@ -213,7 +216,10 @@ public:
 
     static IntRect infiniteRect();
     bool isInfinite() const;
-
+#if USE(SKIA)
+		operator SkRect() const;
+		operator SkIRect() const;
+#endif
 private:
     IntPoint m_location;
     IntSize m_size;

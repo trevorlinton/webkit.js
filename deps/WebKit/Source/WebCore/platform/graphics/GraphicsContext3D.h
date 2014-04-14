@@ -49,7 +49,7 @@
 #undef VERSION
 #endif
 
-#if PLATFORM(MAC) || PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(BLACKBERRY) || PLATFORM(WIN) || PLATFORM(NIX) || PLATFORM(JS)
+#if PLATFORM(MAC) || PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(BLACKBERRY) || PLATFORM(WIN) || PLATFORM(NIX) || (PLATFORM(JS) && USE(CAIRO))
 #include "ANGLEWebKitBridge.h"
 #endif
 
@@ -110,7 +110,10 @@ class PlatformContextCairo;
 class GraphicsContext;
 #endif
 
+#if USE(SKIA)
+#else
 typedef WTF::HashMap<CString, uint64_t> ShaderNameHash;
+#endif
 
 struct ActiveInfo {
     String name;
@@ -790,10 +793,10 @@ public:
 
     void reshape(int width, int height);
 
-#if PLATFORM(GTK) || PLATFORM(EFL) || USE(CAIRO) || PLATFORM(JS)
+#if PLATFORM(GTK) || PLATFORM(EFL) || USE(CAIRO)
     void paintToCanvas(const unsigned char* imagePixels, int imageWidth, int imageHeight,
                        int canvasWidth, int canvasHeight, PlatformContextCairo* context);
-#elif PLATFORM(BLACKBERRY) || USE(CG)
+#elif PLATFORM(BLACKBERRY) || USE(CG) || USE(SKIA)
     void paintToCanvas(const unsigned char* imagePixels, int imageWidth, int imageHeight,
                        int canvasWidth, int canvasHeight, GraphicsContext*);
 #endif
@@ -985,7 +988,7 @@ private:
     void* m_context;
 #endif
 
-#if PLATFORM(MAC) || PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(BLACKBERRY) || PLATFORM(WIN) || PLATFORM(NIX) || PLATFORM(JS)
+#if PLATFORM(MAC) || PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(BLACKBERRY) || PLATFORM(WIN) || PLATFORM(NIX) || (PLATFORM(JS) && USE(CAIRO))
     struct SymbolInfo {
         SymbolInfo()
             : type(0)

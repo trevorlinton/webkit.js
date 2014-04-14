@@ -40,8 +40,9 @@ public:
 
     virtual void swapBuffers() OVERRIDE { }
     virtual IntSize defaultFrameBufferSize() OVERRIDE { return IntSize(); }
+#if USE(CAIRO)
     virtual cairo_device_t* cairoDevice() OVERRIDE { return 0; }
-
+#endif
     virtual bool canRenderToDefaultFramebuffer() OVERRIDE { return false; }
 
 #if USE(3D_GRAPHICS)

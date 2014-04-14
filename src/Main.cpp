@@ -2,11 +2,12 @@
 #include <emscripten.h>
 
 namespace WebKit {
-	static WebKit::WebView* mainView;
+	static WebKit::WebView* mainView = NULL;
 }
 
 // Private
 void tick() {
+	if(!WebKit::mainView) return;
 	// Note: do not add a webkitTrace here, this funciton executes quite
 	// a few times that it will cause the browser to slow down to a crawl
 	// to finish writing console messages.
@@ -37,4 +38,8 @@ extern "C" {
 		WebKit::mainView = new WebKit::WebView(width, height);
 		//emscripten_set_main_loop(&tick, 0, false);
 	}
+	//int main(int argc, char** argv) {
+	//	fprintf(stderr, "WebKit Loaded. Waiting on call to createWebKit.");
+	//	emscripten_set_main_loop(&tick, 0, false);
+	//}
 }

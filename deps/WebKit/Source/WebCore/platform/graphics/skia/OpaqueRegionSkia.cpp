@@ -29,11 +29,13 @@
  */
 
 #include "config.h"
-
+#if PLATFORM(JS)
+#include "OpaqueRegionSkia.h"
+#include "GraphicsContext.h"
+#else
 #include "core/platform/graphics/skia/OpaqueRegionSkia.h"
-
 #include "core/platform/graphics/GraphicsContext.h"
-
+#endif
 #include "SkCanvas.h"
 #include "SkColorFilter.h"
 #include "SkShader.h"

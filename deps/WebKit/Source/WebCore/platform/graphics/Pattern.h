@@ -42,6 +42,9 @@ typedef CGPatternRef PlatformPatternPtr;
 typedef cairo_pattern_t* PlatformPatternPtr;
 #elif USE(WINGDI)
 typedef void* PlatformPatternPtr;
+#elif USE(SKIA)
+#include "SkShader.h"
+typedef SkShader* PlatformPatternPtr;
 #endif
 
 namespace WebCore {

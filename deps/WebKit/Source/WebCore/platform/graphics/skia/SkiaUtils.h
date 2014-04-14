@@ -35,7 +35,11 @@
 
 #include "SkPath.h"
 #include "SkXfermode.h"
+#if PLATFORM(JS)
+#include "GraphicsContext.h"
+#else
 #include "core/platform/graphics/GraphicsContext.h"
+#endif
 #include "wtf/MathExtras.h"
 
 class SkCanvas;
