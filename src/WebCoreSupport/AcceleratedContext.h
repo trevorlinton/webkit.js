@@ -19,6 +19,8 @@
 #ifndef AcceleratedContext_h
 #define AcceleratedContext_h
 
+#if USE(ACCELERATED_COMPOSITING) && USE(TEXTURE_MAPPER_GL)
+
 #include "GraphicsLayer.h"
 #include "GraphicsLayerClient.h"
 #include "IntRect.h"
@@ -26,26 +28,18 @@
 #include "Timer.h"
 #include "WebView.h"
 #include <wtf/PassOwnPtr.h>
-
-#if USE(TEXTURE_MAPPER)
-#include "TextureMapperLayer.h"
-#endif
-
-#if USE(TEXTURE_MAPPER_GL)
 #include "GLContext.h"
+#include "TextureMapperLayer.h"
 #include "TextureMapperFPSCounter.h"
-#endif
 
-#if USE(ACCELERATED_COMPOSITING)
-
-namespace WebKit {
+namespace WebCore {
 
 	class AcceleratedContext : public WebCore::GraphicsLayerClient {
     WTF_MAKE_NONCOPYABLE(AcceleratedContext);
 	public:
-    static PassOwnPtr<AcceleratedContext> create(WebKit::WebView* webView)
+    static AcceleratedContext *create(WebKit::WebView* webView)
     {
-			return adoptPtr(new AcceleratedContext(webView));
+			return new AcceleratedContext(webView);
     }
 
     virtual ~AcceleratedContext();
@@ -53,10 +47,10 @@ namespace WebKit {
     void setNonCompositedContentsNeedDisplay(const WebCore::IntRect&);
     void scheduleLayerFlush();
     void resizeRootLayer(const WebCore::IntSize&);
+
     bool renderLayersToWindow(cairo_t*, const WebCore::IntRect& clipRect);
     bool enabled();
 
-    // GraphicsLayerClient
     virtual void notifyAnimationStarted(const WebCore::GraphicsLayer*, double time);
     virtual void notifyFlushRequired(const WebCore::GraphicsLayer*);
     virtual void paintContents(const WebCore::GraphicsLayer*, WebCore::GraphicsContext&, WebCore::GraphicsLayerPaintingPhase, const WebCore::IntRect& rectToPaint);
@@ -97,7 +91,7 @@ namespace WebKit {
     AcceleratedContext(WebKit::WebView*);
 	};
 
-} // namespace WebKit
+}
 
-#endif // USE(ACCELERATED_COMPOSITING)
+#endif
 #endif // AcceleratedContext_h

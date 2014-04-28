@@ -166,12 +166,21 @@ namespace WebKit {
 
     m_private->corePage->settings().setScriptEnabled(false);
 		m_private->corePage->settings().setPluginsEnabled(false);
-		m_private->corePage->settings().setAcceleratedCompositingEnabled(false); // true
-		m_private->corePage->settings().setAcceleratedDrawingEnabled(false); // true
-		m_private->corePage->settings().setTiledBackingStoreEnabled(false);
+
+#if USE(ACCELERATED_COMPOSITING)
+		m_private->corePage->settings().setMinimumAccelerated2dCanvasSize(1);
+		m_private->corePage->settings().setAcceleratedCompositedAnimationsEnabled(true);
+		m_private->corePage->settings().setAcceleratedDrawingEnabled(true);
+		m_private->corePage->settings().setAcceleratedFiltersEnabled(true);
+		m_private->corePage->settings().setAcceleratedCompositingEnabled(true);
+		m_private->corePage->settings().setAcceleratedDrawingEnabled(true);
+		m_private->corePage->settings().setTiledBackingStoreEnabled(true);
+#endif
+
 		fprintf(stderr, "WebKit: Settings successfully initialized.\n");
 
 		m_private->mainFrame->init();
+		m_private->mainFrame->coreFrame()->view()->enterCompositingMode();
 		m_private->corePage->setIsVisible(true, true);
 		m_private->corePage->setIsInWindow(true);
 
@@ -197,7 +206,7 @@ namespace WebKit {
 			return;
 
 		ASSERT(m_private->context);
-		
+
     if (SDL_MUSTLOCK(m_private->sdl_surface)) {
 			if (SDL_LockSurface(m_private->sdl_surface) < 0)
 				return;
@@ -267,7 +276,11 @@ namespace WebKit {
 
 	void WebView::invalidate(WebCore::IntRect rect, int immediate) {
 		webkitTrace();
+#if USE(ACCELERATED_COMPOSITING)
+		// uhm, what do we do?
+#else
 		draw(rect, immediate);
+#endif
 	}
 
 	void WebView::resize(int width, int height)
@@ -300,6 +313,26 @@ namespace WebKit {
 			SDL_FreeSurface(m_private->sdl_surface);
 			m_private->sdl_surface = NULL;
 		}
+		if(m_private->context) {
+			delete m_private->context;
+			m_private->context = NULL;
+		}
+
+
+#if USE(ACCELERATED_COMPOSITING)
+		m_private->sdl_screen = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE);
+		if (!m_private->sdl_screen) {
+			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
+			SDL_Quit();
+			exit(2);
+		}
+#else
+		m_private->sdl_screen = SDL_SetVideoMode(width, height, 32, SDL_SWSURFACE);
+		if (!m_private->sdl_screen) {
+			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
+			SDL_Quit();
+			exit(2);
+		}
 #if USE(CAIRO)
 		if(m_private->cairo_surface) {
 			cairo_surface_destroy(m_private->cairo_surface);
@@ -311,20 +344,9 @@ namespace WebKit {
 		}
 #elif USE(SKIA)
 #endif
-		if(m_private->context) {
-			delete m_private->context;
-			m_private->context = NULL;
-		}
-
-		m_private->sdl_screen = SDL_SetVideoMode(width, height, 32, SDL_SWSURFACE); // SDL_HWSURFACE
-		if (!m_private->sdl_screen) {
-			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
-			SDL_Quit();
-			exit(2);
-		}
 
 		m_private->sdl_surface = SDL_CreateRGBSurface(
-				SDL_SWSURFACE, // | SDL_OPENGL
+				SDL_SWSURFACE,
 				m_private->sdl_screen->w,
 				m_private->sdl_screen->h,
 				32,
@@ -337,17 +359,16 @@ namespace WebKit {
 #if USE(CAIRO)
 		m_private->cairo_surface = cairo_image_surface_create_for_data(
 		 (unsigned char*)m_private->sdl_surface->pixels,
-		 CAIRO_FORMAT_RGB24,
+		 CAIRO_FORMAT_ARGB32,
 		 m_private->sdl_screen->w,
 		 m_private->sdl_screen->h,
 		 m_private->sdl_surface->pitch);
 
 
 		m_private->cairo_device = cairo_create(m_private->cairo_surface);
-		cairo_set_antialias(m_private->cairo_device,CAIRO_ANTIALIAS_SUBPIXEL);
 		m_private->context = new GraphicsContext(m_private->cairo_device);
-		m_private->context->applyDeviceScaleFactor(2.0);
 #elif USE(SKIA)
+#endif
 #endif
 		return true;
 	}
@@ -381,6 +402,9 @@ namespace WebKit {
 			default:
         break;
     }
+	}
+	void WebView::scalefactor(float t) {
+		m_private->context->applyDeviceScaleFactor(t);
 	}
 	void WebView::resizeEvent(void *) {
 		webkitTrace();

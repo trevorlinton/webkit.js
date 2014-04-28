@@ -21,14 +21,13 @@
 #include "SDL.h"
 
 namespace WebCore {
+	class AcceleratedContext;
 	class ChromeClientJS;
 	class FrameLoaderClientJS;
 	class WebFrameJS;
 }
 
 namespace WebKit {
-	class AcceleratedContext;
-
 	struct WebViewPrivate {
 		WebCore::GraphicsContext* context = NULL;
 #if USE(CAIRO)
@@ -59,6 +58,7 @@ namespace WebKit {
 		void resize(int width, int height);
 		WebCore::IntSize size();
 		void scrollBy(int offsetX, int offsetY);
+		void scalefactor(float t);
 		void resizeEvent(void *);
     void paintEvent(void *);
     void changeEvent(void *);
@@ -82,7 +82,7 @@ namespace WebKit {
 		friend class WebCore::ChromeClientJS;
 		friend class WebCore::FrameLoaderClientJS;
 		friend class WebCore::WebFrameJS;
-		friend class WebKit::AcceleratedContext;
+		friend class WebCore::AcceleratedContext;
 
 		WebViewPrivate* p() { return m_private; }
 		void invalidate(WebCore::IntRect rect, int immediate);

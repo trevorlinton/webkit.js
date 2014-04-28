@@ -19,6 +19,10 @@
 #include "config.h"
 #include "GLContext.h"
 
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
+
 #if USE(OPENGL) || (( PLATFORM(NIX) || PLATFORM(JS) ) && USE(OPENGL_ES_2))
 
 #if USE(EGL)
@@ -61,6 +65,7 @@ ThreadSpecific<ThreadGlobalGLContext>* ThreadGlobalGLContext::staticGLContext;
 
 inline ThreadGlobalGLContext* currentContext()
 {
+	webkitTrace();
     if (!ThreadGlobalGLContext::staticGLContext)
         ThreadGlobalGLContext::staticGLContext = new ThreadSpecific<ThreadGlobalGLContext>;
     return *ThreadGlobalGLContext::staticGLContext;
@@ -68,6 +73,7 @@ inline ThreadGlobalGLContext* currentContext()
 
 GLContext* GLContext::sharingContext()
 {
+	webkitTrace();
     DEFINE_STATIC_LOCAL(OwnPtr<GLContext>, sharing, (createOffscreenContext()));
     return sharing.get();
 }
@@ -79,6 +85,7 @@ GLContext* GLContext::sharingContext()
 static Display* gSharedX11Display = 0;
 Display* GLContext::sharedX11Display()
 {
+	webkitTrace();
     if (!gSharedX11Display)
         gSharedX11Display = XOpenDisplay(0);
     return gSharedX11Display;
@@ -86,6 +93,7 @@ Display* GLContext::sharedX11Display()
 
 void GLContext::cleanupSharedX11Display()
 {
+	webkitTrace();
     if (!gSharedX11Display)
         return;
     XCloseDisplay(gSharedX11Display);
@@ -100,12 +108,14 @@ void GLContext::cleanupSharedX11Display()
 typedef Vector<GLContext*> ActiveContextList;
 static ActiveContextList& activeContextList()
 {
+	webkitTrace();
     DEFINE_STATIC_LOCAL(ActiveContextList, activeContexts, ());
     return activeContexts;
 }
 
 void GLContext::addActiveContext(GLContext* context)
 {
+	webkitTrace();
     static bool addedAtExitHandler = false;
     if (!addedAtExitHandler) {
         atexit(&GLContext::cleanupActiveContextsAtExit);
@@ -118,6 +128,7 @@ static bool gCleaningUpAtExit = false;
 
 void GLContext::removeActiveContext(GLContext* context)
 {
+	webkitTrace();
     // If we are cleaning up the context list at exit, don't bother removing the context
     // from the list, since we don't want to modify the list while it's being iterated.
     if (gCleaningUpAtExit)
@@ -131,6 +142,7 @@ void GLContext::removeActiveContext(GLContext* context)
 
 void GLContext::cleanupActiveContextsAtExit()
 {
+	webkitTrace();
     gCleaningUpAtExit = true;
 
     ActiveContextList& contextList = activeContextList();
@@ -144,6 +156,8 @@ void GLContext::cleanupActiveContextsAtExit()
 
 PassOwnPtr<GLContext> GLContext::createContextForWindow(GLNativeWindowType windowHandle, GLContext* sharingContext)
 {
+	webkitTrace();
+
 #if PLATFORM(GTK) && PLATFORM(WAYLAND) && !defined(GTK_API_VERSION_2) && defined(GDK_WINDOWING_WAYLAND) && USE(EGL)
     GdkDisplay* display = gdk_display_manager_get_default_display(gdk_display_manager_get());
 
@@ -154,7 +168,7 @@ PassOwnPtr<GLContext> GLContext::createContextForWindow(GLNativeWindowType windo
     }
 #endif
 
-#if !PLATFORM(NIX)
+#if !PLATFORM(NIX) || PLATFORM(JS)
 #if USE(GLX)
     if (OwnPtr<GLContext> glxContext = GLContextGLX::createContext(windowHandle, sharingContext))
         return glxContext.release();
@@ -169,6 +183,7 @@ PassOwnPtr<GLContext> GLContext::createContextForWindow(GLNativeWindowType windo
 
 GLContext::GLContext()
 {
+	webkitTrace();
 #if PLATFORM(X11)
     addActiveContext(this);
 #endif
@@ -176,11 +191,13 @@ GLContext::GLContext()
 
 PassOwnPtr<GLContext> GLContext::createOffscreenContext(GLContext* sharingContext)
 {
+	webkitTrace();
     return createContextForWindow(0, sharingContext);
 }
 
 GLContext::~GLContext()
 {
+	webkitTrace();
     if (this == currentContext()->context())
         currentContext()->setContext(0);
 #if PLATFORM(X11)
@@ -190,12 +207,14 @@ GLContext::~GLContext()
 
 bool GLContext::makeContextCurrent()
 {
+	webkitTrace();
     currentContext()->setContext(this);
     return true;
 }
 
 GLContext* GLContext::getCurrent()
 {
+	webkitTrace();
     return currentContext()->context();
 }
 

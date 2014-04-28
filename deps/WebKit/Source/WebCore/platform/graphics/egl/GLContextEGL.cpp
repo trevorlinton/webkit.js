@@ -54,6 +54,9 @@ static const EGLenum gGLAPI = EGL_OPENGL_API;
 
 static EGLDisplay sharedEGLDisplay()
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     static bool initialized = false;
     if (!initialized) {
         initialized = true;

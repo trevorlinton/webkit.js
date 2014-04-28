@@ -13,7 +13,7 @@
 		# -s OUTLINING_LIMIT=5000, outlining never worked, i'm unsure why, emscripten 1.13.0
 		# -s LINKABLE=1, adding this removes the warning:unresolved symbols to odd emscripten_gl<func> but
 		# -s EXPORTED_FUNCTIONS=@../src/Symbols.exports
-		'emscripten_linktojs':'-s EXPORTED_FUNCTIONS="[\'_main\',\'_createWebKit\',\'_setHtml\',\'_setTransparent\',\'_scrollBy\',\'_resize\']" --embed-files ../src/assets/fontconfig/fonts@/usr/share/fonts --embed-files ../src/assets/fontconfig/config/fonts.conf@/etc/fonts/fonts.conf --embed-files ../src/assets/fontconfig/cache@/usr/local/var/cache/fontconfig -s TOTAL_MEMORY=50331648 -s FULL_ES2=1 -s ASM_JS=0 --post-js ../src/webkit.post.js --pre-js ../src/webkit.pre.js -o webkit.js', # --proxy-to-worker -o webkit.html
+		'emscripten_linktojs':'-s EXPORTED_FUNCTIONS="[\'_scalefactor\',\'_createWebKit\',\'_setHtml\',\'_setTransparent\',\'_scrollBy\',\'_resize\']" --embed-files ../src/assets/fontconfig/fonts@/usr/share/fonts --embed-files ../src/assets/fontconfig/config/fonts.conf@/etc/fonts/fonts.conf --embed-files ../src/assets/fontconfig/cache@/usr/local/var/cache/fontconfig -s TOTAL_MEMORY=50331648 -s FULL_ES2=1 --post-js ../src/webkit.post.js --pre-js ../src/webkit.pre.js -o webkit.js', # --proxy-to-worker -o webkit.html
 		# Ensure that Apple, and Win32 builds do not interfere with the compile, we'll assume we're linux since
 		# emscripten has a very posix unix compile interface, should be the most compatible with existing code.
 		# -fshort-wchar is needed, emscripten uses a 4, not 8 wchar (32 vs. 64 bit). 
@@ -47,11 +47,13 @@
 				#		but should use -O3. -Oz/-Os supposadly (from the docs) map to -O2, so we actually get
 				#		better(?) optimization but using -O3. We may want to gut check this, as it doesn't
 				#		seem accurate.
-				# for some bizzare reason adding -g0 onto this causes the compiler to slow to a crawl and
-				#		take up gigabytes (13+) of memory. Don't do it.
-				# Using ASM_JS=0 is necessary at the moment since browsers limit the amount of local vars.
+				### -- not applicable as of 1.16 emscripten -- for some bizzare reason adding -g0 onto this causes the compiler to slow to a crawl and
+				### -- not applicable as of 1.16 emscripten --	take up gigabytes (13+) of memory. Don't do it.
+				### Using ASM_JS=0 is necessary at the moment since browsers limit the amount of local vars.
+				# Using -Oz instead of -O3 here creates larger file sizes (?..) its unclear the optimal settings but
+				#		this should be close.
 				#
-				'jsflags+':['<(emscripten_linktojs) -O3 --llvm-opts 3 --llvm-lto 3'], # -s INLINING_LIMIT=1
+				'jsflags+':['<(emscripten_linktojs) -O3 --llvm-opts 3 --llvm-lto 3 -g0'], # -s INLINING_LIMIT=1
 			},
 			'Debug': {
 				'defines+': ['DEBUG','TARGET_EMSCRIPTEN'],

@@ -80,10 +80,17 @@ namespace WebCore {
 		IntRect windowResizerRect() const;
 		PlatformPageClient platformPageClient() const;
 		void scrollbarsModeDidChange() const;
+#if USE(ACCELERATED_COMPOSITING)
+		bool isAccelerated() { return m_isAccelerated; }
+#endif
 	private:
 		ChromeClientJS(WebKit::WebView *);
 		FloatRect m_pageRect;
 		WebKit::WebView *m_view;
+#if USE(ACCELERATED_COMPOSITING)
+		OwnPtr<AcceleratedContext> acceleratedContext;
+		bool m_isAccelerated;
+#endif
 	};
 
 }

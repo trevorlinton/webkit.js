@@ -88,29 +88,127 @@
   <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
   <div id="controls">
     <textarea id="output" rows="8"></textarea>
-    <textarea id="input" rows="8"><html><body>Hello World!</body></html></textarea>
+    <textarea id="input" rows="8"><html><body>Hello World!<div style="background-color:rgba(255,0,0,1);position:absolute;left:0px;top:0px;width:20px;height:20px;"></div></body></html></textarea>
     
-  </div>
-  <div id="status">
-    <div class="spinner" id="spinner"></div>
-    <div class="emscripten" id="status">Downloading...</div>
-    <div class="emscripten"><progress value="0" max="100" id="progress" hidden=1></progress></div>
   </div>
   <script type='text/javascript'>
     var statusElement = document.getElementById('status');
     var progressElement = document.getElementById('progress');
     var spinnerElement = document.getElementById('spinner');
     document.getElementById('resize').addEventListener('click', function() {
-      WebKit.resize(parseInt(document.getElementById('width').value),parseInt(document.getElementById('height').value));
+      window.webkitObject.resize(parseInt(document.getElementById('width').value),parseInt(document.getElementById('height').value));
     });
     document.getElementById('render').addEventListener('click', function() {
-      WebKit.html(document.getElementById('input').value);
+      window.webkitObject.html(document.getElementById('input').value);
     });
-    var Module = {
+    
+    function WebKit(canvasRenderTarget, outputTextArea)
+    {
+      this.canvas = canvasRenderTarget;
+      this.output = outputTextArea;
+      this.scaleFactor = 1;
+      this.worker = new Worker('webkit.js');
+
+      this.worker.onmessage = function(e) 
+      {
+        if(e.data['call'] == 'ready') 
+        {
+          this.create(500,300);
+        }
+        else if ((e.data['call'] == 'print' || 
+                  e.data['call'] == 'printErr') && this.output) 
+        {
+          this.output.value += '\n' + e.data['value'];
+          this.output.scrollTop = this.output.scrollHeight;
+        }
+        else if (e.data['call'] == 'canvas' 
+          && e.data['type'] == 'putImageData') 
+        {
+          var values = e.data;
+          var context = canvas.getContext('2d');
+
+          context.clearRect(
+            values.dx * this.scaleFactor, values.dy * this.scaleFactor,
+            values.width * this.scaleFactor, values.height * this.scaleFactor);
+
+          context.fillStyle = 'rgb(0,255,0)';
+          context.fillRect(0, 0, values.width * this.scaleFactor, values.height * this.scaleFactor);
+
+          var backbuffer = context.getImageData(
+            values.dx * this.scaleFactor,
+            values.dy * this.scaleFactor,
+            values.width * this.scaleFactor,
+            values.height * this.scaleFactor);
+
+          backbuffer.data.set(new Uint8ClampedArray(values.imagedata));
+
+          if(values.dirtyX && values.dirtyY && 
+              values.dirtyWidth && values.dirtyHeight)
+          {
+            context.putImageData( backbuffer,
+              values.dx * this.scaleFactor,
+              values.dy * this.scaleFactor,
+              values.dirtyX * this.scaleFactor,
+              values.dirtyY * this.scaleFactor,
+              values.dirtyWidth * this.scaleFactor,
+              values.dirtyHeight * this.scaleFactor);
+          } else {
+            context.putImageData( backbuffer,
+              values.dx * this.scaleFactor,
+              values.dy * this.scaleFactor);
+          }
+        }
+        else if (e.data['call'] == 'canvas' &&  e.data['type'] == 'width')
+        {
+          this.canvas.width = e.data.width;
+          this.canvas.style.width = e.data.width / this.scaleFactor + 'px';
+        }
+        else if (e.data['call'] == 'canvas' && e.data['type'] == 'height') 
+        {
+          this.canvas.height = e.data.height;
+          this.canvas.style.height = e.data.height / this.scaleFactor + 'px';
+        }
+        else
+        {
+          console.assert(false, 'undefined command was called.');
+        }
+      }.bind(this);
+    };
+    WebKit.prototype.create = function(w,h) { this.worker.postMessage({call:'create',width:w,height:h}); }
+    WebKit.prototype.html = function(v) { this.worker.postMessage({call:'html',value:v}); }
+    WebKit.prototype.transparent = function(v) { this.worker.postMessage({call:'transparent',value:v}); }
+    WebKit.prototype.resize = function(w,h) { this.worker.postMessage({call:'resize',width:w,height:h}); }
+    WebKit.prototype.deviceScaleFactor = function(factor) { 
+      this.scalefactor = factor;
+      this.worker.postMessage({call:'scalefactor',scalefactor:factor}); 
+    }
+
+    window.addEventListener('load',function() {
+      window.webkitObject = new WebKit(document.getElementById('canvas'),document.getElementById('output'));
+      window.webkitObject.deviceScaleFactor(2);
+    });
+ 
+		/*console.log('call to drawImage');
+		 console.log(e.data);
+		 if(typeof(e.data.imagedata) == 'undefined' || e.data.imagedata.length==0){
+		 console.log('error, empty drawimage');
+		 console.warn(e.data);
+		 return;
+		 }
+		 var values = e.data;
+		 var canvas = document.getElementById('canvas');
+		 var context = canvas.getContext('2d');
+		 context.clearRect(values.dx,values.dy,values.dw,values.dh);
+		 var backbuffer = context.getImageData(values.dx,values.dy,values.dw,values.dh);
+		 backbuffer.data.set(new Uint8ClampedArray(values.imagedata));
+		 context.putImageData(backbuffer,values.dx,values.dy);
+
+
+// if (e.data['call'] == 'canvas' && e.data['type'] == 'drawImage')
+
+var Module = {
       preRun: [],
-      postRun: [function() {
-        WebKit.create(400,400);
-      }],
+      postRun: [function() { window.webkitObject.create(500,300); }],
       print: (function() {
           var element = document.getElementById('output');
           element.value = 'webkit.js output log'; // clear browser cache
@@ -156,61 +254,16 @@
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
       }
     };
-    Module.setStatus('Downloading...');
-    window.webkitWorker = new Worker('webkit.js');
-    window.webkitWorker.onmessage = function(e) {
-      if(e.data['call'] == 'ready') {
-        Module.setStatus('Running...');
-        WebKit.create(500,300);
-      }
-      else if (e.data['call'] == 'print' || e.data['call'] == 'printErr') {
-        var element = document.getElementById('output');
-        var text = e.data['value'];
-        element.value += text + "\n";
-        element.scrollTop = element.scrollHeight;
-      }
-      else if (e.data['call'] == 'canvas' && e.data['type'] == 'putImageData') {
-        var canvas = document.getElementById('canvas');
-        var context = canvas.getContext('2d');
-        var imgdata = context.getImageData(e.data.dx,e.data.dy,e.data.width,e.data.height); 
-        //imgdata.data = new Uint8ClampedArray(e.data.imgdata, 0, e.data.imgdata.byteLength);
-        imgdata.data.buffer = e.data.imgdata;
+    //Module.setStatus('Downloading...');
+    //Module.setStatus('Running...');
 
-        var tmp = new Uint8ClampedArray(e.data.imgdata);
-        for(var i=0; i < imgdata.data.length; i++)
-          imgdata.data[i] = tmp[i];
-        context.putImageData(imgdata,e.data.dx,e.data.dy); 
-
-        console.log(e.data);
-        //,e.data.dirtyX,e.data.dirtyY,e.data.dirtyWidth,e.data.dirtyHeight
-      } else if (e.data['call'] == 'canvas' && e.data['type'] == 'drawImage') {
-        var canvas = document.getElementById('canvas');
-        var context = canvas.getContext('2d');
-        var imgdata = context.getImageData(e.data.dx,e.data.dy,e.data.width,e.data.height); 
-        imgdata.data.buffer = e.data.imgdata;
-
-        var tmp = new Uint8ClampedArray(e.data.imgdata);
-        for(var i=0; i < imgdata.data.length; i++)
-          imgdata.data[i] = tmp[i];
-
-        context.putImageData(imgdata,e.data.dx,e.data.dy);
-        console.log(e.data);
-      } else if (e.data['call'] == 'canvas' && e.data['type'] == 'width') {
-        console.log('setting canvas width');
-        var canvas = document.getElementById('canvas');
-        canvas.width = e.data.value;
-      } else if (e.data['call'] == 'canvas' && e.data['type'] == 'height') {
-        console.log('setting canvas height');
-        var canvas = document.getElementById('canvas');
-        canvas.height = e.data.value;
-      } 
-    }
-    var WebKit = { };
-    WebKit.create = function(w,h) { window.webkitWorker.postMessage({call:'create',width:w,height:h}); }
-    WebKit.html = function(v) { window.webkitWorker.postMessage({call:'html',value:v}); }
-    WebKit.transparent = function(v) { window.webkitWorker.postMessage({call:'transparent',value:v}); }
-    WebKit.resize = function(w,h) { window.webkitWorker.postMessage({call:'resize',width:w,height:h}); }
-  </script>
+     */
+	</script>
  
+  <!--<div id="status">
+    <div class="spinner" id="spinner"></div>
+    <div class="emscripten" id="status">Downloading...</div>
+    <div class="emscripten"><progress value="0" max="100" id="progress" hidden=1></progress></div>
+  </div>-->
 </body>
 </html>

@@ -2,10 +2,13 @@
  * (c) 2014 True Interactions
  */
 #include "config.h"
+#include "IntSize.h"
 #include "FloatRect.h"
-#include <emscripten.h>
 #include "DebuggerJS.h"
 #include "ChromeClientJS.h"
+#include "AcceleratedContext.h"
+
+#include <emscripten.h>
 
 using namespace WebCore;
 
@@ -13,15 +16,21 @@ namespace WebCore {
 
   ChromeClient* ChromeClientJS::createClient(WebKit::WebView *view) {
     webkitTrace();
-    ChromeClient* tmp = static_cast<ChromeClient *>(new ChromeClientJS(view));
-		tmp->setWindowRect(FloatRect(0,0,1024,768)); // TODO: Set this through JS?
-		return tmp;
+    ChromeClientJS* client = new ChromeClientJS(view);
+		IntSize size = view->size();
+		client->setWindowRect(FloatRect(0,0,size.width(),size.height()));
+		return static_cast<ChromeClient *>(client);
   }
 
   ChromeClientJS::ChromeClientJS(WebKit::WebView *view)
   {
 		webkitTrace();
 		m_view = view;
+#if USE(ACCELERATED_COMPOSITING)
+		acceleratedContext = adoptPtr(AcceleratedContext::create(view));
+		acceleratedContext->initialize();
+		m_isAccelerated = true;
+#endif
   }
   void ChromeClientJS::chromeDestroyed()
   {
@@ -33,7 +42,6 @@ namespace WebCore {
   {
     webkitTrace();
     return m_pageRect;
-
   }
 
   void ChromeClientJS::setWindowRect(const FloatRect& rect)
@@ -51,22 +59,24 @@ namespace WebCore {
   void ChromeClientJS::focus()
   {
     webkitTrace();
+		// not implemented
   }
 
   void ChromeClientJS::unfocus()
   {
     webkitTrace();
+		// not implemented
   }
 
   Page* ChromeClientJS::createWindow(Frame* frame, const FrameLoadRequest& frameLoadRequest, const WindowFeatures& coreFeatures, const NavigationAction&)
   {
-    webkitTrace();
+    notImplemented();
     return 0;
   }
 
   void ChromeClientJS::show()
   {
-    webkitTrace();
+    notImplemented();
   }
 
   bool ChromeClientJS::canRunModal()
@@ -77,7 +87,6 @@ namespace WebCore {
 
   void ChromeClientJS::runModal()
   {
-    webkitTrace();
     notImplemented();
   }
 
@@ -170,31 +179,27 @@ namespace WebCore {
 
   void ChromeClientJS::addMessageToConsole(WebCore::MessageSource source, WebCore::MessageLevel level, const WTF::String& message, unsigned lineNumber, unsigned columnNumber, const WTF::String& sourceId)
   {
-    webkitTrace();
+    notImplemented();
   }
 
   void ChromeClientJS::runJavaScriptAlert(Frame* frame, const String& message)
   {
-    webkitTrace();
+    notImplemented();
   }
 
   bool ChromeClientJS::runJavaScriptConfirm(Frame* frame, const String& message)
   {
-    webkitTrace();
+    notImplemented();
     return true;
   }
 
   bool ChromeClientJS::runJavaScriptPrompt(Frame* frame, const String& message, const String& defaultValue, String& result)
   {
-    webkitTrace();
+    notImplemented();
     return true;
   }
 
-  void ChromeClientJS::setStatusbarText(const String& string)
-  {
-    webkitTrace();
-  }
-
+  void ChromeClientJS::setStatusbarText(const String& string) { webkitTrace(); }
   bool ChromeClientJS::shouldInterruptJavaScript()
   {
     webkitTrace();
@@ -209,7 +214,7 @@ namespace WebCore {
 
   IntRect ChromeClientJS::windowResizerRect() const
   {
-    notImplemented();
+    webkitTrace();
     return IntRect();
   }
 
@@ -233,7 +238,7 @@ namespace WebCore {
 
   void ChromeClientJS::scroll(const IntSize& delta, const IntRect& rectToScroll, const IntRect& clipRect)
   {
-    webkitTrace();
+    notImplemented();
   }
 
   IntRect ChromeClientJS::rootViewToScreen(const IntRect& rect) const
@@ -256,27 +261,27 @@ namespace WebCore {
 
   void ChromeClientJS::contentsSizeChanged(Frame* frame, const IntSize& size) const
   {
-    webkitTrace();
+    notImplemented();
   }
 
   void ChromeClientJS::scrollbarsModeDidChange() const
   {
-    webkitTrace();
+    notImplemented();
   }
 
   void ChromeClientJS::mouseDidMoveOverElement(const HitTestResult& hit, unsigned modifierFlags)
   {
-    webkitTrace();
+    notImplemented();
   }
 
   void ChromeClientJS::setToolTip(const String& toolTip, TextDirection)
   {
-    webkitTrace();
+    notImplemented();
   }
 
   void ChromeClientJS::print(Frame* frame)
   {
-    webkitTrace();
+    notImplemented();
   }
 
   void ChromeClientJS::reachedMaxAppCacheSize(int64_t spaceNeeded)
@@ -327,21 +332,6 @@ namespace WebCore {
     return false;
   }
 
-  void ChromeClientJS::attachRootGraphicsLayer(Frame* frame, GraphicsLayer* rootLayer)
-  {
-    notImplemented();
-  }
-
-  void ChromeClientJS::setNeedsOneShotDrawingSynchronization()
-  {
-    notImplemented();
-  }
-
-  void ChromeClientJS::scheduleCompositingLayerFlush()
-  {
-    notImplemented();
-  }
-
   PassRefPtr<PopupMenu> ChromeClientJS::createPopupMenu(PopupMenuClient*) const {
     notImplemented();
     return nullptr;
@@ -364,8 +354,29 @@ namespace WebCore {
     notImplemented();
   }
 
-  /*
 
+
+	// Accelerated Compositing & Drawing Layers
+  void ChromeClientJS::scheduleCompositingLayerFlush()
+  {
+#if USE(ACCELERATED_COMPOSITING)
+    acceleratedContext->scheduleLayerFlush();
+#endif
+  }
+  void ChromeClientJS::attachRootGraphicsLayer(Frame* frame, GraphicsLayer* rootLayer)
+  {
+#if USE(ACCELERATED_COMPOSITING)
+		acceleratedContext->setRootCompositingLayer(rootLayer);
+#endif
+	}
+  void ChromeClientJS::setNeedsOneShotDrawingSynchronization()
+  {
+#if USE(ACCELERATED_COMPOSITING)
+    notImplemented();
+#endif
+  }
+
+  /*
 	 void ChromeClientJS::widgetSizeChanged(const IntSize& oldWidgetSize, IntSize newSize)
 	 {
 	 EM_ASM(

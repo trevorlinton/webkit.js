@@ -1,4 +1,5 @@
 #include "WebView.h"
+#include "IntSize.h"
 #include <emscripten.h>
 
 namespace WebKit {
@@ -30,7 +31,11 @@ extern "C" {
 	void setTransparent(bool transparent) { WebKit::mainView->setTransparent(transparent); }
 	void scrollBy(int x, int y) { WebKit::mainView->scrollBy(x,y); }
 	void resize(int w, int h) { WebKit::mainView->resize(w,h); }
-
+	void scalefactor(float sf) {
+		WebKit::mainView->scalefactor(sf);
+		//WebCore::IntSize rect = WebKit::mainView->size();
+		//WebKit::mainView->resize(rect.width(),rect.height());
+	}
 	void createWebKit(int width, int height) {
 		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
 			exit(1);
