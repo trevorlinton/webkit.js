@@ -140,6 +140,14 @@ namespace WebKit {
 		WebKitJSStrategies::initialize();
 
 		m_private = new WebViewPrivate();
+#if USE(ACCELERATED_COMPOSITING)
+		m_private->sdl_screen = SDL_SetVideoMode(width, height, 32, SDL_SWSURFACE);
+		if (!m_private->sdl_screen) {
+			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
+			SDL_Quit();
+			exit(2);
+		}
+#endif
 		m_private->transparent = false;
 
 		Page::PageClients pageClients;
@@ -175,6 +183,13 @@ namespace WebKit {
 		m_private->corePage->settings().setAcceleratedCompositingEnabled(true);
 		m_private->corePage->settings().setAcceleratedDrawingEnabled(true);
 		m_private->corePage->settings().setTiledBackingStoreEnabled(true);
+#else
+		m_private->corePage->settings().setAcceleratedCompositedAnimationsEnabled(false);
+		m_private->corePage->settings().setAcceleratedDrawingEnabled(false);
+		m_private->corePage->settings().setAcceleratedFiltersEnabled(false);
+		m_private->corePage->settings().setAcceleratedCompositingEnabled(false);
+		m_private->corePage->settings().setAcceleratedDrawingEnabled(false);
+		m_private->corePage->settings().setTiledBackingStoreEnabled(false);
 #endif
 
 		fprintf(stderr, "WebKit: Settings successfully initialized.\n");
@@ -288,8 +303,11 @@ namespace WebKit {
 		webkitTrace();
     m_private->size = IntSize(width, height);
 		recreateSurface(width,height);
-    Frame* coreFrame = m_private->mainFrame->coreFrame();
-    if (!coreFrame->view())
+		if(m_private->mainFrame) {
+			Frame* coreFrame = m_private->mainFrame->coreFrame();
+			if (!coreFrame->view())
+				return;
+		} else
 			return;
     coreFrame->view()->resize(m_private->size);
 	}
@@ -305,6 +323,10 @@ namespace WebKit {
 
 	bool WebView::recreateSurface(int width, int height) {
 		webkitTrace();
+
+#if USE(ACCELERATED_COMPOSITING)
+
+#else
 		if(m_private->sdl_screen) {
 			SDL_FreeSurface(m_private->sdl_screen);
 			m_private->sdl_screen = NULL;
@@ -318,15 +340,6 @@ namespace WebKit {
 			m_private->context = NULL;
 		}
 
-
-#if USE(ACCELERATED_COMPOSITING)
-		m_private->sdl_screen = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE);
-		if (!m_private->sdl_screen) {
-			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
-			SDL_Quit();
-			exit(2);
-		}
-#else
 		m_private->sdl_screen = SDL_SetVideoMode(width, height, 32, SDL_SWSURFACE);
 		if (!m_private->sdl_screen) {
 			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());

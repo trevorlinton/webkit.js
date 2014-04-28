@@ -26,12 +26,14 @@ namespace WebCore {
   {
 		webkitTrace();
 		m_view = view;
+  }
+	void ChromeClientJS::makeAccelerated() {
 #if USE(ACCELERATED_COMPOSITING)
 		acceleratedContext = adoptPtr(AcceleratedContext::create(view));
 		acceleratedContext->initialize();
 		m_isAccelerated = true;
 #endif
-  }
+	}
   void ChromeClientJS::chromeDestroyed()
   {
     webkitTrace();

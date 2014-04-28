@@ -12,6 +12,7 @@ namespace WebCore {
 	class ChromeClientJS : WebCore::ChromeClient {
 	public:
 		static ChromeClient* createClient(WebKit::WebView *);
+		void makeAccelerated();
 		FloatRect windowRect() OVERRIDE;
 		void setWindowRect(const FloatRect& rect) OVERRIDE;
 		FloatRect pageRect() OVERRIDE;
