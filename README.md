@@ -19,8 +19,10 @@ Status
 
 **Current Issues**
 
-* Exploring easier ways to bitblt outputs to canvas/webgl contexts for all browsers and nodejs(with a head, otherwise nodejs can just take headless snapshots).  Like with every other port, issues of endian-ness, RGBA (pre vs. per-pixel multiplied alpha) formats and bit size make this more complex than it feels like it should be. 
-* Optimizing the code for size and performance, release & debug modes work in all browsers, however Chrome/Safari/Opera have hiccups (long pauses) that may be due to GC issues.  It's somewhat unclear what the issue is, firefox is unaffected by this.  Emscripten optimizations, removal of dead code, reducing unnecessary library code will be a focus for the next while.
+* Fixing canvas size bitblt issues; canvas width and height can become inaccurate due to hi-dpi rendering.
+* Alpha channels are being flattened for unknown reasons, in addition gradients and animations in css are not rendering.
+* Inline SVG seg-faults. Most likely due to threading issue.
+* Resource loader has yet to be implemented, callback for browser (and eventually node)
 * Enhancing the API.  Adding mouse event callbacks, scrolling, keyboard callbacks, and snapshot to it.  Until there's a stable (well tested) API this will remain as an experiment.
 
 
@@ -182,6 +184,8 @@ There are no "threads" persay, this is obvious in a way since Javascript doesn't
 * **DONE** ~~Explore best methods for creating demo's and painting within WebKitJS.cpp to the host context.~~
 * **DONE** ~~Experiment with emscripten outlining, lto, and optimization techniques to prevent variable/heap/stack limitations and reduce code size.~~
 * **DONE** ~~Generate simple JavaScript library to create, use and manage webkit.js rendering.~~
+* **DONE** ~~Investigate if SKIA might provide better rendering -- no, skia does not support accelerated back-tile compositing needed by WebKit~~
+* **DONE** ~~Support for hidpi rendering on retina displays, support for device scale factors and clean font rendering~~
 * **In Progress** Create examples, demos and how-to guides (documentation, etc).
 * Create hooks into webkit layout tests to ensure functionality.
 * Scripts to auto-generate code with Emscripten JavaScript Bindings to enable DOM interactions with JavaScript (e.g., IDL generation, and some other bindings/scripts tasks)
