@@ -29,7 +29,7 @@ namespace WebCore {
   }
 	void ChromeClientJS::makeAccelerated() {
 #if USE(ACCELERATED_COMPOSITING)
-		acceleratedContext = adoptPtr(AcceleratedContext::create(view));
+		acceleratedContext = adoptPtr(AcceleratedContext::create(m_view));
 		acceleratedContext->initialize();
 		m_isAccelerated = true;
 #endif

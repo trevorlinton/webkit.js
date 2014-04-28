@@ -141,7 +141,7 @@ namespace WebKit {
 
 		m_private = new WebViewPrivate();
 #if USE(ACCELERATED_COMPOSITING)
-		m_private->sdl_screen = SDL_SetVideoMode(width, height, 32, SDL_SWSURFACE);
+		m_private->sdl_screen = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE);
 		if (!m_private->sdl_screen) {
 			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
 			SDL_Quit();
@@ -307,9 +307,9 @@ namespace WebKit {
 			Frame* coreFrame = m_private->mainFrame->coreFrame();
 			if (!coreFrame->view())
 				return;
-		} else
-			return;
-    coreFrame->view()->resize(m_private->size);
+
+			coreFrame->view()->resize(m_private->size);
+		}
 	}
 
 	void WebView::scrollBy(int offsetX, int offsetY)
