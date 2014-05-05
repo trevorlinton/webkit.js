@@ -11,6 +11,7 @@ WebKit.scalefactor = Module.cwrap('scalefactor','number',['number']);
 
 var priormessage = onmessage;
 onmessage = function(msg) {
+	
   if(msg.data['call']) {
   	if(msg.data['call']=='create') {
   		WebKit.create(msg.data['width'],msg.data['height']);

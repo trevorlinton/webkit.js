@@ -30,6 +30,8 @@
  * The Initial Developer of the Original Code is Chris Wilson.
  */
 
+#error "webkit.js does not support GLX. Modify cair-boilerplate-glx.c"
+
 #include "cairo-boilerplate-private.h"
 
 #include <cairo-gl.h>

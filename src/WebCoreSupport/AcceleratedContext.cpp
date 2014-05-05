@@ -70,7 +70,7 @@ namespace WebCore {
     if (m_rootLayer)
 			return;
 
-    IntSize pageSize = m_webView->size();
+    IntSize pageSize = roundedIntSize(m_webView->positionAndSize().size());
 
     m_rootLayer = GraphicsLayer::create(0, this);
     m_rootLayer->setDrawsContent(false);
@@ -92,8 +92,8 @@ namespace WebCore {
     m_nonCompositedContentLayer->setNeedsDisplay();
 
     // The creation of the TextureMapper needs an active OpenGL context.
-    //GLContext* context = GLContext::getCurrent();
-    //context->makeContextCurrent();
+    GLContext* context = GLContext::getCurrent();
+    context->makeContextCurrent();
 
     m_textureMapper = TextureMapperGL::create();
     static_cast<TextureMapperGL*>(m_textureMapper.get())->setEnableEdgeDistanceAntialiasing(true);
@@ -119,17 +119,17 @@ namespace WebCore {
 	{
 		webkitTrace();
 		if(m_rootLayer && m_textureMapper)
-			fprintf(stderr,"enabled\n");
+			fprintf(stdout,"AcceleratedContext::enabled\n");
 		else
-			fprintf(stderr,"disabled\n");
+			fprintf(stdout,"AcceleratedContext::disabled\n");
 		if(m_rootLayer)
-			fprintf(stderr,"m_rootLayer: enabled");
+			fprintf(stdout,"AcceleratedContext::m_rootLayer: enabled\n");
 		else
-			fprintf(stderr,"m_rootLayer: disabled");
+			fprintf(stdout,"AcceleratedContext::m_rootLayer: disabled\n");
 		if(m_textureMapper)
-			fprintf(stderr,"m_textureMapper: enabled");
+			fprintf(stdout,"AcceleratedContext::m_textureMapper: enabled\n");
 		else
-			fprintf(stderr,"m_textureMapper: disabled");
+			fprintf(stdout,"AcceleratedContext::m_textureMapper: disabled\n");
     return m_rootLayer && m_textureMapper;
 	}
 
@@ -140,7 +140,7 @@ namespace WebCore {
 
     if (!enabled()) return false;
 
-    const IntSize& windowSize = m_webView->size();
+    const IntSize& windowSize = roundedIntSize(m_webView->positionAndSize().size());
     cairo_surface_t* windowSurface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, windowSize.width(), windowSize.height());
 
 		if (!windowSurface) return true;
@@ -150,15 +150,14 @@ namespace WebCore {
     cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
     cairo_fill(cr);
 
-    //if (!m_layerFlushTimerCallbackId && (toTextureMapperLayer(m_rootLayer.get())->descendantsOrSelfHaveRunningAnimations() || m_needsExtraFlush)) {
-			//m_needsExtraFlush = false;
-			//double nextFlush = std::max((1 / gFramesPerSecond) - (currentTime() - m_lastFlushTime), 0.0);
-			//emscripten_async_call((void (*)(void *))(this->layerFlushTimerFiredCallback), this, 1000 * nextFlush);
-			//m_layerFlushTimerCallbackId = 1;
-			//m_layerFlushTimerCallbackId =
-			//	g_timeout_add_full(GDK_PRIORITY_EVENTS, 1000 * nextFlush, reinterpret_cast<GSourceFunc>(layerFlushTimerFiredCallback), this, 0);
-			//g_source_set_name_by_id(m_layerFlushTimerCallbackId, "[WebKit] layerFlushTimerFiredCallback");
-    //}
+    if (!m_layerFlushTimerCallbackId && (toTextureMapperLayer(m_rootLayer.get())->descendantsOrSelfHaveRunningAnimations() || m_needsExtraFlush)) {
+
+			m_needsExtraFlush = false;
+			double nextFlush = std::max((1 / 60) - (currentTime() - m_lastFlushTime), 0.0);
+			fprintf(stdout, "------3 timer for flush: %f\n", nextFlush);
+			m_layerFlushTimerCallbackId = 1;
+			emscripten_async_call((void (*)(void *))(this->layerFlushTimerFiredCallback), this, 1000 * nextFlush);
+		}
 
     return true;
 	}
@@ -171,9 +170,9 @@ namespace WebCore {
     GLContext* context = GLContext::getCurrent();
     if (!context) return 0;
 
-		fprintf(stderr, "Right before makeContextCurrent();");
+		fprintf(stdout, "Right before makeContextCurrent();");
     if (!context->makeContextCurrent()) return 0;
-		fprintf(stderr, "Right after makeContextCurrent();");
+		fprintf(stdout, "Right after makeContextCurrent();");
     return context;
 	}
 
@@ -183,7 +182,7 @@ namespace WebCore {
     GLContext* context = prepareForRendering();
     if (!context) return;
 
-    const IntSize& windowSize = m_webView->size();
+    const IntSize& windowSize = roundedIntSize(m_webView->positionAndSize().size());
     glViewport(0, 0, windowSize.width(), windowSize.height());
 
     if (purpose == ForResize) {
@@ -206,7 +205,7 @@ namespace WebCore {
     GLContext* context = prepareForRendering();
     if (!context) return;
 
-    const IntSize& windowSize = m_webView->size(); //m_redirectedWindow->size();
+    const IntSize& windowSize = roundedIntSize(m_webView->positionAndSize().size());
     glViewport(0, 0, windowSize.width(), windowSize.height());
     glClearColor(1, 1, 1, 1);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -256,9 +255,11 @@ namespace WebCore {
     m_needsExtraFlush = true;
     scheduleLayerFlush();
 
-		//emscripten_async_call((void (*)(void *))(this->layerFlushTimerFiredCallback), this, 500);
-		//m_layerFlushTimerCallbackId = 1;
-    //m_layerFlushTimerCallbackId = g_timeout_add_full(GDK_PRIORITY_EVENTS, 500, reinterpret_cast<GSourceFunc>(layerFlushTimerFiredCallback), this, 0);
+		m_layerFlushTimerCallbackId = 1;
+		fprintf(stdout, "------1 timer for flush: 0\n");
+    emscripten_async_call((void (*)(void *))(layerFlushTimerFiredCallback), this, 0);
+
+		//m_layerFlushTimerCallbackId = g_timeout_add_full(GDK_PRIORITY_EVENTS, 500, reinterpret_cast<GSourceFunc>(layerFlushTimerFiredCallback), this, 0);
     //g_source_set_name_by_id(m_layerFlushTimerCallbackId, "[WebKit] layerFlushTimerFiredCallback");
 	}
 
@@ -314,9 +315,7 @@ namespace WebCore {
 	bool AcceleratedContext::layerFlushTimerFiredCallback(AcceleratedContext* context)
 	{
 		webkitTrace();
-		// static doesn't allow for this... hrm.
-		//if(m_layerFlushTimerCallbackId == 1)
-		//context->layerFlushTimerFired();
+		context->layerFlushTimerFired();
     return false;
 	}
 
@@ -329,9 +328,11 @@ namespace WebCore {
 
     // We use a GLib timer because otherwise GTK+ event handling during dragging can
     // starve WebCore timers, which have a lower priority.
-    //double nextFlush = std::max(gScheduleDelay - (currentTime() - m_lastFlushTime), 0.0);
-		//emscripten_async_call((void (*)(void *))(this->layerFlushTimerFiredCallback), this, 1000 * nextFlush);
-		//m_layerFlushTimerCallbackId = 1;
+
+		double nextFlush = std::max(gScheduleDelay - (currentTime() - m_lastFlushTime), 0.0);
+		fprintf(stdout, "------2 timer for flush: %f\n", nextFlush);
+		m_layerFlushTimerCallbackId = 1;
+		emscripten_async_call((void (*)(void *))(layerFlushTimerFiredCallback), this, 1000 * nextFlush);
 	}
 
 	bool AcceleratedContext::flushPendingLayerChanges()
@@ -354,10 +355,10 @@ namespace WebCore {
     frame.view()->updateLayoutAndStyleIfNeededRecursive();
 
     if (!enabled()) return;
-		fprintf(stderr, "2: Right before makeContextCurrent();");
+		fprintf(stdout, "2: Right before makeContextCurrent();");
     GLContext* context = GLContext::getCurrent();
     if (context && !context->makeContextCurrent()) return;
-		fprintf(stderr, "2: Right after makeContextCurrent();");
+		fprintf(stdout, "2: Right after makeContextCurrent();");
 
     if (!flushPendingLayerChanges()) return;
 

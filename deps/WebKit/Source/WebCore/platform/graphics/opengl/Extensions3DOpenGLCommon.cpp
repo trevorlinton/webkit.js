@@ -25,6 +25,9 @@
  */
 
 #include "config.h"
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 
 #if USE(3D_GRAPHICS)
 #include "Extensions3DOpenGLCommon.h"
@@ -64,6 +67,9 @@ Extensions3DOpenGLCommon::Extensions3DOpenGLCommon(GraphicsContext3D* context)
     , m_maySupportMultisampling(true)
     , m_requiresBuiltInFunctionEmulation(false)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_vendor = String(reinterpret_cast<const char*>(::glGetString(GL_VENDOR)));
 
     Vector<String> vendorComponents;

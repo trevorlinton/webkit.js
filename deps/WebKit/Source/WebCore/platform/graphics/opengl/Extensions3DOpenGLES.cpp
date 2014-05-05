@@ -276,6 +276,9 @@ bool Extensions3DOpenGLES::supportsExtension(const String& name)
 
 String Extensions3DOpenGLES::getExtensions()
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return String(reinterpret_cast<const char*>(::glGetString(GL_EXTENSIONS)));
 }
 

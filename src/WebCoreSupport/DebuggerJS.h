@@ -8,9 +8,9 @@
 
 #ifdef DEBUG
 #define webkitTrace() \
-fprintf(stderr, "WebKit Trace: %s[%i] %s\n", __FILE__, __LINE__, __PRETTY_FUNCTION__)
+fprintf(stdout, "WebKit Trace: %s[%i] %s\n", __FILE__, __LINE__, __PRETTY_FUNCTION__)
 #define notImplemented() \
-fprintf(stderr, "WebKit Not Implemented: %s[%i] %s\n", __FILE__, __LINE__, __PRETTY_FUNCTION__)
+fprintf(stdout, "WebKit Not Implemented: %s[%i] %s\n", __FILE__, __LINE__, __PRETTY_FUNCTION__)
 #else
 #define webkitTrace() \
   /* Do nothing */;

@@ -376,10 +376,10 @@ namespace WebCore {
   }
   void FrameLoaderClientJS::transitionToCommittedForNewPage() {
 		WebKit::WebView* webView = m_frame->webView();
-		IntSize size = webView->p()->size;
+		FloatRect rect = webView->p()->size;
 		bool transparent = webView->transparent();
 		Color backgroundColor = transparent ? Color::transparent : Color::white;
-		m_frame->coreFrame()->createView(size, backgroundColor, transparent);
+		m_frame->coreFrame()->createView(roundedIntSize(rect.size()), backgroundColor, transparent);
 	}
 
   void FrameLoaderClientJS::didSaveToPageCache() {

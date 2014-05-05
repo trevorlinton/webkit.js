@@ -278,6 +278,16 @@ void RenderLayerCompositor::enableCompositingMode(bool enable /* = true */)
 {
 #if PLATFORM(JS)
 	webkitTrace();
+	fprintf(stdout,"--- enableCompositingMode\n");
+	if(enable)
+		fprintf(stdout,"----trying to enable.\n");
+	else
+		fprintf(stdout,"----trying to disable.\n");
+
+	if(m_compositing)
+		fprintf(stdout,"----compositing is already enabled.");
+	else
+		fprintf(stdout,"----compositing is already disabled.");
 #endif
     if (enable != m_compositing) {
         m_compositing = enable;
@@ -1968,6 +1978,9 @@ bool RenderLayerCompositor::shouldPropagateCompositingToEnclosingFrame() const
 
 bool RenderLayerCompositor::needsToBeComposited(const RenderLayer& layer, RenderLayer::ViewportConstrainedNotCompositedReason* viewportConstrainedNotCompositedReason) const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (!canBeComposited(layer))
         return false;
 
@@ -2005,6 +2018,15 @@ bool RenderLayerCompositor::requiresCompositingLayer(const RenderLayer& layer, R
 
 bool RenderLayerCompositor::canBeComposited(const RenderLayer& layer) const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+	fprintf(stdout, "----* m_hasAcceleratedCompositing: %s\n",m_hasAcceleratedCompositing ? "true" : "false");
+	fprintf(stdout, "----* layer.isSelfPaintingLayer(): %s\n",layer.isSelfPaintingLayer() ? "true" : "false");
+	fprintf(stdout, "----* layer.isInsideFlowThread(): %s\n",layer.isInsideFlowThread() ? "true" : "false");
+	fprintf(stdout, "----* layer.isRenderFlowThread(): %s\n",layer.isRenderFlowThread() ? "true" : "false");
+	fprintf(stdout, "----* layer.isInsideOutOfFlowThread(): %s\n", layer.isInsideOutOfFlowThread() ? "true" : "false");
+
+#endif
     if (m_hasAcceleratedCompositing && layer.isSelfPaintingLayer()) {
         if (!layer.isInsideFlowThread())
             return true;

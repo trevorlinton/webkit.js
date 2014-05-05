@@ -5,14 +5,15 @@
 #define all_ChromeClientJS_h
 
 #include "ChromeClient.h"
+#include "AcceleratedContext.h"
 #include "WebView.h"
 
 namespace WebCore {
 
 	class ChromeClientJS : WebCore::ChromeClient {
 	public:
-		static ChromeClient* createClient(WebKit::WebView *);
-		void makeAccelerated();
+		static ChromeClientJS* createClient(WebKit::WebView *);
+		ChromeClient *toChromeClient();
 		FloatRect windowRect() OVERRIDE;
 		void setWindowRect(const FloatRect& rect) OVERRIDE;
 		FloatRect pageRect() OVERRIDE;
@@ -77,21 +78,26 @@ namespace WebCore {
 		PassRefPtr<PopupMenu> createPopupMenu(PopupMenuClient*) const;
 		PassRefPtr<SearchPopupMenu> createSearchPopupMenu(PopupMenuClient*) const;
 		void numWheelEventHandlersChanged(unsigned);
-
+		void widgetSizeChanged(const IntSize& oldWidgetSize, IntSize newSize);
 		IntRect windowResizerRect() const;
 		PlatformPageClient platformPageClient() const;
 		void scrollbarsModeDidChange() const;
-#if USE(ACCELERATED_COMPOSITING)
-		bool isAccelerated() { return m_isAccelerated; }
-#endif
+		void performAllPendingScrolls();
+		void paint(Timer<ChromeClientJS>*);
+
+		WebKit::WebView* webView() { return m_view; }
+
 	private:
+		Timer <ChromeClientJS> m_displayTimer;
+		IntRect m_dirtyRegion;
+		bool m_forcePaint;
+		int m_repaintSoonSourceId;
+		Vector<IntRect> m_rectsToScroll;
+		Vector<IntSize> m_scrollOffsets;
+		double m_lastDisplayTime;
 		ChromeClientJS(WebKit::WebView *);
 		FloatRect m_pageRect;
 		WebKit::WebView *m_view;
-#if USE(ACCELERATED_COMPOSITING)
-		OwnPtr<AcceleratedContext> acceleratedContext;
-		bool m_isAccelerated;
-#endif
 	};
 
 }

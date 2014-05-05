@@ -156,7 +156,9 @@ void GLContext::cleanupActiveContextsAtExit()
 
 PassOwnPtr<GLContext> GLContext::createContextForWindow(GLNativeWindowType windowHandle, GLContext* sharingContext)
 {
+#if PLATFORM(JS)
 	webkitTrace();
+#endif
 
 #if PLATFORM(GTK) && PLATFORM(WAYLAND) && !defined(GTK_API_VERSION_2) && defined(GDK_WINDOWING_WAYLAND) && USE(EGL)
     GdkDisplay* display = gdk_display_manager_get_default_display(gdk_display_manager_get());
@@ -183,7 +185,9 @@ PassOwnPtr<GLContext> GLContext::createContextForWindow(GLNativeWindowType windo
 
 GLContext::GLContext()
 {
+#if PLATFORM(JS)
 	webkitTrace();
+#endif
 #if PLATFORM(X11)
     addActiveContext(this);
 #endif
@@ -191,13 +195,17 @@ GLContext::GLContext()
 
 PassOwnPtr<GLContext> GLContext::createOffscreenContext(GLContext* sharingContext)
 {
+#if PLATFORM(JS)
 	webkitTrace();
+#endif
     return createContextForWindow(0, sharingContext);
 }
 
 GLContext::~GLContext()
 {
+#if PLATFORM(JS)
 	webkitTrace();
+#endif
     if (this == currentContext()->context())
         currentContext()->setContext(0);
 #if PLATFORM(X11)
@@ -207,14 +215,18 @@ GLContext::~GLContext()
 
 bool GLContext::makeContextCurrent()
 {
+#if PLATFORM(JS)
 	webkitTrace();
+#endif
     currentContext()->setContext(this);
     return true;
 }
 
 GLContext* GLContext::getCurrent()
 {
+#if PLATFORM(JS)
 	webkitTrace();
+#endif
     return currentContext()->context();
 }
 

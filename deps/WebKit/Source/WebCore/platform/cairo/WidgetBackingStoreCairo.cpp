@@ -58,19 +58,31 @@ WidgetBackingStoreCairo::WidgetBackingStoreCairo(PlatformWidget widget, const In
     , m_scrollSurface(createSurfaceForBackingStore(widget, size))
 
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
 }
 
 WidgetBackingStoreCairo::~WidgetBackingStoreCairo()
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
 }
 
 cairo_surface_t* WidgetBackingStoreCairo::cairoSurface()
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     return m_surface.get();
 }
 
 void WidgetBackingStoreCairo::scroll(const IntRect& scrollRect, const IntSize& scrollOffset)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     IntRect targetRect(scrollRect);
     targetRect.move(scrollOffset);
     targetRect.shiftMaxXEdgeTo(targetRect.maxX() - scrollOffset.width());

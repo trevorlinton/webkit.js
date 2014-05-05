@@ -37,14 +37,17 @@ extern "C" {
 		//WebKit::mainView->resize(rect.width(),rect.height());
 	}
 	void createWebKit(int width, int height) {
-		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
-			exit(1);
-		}
+		//if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
+		//	exit(1);
+		//}
 		WebKit::mainView = new WebKit::WebView(width, height);
 		//emscripten_set_main_loop(&tick, 0, false);
 	}
-	//int main(int argc, char** argv) {
-	//	fprintf(stderr, "WebKit Loaded. Waiting on call to createWebKit.");
-	//	emscripten_set_main_loop(&tick, 0, false);
-	//}
+	int main(int argc, char** argv) {
+		char tmp[] = "<html><body>Hello World!<div style=\"background-color:rgba(255,0,0,1);position:absolute;left:0px;top:0px;width:20px;height:20px;\"></div></body></html>";
+		fprintf(stderr, "WebKit Loaded. Waiting on call to createWebKit.");
+		createWebKit(500,500);
+		setHtml(tmp);
+		emscripten_set_main_loop(&tick, 0, false);
+	}
 }

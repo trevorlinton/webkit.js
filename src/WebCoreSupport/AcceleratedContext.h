@@ -79,7 +79,7 @@ namespace WebCore {
 
     void layerFlushTimerFired();
     void stopAnyPendingLayerFlush();
-    static bool layerFlushTimerFiredCallback(AcceleratedContext*);
+    static bool layerFlushTimerFiredCallback(WebCore::AcceleratedContext*);
     WebCore::GLContext* prepareForRendering();
     void clearEverywhere();
 #elif USE(TEXTURE_MAPPER)

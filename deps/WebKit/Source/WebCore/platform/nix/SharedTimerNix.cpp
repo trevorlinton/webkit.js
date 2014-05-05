@@ -28,7 +28,9 @@
 
 #include "config.h"
 #include "SharedTimer.h"
-
+#if PLATFORM(JS)
+#error "Cannot include posix based unix timer in Javascript."
+#endif
 #define GDK_PRIORITY_REDRAW (G_PRIORITY_HIGH_IDLE + 20)
 #include <glib.h>
 #include <wtf/Assertions.h>

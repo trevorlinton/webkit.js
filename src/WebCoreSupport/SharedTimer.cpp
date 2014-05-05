@@ -17,7 +17,6 @@ namespace WebCore {
 		webkitTrace();
     if(timerActive && sharedTimerFiredFunction != NULL) {
       sharedTimerFiredFunction();
-      //emscripten_async_call(sharedTimerRun, args, timerInterval);
     }
   }
 
@@ -32,6 +31,7 @@ namespace WebCore {
   void setSharedTimerFiredFunction(void (*f)())
   {
 		webkitTrace();
+
     sharedTimerFiredFunction = f;
     if(timerInterval && timerInterval > 0) {
       timerActive = true;

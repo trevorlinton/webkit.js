@@ -29,7 +29,6 @@
 
 #include "EmptyClients.h"
 
-#include "EGL/egl.h"
 #if USE(CAIRO)
 #include "cairo.h"
 #include "cairosdl.h"
@@ -140,20 +139,36 @@ namespace WebKit {
 		WebKitJSStrategies::initialize();
 
 		m_private = new WebViewPrivate();
+		m_private->transparent = false;
+
+		Page::PageClients pageClients;
+
+		fillWithEmptyClients(pageClients);
+
+		if ( SDL_Init(SDL_INIT_VIDEO) != 0 ) {
+			printf("Unable to initialize SDL: %s\n", SDL_GetError());
+			return;
+    }
+
 #if USE(ACCELERATED_COMPOSITING)
-		m_private->sdl_screen = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE);
+    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+    m_private->sdl_screen = SDL_SetVideoMode( width, height, 24, SDL_OPENGL );
+		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+		SDL_GL_SetSwapInterval(1);
+    if ( !m_private->sdl_screen  ) {
+			printf("Unable to set video mode: %s\n", SDL_GetError());
+			return;
+    }
+#else
+		m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_SWSURFACE);
 		if (!m_private->sdl_screen) {
 			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
 			SDL_Quit();
 			exit(2);
 		}
 #endif
-		m_private->transparent = false;
-
-		Page::PageClients pageClients;
-
-		fillWithEmptyClients(pageClients);
-		pageClients.chromeClient = WebCore::ChromeClientJS::createClient(this);
+		ChromeClientJS *chromeClient = WebCore::ChromeClientJS::createClient(this);
+		pageClients.chromeClient = chromeClient->toChromeClient();
     m_private->mainFrame = new WebCore::WebFrameJS(this);
 		pageClients.loaderClientForMainFrame = WebCore::FrameLoaderClientJS::createClient(m_private->mainFrame);
 
@@ -183,6 +198,8 @@ namespace WebKit {
 		m_private->corePage->settings().setAcceleratedCompositingEnabled(true);
 		m_private->corePage->settings().setAcceleratedDrawingEnabled(true);
 		m_private->corePage->settings().setTiledBackingStoreEnabled(true);
+		m_private->acceleratedContext = adoptPtr(AcceleratedContext::create(this));
+		m_private->acceleratedContext->initialize();
 #else
 		m_private->corePage->settings().setAcceleratedCompositedAnimationsEnabled(false);
 		m_private->corePage->settings().setAcceleratedDrawingEnabled(false);
@@ -195,7 +212,9 @@ namespace WebKit {
 		fprintf(stderr, "WebKit: Settings successfully initialized.\n");
 
 		m_private->mainFrame->init();
+#if USE(ACCELERATED_COMPOSITING)
 		m_private->mainFrame->coreFrame()->view()->enterCompositingMode();
+#endif
 		m_private->corePage->setIsVisible(true, true);
 		m_private->corePage->setIsInWindow(true);
 
@@ -217,6 +236,11 @@ namespace WebKit {
 	void WebView::draw(WebCore::IntRect clipRect, int immediate)
 	{
 		webkitTrace();
+
+		if(clipRect.width()==0 && clipRect.height()==0)
+			return;
+
+/*		webkitTrace();
 		if(clipRect.width()==0 && clipRect.height()==0)
 			return;
 
@@ -260,7 +284,8 @@ namespace WebKit {
 		//int result = SDL_BlitSurface(m_private->sdl_surface, &rect, m_private->sdl_screen, &rect);
 		//ASSERT_UNUSED(result, !result);
 		//SDL_UpdateRect(m_private->sdl_screen, clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
-	}
+*/
+ }
 	void WebView::setUrl(char *) {
 		webkitTrace();
 	}
@@ -268,6 +293,7 @@ namespace WebKit {
 		webkitTrace();
 		return NULL;
 	}
+
 	void WebView::setHtml(char *data, int length) {
 		webkitTrace();
 
@@ -285,30 +311,33 @@ namespace WebKit {
 		return NULL;
 	}
 
-	IntSize WebView::size() {
+	WebCore::FloatRect WebView::positionAndSize() {
 		return m_private->size;
 	}
 
 	void WebView::invalidate(WebCore::IntRect rect, int immediate) {
+		webkitTrace();
+		/*
 		webkitTrace();
 #if USE(ACCELERATED_COMPOSITING)
 		// uhm, what do we do?
 #else
 		draw(rect, immediate);
 #endif
+		  */
 	}
 
 	void WebView::resize(int width, int height)
 	{
 		webkitTrace();
-    m_private->size = IntSize(width, height);
+    m_private->size = FloatRect(m_private->size.x(),m_private->size.y(),width, height);
 		recreateSurface(width,height);
 		if(m_private->mainFrame) {
 			Frame* coreFrame = m_private->mainFrame->coreFrame();
 			if (!coreFrame->view())
 				return;
 
-			coreFrame->view()->resize(m_private->size);
+			coreFrame->view()->resize(roundedIntSize(m_private->size.size()));
 		}
 	}
 
@@ -323,9 +352,77 @@ namespace WebKit {
 
 	bool WebView::recreateSurface(int width, int height) {
 		webkitTrace();
-
+/*
 #if USE(ACCELERATED_COMPOSITING)
+#if 0
+		EGLint numConfigs;
+		EGLint majorVersion;
+		EGLint minorVersion;
+		EGLDisplay display;
+		EGLContext context;
+		EGLSurface surface;
+		EGLConfig config;
+		EGLint contextAttribs[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE, EGL_NONE };
+		EGLint attribList[] =
+		{
+			EGL_RED_SIZE,       5,
+			EGL_GREEN_SIZE,     6,
+			EGL_BLUE_SIZE,      5,
+			EGL_ALPHA_SIZE,     8, //(flags & ES_WINDOW_ALPHA) ? 8 : EGL_DONT_CARE,
+			EGL_DEPTH_SIZE,     8, //(flags & ES_WINDOW_DEPTH) ? 8 : EGL_DONT_CARE,
+			EGL_STENCIL_SIZE,   8, //(flags & ES_WINDOW_STENCIL) ? 8 : EGL_DONT_CARE,
+			EGL_SAMPLE_BUFFERS, 1, //(flags & ES_WINDOW_MULTISAMPLE) ? 1 : 0,
+			EGL_NONE
+		};
 
+		// Get Display
+		display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+		if ( display == EGL_NO_DISPLAY )
+      return false;
+
+		// Initialize EGL
+		if ( !eglInitialize(display, &majorVersion, &minorVersion) )
+      return false;
+
+		// Get configs
+		if ( !eglGetConfigs(display, NULL, 0, &numConfigs) )
+      return false;
+
+		// Choose config
+		if ( !eglChooseConfig(display, attribList, &config, 1, &numConfigs) )
+      return false;
+
+		// Create a surface
+		surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)0, NULL);
+		if ( surface == EGL_NO_SURFACE )
+      return false;
+
+		// Create a GL context
+		context = eglCreateContext(display, config, EGL_NO_CONTEXT, contextAttribs );
+		if ( context == EGL_NO_CONTEXT )
+      return false;
+
+		// Make the context current
+		if ( !eglMakeCurrent(display, surface, surface, context) )
+      return false;
+
+		*(m_private->eglDisplay) = display;
+		*(m_private->eglSurface) = surface;
+		*(m_private->eglContext) = context;
+#endif
+#if 0
+    if ( SDL_Init(SDL_INIT_VIDEO) != 0 ) {
+			printf("Unable to initialize SDL: %s\n", SDL_GetError());
+			return 1;
+    }
+
+    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+    m_private->sdl_screen = SDL_SetVideoMode( 640, 480, 24, SDL_OPENGL );
+    if ( !m_private->sdl_screen  ) {
+			printf("Unable to set video mode: %s\n", SDL_GetError());
+			return 1;
+    }
+#endif
 #else
 		if(m_private->sdl_screen) {
 			SDL_FreeSurface(m_private->sdl_screen);
@@ -340,6 +437,11 @@ namespace WebKit {
 			m_private->context = NULL;
 		}
 
+ 
+		if(m_private->sdl_screen) {
+			SDL_FreeSurface(m_private->sdl_screen);
+			m_private->sdl_screen = NULL;
+		}
 		m_private->sdl_screen = SDL_SetVideoMode(width, height, 32, SDL_SWSURFACE);
 		if (!m_private->sdl_screen) {
 			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
@@ -384,6 +486,8 @@ namespace WebKit {
 #endif
 #endif
 		return true;
+ */
+		return false;
 	}
 
 	void WebView::handleSDLEvent(const SDL_Event& event)
@@ -415,6 +519,7 @@ namespace WebKit {
 			default:
         break;
     }
+
 	}
 	void WebView::scalefactor(float t) {
 		m_private->context->applyDeviceScaleFactor(t);

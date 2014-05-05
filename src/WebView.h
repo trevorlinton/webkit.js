@@ -9,16 +9,20 @@
 #include "MainFrame.h"
 #include "BitmapImage.h"
 #include "GraphicsContext.h"
-#include "IntSize.h"
+#include "FloatRect.h"
 #include "WebFrameJS.h"
-
-// Platform level surfaces.
 #if USE(CAIRO)
 #include "cairo.h"
+#include <platform/cairo/WidgetBackingStore.h>
 #elif USE(SKIA)
 #endif
 
 #include "SDL.h"
+#if USE(ACCELERATED_COMPOSITING)
+//#include <GLES2/gl2.h>
+//#include <EGL/egl.h>
+#include "SDL/SDL_opengles2.h"
+#endif
 
 namespace WebCore {
 	class AcceleratedContext;
@@ -30,6 +34,7 @@ namespace WebCore {
 namespace WebKit {
 	struct WebViewPrivate {
 		WebCore::GraphicsContext* context = NULL;
+		OwnPtr<WebCore::WidgetBackingStore> backingStore = NULL;
 #if USE(CAIRO)
 		cairo_surface_t* cairo_surface = NULL;
 		cairo_t* cairo_device = NULL;
@@ -39,7 +44,10 @@ namespace WebKit {
     WebCore::Page* corePage = NULL;
 		WebCore::WebFrameJS* mainFrame = NULL;
     bool transparent = false;
-    WebCore::IntSize size;
+    WebCore::FloatRect size;
+#if USE(ACCELERATED_COMPOSITING)
+		OwnPtr<WebCore::AcceleratedContext> acceleratedContext;
+#endif
 	};
 
 	class WebView {
@@ -56,7 +64,7 @@ namespace WebKit {
 		char *html();
 
 		void resize(int width, int height);
-		WebCore::IntSize size();
+		WebCore::FloatRect positionAndSize();
 		void scrollBy(int offsetX, int offsetY);
 		void scalefactor(float t);
 		void resizeEvent(void *);
@@ -78,13 +86,12 @@ namespace WebKit {
     void focusOutEvent(void *);
     void inputMethodEvent(void *);
     bool focusNextPrevChild(bool next);
+		WebViewPrivate* p() { return m_private; }
 	protected:
 		friend class WebCore::ChromeClientJS;
 		friend class WebCore::FrameLoaderClientJS;
 		friend class WebCore::WebFrameJS;
 		friend class WebCore::AcceleratedContext;
-
-		WebViewPrivate* p() { return m_private; }
 		void invalidate(WebCore::IntRect rect, int immediate);
 	private:
 		void draw(WebCore::IntRect rect, int immediate);
