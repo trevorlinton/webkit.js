@@ -1051,6 +1051,7 @@ bool LayerRenderer::makeContextCurrent()
 
 bool LayerRenderer::createProgram(ProgramIndex program)
 {
+		fprintf(stdout, "LayerRenderer::createProgram();\n");
     // Shaders for drawing the layer contents.
     const char* vertexShaderString =
         "attribute vec4 a_position;   \n"
@@ -1181,6 +1182,7 @@ bool LayerRenderer::createProgram(ProgramIndex program)
 
 const GLES2Program& LayerRenderer::useProgram(ProgramIndex index)
 {
+		fprintf(stdout, "LayerRenderer::useProgram();\n");
     ASSERT(index < NumberOfPrograms);
     const GLES2Program& program = m_programs[index];
     if (!program.isValid() && !createProgram(index))

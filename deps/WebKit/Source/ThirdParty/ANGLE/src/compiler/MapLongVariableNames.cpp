@@ -15,7 +15,11 @@ TString mapLongName(size_t id, const TString& name, bool isGlobal)
 {
     ASSERT(name.size() > MAX_SHORTENED_IDENTIFIER_SIZE);
     TStringStream stream;
+#if PLATFORM(JS)
     stream << "webgl_";
+#else
+		stream << "js_webgl_";
+#endif
     if (isGlobal)
         stream << "g";
     stream << id;

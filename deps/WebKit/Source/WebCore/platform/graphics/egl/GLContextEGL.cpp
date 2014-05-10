@@ -54,14 +54,14 @@ static const EGLenum gGLAPI = EGL_OPENGL_API;
 
 static EGLDisplay sharedEGLDisplay()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     static bool initialized = false;
     if (!initialized) {
         initialized = true;
 #if PLATFORM(X11)
         gSharedEGLDisplay = eglGetDisplay(GLContext::sharedX11Display());
+#elif PLATFORM(JS)
+				gSharedEGLDisplay = (unsigned *)62000; /* Emscripten hack for default display, is this the ptr or the val? */
 #else
         gSharedEGLDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 #endif
@@ -80,9 +80,7 @@ static const EGLint gContextAttributes[] = {
 
 static bool getEGLConfig(EGLConfig* config, GLContextEGL::EGLSurfaceType surfaceType)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     EGLint attributeList[] = {
 #if USE(OPENGL_ES_2)
         EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
@@ -116,9 +114,6 @@ static bool getEGLConfig(EGLConfig* config, GLContextEGL::EGLSurfaceType surface
 
 PassOwnPtr<GLContextEGL> GLContextEGL::createWindowContext(EGLNativeWindowType window, GLContext* sharingContext)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     EGLContext eglSharingContext = sharingContext ? static_cast<GLContextEGL*>(sharingContext)->m_context : 0;
 
     EGLDisplay display = sharedEGLDisplay();
@@ -141,10 +136,7 @@ PassOwnPtr<GLContextEGL> GLContextEGL::createWindowContext(EGLNativeWindowType w
 }
 PassOwnPtr<GLContextEGL> GLContextEGL::createPbufferContext(EGLContext sharingContext)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
-#if !PLATFORM(JS)
+
     EGLDisplay display = sharedEGLDisplay();
     if (display == EGL_NO_DISPLAY)
         return nullptr;
@@ -165,16 +157,11 @@ PassOwnPtr<GLContextEGL> GLContextEGL::createPbufferContext(EGLContext sharingCo
     }
 
     return adoptPtr(new GLContextEGL(context, surface, PbufferSurface));
-#else
-    return nullptr;
-#endif
 }
 
 PassOwnPtr<GLContextEGL> GLContextEGL::createPixmapContext(EGLContext sharingContext)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if PLATFORM(X11)
     EGLDisplay display = sharedEGLDisplay();
     if (display == EGL_NO_DISPLAY)
@@ -209,9 +196,6 @@ PassOwnPtr<GLContextEGL> GLContextEGL::createPixmapContext(EGLContext sharingCon
 
 PassOwnPtr<GLContextEGL> GLContextEGL::createContext(EGLNativeWindowType window, GLContext* sharingContext)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     if (!sharedEGLDisplay())
         return nullptr;
 
@@ -234,8 +218,12 @@ PassOwnPtr<GLContextEGL> GLContextEGL::createContext(EGLNativeWindowType window,
 
     if (!context)
         context = createPbufferContext(eglSharingContext);
+#else
+		if (!context)
+				context = createWindowContext(2, sharingContext); // hack for emscripten, 1=onscreen, 2=offscreen
 #endif
-    return context.release();
+
+		return context.release();
 }
 
 GLContextEGL::GLContextEGL(EGLContext context, EGLSurface surface, EGLSurfaceType type)
@@ -247,15 +235,13 @@ GLContextEGL::GLContextEGL(EGLContext context, EGLSurface surface, EGLSurfaceTyp
 #endif
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
 }
 
 GLContextEGL::~GLContextEGL()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(CAIRO)
     if (m_cairoDevice)
         cairo_device_destroy(m_cairoDevice);
@@ -275,7 +261,7 @@ GLContextEGL::~GLContextEGL()
 bool GLContextEGL::canRenderToDefaultFramebuffer()
 {
 #if PLATFORM(JS)
-	webkitTrace();
+	
 #endif
     return m_type == WindowSurface;
 }
@@ -283,7 +269,7 @@ bool GLContextEGL::canRenderToDefaultFramebuffer()
 IntSize GLContextEGL::defaultFrameBufferSize()
 {
 #if PLATFORM(JS)
-	webkitTrace();
+	
 #endif
     if (!canRenderToDefaultFramebuffer())
         return IntSize();
@@ -299,7 +285,7 @@ IntSize GLContextEGL::defaultFrameBufferSize()
 bool GLContextEGL::makeContextCurrent()
 {
 #if PLATFORM(JS)
-	webkitTrace();
+	
 #endif
     ASSERT(m_context && m_surface);
 
@@ -313,7 +299,7 @@ bool GLContextEGL::makeContextCurrent()
 void GLContextEGL::swapBuffers()
 {
 #if PLATFORM(JS)
-	webkitTrace();
+	
 #endif
     ASSERT(m_surface);
     eglSwapBuffers(sharedEGLDisplay(), m_surface);
@@ -322,7 +308,7 @@ void GLContextEGL::swapBuffers()
 void GLContextEGL::waitNative()
 {
 #if PLATFORM(JS)
-	webkitTrace();
+	
 #endif
     eglWaitNative(EGL_CORE_NATIVE_ENGINE);
 }
@@ -331,7 +317,7 @@ void GLContextEGL::waitNative()
 cairo_device_t* GLContextEGL::cairoDevice()
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     if (m_cairoDevice)
         return m_cairoDevice;
@@ -348,7 +334,7 @@ cairo_device_t* GLContextEGL::cairoDevice()
 PlatformGraphicsContext3D GLContextEGL::platformContext()
 {
 #if PLATFORM(JS)
-	webkitTrace();
+	
 #endif
     return m_context;
 }

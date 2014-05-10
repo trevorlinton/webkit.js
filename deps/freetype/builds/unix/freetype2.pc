@@ -1,0 +1,12 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: FreeType 2
+Description: A free, high-quality, and portable font engine.
+Version: 16.0.10
+Requires:
+Libs: -L${libdir} -lfreetype
+Libs.private: -lz  
+Cflags: -I${includedir}/freetype2 -I${includedir}

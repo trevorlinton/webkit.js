@@ -539,9 +539,7 @@ void CachedImage::changedInRect(const Image* image, const IntRect& rect)
 
 void CachedImage::resumeAnimatingImagesForLoader(CachedResourceLoader* loader)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     const CachedResourceLoader::DocumentResourceMap& resources = loader->allCachedResources();
 
     for (CachedResourceLoader::DocumentResourceMap::const_iterator it = resources.begin(), end = resources.end(); it != end; ++it) {

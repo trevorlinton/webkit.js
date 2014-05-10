@@ -22,7 +22,7 @@ namespace WebCore {
 	static void paintWebView(WebKit::WebView* webView, Frame* frame, const Region& dirtyRegion);
 
   ChromeClientJS* ChromeClientJS::createClient(WebKit::WebView *view) {
-    webkitTrace();
+
     ChromeClientJS* client = new ChromeClientJS(view);
 		IntSize size = roundedIntSize(view->positionAndSize().size());
 		client->setWindowRect(FloatRect(0,0,size.width(),size.height()));
@@ -35,7 +35,7 @@ namespace WebCore {
 		, m_forcePaint(false)
 		, m_lastDisplayTime(0)
   {
-		webkitTrace();
+	
 		ASSERT(view);
   }
 
@@ -51,13 +51,13 @@ namespace WebCore {
 
 	static void repaintEverythingSoonTimeout(ChromeClientJS* client)
 	{
-		webkitTrace();
+	
     client->paint(0);
 	}
 
 	static void clipOutOldWidgetArea(cairo_t* cr, const IntSize& oldSize, const IntSize& newSize)
 	{
-		webkitTrace();
+	
     cairo_move_to(cr, oldSize.width(), 0);
     cairo_line_to(cr, newSize.width(), 0);
     cairo_line_to(cr, newSize.width(), newSize.height());
@@ -70,7 +70,7 @@ namespace WebCore {
 
 	static void clearEverywhereInBackingStore(WebKit::WebView* webView, cairo_t* cr)
 	{
-		webkitTrace();
+	
     // The strategy here is to quickly draw white into this new canvas, so that
     // when a user quickly resizes the WebView in an environment that has opaque
     // resizing (like Gnome Shell), there are no drawing artifacts.
@@ -106,7 +106,12 @@ namespace WebCore {
 
 		//TODO This seems to be inaccurate, it should only swap GL Buffers when
 		// using an accelerated backstore.
+
+		m_view->m_private->backingStore = createBackingStore(0, roundedIntSize(m_view->positionAndSize().size()));
+		RefPtr<cairo_t> cr = adoptRef(cairo_create(m_view->m_private->backingStore->cairoSurface()));
+		clearEverywhereInBackingStore(m_view, cr.get());
     SDL_GL_SwapBuffers();
+
 
 		m_dirtyRegion = IntRect();
     m_lastDisplayTime = monotonicallyIncreasingTime();
@@ -182,7 +187,7 @@ namespace WebCore {
 
 	static void coalesceRectsIfPossible(const IntRect& clipRect, Vector<IntRect>& rects)
 	{
-		webkitTrace();
+	
     const unsigned int cRectThreshold = 10;
     const float cWastedSpaceThreshold = 0.75f;
     bool useUnionedRect = (rects.size() <= 1) || (rects.size() > cRectThreshold);
@@ -218,6 +223,7 @@ namespace WebCore {
     RefPtr<cairo_t> backingStoreContext = adoptRef(cairo_create(webView->p()->backingStore->cairoSurface()));
     GraphicsContext gc(backingStoreContext.get());
     gc.applyDeviceScaleFactor(frame->page()->deviceScaleFactor());
+		fprintf(stdout, "Found device scale factor: %f\n",frame->page()->deviceScaleFactor());
     for (size_t i = 0; i < rects.size(); i++) {
 			const IntRect& rect = rects[i];
 
@@ -237,7 +243,7 @@ namespace WebCore {
 
 	void ChromeClientJS::performAllPendingScrolls()
 	{
-		webkitTrace();
+	
     if (!m_view->m_private->backingStore)
 			return;
 
@@ -258,7 +264,7 @@ namespace WebCore {
 
   void ChromeClientJS::chromeDestroyed()
   {
-    webkitTrace();
+
     delete this;
   }
 
@@ -272,19 +278,19 @@ namespace WebCore {
 
   FloatRect ChromeClientJS::pageRect()
   {
-    webkitTrace();
+
 		return FloatRect(m_view->p()->size);
   }
 
   void ChromeClientJS::focus()
   {
-    webkitTrace();
+
 		// not implemented
   }
 
   void ChromeClientJS::unfocus()
   {
-    webkitTrace();
+
 		// not implemented
   }
 
@@ -301,7 +307,7 @@ namespace WebCore {
 
   bool ChromeClientJS::canRunModal()
   {
-    webkitTrace();
+
     return false;
   }
 
@@ -312,88 +318,88 @@ namespace WebCore {
 
   void ChromeClientJS::setToolbarsVisible(bool visible)
   {
-    webkitTrace();
+
   }
 
   bool ChromeClientJS::toolbarsVisible()
   {
-    webkitTrace();
+
     return false;
   }
 
   void ChromeClientJS::setStatusbarVisible(bool visible)
   {
-    webkitTrace();
+
   }
 
   bool ChromeClientJS::statusbarVisible()
   {
-    webkitTrace();
+
     return false;
   }
 
   void ChromeClientJS::setScrollbarsVisible(bool visible)
   {
-    webkitTrace();
+
   }
 
   bool ChromeClientJS::scrollbarsVisible()
   {
-    webkitTrace();
+
     return false;
   }
 
   void ChromeClientJS::setMenubarVisible(bool visible)
   {
-    webkitTrace();
+
   }
 
   bool ChromeClientJS::menubarVisible()
   {
-    webkitTrace();
+
     return false;
   }
 
   void ChromeClientJS::setResizable(bool)
   {
-    webkitTrace();
+
   }
 
   void ChromeClientJS::closeWindowSoon()
   {
-    webkitTrace();
+
   }
 
   bool ChromeClientJS::canTakeFocus(FocusDirection)
   {
-    webkitTrace();
+
     return true;
   }
 
   void ChromeClientJS::takeFocus(FocusDirection)
   {
-    webkitTrace();
+
   }
 
   void ChromeClientJS::focusedElementChanged(Element*)
   {
-    webkitTrace();
+
   }
 
   void ChromeClientJS::focusedFrameChanged(Frame*)
   {
-    webkitTrace();
+
   }
 
   bool ChromeClientJS::canRunBeforeUnloadConfirmPanel()
   {
-    webkitTrace();
+
     return true;
   }
 
   bool ChromeClientJS::runBeforeUnloadConfirmPanel(const WTF::String& message, WebCore::Frame* frame)
   {
-    webkitTrace();
+
     return true;
   }
 
@@ -419,34 +425,34 @@ namespace WebCore {
     return true;
   }
 
-  void ChromeClientJS::setStatusbarText(const String& string) { webkitTrace(); }
+  void ChromeClientJS::setStatusbarText(const String& string) { notImplemented(); }
   bool ChromeClientJS::shouldInterruptJavaScript()
   {
-    webkitTrace();
+
     return false;
   }
 
   KeyboardUIMode ChromeClientJS::keyboardUIMode()
   {
-    webkitTrace();
+
     return KeyboardAccessDefault;
   }
 
   IntRect ChromeClientJS::windowResizerRect() const
   {
-    webkitTrace();
+
     return IntRect();
   }
 
   void ChromeClientJS::invalidateRootView(const IntRect& updateRect, bool immediate)
   {
-    webkitTrace();
+
 		//m_view->invalidate(updateRect, immediate);
   }
 
   void ChromeClientJS::invalidateContentsAndRootView(const IntRect& updateRect, bool immediate)
   {
-    webkitTrace();
+		webkitTrace();
 #if USE(ACCELERATED_COMPOSITING)
 		if (m_view->m_private->acceleratedContext &&
 				m_view->m_private->acceleratedContext->enabled()) {
@@ -464,7 +470,7 @@ namespace WebCore {
 
   void ChromeClientJS::invalidateContentsForSlowScroll(const IntRect& updateRect, bool immediate)
   {
-    webkitTrace();
+
 #if USE(ACCELERATED_COMPOSITING)
 		if (m_view->m_private->acceleratedContext
 				&& m_view->m_private->acceleratedContext->enabled()) {
@@ -478,7 +484,7 @@ namespace WebCore {
 
   void ChromeClientJS::scroll(const IntSize& delta, const IntRect& rectToScroll, const IntRect& clipRect)
   {
-		webkitTrace();
+	
 #if USE(ACCELERATED_COMPOSITING)
 			if (m_view->m_private->acceleratedContext &&
 					m_view->m_private->acceleratedContext->enabled()) {
@@ -521,19 +527,19 @@ namespace WebCore {
 
   IntRect ChromeClientJS::rootViewToScreen(const IntRect& rect) const
   {
-    webkitTrace();
+
     return rect;
   }
 
   IntPoint ChromeClientJS::screenToRootView(const IntPoint& point) const
   {
-    webkitTrace();
+
     return point;
   }
 
   PlatformPageClient ChromeClientJS::platformPageClient() const
   {
-    webkitTrace();
+
     return m_view;
   }
 
@@ -564,49 +570,49 @@ namespace WebCore {
 
   void ChromeClientJS::reachedMaxAppCacheSize(int64_t spaceNeeded)
   {
-    webkitTrace();
+
   }
 
   void ChromeClientJS::reachedApplicationCacheOriginQuota(SecurityOrigin*, int64_t)
   {
-    webkitTrace();
+
   }
 
   void ChromeClientJS::runOpenPanel(Frame*, PassRefPtr<FileChooser> prpFileChooser)
   {
-    webkitTrace();
+
   }
 
   void ChromeClientJS::loadIconForFiles(const Vector<WTF::String>& filenames, WebCore::FileIconLoader* loader)
   {
-    webkitTrace();
+
   }
 
   void ChromeClientJS::setCursor(const Cursor& cursor)
   {
-    webkitTrace();
+
   }
 
   void ChromeClientJS::setCursorHiddenUntilMouseMoves(bool)
   {
-    webkitTrace();
+
   }
 
   bool ChromeClientJS::selectItemWritingDirectionIsNatural()
   {
-    webkitTrace();
+
     return false;
   }
 
   bool ChromeClientJS::selectItemAlignmentFollowsMenuWritingDirection()
   {
-    webkitTrace();
+
     return false;
   }
 
   bool ChromeClientJS::hasOpenedPopup() const
   {
-    webkitTrace();
+
     return false;
   }
 
@@ -635,7 +641,7 @@ namespace WebCore {
 	// Accelerated Compositing & Drawing Layers
   void ChromeClientJS::scheduleCompositingLayerFlush()
   {
-		webkitTrace();
+	
 #if USE(ACCELERATED_COMPOSITING)
     if(m_view->m_private->acceleratedContext &&
 			 m_view->m_private->acceleratedContext->enabled())
@@ -644,20 +650,11 @@ namespace WebCore {
   }
   void ChromeClientJS::attachRootGraphicsLayer(Frame* frame, GraphicsLayer* rootLayer)
   {
-		webkitTrace();
+	
 #if USE(ACCELERATED_COMPOSITING)
 		if(m_view->m_private->acceleratedContext) {
-			fprintf(stdout, "------------- Passed in rootLayer is %s\n", rootLayer ? "defined" : "undefined");
-			fprintf(stdout, "------------- Passed in acceleratedContext->enabled() is %s\n", m_view->m_private->acceleratedContext->enabled() ? "enabled" : "disabled");
-
 			bool turningOffCompositing = !rootLayer && m_view->m_private->acceleratedContext->enabled();
 			bool turningOnCompositing = rootLayer && !m_view->m_private->acceleratedContext->enabled();
-
-			if(turningOffCompositing)
-				fprintf(stdout, "------------- Turning Off Compositing\n");
-
-			if(turningOnCompositing)
-				fprintf(stdout, "------------- Turning On Compositing\n");
 
 			m_view->m_private->acceleratedContext->setRootCompositingLayer(rootLayer);
 
@@ -677,7 +674,7 @@ namespace WebCore {
 
   void ChromeClientJS::setNeedsOneShotDrawingSynchronization()
   {
-		webkitTrace();
+	
 #if USE(ACCELERATED_COMPOSITING)
     if(m_view->m_private->acceleratedContext &&
 			 m_view->m_private->acceleratedContext->enabled())

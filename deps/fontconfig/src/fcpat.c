@@ -553,10 +553,8 @@ FcPatternObjectListAdd (FcPattern	*p,
     {
 	if (!FcObjectValidType (object, l->value.type))
 	{
-	    fprintf (stderr,
-		     "Fontconfig warning: FcPattern object %s does not accept value", FcObjectName (object));
-	    FcValuePrintFile (stderr, l->value);
-	    fprintf (stderr, "\n");
+	    //FcValuePrintFile (stderr, l->value);
+	    //fprintf (stderr, "\n");
 	    goto bail0;
 	}
     }
@@ -611,11 +609,6 @@ FcPatternObjectAddWithBinding  (FcPattern	*p,
      */
     if (!FcObjectValidType (object, value.type))
     {
-	fprintf (stderr,
-		 "Fontconfig warning: FcPattern object %s does not accept value",
-		 FcObjectName (object));
-	FcValuePrintFile (stderr, value);
-	fprintf (stderr, "\n");
 	goto bail1;
     }
 

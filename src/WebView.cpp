@@ -26,12 +26,10 @@
 #include "Settings.h"
 #include "RuntimeEnabledFeaturesJS.h"
 #include "GraphicsContext.h"
-
 #include "EmptyClients.h"
 
 #if USE(CAIRO)
 #include "cairo.h"
-#include "cairosdl.h"
 #include "cairo-gl.h"
 #include "PlatformContextCairo.h"
 #elif USE(SKIA)
@@ -40,38 +38,9 @@
 
 using namespace WebCore;
 using namespace WTF;
-/*
-static void
-unpremultiply_bgra (unsigned char* data,
-										int            width,
-										int            height,
-										int            stride,
-										unsigned char* retdata)
-{
-	unsigned char* end = data + stride * height;
-	for (unsigned char* in = data, *out = retdata;
-			 in < end;
-			 in += stride, out += stride)
-	{
-		for (int i = 0; i < width; i ++) {
-	    uint8_t *b = &out[4*i];
-	    uint32_t pixel;
-	    uint8_t  alpha;
 
-	    memcpy (&pixel, &data[4*i], sizeof (uint32_t));
-	    alpha = pixel & 0xff;
-	    if (alpha == 0) {
-				b[0] = b[1] = b[2] = b[3] = 0;
-	    } else {
-				b[0] = (((pixel >> 24) & 0xff) * 255 + alpha / 2) / alpha;
-				b[1] = (((pixel >> 16) & 0xff) * 255 + alpha / 2) / alpha;
-				b[2] = (((pixel >>  8) & 0xff) * 255 + alpha / 2) / alpha;
-				b[3] = alpha;
-	    }
-		}
-	}
-}
-*/
+
+#if !USE(ACCELERATED_COMPOSITING)
 #define RED_OFFSET 0
 #define GREEN_OFFSET 1
 #define BLUE_OFFSET 2
@@ -100,64 +69,37 @@ static void unpremultiply_swap_rb(unsigned char* data,
 			}
 		}
 	}
-	/*
-	Arithematic pointer math seems to run a muck on emscripten, 
-	this may be more altruistic bitflip, but causes undefined behavior.
-	unsigned char* end = data + ((rect->x + rect->w) + (rect->y + rect->h)*width) * stride;
-	unsigned char* in = data + (rect->x + rect->y * width) * stride;
-
-	fprintf(stderr, "Remapping: start: %i, end %i, diff: %i\n",(int)in,(int)end,(int)(end-in));
-	uint8_t buf;
-	for (;
-			 in < end;
-			 in += stride)
-	{
-		if((in - data - rect->x) % (rect->w) == 0)	// if we're at the end of the rectangle
-			in += (width - rect->w) * stride;					// jump to the next new row
-		//if(in[ALPHA_OFFSET] != 0) {
-		//	in[RED_OFFSET] = in[RED_OFFSET]/in[ALPHA_OFFSET];
-		//	in[GREEN_OFFSET] = in[GREEN_OFFSET]/in[ALPHA_OFFSET];
-		//	in[BLUE_OFFSET] = in[BLUE_OFFSET]/in[ALPHA_OFFSET];
-		//}
-		buf = in[BLUE_OFFSET];
-		in[BLUE_OFFSET] = in[RED_OFFSET];
-		in[RED_OFFSET] = buf;
-	}
-	 
-	 */
 }
-
+#endif
 
 namespace WebKit {
 
 	WebView::WebView(int width, int height)
 	{
-		webkitTrace();
-
 		// This must occur prior to anything else,
 		// unless you like assertion failures.
 		WebKitJSStrategies::initialize();
-
 		m_private = new WebViewPrivate();
 		m_private->transparent = false;
-
 		Page::PageClients pageClients;
-
 		fillWithEmptyClients(pageClients);
-
-		if ( SDL_Init(SDL_INIT_VIDEO) != 0 ) {
-			printf("Unable to initialize SDL: %s\n", SDL_GetError());
-			return;
-    }
 
 #if USE(ACCELERATED_COMPOSITING)
     SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-    m_private->sdl_screen = SDL_SetVideoMode( width, height, 24, SDL_OPENGL );
+    m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_OPENGL | SDL_SWSURFACE | SDL_HWSURFACE );
 		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 		SDL_GL_SetSwapInterval(1);
+
+		// Unsure why, but we need to initialize both EGL adn GL contexts.
+		m_private->glContext = GLContext::createContextForWindow(1, GLContext::sharingContext());
+		ASSERT(m_private->glContext->makeContextCurrent());
+		GLContext* context = GLContext::getCurrent();
+		ASSERT(context->makeContextCurrent());
+
     if ( !m_private->sdl_screen  ) {
 			printf("Unable to set video mode: %s\n", SDL_GetError());
-			return;
+			SDL_Quit();
+			exit(2);
     }
 #else
 		m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_SWSURFACE);
@@ -190,6 +132,8 @@ namespace WebKit {
     m_private->corePage->settings().setScriptEnabled(false);
 		m_private->corePage->settings().setPluginsEnabled(false);
 
+		m_private->corePage->settings().setMockScrollbarsEnabled(true);
+
 #if USE(ACCELERATED_COMPOSITING)
 		m_private->corePage->settings().setMinimumAccelerated2dCanvasSize(1);
 		m_private->corePage->settings().setAcceleratedCompositedAnimationsEnabled(true);
@@ -198,8 +142,10 @@ namespace WebKit {
 		m_private->corePage->settings().setAcceleratedCompositingEnabled(true);
 		m_private->corePage->settings().setAcceleratedDrawingEnabled(true);
 		m_private->corePage->settings().setTiledBackingStoreEnabled(true);
-		m_private->acceleratedContext = adoptPtr(AcceleratedContext::create(this));
-		m_private->acceleratedContext->initialize();
+		m_private->corePage->settings().setForceCompositingMode(true);
+		m_private->corePage->settings().setApplyDeviceScaleFactorInCompositor(true);
+		
+		m_private->acceleratedContext = AcceleratedContext::create(this);
 #else
 		m_private->corePage->settings().setAcceleratedCompositedAnimationsEnabled(false);
 		m_private->corePage->settings().setAcceleratedDrawingEnabled(false);
@@ -208,13 +154,7 @@ namespace WebKit {
 		m_private->corePage->settings().setAcceleratedDrawingEnabled(false);
 		m_private->corePage->settings().setTiledBackingStoreEnabled(false);
 #endif
-
-		fprintf(stderr, "WebKit: Settings successfully initialized.\n");
-
 		m_private->mainFrame->init();
-#if USE(ACCELERATED_COMPOSITING)
-		m_private->mainFrame->coreFrame()->view()->enterCompositingMode();
-#endif
 		m_private->corePage->setIsVisible(true, true);
 		m_private->corePage->setIsInWindow(true);
 
@@ -222,7 +162,6 @@ namespace WebKit {
 	}
 
 	WebView::~WebView() {
-		webkitTrace();
 		if (m_private->sdl_surface)
 			SDL_FreeSurface(m_private->sdl_surface);
     if (m_private->mainFrame && m_private->mainFrame->coreFrame())
@@ -235,15 +174,10 @@ namespace WebKit {
 
 	void WebView::draw(WebCore::IntRect clipRect, int immediate)
 	{
-		webkitTrace();
-
 		if(clipRect.width()==0 && clipRect.height()==0)
 			return;
 
-/*		webkitTrace();
-		if(clipRect.width()==0 && clipRect.height()==0)
-			return;
-
+#if !USE(ACCELERATED_COMPOSITING)
 		ASSERT(m_private->context);
 
     if (SDL_MUSTLOCK(m_private->sdl_surface)) {
@@ -280,23 +214,19 @@ namespace WebKit {
 		// this may make the BlitSurface call unnecessary, this should be explored further.
     if (SDL_MUSTLOCK(m_private->sdl_surface))
 			SDL_UnlockSurface(m_private->sdl_surface);
+		int result = SDL_BlitSurface(m_private->sdl_surface, &rect, m_private->sdl_screen, &rect);
+		ASSERT_UNUSED(result, !result);
+		SDL_UpdateRect(m_private->sdl_screen, clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
+#endif
+	}
 
-		//int result = SDL_BlitSurface(m_private->sdl_surface, &rect, m_private->sdl_screen, &rect);
-		//ASSERT_UNUSED(result, !result);
-		//SDL_UpdateRect(m_private->sdl_screen, clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
-*/
- }
 	void WebView::setUrl(char *) {
-		webkitTrace();
 	}
 	char *WebView::url() {
-		webkitTrace();
 		return NULL;
 	}
 
 	void WebView::setHtml(char *data, int length) {
-		webkitTrace();
-
 		WebCore::MainFrame& frame = m_private->mainFrame->coreFrame()->mainFrame();
 		ASSERT(frame.isMainFrame());
 
@@ -306,8 +236,8 @@ namespace WebKit {
 		loader.activeDocumentLoader()->writer().addData(data, length);
 		loader.activeDocumentLoader()->writer().end();
 	}
+
 	char *WebView::html() {
-		webkitTrace();
 		return NULL;
 	}
 
@@ -316,20 +246,14 @@ namespace WebKit {
 	}
 
 	void WebView::invalidate(WebCore::IntRect rect, int immediate) {
-		webkitTrace();
-		/*
-		webkitTrace();
-#if USE(ACCELERATED_COMPOSITING)
-		// uhm, what do we do?
-#else
+#if !USE(ACCELERATED_COMPOSITING)
 		draw(rect, immediate);
 #endif
-		  */
 	}
 
 	void WebView::resize(int width, int height)
 	{
-		webkitTrace();
+	
     m_private->size = FloatRect(m_private->size.x(),m_private->size.y(),width, height);
 		recreateSurface(width,height);
 		if(m_private->mainFrame) {
@@ -343,7 +267,7 @@ namespace WebKit {
 
 	void WebView::scrollBy(int offsetX, int offsetY)
 	{
-		webkitTrace();
+	
     Frame* coreFrame = m_private->mainFrame->coreFrame();
     if (!coreFrame->view())
 			return;
@@ -351,78 +275,17 @@ namespace WebKit {
 	}
 
 	bool WebView::recreateSurface(int width, int height) {
-		webkitTrace();
-/*
 #if USE(ACCELERATED_COMPOSITING)
-#if 0
-		EGLint numConfigs;
-		EGLint majorVersion;
-		EGLint minorVersion;
-		EGLDisplay display;
-		EGLContext context;
-		EGLSurface surface;
-		EGLConfig config;
-		EGLint contextAttribs[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE, EGL_NONE };
-		EGLint attribList[] =
-		{
-			EGL_RED_SIZE,       5,
-			EGL_GREEN_SIZE,     6,
-			EGL_BLUE_SIZE,      5,
-			EGL_ALPHA_SIZE,     8, //(flags & ES_WINDOW_ALPHA) ? 8 : EGL_DONT_CARE,
-			EGL_DEPTH_SIZE,     8, //(flags & ES_WINDOW_DEPTH) ? 8 : EGL_DONT_CARE,
-			EGL_STENCIL_SIZE,   8, //(flags & ES_WINDOW_STENCIL) ? 8 : EGL_DONT_CARE,
-			EGL_SAMPLE_BUFFERS, 1, //(flags & ES_WINDOW_MULTISAMPLE) ? 1 : 0,
-			EGL_NONE
-		};
-
-		// Get Display
-		display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-		if ( display == EGL_NO_DISPLAY )
-      return false;
-
-		// Initialize EGL
-		if ( !eglInitialize(display, &majorVersion, &minorVersion) )
-      return false;
-
-		// Get configs
-		if ( !eglGetConfigs(display, NULL, 0, &numConfigs) )
-      return false;
-
-		// Choose config
-		if ( !eglChooseConfig(display, attribList, &config, 1, &numConfigs) )
-      return false;
-
-		// Create a surface
-		surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)0, NULL);
-		if ( surface == EGL_NO_SURFACE )
-      return false;
-
-		// Create a GL context
-		context = eglCreateContext(display, config, EGL_NO_CONTEXT, contextAttribs );
-		if ( context == EGL_NO_CONTEXT )
-      return false;
-
-		// Make the context current
-		if ( !eglMakeCurrent(display, surface, surface, context) )
-      return false;
-
-		*(m_private->eglDisplay) = display;
-		*(m_private->eglSurface) = surface;
-		*(m_private->eglContext) = context;
-#endif
-#if 0
-    if ( SDL_Init(SDL_INIT_VIDEO) != 0 ) {
-			printf("Unable to initialize SDL: %s\n", SDL_GetError());
-			return 1;
-    }
-
-    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-    m_private->sdl_screen = SDL_SetVideoMode( 640, 480, 24, SDL_OPENGL );
-    if ( !m_private->sdl_screen  ) {
-			printf("Unable to set video mode: %s\n", SDL_GetError());
-			return 1;
-    }
-#endif
+		if(m_private->sdl_screen) {
+			SDL_FreeSurface(m_private->sdl_screen);
+			m_private->sdl_screen = NULL;
+		}
+    m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_OPENGL | SDL_SWSURFACE | SDL_HWSURFACE );
+		if (!m_private->sdl_screen) {
+			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
+			SDL_Quit();
+			exit(2);
+		}
 #else
 		if(m_private->sdl_screen) {
 			SDL_FreeSurface(m_private->sdl_screen);
@@ -436,8 +299,6 @@ namespace WebKit {
 			delete m_private->context;
 			m_private->context = NULL;
 		}
-
- 
 		if(m_private->sdl_screen) {
 			SDL_FreeSurface(m_private->sdl_screen);
 			m_private->sdl_screen = NULL;
@@ -479,20 +340,17 @@ namespace WebKit {
 		 m_private->sdl_screen->h,
 		 m_private->sdl_surface->pitch);
 
-
 		m_private->cairo_device = cairo_create(m_private->cairo_surface);
 		m_private->context = new GraphicsContext(m_private->cairo_device);
 #elif USE(SKIA)
 #endif
 #endif
 		return true;
- */
-		return false;
 	}
 
 	void WebView::handleSDLEvent(const SDL_Event& event)
 	{
-		// Note: do not add a webkitTrace here, this funciton executes quite
+		// Note: do not add a  here, this funciton executes quite
 		// a few times that it will cause the browser to slow down to a crawl
 		// to finish writing console messages.
     switch (event.type) {
@@ -522,64 +380,68 @@ namespace WebKit {
 
 	}
 	void WebView::scalefactor(float t) {
+#if !USE(ACCELERATED_COMPOSITING)
 		m_private->context->applyDeviceScaleFactor(t);
+#else
+		m_private->corePage->setDeviceScaleFactor(t);
+#endif
 	}
 	void WebView::resizeEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::paintEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::changeEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::mouseMoveEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::mousePressEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::mouseDoubleClickEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::mouseReleaseEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::contextMenuEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::wheelEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::keyPressEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::keyReleaseEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::dragEnterEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::dragLeaveEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::dragMoveEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::dropEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::focusInEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::focusOutEvent(void *) {
-		webkitTrace();
+	
 	}
 	void WebView::inputMethodEvent(void *) {
-		webkitTrace();
+	
 	}
 	bool WebView::focusNextPrevChild(bool next) {
-		webkitTrace();
+	
 		return false;
 	}
 

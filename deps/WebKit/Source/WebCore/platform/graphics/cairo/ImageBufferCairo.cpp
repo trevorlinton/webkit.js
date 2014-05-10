@@ -101,9 +101,7 @@ ImageBuffer::ImageBuffer(const IntSize& size, float /* resolutionScale */, Color
     , m_size(size)
     , m_logicalSize(size)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     success = false;  // Make early return mean error.
 
 #if ENABLE(ACCELERATED_2D_CANVAS)
@@ -189,7 +187,6 @@ void ImageBuffer::platformTransformColorSpace(const Vector<int>& lookUpTable)
     }
 #if PLATFORM(JS)
 		cairo_surface_mark_dirty_rectangle(m_data.m_surface.get(), 0, 0, m_size.width(), m_size.height());
-		//cairosdl_surface_mark_dirty_rect(m_data.m_surface.get(), 0, 0, m_size.width(), m_size.height());
 #else
     cairo_surface_mark_dirty_rectangle(m_data.m_surface.get(), 0, 0, m_size.width(), m_size.height());
 #endif

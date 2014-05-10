@@ -57,7 +57,7 @@ public:
     const IntSize& size() { return m_size; }
     WidgetBackingStore(const IntSize& size) : m_size(size) {
 #if PLATFORM(JS)
-			webkitTrace();
+		
 #endif
 		}
     virtual ~WidgetBackingStore() { }

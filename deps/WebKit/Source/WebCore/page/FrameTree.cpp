@@ -32,11 +32,15 @@
 #include <wtf/Vector.h>
 #include <wtf/text/CString.h>
 #include <wtf/text/StringBuilder.h>
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 
 namespace WebCore {
 
 FrameTree::~FrameTree()
 {
+
     for (Frame* child = firstChild(); child; child = child->tree().nextSibling())
         child->setView(0);
 }

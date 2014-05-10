@@ -297,7 +297,6 @@ void TextureMapperGL::endPainting()
         m_context3D->clearStencil(1);
         m_context3D->clear(GraphicsContext3D::STENCIL_BUFFER_BIT);
     }
-
     m_context3D->useProgram(data().previousProgram);
 
     m_context3D->scissor(data().previousScissor[0], data().previousScissor[1], data().previousScissor[2], data().previousScissor[3]);

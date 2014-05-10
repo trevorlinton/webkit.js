@@ -53,6 +53,7 @@ static void drawGlyphsToContext(cairo_t* context, const SimpleFontData* font, Gl
     cairo_set_scaled_font(context, font->platformData().scaledFont());
     cairo_show_glyphs(context, glyphs, numGlyphs);
 
+
     if (syntheticBoldOffset) {
         cairo_translate(context, syntheticBoldOffset, 0);
         cairo_show_glyphs(context, glyphs, numGlyphs);

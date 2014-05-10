@@ -77,9 +77,7 @@ BitmapTexturePool::BitmapTexturePool()
 
 void BitmapTexturePool::scheduleReleaseUnusedTextures()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_releaseUnusedTexturesTimer.isActive())
         m_releaseUnusedTexturesTimer.stop();
 
@@ -88,9 +86,7 @@ void BitmapTexturePool::scheduleReleaseUnusedTextures()
 
 void BitmapTexturePool::releaseUnusedTexturesTimerFired(Timer<BitmapTexturePool>*)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_textures.isEmpty())
         return;
 
@@ -108,9 +104,7 @@ void BitmapTexturePool::releaseUnusedTexturesTimerFired(Timer<BitmapTexturePool>
 
 PassRefPtr<BitmapTexture> BitmapTexturePool::acquireTexture(const IntSize& size, TextureMapper* textureMapper)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     BitmapTexturePoolEntry* selectedEntry = 0;
     for (size_t i = 0; i < m_textures.size(); ++i) {
         BitmapTexturePoolEntry* entry = &m_textures[i];
@@ -137,9 +131,7 @@ PassRefPtr<BitmapTexture> BitmapTexturePool::acquireTexture(const IntSize& size,
 
 PassRefPtr<BitmapTexture> TextureMapper::acquireTextureFromPool(const IntSize& size)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RefPtr<BitmapTexture> selectedTexture = m_texturePool->acquireTexture(size, this);
     selectedTexture->reset(size, BitmapTexture::SupportsAlpha);
     return selectedTexture;
@@ -147,9 +139,7 @@ PassRefPtr<BitmapTexture> TextureMapper::acquireTextureFromPool(const IntSize& s
 
 PassOwnPtr<TextureMapper> TextureMapper::create(AccelerationMode mode)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (mode == SoftwareMode)
         return TextureMapperImageBuffer::create();
     return platformCreateAccelerated();
@@ -164,9 +154,7 @@ TextureMapper::TextureMapper(AccelerationMode accelerationMode)
     , m_isMaskMode(false)
     , m_wrapMode(StretchWrap)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 }
 
 TextureMapper::~TextureMapper()
@@ -174,9 +162,7 @@ TextureMapper::~TextureMapper()
 
 void BitmapTexture::updateContents(TextureMapper* textureMapper, GraphicsLayer* sourceLayer, const IntRect& targetRect, const IntPoint& offset, UpdateContentsFlag updateContentsFlag)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     std::unique_ptr<ImageBuffer> imageBuffer = ImageBuffer::create(targetRect.size());
     GraphicsContext* context = imageBuffer->context();
     context->setImageInterpolationQuality(textureMapper->imageInterpolationQuality());

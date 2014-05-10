@@ -37,7 +37,7 @@
 #include "PlatformPathCairo.h"
 #include "RefPtrCairo.h"
 #include <wtf/Vector.h>
-
+#include "emscripten.h"
 #if ENABLE(ACCELERATED_2D_CANVAS)
 #include <cairo-gl.h>
 #endif

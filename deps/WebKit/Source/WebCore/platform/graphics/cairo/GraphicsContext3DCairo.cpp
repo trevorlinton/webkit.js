@@ -65,9 +65,7 @@ namespace WebCore {
 
 PassRefPtr<GraphicsContext3D> GraphicsContext3D::create(GraphicsContext3D::Attributes attributes, HostWindow* hostWindow, GraphicsContext3D::RenderStyle renderStyle)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     // This implementation doesn't currently support rendering directly to the HostWindow.
     if (renderStyle == RenderDirectlyToHostWindow)
@@ -102,9 +100,7 @@ GraphicsContext3D::GraphicsContext3D(GraphicsContext3D::Attributes attributes, H
     , m_multisampleColorBuffer(0)
     , m_private(GraphicsContext3DPrivate::create(this, renderStyle))
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     makeContextCurrent();
 

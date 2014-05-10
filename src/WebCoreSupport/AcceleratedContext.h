@@ -37,10 +37,10 @@ namespace WebCore {
 	class AcceleratedContext : public WebCore::GraphicsLayerClient {
     WTF_MAKE_NONCOPYABLE(AcceleratedContext);
 	public:
-    static AcceleratedContext *create(WebKit::WebView* webView)
-    {
-			return new AcceleratedContext(webView);
-    }
+		static PassOwnPtr<AcceleratedContext> create(WebKit::WebView* webView)
+		{
+			return adoptPtr(new AcceleratedContext(webView));
+		}
 
     virtual ~AcceleratedContext();
     void setRootCompositingLayer(WebCore::GraphicsLayer*);

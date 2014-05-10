@@ -214,7 +214,11 @@ bool TOutputGLSLBase::visitBinary(Visit visit, TIntermBinary* node)
                     if (mClampingStrategy == SH_CLAMP_WITH_CLAMP_INTRINSIC) {
                         out << "[int(clamp(float(";
                     } else {
-                        out << "[webgl_int_clamp(";
+#if PLATFORM(JS)
+												out << "[js_webgl_int_clamp(";
+#else
+												out << "[webgl_int_clamp(";
+#endif
                     }
                 }
                 else if (visit == PostVisit)

@@ -87,9 +87,7 @@ static IntRect clipBox(RenderBox& renderer);
 
 CanvasCompositingStrategy canvasCompositingStrategy(const RenderObject& renderer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(renderer.isCanvas());
     
     const HTMLCanvasElement* canvas = toHTMLCanvasElement(renderer.node());
@@ -110,9 +108,7 @@ CanvasCompositingStrategy canvasCompositingStrategy(const RenderObject& renderer
 // Get the scrolling coordinator in a way that works inside RenderLayerBacking's destructor.
 static ScrollingCoordinator* scrollingCoordinatorFromLayer(RenderLayer& layer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     Page* page = layer.renderer().frame().page();
     if (!page)
         return 0;
@@ -135,9 +131,7 @@ RenderLayerBacking::RenderLayerBacking(RenderLayer& layer)
     , m_backgroundLayerPaintsFixedRootBackground(false)
     , m_didSwitchToFullTileCoverageDuringLoading(false)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     Page* page = renderer().frame().page();
 
     if (layer.isRootLayer() && page) {
@@ -168,9 +162,7 @@ RenderLayerBacking::RenderLayerBacking(RenderLayer& layer)
 
 RenderLayerBacking::~RenderLayerBacking()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     updateAncestorClippingLayer(false);
     updateDescendantClippingLayer(false);
     updateOverflowControlsLayers(false, false, false);
@@ -184,18 +176,14 @@ RenderLayerBacking::~RenderLayerBacking()
 
 void RenderLayerBacking::willDestroyLayer(const GraphicsLayer* layer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (layer && layer->usingTiledBacking())
         compositor().layerTiledBackingUsageChanged(layer, false);
 }
 
 std::unique_ptr<GraphicsLayer> RenderLayerBacking::createGraphicsLayer(const String& name)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     GraphicsLayerFactory* graphicsLayerFactory = 0;
     if (Page* page = renderer().frame().page())
         graphicsLayerFactory = page->chrome().client().graphicsLayerFactory();
@@ -218,41 +206,31 @@ std::unique_ptr<GraphicsLayer> RenderLayerBacking::createGraphicsLayer(const Str
 
 bool RenderLayerBacking::shouldUseTiledBacking(const GraphicsLayer*) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_usingTiledCacheLayer && m_creatingPrimaryGraphicsLayer;
 }
 
 bool RenderLayerBacking::tiledBackingHasMargin() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_usingTiledCacheLayer && tiledBacking()->hasMargins();
 }
 
 void RenderLayerBacking::tiledBackingUsageChanged(const GraphicsLayer* layer, bool usingTiledBacking)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     compositor().layerTiledBackingUsageChanged(layer, usingTiledBacking);
 }
 
 TiledBacking* RenderLayerBacking::tiledBacking() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_graphicsLayer->tiledBacking();
 }
 
 static TiledBacking::TileCoverage computeTileCoverage(RenderLayerBacking* backing)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // FIXME: When we use TiledBacking for overflow, this should look at RenderView scrollability.
     FrameView& frameView = backing->owningLayer().renderer().view().frameView();
 
@@ -284,9 +262,7 @@ static TiledBacking::TileCoverage computeTileCoverage(RenderLayerBacking* backin
 
 void RenderLayerBacking::adjustTiledBackingCoverage()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_usingTiledCacheLayer)
         return;
 
@@ -296,9 +272,7 @@ void RenderLayerBacking::adjustTiledBackingCoverage()
 
 void RenderLayerBacking::updateDebugIndicators(bool showBorder, bool showRepaintCounter)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_graphicsLayer->setShowDebugBorder(showBorder);
     m_graphicsLayer->setShowRepaintCounter(showRepaintCounter);
     
@@ -344,7 +318,7 @@ void RenderLayerBacking::updateDebugIndicators(bool showBorder, bool showRepaint
 void RenderLayerBacking::createPrimaryGraphicsLayer()
 {
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     String layerName;
 #ifndef NDEBUG
@@ -403,9 +377,7 @@ void RenderLayerBacking::layerWillBeDestroyed()
 
 void RenderLayerBacking::destroyGraphicsLayers()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (m_graphicsLayer) {
         willDestroyLayer(m_graphicsLayer.get());
@@ -426,18 +398,14 @@ void RenderLayerBacking::destroyGraphicsLayers()
 
 void RenderLayerBacking::updateOpacity(const RenderStyle* style)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_graphicsLayer->setOpacity(compositingOpacity(style->opacity()));
 }
 
 void RenderLayerBacking::updateTransform(const RenderStyle* style)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     // FIXME: This could use m_owningLayer.transform(), but that currently has transform-origin
     // baked into it, and we don't want that.
@@ -457,9 +425,7 @@ void RenderLayerBacking::updateTransform(const RenderStyle* style)
 #if ENABLE(CSS_FILTERS)
 void RenderLayerBacking::updateFilters(const RenderStyle* style)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_canCompositeFilters = m_graphicsLayer->setFilters(owningLayer().computeFilterOperations(style));
 }
@@ -473,9 +439,7 @@ void RenderLayerBacking::updateLayerBlendMode(const RenderStyle*)
 
 static bool hasNonZeroTransformOrigin(const RenderObject& renderer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     const RenderStyle& style = renderer.style();
     return (style.transformOriginX().type() == Fixed && style.transformOriginX().value())
@@ -497,9 +461,7 @@ static bool layerOrAncestorIsTransformedOrScrolling(RenderLayer& layer)
 #else
 static bool layerOrAncestorIsTransformedOrUsingCompositedScrolling(RenderLayer& layer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     for (RenderLayer* curr = &layer; curr; curr = curr->parent()) {
         if (curr->hasTransform() || curr->needsCompositedScrolling())
@@ -512,9 +474,7 @@ static bool layerOrAncestorIsTransformedOrUsingCompositedScrolling(RenderLayer& 
     
 bool RenderLayerBacking::shouldClipCompositedBounds() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
 #if !PLATFORM(IOS)
     // Scrollbar layers use this layer for relative positioning, so don't clip.
@@ -541,9 +501,7 @@ bool RenderLayerBacking::shouldClipCompositedBounds() const
 
 void RenderLayerBacking::updateCompositedBounds()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     LayoutRect layerBounds = compositor().calculateCompositedBounds(m_owningLayer, m_owningLayer);
 
@@ -585,9 +543,7 @@ void RenderLayerBacking::updateCompositedBounds()
 
 void RenderLayerBacking::updateAfterWidgetResize()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!renderer().isWidget())
         return;
@@ -599,9 +555,7 @@ void RenderLayerBacking::updateAfterWidgetResize()
 
 void RenderLayerBacking::updateAfterLayout(UpdateAfterLayoutFlags flags)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!compositor().compositingLayersNeedRebuild()) {
         // Calling updateGraphicsLayerGeometry() here gives incorrect results, because the
@@ -629,9 +583,7 @@ void RenderLayerBacking::updateAfterLayout(UpdateAfterLayoutFlags flags)
 
 bool RenderLayerBacking::updateGraphicsLayerConfiguration()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_owningLayer.updateDescendantDependentFlags();
     m_owningLayer.updateZOrderLists();
@@ -738,9 +690,7 @@ bool RenderLayerBacking::updateGraphicsLayerConfiguration()
 
 static IntRect clipBox(RenderBox& renderer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     LayoutRect result = LayoutRect::infiniteRect();
     if (renderer.hasOverflowClip())
@@ -754,9 +704,7 @@ static IntRect clipBox(RenderBox& renderer)
 
 void RenderLayerBacking::updateGraphicsLayerGeometry()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     // If we haven't built z-order lists yet, wait until later.
     if (m_owningLayer.isStackingContainer() && m_owningLayer.m_zOrderListsDirty)
@@ -1063,9 +1011,7 @@ void RenderLayerBacking::updateGraphicsLayerGeometry()
 
 void RenderLayerBacking::adjustAncestorCompositingBoundsForFlowThread(IntRect& ancestorCompositingBounds, const RenderLayer* compositingAncestor) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!m_owningLayer.isInsideFlowThread())
         return;
@@ -1103,9 +1049,7 @@ void RenderLayerBacking::adjustAncestorCompositingBoundsForFlowThread(IntRect& a
 
 void RenderLayerBacking::updateDirectlyCompositedContents(bool isSimpleContainer, bool& didUpdateContentsRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!m_owningLayer.hasVisibleContent())
         return;
@@ -1118,9 +1062,7 @@ void RenderLayerBacking::updateDirectlyCompositedContents(bool isSimpleContainer
 
 void RenderLayerBacking::registerScrollingLayers()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
 #if PLATFORM(IOS)
     compositor().updateViewportConstraintStatus(m_owningLayer);
@@ -1145,9 +1087,7 @@ void RenderLayerBacking::registerScrollingLayers()
 
 void RenderLayerBacking::updateInternalHierarchy()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     // m_foregroundLayer has to be inserted in the correct order with child layers,
     // so it's not inserted here.
@@ -1198,9 +1138,7 @@ void RenderLayerBacking::updateInternalHierarchy()
 
 void RenderLayerBacking::resetContentsRect()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_graphicsLayer->setContentsRect(pixelSnappedIntRect(contentsBox()));
     
@@ -1217,18 +1155,14 @@ void RenderLayerBacking::resetContentsRect()
 
 void RenderLayerBacking::updateDrawsContent()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     updateDrawsContent(isSimpleContainerCompositingLayer());
 }
 
 void RenderLayerBacking::updateDrawsContent(bool isSimpleContainer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (m_scrollingLayer) {
         // We don't have to consider overflow controls, because we know that the scrollbars are drawn elsewhere.
@@ -1257,9 +1191,7 @@ void RenderLayerBacking::updateDrawsContent(bool isSimpleContainer)
 // Return true if the layer changed.
 bool RenderLayerBacking::updateAncestorClippingLayer(bool needsAncestorClip)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     bool layersChanged = false;
 
@@ -1282,9 +1214,7 @@ bool RenderLayerBacking::updateAncestorClippingLayer(bool needsAncestorClip)
 // Return true if the layer changed.
 bool RenderLayerBacking::updateDescendantClippingLayer(bool needsDescendantClip)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     bool layersChanged = false;
 
@@ -1306,18 +1236,14 @@ bool RenderLayerBacking::updateDescendantClippingLayer(bool needsDescendantClip)
 
 void RenderLayerBacking::setBackgroundLayerPaintsFixedRootBackground(bool backgroundLayerPaintsFixedRootBackground)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_backgroundLayerPaintsFixedRootBackground = backgroundLayerPaintsFixedRootBackground;
 }
 
 bool RenderLayerBacking::requiresHorizontalScrollbarLayer() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!m_owningLayer.hasOverlayScrollbars() && !m_owningLayer.needsCompositedScrolling())
         return false;
@@ -1326,9 +1252,7 @@ bool RenderLayerBacking::requiresHorizontalScrollbarLayer() const
 
 bool RenderLayerBacking::requiresVerticalScrollbarLayer() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!m_owningLayer.hasOverlayScrollbars() && !m_owningLayer.needsCompositedScrolling())
         return false;
@@ -1337,9 +1261,7 @@ bool RenderLayerBacking::requiresVerticalScrollbarLayer() const
 
 bool RenderLayerBacking::requiresScrollCornerLayer() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!m_owningLayer.hasOverlayScrollbars() && !m_owningLayer.needsCompositedScrolling())
         return false;
@@ -1348,9 +1270,7 @@ bool RenderLayerBacking::requiresScrollCornerLayer() const
 
 bool RenderLayerBacking::updateOverflowControlsLayers(bool needsHorizontalScrollbarLayer, bool needsVerticalScrollbarLayer, bool needsScrollCornerLayer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     bool horizontalScrollbarLayerChanged = false;
     if (needsHorizontalScrollbarLayer) {
@@ -1400,9 +1320,7 @@ bool RenderLayerBacking::updateOverflowControlsLayers(bool needsHorizontalScroll
 
 void RenderLayerBacking::positionOverflowControlsLayers()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!m_owningLayer.hasScrollbars())
         return;
@@ -1444,9 +1362,7 @@ void RenderLayerBacking::positionOverflowControlsLayers()
 
 bool RenderLayerBacking::hasUnpositionedOverflowControlsLayers() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (GraphicsLayer* layer = layerForHorizontalScrollbar())
         if (!layer->drawsContent())
@@ -1466,7 +1382,7 @@ bool RenderLayerBacking::hasUnpositionedOverflowControlsLayers() const
 bool RenderLayerBacking::updateForegroundLayer(bool needsForegroundLayer)
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     bool layerChanged = false;
     if (needsForegroundLayer) {
@@ -1498,7 +1414,7 @@ bool RenderLayerBacking::updateForegroundLayer(bool needsForegroundLayer)
 bool RenderLayerBacking::updateBackgroundLayer(bool needsBackgroundLayer)
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     bool layerChanged = false;
     if (needsBackgroundLayer) {
@@ -1551,9 +1467,7 @@ bool RenderLayerBacking::updateBackgroundLayer(bool needsBackgroundLayer)
 
 bool RenderLayerBacking::updateMaskLayer(bool needsMaskLayer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     bool layerChanged = false;
     if (needsMaskLayer) {
@@ -1578,7 +1492,7 @@ bool RenderLayerBacking::updateMaskLayer(bool needsMaskLayer)
 bool RenderLayerBacking::updateScrollingLayers(bool needsScrollingLayers)
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     ScrollingCoordinator* scrollingCoordinator = scrollingCoordinatorFromLayer(m_owningLayer);
 
@@ -1635,9 +1549,7 @@ bool RenderLayerBacking::updateScrollingLayers(bool needsScrollingLayers)
 
 void RenderLayerBacking::attachToScrollingCoordinatorWithParent(RenderLayerBacking* parent)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     ScrollingCoordinator* scrollingCoordinator = scrollingCoordinatorFromLayer(m_owningLayer);
     if (!scrollingCoordinator)
@@ -1659,9 +1571,7 @@ void RenderLayerBacking::attachToScrollingCoordinatorWithParent(RenderLayerBacki
 
 void RenderLayerBacking::detachFromScrollingCoordinator()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     // If m_scrollLayerID is 0, then this backing is not attached to the ScrollingCoordinator.
     if (!m_scrollLayerID)
@@ -1695,9 +1605,7 @@ GraphicsLayerPaintingPhase RenderLayerBacking::paintingPhaseForPrimaryLayer() co
 
 float RenderLayerBacking::compositingOpacity(float rendererOpacity) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     float finalOpacity = rendererOpacity;
     
@@ -1720,9 +1628,7 @@ float RenderLayerBacking::compositingOpacity(float rendererOpacity) const
 
 static bool hasBoxDecorations(const RenderStyle* style)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     return style->hasBorder() || style->hasBorderRadius() || style->hasOutline() || style->hasAppearance() || style->boxShadow() || style->hasFilter();
 }
@@ -1731,9 +1637,7 @@ static bool canCreateTiledImage(const RenderStyle*);
 
 static bool hasBoxDecorationsOrBackgroundImage(const RenderStyle* style)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (hasBoxDecorations(style))
         return true;
@@ -1751,9 +1655,7 @@ static bool hasPerspectiveOrPreserves3D(const RenderStyle* style)
 
 Color RenderLayerBacking::rendererBackgroundColor() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     const auto& backgroundRenderer = renderer().isRoot() ? renderer().rendererForRootBackground() : renderer();
     return backgroundRenderer.style().visitedDependentColor(CSSPropertyBackgroundColor);
@@ -1761,9 +1663,7 @@ Color RenderLayerBacking::rendererBackgroundColor() const
 
 void RenderLayerBacking::updateDirectlyCompositedBackgroundColor(bool isSimpleContainer, bool& didUpdateContentsRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!isSimpleContainer) {
         m_graphicsLayer->setContentsToSolidColor(Color());
@@ -1782,9 +1682,7 @@ void RenderLayerBacking::updateDirectlyCompositedBackgroundColor(bool isSimpleCo
 
 bool canCreateTiledImage(const RenderStyle* style)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     const FillLayer* fillLayer = style->backgroundLayers();
     if (fillLayer->next())
@@ -1818,9 +1716,7 @@ bool canCreateTiledImage(const RenderStyle* style)
 
 void RenderLayerBacking::updateDirectlyCompositedBackgroundImage(bool isSimpleContainer, bool& didUpdateContentsRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!GraphicsLayer::supportsContentsTiling())
         return;
@@ -1851,9 +1747,7 @@ void RenderLayerBacking::updateDirectlyCompositedBackgroundImage(bool isSimpleCo
 
 void RenderLayerBacking::updateRootLayerConfiguration()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!m_usingTiledCacheLayer)
         return;
@@ -1875,9 +1769,7 @@ void RenderLayerBacking::updateRootLayerConfiguration()
 
 static bool supportsDirectBoxDecorationsComposition(const RenderLayerModelObject& renderer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!GraphicsLayer::supportsBackgroundColorContent())
         return false;
@@ -1908,9 +1800,7 @@ static bool supportsDirectBoxDecorationsComposition(const RenderLayerModelObject
 
 bool RenderLayerBacking::paintsBoxDecorations() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!m_owningLayer.hasVisibleBoxDecorations())
         return false;
@@ -1923,9 +1813,7 @@ bool RenderLayerBacking::paintsBoxDecorations() const
 
 bool RenderLayerBacking::paintsChildren() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (m_owningLayer.hasVisibleContent() && m_owningLayer.hasNonEmptyChildRenderers())
         return true;
@@ -1948,7 +1836,7 @@ static bool isRestartedPlugin(RenderObject* renderer)
 
     return toHTMLPlugInElement(element)->isRestartedPlugin();
 #else
-		webkitTrace();
+	
     return false;
 #endif
 }
@@ -1958,7 +1846,7 @@ static bool isCompositedPlugin(RenderObject* renderer)
 #if !PLATFORM(JS)
     return renderer->isEmbeddedObject() && toRenderEmbeddedObject(renderer)->allowsAcceleratedCompositing();
 #else
-		webkitTrace();
+	
     return false;
 #endif
 }
@@ -1968,9 +1856,7 @@ static bool isCompositedPlugin(RenderObject* renderer)
 // This is a useful optimization, because it allows us to avoid allocating backing store.
 bool RenderLayerBacking::isSimpleContainerCompositingLayer() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (renderer().hasMask()) // masks require special treatment
         return false;
@@ -2014,9 +1900,7 @@ bool RenderLayerBacking::isSimpleContainerCompositingLayer() const
 
 static bool hasVisibleNonCompositingDescendant(RenderLayer& parent)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     // FIXME: We shouldn't be called with a stale z-order lists. See bug 85512.
     parent.updateLayerListsIfNeeded();
@@ -2067,18 +1951,14 @@ static bool hasVisibleNonCompositingDescendant(RenderLayer& parent)
 // Conservative test for having no rendered children.
 bool RenderLayerBacking::hasVisibleNonCompositingDescendantLayers() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     return hasVisibleNonCompositingDescendant(m_owningLayer);
 }
 
 bool RenderLayerBacking::containsPaintedContent(bool isSimpleContainer) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (isSimpleContainer || paintsIntoWindow() || paintsIntoCompositedAncestor() || m_artificiallyInflatedBounds || m_owningLayer.isReflection())
         return false;
@@ -2105,9 +1985,7 @@ bool RenderLayerBacking::containsPaintedContent(bool isSimpleContainer) const
 // that require painting. Direct compositing saves backing store.
 bool RenderLayerBacking::isDirectlyCompositedImage() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!renderer().isImage() || m_owningLayer.hasBoxDecorationsOrBackground() || renderer().hasClip())
         return false;
@@ -2132,9 +2010,7 @@ bool RenderLayerBacking::isDirectlyCompositedImage() const
 
 void RenderLayerBacking::contentChanged(ContentChangeType changeType)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if ((changeType == ImageChanged) && isDirectlyCompositedImage()) {
         updateImageContents();
@@ -2160,9 +2036,7 @@ void RenderLayerBacking::contentChanged(ContentChangeType changeType)
 
 void RenderLayerBacking::updateImageContents()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     ASSERT(renderer().isImage());
     RenderImage& imageRenderer = toRenderImage(renderer());
@@ -2198,9 +2072,7 @@ void RenderLayerBacking::updateImageContents()
 
 FloatPoint3D RenderLayerBacking::computeTransformOrigin(const IntRect& borderBox) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     const RenderStyle& style = renderer().style();
 
@@ -2214,9 +2086,7 @@ FloatPoint3D RenderLayerBacking::computeTransformOrigin(const IntRect& borderBox
 
 FloatPoint RenderLayerBacking::computePerspectiveOrigin(const IntRect& borderBox) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     const RenderStyle& style = renderer().style();
 
@@ -2233,18 +2103,14 @@ FloatPoint RenderLayerBacking::computePerspectiveOrigin(const IntRect& borderBox
 // Return the offset from the top-left of this compositing layer at which the renderer's contents are painted.
 LayoutSize RenderLayerBacking::contentOffsetInCompostingLayer() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     return LayoutSize(-m_compositedBounds.x(), -m_compositedBounds.y());
 }
 
 LayoutRect RenderLayerBacking::contentsBox() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!renderer().isBox())
         return LayoutRect();
@@ -2268,9 +2134,7 @@ LayoutRect RenderLayerBacking::contentsBox() const
 
 static LayoutRect backgroundRectForBox(const RenderBox& box)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     switch (box.style().backgroundClip()) {
     case BorderFillBox:
@@ -2289,9 +2153,7 @@ static LayoutRect backgroundRectForBox(const RenderBox& box)
 
 IntRect RenderLayerBacking::backgroundBox() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!renderer().isBox())
         return IntRect();
@@ -2303,9 +2165,7 @@ IntRect RenderLayerBacking::backgroundBox() const
 
 GraphicsLayer* RenderLayerBacking::parentForSublayers() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (m_scrollingContentsLayer)
         return m_scrollingContentsLayer.get();
@@ -2322,9 +2182,7 @@ GraphicsLayer* RenderLayerBacking::parentForSublayers() const
 
 GraphicsLayer* RenderLayerBacking::childForSuperlayers() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (m_ancestorClippingLayer)
         return m_ancestorClippingLayer.get();
@@ -2337,9 +2195,7 @@ GraphicsLayer* RenderLayerBacking::childForSuperlayers() const
 
 bool RenderLayerBacking::paintsIntoWindow() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (m_usingTiledCacheLayer)
         return false;
@@ -2358,9 +2214,7 @@ bool RenderLayerBacking::paintsIntoWindow() const
 
 void RenderLayerBacking::setRequiresOwnBackingStore(bool requiresOwnBacking)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (requiresOwnBacking == m_requiresOwnBackingStore)
         return;
@@ -2383,9 +2237,7 @@ void RenderLayerBacking::setBlendMode(BlendMode)
 
 void RenderLayerBacking::setContentsNeedDisplay(GraphicsLayer::ShouldClipToLayer shouldClip)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     ASSERT(!paintsIntoCompositedAncestor());
 
@@ -2418,9 +2270,7 @@ void RenderLayerBacking::setContentsNeedDisplay(GraphicsLayer::ShouldClipToLayer
 // r is in the coordinate space of the layer's render object
 void RenderLayerBacking::setContentsNeedDisplayInRect(const IntRect& r)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     ASSERT(!paintsIntoCompositedAncestor());
 
@@ -2468,9 +2318,7 @@ void RenderLayerBacking::paintIntoLayer(const GraphicsLayer* graphicsLayer, Grap
                     const IntRect& paintDirtyRect, // In the coords of rootLayer.
                     PaintBehavior paintBehavior, GraphicsLayerPaintingPhase paintingPhase)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (paintsIntoWindow() || paintsIntoCompositedAncestor()) {
 #if !PLATFORM(IOS)
@@ -2515,9 +2363,7 @@ void RenderLayerBacking::paintIntoLayer(const GraphicsLayer* graphicsLayer, Grap
 
 static void paintScrollbar(Scrollbar* scrollbar, GraphicsContext& context, const IntRect& clip)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!scrollbar)
         return;
@@ -2534,9 +2380,7 @@ static void paintScrollbar(Scrollbar* scrollbar, GraphicsContext& context, const
 // Up-call from compositing layer drawing callback.
 void RenderLayerBacking::paintContents(const GraphicsLayer* graphicsLayer, GraphicsContext& context, GraphicsLayerPaintingPhase paintingPhase, const IntRect& clip)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
 #ifndef NDEBUG
     if (Page* page = renderer().frame().page())
@@ -2581,45 +2425,35 @@ void RenderLayerBacking::paintContents(const GraphicsLayer* graphicsLayer, Graph
 
 float RenderLayerBacking::pageScaleFactor() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     return compositor().pageScaleFactor();
 }
 
 float RenderLayerBacking::deviceScaleFactor() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     return compositor().deviceScaleFactor();
 }
 
 float RenderLayerBacking::contentsScaleMultiplierForNewTiles(const GraphicsLayer* layer) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     return compositor().contentsScaleMultiplierForNewTiles(layer);
 }
 
 void RenderLayerBacking::didCommitChangesForLayer(const GraphicsLayer* layer) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     compositor().didFlushChangesForLayer(m_owningLayer, layer);
 }
 
 bool RenderLayerBacking::getCurrentTransform(const GraphicsLayer* graphicsLayer, TransformationMatrix& transform) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     GraphicsLayer* transformedLayer = m_contentsContainmentLayer.get() ? m_contentsContainmentLayer.get() : m_graphicsLayer.get();
     if (graphicsLayer != transformedLayer)
@@ -2634,18 +2468,14 @@ bool RenderLayerBacking::getCurrentTransform(const GraphicsLayer* graphicsLayer,
 
 bool RenderLayerBacking::isTrackingRepaints() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     return static_cast<GraphicsLayerClient&>(compositor()).isTrackingRepaints();
 }
 
 bool RenderLayerBacking::shouldSkipLayerInDump(const GraphicsLayer* layer) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     // Skip the root tile cache's flattening layer.
     return m_isMainFrameRenderViewLayer && layer && layer == m_childContainmentLayer.get();
@@ -2653,9 +2483,7 @@ bool RenderLayerBacking::shouldSkipLayerInDump(const GraphicsLayer* layer) const
 
 bool RenderLayerBacking::shouldDumpPropertyForLayer(const GraphicsLayer* layer, const char* propertyName) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     // For backwards compatibility with WebKit1 and other platforms,
     // skip some properties on the root tile cache.
@@ -2679,9 +2507,7 @@ bool RenderLayerBacking::shouldDumpPropertyForLayer(const GraphicsLayer* layer, 
 #ifndef NDEBUG
 void RenderLayerBacking::verifyNotPainting()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     ASSERT(!renderer().frame().page() || !renderer().frame().page()->isPainting());
 }
@@ -2689,9 +2515,7 @@ void RenderLayerBacking::verifyNotPainting()
 
 bool RenderLayerBacking::startAnimation(double timeOffset, const Animation* anim, const KeyframeList& keyframes)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     bool hasOpacity = keyframes.containsProperty(CSSPropertyOpacity);
     bool hasTransform = renderer().isBox() && keyframes.containsProperty(CSSPropertyWebkitTransform);
@@ -2756,27 +2580,21 @@ bool RenderLayerBacking::startAnimation(double timeOffset, const Animation* anim
 
 void RenderLayerBacking::animationPaused(double timeOffset, const String& animationName)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_graphicsLayer->pauseAnimation(animationName, timeOffset);
 }
 
 void RenderLayerBacking::animationFinished(const String& animationName)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_graphicsLayer->removeAnimation(animationName);
 }
 
 bool RenderLayerBacking::startTransition(double timeOffset, CSSPropertyID property, const RenderStyle* fromStyle, const RenderStyle* toStyle)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     bool didAnimate = false;
 
@@ -2832,9 +2650,7 @@ bool RenderLayerBacking::startTransition(double timeOffset, CSSPropertyID proper
 
 void RenderLayerBacking::transitionPaused(double timeOffset, CSSPropertyID property)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     AnimatedPropertyID animatedProperty = cssToGraphicsLayerProperty(property);
     if (animatedProperty != AnimatedPropertyInvalid)
@@ -2843,9 +2659,7 @@ void RenderLayerBacking::transitionPaused(double timeOffset, CSSPropertyID prope
 
 void RenderLayerBacking::transitionFinished(CSSPropertyID property)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     AnimatedPropertyID animatedProperty = cssToGraphicsLayerProperty(property);
     if (animatedProperty != AnimatedPropertyInvalid)
@@ -2854,18 +2668,14 @@ void RenderLayerBacking::transitionFinished(CSSPropertyID property)
 
 void RenderLayerBacking::notifyAnimationStarted(const GraphicsLayer*, double time)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     renderer().animation().notifyAnimationStarted(&renderer(), time);
 }
 
 void RenderLayerBacking::notifyFlushRequired(const GraphicsLayer* layer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (renderer().documentBeingDestroyed())
         return;
@@ -2874,9 +2684,7 @@ void RenderLayerBacking::notifyFlushRequired(const GraphicsLayer* layer)
 
 void RenderLayerBacking::notifyFlushBeforeDisplayRefresh(const GraphicsLayer* layer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     compositor().notifyFlushBeforeDisplayRefresh(layer);
 }
@@ -2884,45 +2692,35 @@ void RenderLayerBacking::notifyFlushBeforeDisplayRefresh(const GraphicsLayer* la
 // This is used for the 'freeze' API, for testing only.
 void RenderLayerBacking::suspendAnimations(double time)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_graphicsLayer->suspendAnimations(time);
 }
 
 void RenderLayerBacking::resumeAnimations()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_graphicsLayer->resumeAnimations();
 }
 
 LayoutRect RenderLayerBacking::compositedBounds() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     return m_compositedBounds;
 }
 
 void RenderLayerBacking::setCompositedBounds(const LayoutRect& bounds)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_compositedBounds = bounds;
 }
 
 LayoutRect RenderLayerBacking::compositedBoundsIncludingMargin() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     TiledBacking* tiledBacking = this->tiledBacking();
     if (!tiledBacking || !tiledBacking->hasMargins())
@@ -2940,9 +2738,7 @@ LayoutRect RenderLayerBacking::compositedBoundsIncludingMargin() const
 
 CSSPropertyID RenderLayerBacking::graphicsLayerToCSSProperty(AnimatedPropertyID property)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     CSSPropertyID cssProperty = CSSPropertyInvalid;
     switch (property) {
@@ -2970,9 +2766,7 @@ CSSPropertyID RenderLayerBacking::graphicsLayerToCSSProperty(AnimatedPropertyID 
 
 AnimatedPropertyID RenderLayerBacking::cssToGraphicsLayerProperty(CSSPropertyID cssProperty)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     switch (cssProperty) {
         case CSSPropertyWebkitTransform:
@@ -2994,9 +2788,7 @@ AnimatedPropertyID RenderLayerBacking::cssToGraphicsLayerProperty(CSSPropertyID 
 
 CompositingLayerType RenderLayerBacking::compositingLayerType() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (m_graphicsLayer->hasContentsLayer())
         return MediaCompositingLayer;
@@ -3009,9 +2801,7 @@ CompositingLayerType RenderLayerBacking::compositingLayerType() const
 
 double RenderLayerBacking::backingStoreMemoryEstimate() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     double backingMemory;
     

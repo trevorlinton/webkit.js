@@ -58,7 +58,7 @@ FontPlatformData::FontPlatformData(WTF::HashTableDeletedValueType)
 #endif
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
 }
 
@@ -89,7 +89,7 @@ FontPlatformData::FontPlatformData()
 #endif
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
 }
 #endif
@@ -123,7 +123,7 @@ FontPlatformData::FontPlatformData(float size, bool syntheticBold, bool syntheti
 #endif
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
 }
 
@@ -144,7 +144,7 @@ FontPlatformData::FontPlatformData(CGFontRef cgFont, float size, bool syntheticB
     , m_isPrinterFont(false)
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
 }
 #endif
@@ -164,7 +164,7 @@ FontPlatformData::FontPlatformData(const FontPlatformData& source)
 #endif
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     platformDataInit(source);
 }

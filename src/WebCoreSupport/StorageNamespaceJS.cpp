@@ -33,19 +33,16 @@ namespace WebCore {
 
 PassRefPtr<StorageNamespace> StorageNamespace::localStorageNamespace(PageGroup* pageGroup)
 {
-  webkitTrace();
   return platformStrategies()->storageStrategy()->localStorageNamespace(pageGroup);
 }
 
 PassRefPtr<StorageNamespace> StorageNamespace::transientLocalStorageNamespace(PageGroup* pageGroup, SecurityOrigin* securityOrigin)
 {
-  webkitTrace();
   return platformStrategies()->storageStrategy()->transientLocalStorageNamespace(pageGroup, securityOrigin);
 }
 
 PassRefPtr<StorageNamespace> StorageNamespace::sessionStorageNamespace(Page* page)
 {
-  webkitTrace();
   return platformStrategies()->storageStrategy()->sessionStorageNamespace(page);
 }
 

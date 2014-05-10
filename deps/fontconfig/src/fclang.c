@@ -253,14 +253,10 @@ FcLangNormalize (const FcChar8 *lang)
     llen = strlen ((const char *) s);
     if (llen < 2 || llen > 3)
     {
-	fprintf (stderr, "Fontconfig warning: ignoring %s: not a valid language tag\n",
-		 lang);
 	goto bail0;
     }
     if (territory && (tlen < 2 || tlen > 3))
     {
-	fprintf (stderr, "Fontconfig warning: ignoring %s: not a valid region tag\n",
-		 lang);
 	goto bail0;
     }
     if (territory)

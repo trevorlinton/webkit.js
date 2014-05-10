@@ -119,7 +119,7 @@
 		  '<(DEPTH)/src/WebCoreDerived',
 		  '<(DEPTH)/src/WebCoreSupport',
 		  '<(DEPTH)/deps/harfbuzz/src',
-		  '<(DEPTH)/deps/freetype2/include',
+		  '<(DEPTH)/deps/freetype/include',
 		  '<(DEPTH)/deps/libjpeg_turbo',
 		  '<(DEPTH)/deps/curl/include',
 		  '<(DEPTH)/deps/cairo',

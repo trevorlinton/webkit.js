@@ -40,9 +40,7 @@ TextureMapperLayer* toTextureMapperLayer(GraphicsLayer* layer)
 std::unique_ptr<GraphicsLayer> GraphicsLayer::create(GraphicsLayerFactory* factory, GraphicsLayerClient* client)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!factory)
         return std::make_unique<GraphicsLayerTextureMapper>(client);
 
@@ -62,9 +60,7 @@ GraphicsLayerTextureMapper::GraphicsLayerTextureMapper(GraphicsLayerClient* clie
     , m_isScrollable(false)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 }
 
 void GraphicsLayerTextureMapper::notifyChange(ChangeMask changeMask)
@@ -98,9 +94,7 @@ void GraphicsLayerTextureMapper::willBeDestroyed()
 void GraphicsLayerTextureMapper::setNeedsDisplay()
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!drawsContent())
         return;
 
@@ -290,9 +284,7 @@ void GraphicsLayerTextureMapper::setMasksToBounds(bool value)
 void GraphicsLayerTextureMapper::setDrawsContent(bool value)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (value == drawsContent())
         return;
     GraphicsLayer::setDrawsContent(value);
@@ -459,9 +451,7 @@ void GraphicsLayerTextureMapper::flushCompositingStateForThisLayerOnly()
 void GraphicsLayerTextureMapper::prepareBackingStoreIfNeeded()
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!shouldHaveBackingStore()) {
         m_backingStore.clear();
         m_changeMask |= BackingStoreChange;
@@ -505,7 +495,7 @@ static void toTextureMapperLayerVector(const Vector<GraphicsLayer*>& layers, Vec
 void GraphicsLayerTextureMapper::commitLayerChanges()
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     if (m_changeMask == NoChanges)
         return;
@@ -604,7 +594,7 @@ void GraphicsLayerTextureMapper::commitLayerChanges()
 void GraphicsLayerTextureMapper::flushCompositingState(const FloatRect& rect)
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     if (!m_layer->textureMapper())
         return;

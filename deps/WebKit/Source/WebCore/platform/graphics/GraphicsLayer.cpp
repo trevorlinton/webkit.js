@@ -51,9 +51,7 @@ namespace WebCore {
 typedef HashMap<const GraphicsLayer*, Vector<FloatRect>> RepaintMap;
 static RepaintMap& repaintRectMap()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     DEFINE_STATIC_LOCAL(RepaintMap, map, ());
     return map;
 }
@@ -104,9 +102,7 @@ GraphicsLayer::GraphicsLayer(GraphicsLayerClient* client)
     , m_repaintCount(0)
     , m_customAppearance(NoCustomAppearance)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #ifndef NDEBUG
     if (m_client)
         m_client->verifyNotPainting();
@@ -121,9 +117,7 @@ GraphicsLayer::~GraphicsLayer()
 
 void GraphicsLayer::willBeDestroyed()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #ifndef NDEBUG
     if (m_client)
         m_client->verifyNotPainting();
@@ -140,9 +134,7 @@ void GraphicsLayer::willBeDestroyed()
 
 void GraphicsLayer::setParent(GraphicsLayer* layer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(!layer || !layer->hasAncestor(this));
     m_parent = layer;
 }
@@ -159,9 +151,7 @@ bool GraphicsLayer::hasAncestor(GraphicsLayer* ancestor) const
 
 bool GraphicsLayer::setChildren(const Vector<GraphicsLayer*>& newChildren)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // If the contents of the arrays are the same, nothing to do.
     if (newChildren == m_children)
         return false;
@@ -177,9 +167,7 @@ bool GraphicsLayer::setChildren(const Vector<GraphicsLayer*>& newChildren)
 
 void GraphicsLayer::addChild(GraphicsLayer* childLayer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(childLayer != this);
     
     if (childLayer->parent())
@@ -191,9 +179,7 @@ void GraphicsLayer::addChild(GraphicsLayer* childLayer)
 
 void GraphicsLayer::addChildAtIndex(GraphicsLayer* childLayer, int index)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(childLayer != this);
 
     if (childLayer->parent())
@@ -205,9 +191,7 @@ void GraphicsLayer::addChildAtIndex(GraphicsLayer* childLayer, int index)
 
 void GraphicsLayer::addChildBelow(GraphicsLayer* childLayer, GraphicsLayer* sibling)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(childLayer != this);
     childLayer->removeFromParent();
 
@@ -228,9 +212,7 @@ void GraphicsLayer::addChildBelow(GraphicsLayer* childLayer, GraphicsLayer* sibl
 
 void GraphicsLayer::addChildAbove(GraphicsLayer* childLayer, GraphicsLayer* sibling)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     childLayer->removeFromParent();
     ASSERT(childLayer != this);
 
@@ -251,9 +233,7 @@ void GraphicsLayer::addChildAbove(GraphicsLayer* childLayer, GraphicsLayer* sibl
 
 bool GraphicsLayer::replaceChild(GraphicsLayer* oldChild, GraphicsLayer* newChild)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(!newChild->parent());
     bool found = false;
     for (unsigned i = 0; i < m_children.size(); i++) {
@@ -275,9 +255,7 @@ bool GraphicsLayer::replaceChild(GraphicsLayer* oldChild, GraphicsLayer* newChil
 
 void GraphicsLayer::removeAllChildren()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     while (m_children.size()) {
         GraphicsLayer* curLayer = m_children[0];
         ASSERT(curLayer->parent());
@@ -287,9 +265,7 @@ void GraphicsLayer::removeAllChildren()
 
 void GraphicsLayer::removeFromParent()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_parent) {
         unsigned i;
         for (i = 0; i < m_parent->m_children.size(); i++) {
@@ -305,9 +281,7 @@ void GraphicsLayer::removeFromParent()
 
 void GraphicsLayer::noteDeviceOrPageScaleFactorChangedIncludingDescendants()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     deviceOrPageScaleFactorChanged();
 
     if (m_maskLayer)
@@ -324,9 +298,7 @@ void GraphicsLayer::noteDeviceOrPageScaleFactorChangedIncludingDescendants()
 
 void GraphicsLayer::setReplicatedByLayer(GraphicsLayer* layer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_replicaLayer == layer)
         return;
 
@@ -341,9 +313,7 @@ void GraphicsLayer::setReplicatedByLayer(GraphicsLayer* layer)
 
 void GraphicsLayer::setOffsetFromRenderer(const IntSize& offset, ShouldSetNeedsDisplay shouldSetNeedsDisplay)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (offset == m_offsetFromRenderer)
         return;
 
@@ -356,9 +326,7 @@ void GraphicsLayer::setOffsetFromRenderer(const IntSize& offset, ShouldSetNeedsD
 
 void GraphicsLayer::setSize(const FloatSize& size)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (size == m_size)
         return;
     
@@ -375,9 +343,7 @@ void GraphicsLayer::setBackgroundColor(const Color& color)
 
 void GraphicsLayer::paintGraphicsLayerContents(GraphicsContext& context, const IntRect& clip)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_client) {
         IntSize offset = offsetFromRenderer();
         context.translate(-offset);
@@ -391,9 +357,7 @@ void GraphicsLayer::paintGraphicsLayerContents(GraphicsContext& context, const I
 
 String GraphicsLayer::animationNameForTransition(AnimatedPropertyID property)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // | is not a valid identifier character in CSS, so this can never conflict with a keyframe identifier.
     StringBuilder id;
     id.appendLiteral("-|transition");
@@ -412,9 +376,7 @@ void GraphicsLayer::resumeAnimations()
 
 void GraphicsLayer::getDebugBorderInfo(Color& color, float& width) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (drawsContent()) {
         if (m_usingTiledBacking) {
             color = Color(255, 128, 0, 128); // tiled layer: orange
@@ -445,9 +407,7 @@ void GraphicsLayer::getDebugBorderInfo(Color& color, float& width) const
 
 void GraphicsLayer::updateDebugIndicators()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!isShowingDebugBorder())
         return;
 
@@ -459,17 +419,13 @@ void GraphicsLayer::updateDebugIndicators()
 
 void GraphicsLayer::setZPosition(float position)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_zPosition = position;
 }
 
 float GraphicsLayer::accumulatedOpacity() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!preserves3D())
         return 1;
         
@@ -478,9 +434,7 @@ float GraphicsLayer::accumulatedOpacity() const
 
 void GraphicsLayer::distributeOpacity(float accumulatedOpacity)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // If this is a transform layer we need to distribute our opacity to all our children
     
     // Incoming accumulatedOpacity is the contribution from our parent(s). We mutiply this by our own
@@ -499,17 +453,13 @@ void GraphicsLayer::distributeOpacity(float accumulatedOpacity)
 #if ENABLE(CSS_FILTERS)
 static inline const FilterOperations& filterOperationsAt(const KeyframeValueList& valueList, size_t index)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return static_cast<const FilterAnimationValue&>(valueList.at(index)).value();
 }
 
 int GraphicsLayer::validateFilterOperations(const KeyframeValueList& valueList)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(valueList.property() == AnimatedPropertyWebkitFilter);
 
     if (valueList.size() < 2)
@@ -548,17 +498,13 @@ int GraphicsLayer::validateFilterOperations(const KeyframeValueList& valueList)
 
 static inline const TransformOperations& operationsAt(const KeyframeValueList& valueList, size_t index)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return static_cast<const TransformAnimationValue&>(valueList.at(index)).value();
 }
 
 int GraphicsLayer::validateTransformOperations(const KeyframeValueList& valueList, bool& hasBigRotation)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(valueList.property() == AnimatedPropertyWebkitTransform);
 
     hasBigRotation = false;
@@ -625,9 +571,7 @@ int GraphicsLayer::validateTransformOperations(const KeyframeValueList& valueLis
 
 double GraphicsLayer::backingStoreMemoryEstimate() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!drawsContent())
         return 0;
     
@@ -637,17 +581,13 @@ double GraphicsLayer::backingStoreMemoryEstimate() const
 
 void GraphicsLayer::resetTrackedRepaints()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     repaintRectMap().remove(this);
 }
 
 void GraphicsLayer::addRepaintRect(const FloatRect& repaintRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_client->isTrackingRepaints()) {
         FloatRect largestRepaintRect(FloatPoint(), m_size);
         largestRepaintRect.intersect(repaintRect);
@@ -665,9 +605,7 @@ void GraphicsLayer::addRepaintRect(const FloatRect& repaintRect)
 
 void GraphicsLayer::dumpLayer(TextStream& ts, int indent, LayerTreeAsTextBehavior behavior) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     writeIndent(ts, indent);
     ts << "(" << "GraphicsLayer";
 
@@ -684,9 +622,7 @@ void GraphicsLayer::dumpLayer(TextStream& ts, int indent, LayerTreeAsTextBehavio
 
 void GraphicsLayer::dumpProperties(TextStream& ts, int indent, LayerTreeAsTextBehavior behavior) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_position != FloatPoint()) {
         writeIndent(ts, indent + 1);
         ts << "(position " << m_position.x() << " " << m_position.y() << ")\n";
@@ -870,9 +806,7 @@ void GraphicsLayer::dumpProperties(TextStream& ts, int indent, LayerTreeAsTextBe
 
 String GraphicsLayer::layerTreeAsText(LayerTreeAsTextBehavior behavior) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     TextStream ts;
 
     dumpLayer(ts, 0, behavior);
@@ -884,9 +818,7 @@ String GraphicsLayer::layerTreeAsText(LayerTreeAsTextBehavior behavior) const
 #ifndef NDEBUG
 void showGraphicsLayerTree(const WebCore::GraphicsLayer* layer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!layer)
         return;
 

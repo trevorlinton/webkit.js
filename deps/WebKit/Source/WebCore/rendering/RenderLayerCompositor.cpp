@@ -261,9 +261,7 @@ RenderLayerCompositor::RenderLayerCompositor(RenderView& renderView)
     , m_secondaryBackingStoreBytes(0)
 #endif
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 }
 
 RenderLayerCompositor::~RenderLayerCompositor()
@@ -276,19 +274,6 @@ RenderLayerCompositor::~RenderLayerCompositor()
 
 void RenderLayerCompositor::enableCompositingMode(bool enable /* = true */)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-	fprintf(stdout,"--- enableCompositingMode\n");
-	if(enable)
-		fprintf(stdout,"----trying to enable.\n");
-	else
-		fprintf(stdout,"----trying to disable.\n");
-
-	if(m_compositing)
-		fprintf(stdout,"----compositing is already enabled.");
-	else
-		fprintf(stdout,"----compositing is already disabled.");
-#endif
     if (enable != m_compositing) {
         m_compositing = enable;
         
@@ -520,9 +505,7 @@ void RenderLayerCompositor::didFlushChangesForLayer(RenderLayer& layer, const Gr
 
 void RenderLayerCompositor::didPaintBacking(RenderLayerBacking*)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     FrameView& frameView = m_renderView.frameView();
     frameView.setLastPaintTime(monotonicallyIncreasingTime());
     if (frameView.milestonesPendingPaint() && !m_paintRelatedMilestonesTimer.isActive())
@@ -562,9 +545,7 @@ void RenderLayerCompositor::notifyFlushBeforeDisplayRefresh(const GraphicsLayer*
 
 void RenderLayerCompositor::flushLayers(GraphicsLayerUpdater*)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     flushPendingLayerChanges(true); // FIXME: deal with iframes
 }
 
@@ -591,9 +572,7 @@ RenderLayerCompositor* RenderLayerCompositor::enclosingCompositorFlushingLayers(
 
 void RenderLayerCompositor::scheduleCompositingLayerUpdate()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_updateCompositingLayersTimer.isActive())
         m_updateCompositingLayersTimer.startOneShot(0);
 }
@@ -610,36 +589,22 @@ bool RenderLayerCompositor::hasAnyAdditionalCompositedLayers(const RenderLayer& 
 
 void RenderLayerCompositor::updateCompositingLayers(CompositingUpdateType updateType, RenderLayer* updateRoot)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_updateCompositingLayersTimer.stop();
     
     // Compositing layers will be updated in Document::implicitClose() if suppressed here.
 		if (!m_renderView.document().visualUpdatesAllowed()) {
-#if PLATFORM(JS)
-			fprintf(stderr,"WebKit: updateCompositingLayers: visualUpdatedAllowed return true\n");
-#endif
         return;
 		}
 
     // Avoid updating the layers with old values. Compositing layers will be updated after the layout is finished.
 		if (m_renderView.needsLayout()) {
-#if PLATFORM(JS)
-			fprintf(stderr,"WebKit: updateCompositingLayers: needsLayout return true\n");
-#endif
         return;
 		}
 		if (m_forceCompositingMode && !m_compositing) {
-#if PLATFORM(JS)
-			fprintf(stderr,"WebKit: updateCompositingLayers: enableCompositing will be ran.\n");
-#endif
         enableCompositingMode(true);
 		}
 		if (!m_reevaluateCompositingAfterLayout && !m_compositing) {
-#if PLATFORM(JS)
-			fprintf(stderr,"WebKit: updateCompositingLayers: m_compositing && m_reevaluateCompositingAfterLayout were both false.\n");
-#endif
         return;
 		}
     AnimationUpdateBlock animationUpdateBlock(&m_renderView.frameView().frame().animation());
@@ -759,9 +724,7 @@ void RenderLayerCompositor::updateRenderFlowThreadLayersIfNeeded()
 
 void RenderLayerCompositor::layerBecameNonComposited(const RenderLayer& layer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // Inform the inspector that the given RenderLayer was destroyed.
     InspectorInstrumentation::renderLayerDestroyed(page(), &layer);
 
@@ -810,9 +773,7 @@ void RenderLayerCompositor::logLayerInfo(const RenderLayer& layer, int depth)
 
 bool RenderLayerCompositor::updateBacking(RenderLayer& layer, CompositingChangeRepaint shouldRepaint)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     bool layerChanged = false;
     RenderLayer::ViewportConstrainedNotCompositedReason viewportConstrainedNotCompositedReason = RenderLayer::NoNotCompositedReason;
 
@@ -904,33 +865,22 @@ bool RenderLayerCompositor::updateBacking(RenderLayer& layer, CompositingChangeR
                 scrollingCoordinator->frameViewFixedObjectsDidChange(&m_renderView.frameView());
         }
     } else {
-#if PLATFORM(JS)
-			fprintf(stderr, "WebKit: updateBacking: NonCompositedReason set to NoNotCompositedReason\n");
-#endif
         layer.setViewportConstrainedNotCompositedReason(RenderLayer::NoNotCompositedReason);
     }
     if (layer.backing())
         layer.backing()->updateDebugIndicators(m_showDebugBorders, m_showRepaintCounter);
-#if PLATFORM(JS)
-	fprintf(stderr, "WebKit: updateBacking: returned: %i\n",layerChanged);
-#endif
     return layerChanged;
 }
 
 bool RenderLayerCompositor::updateLayerCompositingState(RenderLayer& layer, CompositingChangeRepaint shouldRepaint)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     bool layerChanged = updateBacking(layer, shouldRepaint);
 
     // See if we need content or clipping layers. Methods called here should assume
     // that the compositing state of descendant layers has not been updated yet.
     if (layer.backing() && layer.backing()->updateGraphicsLayerConfiguration())
         layerChanged = true;
-#if PLATFORM(JS)
-	fprintf(stderr,"WebKit: updateLayeredCompositingState set to: %i.\n", layerChanged);
-#endif
     return layerChanged;
 }
 
@@ -1361,9 +1311,7 @@ bool RenderLayerCompositor::canAccelerateVideoRendering(RenderVideo& video) cons
 
 void RenderLayerCompositor::rebuildCompositingLayerTree(RenderLayer& layer, Vector<GraphicsLayer*>& childLayersOfEnclosingLayer, int depth)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // Make the layer compositing if necessary, and set up clipping and content layers.
     // Note that we can only do work here that is independent of whether the descendant layers
     // have been processed. computeCompositingRequirements() will already have done the repaint if necessary.
@@ -1757,9 +1705,7 @@ void RenderLayerCompositor::updateCompositingDescendantGeometry(RenderLayer& com
 
 void RenderLayerCompositor::repaintCompositedLayers(const IntRect* absRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     recursiveRepaintLayer(rootRenderLayer(), absRect);
 }
 
@@ -1817,17 +1763,13 @@ void RenderLayerCompositor::recursiveRepaintLayer(RenderLayer& layer, const IntR
 
 RenderLayer& RenderLayerCompositor::rootRenderLayer() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return *m_renderView.layer();
 }
 
 GraphicsLayer* RenderLayerCompositor::rootGraphicsLayer() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_overflowControlsHostLayer)
         return m_overflowControlsHostLayer.get();
     return m_rootContentLayer.get();
@@ -1978,9 +1920,7 @@ bool RenderLayerCompositor::shouldPropagateCompositingToEnclosingFrame() const
 
 bool RenderLayerCompositor::needsToBeComposited(const RenderLayer& layer, RenderLayer::ViewportConstrainedNotCompositedReason* viewportConstrainedNotCompositedReason) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!canBeComposited(layer))
         return false;
 
@@ -2018,15 +1958,6 @@ bool RenderLayerCompositor::requiresCompositingLayer(const RenderLayer& layer, R
 
 bool RenderLayerCompositor::canBeComposited(const RenderLayer& layer) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-	fprintf(stdout, "----* m_hasAcceleratedCompositing: %s\n",m_hasAcceleratedCompositing ? "true" : "false");
-	fprintf(stdout, "----* layer.isSelfPaintingLayer(): %s\n",layer.isSelfPaintingLayer() ? "true" : "false");
-	fprintf(stdout, "----* layer.isInsideFlowThread(): %s\n",layer.isInsideFlowThread() ? "true" : "false");
-	fprintf(stdout, "----* layer.isRenderFlowThread(): %s\n",layer.isRenderFlowThread() ? "true" : "false");
-	fprintf(stdout, "----* layer.isInsideOutOfFlowThread(): %s\n", layer.isInsideOutOfFlowThread() ? "true" : "false");
-
-#endif
     if (m_hasAcceleratedCompositing && layer.isSelfPaintingLayer()) {
         if (!layer.isInsideFlowThread())
             return true;
@@ -2044,9 +1975,7 @@ bool RenderLayerCompositor::canBeComposited(const RenderLayer& layer) const
 
 bool RenderLayerCompositor::requiresOwnBackingStore(const RenderLayer& layer, const RenderLayer* compositingAncestorLayer, const IntRect& layerCompositedBoundsInAncestor, const IntRect& ancestorCompositedBounds) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     auto& renderer = layer.renderer();
 
     if (compositingAncestorLayer
@@ -2659,9 +2588,7 @@ static void paintScrollbar(Scrollbar* scrollbar, GraphicsContext& context, const
 
 void RenderLayerCompositor::paintContents(const GraphicsLayer* graphicsLayer, GraphicsContext& context, GraphicsLayerPaintingPhase, const IntRect& clip)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (graphicsLayer == layerForHorizontalScrollbar())
         paintScrollbar(m_renderView.frameView().horizontalScrollbar(), context, clip);
     else if (graphicsLayer == layerForVerticalScrollbar())
@@ -3243,9 +3170,6 @@ void RenderLayerCompositor::destroyRootLayer()
 
 void RenderLayerCompositor::attachRootLayer(RootLayerAttachment attachment)
 {
-#if PLATFORM(JS)
-		webkitTrace();
-#endif
     if (!m_rootContentLayer)
         return;
 
@@ -3281,9 +3205,7 @@ void RenderLayerCompositor::attachRootLayer(RootLayerAttachment attachment)
 
 void RenderLayerCompositor::detachRootLayer()
 {
-#if PLATFORM(JS)
-		webkitTrace();
-#endif
+
     if (!m_rootContentLayer || m_rootLayerAttachment == RootLayerUnattached)
         return;
 
@@ -3712,9 +3634,7 @@ bool RenderLayerCompositor::isThrottlingLayerFlushes() const
 
 void RenderLayerCompositor::startLayerFlushTimerIfNeeded()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_layerFlushThrottlingTemporarilyDisabledForInteraction = false;
     m_layerFlushTimer.stop();
     if (!m_layerFlushThrottlingEnabled)
@@ -3735,9 +3655,7 @@ void RenderLayerCompositor::startInitialLayerFlushTimerIfNeeded()
 
 void RenderLayerCompositor::layerFlushTimerFired(Timer<RenderLayerCompositor>*)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_hasPendingLayerFlush)
         return;
     scheduleLayerFlushNow();

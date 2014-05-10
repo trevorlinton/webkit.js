@@ -37,7 +37,7 @@ namespace WebCore {
 
 PassRefPtr<SharedBuffer> SharedBuffer::createWithContentsOfFile(const String& filePath)
 {
-    webkitTrace();
+
     if (filePath.isEmpty())
         return 0;
 

@@ -57,7 +57,7 @@ BitmapImage::BitmapImage(PassRefPtr<cairo_surface_t> nativeImage, ImageObserver*
     , m_haveFrameCount(true)
 {
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     m_frames.grow(1);
     m_frames[0].m_hasAlpha = cairo_surface_get_content(nativeImage.get()) != CAIRO_CONTENT_COLOR;
@@ -71,7 +71,7 @@ void BitmapImage::draw(GraphicsContext* context, const FloatRect& dst, const Flo
     BlendMode blendMode, ImageOrientationDescription description)
 {
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     if (!dst.width() || !dst.height() || !src.width() || !src.height())
         return;

@@ -399,6 +399,7 @@ public:
     bool hasBackground() const
     {
         Color color = visitedDependentColor(CSSPropertyBackgroundColor);
+
         if (color.isValid() && color.alpha())
             return true;
         return hasBackgroundImage();

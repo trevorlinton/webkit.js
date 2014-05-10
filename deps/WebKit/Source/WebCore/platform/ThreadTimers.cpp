@@ -53,9 +53,6 @@ static const double maxDurationOfFiringTimers = 0.050;
 
 static MainThreadSharedTimer* mainThreadSharedTimer()
 {
-#if PLATFORM(JS)
-		webkitTrace();
-#endif
     static MainThreadSharedTimer* timer = new MainThreadSharedTimer;
     return timer;
 }
@@ -65,9 +62,6 @@ ThreadTimers::ThreadTimers()
     , m_firingTimers(false)
     , m_pendingSharedTimerFireTime(0)
 {
-#if PLATFORM(JS)
-		webkitTrace();
-#endif
     if (isUIThread())
         setSharedTimer(mainThreadSharedTimer());
 }
@@ -76,9 +70,6 @@ ThreadTimers::ThreadTimers()
 // Also, SharedTimer can be replaced with 0 before all timers are destroyed.
 void ThreadTimers::setSharedTimer(SharedTimer* sharedTimer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     if (m_sharedTimer) {
         m_sharedTimer->setFiredFunction(0);
         m_sharedTimer->stop();
@@ -95,9 +86,6 @@ void ThreadTimers::setSharedTimer(SharedTimer* sharedTimer)
 
 void ThreadTimers::updateSharedTimer()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     if (!m_sharedTimer)
         return;
         
@@ -119,18 +107,12 @@ void ThreadTimers::updateSharedTimer()
 
 void ThreadTimers::sharedTimerFired()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     // Redirect to non-static method.
     threadGlobalData().threadTimers().sharedTimerFiredInternal();
 }
 
 void ThreadTimers::sharedTimerFiredInternal()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     ASSERT(isMainThread() || !isWebThread() && !isUIThread());
     // Do a re-entrancy check.
     if (m_firingTimers)
@@ -165,9 +147,6 @@ void ThreadTimers::sharedTimerFiredInternal()
 
 void ThreadTimers::fireTimersInNestedEventLoop()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     // Reset the reentrancy guard so the timers can fire again.
     m_firingTimers = false;
     updateSharedTimer();

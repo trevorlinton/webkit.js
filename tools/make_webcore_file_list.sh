@@ -25,8 +25,8 @@ echo "    'variables': {"
 ./gyplist.sh webcore_angle_files .. '/deps/WebKit/Source/ThirdParty/ANGLE/'
 ./gyplist.sh webcore_derived_files .. '/src/WebCoreDerived/'
 
-# ./gyplist.sh ffmpeg .. '/deps/ffmpeg/'
-./gyplist.sh freetype2 .. '/deps/freetype2'
+# ./gyplist.sh ffmpeg .. '/deps/ffmpeg'
+./gyplist.sh freetype2 .. '/deps/freetype'
 ./gyplist.sh libjpeg_turbo .. '/deps/libjpeg_turbo'
 ./gyplist.sh libxml2 .. '/deps/libxml2'
 ./gyplist.sh libxslt .. '/deps/libxslt'

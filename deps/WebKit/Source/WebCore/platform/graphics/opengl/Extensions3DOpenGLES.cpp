@@ -60,9 +60,7 @@ Extensions3DOpenGLES::Extensions3DOpenGLES(GraphicsContext3D* context)
     , m_glGetnUniformfvEXT(0)
     , m_glGetnUniformivEXT(0)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
 }
 
@@ -276,9 +274,7 @@ bool Extensions3DOpenGLES::supportsExtension(const String& name)
 
 String Extensions3DOpenGLES::getExtensions()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return String(reinterpret_cast<const char*>(::glGetString(GL_EXTENSIONS)));
 }
 

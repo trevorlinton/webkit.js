@@ -95,6 +95,7 @@
 
 #if PLATFORM(JS)
 #include "PageBindings.h"
+#include "DebuggerJS.h"
 #endif
 
 namespace WebCore {
@@ -219,6 +220,7 @@ Page::Page(PageClients& pageClients)
 
 Page::~Page()
 {
+
     m_mainFrame->setView(0);
     setGroupName(String());
     allPages->remove(this);

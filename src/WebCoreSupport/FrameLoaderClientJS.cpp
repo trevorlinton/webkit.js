@@ -32,7 +32,7 @@ namespace WebCore {
 
 
   bool FrameLoaderClientJS::hasHTMLView() const {
-    webkitTrace();
+
     return true;
   }
   void FrameLoaderClientJS::frameLoaderDestroyed() {
@@ -40,7 +40,7 @@ namespace WebCore {
   }
 
   bool FrameLoaderClientJS::hasWebView() const  {
-    webkitTrace();
+
 		return m_frame;
   }
 
@@ -48,7 +48,7 @@ namespace WebCore {
     notImplemented();
   }
   void FrameLoaderClientJS::forceLayout() {
-    webkitTrace();
+
 		FrameView* view = m_frame->coreFrame()->view();
 		view->setNeedsLayout();
     if (view)
@@ -117,11 +117,7 @@ namespace WebCore {
   void FrameLoaderClientJS::dispatchWillPerformClientRedirect(const URL&, double interval, double fireDate) {
     notImplemented();
   }
-/*  void FrameLoaderClientJS::dispatchDidNavigateWithinPage() {
-    EM_ASM(
-           console.log("WebKit: FrameLoaderClientJS::new();");
-           );
-  }*/
+
   void FrameLoaderClientJS::dispatchDidChangeLocationWithinPage() {
     notImplemented();
   }
@@ -166,7 +162,7 @@ namespace WebCore {
   }
 
   Frame* FrameLoaderClientJS::dispatchCreatePage(const NavigationAction&) {
-		webkitTrace();
+	
 		return m_frame->coreFrame();
   }
   void FrameLoaderClientJS::dispatchShow() {
@@ -231,7 +227,7 @@ namespace WebCore {
   }
 
   void FrameLoaderClientJS::committedLoad(DocumentLoader* loader, const char* data, int length) {
-    webkitTrace();
+
 		ASSERT(loader->frame());
 		loader->commitData(data, length);
 
@@ -317,7 +313,7 @@ namespace WebCore {
     return true;
   }
   bool FrameLoaderClientJS::canShowMIMEType(const String& MIMEType) const {
-		webkitTrace();
+	
     return MIMETypeRegistry::canShowMIMEType(MIMEType);
   }
   bool FrameLoaderClientJS::canShowMIMETypeAsHTML(const String& MIMEType) const {
@@ -353,7 +349,7 @@ namespace WebCore {
   }
 
   PassRefPtr<DocumentLoader> FrameLoaderClientJS::createDocumentLoader(const ResourceRequest& request, const SubstituteData& subtituteData) {
-    webkitTrace();
+
     RefPtr<WebCore::DocumentLoader> loader = WebCore::DocumentLoaderJS::create(request, subtituteData);
 		//GRefPtr<WebKitWebDataSource> webDataSource(adoptGRef(kitNew(loader.get())));
     //loader->setDataSource(webDataSource.get());
@@ -364,7 +360,7 @@ namespace WebCore {
   }
 
   String FrameLoaderClientJS::userAgent(const URL&) {
-    webkitTrace();
+
     return "webkit.js";
   }
 
@@ -375,6 +371,8 @@ namespace WebCore {
     notImplemented();
   }
   void FrameLoaderClientJS::transitionToCommittedForNewPage() {
+	
+
 		WebKit::WebView* webView = m_frame->webView();
 		FloatRect rect = webView->p()->size;
 		bool transparent = webView->transparent();

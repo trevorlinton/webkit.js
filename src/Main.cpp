@@ -9,7 +9,7 @@ namespace WebKit {
 // Private
 void tick() {
 	if(!WebKit::mainView) return;
-	// Note: do not add a webkitTrace here, this funciton executes quite
+	// Note: do not add a  here, this funciton executes quite
 	// a few times that it will cause the browser to slow down to a crawl
 	// to finish writing console messages.
 	SDL_Event event;
@@ -44,9 +44,9 @@ extern "C" {
 		//emscripten_set_main_loop(&tick, 0, false);
 	}
 	int main(int argc, char** argv) {
-		char tmp[] = "<html><body>Hello World!<div style=\"background-color:rgba(255,0,0,1);position:absolute;left:0px;top:0px;width:20px;height:20px;\"></div></body></html>";
-		fprintf(stderr, "WebKit Loaded. Waiting on call to createWebKit.");
+		char tmp[] = "<!doctype html><html><body>Hello World!<div style=\"background-color:rgba(255,255,255,0.5);width:50px;height:50px;\"></div></body></html>";
 		createWebKit(500,500);
+		scalefactor(2.0);
 		setHtml(tmp);
 		emscripten_set_main_loop(&tick, 0, false);
 	}

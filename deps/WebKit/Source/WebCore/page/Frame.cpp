@@ -124,7 +124,9 @@
 #if PLATFORM(IOS)
 #include "WKContentObservation.h"
 #endif
-
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 namespace WebCore {
 
 using namespace HTMLNames;
@@ -184,6 +186,8 @@ Frame::Frame(Page& page, HTMLFrameOwnerElement* ownerElement, FrameLoaderClient&
     , m_inViewSourceMode(false)
     , m_activeDOMObjectsAndAnimationsSuspendedCount(0)
 {
+
+
     AtomicString::init();
     HTMLNames::init();
     QualifiedName::init();
@@ -232,6 +236,7 @@ PassRefPtr<Frame> Frame::create(Page* page, HTMLFrameOwnerElement* ownerElement,
 
 Frame::~Frame()
 {
+
     setView(0);
     loader().cancelAndClear();
 
@@ -891,6 +896,7 @@ void Frame::createView(const IntSize& viewportSize, const Color& backgroundColor
     bool useFixedLayout, ScrollbarMode horizontalScrollbarMode, bool horizontalLock,
     ScrollbarMode verticalScrollbarMode, bool verticalLock)
 {
+
     ASSERT(this);
     ASSERT(m_page);
 

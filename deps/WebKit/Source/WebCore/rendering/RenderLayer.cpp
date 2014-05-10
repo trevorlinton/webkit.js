@@ -212,9 +212,7 @@ RenderLayer::RenderLayer(RenderLayerModelObject& rendererLayerModelObject)
     , m_staticBlockPosition(0)
     , m_enclosingPaginationLayer(0)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_isNormalFlowOnly = shouldBeNormalFlowOnly();
     m_isSelfPaintingLayer = shouldBeSelfPaintingLayer();
 

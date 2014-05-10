@@ -39,8 +39,11 @@
 
 const char* kIntClampBegin = "// BEGIN: Generated code for array bounds clamping\n\n";
 const char* kIntClampEnd = "// END: Generated code for array bounds clamping\n\n";
+#if PLATFORM(JS)
+const char* kIntClampDefinition = "int js_webgl_int_clamp(int value, int minValue, int maxValue) { return ((value < minValue) ? minValue : ((value > maxValue) ? maxValue : value)); }\n\n";
+#else
 const char* kIntClampDefinition = "int webgl_int_clamp(int value, int minValue, int maxValue) { return ((value < minValue) ? minValue : ((value > maxValue) ? maxValue : value)); }\n\n";
-
+#endif
 namespace {
 
 class ArrayBoundsClamperMarker : public TIntermTraverser {

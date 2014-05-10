@@ -1216,7 +1216,7 @@ cairo_status_t
 _cairo_gstate_fill (cairo_gstate_t *gstate, cairo_path_fixed_t *path)
 {
     cairo_status_t status;
-
+	fprintf(stdout, "At _cairo_gstate_fill\n");
     status = _cairo_gstate_get_pattern_status (gstate->source);
     if (unlikely (status))
 	return status;

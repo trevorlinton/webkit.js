@@ -11,9 +11,11 @@
 
 #include "compiler/intermediate.h"
 #include "GLSLANG/ShaderLang.h"
-
+#if PLATFORM(JS)
+#define HASHED_NAME_PREFIX "js_webgl_"
+#else
 #define HASHED_NAME_PREFIX "webgl_"
-
+#endif
 typedef std::map<TPersistString, TPersistString> NameMap;
 
 #endif  // COMPILER_HASH_NAMES_H_

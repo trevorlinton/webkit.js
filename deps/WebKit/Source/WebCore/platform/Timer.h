@@ -119,7 +119,7 @@ public:
     Timer(TimerFiredClass* o, TimerFiredFunction f)
         : m_object(o), m_function(f) {
 #if PLATFORM(JS)
-					webkitTrace();
+				
 #endif
 			}
 

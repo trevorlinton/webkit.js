@@ -67,9 +67,7 @@ Extensions3DOpenGLCommon::Extensions3DOpenGLCommon(GraphicsContext3D* context)
     , m_maySupportMultisampling(true)
     , m_requiresBuiltInFunctionEmulation(false)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_vendor = String(reinterpret_cast<const char*>(::glGetString(GL_VENDOR)));
 
     Vector<String> vendorComponents;

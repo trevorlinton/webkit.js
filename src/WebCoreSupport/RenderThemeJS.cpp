@@ -51,13 +51,13 @@ namespace WebCore {
 
   PassRefPtr<RenderTheme> RenderThemeJS::create()
   {
-    webkitTrace();
+
     return adoptRef(new RenderThemeJS);
   }
 
   PassRefPtr<RenderTheme> RenderTheme::themeForPage(Page* page)
   {
-    webkitTrace();
+
     return RenderThemeJS::create().leakRef();
   }
 
@@ -68,13 +68,13 @@ namespace WebCore {
 #if ENABLE(METER_ELEMENT)
   void RenderThemeJS::adjustMeterStyle(StyleResolver*, RenderStyle* style, Element*) const
   {
-    webkitTrace();
+
     style->setBoxShadow(nullptr);
   }
 
   bool RenderThemeJS::supportsMeter(ControlPart part) const
   {
-    webkitTrace();
+
     switch (part) {
       case MeterPart:
         return true;
@@ -85,13 +85,13 @@ namespace WebCore {
 
   IntSize RenderThemeJS::meterSizeForBounds(const RenderMeter*, const IntRect& bounds) const
   {
-    webkitTrace();
+
     return bounds.size();
   }
 
   bool RenderThemeJS::paintMeter(RenderObject* renderObject, const PaintInfo& paintInfo, const IntRect& rect)
   {
-    webkitTrace();
+
     // NOTE: This routine is for testing only. It should be fleshed out with a real CG-based implementation.
     // Right now it uses a slider, with the thumb positioned at the meter point.
     if (!renderObject->isMeter())
@@ -122,43 +122,43 @@ namespace WebCore {
 
   RenderThemeJS::RenderThemeJS()
   {
-    webkitTrace();
+
   }
 
   RenderThemeJS::~RenderThemeJS()
   {
-    webkitTrace();
+
   }
 
   Color RenderThemeJS::platformActiveSelectionBackgroundColor() const
   {
-    webkitTrace();
+
     return Color(181, 213, 255);
   }
 
   Color RenderThemeJS::platformInactiveSelectionBackgroundColor() const
   {
-    webkitTrace();
+
     return Color(212, 212, 212);
   }
 
   Color RenderThemeJS::activeListBoxSelectionBackgroundColor() const
   {
     // FIXME: This should probably just be a darker version of the platformActiveSelectionBackgroundColor
-    webkitTrace();
+
     return Color(56, 117, 215);
   }
 
   Color RenderThemeJS::platformFocusRingColor() const
   {
-    webkitTrace();
+
     return aquaFocusRingColor;
   }
 
 
   void RenderThemeJS::systemFont(CSSValueID valueID, FontDescription& fontDescription) const
   {
-    webkitTrace();
+
     static FontDescription systemFont;
     static FontDescription smallSystemFont;
     static FontDescription menuFont;
@@ -221,48 +221,48 @@ namespace WebCore {
   bool RenderThemeJS::isControlStyled(const RenderStyle* style, const BorderData& border,
 																			const FillLayer& background, const Color& backgroundColor) const
   {
-    webkitTrace();
+
     return true;
   }
 
   void RenderThemeJS::adjustRepaintRect(const RenderObject* o, IntRect& r)
   {
-    webkitTrace();
+
   }
 
   IntRect RenderThemeJS::inflateRect(const IntRect& r, const IntSize& size, const int* margins) const
   {
-    webkitTrace();
+
     return r;
   }
 
   int RenderThemeJS::baselinePosition(const RenderObject* o) const
   {
-    webkitTrace();
+
     return 0;
   }
 
   bool RenderThemeJS::controlSupportsTints(const RenderObject* o) const
   {
-    webkitTrace();
+
     return true;
   }
 
   IntSize RenderThemeJS::sizeForFont(RenderStyle* style, const IntSize* sizes) const
   {
-    webkitTrace();
+
     return sizes[0];
   }
 
   IntSize RenderThemeJS::sizeForSystemFont(RenderStyle* style, const IntSize* sizes) const
   {
-    webkitTrace();
+
     return sizes[0];
   }
 
   void RenderThemeJS::setSizeFromFont(RenderStyle* style, const IntSize* sizes) const
   {
-    webkitTrace();
+
     // FIXME: Check is flawed, since it doesn't take min-width/max-width into account.
     IntSize size = sizeForFont(style, sizes);
     if (style->width().isIntrinsicOrAuto() && size.width() > 0)
@@ -273,13 +273,13 @@ namespace WebCore {
 
   bool RenderThemeJS::paintCheckbox(RenderObject* o, const PaintInfo& paintInfo, const IntRect& r)
   {
-    webkitTrace();
+
     return false;
   }
 
   const IntSize* RenderThemeJS::checkboxSizes() const
   {
-    webkitTrace();
+
     static const IntSize sizes[3] = { IntSize(14, 14), IntSize(12, 12), IntSize(10, 10) };
     return sizes;
   }
@@ -288,7 +288,7 @@ namespace WebCore {
 
   void RenderThemeJS::setCheckboxSize(RenderStyle* style) const
   {
-    webkitTrace();
+
     // If the width and height are both specified, then we have nothing to do.
     if (!style->width().isIntrinsicOrAuto() && !style->height().isAuto())
       return;
@@ -299,13 +299,13 @@ namespace WebCore {
 
   bool RenderThemeJS::paintRadio(RenderObject* o, const PaintInfo& paintInfo, const IntRect& r)
   {
-    webkitTrace();
+
     return false;
   }
 
   const IntSize* RenderThemeJS::radioSizes() const
   {
-    webkitTrace();
+
     static const IntSize sizes[3] = { IntSize(14, 15), IntSize(12, 13), IntSize(10, 10) };
     return sizes;
   }
@@ -313,7 +313,7 @@ namespace WebCore {
 
   void RenderThemeJS::setRadioSize(RenderStyle* style) const
   {
-    webkitTrace();
+
     // If the width and height are both specified, then we have nothing to do.
     if (!style->width().isIntrinsicOrAuto() && !style->height().isAuto())
       return;
@@ -324,12 +324,12 @@ namespace WebCore {
 
   void RenderThemeJS::adjustButtonStyle(StyleResolver* styleResolver, RenderStyle* style, Element* e) const
   {
-    webkitTrace();
+
   }
 
   const IntSize* RenderThemeJS::buttonSizes() const
   {
-    webkitTrace();
+
     static const IntSize sizes[3] = { IntSize(0, 21), IntSize(0, 18), IntSize(0, 15) };
     return sizes;
   }
@@ -337,7 +337,7 @@ namespace WebCore {
 
   void RenderThemeJS::setButtonSize(RenderStyle* style) const
   {
-    webkitTrace();
+
     // If the width and height are both specified, then we have nothing to do.
     if (!style->width().isIntrinsicOrAuto() && !style->height().isAuto())
       return;
@@ -348,43 +348,43 @@ namespace WebCore {
 
   bool RenderThemeJS::paintButton(RenderObject* o, const PaintInfo& paintInfo, const IntRect& r)
   {
-    webkitTrace();
+
     return false;
   }
 
   bool RenderThemeJS::paintTextField(RenderObject* o, const PaintInfo& paintInfo, const IntRect& r)
   {
-    webkitTrace();
+
     return false;
   }
 
   void RenderThemeJS::adjustTextFieldStyle(StyleResolver*, RenderStyle*, Element*) const
   {
-    webkitTrace();
+
   }
 
   bool RenderThemeJS::paintCapsLockIndicator(RenderObject* o, const PaintInfo& paintInfo, const IntRect& r)
   {
-    webkitTrace();
+
     return true;
   }
 
   bool RenderThemeJS::paintTextArea(RenderObject* o, const PaintInfo& paintInfo, const IntRect& r)
   {
-    webkitTrace();
+
     return false;
   }
 
   void RenderThemeJS::adjustTextAreaStyle(StyleResolver*, RenderStyle*, Element*) const
   {
-    webkitTrace();
+
   }
 
 
 
   const IntSize* RenderThemeJS::popupButtonSizes() const
   {
-    webkitTrace();
+
     static const IntSize sizes[3] = { IntSize(0, 21), IntSize(0, 18), IntSize(0, 15) };
     return sizes;
   }
@@ -392,7 +392,7 @@ namespace WebCore {
 
   bool RenderThemeJS::paintMenuList(RenderObject* o, const PaintInfo& info, const IntRect& r)
   {
-    webkitTrace();
+
     return false;
   }
 
@@ -410,23 +410,23 @@ namespace WebCore {
 
   void RenderThemeJS::paintMenuListButtonGradients(RenderObject* o, const PaintInfo& paintInfo, const IntRect& r)
   {
-    webkitTrace();
+
   }
 
   bool RenderThemeJS::paintMenuListButtonDecorations(RenderObject* renderer, const PaintInfo& paintInfo, const IntRect& rect)
   {
-    webkitTrace();
+
     return false;
   }
 
   void RenderThemeJS::adjustMenuListStyle(StyleResolver* styleResolver, RenderStyle* style, Element* e) const
   {
-    webkitTrace();
+
   }
 
   int RenderThemeJS::popupInternalPaddingLeft(RenderStyle* style) const
   {
-    webkitTrace();
+
     /*if (style->appearance() == MenulistPart)
 		 return popupButtonPadding(controlSizeForFont(style))[leftPadding];
 		 if (style->appearance() == MenulistButtonPart)
@@ -436,7 +436,7 @@ namespace WebCore {
 
   int RenderThemeJS::popupInternalPaddingRight(RenderStyle* style) const
   {
-    webkitTrace();
+
     /*if (style->appearance() == MenulistPart)
 		 return popupButtonPadding(controlSizeForFont(style))[rightPadding];
 		 if (style->appearance() == MenulistButtonPart) {
@@ -449,7 +449,7 @@ namespace WebCore {
 
   int RenderThemeJS::popupInternalPaddingTop(RenderStyle* style) const
   {
-    webkitTrace();
+
     /*if (style->appearance() == MenulistPart)
 		 return popupButtonPadding(controlSizeForFont(style))[topPadding];
 		 if (style->appearance() == MenulistButtonPart)
@@ -459,7 +459,7 @@ namespace WebCore {
 
   int RenderThemeJS::popupInternalPaddingBottom(RenderStyle* style) const
   {
-    webkitTrace();
+
     /*if (style->appearance() == MenulistPart)
 		 return popupButtonPadding(controlSizeForFont(style))[bottomPadding];
 		 if (style->appearance() == MenulistButtonPart)
@@ -469,7 +469,7 @@ namespace WebCore {
 
   void RenderThemeJS::adjustMenuListButtonStyle(StyleResolver*, RenderStyle* style, Element*) const
   {
-    webkitTrace();
+
     float fontScale = style->fontSize() / baseFontSize;
 
     style->resetPadding();
@@ -483,14 +483,14 @@ namespace WebCore {
 
   const IntSize* RenderThemeJS::menuListSizes() const
   {
-    webkitTrace();
+
     static const IntSize sizes[3] = { IntSize(9, 0), IntSize(5, 0), IntSize(0, 0) };
     return sizes;
   }
 
   int RenderThemeJS::minimumMenuListSize(RenderStyle* style) const
   {
-    webkitTrace();
+
     return sizeForSystemFont(style, menuListSizes()).width();
   }
 
@@ -499,13 +499,13 @@ namespace WebCore {
 
   bool RenderThemeJS::paintSliderTrack(RenderObject* o, const PaintInfo& paintInfo, const IntRect& r)
   {
-    webkitTrace();
+
     return false;
   }
 
   void RenderThemeJS::adjustSliderThumbStyle(StyleResolver* styleResolver, RenderStyle* style, Element* e) const
   {
-    webkitTrace();
+
     RenderTheme::adjustSliderThumbStyle(styleResolver, style, e);
     style->setBoxShadow(nullptr);
   }
@@ -514,7 +514,7 @@ namespace WebCore {
 
   bool RenderThemeJS::paintSliderThumb(RenderObject* o, const PaintInfo& paintInfo, const IntRect& r)
   {
-    webkitTrace();
+
     return false;
   }
 
@@ -523,7 +523,7 @@ namespace WebCore {
 
   void RenderThemeJS::adjustSliderThumbSize(RenderStyle* style, Element*) const
   {
-    webkitTrace();
+
     if (style->appearance() == SliderThumbHorizontalPart || style->appearance() == SliderThumbVerticalPart) {
       style->setWidth(Length(sliderThumbWidth, Fixed));
       style->setHeight(Length(sliderThumbHeight, Fixed));
@@ -536,20 +536,20 @@ namespace WebCore {
 
   bool RenderThemeJS::paintSearchField(RenderObject* o, const PaintInfo& paintInfo, const IntRect& r)
   {
-		webkitTrace();
+	
 		return false;
   }
 
   const IntSize* RenderThemeJS::searchFieldSizes() const
   {
-    webkitTrace();
+
     static const IntSize sizes[3] = { IntSize(0, 22), IntSize(0, 19), IntSize(0, 15) };
     return sizes;
   }
 
   void RenderThemeJS::setSearchFieldSize(RenderStyle* style) const
   {
-    webkitTrace();
+
     // If the width and height are both specified, then we have nothing to do.
     if (!style->width().isIntrinsicOrAuto() && !style->height().isAuto())
       return;
@@ -560,7 +560,7 @@ namespace WebCore {
 
   void RenderThemeJS::adjustSearchFieldStyle(StyleResolver* styleResolver, RenderStyle* style, Element* e) const
   {
-    webkitTrace();
+
     // Override border.
     style->resetBorder();
     const short borderWidth = 2;
@@ -587,20 +587,20 @@ namespace WebCore {
 
   bool RenderThemeJS::paintSearchFieldCancelButton(RenderObject* o, const PaintInfo& paintInfo, const IntRect&)
   {
-    webkitTrace();
+
     return false;
   }
 
   const IntSize* RenderThemeJS::cancelButtonSizes() const
   {
-    webkitTrace();
+
     static const IntSize sizes[3] = { IntSize(16, 13), IntSize(13, 11), IntSize(13, 9) };
     return sizes;
   }
 
   void RenderThemeJS::adjustSearchFieldCancelButtonStyle(StyleResolver*, RenderStyle* style, Element*) const
   {
-    webkitTrace();
+
     IntSize size = sizeForSystemFont(style, cancelButtonSizes());
     style->setWidth(Length(size.width(), Fixed));
     style->setHeight(Length(size.height(), Fixed));
@@ -608,7 +608,7 @@ namespace WebCore {
 
   const IntSize* RenderThemeJS::resultsButtonSizes() const
   {
-    webkitTrace();
+
     static const IntSize sizes[3] = { IntSize(19, 13), IntSize(17, 11), IntSize(17, 9) };
     return sizes;
   }
@@ -616,7 +616,7 @@ namespace WebCore {
   const int emptyResultsOffset = 9;
   void RenderThemeJS::adjustSearchFieldDecorationPartStyle(StyleResolver*, RenderStyle* style, Element*) const
   {
-    webkitTrace();
+
     IntSize size = sizeForSystemFont(style, resultsButtonSizes());
     style->setWidth(Length(size.width() - emptyResultsOffset, Fixed));
     style->setHeight(Length(size.height(), Fixed));
@@ -624,13 +624,13 @@ namespace WebCore {
 
   bool RenderThemeJS::paintSearchFieldDecorationPart(RenderObject*, const PaintInfo&, const IntRect&)
   {
-    webkitTrace();
+
     return false;
   }
 
   void RenderThemeJS::adjustSearchFieldResultsDecorationPartStyle(StyleResolver*, RenderStyle* style, Element*) const
   {
-    webkitTrace();
+
     IntSize size = sizeForSystemFont(style, resultsButtonSizes());
     style->setWidth(Length(size.width(), Fixed));
     style->setHeight(Length(size.height(), Fixed));
@@ -638,14 +638,14 @@ namespace WebCore {
 
   bool RenderThemeJS::paintSearchFieldResultsDecorationPart(RenderObject* o, const PaintInfo& paintInfo, const IntRect&)
   {
-    webkitTrace();
+
     return false;
   }
 
   const int resultsArrowWidth = 5;
   void RenderThemeJS::adjustSearchFieldResultsButtonStyle(StyleResolver*, RenderStyle* style, Element*) const
   {
-    webkitTrace();
+
     IntSize size = sizeForSystemFont(style, resultsButtonSizes());
     style->setWidth(Length(size.width() + resultsArrowWidth, Fixed));
     style->setHeight(Length(size.height(), Fixed));
@@ -653,7 +653,7 @@ namespace WebCore {
 
   bool RenderThemeJS::paintSearchFieldResultsButton(RenderObject* o, const PaintInfo& paintInfo, const IntRect&)
   {
-    webkitTrace();
+
     return false;
   }
   

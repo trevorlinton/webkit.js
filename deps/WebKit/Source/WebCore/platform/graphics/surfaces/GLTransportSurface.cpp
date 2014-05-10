@@ -95,6 +95,7 @@ void GLTransportSurface::setGeometry(const IntRect& newRect)
 
 void GLTransportSurface::destroy()
 {
+		fprintf(stdout, "GLTransportSurface::destroy();\n");
     m_rect = IntRect();
 
     if (!m_shaderProgram || !m_context3D)
@@ -167,7 +168,9 @@ void GLTransportSurface::updateTransformationMatrix()
 
 void GLTransportSurface::initializeShaderProgram()
 {
-    if (!m_context3D)
+		fprintf(stdout, "GLTransportSurface::initializeShaderProgram();\n");
+
+		if (!m_context3D)
         m_context3D = GraphicsContext3D::createForCurrentGLContext();
 
     vertexArrayObjectSupported = m_context3D->getExtensions()->supports("GL_OES_vertex_array_object");

@@ -216,7 +216,7 @@ CanvasRenderingContext* HTMLCanvasElement::getContext(const String& type, Canvas
         }
         return m_context.get();
     }
-#if ENABLE(WEBGL)
+#if ENABLE(WEBGL) //&& !PLATFORM(JS) // WebGL is supported, however we'll collide with built in shaders doing this.
     if (shouldEnableWebGL(document().settings())) {
 
         if (is3dType(type)) {

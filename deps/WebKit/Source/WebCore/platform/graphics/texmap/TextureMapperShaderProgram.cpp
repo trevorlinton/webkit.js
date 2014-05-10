@@ -46,18 +46,20 @@ TextureMapperShaderProgram::TextureMapperShaderProgram(PassRefPtr<GraphicsContex
     : m_context(context)
 {
     m_vertexShader = m_context->createShader(GraphicsContext3D::VERTEX_SHADER);
-    m_fragmentShader = m_context->createShader(GraphicsContext3D::FRAGMENT_SHADER);
     m_context->shaderSource(m_vertexShader, vertex);
-    m_context->shaderSource(m_fragmentShader, fragment);
-    m_id = m_context->createProgram();
-    m_context->compileShader(m_vertexShader);
-    m_context->compileShader(m_fragmentShader);
+		m_context->compileShader(m_vertexShader);
+
+		m_fragmentShader = m_context->createShader(GraphicsContext3D::FRAGMENT_SHADER);
+		m_context->shaderSource(m_fragmentShader, fragment);
+		m_context->compileShader(m_fragmentShader);
+
+		m_id = m_context->createProgram();
     m_context->attachShader(m_id, m_vertexShader);
     m_context->attachShader(m_id, m_fragmentShader);
     m_context->linkProgram(m_id);
 
     if (!compositingLogEnabled())
-        return;
+       return;
 
     if (m_context->getError() == GraphicsContext3D::NO_ERROR)
         return;
@@ -66,7 +68,7 @@ TextureMapperShaderProgram::TextureMapperShaderProgram(PassRefPtr<GraphicsContex
     LOG(Compositing, "Vertex shader log: %s\n", log.utf8().data());
     log = m_context->getShaderInfoLog(m_fragmentShader);
     LOG(Compositing, "Fragment shader log: %s\n", log.utf8().data());
-    log = m_context->getProgramInfoLog(m_id);
+		log = m_context->getProgramInfoLog(m_id);
     LOG(Compositing, "Program log: %s\n", log.utf8().data());
 }
 
@@ -121,6 +123,7 @@ TextureMapperShaderProgram::~TextureMapperShaderProgram()
 #define GLSL_DIRECTIVE(...) "#"#__VA_ARGS__"\n"
 static const char* vertexTemplate =
     STRINGIFY(
+				precision mediump float;
         attribute vec4 a_vertex;
         uniform mat4 u_modelViewMatrix;
         uniform mat4 u_projectionMatrix;

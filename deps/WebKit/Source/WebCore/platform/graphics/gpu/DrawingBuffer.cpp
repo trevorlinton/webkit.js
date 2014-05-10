@@ -65,9 +65,7 @@ DrawingBuffer::DrawingBuffer(GraphicsContext3D* context, const IntSize& size, bo
     , m_multisampleColorBuffer(0)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(m_fbo);
     if (!m_fbo) {
         clear();
@@ -105,9 +103,7 @@ static const float s_resourceAdjustedRatio = 0.5;
 PassRefPtr<DrawingBuffer> DrawingBuffer::create(GraphicsContext3D* context, const IntSize& size, PreserveDrawingBuffer preserve, AlphaRequirement alpha)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     Extensions3D* extensions = context->getExtensions();
     bool multisampleSupported = extensions->maySupportMultisampling()
         && extensions->supports("GL_ANGLE_framebuffer_blit")
@@ -128,9 +124,7 @@ PassRefPtr<DrawingBuffer> DrawingBuffer::create(GraphicsContext3D* context, cons
 void DrawingBuffer::clear()
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_context)
         return;
 
@@ -185,9 +179,7 @@ void DrawingBuffer::clear()
 void DrawingBuffer::createSecondaryBuffers()
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // create a multisample FBO
     if (multisample()) {
         m_multisampleFBO = m_context->createFramebuffer();
@@ -199,9 +191,7 @@ void DrawingBuffer::createSecondaryBuffers()
 void DrawingBuffer::resizeDepthStencil(int sampleCount)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     const GraphicsContext3D::Attributes& attributes = m_context->getContextAttributes();
     if (attributes.depth && attributes.stencil && m_packedDepthStencilExtensionSupported) {
         if (!m_depthStencilBuffer)
@@ -241,9 +231,7 @@ void DrawingBuffer::resizeDepthStencil(int sampleCount)
 void DrawingBuffer::clearFramebuffers(GC3Dbitfield clearMask)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_context->bindFramebuffer(GraphicsContext3D::FRAMEBUFFER, m_multisampleFBO ? m_multisampleFBO : m_fbo);
 
     m_context->clear(clearMask);
@@ -261,9 +249,7 @@ void DrawingBuffer::clearFramebuffers(GC3Dbitfield clearMask)
 bool DrawingBuffer::checkBufferIntegrity()
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_multisampleFBO)
         return true;
 
@@ -290,9 +276,7 @@ bool DrawingBuffer::checkBufferIntegrity()
 bool DrawingBuffer::reset(const IntSize& newSize)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_context)
         return false;
 
@@ -436,9 +420,7 @@ bool DrawingBuffer::reset(const IntSize& newSize)
 void DrawingBuffer::commit(long x, long y, long width, long height)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_context)
         return;
 
@@ -469,9 +451,7 @@ void DrawingBuffer::commit(long x, long y, long width, long height)
 void DrawingBuffer::restoreFramebufferBinding()
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_context || !m_framebufferBinding)
         return;
 
@@ -481,16 +461,14 @@ void DrawingBuffer::restoreFramebufferBinding()
 bool DrawingBuffer::multisample() const
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_context && m_context->getContextAttributes().antialias && m_multisampleExtensionSupported;
 }
 
 void DrawingBuffer::discardResources()
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     m_colorBuffer = 0;
     m_frontColorBuffer = 0;
@@ -508,7 +486,7 @@ void DrawingBuffer::discardResources()
 void DrawingBuffer::bind()
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     if (!m_context)
         return;

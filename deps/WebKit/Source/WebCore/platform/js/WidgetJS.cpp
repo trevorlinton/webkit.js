@@ -43,13 +43,13 @@ Widget::Widget(PlatformWidget widget)
     , m_parentVisible(false)
     , m_frame(0, 0, 0, 0)
 {
-		webkitTrace();
+	
     init(widget);
 }
 
 Widget::~Widget()
 {
-		webkitTrace();
+	
     ASSERT(!parent());
 }
 
@@ -60,7 +60,7 @@ IntRect Widget::frameRect() const
 
 void Widget::setFrameRect(const IntRect& rect)
 {
-		webkitTrace();
+	
 		m_frame = rect;
     Widget::frameRectsChanged();
 }
@@ -79,13 +79,13 @@ void Widget::setCursor(const Cursor& cursor)
 
 void Widget::show()
 {
-		webkitTrace();
+	
     //TODO: Should we do anything here?
 }
 
 void Widget::hide()
 {
-		webkitTrace();
+	
     //TODO: Should we do anything here?
 }
 

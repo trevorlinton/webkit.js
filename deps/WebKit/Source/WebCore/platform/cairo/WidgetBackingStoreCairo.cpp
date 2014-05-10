@@ -35,7 +35,7 @@ static PassRefPtr<cairo_surface_t> createSurfaceForBackingStore(PlatformWidget w
 #else
     UNUSED_PARAM(widget);
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
 		return adoptRef(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, size.width(), size.height()));
 #endif
@@ -44,7 +44,7 @@ static PassRefPtr<cairo_surface_t> createSurfaceForBackingStore(PlatformWidget w
 PassOwnPtr<WidgetBackingStore> WidgetBackingStoreCairo::create(PlatformWidget widget, const IntSize& size)
 {
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     return adoptPtr(new WidgetBackingStoreCairo(widget, size));
 }
@@ -58,31 +58,23 @@ WidgetBackingStoreCairo::WidgetBackingStoreCairo(PlatformWidget widget, const In
     , m_scrollSurface(createSurfaceForBackingStore(widget, size))
 
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 }
 
 WidgetBackingStoreCairo::~WidgetBackingStoreCairo()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 }
 
 cairo_surface_t* WidgetBackingStoreCairo::cairoSurface()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_surface.get();
 }
 
 void WidgetBackingStoreCairo::scroll(const IntRect& scrollRect, const IntSize& scrollOffset)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     IntRect targetRect(scrollRect);
     targetRect.move(scrollOffset);
     targetRect.shiftMaxXEdgeTo(targetRect.maxX() - scrollOffset.width());

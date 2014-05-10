@@ -85,11 +85,6 @@ FcInitLoadConfig (void)
 	FcChar8 *prefix, *p;
 	size_t plen;
 
-	fprintf (stderr,
-		 "Fontconfig warning: no <cachedir> elements found. Check configuration.\n");
-	fprintf (stderr,
-		 "Fontconfig warning: adding <cachedir>%s</cachedir>\n",
-		 FC_CACHEDIR);
 	prefix = FcConfigXdgCacheHome ();
 	if (!prefix)
 	    goto bail;
@@ -100,15 +95,11 @@ FcInitLoadConfig (void)
 	prefix = p;
 	memcpy (&prefix[plen], FC_DIR_SEPARATOR_S "fontconfig", 11);
 	prefix[plen + 11] = 0;
-	fprintf (stderr,
-		 "Fontconfig warning: adding <cachedir prefix=\"xdg\">fontconfig</cachedir>\n");
 
 	if (!FcConfigAddCacheDir (config, (FcChar8 *) FC_CACHEDIR) ||
 	    !FcConfigAddCacheDir (config, (FcChar8 *) prefix))
 	{
 	  bail:
-	    fprintf (stderr,
-		     "Fontconfig error: out of memory");
 	    if (prefix)
 		FcStrFree (prefix);
 	    FcConfigDestroy (config);
@@ -130,12 +121,10 @@ FcInitLoadConfigAndFonts (void)
 
     FcInitDebug ();
     if (!config) {
-      fprintf(stderr, "Failed to initialize fonts from FcInitLoadConfig()");
       return 0;
     }
     if (!FcConfigBuildFonts (config))
     {
-      fprintf(stderr, "Failed to initialize fonts from FcConfigBuildFonts()");
       FcConfigDestroy (config);
       return 0;
     }

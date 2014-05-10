@@ -149,9 +149,7 @@ static const unsigned maxUpdateEmbeddedObjectsIterations = 2;
 
 static RenderLayer::UpdateLayerPositionsFlags updateLayerPositionFlags(RenderLayer* layer, bool isRelayoutingSubtree, bool didFullRepaint)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderLayer::UpdateLayerPositionsFlags flags = RenderLayer::defaultFlags;
     if (didFullRepaint) {
         flags &= ~RenderLayer::CheckForRepaint;
@@ -164,9 +162,7 @@ static RenderLayer::UpdateLayerPositionsFlags updateLayerPositionFlags(RenderLay
 
 Pagination::Mode paginationModeForRenderStyle(const RenderStyle& style)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     EOverflow overflow = style.overflowY();
     if (overflow != OPAGEDX && overflow != OPAGEDY)
         return Pagination::Unpaginated;
@@ -227,9 +223,7 @@ FrameView::FrameView(Frame& frame)
     , m_visualUpdatesAllowedByClient(true)
     , m_scrollPinningBehavior(DoNotPin)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     init();
 
     if (frame.isMainFrame()) {
@@ -240,9 +234,7 @@ FrameView::FrameView(Frame& frame)
 
 PassRefPtr<FrameView> FrameView::create(Frame& frame)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RefPtr<FrameView> view = adoptRef(new FrameView(frame));
     view->show();
     return view.release();
@@ -250,9 +242,7 @@ PassRefPtr<FrameView> FrameView::create(Frame& frame)
 
 PassRefPtr<FrameView> FrameView::create(Frame& frame, const IntSize& initialSize)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RefPtr<FrameView> view = adoptRef(new FrameView(frame));
     view->Widget::setFrameRect(IntRect(view->location(), initialSize));
     view->show();
@@ -261,9 +251,7 @@ PassRefPtr<FrameView> FrameView::create(Frame& frame, const IntSize& initialSize
 
 FrameView::~FrameView()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 		if (m_postLayoutTasksTimer.isActive())
         m_postLayoutTasksTimer.stop();
     
@@ -284,9 +272,7 @@ FrameView::~FrameView()
 
 void FrameView::reset()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_cannotBlitToWindow = false;
     m_isOverlapped = false;
     m_contentIsOpaque = false;
@@ -327,18 +313,14 @@ void FrameView::reset()
 
 void FrameView::removeFromAXObjectCache()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (AXObjectCache* cache = axObjectCache())
         cache->remove(this);
 }
 
 void FrameView::resetScrollbars()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // Reset the document's scrollbars back to our defaults before we yield the floor.
     m_firstLayout = true;
     setScrollbarsSuppressed(true);
@@ -351,9 +333,7 @@ void FrameView::resetScrollbars()
 
 void FrameView::resetScrollbarsAndClearContentsSize()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     resetScrollbars();
 
     setScrollbarsSuppressed(true);
@@ -363,9 +343,7 @@ void FrameView::resetScrollbarsAndClearContentsSize()
 
 void FrameView::init()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     reset();
 
     m_margins = LayoutSize(-1, -1); // undefined
@@ -392,9 +370,7 @@ void FrameView::init()
     
 void FrameView::prepareForDetach()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     detachCustomScrollbars();
     // When the view is no longer associated with a frame, it needs to be removed from the ax object cache
     // right now, otherwise it won't be able to reach the topDocument()'s axObject cache later.
@@ -408,9 +384,7 @@ void FrameView::prepareForDetach()
 
 void FrameView::detachCustomScrollbars()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     Scrollbar* horizontalBar = horizontalScrollbar();
     if (horizontalBar && horizontalBar->isCustomScrollbar())
         setHasHorizontalScrollbar(false);
@@ -424,9 +398,7 @@ void FrameView::detachCustomScrollbars()
 
 void FrameView::recalculateScrollbarOverlayStyle()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ScrollbarOverlayStyle oldOverlayStyle = scrollbarOverlayStyle();
     ScrollbarOverlayStyle overlayStyle = ScrollbarOverlayStyleDefault;
 
@@ -447,9 +419,7 @@ void FrameView::recalculateScrollbarOverlayStyle()
 
 void FrameView::clear()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     setCanBlitOnScroll(true);
     
@@ -467,18 +437,14 @@ void FrameView::clear()
 
 bool FrameView::didFirstLayout() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     return !m_firstLayout;
 }
 
 void FrameView::invalidateRect(const IntRect& rect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!parent()) {
         if (HostWindow* window = hostWindow())
             window->invalidateContentsAndRootView(rect, false /*immediate*/);
@@ -497,9 +463,7 @@ void FrameView::invalidateRect(const IntRect& rect)
 
 void FrameView::setFrameRect(const IntRect& newRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     IntRect oldRect = frameRect();
     if (newRect == oldRect)
@@ -534,9 +498,7 @@ void FrameView::setFrameRect(const IntRect& newRect)
 #if ENABLE(REQUEST_ANIMATION_FRAME)
 bool FrameView::scheduleAnimation()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (HostWindow* window = hostWindow()) {
         window->scheduleAnimation();
         return true;
@@ -547,35 +509,27 @@ bool FrameView::scheduleAnimation()
 
 void FrameView::setMarginWidth(LayoutUnit w)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // make it update the rendering area when set
     m_margins.setWidth(w);
 }
 
 void FrameView::setMarginHeight(LayoutUnit h)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // make it update the rendering area when set
     m_margins.setHeight(h);
 }
 
 bool FrameView::frameFlatteningEnabled() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return frame().settings().frameFlatteningEnabled();
 }
 
 bool FrameView::isFrameFlatteningValidForThisFrame() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!frameFlatteningEnabled())
         return false;
 
@@ -589,9 +543,7 @@ bool FrameView::isFrameFlatteningValidForThisFrame() const
 
 bool FrameView::avoidScrollbarCreation() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // with frame flattening no subframe can have scrollbars
     // but we also cannot turn scrollbars off as we determine
     // our flattening policy using that.
@@ -600,18 +552,14 @@ bool FrameView::avoidScrollbarCreation() const
 
 void FrameView::setCanHaveScrollbars(bool canHaveScrollbars)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_canHaveScrollbars = canHaveScrollbars;
     ScrollView::setCanHaveScrollbars(canHaveScrollbars);
 }
 
 void FrameView::updateCanHaveScrollbars()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ScrollbarMode hMode;
     ScrollbarMode vMode;
     scrollbarModes(hMode, vMode);
@@ -623,9 +571,7 @@ void FrameView::updateCanHaveScrollbars()
 
 PassRefPtr<Scrollbar> FrameView::createScrollbar(ScrollbarOrientation orientation)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!frame().settings().allowCustomScrollbarInMainFrame() && frame().isMainFrame())
         return ScrollView::createScrollbar(orientation);
 
@@ -653,9 +599,7 @@ PassRefPtr<Scrollbar> FrameView::createScrollbar(ScrollbarOrientation orientatio
 
 void FrameView::setContentsSize(const IntSize& size)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (size == contentsSize())
         return;
 
@@ -681,9 +625,7 @@ void FrameView::setContentsSize(const IntSize& size)
 
 void FrameView::adjustViewSize()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return;
@@ -699,9 +641,7 @@ void FrameView::adjustViewSize()
 
 void FrameView::applyOverflowToViewport(RenderElement* o, ScrollbarMode& hMode, ScrollbarMode& vMode)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // Handle the overflow:hidden/scroll case for the body/html elements.  WinIE treats
     // overflow:hidden and overflow:scroll on <body> as applying to the document's
     // scrollbars.  The CSS2.1 draft states that HTML UAs should use the <html> or <body> element and XML/XHTML UAs should
@@ -767,9 +707,7 @@ void FrameView::applyOverflowToViewport(RenderElement* o, ScrollbarMode& hMode, 
 
 void FrameView::applyPaginationToViewport()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     Document* document = frame().document();
     auto documentElement = document->documentElement();
     RenderElement* documentRenderer = documentElement ? documentElement->renderer() : nullptr;
@@ -798,9 +736,7 @@ void FrameView::applyPaginationToViewport()
 
 void FrameView::calculateScrollbarModesForLayout(ScrollbarMode& hMode, ScrollbarMode& vMode, ScrollbarModesCalculationStrategy strategy)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_viewportRenderer = 0;
 
     const HTMLFrameOwnerElement* owner = frame().ownerElement();
@@ -845,9 +781,7 @@ void FrameView::calculateScrollbarModesForLayout(ScrollbarMode& hMode, Scrollbar
 #if USE(ACCELERATED_COMPOSITING)
 void FrameView::updateCompositingLayersAfterStyleChange()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return;
@@ -865,14 +799,11 @@ void FrameView::updateCompositingLayersAfterStyleChange()
 void FrameView::updateCompositingLayersAfterLayout()
 {
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     RenderView* renderView = this->renderView();
     if (!renderView)
         return;
-#if PLATFORM(JS) && defined(DEBUG)
-		fprintf(stderr, "WebKit: FrameView::updateCompositingLayersAfterLayout() firing updateCompositingLayers.\n");
-#endif
     // This call will make sure the cached hasAcceleratedCompositing is updated from the pref
     renderView->compositor().cacheAcceleratedCompositingFlags();
     renderView->compositor().updateCompositingLayers(CompositingUpdateAfterLayout);
@@ -881,7 +812,7 @@ void FrameView::updateCompositingLayersAfterLayout()
 void FrameView::clearBackingStores()
 {
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     RenderView* renderView = this->renderView();
     if (!renderView)
@@ -895,9 +826,7 @@ void FrameView::clearBackingStores()
 
 void FrameView::restoreBackingStores()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return;
@@ -909,9 +838,7 @@ void FrameView::restoreBackingStores()
 
 bool FrameView::usesCompositedScrolling() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return false;
@@ -922,9 +849,7 @@ bool FrameView::usesCompositedScrolling() const
 
 GraphicsLayer* FrameView::layerForScrolling() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -933,9 +858,7 @@ GraphicsLayer* FrameView::layerForScrolling() const
 
 GraphicsLayer* FrameView::layerForHorizontalScrollbar() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -944,9 +867,7 @@ GraphicsLayer* FrameView::layerForHorizontalScrollbar() const
 
 GraphicsLayer* FrameView::layerForVerticalScrollbar() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -955,9 +876,7 @@ GraphicsLayer* FrameView::layerForVerticalScrollbar() const
 
 GraphicsLayer* FrameView::layerForScrollCorner() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -966,9 +885,7 @@ GraphicsLayer* FrameView::layerForScrollCorner() const
 
 TiledBacking* FrameView::tiledBacking()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -982,9 +899,7 @@ TiledBacking* FrameView::tiledBacking()
 
 uint64_t FrameView::scrollLayerID() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -999,9 +914,7 @@ uint64_t FrameView::scrollLayerID() const
 #if ENABLE(RUBBER_BANDING)
 GraphicsLayer* FrameView::layerForOverhangAreas() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -1010,9 +923,7 @@ GraphicsLayer* FrameView::layerForOverhangAreas() const
 
 GraphicsLayer* FrameView::setWantsLayerForTopOverHangArea(bool wantsLayer) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -1022,9 +933,7 @@ GraphicsLayer* FrameView::setWantsLayerForTopOverHangArea(bool wantsLayer) const
 
 GraphicsLayer* FrameView::setWantsLayerForBottomOverHangArea(bool wantsLayer) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -1036,9 +945,7 @@ GraphicsLayer* FrameView::setWantsLayerForBottomOverHangArea(bool wantsLayer) co
 
 bool FrameView::flushCompositingStateForThisFrame(Frame* rootFrameForFlush)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     RenderView* renderView = this->renderView();
     if (!renderView)
@@ -1067,9 +974,7 @@ bool FrameView::flushCompositingStateForThisFrame(Frame* rootFrameForFlush)
 
 void FrameView::setNeedsOneShotDrawingSynchronization()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (Page* page = frame().page())
         page->chrome().client().setNeedsOneShotDrawingSynchronization();
@@ -1077,9 +982,7 @@ void FrameView::setNeedsOneShotDrawingSynchronization()
 
 GraphicsLayer* FrameView::graphicsLayerForPlatformWidget(PlatformWidget platformWidget)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     // To find the Widget that corresponds with platformWidget we have to do a linear
     // search of our child widgets.
@@ -1107,9 +1010,7 @@ GraphicsLayer* FrameView::graphicsLayerForPlatformWidget(PlatformWidget platform
 
 void FrameView::scheduleLayerFlushAllowingThrottling()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* view = this->renderView();
     if (!view)
         return;
@@ -1119,9 +1020,7 @@ void FrameView::scheduleLayerFlushAllowingThrottling()
 
 void FrameView::setHeaderHeight(int headerHeight)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (frame().page())
         ASSERT(frame().isMainFrame());
     m_headerHeight = headerHeight;
@@ -1132,9 +1031,7 @@ void FrameView::setHeaderHeight(int headerHeight)
 
 void FrameView::setFooterHeight(int footerHeight)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (frame().page())
         ASSERT(frame().isMainFrame());
     m_footerHeight = footerHeight;
@@ -1145,9 +1042,7 @@ void FrameView::setFooterHeight(int footerHeight)
 
 bool FrameView::hasCompositedContent() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
 #if USE(ACCELERATED_COMPOSITING)
     if (RenderView* renderView = this->renderView())
@@ -1158,9 +1053,7 @@ bool FrameView::hasCompositedContent() const
 
 bool FrameView::hasCompositedContentIncludingDescendants() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(ACCELERATED_COMPOSITING)
     for (Frame* frame = m_frame.get(); frame; frame = frame->tree().traverseNext(m_frame.get())) {
         RenderView* renderView = frame->contentRenderer();
@@ -1178,9 +1071,7 @@ bool FrameView::hasCompositedContentIncludingDescendants() const
 
 bool FrameView::hasCompositingAncestor() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(ACCELERATED_COMPOSITING)
     for (Frame* frame = this->frame().tree().parent(); frame; frame = frame->tree().parent()) {
         if (FrameView* view = frame->view()) {
@@ -1195,9 +1086,7 @@ bool FrameView::hasCompositingAncestor() const
 // Sometimes (for plug-ins) we need to eagerly go into compositing mode.
 void FrameView::enterCompositingMode()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
 #if USE(ACCELERATED_COMPOSITING)
     if (RenderView* renderView = this->renderView()) {
@@ -1210,9 +1099,7 @@ void FrameView::enterCompositingMode()
 
 bool FrameView::isEnclosedInCompositingLayer() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(ACCELERATED_COMPOSITING)
     auto frameOwnerRenderer = frame().ownerRenderer();
     if (frameOwnerRenderer && frameOwnerRenderer->containerForRepaint())
@@ -1226,9 +1113,7 @@ bool FrameView::isEnclosedInCompositingLayer() const
 
 bool FrameView::flushCompositingStateIncludingSubframes()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(ACCELERATED_COMPOSITING)
     bool allFramesFlushed = flushCompositingStateForThisFrame(&frame());
     
@@ -1245,9 +1130,7 @@ bool FrameView::flushCompositingStateIncludingSubframes()
 bool FrameView::isSoftwareRenderable() const
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(ACCELERATED_COMPOSITING)
     RenderView* renderView = this->renderView();
     return !renderView || !renderView->compositor().has3DContent();
@@ -1258,25 +1141,19 @@ bool FrameView::isSoftwareRenderable() const
 
 void FrameView::didMoveOnscreen()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     contentAreaDidShow();
 }
 
 void FrameView::willMoveOffscreen()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     contentAreaDidHide();
 }
 
 void FrameView::setIsInWindow(bool isInWindow)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (RenderView* renderView = this->renderView())
         renderView->setIsInWindow(isInWindow);
@@ -1285,16 +1162,14 @@ void FrameView::setIsInWindow(bool isInWindow)
 RenderObject* FrameView::layoutRoot(bool onlyDuringLayout) const
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     return onlyDuringLayout && layoutPending() ? 0 : m_layoutRoot;
 }
 
 inline void FrameView::forceLayoutParentViewIfNeeded()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if ENABLE(SVG)
     RenderWidget* ownerRenderer = frame().ownerRenderer();
     if (!ownerRenderer)
@@ -1327,9 +1202,7 @@ inline void FrameView::forceLayoutParentViewIfNeeded()
 
 void FrameView::layout(bool allowSubtree)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (isInLayout())
         return;
@@ -1638,9 +1511,7 @@ void FrameView::layout(bool allowSubtree)
 
 RenderBox* FrameView::embeddedContentBox() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if ENABLE(SVG)
     RenderView* renderView = this->renderView();
     if (!renderView)
@@ -1660,9 +1531,7 @@ RenderBox* FrameView::embeddedContentBox() const
 
 void FrameView::addEmbeddedObjectToUpdate(RenderEmbeddedObject& embeddedObject)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_embeddedObjectsToUpdate)
         m_embeddedObjectsToUpdate = adoptPtr(new ListHashSet<RenderEmbeddedObject*>);
 
@@ -1679,9 +1548,7 @@ void FrameView::addEmbeddedObjectToUpdate(RenderEmbeddedObject& embeddedObject)
 
 void FrameView::removeEmbeddedObjectToUpdate(RenderEmbeddedObject& embeddedObject)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_embeddedObjectsToUpdate)
         return;
 
@@ -1690,17 +1557,13 @@ void FrameView::removeEmbeddedObjectToUpdate(RenderEmbeddedObject& embeddedObjec
 
 void FrameView::setMediaType(const String& mediaType)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_mediaType = mediaType;
 }
 
 String FrameView::mediaType() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // See if we have an override type.
     String overrideType = frame().loader().client().overrideMediaType();
     InspectorInstrumentation::applyEmulatedMedia(&frame(), &overrideType);
@@ -1711,9 +1574,7 @@ String FrameView::mediaType() const
 
 void FrameView::adjustMediaTypeForPrinting(bool printing)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (printing) {
         if (m_mediaTypeWhenNotPrinting.isNull())
             m_mediaTypeWhenNotPrinting = mediaType();
@@ -1727,9 +1588,7 @@ void FrameView::adjustMediaTypeForPrinting(bool printing)
 
 bool FrameView::useSlowRepaints(bool considerOverlap) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     bool mustBeSlow = hasSlowRepaintObjects() || (platformWidget() && hasViewportConstrainedObjects());
 
     // FIXME: WidgetMac.mm makes the assumption that useSlowRepaints ==
@@ -1752,17 +1611,13 @@ bool FrameView::useSlowRepaints(bool considerOverlap) const
 
 bool FrameView::useSlowRepaintsIfNotOverlapped() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return useSlowRepaints(false);
 }
 
 void FrameView::updateCanBlitOnScrollRecursively()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     for (Frame* frame = m_frame.get(); frame; frame = frame->tree().traverseNext(m_frame.get())) {
         if (FrameView* view = frame->view())
             view->setCanBlitOnScroll(!view->useSlowRepaints());
@@ -1772,9 +1627,7 @@ void FrameView::updateCanBlitOnScrollRecursively()
 bool FrameView::contentsInCompositedLayer() const
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(ACCELERATED_COMPOSITING)
     RenderView* renderView = this->renderView();
     if (renderView && renderView->isComposited()) {
@@ -1788,18 +1641,14 @@ bool FrameView::contentsInCompositedLayer() const
 
 void FrameView::setCannotBlitToWindow()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_cannotBlitToWindow = true;
     updateCanBlitOnScrollRecursively();
 }
 
 void FrameView::addSlowRepaintObject(RenderElement* o)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     bool hadSlowRepaintObjects = hasSlowRepaintObjects();
 
     if (!m_slowRepaintObjects)
@@ -1819,9 +1668,7 @@ void FrameView::addSlowRepaintObject(RenderElement* o)
 
 void FrameView::removeSlowRepaintObject(RenderElement* o)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_slowRepaintObjects)
         return;
 
@@ -1839,9 +1686,7 @@ void FrameView::removeSlowRepaintObject(RenderElement* o)
 
 void FrameView::addViewportConstrainedObject(RenderElement* object)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_viewportConstrainedObjects)
         m_viewportConstrainedObjects = adoptPtr(new ViewportConstrainedObjectSet);
 
@@ -1859,9 +1704,7 @@ void FrameView::addViewportConstrainedObject(RenderElement* object)
 
 void FrameView::removeViewportConstrainedObject(RenderElement* object)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_viewportConstrainedObjects && m_viewportConstrainedObjects->remove(object)) {
         if (Page* page = frame().page()) {
             if (ScrollingCoordinator* scrollingCoordinator = page->scrollingCoordinator())
@@ -1876,9 +1719,7 @@ void FrameView::removeViewportConstrainedObject(RenderElement* object)
 
 LayoutRect FrameView::viewportConstrainedVisibleContentRect() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     LayoutRect viewportRect = visibleContentRect();
     viewportRect.setLocation(toPoint(scrollOffsetForFixedPosition()));
     return viewportRect;
@@ -1886,9 +1727,7 @@ LayoutRect FrameView::viewportConstrainedVisibleContentRect() const
 
 IntSize FrameView::scrollOffsetForFixedPosition(const IntRect& visibleContentRect, const IntSize& totalContentsSize, const IntPoint& scrollPosition, const IntPoint& scrollOrigin, float frameScaleFactor, bool fixedElementsLayoutRelativeToFrame, ScrollBehaviorForFixedElements behaviorForFixed, int headerHeight, int footerHeight)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     IntPoint position;
     if (behaviorForFixed == StickToDocumentBounds)
         position = ScrollableArea::constrainScrollPositionForOverhang(visibleContentRect, totalContentsSize, scrollPosition, scrollOrigin, headerHeight, footerHeight);
@@ -1907,9 +1746,7 @@ IntSize FrameView::scrollOffsetForFixedPosition(const IntRect& visibleContentRec
 
 IntSize FrameView::scrollOffsetForFixedPosition() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     IntRect visibleContentRect = this->visibleContentRect();
     IntSize totalContentsSize = this->totalContentsSize();
     IntPoint scrollPosition = this->scrollPosition();
@@ -1921,9 +1758,7 @@ IntSize FrameView::scrollOffsetForFixedPosition() const
     
 IntPoint FrameView::minimumScrollPosition() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     IntPoint minimumPosition(ScrollView::minimumScrollPosition());
 
     if (frame().isMainFrame() && m_scrollPinningBehavior == PinToBottom)
@@ -1934,9 +1769,7 @@ IntPoint FrameView::minimumScrollPosition() const
 
 IntPoint FrameView::maximumScrollPosition() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     IntPoint maximumOffset(contentsWidth() - visibleWidth() - scrollOrigin().x(), totalContentsSize().height() - visibleHeight() - scrollOrigin().y());
 
     maximumOffset.clampNegativeToZero();
@@ -1949,42 +1782,32 @@ IntPoint FrameView::maximumScrollPosition() const
 
 bool FrameView::fixedElementsLayoutRelativeToFrame() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return frame().settings().fixedElementsLayoutRelativeToFrame();
 }
 
 IntPoint FrameView::lastKnownMousePosition() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return frame().eventHandler().lastKnownMousePosition();
 }
 
 bool FrameView::isHandlingWheelEvent() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return frame().eventHandler().isHandlingWheelEvent();
 }
 
 bool FrameView::shouldSetCursor() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     Page* page = frame().page();
     return page && page->isVisible() && page->focusController().isActive();
 }
 
 bool FrameView::scrollContentsFastPath(const IntSize& scrollDelta, const IntRect& rectToScroll, const IntRect& clipRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_viewportConstrainedObjects || m_viewportConstrainedObjects->isEmpty()) {
         hostWindow()->scroll(scrollDelta, rectToScroll, clipRect);
         return true;
@@ -2058,9 +1881,7 @@ bool FrameView::scrollContentsFastPath(const IntSize& scrollDelta, const IntRect
 
 void FrameView::scrollContentsSlowPath(const IntRect& updateRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(ACCELERATED_COMPOSITING)
     if (contentsInCompositedLayer()) {
         IntRect updateRect = visibleContentRect();
@@ -2091,9 +1912,7 @@ void FrameView::scrollContentsSlowPath(const IntRect& updateRect)
 
 void FrameView::repaintSlowRepaintObjects()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_slowRepaintObjects)
         return;
 
@@ -2106,9 +1925,7 @@ void FrameView::repaintSlowRepaintObjects()
 // Note that this gets called at painting time.
 void FrameView::setIsOverlapped(bool isOverlapped)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (isOverlapped == m_isOverlapped)
         return;
 
@@ -2144,9 +1961,7 @@ void FrameView::setIsOverlapped(bool isOverlapped)
 
 bool FrameView::isOverlappedIncludingAncestors() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (isOverlapped())
         return true;
 
@@ -2160,9 +1975,7 @@ bool FrameView::isOverlappedIncludingAncestors() const
 
 void FrameView::setContentIsOpaque(bool contentIsOpaque)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (contentIsOpaque == m_contentIsOpaque)
         return;
 
@@ -2172,17 +1985,13 @@ void FrameView::setContentIsOpaque(bool contentIsOpaque)
 
 void FrameView::restoreScrollbar()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     setScrollbarsSuppressed(false);
 }
 
 bool FrameView::scrollToFragment(const URL& url)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // If our URL has no ref, then we have no place we need to jump to.
     // OTOH If CSS target was set previously, we want to set it to 0, recalc
     // and possibly repaint because :target pseudo class may have been
@@ -2203,9 +2012,6 @@ bool FrameView::scrollToFragment(const URL& url)
 
 bool FrameView::scrollToAnchor(const String& name)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     ASSERT(frame().document());
 
     if (!frame().document()->haveStylesheetsLoaded()) {
@@ -2245,9 +2051,6 @@ bool FrameView::scrollToAnchor(const String& name)
 
 void FrameView::maintainScrollPositionAtAnchor(Node* anchorNode)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     m_maintainScrollPositionAnchor = anchorNode;
     if (!m_maintainScrollPositionAnchor)
         return;
@@ -2265,9 +2068,6 @@ void FrameView::maintainScrollPositionAtAnchor(Node* anchorNode)
 
 void FrameView::scrollElementToRect(Element* element, const IntRect& rect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     frame().document()->updateLayoutIgnorePendingStylesheets();
 
     LayoutRect bounds = element->boundingBox();
@@ -2278,9 +2078,6 @@ void FrameView::scrollElementToRect(Element* element, const IntRect& rect)
 
 void FrameView::setScrollPosition(const IntPoint& scrollPoint)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     TemporaryChange<bool> changeInProgrammaticScroll(m_inProgrammaticScroll, true);
     m_maintainScrollPositionAnchor = 0;
     ScrollView::setScrollPosition(scrollPoint);
@@ -2288,9 +2085,6 @@ void FrameView::setScrollPosition(const IntPoint& scrollPoint)
 
 void FrameView::delegatesScrollingDidChange()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
 #if USE(ACCELERATED_COMPOSITING)
     // When we switch to delgatesScrolling mode, we should destroy the scrolling/clipping layers in RenderLayerCompositor.
     if (hasCompositedContent())
@@ -2301,9 +2095,6 @@ void FrameView::delegatesScrollingDidChange()
 #if !PLATFORM(IOS)
 void FrameView::setFixedVisibleContentRect(const IntRect& visibleContentRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     bool visibleContentSizeDidChange = false;
     if (visibleContentRect.size() != this->fixedVisibleContentRect().size()) {
         // When the viewport size changes or the content is scaled, we need to
@@ -2331,9 +2122,6 @@ void FrameView::setFixedVisibleContentRect(const IntRect& visibleContentRect)
 
 void FrameView::setViewportConstrainedObjectsNeedLayout()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     if (!hasViewportConstrainedObjects())
         return;
 
@@ -2343,9 +2131,6 @@ void FrameView::setViewportConstrainedObjectsNeedLayout()
 
 void FrameView::scrollPositionChangedViaPlatformWidget()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     updateLayerPositionsAfterScrolling();
     updateCompositingLayersAfterScrolling();
     repaintSlowRepaintObjects();
@@ -2354,9 +2139,6 @@ void FrameView::scrollPositionChangedViaPlatformWidget()
 
 void FrameView::scrollPositionChanged()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     frame().eventHandler().sendScrollEvent();
     frame().eventHandler().dispatchFakeMouseMoveEventSoon();
 
@@ -2370,9 +2152,7 @@ void FrameView::scrollPositionChanged()
 
 void FrameView::updateLayerPositionsAfterScrolling()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // If we're scrolling as a result of updating the view size after layout, we'll update widgets and layer positions soon anyway.
     if (m_layoutPhase == InViewSizeAdjust)
         return;
@@ -2387,9 +2167,6 @@ void FrameView::updateLayerPositionsAfterScrolling()
 
 bool FrameView::shouldUpdateCompositingLayersAfterScrolling() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
 #if ENABLE(ASYNC_SCROLLING)
     // If the scrolling thread is updating the fixed elements, then the FrameView should not update them as well.
 
@@ -2420,9 +2197,6 @@ bool FrameView::shouldUpdateCompositingLayersAfterScrolling() const
 
 void FrameView::updateCompositingLayersAfterScrolling()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
 #if USE(ACCELERATED_COMPOSITING)
     if (!shouldUpdateCompositingLayersAfterScrolling())
         return;
@@ -2436,9 +2210,6 @@ void FrameView::updateCompositingLayersAfterScrolling()
 
 bool FrameView::isRubberBandInProgress() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     if (scrollbarsSuppressed())
         return false;
 
@@ -2461,9 +2232,6 @@ bool FrameView::isRubberBandInProgress() const
 
 bool FrameView::requestScrollPositionUpdate(const IntPoint& position)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
 #if ENABLE(ASYNC_SCROLLING)
     if (TiledBacking* tiledBacking = this->tiledBacking()) {
         IntRect visibleRect = visibleContentRect();
@@ -2484,9 +2252,6 @@ bool FrameView::requestScrollPositionUpdate(const IntPoint& position)
 
 HostWindow* FrameView::hostWindow() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     if (Page* page = frame().page())
         return &page->chrome();
     return 0;
@@ -2494,9 +2259,6 @@ HostWindow* FrameView::hostWindow() const
 
 void FrameView::addTrackedRepaintRect(const IntRect& r)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     if (!m_isTrackingRepaints || r.isEmpty())
         return;
 
@@ -2509,10 +2271,6 @@ const unsigned cRepaintRectUnionThreshold = 25;
 
 void FrameView::repaintContentRectangle(const IntRect& r, bool immediate)
 {
-#if PLATFORM(JS) && defined(DEBUG)
-	webkitTrace();
-	fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: rect: x: %i y: %i h: %i w: %i immediate: %i\n", r.x(), r.y(), r.height(), r.width(), immediate);
-#endif
 
     ASSERT(!frame().ownerElement());
 
@@ -2537,35 +2295,19 @@ void FrameView::repaintContentRectangle(const IntRect& r, bool immediate)
         else
             m_repaintRects[0].unite(paintRect);
         m_repaintCount++;
-#if PLATFORM(JS) && defined(DEBUG)
-				fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: issuing repaint in: %f m_deferingRepaints is: %i\n", delay, m_deferringRepaints);
-#endif
 				if (!m_deferringRepaints) {
-#if PLATFORM(JS) && defined(DEBUG)
-						fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: issuing deferred paint in: %f\n", delay);
-#endif
             startDeferredRepaintTimer(delay);
 				}
 
         return;
-    } else {
-#if PLATFORM(JS) && defined(DEBUG)
-			fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: m_deferringRepaints=true || m_deferredRepaintTimer.isActive()=true || delay > 0\n");
-#endif
-		}
+    }
     
 		if (!shouldUpdate(immediate)) {
-#if PLATFORM(JS) && defined(DEBUG)
-				fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: shouldUpdate(immediate) returned false.\n");
-#endif
         return;
 		}
 #if USE(TILED_BACKING_STORE)
     if (frame().tiledBackingStore()) {
         frame().tiledBackingStore()->invalidate(r);
-#if PLATFORM(JS) && defined(DEBUG)
-				fprintf(stderr, "WebKit: FrameView::repaintContentRectangle: Using a tiled backing store, leaving.\n");
-#endif
         return;
     }
 #endif
@@ -2574,9 +2316,6 @@ void FrameView::repaintContentRectangle(const IntRect& r, bool immediate)
 
 static unsigned countRenderedCharactersInRenderObjectWithThreshold(const RenderObject& renderer, unsigned countSoFar, unsigned threshold)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     // FIXME: Consider writing this using RenderObject::nextInPreOrder() instead of using recursion.
     if (renderer.isText())
         countSoFar += toRenderText(renderer).text()->length();
@@ -2591,9 +2330,6 @@ static unsigned countRenderedCharactersInRenderObjectWithThreshold(const RenderO
 
 bool FrameView::renderedCharactersExceed(unsigned threshold)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     if (!m_frame->contentRenderer())
         return false;
     return countRenderedCharactersInRenderObjectWithThreshold(*m_frame->contentRenderer(), 0, threshold) >= threshold;
@@ -2601,18 +2337,12 @@ bool FrameView::renderedCharactersExceed(unsigned threshold)
 
 void FrameView::contentsResized()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     ScrollView::contentsResized();
     setNeedsLayout();
 }
 
 void FrameView::fixedLayoutSizeChanged()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     // Can be triggered before the view is set, see comment in FrameView::visibleContentsResized().
     // An ASSERT is triggered when a view schedules a layout before being attached to a frame.
     if (!frame().view())
@@ -2622,9 +2352,6 @@ void FrameView::fixedLayoutSizeChanged()
 
 void FrameView::visibleContentsResized()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     // We check to make sure the view is attached to a frame() as this method can
     // be triggered before the view is attached by Frame::createView(...) setting
     // various values such as setScrollBarModes(...) for example.  An ASSERT is
@@ -2657,9 +2384,6 @@ void FrameView::visibleContentsResized()
 
 void FrameView::addedOrRemovedScrollbar()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
 #if USE(ACCELERATED_COMPOSITING)
     if (RenderView* renderView = this->renderView()) {
         if (renderView->usesCompositing())
@@ -2670,9 +2394,6 @@ void FrameView::addedOrRemovedScrollbar()
 
 void FrameView::beginDeferredRepaints()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     if (!frame().isMainFrame()) {
         frame().mainFrame().view()->beginDeferredRepaints();
         return;
@@ -2683,9 +2404,6 @@ void FrameView::beginDeferredRepaints()
 
 void FrameView::endDeferredRepaints()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     if (!frame().isMainFrame()) {
         frame().mainFrame().view()->endDeferredRepaints();
         return;
@@ -2709,9 +2427,6 @@ void FrameView::endDeferredRepaints()
 
 void FrameView::startDeferredRepaintTimer(double delay)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
 
     if (m_deferredRepaintTimer.isActive())
         return;
@@ -2721,9 +2436,6 @@ void FrameView::startDeferredRepaintTimer(double delay)
 
 void FrameView::handleLoadCompleted()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
     // Once loading has completed, allow autoSize one last opportunity to
     // reduce the size of the frame.
     autoSizeIfEnabled();
@@ -2735,10 +2447,6 @@ void FrameView::handleLoadCompleted()
 
 void FrameView::flushDeferredRepaints()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
-
     if (!m_deferredRepaintTimer.isActive())
         return;
     m_deferredRepaintTimer.stop();
@@ -2747,30 +2455,16 @@ void FrameView::flushDeferredRepaints()
 
 void FrameView::doDeferredRepaints()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
-
     ASSERT(!m_deferringRepaints);
     if (!shouldUpdate()) {
         m_repaintRects.clear();
         m_repaintCount = 0;
-#if PLATFORM(JS) && defined(DEBUG)
-				fprintf(stderr, "WebKit: doDeferredRepaints: shouldUpdate was false, exiting\n");
-#endif
         return;
     }
     unsigned size = m_repaintRects.size();
-#if PLATFORM(JS) && defined(DEBUG)
-		fprintf(stderr, "WebKit: doDeferredRepaints: amount of repaint rects: %i\n",size);
-#endif
     for (unsigned i = 0; i < size; i++) {
 #if USE(TILED_BACKING_STORE)
         if (frame().tiledBackingStore()) {
-#if PLATFORM(JS) && defined(DEBUG)
-						//fprintf(stderr, "WebKit: doDeferredRepaints: invalidating tiledBackingStore\n");
-						//fprintf(stderr, "WebKit: repaintRect size (x,y,w,h): %i %i %i %i\n", m_repaintRects[i].x(),m_repaintRects[i].y(),m_repaintRects[i].width(),m_repaintRects[i].height());
-#endif
 						frame().tiledBackingStore()->invalidate(pixelSnappedIntRect(m_repaintRects[i]));
             continue;
         }
@@ -2785,47 +2479,28 @@ void FrameView::doDeferredRepaints()
 
 bool FrameView::shouldUseLoadTimeDeferredRepaintDelay() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     // Don't defer after the initial load of the page has been completed.
 		if (frame().tree().top().loader().isComplete()) {
-#if PLATFORM(JS) && defined(DEBUG)
-			fprintf(stderr, "WebKit: Document has finished loading, do not use deferred repaint.\n");
-#endif
 				return false;
 		}
     Document* document = frame().document();
 		if (!document) {
-#if PLATFORM(JS) && defined(DEBUG)
-				fprintf(stderr, "WebKit: Document does not exist, do not use deferred repaint.\n");
-#endif
         return false;
 		}
 		if (document->parsing()) {
-#if PLATFORM(JS) && defined(DEBUG)
-				fprintf(stderr, "WebKit: Document is parsing, use deferred repaint.\n");
-#endif
         return true;
 		}
 		if (document->cachedResourceLoader()->requestCount()) {
-#if PLATFORM(JS) && defined(DEBUG)
-				fprintf(stderr, "WebKit: Request Cache Count is > 0, use deferred repaint.\n");
-#endif
         return true;
 		}
-#if PLATFORM(JS) && defined(DEBUG)
-		fprintf(stderr, "WebKit: default: use deferred repaint.\n");
-#endif
 		return false;
 }
 
 void FrameView::updateDeferredRepaintDelayAfterRepaint()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!shouldUseLoadTimeDeferredRepaintDelay()) {
         m_deferredRepaintDelay = s_normalDeferredRepaintDelay;
@@ -2837,9 +2512,7 @@ void FrameView::updateDeferredRepaintDelayAfterRepaint()
 
 void FrameView::resetDeferredRepaintDelay()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_deferredRepaintDelay = 0;
     if (m_deferredRepaintTimer.isActive()) {
@@ -2855,9 +2528,7 @@ void FrameView::resetDeferredRepaintDelay()
 
 double FrameView::adjustedDeferredRepaintDelay() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     ASSERT(!m_deferringRepaints);
     if (!m_deferredRepaintDelay)
@@ -2868,17 +2539,13 @@ double FrameView::adjustedDeferredRepaintDelay() const
     
 void FrameView::deferredRepaintTimerFired(Timer<FrameView>*)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     doDeferredRepaints();
 }
 
 void FrameView::updateLayerFlushThrottlingInAllFrames()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(ACCELERATED_COMPOSITING)
     bool isMainLoadProgressing = frame().page()->progress().isMainLoadProgressing();
     for (Frame* frame = m_frame.get(); frame; frame = frame->tree().traverseNext(m_frame.get())) {
@@ -2890,9 +2557,7 @@ void FrameView::updateLayerFlushThrottlingInAllFrames()
 
 void FrameView::adjustTiledBackingCoverage()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
 #if USE(ACCELERATED_COMPOSITING)
     RenderView* renderView = this->renderView();
@@ -2907,9 +2572,7 @@ void FrameView::adjustTiledBackingCoverage()
 
 void FrameView::layoutTimerFired(Timer<FrameView>*)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
 #ifdef INSTRUMENT_LAYOUT_SCHEDULING
     if (!frame().document()->ownerElement())
@@ -2920,9 +2583,7 @@ void FrameView::layoutTimerFired(Timer<FrameView>*)
 
 void FrameView::scheduleRelayout()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     // FIXME: We should assert the page is not in the page cache, but that is causing
     // too many false assertions.  See <rdar://problem/7218118>.
@@ -2962,9 +2623,7 @@ void FrameView::scheduleRelayout()
 
 static bool isObjectAncestorContainerOf(RenderObject* ancestor, RenderObject* descendant)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     for (RenderObject* r = descendant; r; r = r->container()) {
         if (r == ancestor)
             return true;
@@ -2974,9 +2633,7 @@ static bool isObjectAncestorContainerOf(RenderObject* ancestor, RenderObject* de
 
 void FrameView::scheduleRelayoutOfSubtree(RenderElement& newRelayoutRoot)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(renderView());
     RenderView& renderView = *this->renderView();
 
@@ -3034,18 +2691,14 @@ void FrameView::scheduleRelayoutOfSubtree(RenderElement& newRelayoutRoot)
 
 bool FrameView::layoutPending() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     return m_layoutTimer.isActive();
 }
 
 bool FrameView::needsLayout() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // This can return true in cases where the document does not have a body yet.
     // Document::shouldScheduleLayout takes care of preventing us from scheduling
     // layout in that case.
@@ -3058,9 +2711,7 @@ bool FrameView::needsLayout() const
 
 void FrameView::setNeedsLayout()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_deferSetNeedsLayouts) {
         m_setNeedsLayoutWasDeferred = true;
         return;
@@ -3072,9 +2723,7 @@ void FrameView::setNeedsLayout()
 
 void FrameView::unscheduleRelayout()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!m_layoutTimer.isActive())
         return;
@@ -3091,9 +2740,7 @@ void FrameView::unscheduleRelayout()
 #if ENABLE(REQUEST_ANIMATION_FRAME)
 void FrameView::serviceScriptedAnimations(double monotonicAnimationStartTime)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     for (Frame* frame = m_frame.get(); frame; frame = frame->tree().traverseNext()) {
         frame->view()->serviceScrollAnimations();
         frame->animation().serviceAnimations();
@@ -3110,41 +2757,31 @@ void FrameView::serviceScriptedAnimations(double monotonicAnimationStartTime)
 
 bool FrameView::isTransparent() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_isTransparent;
 }
 
 void FrameView::setTransparent(bool isTransparent)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_isTransparent = isTransparent;
 }
 
 bool FrameView::hasOpaqueBackground() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return !m_isTransparent && !m_baseBackgroundColor.hasAlpha();
 }
 
 Color FrameView::baseBackgroundColor() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_baseBackgroundColor;
 }
 
 void FrameView::setBaseBackgroundColor(const Color& backgroundColor)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!backgroundColor.isValid())
         m_baseBackgroundColor = Color::white;
     else
@@ -3155,9 +2792,7 @@ void FrameView::setBaseBackgroundColor(const Color& backgroundColor)
 
 void FrameView::updateBackgroundRecursively(const Color& backgroundColor, bool transparent)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     for (Frame* frame = m_frame.get(); frame; frame = frame->tree().traverseNext(m_frame.get())) {
         if (FrameView* view = frame->view()) {
             view->setTransparent(transparent);
@@ -3168,25 +2803,19 @@ void FrameView::updateBackgroundRecursively(const Color& backgroundColor, bool t
 
 bool FrameView::shouldUpdateWhileOffscreen() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_shouldUpdateWhileOffscreen;
 }
 
 void FrameView::setShouldUpdateWhileOffscreen(bool shouldUpdateWhileOffscreen)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_shouldUpdateWhileOffscreen = shouldUpdateWhileOffscreen;
 }
 
 bool FrameView::shouldUpdate(bool immediateRequested) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!immediateRequested && isOffscreen() && !shouldUpdateWhileOffscreen())
         return false;
     return true;
@@ -3194,9 +2823,7 @@ bool FrameView::shouldUpdate(bool immediateRequested) const
 
 void FrameView::scrollToAnchor()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RefPtr<Node> anchorNode = m_maintainScrollPositionAnchor;
     if (!anchorNode)
         return;
@@ -3221,9 +2848,7 @@ void FrameView::scrollToAnchor()
 
 void FrameView::updateEmbeddedObject(RenderEmbeddedObject& embeddedObject)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // No need to update if it's already crashed or known to be missing.
     if (embeddedObject.isPluginUnavailable())
         return;
@@ -3269,9 +2894,7 @@ void FrameView::updateEmbeddedObject(RenderEmbeddedObject& embeddedObject)
 
 bool FrameView::updateEmbeddedObjects()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_nestedLayoutCount > 1 || !m_embeddedObjectsToUpdate || m_embeddedObjectsToUpdate->isEmpty())
         return true;
 
@@ -3293,9 +2916,7 @@ bool FrameView::updateEmbeddedObjects()
 
 void FrameView::flushAnyPendingPostLayoutTasks()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (!m_postLayoutTasksTimer.isActive())
         return;
@@ -3305,9 +2926,7 @@ void FrameView::flushAnyPendingPostLayoutTasks()
 
 void FrameView::performPostLayoutTasks()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     m_postLayoutTasksTimer.stop();
 
@@ -3389,9 +3008,7 @@ void FrameView::performPostLayoutTasks()
 
 void FrameView::sendResizeEventIfNeeded()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView || renderView->printing())
         return;
@@ -3448,35 +3065,27 @@ void FrameView::sendResizeEventIfNeeded()
 
 void FrameView::willStartLiveResize()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ScrollView::willStartLiveResize();
     adjustTiledBackingCoverage();
 }
     
 void FrameView::willEndLiveResize()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ScrollView::willEndLiveResize();
     adjustTiledBackingCoverage();
 }
 
 void FrameView::postLayoutTimerFired(Timer<FrameView>*)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     performPostLayoutTasks();
 }
 
 void FrameView::autoSizeIfEnabled()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_shouldAutoSize)
         return;
 
@@ -3576,9 +3185,7 @@ void FrameView::autoSizeIfEnabled()
 
 void FrameView::setAutoSizeFixedMinimumHeight(int fixedMinimumHeight)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_autoSizeFixedMinimumHeight == fixedMinimumHeight)
         return;
 
@@ -3589,9 +3196,7 @@ void FrameView::setAutoSizeFixedMinimumHeight(int fixedMinimumHeight)
 
 void FrameView::updateOverflowStatus(bool horizontalOverflow, bool verticalOverflow)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_viewportRenderer)
         return;
     
@@ -3620,9 +3225,7 @@ void FrameView::updateOverflowStatus(bool horizontalOverflow, bool verticalOverf
 
 const Pagination& FrameView::pagination() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_pagination != Pagination())
         return m_pagination;
 
@@ -3634,9 +3237,7 @@ const Pagination& FrameView::pagination() const
 
 void FrameView::setPagination(const Pagination& pagination)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_pagination == pagination)
         return;
 
@@ -3647,9 +3248,7 @@ void FrameView::setPagination(const Pagination& pagination)
 
 IntRect FrameView::windowClipRect(bool clipToContents) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(frame().view() == this);
 
     if (paintsEntireContents())
@@ -3669,9 +3268,7 @@ IntRect FrameView::windowClipRect(bool clipToContents) const
 
 IntRect FrameView::windowClipRectForFrameOwner(const HTMLFrameOwnerElement* ownerElement, bool clipToLayerContents) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // The renderer can sometimes be null when style="display:none" interacts
     // with external content and plugins.
     if (!ownerElement->renderer())
@@ -3694,18 +3291,14 @@ IntRect FrameView::windowClipRectForFrameOwner(const HTMLFrameOwnerElement* owne
 
 bool FrameView::isActive() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     Page* page = frame().page();
     return page && page->focusController().isActive();
 }
 
 bool FrameView::updatesScrollLayerPositionOnMainThread() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (Page* page = frame().page()) {
         if (ScrollingCoordinator* scrollingCoordinator = page->scrollingCoordinator())
             return scrollingCoordinator->shouldUpdateScrollLayerPositionSynchronously();
@@ -3716,9 +3309,7 @@ bool FrameView::updatesScrollLayerPositionOnMainThread() const
 
 void FrameView::scrollTo(const IntSize& newOffset)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     LayoutSize offset = scrollOffset();
     ScrollView::scrollTo(newOffset);
     if (offset != scrollOffset())
@@ -3728,9 +3319,7 @@ void FrameView::scrollTo(const IntSize& newOffset)
 
 void FrameView::invalidateScrollbarRect(Scrollbar* scrollbar, const IntRect& rect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // Add in our offset within the FrameView.
     IntRect dirtyRect = rect;
     dirtyRect.moveBy(scrollbar->location());
@@ -3739,9 +3328,7 @@ void FrameView::invalidateScrollbarRect(Scrollbar* scrollbar, const IntRect& rec
 
 IntRect FrameView::windowResizerRect() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (Page* page = frame().page())
         return page->chrome().windowResizerRect();
     return IntRect();
@@ -3749,9 +3336,7 @@ IntRect FrameView::windowResizerRect() const
 
 float FrameView::visibleContentScaleFactor() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!frame().isMainFrame() || !frame().settings().delegatesPageScaling())
         return 1;
 
@@ -3760,9 +3345,7 @@ float FrameView::visibleContentScaleFactor() const
 
 void FrameView::setVisibleScrollerThumbRect(const IntRect& scrollerThumb)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!frame().isMainFrame())
         return;
 
@@ -3771,18 +3354,14 @@ void FrameView::setVisibleScrollerThumbRect(const IntRect& scrollerThumb)
 
 ScrollableArea* FrameView::enclosingScrollableArea() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // FIXME: Walk up the frame tree and look for a scrollable parent frame or RenderLayer.
     return 0;
 }
 
 IntRect FrameView::scrollableAreaBoundingBox() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderWidget* ownerRenderer = frame().ownerRenderer();
     if (!ownerRenderer)
         return frameRect();
@@ -3792,9 +3371,7 @@ IntRect FrameView::scrollableAreaBoundingBox() const
 
 bool FrameView::isScrollable()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // Check for:
     // 1) If there an actual overflow.
     // 2) display:none or visibility:hidden set to self or inherited.
@@ -3824,9 +3401,7 @@ bool FrameView::isScrollable()
 
 void FrameView::updateScrollableAreaSet()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // That ensures that only inner frames are cached.
     FrameView* parentFrameView = this->parentFrameView();
     if (!parentFrameView)
@@ -3842,17 +3417,13 @@ void FrameView::updateScrollableAreaSet()
 
 bool FrameView::shouldSuspendScrollAnimations() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return frame().loader().state() != FrameStateComplete;
 }
 
 void FrameView::scrollbarStyleChanged(int newStyle, bool forceUpdate)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!frame().isMainFrame())
         return;
 
@@ -3864,9 +3435,7 @@ void FrameView::scrollbarStyleChanged(int newStyle, bool forceUpdate)
 
 void FrameView::notifyPageThatContentAreaWillPaint() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     Page* page = frame().page();
     if (!page)
         return;
@@ -3882,9 +3451,7 @@ void FrameView::notifyPageThatContentAreaWillPaint() const
 
 bool FrameView::scrollAnimatorEnabled() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if ENABLE(SMOOTH_SCROLLING)
     if (Page* page = frame().page())
         return page->settings().scrollAnimatorEnabled();
@@ -3913,9 +3480,7 @@ void FrameView::updateAnnotatedRegions()
 
 void FrameView::updateScrollCorner()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderElement* renderer = 0;
     RefPtr<RenderStyle> cornerStyle;
     IntRect cornerRect = scrollCornerRect();
@@ -3961,9 +3526,7 @@ void FrameView::updateScrollCorner()
 
 void FrameView::paintScrollCorner(GraphicsContext* context, const IntRect& cornerRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (context->updatingControlTints()) {
         updateScrollCorner();
         return;
@@ -3981,9 +3544,7 @@ void FrameView::paintScrollCorner(GraphicsContext* context, const IntRect& corne
 
 void FrameView::paintScrollbar(GraphicsContext* context, Scrollbar* bar, const IntRect& rect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (bar->isCustomScrollbar() && frame().isMainFrame()) {
         IntRect toFill = bar->frameRect();
         toFill.intersect(rect);
@@ -3995,9 +3556,7 @@ void FrameView::paintScrollbar(GraphicsContext* context, Scrollbar* bar, const I
 
 Color FrameView::documentBackgroundColor() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // <https://bugs.webkit.org/show_bug.cgi?id=59540> We blend the background color of
     // the document and the body against the base background color of the frame view.
     // Background images are unfortunately impractical to include.
@@ -4038,9 +3597,7 @@ Color FrameView::documentBackgroundColor() const
 
 bool FrameView::hasCustomScrollbars() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     for (auto& widget : children()) {
         if (widget->isFrameView()) {
             if (toFrameView(*widget).hasCustomScrollbars())
@@ -4056,9 +3613,7 @@ bool FrameView::hasCustomScrollbars() const
 
 FrameView* FrameView::parentFrameView() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!parent())
         return 0;
 
@@ -4070,9 +3625,7 @@ FrameView* FrameView::parentFrameView() const
 
 bool FrameView::isInChildFrameWithFrameFlattening() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!parent() || !frame().ownerElement())
         return false;
 
@@ -4095,9 +3648,7 @@ bool FrameView::isInChildFrameWithFrameFlattening() const
 
 void FrameView::startLayoutAtMainFrameViewIfNeeded(bool allowSubtree)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // When we start a layout at the child level as opposed to the topmost frame view and this child
     // frame requires flattening, we need to re-initiate the layout at the topmost view. Layout
     // will hit this view eventually.
@@ -4124,9 +3675,7 @@ void FrameView::startLayoutAtMainFrameViewIfNeeded(bool allowSubtree)
 
 void FrameView::updateControlTints()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // This is called when control tints are changed from aqua/graphite to clear and vice versa.
     // We do a "fake" paint, and when the theme gets a paint call, it can then do an invalidate.
     // This is only done if the theme supports control tinting. It's up to the theme and platform
@@ -4143,9 +3692,7 @@ void FrameView::updateControlTints()
 
 void FrameView::paintControlTints()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (needsLayout())
         layout();
     PlatformGraphicsContext* const noContext = 0;
@@ -4159,17 +3706,13 @@ void FrameView::paintControlTints()
 
 bool FrameView::wasScrolledByUser() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_wasScrolledByUser;
 }
 
 void FrameView::setWasScrolledByUser(bool wasScrolledByUser)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_inProgrammaticScroll)
         return;
     m_maintainScrollPositionAnchor = 0;
@@ -4181,12 +3724,10 @@ void FrameView::setWasScrolledByUser(bool wasScrolledByUser)
 
 void FrameView::paintContents(GraphicsContext* p, const IntRect& rect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     Document* document = frame().document();
-
+#if !PLATFORM(JS)
 #ifndef NDEBUG
     bool fillWithRed;
     if (document->printing())
@@ -4205,7 +3746,7 @@ void FrameView::paintContents(GraphicsContext* p, const IntRect& rect)
     if (fillWithRed)
         p->fillRect(rect, Color(0xFF, 0, 0), ColorSpaceDeviceRGB);
 #endif
-
+#endif
     RenderView* renderView = this->renderView();
     if (!renderView) {
         LOG_ERROR("called FrameView::paint with nil renderer");
@@ -4308,42 +3849,32 @@ void FrameView::paintContents(GraphicsContext* p, const IntRect& rect)
 
 void FrameView::setPaintBehavior(PaintBehavior behavior)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_paintBehavior = behavior;
 }
 
 PaintBehavior FrameView::paintBehavior() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_paintBehavior;
 }
 
 bool FrameView::isPainting() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_isPainting;
 }
 
 // FIXME: change this to use the subtreePaint terminology.
 void FrameView::setNodeToDraw(Node* node)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_nodeToDraw = node;
 }
 
 void FrameView::paintContentsForSnapshot(GraphicsContext* context, const IntRect& imageRect, SelectionInSnapshot shouldPaintSelection, CoordinateSpaceForSnapshot coordinateSpace)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     updateLayoutAndStyleIfNeededRecursive();
 
@@ -4381,9 +3912,7 @@ void FrameView::paintContentsForSnapshot(GraphicsContext* context, const IntRect
 
 void FrameView::paintOverhangAreas(GraphicsContext* context, const IntRect& horizontalOverhangArea, const IntRect& verticalOverhangArea, const IntRect& dirtyRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (context->paintingDisabled())
         return;
 
@@ -4395,9 +3924,7 @@ void FrameView::paintOverhangAreas(GraphicsContext* context, const IntRect& hori
 
 void FrameView::updateLayoutAndStyleIfNeededRecursive()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // We have to crawl our entire tree looking for any FrameViews that need
     // layout and make sure they are up to date.
     // Mac actually tests for intersection with the dirty region and tries not to
@@ -4437,9 +3964,7 @@ void FrameView::updateLayoutAndStyleIfNeededRecursive()
 
 bool FrameView::qualifiesAsVisuallyNonEmpty() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // No content yet.
     Element* documentElement = frame().document()->documentElement();
     if (!documentElement || !documentElement->renderer())
@@ -4465,9 +3990,7 @@ bool FrameView::qualifiesAsVisuallyNonEmpty() const
 
 void FrameView::updateIsVisuallyNonEmpty()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_isVisuallyNonEmpty)
         return;
     if (!qualifiesAsVisuallyNonEmpty())
@@ -4478,9 +4001,7 @@ void FrameView::updateIsVisuallyNonEmpty()
 
 void FrameView::enableAutoSizeMode(bool enable, const IntSize& minSize, const IntSize& maxSize)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(!enable || !minSize.isEmpty());
     ASSERT(minSize.width() <= maxSize.width());
     ASSERT(minSize.height() <= maxSize.height());
@@ -4506,18 +4027,14 @@ void FrameView::enableAutoSizeMode(bool enable, const IntSize& minSize, const In
 
 void FrameView::forceLayout(bool allowSubtree)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     layout(allowSubtree);
 }
 
 void FrameView::forceLayoutForPagination(const FloatSize& pageSize, const FloatSize& originalPageSize, float maximumShrinkFactor, AdjustViewSizeOrNot shouldAdjustViewSize)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // Dumping externalRepresentation(frame().renderer()).ascii() is a good trick to see
     // the state of things before and after the layout
     if (RenderView* renderView = this->renderView()) {
@@ -4574,9 +4091,7 @@ void FrameView::forceLayoutForPagination(const FloatSize& pageSize, const FloatS
 
 void FrameView::adjustPageHeightDeprecated(float *newBottom, float oldTop, float oldBottom, float /*bottomLimit*/)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView) {
         *newBottom = oldBottom;
@@ -4597,9 +4112,7 @@ void FrameView::adjustPageHeightDeprecated(float *newBottom, float oldTop, float
 
 IntRect FrameView::convertFromRenderer(const RenderElement* renderer, const IntRect& rendererRect) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     IntRect rect = pixelSnappedIntRect(enclosingLayoutRect(renderer->localToAbsoluteQuad(FloatRect(rendererRect)).boundingBox()));
 
     // Convert from page ("absolute") to FrameView coordinates.
@@ -4611,9 +4124,7 @@ IntRect FrameView::convertFromRenderer(const RenderElement* renderer, const IntR
 
 IntRect FrameView::convertToRenderer(const RenderElement* renderer, const IntRect& viewRect) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     IntRect rect = viewRect;
     
     // Convert from FrameView coords into page ("absolute") coordinates.
@@ -4628,9 +4139,7 @@ IntRect FrameView::convertToRenderer(const RenderElement* renderer, const IntRec
 
 IntPoint FrameView::convertFromRenderer(const RenderElement* renderer, const IntPoint& rendererPoint) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     IntPoint point = roundedIntPoint(renderer->localToAbsolute(rendererPoint, UseTransforms));
 
     // Convert from page ("absolute") to FrameView coordinates.
@@ -4641,9 +4150,7 @@ IntPoint FrameView::convertFromRenderer(const RenderElement* renderer, const Int
 
 IntPoint FrameView::convertToRenderer(const RenderElement* renderer, const IntPoint& viewPoint) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     IntPoint point = viewPoint;
 
     // Convert from FrameView coords into page ("absolute") coordinates.
@@ -4655,9 +4162,7 @@ IntPoint FrameView::convertToRenderer(const RenderElement* renderer, const IntPo
 
 IntRect FrameView::convertToContainingView(const IntRect& localRect) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (const ScrollView* parentScrollView = parent()) {
         if (parentScrollView->isFrameView()) {
             const FrameView* parentView = toFrameView(parentScrollView);
@@ -4681,9 +4186,7 @@ IntRect FrameView::convertToContainingView(const IntRect& localRect) const
 
 IntRect FrameView::convertFromContainingView(const IntRect& parentRect) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (const ScrollView* parentScrollView = parent()) {
         if (parentScrollView->isFrameView()) {
             const FrameView* parentView = toFrameView(parentScrollView);
@@ -4708,9 +4211,7 @@ IntRect FrameView::convertFromContainingView(const IntRect& parentRect) const
 
 IntPoint FrameView::convertToContainingView(const IntPoint& localPoint) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (const ScrollView* parentScrollView = parent()) {
         if (parentScrollView->isFrameView()) {
             const FrameView* parentView = toFrameView(parentScrollView);
@@ -4736,9 +4237,7 @@ IntPoint FrameView::convertToContainingView(const IntPoint& localPoint) const
 
 IntPoint FrameView::convertFromContainingView(const IntPoint& parentPoint) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (const ScrollView* parentScrollView = parent()) {
         if (parentScrollView->isFrameView()) {
             const FrameView* parentView = toFrameView(parentScrollView);
@@ -4764,44 +4263,34 @@ IntPoint FrameView::convertFromContainingView(const IntPoint& parentPoint) const
 // Normal delay
 void FrameView::setRepaintThrottlingDeferredRepaintDelay(double p)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     s_normalDeferredRepaintDelay = p;
 }
 
 // Negative value would mean that first few repaints happen without a delay
 void FrameView::setRepaintThrottlingnInitialDeferredRepaintDelayDuringLoading(double p)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     s_initialDeferredRepaintDelayDuringLoading = p;
 }
 
 // The delay grows on each repaint to this maximum value
 void FrameView::setRepaintThrottlingMaxDeferredRepaintDelayDuringLoading(double p)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     s_maxDeferredRepaintDelayDuringLoading = p;
 }
 
 // On each repaint the delay increases by this amount
 void FrameView::setRepaintThrottlingDeferredRepaintDelayIncrementDuringLoading(double p)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     s_deferredRepaintDelayIncrementDuringLoading = p;
 }
 
 void FrameView::setTracksRepaints(bool trackRepaints)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
     if (trackRepaints == m_isTrackingRepaints)
         return;
@@ -4825,9 +4314,7 @@ void FrameView::setTracksRepaints(bool trackRepaints)
 
 void FrameView::resetTrackedRepaints()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_trackedRepaintRects.clear();
 #if USE(ACCELERATED_COMPOSITING)
     if (RenderView* renderView = this->renderView())
@@ -4837,9 +4324,7 @@ void FrameView::resetTrackedRepaints()
 
 String FrameView::trackedRepaintRectsAsText() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (frame().document())
         frame().document()->updateLayout();
 
@@ -4855,9 +4340,7 @@ String FrameView::trackedRepaintRectsAsText() const
 
 bool FrameView::addScrollableArea(ScrollableArea* scrollableArea)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (!m_scrollableAreas)
         m_scrollableAreas = adoptPtr(new ScrollableAreaSet);
     return m_scrollableAreas->add(scrollableArea).isNewEntry;
@@ -4865,25 +4348,19 @@ bool FrameView::addScrollableArea(ScrollableArea* scrollableArea)
 
 bool FrameView::removeScrollableArea(ScrollableArea* scrollableArea)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_scrollableAreas && m_scrollableAreas->remove(scrollableArea);
 }
 
 bool FrameView::containsScrollableArea(ScrollableArea* scrollableArea) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return m_scrollableAreas && m_scrollableAreas->contains(scrollableArea);
 }
 
 void FrameView::removeChild(Widget* widget)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (widget->isFrameView())
         removeScrollableArea(toFrameView(widget));
 
@@ -4892,9 +4369,7 @@ void FrameView::removeChild(Widget* widget)
 
 bool FrameView::wheelEvent(const PlatformWheelEvent& wheelEvent)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // Note that to allow for rubber-band over-scroll behavior, even non-scrollable views
     // should handle wheel events.
 #if !ENABLE(RUBBER_BANDING)
@@ -4935,9 +4410,7 @@ bool FrameView::wheelEvent(const PlatformWheelEvent& wheelEvent)
 
 bool FrameView::isVerticalDocument() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return true;
@@ -4947,9 +4420,7 @@ bool FrameView::isVerticalDocument() const
 
 bool FrameView::isFlippedDocument() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     RenderView* renderView = this->renderView();
     if (!renderView)
         return false;
@@ -4959,9 +4430,7 @@ bool FrameView::isFlippedDocument() const
 
 void FrameView::notifyWidgetsInAllFrames(WidgetNotification notification)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     for (Frame* frame = m_frame.get(); frame; frame = frame->tree().traverseNext(m_frame.get())) {
         if (FrameView* view = frame->view())
             view->notifyWidgets(notification);
@@ -4970,9 +4439,7 @@ void FrameView::notifyWidgetsInAllFrames(WidgetNotification notification)
     
 AXObjectCache* FrameView::axObjectCache() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (frame().document())
         return frame().document()->existingAXObjectCache();
     return 0;
@@ -5017,9 +4484,7 @@ bool FrameView::updateFixedPositionLayoutRect()
 
 void FrameView::setScrollingPerformanceLoggingEnabled(bool flag)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(ACCELERATED_COMPOSITING)
     if (TiledBacking* tiledBacking = this->tiledBacking())
         tiledBacking->setScrollingPerformanceLoggingEnabled(flag);
@@ -5030,9 +4495,7 @@ void FrameView::setScrollingPerformanceLoggingEnabled(bool flag)
 
 void FrameView::didAddScrollbar(Scrollbar* scrollbar, ScrollbarOrientation orientation)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ScrollableArea::didAddScrollbar(scrollbar, orientation);
     if (AXObjectCache* cache = axObjectCache())
         cache->handleScrollbarUpdate(this);
@@ -5040,9 +4503,7 @@ void FrameView::didAddScrollbar(Scrollbar* scrollbar, ScrollbarOrientation orien
 
 void FrameView::willRemoveScrollbar(Scrollbar* scrollbar, ScrollbarOrientation orientation)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ScrollableArea::willRemoveScrollbar(scrollbar, orientation);
     if (AXObjectCache* cache = axObjectCache()) {
         cache->remove(scrollbar);
@@ -5052,17 +4513,13 @@ void FrameView::willRemoveScrollbar(Scrollbar* scrollbar, ScrollbarOrientation o
 
 void FrameView::addPaintPendingMilestones(LayoutMilestones milestones)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_milestonesPendingPaint |= milestones;
 }
 
 void FrameView::firePaintRelatedMilestones()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     Page* page = frame().page();
     if (!page)
         return;
@@ -5088,9 +4545,7 @@ void FrameView::firePaintRelatedMilestones()
 
 void FrameView::setVisualUpdatesAllowedByClient(bool visualUpdatesAllowed)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_visualUpdatesAllowedByClient == visualUpdatesAllowed)
         return;
 
@@ -5101,9 +4556,7 @@ void FrameView::setVisualUpdatesAllowedByClient(bool visualUpdatesAllowed)
     
 void FrameView::setScrollPinningBehavior(ScrollPinningBehavior pinning)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     m_scrollPinningBehavior = pinning;
     
     if (ScrollingCoordinator* scrollingCoordinator = frame().page()->scrollingCoordinator())
@@ -5114,59 +4567,45 @@ void FrameView::setScrollPinningBehavior(ScrollPinningBehavior pinning)
 
 ScrollBehaviorForFixedElements FrameView::scrollBehaviorForFixedElements() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return frame().settings().backgroundShouldExtendBeyondPage() ? StickToViewportBounds : StickToDocumentBounds;
 }
 
 RenderView* FrameView::renderView() const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return frame().contentRenderer();
 }
 
 int FrameView::mapFromLayoutToCSSUnits(LayoutUnit value) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return value / (frame().pageZoomFactor() * frame().frameScaleFactor());
 }
 
 LayoutUnit FrameView::mapFromCSSToLayoutUnits(int value) const
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     return value * frame().pageZoomFactor() * frame().frameScaleFactor();
 }
 
 void FrameView::didAddWidgetToRenderTree(Widget& widget)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(!m_widgetsInRenderTree.contains(&widget));
     m_widgetsInRenderTree.add(&widget);
 }
 
 void FrameView::willRemoveWidgetFromRenderTree(Widget& widget)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     ASSERT(m_widgetsInRenderTree.contains(&widget));
     m_widgetsInRenderTree.remove(&widget);
 }
 
 static Vector<RefPtr<Widget>> collectAndProtectWidgets(const HashSet<Widget*>& set)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     Vector<RefPtr<Widget>> widgets;
     copyToVector(set, widgets);
     return widgets;
@@ -5174,9 +4613,7 @@ static Vector<RefPtr<Widget>> collectAndProtectWidgets(const HashSet<Widget*>& s
 
 void FrameView::updateWidgetPositions()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     // updateWidgetPosition() can possibly cause layout to be re-entered (via plug-ins running
     // scripts in response to NPP_SetWindow, for example), so we need to keep the Widgets
     // alive during enumeration.
@@ -5190,9 +4627,7 @@ void FrameView::updateWidgetPositions()
 
 void FrameView::notifyWidgets(WidgetNotification notification)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     auto protectedWidgets = collectAndProtectWidgets(m_widgetsInRenderTree);
 
     for (unsigned i = 0, size = protectedWidgets.size(); i < size; ++i)
@@ -5201,9 +4636,7 @@ void FrameView::notifyWidgets(WidgetNotification notification)
 
 void FrameView::setExposedRect(FloatRect exposedRect)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_exposedRect == exposedRect)
         return;
 

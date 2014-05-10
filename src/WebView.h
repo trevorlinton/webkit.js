@@ -22,6 +22,7 @@
 //#include <GLES2/gl2.h>
 //#include <EGL/egl.h>
 #include "SDL/SDL_opengles2.h"
+#include "GLContext.h"
 #endif
 
 namespace WebCore {
@@ -47,6 +48,7 @@ namespace WebKit {
     WebCore::FloatRect size;
 #if USE(ACCELERATED_COMPOSITING)
 		OwnPtr<WebCore::AcceleratedContext> acceleratedContext;
+		OwnPtr<WebCore::GLContext> glContext;
 #endif
 	};
 

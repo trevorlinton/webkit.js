@@ -141,6 +141,10 @@
 #include "WKContentObservation.h"
 #endif
 
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
+
 namespace WebCore {
 
 using namespace HTMLNames;
@@ -2442,6 +2446,7 @@ void FrameLoader::detachChildren()
 
 void FrameLoader::closeAndRemoveChild(Frame* child)
 {
+
     child->tree().detachFromParent();
 
     child->setView(0);
@@ -2507,6 +2512,7 @@ void FrameLoader::frameDetached()
 
 void FrameLoader::detachFromParent()
 {
+
     Ref<Frame> protect(m_frame);
 
     closeURL();

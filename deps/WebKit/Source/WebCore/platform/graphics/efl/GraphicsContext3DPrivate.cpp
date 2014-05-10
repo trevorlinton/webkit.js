@@ -48,9 +48,7 @@ GraphicsContext3DPrivate::GraphicsContext3DPrivate(GraphicsContext3D* context, H
 
 bool GraphicsContext3DPrivate::initialize()
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (m_context->m_renderStyle == GraphicsContext3D::RenderDirectlyToHostWindow)
         return false;
 

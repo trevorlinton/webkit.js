@@ -46,13 +46,12 @@ namespace WebCore {
 
 CString fileSystemRepresentation(const String& path)
 {
-  webkitTrace();
   return path.ascii();
 }
 
 bool fileExists(const String& path)
 {
-    webkitTrace();
+
     if (path.isNull())
         return false;
 
@@ -69,7 +68,7 @@ bool fileExists(const String& path)
 
 bool deleteFile(const String& path)
 {
-    webkitTrace();
+
     CString fsRep = fileSystemRepresentation(path);
 
     if (!fsRep.data() || fsRep.data()[0] == '\0')
@@ -81,7 +80,7 @@ bool deleteFile(const String& path)
 
 PlatformFileHandle openFile(const String& path, FileOpenMode mode)
 {
-    webkitTrace();
+
     CString fsRep = fileSystemRepresentation(path);
 
     if (fsRep.isNull())
@@ -97,7 +96,7 @@ PlatformFileHandle openFile(const String& path, FileOpenMode mode)
 
 void closeFile(PlatformFileHandle& handle)
 {
-    webkitTrace();
+
     if (isHandleValid(handle)) {
         close(handle);
         handle = invalidPlatformFileHandle;
@@ -106,7 +105,7 @@ void closeFile(PlatformFileHandle& handle)
 
 long long seekFile(PlatformFileHandle handle, long long offset, FileSeekOrigin origin)
 {
-    webkitTrace();
+
     int whence = SEEK_SET;
     switch (origin) {
     case SeekFromBeginning:
@@ -126,14 +125,14 @@ long long seekFile(PlatformFileHandle handle, long long offset, FileSeekOrigin o
 
 bool truncateFile(PlatformFileHandle handle, long long offset)
 {
-    webkitTrace();
+
     // ftruncate returns 0 to indicate the success.
     return !ftruncate(handle, offset);
 }
 
 int writeToFile(PlatformFileHandle handle, const char* data, int length)
 {
-    webkitTrace();
+
     do {
         int bytesWritten = write(handle, data, static_cast<size_t>(length));
         if (bytesWritten >= 0)
@@ -144,7 +143,7 @@ int writeToFile(PlatformFileHandle handle, const char* data, int length)
 
 int readFromFile(PlatformFileHandle handle, char* data, int length)
 {
-    webkitTrace();
+
     do {
         int bytesRead = read(handle, data, static_cast<size_t>(length));
         if (bytesRead >= 0)
@@ -156,7 +155,7 @@ int readFromFile(PlatformFileHandle handle, char* data, int length)
 #if USE(FILE_LOCK)
 bool lockFile(PlatformFileHandle handle, FileLockMode lockMode)
 {
-    webkitTrace();
+
     COMPILE_ASSERT(LOCK_SH == LockShared, LockSharedEncodingIsAsExpected);
     COMPILE_ASSERT(LOCK_EX == LockExclusive, LockExclusiveEncodingIsAsExpected);
     COMPILE_ASSERT(LOCK_NB == LockNonBlocking, LockNonBlockingEncodingIsAsExpected);
@@ -166,7 +165,7 @@ bool lockFile(PlatformFileHandle handle, FileLockMode lockMode)
 
 bool unlockFile(PlatformFileHandle handle)
 {
-    webkitTrace();
+
     int result = flock(handle, LOCK_UN);
     return (result != -1);
 }
@@ -174,7 +173,7 @@ bool unlockFile(PlatformFileHandle handle)
 
 bool deleteEmptyDirectory(const String& path)
 {
-    webkitTrace();
+
     CString fsRep = fileSystemRepresentation(path);
 
     if (!fsRep.data() || fsRep.data()[0] == '\0')
@@ -186,7 +185,7 @@ bool deleteEmptyDirectory(const String& path)
 
 bool getFileSize(const String& path, long long& result)
 {
-    webkitTrace();
+
     CString fsRep = fileSystemRepresentation(path);
 
     if (!fsRep.data() || fsRep.data()[0] == '\0')
@@ -203,7 +202,7 @@ bool getFileSize(const String& path, long long& result)
 
 bool getFileModificationTime(const String& path, time_t& result)
 {
-    webkitTrace();
+
     CString fsRep = fileSystemRepresentation(path);
 
     if (!fsRep.data() || fsRep.data()[0] == '\0')
@@ -220,7 +219,7 @@ bool getFileModificationTime(const String& path, time_t& result)
 
 bool getFileMetadata(const String& path, FileMetadata& metadata)
 {
-    webkitTrace();
+
     CString fsRep = fileSystemRepresentation(path);
 
     if (!fsRep.data() || fsRep.data()[0] == '\0')
@@ -238,7 +237,7 @@ bool getFileMetadata(const String& path, FileMetadata& metadata)
 
 String pathByAppendingComponent(const String& path, const String& component)
 {
-    webkitTrace();
+
     if (path.endsWith('/'))
         return path + component;
     return path + "/" + component;
@@ -246,7 +245,7 @@ String pathByAppendingComponent(const String& path, const String& component)
 
 bool makeAllDirectories(const String& path)
 {
-    webkitTrace();
+
     CString fullPath = fileSystemRepresentation(path);
     if (!access(fullPath.data(), F_OK))
         return true;
@@ -273,13 +272,13 @@ bool makeAllDirectories(const String& path)
 
 String pathGetFileName(const String& path)
 {
-    webkitTrace();
+
     return path.substring(path.reverseFind('/') + 1);
 }
 
 String directoryName(const String& path)
 {
-    webkitTrace();
+
     CString fsRep = fileSystemRepresentation(path);
 
     if (!fsRep.data() || fsRep.data()[0] == '\0')
@@ -291,7 +290,7 @@ String directoryName(const String& path)
 #if !PLATFORM(EFL)
 Vector<String> listDirectory(const String& path, const String& filter)
 {
-    webkitTrace();
+
     Vector<String> entries;
     CString cpath = path.utf8();
     CString cfilter = filter.utf8();
@@ -318,7 +317,7 @@ Vector<String> listDirectory(const String& path, const String& filter)
 #if !PLATFORM(MAC)
 String openTemporaryFile(const String& prefix, PlatformFileHandle& handle)
 {
-    webkitTrace();
+
     char buffer[PATH_MAX];
     const char* tmpDir = getenv("TMPDIR");
 

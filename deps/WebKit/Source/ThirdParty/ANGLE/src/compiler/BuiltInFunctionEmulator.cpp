@@ -17,6 +17,71 @@ namespace {
 // problematic because if the argument has side-effects they will be repeatedly
 // evaluated. This is unlikely to show up in real shaders, but is something to
 // consider.
+#if PLATFORM(JS)
+	const char* kFunctionEmulationVertexSource[] = {
+    "#error no emulation for cos(float)",
+    "#error no emulation for cos(vec2)",
+    "#error no emulation for cos(vec3)",
+    "#error no emulation for cos(vec4)",
+
+    "#define js_webgl_distance_emu(x, y) ((x) >= (y) ? (x) - (y) : (y) - (x))",
+    "#error no emulation for distance(vec2, vec2)",
+    "#error no emulation for distance(vec3, vec3)",
+    "#error no emulation for distance(vec4, vec4)",
+
+    "#define js_webgl_dot_emu(x, y) ((x) * (y))",
+    "#error no emulation for dot(vec2, vec2)",
+    "#error no emulation for dot(vec3, vec3)",
+    "#error no emulation for dot(vec4, vec4)",
+
+    "#define js_webgl_length_emu(x) ((x) >= 0.0 ? (x) : -(x))",
+    "#error no emulation for length(vec2)",
+    "#error no emulation for length(vec3)",
+    "#error no emulation for length(vec4)",
+
+    "#define js_webgl_normalize_emu(x) ((x) == 0.0 ? 0.0 : ((x) > 0.0 ? 1.0 : -1.0))",
+    "#error no emulation for normalize(vec2)",
+    "#error no emulation for normalize(vec3)",
+    "#error no emulation for normalize(vec4)",
+
+    "#define js_webgl_reflect_emu(I, N) ((I) - 2.0 * (N) * (I) * (N))",
+    "#error no emulation for reflect(vec2, vec2)",
+    "#error no emulation for reflect(vec3, vec3)",
+    "#error no emulation for reflect(vec4, vec4)"
+	};
+
+	const char* kFunctionEmulationFragmentSource[] = {
+    "js_webgl_emu_precision float js_webgl_cos_emu(js_webgl_emu_precision float a) { return cos(a); }",
+    "js_webgl_emu_precision vec2 js_webgl_cos_emu(js_webgl_emu_precision vec2 a) { return cos(a); }",
+    "js_webgl_emu_precision vec3 js_webgl_cos_emu(js_webgl_emu_precision vec3 a) { return cos(a); }",
+    "js_webgl_emu_precision vec4 js_webgl_cos_emu(js_webgl_emu_precision vec4 a) { return cos(a); }",
+
+    "#define js_webgl_distance_emu(x, y) ((x) >= (y) ? (x) - (y) : (y) - (x))",
+    "#error no emulation for distance(vec2, vec2)",
+    "#error no emulation for distance(vec3, vec3)",
+    "#error no emulation for distance(vec4, vec4)",
+
+    "#define js_webgl_dot_emu(x, y) ((x) * (y))",
+    "#error no emulation for dot(vec2, vec2)",
+    "#error no emulation for dot(vec3, vec3)",
+    "#error no emulation for dot(vec4, vec4)",
+
+    "#define js_webgl_length_emu(x) ((x) >= 0.0 ? (x) : -(x))",
+    "#error no emulation for length(vec2)",
+    "#error no emulation for length(vec3)",
+    "#error no emulation for length(vec4)",
+
+    "#define js_webgl_normalize_emu(x) ((x) == 0.0 ? 0.0 : ((x) > 0.0 ? 1.0 : -1.0))",
+    "#error no emulation for normalize(vec2)",
+    "#error no emulation for normalize(vec3)",
+    "#error no emulation for normalize(vec4)",
+
+    "#define js_webgl_reflect_emu(I, N) ((I) - 2.0 * (N) * (I) * (N))",
+    "#error no emulation for reflect(vec2, vec2)",
+    "#error no emulation for reflect(vec3, vec3)",
+    "#error no emulation for reflect(vec4, vec4)"
+	};
+#else
 const char* kFunctionEmulationVertexSource[] = {
     "#error no emulation for cos(float)",
     "#error no emulation for cos(vec2)",
@@ -80,7 +145,7 @@ const char* kFunctionEmulationFragmentSource[] = {
     "#error no emulation for reflect(vec3, vec3)",
     "#error no emulation for reflect(vec4, vec4)"
 };
-
+#endif
 const bool kFunctionEmulationVertexMask[] = {
 #if defined(__APPLE__)
     // Work around ATI driver bugs in Mac.
@@ -307,22 +372,41 @@ bool BuiltInFunctionEmulator::SetFunctionCalled(
 void BuiltInFunctionEmulator::OutputEmulatedFunctionDefinition(
     TInfoSinkBase& out, bool withPrecision) const
 {
+#if PLATFORM(JS)
     if (mFunctions.size() == 0)
         return;
     out << "// BEGIN: Generated code for built-in function emulation\n\n";
     if (withPrecision) {
         out << "#if defined(GL_FRAGMENT_PRECISION_HIGH)\n"
-            << "#define webgl_emu_precision highp\n"
+            << "#define js_webgl_emu_precision highp\n"
             << "#else\n"
-            << "#define webgl_emu_precision mediump\n"
+            << "#define js_webgl_emu_precision mediump\n"
             << "#endif\n\n";
     } else {
-        out << "#define webgl_emu_precision\n\n";
+        out << "#define js_webgl_emu_precision\n\n";
     }
     for (size_t i = 0; i < mFunctions.size(); ++i) {
         out << mFunctionSource[mFunctions[i]] << "\n\n";
     }
     out << "// END: Generated code for built-in function emulation\n\n";
+#else
+	if (mFunctions.size() == 0)
+		return;
+	out << "// BEGIN: Generated code for built-in function emulation\n\n";
+	if (withPrecision) {
+		out << "#if defined(GL_FRAGMENT_PRECISION_HIGH)\n"
+		<< "#define webgl_emu_precision highp\n"
+		<< "#else\n"
+		<< "#define webgl_emu_precision mediump\n"
+		<< "#endif\n\n";
+	} else {
+		out << "#define webgl_emu_precision\n\n";
+	}
+	for (size_t i = 0; i < mFunctions.size(); ++i) {
+		out << mFunctionSource[mFunctions[i]] << "\n\n";
+	}
+	out << "// END: Generated code for built-in function emulation\n\n";
+#endif
 }
 
 BuiltInFunctionEmulator::TBuiltInFunction

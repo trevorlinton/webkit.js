@@ -63,7 +63,6 @@ namespace WebCore {
 
 void ScriptController::initializeThreading()
 {
-  webkitTrace();
   JSC::initializeThreading();
   WTF::initializeMainThread();
 }
@@ -73,12 +72,10 @@ ScriptController::ScriptController(Frame& frame)
     , m_sourceURL(0)
     , m_paused(false)
 {
-  webkitTrace();
 }
 
 ScriptController::~ScriptController()
 {
-  webkitTrace();
 }
 
 bool ScriptController::canExecuteScripts(ReasonForCallingCanExecuteScripts reason) {

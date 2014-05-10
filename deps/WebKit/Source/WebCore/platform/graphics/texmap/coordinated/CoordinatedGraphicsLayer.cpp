@@ -135,7 +135,7 @@ CoordinatedGraphicsLayer::CoordinatedGraphicsLayer(GraphicsLayerClient* client)
     , m_scrollableArea(0)
 {
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     static CoordinatedLayerID nextLayerID = 1;
     m_id = nextLayerID++;
@@ -282,9 +282,7 @@ void CoordinatedGraphicsLayer::setMasksToBounds(bool b)
 void CoordinatedGraphicsLayer::setDrawsContent(bool b)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (drawsContent() == b)
         return;
     GraphicsLayer::setDrawsContent(b);
@@ -297,9 +295,7 @@ void CoordinatedGraphicsLayer::setDrawsContent(bool b)
 void CoordinatedGraphicsLayer::setContentsVisible(bool b)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (contentsAreVisible() == b)
         return;
     GraphicsLayer::setContentsVisible(b);
@@ -398,9 +394,7 @@ bool GraphicsLayer::supportsContentsTiling()
 void CoordinatedGraphicsLayer::setContentsNeedsDisplay()
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(GRAPHICS_SURFACE)
     if (m_canvasPlatformLayer)
         m_pendingCanvasOperation |= SyncCanvas;
@@ -412,9 +406,7 @@ void CoordinatedGraphicsLayer::setContentsNeedsDisplay()
 
 void CoordinatedGraphicsLayer::setContentsToCanvas(PlatformLayer* platformLayer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 #if USE(GRAPHICS_SURFACE)
     if (m_canvasPlatformLayer) {
         ASSERT(m_canvasToken.isValid());
@@ -494,9 +486,7 @@ void CoordinatedGraphicsLayer::setShowRepaintCounter(bool show)
 void CoordinatedGraphicsLayer::setContentsToImage(Image* image)
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     NativeImagePtr newNativeImagePtr = image ? image->nativeImageForCurrentFrame() : 0;
     if (newNativeImagePtr) {
         // This code makes the assumption that pointer equality on a NativeImagePtr is a valid way to tell if the image is changed.
@@ -550,9 +540,7 @@ bool CoordinatedGraphicsLayer::shouldDirectlyCompositeImage(Image* image) const
 
 void CoordinatedGraphicsLayer::setReplicatedByLayer(GraphicsLayer* layer)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     if (layer == replicaLayer())
         return;
 

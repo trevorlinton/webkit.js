@@ -107,9 +107,7 @@ static void resolveResetStatusExtension()
 
 PassOwnPtr<GLPlatformContext> GLPlatformContext::createContext(GraphicsContext3D::RenderStyle renderStyle)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
 #if !USE(OPENGL_ES_2)
     if (!initializeOpenGLShims())
@@ -192,9 +190,7 @@ GLPlatformContext::GLPlatformContext()
     : m_contextHandle(0)
     , m_resetLostContext(false)
 {
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
 
 }
 

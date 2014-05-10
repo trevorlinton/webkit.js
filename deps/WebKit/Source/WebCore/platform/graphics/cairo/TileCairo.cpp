@@ -46,9 +46,7 @@ TileCairo::TileCairo(TiledBackingStore* backingStore, const Coordinate& tileCoor
     , m_rect(m_backingStore->tileRectForCoordinate(tileCoordinate))
 {
 
-#if PLATFORM(JS)
-	webkitTrace();
-#endif
+
     cairo_rectangle_int_t rect = m_rect;
     m_dirtyRegion = adoptRef(cairo_region_create_rectangle(&rect));
 }
@@ -60,7 +58,7 @@ TileCairo::~TileCairo()
 bool TileCairo::isDirty() const
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     return !cairo_region_is_empty(m_dirtyRegion.get());
 }
@@ -68,7 +66,7 @@ bool TileCairo::isDirty() const
 bool TileCairo::isReadyToPaint() const
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     return m_buffer;
 }
@@ -76,7 +74,7 @@ bool TileCairo::isReadyToPaint() const
 void TileCairo::invalidate(const IntRect& dirtyRect)
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     IntRect tileDirtyRect = intersection(dirtyRect, m_rect);
     if (tileDirtyRect.isEmpty())
@@ -89,7 +87,7 @@ void TileCairo::invalidate(const IntRect& dirtyRect)
 Vector<IntRect> TileCairo::updateBackBuffer()
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     if (m_buffer && !isDirty())
         return Vector<IntRect>();
@@ -131,7 +129,7 @@ void TileCairo::swapBackBufferToFront()
 void TileCairo::paint(GraphicsContext* context, const IntRect& rect)
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     if (!m_buffer)
         return;
@@ -147,7 +145,7 @@ void TileCairo::paint(GraphicsContext* context, const IntRect& rect)
 void TileCairo::resize(const WebCore::IntSize& newSize)
 	{
 #if PLATFORM(JS)
-		webkitTrace();
+	
 #endif
     IntRect oldRect = m_rect;
     m_rect = IntRect(m_rect.location(), newSize);

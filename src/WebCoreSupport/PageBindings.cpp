@@ -57,7 +57,7 @@ void WTF::scheduleDispatchFunctionsOnMainThread() {
 namespace WebCore {
 #if USE(ACCELERATED_COMPOSITING)
   bool RenderEmbeddedObject::allowsAcceleratedCompositing() const {
-		webkitTrace();
+	
 		return true;
 	}
 #endif

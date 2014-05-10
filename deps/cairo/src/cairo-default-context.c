@@ -1003,6 +1003,7 @@ _cairo_default_context_fill_preserve (void *abstract_cr)
 static cairo_status_t
 _cairo_default_context_fill (void *abstract_cr)
 {
+	fprintf(stdout, "At _cairo_default_context_fill\n");
     cairo_default_context_t *cr = abstract_cr;
     cairo_status_t status;
 

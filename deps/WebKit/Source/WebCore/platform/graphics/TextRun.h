@@ -181,7 +181,7 @@ public:
 #endif
     void setText(const UChar* c, unsigned len) {
 #if PLATFORM(JS)
-			webkitTrace();
+		
 #endif
 			m_data.characters16 = c; m_len = len; m_is8Bit = false;
 		}

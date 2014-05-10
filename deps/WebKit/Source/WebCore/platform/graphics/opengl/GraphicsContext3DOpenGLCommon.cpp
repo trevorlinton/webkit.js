@@ -29,7 +29,9 @@
 #include "config.h"
 
 #if USE(3D_GRAPHICS)
-
+#if PLATFORM(JS)
+#include "emscripten.h"
+#endif
 #include "GraphicsContext3D.h"
 #if PLATFORM(IOS)
 #include "GraphicsContext3DIOS.h"

@@ -188,7 +188,7 @@ bool Extensions3DOpenGL::supportsExtension(const String& name)
 
     // GL_OES_vertex_array_object
     if (name == "GL_OES_vertex_array_object") {
-#if (PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(NIX))
+#if (PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(NIX) || PLATFORM(JS))
         return m_availableExtensions.contains("GL_ARB_vertex_array_object");
 #else
         return m_availableExtensions.contains("GL_APPLE_vertex_array_object");
@@ -239,7 +239,7 @@ String Extensions3DOpenGL::getExtensions()
     return String(reinterpret_cast<const char*>(::glGetString(GL_EXTENSIONS)));
 }
 
-#if (PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX))
+#if (PLATFORM(GTK) || PLATFORM(EFL) || PLATFORM(WIN) || PLATFORM(NIX) || PLATFORM(JS))
 bool Extensions3DOpenGL::isVertexArrayObjectSupported()
 {
     static const bool supportsVertexArrayObject = supports("GL_OES_vertex_array_object");

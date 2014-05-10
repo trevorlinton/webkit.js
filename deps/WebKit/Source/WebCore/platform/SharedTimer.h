@@ -63,7 +63,7 @@ namespace WebCore {
         virtual void setFiredFunction(void (*function)())
         {
 #if PLATFORM(JS)
-					webkitTrace();
+				
 #endif
             setSharedTimerFiredFunction(function);
         }
@@ -71,7 +71,7 @@ namespace WebCore {
         virtual void setFireInterval(double interval)
         {
 #if PLATFORM(JS)
-					webkitTrace();
+				
 #endif
             setSharedTimerFireInterval(interval);
         }
@@ -79,7 +79,7 @@ namespace WebCore {
         virtual void stop()
         {
 #if PLATFORM(JS)
-					webkitTrace();
+				
 #endif
             stopSharedTimer();
         }

@@ -275,6 +275,8 @@ LayerFilterRendererAction::LayerFilterRendererAction(int c_programId)
 
 void LayerFilterRendererAction::useActionOn(LayerFilterRenderer* renderer)
 {
+		fprintf(stdout, "GraphicsContext3D::useProgram();\n");
+
     ASSERT(m_programId != -1);
     if (m_programId == -1) {
         glUseProgram(renderer->m_cssFilterProgramObject[LayerData::CSSFilterShaderPassthrough]);
@@ -557,6 +559,7 @@ void LayerFilterRenderer::pong(LayerRendererSurface* surface)
 
 void LayerFilterRenderer::pushSnapshot(LayerRendererSurface* surface, int sourceId)
 {
+		fprintf(stdout, "GraphicsContext3D::useProgram();\n");
     GLuint texid = m_snapshotTexture->platformTexture();
 
     glFramebufferTexture2D(
