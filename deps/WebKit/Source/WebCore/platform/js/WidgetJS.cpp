@@ -43,13 +43,13 @@ Widget::Widget(PlatformWidget widget)
     , m_parentVisible(false)
     , m_frame(0, 0, 0, 0)
 {
-	
+		webkitTrace();
     init(widget);
 }
 
 Widget::~Widget()
 {
-	
+	webkitTrace();
     ASSERT(!parent());
 }
 
@@ -60,17 +60,22 @@ IntRect Widget::frameRect() const
 
 void Widget::setFrameRect(const IntRect& rect)
 {
-	
+	webkitTrace();
+	fprintf(stdout, "Widget frame size changed to: %i %i %i %i\n",rect.x(),rect.y(),rect.width(),rect.height());
 		m_frame = rect;
     Widget::frameRectsChanged();
 }
 
 void Widget::setFocus(bool)
 {
+	webkitTrace();
+
 }
 
 void Widget::setCursor(const Cursor& cursor)
 {
+	webkitTrace();
+
     ScrollView* view = root();
     if (!view)
         return;
@@ -79,13 +84,15 @@ void Widget::setCursor(const Cursor& cursor)
 
 void Widget::show()
 {
-	
+	webkitTrace();
+
     //TODO: Should we do anything here?
 }
 
 void Widget::hide()
 {
-	
+	webkitTrace();
+
     //TODO: Should we do anything here?
 }
 

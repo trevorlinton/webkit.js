@@ -101,8 +101,8 @@
 			'<(DEPTH)/src/WebCoreSupport/WebFrameJS.h',
 			'<(DEPTH)/src/WebCoreSupport/WebFrameJS.cpp',
 			'<(DEPTH)/src/WebCoreSupport/Stubs/HTMLPluginElement.cpp',
-			'<(DEPTH)/src/WebCoreSupport/cairosdl.h',
-			'<(DEPTH)/src/WebCoreSupport/cairosdl.c',
+			'<(DEPTH)/src/WebCoreSupport/GraphicsLayerCairo.cpp',
+			'<(DEPTH)/src/WebCoreSupport/GraphicsLayerCairo.h',
 			'<(DEPTH)/src/EmscriptenSupport.cpp',
 		],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
@@ -111,7 +111,7 @@
 	},
 	{
 		'target_name':'webcore_xml',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT',],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_xml_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -119,7 +119,7 @@
 	},
 	{
 		'target_name':'webcore_wtf',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_wtf_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -127,7 +127,7 @@
 	},
 	{
 		'target_name':'webcore_svg',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_svg_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -135,7 +135,7 @@
 	},
 	{
 		'target_name':'webcore_loader',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_loader_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -143,7 +143,7 @@
 	},
 	{
 		'target_name':'webcore_html',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_html_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -151,7 +151,7 @@
 	},
 	{
 		'target_name':'webcore_dom',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_dom_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -159,7 +159,7 @@
 	},
 	{
 		'target_name':'webcore_css',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_css_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -167,7 +167,7 @@
 	},
 	{
 		'target_name':'webcore_rendering',
-		'defines+': ['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+': ['<@(feature_defines)'],
 		'sources':['<@(webcore_rendering_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -175,7 +175,7 @@
 	},
 	{
 		'target_name':'webcore_page',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_page_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -183,7 +183,7 @@
 	},
 	{
 		'target_name':'webcore_style',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_style_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -191,7 +191,7 @@
 	},
 	{
 		'target_name':'webcore_derived',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_derived_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -213,7 +213,7 @@
 	},
 	{
 		'target_name':'webcore_history',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_history_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -221,7 +221,7 @@
 	},
 	{
 		'target_name':'webcore_editing',
-		'defines+':['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+':['<@(feature_defines)'],
 		'sources':['<@(webcore_editing_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -229,7 +229,7 @@
 	},
 	{
 		'target_name': 'webcore_storage',
-		'defines+': ['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+': ['<@(feature_defines)'],
 		'sources': ['<@(webcore_storage_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -237,7 +237,7 @@
 	},
 	{
 		'target_name': 'webcore_angle',
-		'defines+': ['<@(feature_defines)','CAIRO_HAS_FT_FONT','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+': ['<@(feature_defines)'],
 		'sources': ['<@(webcore_angle_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'],
@@ -305,7 +305,7 @@
 	},
 	{
 		'target_name': 'cairo',
-		'defines+': ['HAVE_CONFIG_H','CAIRO_NO_MUTEX','CAIRO_HAS_FT_FONT','HAVE_UINT64_T','CAIRO_HAS_FC_FONT','CAIRO_HAS_EGL_FUNCTIONS','CAIRO_HAS_GLESV2_SURFACE'],
+		'defines+': ['HAVE_CONFIG_H','CAIRO_NO_MUTEX','HAVE_UINT64_T'], #
 		'sources': ['<@(cairo)',],
 		'sources/': [['exclude', '(prefs/|perf/|util/|test/|os2|win32|beos|qt|boilerplate|arm-|sse2|pdf|quartz|script-|wgl|xcb|vg-|-drm|skia-|tee-|xlib-|xml-|-vmx|utils/|cogl|directfb-|glx-|check-has-hidden|pixman-region.c$|perceptualdiff\\.c$|cairo-ps-surface\\.c$|cairo-pdf-surface\\.c$|cairo-svg-surface\\.c$|cairo-time\\.c$|/test-)'],], #|cairo-gl-info\\.c$|cairo-gl-device\\.c$|cairo-gl-dispatch\\.c$|cairo-gl-device\\.c$|cairo_gl_dispatch\\.c$|cairo-path-stroke-polygon\\.c$|cairo-contour\\.c$
 		'include_dirs': [

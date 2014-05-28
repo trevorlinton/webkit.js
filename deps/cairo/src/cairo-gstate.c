@@ -1215,24 +1215,32 @@ BAIL:
 cairo_status_t
 _cairo_gstate_fill (cairo_gstate_t *gstate, cairo_path_fixed_t *path)
 {
+	fprintf(stdout, "_cairo_gstate_fill\n");
     cairo_status_t status;
-	fprintf(stdout, "At _cairo_gstate_fill\n");
     status = _cairo_gstate_get_pattern_status (gstate->source);
-    if (unlikely (status))
-	return status;
+	if (unlikely (status)) {
+		fprintf(stdout, "_cairo_gstate_fill:1\n");
 
-    if (gstate->op == CAIRO_OPERATOR_DEST)
-	return CAIRO_STATUS_SUCCESS;
+		return status;
+	}
 
-    if (_cairo_clip_is_all_clipped (gstate->clip))
+	if (gstate->op == CAIRO_OPERATOR_DEST) {
+		fprintf(stdout, "_cairo_gstate_fill:2\n");
 	return CAIRO_STATUS_SUCCESS;
+	}
+
+	if (_cairo_clip_is_all_clipped (gstate->clip)) {
+		fprintf(stdout, "_cairo_gstate_fill:3\n");
+	return CAIRO_STATUS_SUCCESS;
+	}
 
     assert (gstate->opacity == 1.0);
 
     if (_cairo_path_fixed_fill_is_empty (path)) {
-	if (_cairo_operator_bounded_by_mask (gstate->op))
-	    return CAIRO_STATUS_SUCCESS;
-
+			if (_cairo_operator_bounded_by_mask (gstate->op)) {
+	    	fprintf(stdout, "_cairo_gstate_fill:4\n");
+return CAIRO_STATUS_SUCCESS;
+			}
 	status = _cairo_surface_paint (gstate->target,
 				       CAIRO_OPERATOR_CLEAR,
 				       &_cairo_pattern_clear.base,
@@ -1246,8 +1254,11 @@ _cairo_gstate_fill (cairo_gstate_t *gstate, cairo_path_fixed_t *path)
 
 	op = _reduce_op (gstate);
 	if (op == CAIRO_OPERATOR_CLEAR) {
+		fprintf(stdout, "_cairo_gstate_fill:4.4\n");
+
 	    pattern = &_cairo_pattern_clear.base;
 	} else {
+		fprintf(stdout, "_cairo_gstate_fill:4.5\n");
 	    _cairo_gstate_copy_transformed_source (gstate, &source_pattern.base);
 	    pattern = &source_pattern.base;
 	}
@@ -1260,11 +1271,14 @@ _cairo_gstate_fill (cairo_gstate_t *gstate, cairo_path_fixed_t *path)
 	    box.p2.x >= _cairo_fixed_from_int (extents.x + extents.width) &&
 	    box.p2.y >= _cairo_fixed_from_int (extents.y + extents.height))
 	{
+		fprintf(stdout, "_cairo_gstate_fill:4.3\n");
 	    status = _cairo_surface_paint (gstate->target, op, pattern,
 					   gstate->clip);
 	}
 	else
 	{
+		fprintf(stdout, "_cairo_gstate_fill:4.2\n");
+
 	    status = _cairo_surface_fill (gstate->target, op, pattern,
 					  path,
 					  gstate->fill_rule,
@@ -1273,6 +1287,7 @@ _cairo_gstate_fill (cairo_gstate_t *gstate, cairo_path_fixed_t *path)
 					  gstate->clip);
 	}
     }
+	fprintf(stdout, "_cairo_gstate_fill:5\n");
 
     return status;
 }

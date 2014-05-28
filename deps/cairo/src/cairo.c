@@ -768,12 +768,17 @@ cairo_set_source_rgba (cairo_t *cr,
 {
 	cairo_status_t status;
 
-	if (unlikely (cr->status))
+	if (unlikely (cr->status)) {
+		fprintf(stdout, "Failed to set cr->status\n");
 		return;
-	fprintf(stdout, "cairo_set_source_rgba: r: %f g: %f b: %f a: %f\n",red,green,blue,alpha);
+	}
+
 	status = cr->backend->set_source_rgba (cr, red, green, blue, alpha);
-	if (unlikely (status))
+	if (unlikely (status)) {
+		fprintf(stdout, "Failed to set cr->status2\n");
+
 		_cairo_set_error (cr, status);
+	}
 }
 
 /**
@@ -1982,10 +1987,6 @@ cairo_rectangle (cairo_t *cr,
 								 double x, double y,
 								 double width, double height)
 {
-#ifdef TARGET_EMSCRIPTEN
-
-#endif
-
 	cairo_status_t status;
 
 	if (unlikely (cr->status))

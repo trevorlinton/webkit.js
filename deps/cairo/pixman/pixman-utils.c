@@ -43,6 +43,81 @@ typedef struct
 
 PIXMAN_DEFINE_THREAD_LOCAL (cache_t, fast_path_cache);
 
+
+
+static char *
+_pixman_operator_to_char (pixman_op_t op)
+{
+	switch ((int) op) {
+    case PIXMAN_OP_CLEAR:
+			return "PIXMAN_OP_CLEAR";
+
+    case PIXMAN_OP_SRC:
+			return "PIXMAN_OP_SRC";
+    case PIXMAN_OP_OVER:
+			return "PIXMAN_OP_OVER";
+    case PIXMAN_OP_IN:
+			return "PIXMAN_OP_IN";
+    case PIXMAN_OP_OUT:
+			return "PIXMAN_OP_OUT";
+    case PIXMAN_OP_ATOP:
+			return "PIXMAN_OP_ATOP";
+
+    case PIXMAN_OP_DST:
+			return "PIXMAN_OP_DST";
+    case PIXMAN_OP_OVER_REVERSE:
+			return "PIXMAN_OP_OVER_REVERSE";
+    case PIXMAN_OP_IN_REVERSE:
+			return "PIXMAN_OP_IN_REVERSE";
+    case PIXMAN_OP_OUT_REVERSE:
+			return "PIXMAN_OP_OUT_REVERSE";
+    case PIXMAN_OP_ATOP_REVERSE:
+			return "PIXMAN_OP_ATOP_REVERSE";
+
+    case PIXMAN_OP_XOR:
+			return "PIXMAN_OP_XOR";
+    case PIXMAN_OP_ADD:
+			return "PIXMAN_OP_ADD";
+    case PIXMAN_OP_SATURATE:
+			return "PIXMAN_OP_SATURATE";
+
+    case PIXMAN_OP_MULTIPLY:
+			return "PIXMAN_OP_MULTIPLY";
+    case PIXMAN_OP_SCREEN:
+			return "PIXMAN_OP_SCREEN";
+    case PIXMAN_OP_OVERLAY:
+			return "PIXMAN_OP_OVERLAY";
+    case PIXMAN_OP_DARKEN:
+			return "PIXMAN_OP_DARKEN";
+    case PIXMAN_OP_LIGHTEN:
+			return "PIXMAN_OP_LIGHTEN";
+    case PIXMAN_OP_COLOR_DODGE:
+			return "PIXMAN_OP_COLOR_DODGE";
+    case PIXMAN_OP_COLOR_BURN:
+			return "PIXMAN_OP_COLOR_BURN";
+    case PIXMAN_OP_HARD_LIGHT:
+			return "PIXMAN_OP_HARD_LIGHT";
+    case PIXMAN_OP_SOFT_LIGHT:
+			return "PIXMAN_OP_SOFT_LIGHT";
+    case PIXMAN_OP_DIFFERENCE:
+			return "PIXMAN_OP_DIFFERENCE";
+    case PIXMAN_OP_EXCLUSION:
+			return "PIXMAN_OP_EXCLUSION";
+    case PIXMAN_OP_HSL_HUE:
+			return "PIXMAN_OP_HSL_HUE";
+    case PIXMAN_OP_HSL_SATURATION:
+			return "PIXMAN_OP_HSL_SATURATION";
+    case PIXMAN_OP_HSL_COLOR:
+			return "PIXMAN_OP_HSL_COLOR";
+    case PIXMAN_OP_HSL_LUMINOSITY:
+			return "PIXMAN_OP_HSL_LUMINOSITY";
+
+    default:
+			return "UNKNOWN!";
+	}
+}
+
+
 pixman_bool_t
 _pixman_lookup_composite_function (pixman_implementation_t     *toplevel,
 				   pixman_op_t			op,
@@ -61,10 +136,21 @@ _pixman_lookup_composite_function (pixman_implementation_t     *toplevel,
 
 	/* Check cache for fast paths */
 	cache = PIXMAN_GET_THREAD_LOCAL (fast_path_cache);
+	fprintf(stdout, "_pixman_lookup_composite_function N_CACHED_FAST_PATHS: %i Operator: %s\n",N_CACHED_FAST_PATHS,_pixman_operator_to_char(op));
 
 	for (i = 0; i < N_CACHED_FAST_PATHS; ++i)
 	{
 		const pixman_fast_path_t *info = &(cache->cache[i].fast_path);
+		fprintf(stdout, "_pixman_lookup_composite_function EXAMINING[%i]: operator: %s\n",i,_pixman_operator_to_char(info->op));
+		fprintf(stdout, "\t\t\tEXAMINING[%i]: src_format %i info->src_format %i\n",i,src_format,info->src_format);
+		fprintf(stdout, "\t\t\tEXAMINING[%i]: mask_format %i info->mask_format %i\n",i,mask_format,info->mask_format);
+		fprintf(stdout, "\t\t\tEXAMINING[%i]: dest_format %i info->dest_format %i\n",i,dest_format,info->dest_format);
+
+		fprintf(stdout, "\t\t\tEXAMINING[%i]: src_flags %i info->src_flags %i\n",i,src_flags,info->src_flags);
+		fprintf(stdout, "\t\t\tEXAMINING[%i]: mask_flags %i info->mask_flags %i\n",i,mask_flags,info->mask_flags);
+		fprintf(stdout, "\t\t\tEXAMINING[%i]: dest_flags %i info->dest_flags %i\n",i,dest_flags,info->dest_flags);
+
+		fprintf(stdout, "\t\t\tEXAMINING[%i]: info->func %p\n",i,info->func);
 
 		/* Note that we check for equality here, not whether
 		 * the cached fast path matches. This is to prevent
@@ -82,6 +168,7 @@ _pixman_lookup_composite_function (pixman_implementation_t     *toplevel,
 		{
 	    *out_imp = cache->cache[i].imp;
 	    *out_func = cache->cache[i].fast_path.func;
+			fprintf(stdout, "_pixman_lookup_composite_function setting implementation:1\n");
 
 	    goto update_cache;
 		}
@@ -106,6 +193,7 @@ _pixman_lookup_composite_function (pixman_implementation_t     *toplevel,
 					(info->mask_flags & mask_flags) == info->mask_flags	&&
 					(info->dest_flags & dest_flags) == info->dest_flags)
 	    {
+				fprintf(stdout, "_pixman_lookup_composite_function setting implementation:2\n");
 				*out_imp = imp;
 				*out_func = info->func;
 

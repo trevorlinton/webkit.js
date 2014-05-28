@@ -37,7 +37,6 @@
 
 #if PLATFORM(JS)
 #include "DebuggerJS.h"
-#include "cairosdl.h"
 #endif
 
 namespace WebCore {
@@ -88,8 +87,6 @@ public:
 PlatformContextCairo::PlatformContextCairo(cairo_t* cr)
     : m_cr(cr)
 {
-
-
     m_stateStack.append(State());
     m_state = &m_stateStack.last();
 }
@@ -137,14 +134,9 @@ void PlatformContextCairo::pushImageMask(cairo_surface_t* surface, const FloatRe
     // is now, but they are isolated in another group. To make this work, we're
     // going to blit the current surface contents onto the new group once we push it.
     cairo_surface_t* currentTarget = cairo_get_target(m_cr.get());
-#if PLATFORM(JS)
-		cairo_surface_flush(currentTarget);
-
-	//		cairosdl_surface_flush(currentTarget);
-#else
     cairo_surface_flush(currentTarget);
-#endif
-    // Pushing a new group ensures that only things painted after this point are clipped.
+
+		// Pushing a new group ensures that only things painted after this point are clipped.
     cairo_push_group(m_cr.get());
     cairo_set_operator(m_cr.get(), CAIRO_OPERATOR_SOURCE);
 
@@ -276,8 +268,6 @@ static inline void reduceSourceByAlpha(cairo_t* cr, float alpha)
 
 static void prepareCairoContextSource(cairo_t* cr, Pattern* pattern, Gradient* gradient, const Color& color, float globalAlpha)
 {
-
-
     if (pattern) {
         RefPtr<cairo_pattern_t> cairoPattern(adoptRef(pattern->createPlatformPattern(AffineTransform())));
         cairo_set_source(cr, cairoPattern.get());

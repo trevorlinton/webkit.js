@@ -299,10 +299,11 @@ bool GLContextEGL::makeContextCurrent()
 void GLContextEGL::swapBuffers()
 {
 #if PLATFORM(JS)
-	
+	::glFlush();
+#else
+	ASSERT(m_surface);
+	eglSwapBuffers(sharedEGLDisplay(), m_surface);
 #endif
-    ASSERT(m_surface);
-    eglSwapBuffers(sharedEGLDisplay(), m_surface);
 }
 
 void GLContextEGL::waitNative()

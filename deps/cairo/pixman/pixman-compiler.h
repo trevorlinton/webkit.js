@@ -10,6 +10,11 @@
  *    inline         must be defined
  *    force_inline   must be defined
  */
+
+#ifdef __EMSCRIPTEN__
+#define PIXMAN_NO_TLS
+#endif
+
 #if defined (__GNUC__)
 #  define FUNC     ((const char*) (__PRETTY_FUNCTION__))
 #elif defined (__sun) || (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L)

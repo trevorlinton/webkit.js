@@ -22,10 +22,12 @@
 #include "config.h"
 #include "TextureMapperShaderProgram.h"
 
-#if USE(ACCELERATED_COMPOSITING) && USE(TEXTURE_MAPPER)
+#if USE(ACCELERATED_COMPOSITING) // && USE(TEXTURE_MAPPER)
 #include "LengthFunctions.h"
 #include "Logging.h"
+#if !PLATFORM(JS)
 #include "TextureMapperGL.h"
+#endif
 
 #include <wtf/text/StringBuilder.h>
 

@@ -30,11 +30,14 @@ public:
     WidgetBackingStoreCairo(PlatformWidget, const IntSize&);
     ~WidgetBackingStoreCairo();
     cairo_surface_t* cairoSurface();
+		PlatformWidget widget();
+
     void scroll(const IntRect&, const IntSize&);
 
 private:
     RefPtr<cairo_surface_t> m_surface;
     RefPtr<cairo_surface_t> m_scrollSurface;
+		PlatformWidget m_widget;
 };
 
 } // namespace WebCore

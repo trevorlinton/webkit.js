@@ -26,7 +26,7 @@
 #include "config.h"
 #include "EGLConfigSelector.h"
 
-#if USE(EGL)
+#if USE(EGL) && USE(ACCELERATED_COMPOSITING)
 
 #include "EGLHelper.h"
 

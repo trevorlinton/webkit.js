@@ -54,6 +54,7 @@ static CoordinatedLayerID toCoordinatedLayerID(GraphicsLayer* layer)
 
 bool CoordinatedGraphicsLayer::notifyFlushRequired()
 {
+	webkitTrace();
     ASSERT(m_coordinator);
     if (client() && !m_coordinator->isFlushingLayerChanges()) {
         client()->notifyFlushRequired(this);
@@ -64,18 +65,21 @@ bool CoordinatedGraphicsLayer::notifyFlushRequired()
 
 void CoordinatedGraphicsLayer::didChangeLayerState()
 {
+	webkitTrace();
     m_shouldSyncLayerState = true;
     notifyFlushRequired();
 }
 
 void CoordinatedGraphicsLayer::didChangeAnimations()
 {
+	webkitTrace();
     m_shouldSyncAnimations = true;
     notifyFlushRequired();
 }
 
 void CoordinatedGraphicsLayer::didChangeChildren()
 {
+	webkitTrace();
     m_shouldSyncChildren = true;
     notifyFlushRequired();
 }
@@ -83,6 +87,7 @@ void CoordinatedGraphicsLayer::didChangeChildren()
 #if ENABLE(CSS_FILTERS)
 void CoordinatedGraphicsLayer::didChangeFilters()
 {
+	webkitTrace();
     m_shouldSyncFilters = true;
     notifyFlushRequired();
 }
@@ -90,6 +95,7 @@ void CoordinatedGraphicsLayer::didChangeFilters()
 
 void CoordinatedGraphicsLayer::didChangeImageBacking()
 {
+	webkitTrace();
     m_shouldSyncImageBacking = true;
     notifyFlushRequired();
 }
@@ -393,7 +399,7 @@ bool GraphicsLayer::supportsContentsTiling()
 
 void CoordinatedGraphicsLayer::setContentsNeedsDisplay()
 {
-
+	webkitTrace();
 
 #if USE(GRAPHICS_SURFACE)
     if (m_canvasPlatformLayer)
@@ -607,6 +613,7 @@ void CoordinatedGraphicsLayer::setFixedToViewport(bool isFixed)
 
 void CoordinatedGraphicsLayer::flushCompositingState(const FloatRect& rect)
 {
+	webkitTrace();
     if (notifyFlushRequired())
         return;
 
@@ -933,6 +940,7 @@ void CoordinatedGraphicsLayer::tiledBackingStorePaintEnd(const Vector<IntRect>& 
 
 void CoordinatedGraphicsLayer::tiledBackingStoreHasPendingTileCreation()
 {
+	webkitTrace();
     setNeedsVisibleRectAdjustment();
     notifyFlushRequired();
 }

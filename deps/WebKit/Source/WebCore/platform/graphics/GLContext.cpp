@@ -201,7 +201,7 @@ bool GLContext::makeContextCurrent()
 
 GLContext* GLContext::getCurrent()
 {
-    return currentContext()->context();
+	return currentContext()->context();
 }
 
 } // namespace WebCore

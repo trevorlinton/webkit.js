@@ -281,23 +281,31 @@ _current_source_matches_solid (const cairo_pattern_t *pattern,
 static cairo_status_t
 _cairo_default_context_set_source_rgba (void *abstract_cr, double red, double green, double blue, double alpha)
 {
+	fprintf(stdout, "cairo_default_context_set_source_rgba\n");
     cairo_default_context_t *cr = abstract_cr;
     cairo_pattern_t *pattern;
     cairo_status_t status;
 
     if (_current_source_matches_solid (cr->gstate->source,
-				       red, green, blue, alpha))
+																			 red, green, blue, alpha)) {
+			fprintf(stdout, "cairo_default_context_set_source_rgba:1\n");
+
 	return CAIRO_STATUS_SUCCESS;
+		}
 
     /* push the current pattern to the freed lists */
     _cairo_default_context_set_source (cr, (cairo_pattern_t *) &_cairo_pattern_black);
 
     pattern = cairo_pattern_create_rgba (red, green, blue, alpha);
-    if (unlikely (pattern->status))
+	if (unlikely (pattern->status)){
+		fprintf(stdout, "cairo_default_context_set_source_rgba:2\n");
+
 	return pattern->status;
+	}
 
     status = _cairo_default_context_set_source (cr, pattern);
     cairo_pattern_destroy (pattern);
+	fprintf(stdout, "cairo_default_context_set_source_rgba:3\n");
 
     return status;
 }
@@ -1003,7 +1011,6 @@ _cairo_default_context_fill_preserve (void *abstract_cr)
 static cairo_status_t
 _cairo_default_context_fill (void *abstract_cr)
 {
-	fprintf(stdout, "At _cairo_default_context_fill\n");
     cairo_default_context_t *cr = abstract_cr;
     cairo_status_t status;
 

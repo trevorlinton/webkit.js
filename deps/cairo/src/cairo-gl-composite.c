@@ -584,6 +584,7 @@ static inline void
 _cairo_gl_composite_draw (cairo_gl_context_t *ctx,
 			  unsigned int count)
 {
+	fprintf(stdout, "_cairo_gl_composite_draw\n");
     if (! ctx->pre_shader) {
         glDrawArrays (GL_TRIANGLES, 0, count);
     } else {

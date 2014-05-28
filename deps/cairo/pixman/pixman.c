@@ -591,7 +591,7 @@ pixman_image_composite32 (pixman_op_t      op,
 
     _pixman_image_validate (src);
     if (mask)
-	_pixman_image_validate (mask);
+			_pixman_image_validate (mask);
     _pixman_image_validate (dest);
 
     src_format = src->common.extended_format_code;
@@ -599,13 +599,13 @@ pixman_image_composite32 (pixman_op_t      op,
 
     if (mask)
     {
-	mask_format = mask->common.extended_format_code;
-	mask_flags = mask->common.flags;
+			mask_format = mask->common.extended_format_code;
+			mask_flags = mask->common.flags;
     }
     else
     {
-	mask_format = PIXMAN_null;
-	mask_flags = FAST_PATH_IS_OPAQUE;
+			mask_format = PIXMAN_null;
+			mask_flags = FAST_PATH_IS_OPAQUE;
     }
 
     dest_format = dest->common.extended_format_code;
@@ -613,14 +613,14 @@ pixman_image_composite32 (pixman_op_t      op,
 
     /* Check for pixbufs */
     if ((mask_format == PIXMAN_a8r8g8b8 || mask_format == PIXMAN_a8b8g8r8) &&
-	(src->type == BITS && src->bits.bits == mask->bits.bits)	   &&
-	(src->common.repeat == mask->common.repeat)			   &&
-	(src_x == mask_x && src_y == mask_y))
+				(src->type == BITS && src->bits.bits == mask->bits.bits)	   &&
+				(src->common.repeat == mask->common.repeat)			   &&
+				(src_x == mask_x && src_y == mask_y))
     {
-	if (src_format == PIXMAN_x8b8g8r8)
-	    src_format = mask_format = PIXMAN_pixbuf;
-	else if (src_format == PIXMAN_x8r8g8b8)
-	    src_format = mask_format = PIXMAN_rpixbuf;
+			if (src_format == PIXMAN_x8b8g8r8)
+				src_format = mask_format = PIXMAN_pixbuf;
+			else if (src_format == PIXMAN_x8r8g8b8)
+				src_format = mask_format = PIXMAN_rpixbuf;
     }
 
     pixman_region32_init (&region);
@@ -629,7 +629,8 @@ pixman_image_composite32 (pixman_op_t      op,
 	    &region, src, mask, dest,
 	    src_x, src_y, mask_x, mask_y, dest_x, dest_y, width, height))
     {
-	goto out;
+			fprintf(stdout, "pixman_image_composite32:1\n");
+			goto out;
     }
 
     extents = *pixman_region32_extents (&region);
@@ -639,17 +640,20 @@ pixman_image_composite32 (pixman_op_t      op,
     extents.x2 -= dest_x - src_x;
     extents.y2 -= dest_y - src_y;
 
-    if (!analyze_extent (src, &extents, &src_flags))
-	goto out;
+		if (!analyze_extent (src, &extents, &src_flags)) {
+			fprintf(stdout, "pixman_image_composite32:2\n");
+			goto out;
+		}
 
     extents.x1 -= src_x - mask_x;
     extents.y1 -= src_y - mask_y;
     extents.x2 -= src_x - mask_x;
     extents.y2 -= src_y - mask_y;
 
-    if (!analyze_extent (mask, &extents, &mask_flags))
-	goto out;
-
+		if (!analyze_extent (mask, &extents, &mask_flags)) {
+			fprintf(stdout, "pixman_image_composite32:3\n");
+			goto out;
+		}
     /* If the clip is within the source samples, and the samples are
      * opaque, then the source is effectively opaque.
      */
@@ -661,15 +665,15 @@ pixman_image_composite32 (pixman_op_t      op,
 			 FAST_PATH_SAMPLES_COVER_CLIP_BILINEAR)
 
     if ((src_flags & NEAREST_OPAQUE) == NEAREST_OPAQUE ||
-	(src_flags & BILINEAR_OPAQUE) == BILINEAR_OPAQUE)
+				(src_flags & BILINEAR_OPAQUE) == BILINEAR_OPAQUE)
     {
-	src_flags |= FAST_PATH_IS_OPAQUE;
+			src_flags |= FAST_PATH_IS_OPAQUE;
     }
 
     if ((mask_flags & NEAREST_OPAQUE) == NEAREST_OPAQUE ||
-	(mask_flags & BILINEAR_OPAQUE) == BILINEAR_OPAQUE)
+				(mask_flags & BILINEAR_OPAQUE) == BILINEAR_OPAQUE)
     {
-	mask_flags |= FAST_PATH_IS_OPAQUE;
+			mask_flags |= FAST_PATH_IS_OPAQUE;
     }
 
     /*
@@ -684,38 +688,41 @@ pixman_image_composite32 (pixman_op_t      op,
 	    src_format, src_flags, mask_format, mask_flags, dest_format, dest_flags,
 	    &imp, &func))
     {
-	pixman_composite_info_t info;
-	const pixman_box32_t *pbox;
-	int n;
+			pixman_composite_info_t info;
+			const pixman_box32_t *pbox;
+			int n;
 
-	info.op = op;
-	info.src_image = src;
-	info.mask_image = mask;
-	info.dest_image = dest;
-	info.src_flags = src_flags;
-	info.mask_flags = mask_flags;
-	info.dest_flags = dest_flags;
+			info.op = op;
+			info.src_image = src;
+			info.mask_image = mask;
+			info.dest_image = dest;
+			info.src_flags = src_flags;
+			info.mask_flags = mask_flags;
+			info.dest_flags = dest_flags;
 
-	pbox = pixman_region32_rectangles (&region, &n);
+			pbox = pixman_region32_rectangles (&region, &n);
 
-	while (n--)
-	{
-	    info.src_x = pbox->x1 + src_x - dest_x;
-	    info.src_y = pbox->y1 + src_y - dest_y;
-	    info.mask_x = pbox->x1 + mask_x - dest_x;
-	    info.mask_y = pbox->y1 + mask_y - dest_y;
-	    info.dest_x = pbox->x1;
-	    info.dest_y = pbox->y1;
-	    info.width = pbox->x2 - pbox->x1;
-	    info.height = pbox->y2 - pbox->y1;
+			while (n--)
+			{
+					info.src_x = pbox->x1 + src_x - dest_x;
+					info.src_y = pbox->y1 + src_y - dest_y;
+					info.mask_x = pbox->x1 + mask_x - dest_x;
+					info.mask_y = pbox->y1 + mask_y - dest_y;
+					info.dest_x = pbox->x1;
+					info.dest_y = pbox->y1;
+					info.width = pbox->x2 - pbox->x1;
+					info.height = pbox->y2 - pbox->y1;
+					fprintf(stdout,"pixman_image_composite32:3.5 width: %i height: %i dest_x: %i dest_y: %i \n",info.width,info.height,info.dest_x,info.dest_y);
+					func (imp, &info);
 
-	    func (imp, &info);
-
-	    pbox++;
-	}
-    }
+					pbox++;
+			}
+    } else {
+			fprintf(stdout, "pixman_image_composite32:5\n");
+		}
 
 out:
+		fprintf(stdout, "pixman_image_composite32:4\n");
     pixman_region32_fini (&region);
 }
 

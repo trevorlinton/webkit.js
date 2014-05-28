@@ -169,6 +169,7 @@ void LayerWebKitThread::setDrawable(bool isDrawable)
 
 void LayerWebKitThread::setNeedsCommit()
 {
+	webkitTrace();
     // Call notifyFlushRequired(), which in this implementation plumbs through to
     // call scheduleRootLayerCommit() on the WebView, which will cause us to commit
     // changes done on the WebKit thread for display on the Compositing thread.

@@ -2675,8 +2675,7 @@ void RenderLayerBacking::notifyAnimationStarted(const GraphicsLayer*, double tim
 
 void RenderLayerBacking::notifyFlushRequired(const GraphicsLayer* layer)
 {
-
-
+		webkitTrace();
     if (renderer().documentBeingDestroyed())
         return;
     compositor().scheduleLayerFlush(layer->canThrottleLayerFlush());

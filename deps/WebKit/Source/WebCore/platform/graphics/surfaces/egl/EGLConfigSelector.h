@@ -26,7 +26,7 @@
 #ifndef EGLConfigSelector_h
 #define EGLConfigSelector_h
 
-#if USE(EGL)
+#if USE(EGL) && USE(ACCELERATED_COMPOSITING)
 
 #include <opengl/GLDefs.h>
 #include <opengl/GLPlatformSurface.h>

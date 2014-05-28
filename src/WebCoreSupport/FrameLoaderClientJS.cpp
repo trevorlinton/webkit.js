@@ -162,7 +162,7 @@ namespace WebCore {
   }
 
   Frame* FrameLoaderClientJS::dispatchCreatePage(const NavigationAction&) {
-	
+		webkitTrace();
 		return m_frame->coreFrame();
   }
   void FrameLoaderClientJS::dispatchShow() {
@@ -227,7 +227,7 @@ namespace WebCore {
   }
 
   void FrameLoaderClientJS::committedLoad(DocumentLoader* loader, const char* data, int length) {
-
+		webkitTrace();
 		ASSERT(loader->frame());
 		loader->commitData(data, length);
 
@@ -254,14 +254,6 @@ namespace WebCore {
     notImplemented();
     return false;
   }
- /* void FrameLoaderClientJS::updateGlobalHistoryItemForPage() {
-  notImplemented();
-  }*/
-
-  /*void FrameLoaderClientJS::didDisownOpener() {
-   notImplemented();
-  }*/
-
   void FrameLoaderClientJS::didDisplayInsecureContent() {
     notImplemented();
   }
@@ -371,8 +363,7 @@ namespace WebCore {
     notImplemented();
   }
   void FrameLoaderClientJS::transitionToCommittedForNewPage() {
-	
-
+		webkitTrace();
 		WebKit::WebView* webView = m_frame->webView();
 		FloatRect rect = webView->p()->size;
 		bool transparent = webView->transparent();

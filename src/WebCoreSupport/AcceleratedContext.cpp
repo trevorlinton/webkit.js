@@ -15,6 +15,8 @@
  *  License along with this library; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
+#if 0
 #include "config.h"
 #include "AcceleratedContext.h"
 
@@ -32,11 +34,12 @@
 #include <wtf/CurrentTime.h>
 #include <emscripten.h>
 
-#if USE(OPENGL_ES_2)
-#include <GLES2/gl2.h>
-#else
-#include <GL/gl.h>
-#endif
+//#if USE(OPENGL_ES_2)
+//#include <GLES2/gl2.h>
+//#else
+//#include <GL/gl.h>
+//#endif
+#include "GL/glew.h"
 
 #include <cairo.h>
 
@@ -44,23 +47,23 @@
 namespace WebCore {
 
 	AcceleratedContext::AcceleratedContext(WebKit::WebView* webView)
-		: m_webView(webView)
-		, m_layerFlushTimerCallbackId(0)
-		, m_lastFlushTime(0)
-		, m_redrawPendingTime(0)
-		, m_needsExtraFlush(false)
+	: m_webView(webView)
+	, m_layerFlushTimerCallbackId(0)
+	, m_lastFlushTime(0)
+	, m_redrawPendingTime(0)
+	, m_needsExtraFlush(false)
 	{
-	
+		webkitTrace();
 	}
 
 	void redirectedWindowDamagedCallback(void* data)
 	{
-	
+		webkitTrace();
 	}
 
 	void AcceleratedContext::initialize()
 	{
-	
+		webkitTrace();
     if (m_rootLayer)
 			return;
 
@@ -88,32 +91,28 @@ namespace WebCore {
     m_nonCompositedContentLayer->setNeedsDisplay();
 
     // The creation of the TextureMapper needs an active OpenGL context.
-    GLContext* context = GLContext::getCurrent();
+    GLContext* context = m_webView->glWindowContext();
     context->makeContextCurrent();
 
     m_textureMapper = TextureMapperGL::create();
     static_cast<TextureMapperGL*>(m_textureMapper.get())->setEnableEdgeDistanceAntialiasing(true);
     toTextureMapperLayer(m_rootLayer.get())->setTextureMapper(m_textureMapper.get());
 
-    scheduleLayerFlush();
+		flushAndRenderLayers();
 	}
 
 	AcceleratedContext::~AcceleratedContext()
 	{
-	
     stopAnyPendingLayerFlush();
 	}
 
 	void AcceleratedContext::stopAnyPendingLayerFlush()
 	{
-	
-    if (!m_layerFlushTimerCallbackId) return;
-    m_layerFlushTimerCallbackId = 0;
+		webkitTrace();
 	}
 
 	bool AcceleratedContext::enabled()
 	{
-	
 		return m_rootLayer && m_textureMapper;
 	}
 
@@ -134,11 +133,13 @@ namespace WebCore {
     cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
     cairo_fill(cr);
 
-    if (!m_layerFlushTimerCallbackId && (toTextureMapperLayer(m_rootLayer.get())->descendantsOrSelfHaveRunningAnimations() || m_needsExtraFlush)) {
+    if ((toTextureMapperLayer(m_rootLayer.get())->descendantsOrSelfHaveRunningAnimations() || m_needsExtraFlush)) {
+			flushAndRenderLayers();
+			//!m_layerFlushTimerCallbackId &&
 			//m_needsExtraFlush = false;
 			//double nextFlush = std::max((1 / 60) - (currentTime() - m_lastFlushTime), 0.0);
-			m_layerFlushTimerCallbackId = 1;
-			layerFlushTimerFired();
+			//m_layerFlushTimerCallbackId = 1;
+			//layerFlushTimerFired();
 			//emscripten_async_call((void (*)(void *))(this->layerFlushTimerFiredCallback), this, 1000 * nextFlush);
 		}
 
@@ -147,8 +148,8 @@ namespace WebCore {
 
 	GLContext* AcceleratedContext::prepareForRendering()
 	{
-	
-    if (!enabled()) return 0;
+ 		webkitTrace();
+		if (!enabled()) return 0;
 
     GLContext* context = GLContext::getCurrent();
     if (!context) return 0;
@@ -173,7 +174,7 @@ namespace WebCore {
 
     m_textureMapper->beginPainting();
     toTextureMapperLayer(m_rootLayer.get())->paint();
-    m_fpsCounter.updateFPSAndDisplay(m_textureMapper.get());
+    //m_fpsCounter.updateFPSAndDisplay(m_textureMapper.get());
     m_textureMapper->endPainting();
 
     context->swapBuffers();
@@ -181,8 +182,7 @@ namespace WebCore {
 
 	void AcceleratedContext::clearEverywhere()
 	{
-	
-
+		webkitTrace();
     GLContext* context = prepareForRendering();
     if (!context) return;
 
@@ -198,16 +198,15 @@ namespace WebCore {
     // to update. This isn't a problem during animations, because swapBuffer is continuously
     // called. For non-animation situations we use this terrible hack until we can get to the
     // bottom of the issue.
-    if (!toTextureMapperLayer(m_rootLayer.get())->descendantsOrSelfHaveRunningAnimations()) {
-			context->swapBuffers();
-			context->swapBuffers();
-    }
+    //if (!toTextureMapperLayer(m_rootLayer.get())->descendantsOrSelfHaveRunningAnimations()) {
+		//	context->swapBuffers();
+		//	context->swapBuffers();
+    //}
 	}
 
 	void AcceleratedContext::setRootCompositingLayer(GraphicsLayer* graphicsLayer)
 	{
-	
-
+		webkitTrace();
     // Clearing everywhere when turning on or off the layer tree prevents us from flashing
     // old content before the first flush.
     clearEverywhere();
@@ -234,16 +233,12 @@ namespace WebCore {
     // FIXME: Two flushes seem necessary to get the proper rendering in some cases. It's unclear
     // if this is a bug with the RedirectedXComposite window or with this class.
     m_needsExtraFlush = true;
-    scheduleLayerFlush();
-
-		m_layerFlushTimerCallbackId = 1;
-		layerFlushTimerFired();
-    //emscripten_async_call((void (*)(void *))(layerFlushTimerFiredCallback), this, 0);
+    flushAndRenderLayers();
 	}
 
 	void AcceleratedContext::setNonCompositedContentsNeedDisplay(const IntRect& rect)
 	{
-	
+		webkitTrace();
 
     if (!m_rootLayer) return;
     if (rect.isEmpty()) {
@@ -251,13 +246,12 @@ namespace WebCore {
 			return;
     }
     m_nonCompositedContentLayer->setNeedsDisplayInRect(rect);
-    scheduleLayerFlush();
+    flushAndRenderLayers();
 	}
 
 	void AcceleratedContext::resizeRootLayer(const IntSize& newSize)
 	{
-	
-
+		webkitTrace();
     if (!enabled()) return;
 
     if (m_rootLayer->size() == newSize) return;
@@ -280,42 +274,19 @@ namespace WebCore {
 
     m_nonCompositedContentLayer->setNeedsDisplayInRect(IntRect(IntPoint(), newSize));
     compositeLayersToContext(ForResize);
-    scheduleLayerFlush();
+    flushAndRenderLayers();
 	}
 
 	void AcceleratedContext::scrollNonCompositedContents(const IntRect& scrollRect, const IntSize& scrollOffset)
 	{
-	
+		webkitTrace();
     m_nonCompositedContentLayer->setNeedsDisplayInRect(scrollRect);
-    scheduleLayerFlush();
-	}
-
-	bool AcceleratedContext::layerFlushTimerFiredCallback(AcceleratedContext* context)
-	{
-	
-		context->layerFlushTimerFired();
-    return false;
-	}
-
-	void AcceleratedContext::scheduleLayerFlush()
-	{
-	
-    if (!enabled()) return;
-
-    if (m_layerFlushTimerCallbackId) return;
-
-    // We use a GLib timer because otherwise GTK+ event handling during dragging can
-    // starve WebCore timers, which have a lower priority.
-
-		//double nextFlush = std::max(gScheduleDelay - (currentTime() - m_lastFlushTime), 0.0);
-		m_layerFlushTimerCallbackId = 1;
-		layerFlushTimerFired();
-		//emscripten_async_call((void (*)(void *))(layerFlushTimerFiredCallback), this, 1000 * nextFlush);
+		flushAndRenderLayers();
 	}
 
 	bool AcceleratedContext::flushPendingLayerChanges()
 	{
-	
+		webkitTrace();
     m_rootLayer->flushCompositingStateForThisLayerOnly();
     m_nonCompositedContentLayer->flushCompositingStateForThisLayerOnly();
 		m_webView->p()->mainFrame->coreFrame()->view()->flushCompositingStateIncludingSubframes();
@@ -353,41 +324,36 @@ namespace WebCore {
     m_lastFlushTime = currentTime();
     compositeLayersToContext();
 
-		SDL_GL_SwapBuffers( );
-		// If it's been a long time since we've actually painted, which means that events might
-    // be starving the main loop, we should force a draw now. This seems to prevent display
-    // lag on http://2012.beercamp.com.
-    //if (m_redrawPendingTime && currentTime() - m_redrawPendingTime > gScheduleDelay) {
-		//	gtk_widget_queue_draw(GTK_WIDGET(m_webView));
-		//	gdk_window_process_updates(gtk_widget_get_window(GTK_WIDGET(m_webView)), FALSE);
-    //} else
+		//renderLayersToWindow();
 		if (!m_redrawPendingTime)
 			m_redrawPendingTime = currentTime();
 	}
 
-	void AcceleratedContext::layerFlushTimerFired()
-	{
-	
-    m_layerFlushTimerCallbackId = 0;
-    flushAndRenderLayers();
-	}
 
 	void AcceleratedContext::notifyAnimationStarted(const GraphicsLayer*, double time) {
-	
+		webkitTrace();
 	}
 	void AcceleratedContext::notifyFlushRequired(const GraphicsLayer*) {
-	
+		webkitTrace();
 	}
 
-	void AcceleratedContext::paintContents(const GraphicsLayer*, GraphicsContext& context, GraphicsLayerPaintingPhase, const IntRect& rectToPaint)
+	void AcceleratedContext::paintContents(const GraphicsLayer* layer, GraphicsContext& context, GraphicsLayerPaintingPhase phase, const IntRect& rectToPaint)
 	{
-	
+		//Color c = Color(255,0,0,127);
+		//FloatRect f = FloatRect(10,10,50,50);
+		webkitTrace();
     context.save();
-    context.clip(rectToPaint);
-    m_webView->p()->mainFrame->coreFrame()->view()->paintContents(&context, rectToPaint);
+		//context.fillRect(f,c,ColorSpace::ColorSpaceDeviceRGB);
+		//context.setFillColor(c,ColorSpace::ColorSpaceDeviceRGB);
+		//context.fillEllipse(f);
+		//context.clip(rectToPaint);
+		ASSERT(m_webView->p()->mainFrame->coreFrame()->mainFrame().isMainFrame());
+    m_webView->p()->mainFrame->coreFrame()->mainFrame().view()->paintContents(&context, rectToPaint);
     context.restore();
 	}
-
+	
 }
 
 #endif
+
+#endif // if 0

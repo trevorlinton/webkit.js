@@ -58,7 +58,7 @@
 #define PIXMAN_MAX_INT ((pixman_fixed_1 >> 1) - pixman_fixed_e) /* need to ensure deltas also fit */
 
 #if CAIRO_NO_MUTEX
-#define PIXMAN_HAS_ATOMIC_OPS 1
+// #define PIXMAN_HAS_ATOMIC_OPS 1
 #endif
 
 #if PIXMAN_HAS_ATOMIC_OPS
@@ -210,31 +210,35 @@ _pixman_image_for_color (const cairo_color_t *cairo_color)
 #if PIXMAN_HAS_ATOMIC_OPS
     int i;
 
-    if (CAIRO_COLOR_IS_CLEAR (cairo_color))
-	return _pixman_transparent_image ();
-
+		if (CAIRO_COLOR_IS_CLEAR (cairo_color)) {
+			fprintf(stdout, "_pixman_image_for_color bailing for clear.\n");
+			return _pixman_transparent_image ();
+		}
     if (CAIRO_COLOR_IS_OPAQUE (cairo_color)) {
-	if (cairo_color->red_short <= 0x00ff &&
-	    cairo_color->green_short <= 0x00ff &&
-	    cairo_color->blue_short <= 0x00ff)
-	{
-	    return _pixman_black_image ();
-	}
+			if (cairo_color->red_short <= 0x00ff &&
+					cairo_color->green_short <= 0x00ff &&
+					cairo_color->blue_short <= 0x00ff)
+			{
+				fprintf(stdout, "_pixman_image_for_color bailing for black.\n");
+				return _pixman_black_image ();
+			}
 
-	if (cairo_color->red_short >= 0xff00 &&
-	    cairo_color->green_short >= 0xff00 &&
-	    cairo_color->blue_short >= 0xff00)
-	{
-	    return _pixman_white_image ();
-	}
+			if (cairo_color->red_short >= 0xff00 &&
+					cairo_color->green_short >= 0xff00 &&
+					cairo_color->blue_short >= 0xff00)
+			{
+				fprintf(stdout, "_pixman_image_for_color bailing for white.\n");
+				return _pixman_white_image ();
+			}
     }
 
     CAIRO_MUTEX_LOCK (_cairo_image_solid_cache_mutex);
     for (i = 0; i < n_cached; i++) {
-	if (_cairo_color_equal (&cache[i].color, cairo_color)) {
-	    image = pixman_image_ref (cache[i].image);
-	    goto UNLOCK;
-	}
+			if (_cairo_color_equal (&cache[i].color, cairo_color)) {
+				image = pixman_image_ref (cache[i].image);
+				fprintf(stdout, "_pixman_image_for_color jumping to UNLOCK.\n");
+				goto UNLOCK;
+			}
     }
 #endif
 
@@ -245,14 +249,15 @@ _pixman_image_for_color (const cairo_color_t *cairo_color)
 
     image = pixman_image_create_solid_fill (&color);
 #if PIXMAN_HAS_ATOMIC_OPS
-    if (image == NULL)
-	goto UNLOCK;
-
+		if (image == NULL) {
+			fprintf(stdout, "_pixman_image_for_color jumping to UNLOCK[image==null].\n");
+			goto UNLOCK;
+		}
     if (n_cached < ARRAY_LENGTH (cache)) {
-	i = n_cached++;
+			i = n_cached++;
     } else {
-	i = hars_petruska_f54_1_random () % ARRAY_LENGTH (cache);
-	pixman_image_unref (cache[i].image);
+			i = hars_petruska_f54_1_random () % ARRAY_LENGTH (cache);
+			pixman_image_unref (cache[i].image);
     }
     cache[i].image = pixman_image_ref (image);
     cache[i].color = *cairo_color;

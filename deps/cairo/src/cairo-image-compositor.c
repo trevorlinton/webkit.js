@@ -151,34 +151,36 @@ color_to_pixel (const cairo_color_t	*color,
           format == PIXMAN_b5g6r5       ||
           format == PIXMAN_a8))
     {
-	return FALSE;
+			fprintf(stdout, "color_to_pixel: Format failed to meet PIXMAN format.\n");
+			return FALSE;
     }
 
     c = color_to_uint32 (color);
 
     if (PIXMAN_FORMAT_TYPE (format) == PIXMAN_TYPE_ABGR) {
-	c = ((c & 0xff000000) >>  0) |
-	    ((c & 0x00ff0000) >> 16) |
-	    ((c & 0x0000ff00) >>  0) |
-	    ((c & 0x000000ff) << 16);
+			c = ((c & 0xff000000) >>  0) |
+				((c & 0x00ff0000) >> 16) |
+				((c & 0x0000ff00) >>  0) |
+				((c & 0x000000ff) << 16);
     }
 
     if (PIXMAN_FORMAT_TYPE (format) == PIXMAN_TYPE_BGRA) {
-	c = ((c & 0xff000000) >> 24) |
-	    ((c & 0x00ff0000) >>  8) |
-	    ((c & 0x0000ff00) <<  8) |
-	    ((c & 0x000000ff) << 24);
+			c = ((c & 0xff000000) >> 24) |
+				((c & 0x00ff0000) >>  8) |
+				((c & 0x0000ff00) <<  8) |
+				((c & 0x000000ff) << 24);
     }
 
     if (format == PIXMAN_a8) {
-	c = c >> 24;
+			c = c >> 24;
     } else if (format == PIXMAN_r5g6b5 || format == PIXMAN_b5g6r5) {
-	c = ((((c) >> 3) & 0x001f) |
-	     (((c) >> 5) & 0x07e0) |
-	     (((c) >> 8) & 0xf800));
+			c = ((((c) >> 3) & 0x001f) |
+					 (((c) >> 5) & 0x07e0) |
+					 (((c) >> 8) & 0xf800));
     }
 
     *pixel = c;
+		fprintf(stdout, "color_to_pixel: Format successfully set..\n");
     return TRUE;
 }
 
@@ -255,17 +257,19 @@ _pixman_operator (cairo_operator_t op)
     }
 }
 
+
+
 static cairo_bool_t
 fill_reduces_to_source (cairo_operator_t op,
 			const cairo_color_t *color,
 			cairo_image_surface_t *dst)
 {
     if (op == CAIRO_OPERATOR_SOURCE || op == CAIRO_OPERATOR_CLEAR)
-	return TRUE;
+			return TRUE;
     if (op == CAIRO_OPERATOR_OVER && CAIRO_COLOR_IS_OPAQUE (color))
-	return TRUE;
+			return TRUE;
     if (dst->base.is_clear)
-	return op == CAIRO_OPERATOR_OVER || op == CAIRO_OPERATOR_ADD;
+			return op == CAIRO_OPERATOR_OVER || op == CAIRO_OPERATOR_ADD;
 
     return FALSE;
 }
@@ -320,6 +324,7 @@ fill_boxes (void		*_dst,
 	    const cairo_color_t	*color,
 	    cairo_boxes_t	*boxes)
 {
+		fprintf(stdout, "// fill_boxes color: rgba: %f %f %f %f\n",color->red,color->green,color->blue,color->alpha);
     cairo_image_surface_t *dst = _dst;
     struct _cairo_boxes_chunk *chunk;
     uint32_t pixel;
@@ -327,43 +332,44 @@ fill_boxes (void		*_dst,
 
     TRACE ((stderr, "%s\n", __FUNCTION__));
 
-    if (fill_reduces_to_source (op, color, dst) &&
-	color_to_pixel (color, dst->pixman_format, &pixel))
+    if (fill_reduces_to_source (op, color, dst) && color_to_pixel (color, dst->pixman_format, &pixel))
     {
-	for (chunk = &boxes->chunks; chunk; chunk = chunk->next) {
-	    for (i = 0; i < chunk->count; i++) {
-		int x = _cairo_fixed_integer_part (chunk->base[i].p1.x);
-		int y = _cairo_fixed_integer_part (chunk->base[i].p1.y);
-		int w = _cairo_fixed_integer_part (chunk->base[i].p2.x) - x;
-		int h = _cairo_fixed_integer_part (chunk->base[i].p2.y) - y;
-		pixman_fill ((uint32_t *) dst->data,
-			     dst->stride / sizeof (uint32_t),
-			     PIXMAN_FORMAT_BPP (dst->pixman_format),
-			     x, y, w, h, pixel);
-	    }
-	}
+			for (chunk = &boxes->chunks; chunk; chunk = chunk->next) {
+				for (i = 0; i < chunk->count; i++) {
+						int x = _cairo_fixed_integer_part (chunk->base[i].p1.x);
+						int y = _cairo_fixed_integer_part (chunk->base[i].p1.y);
+						int w = _cairo_fixed_integer_part (chunk->base[i].p2.x) - x;
+						int h = _cairo_fixed_integer_part (chunk->base[i].p2.y) - y;
+						fprintf(stdout, "pixman_fill being called: xywh: %i %i %i %i pixel: %i\n",x,y,w,h,pixel);
+						pixman_fill ((uint32_t *) dst->data,
+												 dst->stride / sizeof (uint32_t),
+												 PIXMAN_FORMAT_BPP (dst->pixman_format),
+												 x, y, w, h, pixel);
+				}
+			}
     }
     else
     {
-	pixman_image_t *src = _pixman_image_for_color (color);
+			pixman_image_t *src = _pixman_image_for_color (color);
 
-	op = (cairo_operator_t)_pixman_operator (op);
-	for (chunk = &boxes->chunks; chunk; chunk = chunk->next) {
-	    for (i = 0; i < chunk->count; i++) {
-		int x1 = _cairo_fixed_integer_part (chunk->base[i].p1.x);
-		int y1 = _cairo_fixed_integer_part (chunk->base[i].p1.y);
-		int x2 = _cairo_fixed_integer_part (chunk->base[i].p2.x);
-		int y2 = _cairo_fixed_integer_part (chunk->base[i].p2.y);
-		pixman_image_composite32 ((pixman_op_t)op,
+			op = (cairo_operator_t)_pixman_operator (op);
+			for (chunk = &boxes->chunks; chunk; chunk = chunk->next) {
+				for (i = 0; i < chunk->count; i++) {
+					int x1 = _cairo_fixed_integer_part (chunk->base[i].p1.x);
+					int y1 = _cairo_fixed_integer_part (chunk->base[i].p1.y);
+					int x2 = _cairo_fixed_integer_part (chunk->base[i].p2.x);
+					int y2 = _cairo_fixed_integer_part (chunk->base[i].p2.y);
+					fprintf(stdout, "pixman_image_composite32 being called: xywh: %i %i %i %i\n",x1,y1,x2-x1,y2-y1);
+					pixman_image_composite32 ((pixman_op_t)op,
 					  src, NULL, dst->pixman_image,
 					  0, 0,
 					  0, 0,
 					  x1, y1,
 					  x2-x1, y2-y1);
-	    }
-	}
+				}
+			}
 
-	pixman_image_unref (src);
+			pixman_image_unref (src);
     }
 
     return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;

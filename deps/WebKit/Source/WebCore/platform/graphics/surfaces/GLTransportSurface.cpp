@@ -95,7 +95,6 @@ void GLTransportSurface::setGeometry(const IntRect& newRect)
 
 void GLTransportSurface::destroy()
 {
-		fprintf(stdout, "GLTransportSurface::destroy();\n");
     m_rect = IntRect();
 
     if (!m_shaderProgram || !m_context3D)
@@ -168,8 +167,6 @@ void GLTransportSurface::updateTransformationMatrix()
 
 void GLTransportSurface::initializeShaderProgram()
 {
-		fprintf(stdout, "GLTransportSurface::initializeShaderProgram();\n");
-
 		if (!m_context3D)
         m_context3D = GraphicsContext3D::createForCurrentGLContext();
 

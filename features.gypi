@@ -13,7 +13,7 @@
       'ENABLE_PRINTING=0',
       'ENABLE_NAVIGATOR_CONTENT_UTILS=0',
       'ENABLE_3D_RENDERING=1',
-      'ENABLE_ACCELERATED_2D_CANVAS=1',
+      'ENABLE_ACCELERATED_2D_CANVAS=0',
       'ENABLE_ACCELERATED_OVERFLOW_SCROLLING=1',
       'ENABLE_BLOB=0',
       'ENABLE_CACHE_PARTITIONING=0',
@@ -22,7 +22,7 @@
       'ENABLE_CHANNEL_MESSAGING=1',
       'ENABLE_CSP_NEXT=0',
       'ENABLE_CSS_BOX_DECORATION_BREAK=1',
-      'ENABLE_CSS_COMPOSITING=1',
+      'ENABLE_CSS_COMPOSITING=0', #must be disabled if ACCELERATED_COMPOSITING=0
       'ENABLE_CSS_DEVICE_ADAPTATION=0',
       'ENABLE_CSS_EXCLUSIONS=1',
       'ENABLE_CSS_FILTERS=1',
@@ -105,8 +105,8 @@
       'ENABLE_SQL_DATABASE=0',
       'ENABLE_SUBPIXEL_LAYOUT=1',
       'ENABLE_SUBTLE_CRYPTO=0',
-      'ENABLE_SVG=1', #temporary
-      'ENABLE_SVG_FONTS=1',#temporary
+      'ENABLE_SVG=1',
+      'ENABLE_SVG_FONTS=1',
       'ENABLE_TEMPLATE_ELEMENT=1',
       'ENABLE_TEXT_AUTOSIZING=0',
       'ENABLE_THREADED_HTML_PARSER=0',
@@ -162,46 +162,50 @@
       'WTF_PLATFORM_BLACKBERRY=0',
       'WTF_USE_CROSS_PLATFORM_CONTEXT_MENUS=1',
       'WTF_USE_GLIB=0',
-      'WTF_USE_ICU_UNICODE=0',
-      'WTF_USE_WCHAR_UNICODE=1',
       'WTF_USE_LEVELDB=0',
-
-			# Threading should always be disabled,
-			# we use pthread stubs and rely on shared
-			# timers to reproduce "thread-like" behvaior.
-      'WTF_USE_PTHREADS=1',
-			'WTF_USE_WEB_THREAD=0',
-
-			# Graphics Subsystems
-			'WTF_USE_FREETYPE=1',
-			'WTF_USE_HARFBUZZ=1',
-			'WTF_USE_CAIRO=1', # THIS OR SKIA.
-			'WTF_USE_SKIA=0',
-			# Enabling opengl es requires egl as well.
-			# accelerated compositing needs opengl, i believe.
-      'WTF_USE_OPENGL_ES_2=1',
-      'WTF_USE_EGL=1',
-			'WTF_USE_ACCELERATED_COMPOSITING=1',
-			# turning on any of the below tend to require one another...
-      'WTF_USE_TEXTURE_MAPPER=1', # requires cairo, won't work with skia.
-      'WTF_USE_TEXTURE_MAPPER_GL=1', # requires cairo, won't work with skia.
-      'WTF_USE_TILED_BACKING_STORE=1', # requires cairo, won't work with skia.
-			'WTF_USE_3D_GRAPHICS=1',
-			'WTF_USE_COORDINATED_GRAPHICS=1', # requires cairo, won't work with skia.
-      'WTF_USE_GRAPHICS_SURFACE=1', # requires cairo, won't work with skia.
-
-			# GLX and OpenGL are explicitly turned off in
-			# favor for OPENGL_ES_2 and EGL.
-      'WTF_USE_GLX=0',
-      'WTF_USE_OPENGL=0',
-
-      'WTF_USE_UNIX_DOMAIN_SOCKETS=1',
-      'WTF_USE_CURL=1',
       'WTF_USE_NATIVE_FULLSCREEN_VIDEO=0',
       'WTF_USE_WEBAUDIO_FFMPEG=0',
       'WTF_USE_FASTMALLOC=0',
       'WTF_USE_FAST_MALLOC=0',
       'ENABLE_NETSCAPE_PLUGIN_API=0', #this should not be enabled, ever, it's being deprecated and is useless on JS platforms.
+			# Threading should always be disabled,
+			# we use pthread stubs and rely on shared
+			# timers to reproduce "thread-like" behavior.
+      'WTF_USE_PTHREADS=1',
+			'WTF_USE_WEB_THREAD=0',
+
+			# Graphics and Text Subsystems
+			# look for wchar instead ICU since wchar simply sets on top of
+			# javascripts existing unicode platform in javascript, this makes
+			# ICU unnecessary for any engine that implements ICU.
+			'WTF_USE_FREETYPE=1',
+			'WTF_USE_HARFBUZZ=1',
+			'WTF_USE_CAIRO=1',
+			'WTF_USE_SKIA=0',
+      'WTF_USE_ICU_UNICODE=0',
+      'WTF_USE_WCHAR_UNICODE=1',
+
+			# Enabling opengles requires egl as well. Note always specify
+			# OPENGL_ES_2 and OPENGL otherwise we won't compile.
+			# Accelerated compositing needs opengl, i believe.
+      'WTF_USE_OPENGL=1',
+      'WTF_USE_OPENGL_ES_2=1',
+      'WTF_USE_EGL=1',
+			'WTF_USE_ACCELERATED_COMPOSITING=0',
+      'WTF_USE_GLX=0',
+			'WTF_USE_3D_GRAPHICS=1',
+
+			# turning on any of the below tend to require one another...
+      'WTF_USE_TEXTURE_MAPPER=0', # requires cairo, won't work with skia.
+      'WTF_USE_TEXTURE_MAPPER_GL=0', # requires cairo, won't work with skia.
+      'WTF_USE_TILED_BACKING_STORE=0', # requires cairo, won't work with skia. Not used by us.
+			'WTF_USE_COORDINATED_GRAPHICS=0', # requires cairo, won't work with skia. Not used by us.
+      'WTF_USE_GRAPHICS_SURFACE=0', # requires cairo, won't work with skia. Not used by us.
+			'ENABLE_TEXTURE_MAPPER=1', # some of the webkit code accidently referred to texture mapper as a feature, not a platform.
+
+			# Resource handlers
+      'WTF_USE_UNIX_DOMAIN_SOCKETS=1',
+      'WTF_USE_CURL=1',
     ],
   },
 }

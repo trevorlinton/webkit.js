@@ -33,6 +33,8 @@
 #include <gtk/gtk.h>
 #elif PLATFORM(EFL)
 #include <Evas.h>
+#elif PLATFORM(JS)
+#include <SDL.h>
 #endif
 
 typedef struct _cairo_surface cairo_surface_t;
@@ -43,8 +45,11 @@ namespace WebCore {
 typedef GtkWidget* PlatformWidget;
 #elif PLATFORM(EFL)
 typedef Evas_Object* PlatformWidget;
-#elif PLATFORM(NIX) || PLATFORM(JS)
+#elif PLATFORM(NIX)
 typedef void* PlatformWidget;
+#elif PLATFORM(JS)
+//struct ::SDL_Surface;
+typedef SDL_Surface* PlatformWidget;
 #endif
 
 class WidgetBackingStore {
@@ -53,13 +58,10 @@ class WidgetBackingStore {
 
 public:
     virtual cairo_surface_t* cairoSurface() = 0;
+		virtual PlatformWidget widget() = 0;
     virtual void scroll(const IntRect& scrollRect, const IntSize& scrollOffset) = 0;
     const IntSize& size() { return m_size; }
-    WidgetBackingStore(const IntSize& size) : m_size(size) {
-#if PLATFORM(JS)
-		
-#endif
-		}
+    WidgetBackingStore(const IntSize& size) : m_size(size) { }
     virtual ~WidgetBackingStore() { }
 
 private:

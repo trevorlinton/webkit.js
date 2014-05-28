@@ -45,7 +45,7 @@ namespace WebCore {
     virtual ~AcceleratedContext();
     void setRootCompositingLayer(WebCore::GraphicsLayer*);
     void setNonCompositedContentsNeedDisplay(const WebCore::IntRect&);
-    void scheduleLayerFlush();
+    //void scheduleLayerFlush();
     void resizeRootLayer(const WebCore::IntSize&);
 
     bool renderLayersToWindow(cairo_t*, const WebCore::IntRect& clipRect);
@@ -64,6 +64,35 @@ namespace WebCore {
     bool flushPendingLayerChanges();
     void scrollNonCompositedContents(const WebCore::IntRect& scrollRect, const WebCore::IntSize& scrollOffset);
 
+
+    bool shouldUseTiledBacking(const GraphicsLayer*) const { return false; }
+    void tiledBackingUsageChanged(const GraphicsLayer*, bool /*usingTiledBacking*/) { }
+
+    // Notification that this layer requires a flush before the next display refresh.
+		void notifyFlushBeforeDisplayRefresh(const GraphicsLayer*) { }
+    void didCommitChangesForLayer(const GraphicsLayer*) const { }
+
+    // Provides current transform (taking transform-origin and animations into account). Input matrix has been
+    // initialized to identity already. Returns false if the layer has no transform.
+    bool getCurrentTransform(const GraphicsLayer*, TransformationMatrix&) const { return false; }
+
+    // Allows the client to modify a layer position used during the visibleRect calculation, for example to ignore
+    // scroll overhang.
+		void customPositionForVisibleRectComputation(const GraphicsLayer*, FloatPoint&) const { }
+
+    // Multiplier for backing store size, related to high DPI.
+		float deviceScaleFactor() const { return m_webView->p()->corePage->deviceScaleFactor(); }
+    // Page scale factor.
+    float pageScaleFactor() const { return m_webView->p()->corePage->pageScaleFactor(); }
+
+    float contentsScaleMultiplierForNewTiles(const GraphicsLayer*) const { return 1; }
+
+    bool isTrackingRepaints() const { return false; }
+
+    bool shouldSkipLayerInDump(const GraphicsLayer*) const { return false; }
+    bool shouldDumpPropertyForLayer(const GraphicsLayer*, const char*) const { return true; }
+
+
 	private:
 		WebKit::WebView* m_webView;
     unsigned int m_layerFlushTimerCallbackId;
@@ -77,9 +106,9 @@ namespace WebCore {
     bool m_needsExtraFlush;
     WebCore::TextureMapperFPSCounter m_fpsCounter;
 
-    void layerFlushTimerFired();
+    //void layerFlushTimerFired();
     void stopAnyPendingLayerFlush();
-    static bool layerFlushTimerFiredCallback(WebCore::AcceleratedContext*);
+    //static bool layerFlushTimerFiredCallback(WebCore::AcceleratedContext*);
     WebCore::GLContext* prepareForRendering();
     void clearEverywhere();
 #elif USE(TEXTURE_MAPPER)

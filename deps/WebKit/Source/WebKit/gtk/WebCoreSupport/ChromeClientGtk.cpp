@@ -686,7 +686,6 @@ void ChromeClient::scroll(const IntSize& delta, const IntRect& rectToScroll, con
     if (compositingContext->enabled()) {
         ASSERT(!rectToScroll.isEmpty());
         ASSERT(delta.width() || delta.height());
-
         compositingContext->scrollNonCompositedContents(rectToScroll, delta);
         return;
     }

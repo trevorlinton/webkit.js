@@ -220,7 +220,9 @@ namespace WebCore {
   void PlatformKeyboardEvent::getCurrentModifierState(bool& a, bool& b, bool& c, bool& d) { notImplemented(); }
 
 
-  void BitmapImage::invalidatePlatformData() { notImplemented(); }
+  void BitmapImage::invalidatePlatformData() {
+		// Not implemented, and apparently thats ok.
+	}
   void Editor::pasteWithPasteboard(WebCore::Pasteboard*, bool) { notImplemented(); }
 
   bool EventHandler::passMouseMoveEventToSubframe(WebCore::MouseEventWithHitTestResults&, WebCore::Frame*, WebCore::HitTestResult*) { notImplemented(); return false; }

@@ -26,7 +26,7 @@
 #include "config.h"
 #include "EGLContext.h"
 
-#if USE(EGL)
+#if USE(EGL) && USE(ACCELERATED_COMPOSITING)
 
 #include <wtf/text/WTFString.h>
 

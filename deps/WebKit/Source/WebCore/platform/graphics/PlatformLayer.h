@@ -64,7 +64,10 @@ namespace WebCore {
 	typedef TextureMapperPlatformLayer PlatformLayer;
 };
 #else
-typedef void* PlatformLayer;
+namespace WebCore {
+	class GraphicsContext3DPrivate;
+	typedef WebCore::GraphicsContext3DPrivate PlatformLayer;
+}
 #endif
 #endif
 

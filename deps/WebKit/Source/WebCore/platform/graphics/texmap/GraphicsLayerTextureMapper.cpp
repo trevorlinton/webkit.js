@@ -59,12 +59,12 @@ GraphicsLayerTextureMapper::GraphicsLayerTextureMapper(GraphicsLayerClient* clie
     , m_animationStartTime(0)
     , m_isScrollable(false)
 {
-
-
+	webkitTrace();
 }
 
 void GraphicsLayerTextureMapper::notifyChange(ChangeMask changeMask)
 {
+	webkitTrace();
     m_changeMask |= changeMask;
     if (!client())
         return;

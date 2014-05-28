@@ -84,6 +84,7 @@ void CompositingCoordinator::setRootCompositingLayer(GraphicsLayer* layer)
 
 void CompositingCoordinator::sizeDidChange(const IntSize& newSize)
 {
+	webkitTrace();
     m_rootLayer->setSize(newSize);
     notifyFlushRequired(m_rootLayer.get());
 }
@@ -250,6 +251,7 @@ void CompositingCoordinator::notifyAnimationStarted(const GraphicsLayer*, double
 
 void CompositingCoordinator::notifyFlushRequired(const GraphicsLayer*)
 {
+	webkitTrace();
     if (!isFlushingLayerChanges())
         m_client->notifyFlushRequired();
 }
@@ -262,6 +264,7 @@ void CompositingCoordinator::paintContents(const GraphicsLayer* graphicsLayer, G
 
 std::unique_ptr<GraphicsLayer> CompositingCoordinator::createGraphicsLayer(GraphicsLayerClient* client)
 {
+	webkitTrace();
     CoordinatedGraphicsLayer* layer = new CoordinatedGraphicsLayer(client);
     layer->setCoordinator(this);
     m_registeredLayers.add(layer->id(), layer);
@@ -336,6 +339,7 @@ void CompositingCoordinator::deviceOrPageScaleFactorChanged()
 
 void CompositingCoordinator::detachLayer(CoordinatedGraphicsLayer* layer)
 {
+	webkitTrace();
     if (m_isPurging)
         return;
 

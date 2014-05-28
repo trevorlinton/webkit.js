@@ -76,13 +76,15 @@ pixman_image_create_solid_fill (pixman_color_t *color)
 {
     pixman_image_t *img = _pixman_image_allocate ();
 
-    if (!img)
-	return NULL;
-
+		if (!img) {
+			fprintf(stdout,"pixman_image_create_solid_fill is not allocated, abandon!\n");
+			return NULL;
+		}
     img->type = SOLID;
     img->solid.color = *color;
     img->solid.color_32 = color_to_uint32 (color);
     img->solid.color_64 = color_to_uint64 (color);
+		fprintf(stdout,"pixman_image_create_solid_fill allocated solid color: %hu %hu %hu %hu\n",img->solid.color.red,img->solid.color.blue,img->solid.color.green,img->solid.color.alpha);
 
     return img;
 }

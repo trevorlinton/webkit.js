@@ -21,7 +21,7 @@
 #ifndef TextureMapperShaderProgram_h
 #define TextureMapperShaderProgram_h
 
-#if USE(TEXTURE_MAPPER)
+#if USE(TEXTURE_MAPPER) || PLATFORM(JS)
 #include "GraphicsContext3D.h"
 #include "TransformationMatrix.h"
 #include <wtf/HashMap.h>

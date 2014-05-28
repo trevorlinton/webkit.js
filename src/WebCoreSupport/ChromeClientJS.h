@@ -10,7 +10,7 @@
 
 namespace WebCore {
 
-	class ChromeClientJS : WebCore::ChromeClient {
+	class ChromeClientJS : public WebCore::ChromeClient {
 	public:
 		static ChromeClientJS* createClient(WebKit::WebView *);
 		ChromeClient *toChromeClient();
@@ -72,6 +72,10 @@ namespace WebCore {
 		void attachRootGraphicsLayer(Frame*, GraphicsLayer*);
 		void setNeedsOneShotDrawingSynchronization();
 		void scheduleCompositingLayerFlush();
+		void forceRepaint();
+#if USE(ACCELERATED_COMPOSITING)
+		CompositingTriggerFlags allowedCompositingTriggers() const OVERRIDE;
+#endif
 		bool selectItemWritingDirectionIsNatural();
 		bool selectItemAlignmentFollowsMenuWritingDirection();
 		bool hasOpenedPopup() const;

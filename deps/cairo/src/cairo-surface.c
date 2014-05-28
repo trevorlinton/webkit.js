@@ -2029,18 +2029,24 @@ _cairo_surface_fill (cairo_surface_t		*surface,
 	cairo_int_status_t status;
 
 	TRACE ((stderr, "%s\n", __FUNCTION__));
-	if (unlikely (surface->status))
+	if (unlikely (surface->status)) {
+		fprintf(stdout, "_cairo_surface_fill:1\n");
 		return surface->status;
-
-	if (_cairo_clip_is_all_clipped (clip))
+	}
+	if (_cairo_clip_is_all_clipped (clip)) {
+		fprintf(stdout, "_cairo_surface_fill:2\n");
 		return CAIRO_STATUS_SUCCESS;
+	}
 
 	status = (cairo_int_status_t)_pattern_has_error (source);
-	if (unlikely (status))
+	if (unlikely (status)) {
+		fprintf(stdout, "_cairo_surface_fill:3\n");
 		return (cairo_status_t)status;
-
-	if (nothing_to_do (surface, op, source))
+	}
+	if (nothing_to_do (surface, op, source)) {
+		fprintf(stdout, "_cairo_surface_fill:4\n");
 		return CAIRO_STATUS_SUCCESS;
+	}
 
 	_cairo_surface_begin_modification (surface);
 
@@ -2049,9 +2055,11 @@ _cairo_surface_fill (cairo_surface_t		*surface,
 																	 tolerance, antialias,
 																	 clip);
 	if (status != CAIRO_INT_STATUS_NOTHING_TO_DO) {
+		fprintf(stdout, "_cairo_surface_fill:5\n");
 		surface->is_clear = FALSE;
 		surface->serial++;
 	}
+	fprintf(stdout, "_cairo_surface_fill:6\n");
 
 	return (cairo_status_t)_cairo_surface_set_error (surface, (cairo_int_status_t)status);
 }

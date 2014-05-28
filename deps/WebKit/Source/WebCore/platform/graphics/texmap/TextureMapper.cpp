@@ -154,6 +154,7 @@ TextureMapper::TextureMapper(AccelerationMode accelerationMode)
     , m_isMaskMode(false)
     , m_wrapMode(StretchWrap)
 {
+	webkitTrace();
 
 }
 

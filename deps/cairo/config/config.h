@@ -105,10 +105,10 @@
 #define STDC_HEADERS 1
 
 /* Whether the tool chain supports __attribute__((constructor)) */
-#define TOOLCHAIN_SUPPORTS_ATTRIBUTE_CONSTRUCTOR /**/
+/* #define TOOLCHAIN_SUPPORTS_ATTRIBUTE_CONSTRUCTOR */
 
 /* Whether the tool chain supports __thread */
-#define TOOLCHAIN_SUPPORTS__THREAD /**/
+/* #define TOOLCHAIN_SUPPORTS__THREAD */
 
 /* use ARM IWMMXT compiler intrinsics */
 /* #undef USE_ARM_IWMMXT */

@@ -26,7 +26,7 @@
 #include "config.h"
 #include "EGLHelper.h"
 
-#if USE(EGL)
+#if USE(EGL) && USE(ACCELERATED_COMPOSITING)
 
 #include <opengl/GLPlatformContext.h>
 

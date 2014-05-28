@@ -26,7 +26,7 @@
 #ifndef EGLContext_h
 #define EGLContext_h
 
-#if USE(EGL)
+#if USE(EGL) && USE(ACCELERATED_COMPOSITING)
 
 #include "GLPlatformContext.h"
 

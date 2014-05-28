@@ -29,6 +29,8 @@
 #include "EmptyClients.h"
 
 #if USE(CAIRO)
+#include <platform/cairo/WidgetBackingStore.h>
+#include <platform/cairo/WidgetBackingStoreCairo.h>
 #include "cairo.h"
 #include "cairo-gl.h"
 #include "PlatformContextCairo.h"
@@ -84,19 +86,37 @@ namespace WebKit {
 		Page::PageClients pageClients;
 		fillWithEmptyClients(pageClients);
 
+    if(SDL_Init(SDL_INIT_VIDEO) < 0) {
+			abort();
+    }
 #if USE(ACCELERATED_COMPOSITING)
-    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-    m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_OPENGL | SDL_SWSURFACE | SDL_HWSURFACE );
-		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-		SDL_GL_SetSwapInterval(1);
+		SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+		SDL_GL_SetAttribute(SDL_GL_RED_SIZE,        8);
+		SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,      8);
+		SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,       8);
+		SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE,      8);
+
+		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,      16);
+		SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE,        32);
+
+		SDL_GL_SetAttribute(SDL_GL_ACCUM_RED_SIZE,    8);
+		SDL_GL_SetAttribute(SDL_GL_ACCUM_GREEN_SIZE,    8);
+		SDL_GL_SetAttribute(SDL_GL_ACCUM_BLUE_SIZE,    8);
+		SDL_GL_SetAttribute(SDL_GL_ACCUM_ALPHA_SIZE,    8);
+
+		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS,  1);
+		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,  2);
+
+    m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_OPENGL);
+		//SDL_GL_SetSwapInterval(1);
 
 		// Unsure why, but we need to initialize both EGL adn GL contexts.
-		m_private->glContext = GLContext::createContextForWindow(1, GLContext::sharingContext());
-		ASSERT(m_private->glContext->makeContextCurrent());
-		GLContext* context = GLContext::getCurrent();
-		ASSERT(context->makeContextCurrent());
+		//m_private->glContext = GLContext::createContextForWindow(1, GLContext::sharingContext());
+		//ASSERT(m_private->glContext->makeContextCurrent());
+		//GLContext* context = GLContext::getCurrent();
+		//ASSERT(context->makeContextCurrent());
 
-    if ( !m_private->sdl_screen  ) {
+    if ( !m_private->sdl_screen ) {
 			printf("Unable to set video mode: %s\n", SDL_GetError());
 			SDL_Quit();
 			exit(2);
@@ -108,15 +128,16 @@ namespace WebKit {
 			SDL_Quit();
 			exit(2);
 		}
+		SDL_LockSurface(m_private->sdl_screen);
 #endif
-		ChromeClientJS *chromeClient = WebCore::ChromeClientJS::createClient(this);
-		pageClients.chromeClient = chromeClient->toChromeClient();
+		m_private->chromeClient = WebCore::ChromeClientJS::createClient(this);
+		pageClients.chromeClient = m_private->chromeClient->toChromeClient();
     m_private->mainFrame = new WebCore::WebFrameJS(this);
 		pageClients.loaderClientForMainFrame = WebCore::FrameLoaderClientJS::createClient(m_private->mainFrame);
-
 		m_private->corePage = new Page(pageClients);
-
+    m_private->corePage->addLayoutMilestones(DidFirstVisuallyNonEmptyLayout);
     m_private->corePage->setGroupName(L"webkit.js");
+		fprintf(stdout, "*** SETTING KICK OFF\n");
 
 		m_private->corePage->settings().setMediaEnabled(false);
 		m_private->corePage->settings().setScreenFontSubstitutionEnabled(true);
@@ -128,10 +149,8 @@ namespace WebKit {
     m_private->corePage->settings().setDefaultFontSize(16);
 		m_private->corePage->settings().setStandardFontFamily("Liberation");
 		m_private->corePage->settings().setScreenFontSubstitutionEnabled(true);
-
     m_private->corePage->settings().setScriptEnabled(false);
 		m_private->corePage->settings().setPluginsEnabled(false);
-
 		m_private->corePage->settings().setMockScrollbarsEnabled(true);
 
 #if USE(ACCELERATED_COMPOSITING)
@@ -144,8 +163,6 @@ namespace WebKit {
 		m_private->corePage->settings().setTiledBackingStoreEnabled(true);
 		m_private->corePage->settings().setForceCompositingMode(true);
 		m_private->corePage->settings().setApplyDeviceScaleFactorInCompositor(true);
-		
-		m_private->acceleratedContext = AcceleratedContext::create(this);
 #else
 		m_private->corePage->settings().setAcceleratedCompositedAnimationsEnabled(false);
 		m_private->corePage->settings().setAcceleratedDrawingEnabled(false);
@@ -154,16 +171,19 @@ namespace WebKit {
 		m_private->corePage->settings().setAcceleratedDrawingEnabled(false);
 		m_private->corePage->settings().setTiledBackingStoreEnabled(false);
 #endif
+		fprintf(stdout, "*** INIT KICK OFF\n");
+
 		m_private->mainFrame->init();
 		m_private->corePage->setIsVisible(true, true);
 		m_private->corePage->setIsInWindow(true);
-
+		fprintf(stdout, "*** RESIZING KICK OFF\n");
 		resize(width, height);
+		fprintf(stdout, "*** RESIZING DONE\n");
 	}
 
 	WebView::~WebView() {
-		if (m_private->sdl_surface)
-			SDL_FreeSurface(m_private->sdl_surface);
+		//if (m_private->sdl_surface)
+		//	SDL_FreeSurface(m_private->sdl_surface);
     if (m_private->mainFrame && m_private->mainFrame->coreFrame())
 			m_private->mainFrame->coreFrame()->loader().detachFromParent();
 
@@ -174,7 +194,8 @@ namespace WebKit {
 
 	void WebView::draw(WebCore::IntRect clipRect, int immediate)
 	{
-		if(clipRect.width()==0 && clipRect.height()==0)
+		webkitTrace();
+/*		if(clipRect.width()==0 && clipRect.height()==0)
 			return;
 
 #if !USE(ACCELERATED_COMPOSITING)
@@ -217,7 +238,31 @@ namespace WebKit {
 		int result = SDL_BlitSurface(m_private->sdl_surface, &rect, m_private->sdl_screen, &rect);
 		ASSERT_UNUSED(result, !result);
 		SDL_UpdateRect(m_private->sdl_screen, clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
-#endif
+#else
+*/
+/*
+    if (priv->acceleratedCompositingContext->renderLayersToWindow(cr, clipRect)) {
+			return FALSE;
+    }
+
+    cairo_rectangle_list_t* rectList = cairo_copy_clip_rectangle_list(cr);
+    if (rectList->status || !rectList->num_rectangles) {
+			cairo_rectangle_list_destroy(rectList);
+			return FALSE;
+    }
+
+    Vector<IntRect> rects;
+    for (int i = 0; i < rectList->num_rectangles; i++) {
+			copyRectFromCairoSurfaceToContext(priv->backingStore->cairoSurface(), cr, IntSize(),
+																				enclosingIntRect(FloatRect(rectList->rectangles[i])));
+    }
+    cairo_rectangle_list_destroy(rectList);
+
+    // Chaining up to the parent forces child widgets to be drawn.
+    GTK_WIDGET_CLASS(webkit_web_view_parent_class)->draw(widget, cr);
+    return FALSE;
+*/
+//#endif
 	}
 
 	void WebView::setUrl(char *) {
@@ -246,23 +291,26 @@ namespace WebKit {
 	}
 
 	void WebView::invalidate(WebCore::IntRect rect, int immediate) {
-#if !USE(ACCELERATED_COMPOSITING)
-		draw(rect, immediate);
-#endif
+		webkitTrace();
+// #if !USE(ACCELERATED_COMPOSITING)
+//		draw(rect, immediate);
+// #endif
 	}
+
+#if USE(ACCELERATED_COMPOSITING)
+	WebCore::GLContext *WebView::glWindowContext() {
+    if (m_private->glContext)
+			return m_private->glContext.get();
+
+    m_private->glContext = GLContext::createContextForWindow(1, GLContext::sharingContext());
+    return m_private->glContext.get();
+	}
+#endif
 
 	void WebView::resize(int width, int height)
 	{
-	
-    m_private->size = FloatRect(m_private->size.x(),m_private->size.y(),width, height);
-		recreateSurface(width,height);
-		if(m_private->mainFrame) {
-			Frame* coreFrame = m_private->mainFrame->coreFrame();
-			if (!coreFrame->view())
-				return;
-
-			coreFrame->view()->resize(roundedIntSize(m_private->size.size()));
-		}
+		IntSize oldSize = IntSize(m_private->size.width(), m_private->size.height());
+		m_private->chromeClient->widgetSizeChanged(oldSize, IntSize(width,height));
 	}
 
 	void WebView::scrollBy(int offsetX, int offsetY)
@@ -275,12 +323,18 @@ namespace WebKit {
 	}
 
 	bool WebView::recreateSurface(int width, int height) {
+
+
+
+
+		/*
+		webkitTrace();
 #if USE(ACCELERATED_COMPOSITING)
 		if(m_private->sdl_screen) {
 			SDL_FreeSurface(m_private->sdl_screen);
 			m_private->sdl_screen = NULL;
 		}
-    m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_OPENGL | SDL_SWSURFACE | SDL_HWSURFACE );
+    m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_OPENGL );
 		if (!m_private->sdl_screen) {
 			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
 			SDL_Quit();
@@ -318,7 +372,6 @@ namespace WebKit {
 			cairo_destroy(m_private->cairo_device);
 			m_private->cairo_surface = NULL;
 		}
-#elif USE(SKIA)
 #endif
 
 		m_private->sdl_surface = SDL_CreateRGBSurface(
@@ -342,10 +395,10 @@ namespace WebKit {
 
 		m_private->cairo_device = cairo_create(m_private->cairo_surface);
 		m_private->context = new GraphicsContext(m_private->cairo_device);
-#elif USE(SKIA)
 #endif
-#endif
+#endif 		 */
 		return true;
+
 	}
 
 	void WebView::handleSDLEvent(const SDL_Event& event)
@@ -380,11 +433,11 @@ namespace WebKit {
 
 	}
 	void WebView::scalefactor(float t) {
-#if !USE(ACCELERATED_COMPOSITING)
-		m_private->context->applyDeviceScaleFactor(t);
-#else
-		m_private->corePage->setDeviceScaleFactor(t);
-#endif
+//#if !USE(ACCELERATED_COMPOSITING)
+//		m_private->context->applyDeviceScaleFactor(t);
+//#else
+//		m_private->corePage->setDeviceScaleFactor(t);
+//#endif
 	}
 	void WebView::resizeEvent(void *) {
 	

@@ -21,7 +21,8 @@
 #if USE(ACCELERATED_COMPOSITING)
 //#include <GLES2/gl2.h>
 //#include <EGL/egl.h>
-#include "SDL/SDL_opengles2.h"
+//#include "SDL/SDL_opengles2.h"
+#include "GL/glew.h"
 #include "GLContext.h"
 #endif
 
@@ -34,20 +35,21 @@ namespace WebCore {
 
 namespace WebKit {
 	struct WebViewPrivate {
-		WebCore::GraphicsContext* context = NULL;
+		//WebCore::GraphicsContext* context = NULL;
 		OwnPtr<WebCore::WidgetBackingStore> backingStore = NULL;
 #if USE(CAIRO)
-		cairo_surface_t* cairo_surface = NULL;
-		cairo_t* cairo_device = NULL;
+		//cairo_surface_t* cairo_surface = NULL;
+		//cairo_t* cairo_device = NULL;
 #endif
     SDL_Surface* sdl_screen = NULL;
-    SDL_Surface* sdl_surface = NULL;
+		WebCore::ChromeClientJS* chromeClient = NULL;
+    //SDL_Surface* sdl_surface = NULL;
     WebCore::Page* corePage = NULL;
 		WebCore::WebFrameJS* mainFrame = NULL;
     bool transparent = false;
     WebCore::FloatRect size;
 #if USE(ACCELERATED_COMPOSITING)
-		OwnPtr<WebCore::AcceleratedContext> acceleratedContext;
+		//OwnPtr<WebCore::AcceleratedContext> acceleratedContext;
 		OwnPtr<WebCore::GLContext> glContext;
 #endif
 	};
@@ -88,6 +90,9 @@ namespace WebKit {
     void focusOutEvent(void *);
     void inputMethodEvent(void *);
     bool focusNextPrevChild(bool next);
+#if USE(ACCELERATED_COMPOSITING)
+		WebCore::GLContext *glWindowContext();
+#endif
 		WebViewPrivate* p() { return m_private; }
 	protected:
 		friend class WebCore::ChromeClientJS;

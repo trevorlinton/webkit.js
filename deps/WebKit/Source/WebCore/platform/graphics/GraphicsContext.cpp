@@ -512,14 +512,16 @@ bool GraphicsContext::updatingControlTints() const
 
 void GraphicsContext::setUpdatingControlTints(bool b)
 {
-
+	webkitTrace();
+	fprintf(stdout, "setUpdatingControlTints: %i\n",b);
     setPaintingDisabled(b);
     m_updatingControlTints = b;
 }
 
 void GraphicsContext::setPaintingDisabled(bool f)
 {
-
+	webkitTrace();
+	fprintf(stdout, "setPaintingDisabled: %i\n",f);
     m_state.paintingDisabled = f;
 }
 

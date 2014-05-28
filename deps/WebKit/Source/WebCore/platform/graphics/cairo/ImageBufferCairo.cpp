@@ -52,7 +52,6 @@
 
 #if PLATFORM(JS)
 #include "DebuggerJS.h"
-#include "cairosdl.h"
 #endif
 
 using namespace std;

@@ -44,7 +44,8 @@ extern "C" {
 		//emscripten_set_main_loop(&tick, 0, false);
 	}
 	int main(int argc, char** argv) {
-		char tmp[] = "<!doctype html><html><body>Hello World!<div style=\"background-color:rgba(255,255,255,0.5);width:50px;height:50px;\"></div></body></html>";
+		//"<!doctype html><html><body>Hello World</body></html>";//
+		char tmp[] = "<!doctype html><html><body><div style='position:absolute;top:10px;left:10px;width:300px;height:300px;color:white;background-Color:rgba(11,6,77,0.70);'>Hello World</div></body></html>";
 		createWebKit(500,500);
 		scalefactor(2.0);
 		setHtml(tmp);

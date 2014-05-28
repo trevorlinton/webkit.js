@@ -54,7 +54,8 @@ typedef HWND PlatformWidget;
 #endif
 
 #if PLATFORM(JS)
-typedef void* PlatformWidget;
+struct SDL_Surface;
+typedef SDL_Surface* PlatformWidget;
 #endif
 
 #if PLATFORM(GTK)
@@ -83,7 +84,7 @@ typedef PageClientBlackBerry* PlatformPageClient;
 class PageClientEfl;
 typedef PageClientEfl* PlatformPageClient;
 #else
-typedef PlatformWidget PlatformPageClient;
+typedef void* PlatformPageClient;
 #endif
 
 namespace WebCore {

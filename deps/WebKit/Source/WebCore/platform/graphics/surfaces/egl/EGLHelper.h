@@ -26,7 +26,7 @@
 #ifndef EGLHelper_h
 #define EGLHelper_h
 
-#if USE(EGL)
+#if USE(EGL) && USE(ACCELERATED_COMPOSITING)
 
 #include <opengl/GLDefs.h>
 
