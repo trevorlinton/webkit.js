@@ -52,9 +52,9 @@ or implicitly using the <firstterm>toy</firstterm> text API by way of
 </refsect1>
 <refsect1 id="cairo-cairo-font-face-t.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="cairo-font-face-t" role="typedef">
+<refsect2 id="cairo-font-face-t" role="typedef" condition="since:1.0">
 <title>cairo_font_face_t</title>
-<indexterm zone="cairo-font-face-t"><primary sortas="font_face_t">cairo_font_face_t</primary></indexterm>
+<indexterm zone="cairo-font-face-t" role="1.0"><primary sortas="font_face_t">cairo_font_face_t</primary></indexterm>
 <programlisting>typedef struct _cairo_font_face cairo_font_face_t;
 </programlisting>
 <para>
@@ -73,10 +73,10 @@ font face can be queried using <link linkend="cairo-font-face-get-type"><functio
 <para>
 Memory management of <link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> is done with
 <link linkend="cairo-font-face-reference"><function>cairo_font_face_reference()</function></link> and <link linkend="cairo-font-face-destroy"><function>cairo_font_face_destroy()</function></link>.
-</para></refsect2>
-<refsect2 id="cairo-font-face-reference" role="function">
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-font-face-reference" role="function" condition="since:1.0">
 <title>cairo_font_face_reference ()</title>
-<indexterm zone="cairo-font-face-reference"><primary sortas="font_face_reference">cairo_font_face_reference</primary></indexterm>
+<indexterm zone="cairo-font-face-reference" role="1.0"><primary sortas="font_face_reference">cairo_font_face_reference</primary></indexterm>
 <programlisting><link linkend="cairo-font-face-t"><returnvalue>cairo_font_face_t</returnvalue></link> * cairo_font_face_reference           (<parameter><link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> *font_face</parameter>);</programlisting>
 <para>
 Increases the reference count on <parameter>font_face</parameter> by one. This prevents
@@ -91,10 +91,10 @@ The number of references to a <link linkend="cairo-font-face-t"><type>cairo_font
 <listitem><simpara>a <link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link>, (may be <link linkend="NULL:CAPS"><literal>NULL</literal></link> in which case this
 function does nothing).</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the referenced <link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-font-face-destroy" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-font-face-destroy" role="function" condition="since:1.0">
 <title>cairo_font_face_destroy ()</title>
-<indexterm zone="cairo-font-face-destroy"><primary sortas="font_face_destroy">cairo_font_face_destroy</primary></indexterm>
+<indexterm zone="cairo-font-face-destroy" role="1.0"><primary sortas="font_face_destroy">cairo_font_face_destroy</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_font_face_destroy             (<parameter><link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> *font_face</parameter>);</programlisting>
 <para>
 Decreases the reference count on <parameter>font_face</parameter> by one. If the result
@@ -103,10 +103,10 @@ See <link linkend="cairo-font-face-reference"><function>cairo_font_face_referenc
 </para><variablelist role="params">
 <varlistentry><term><parameter>font_face</parameter>&#160;:</term>
 <listitem><simpara>a <link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link></simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-font-face-status" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-font-face-status" role="function" condition="since:1.0">
 <title>cairo_font_face_status ()</title>
-<indexterm zone="cairo-font-face-status"><primary sortas="font_face_status">cairo_font_face_status</primary></indexterm>
+<indexterm zone="cairo-font-face-status" role="1.0"><primary sortas="font_face_status">cairo_font_face_status</primary></indexterm>
 <programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_font_face_status              (<parameter><link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> *font_face</parameter>);</programlisting>
 <para>
 Checks whether an error has previously occurred for this
@@ -116,7 +116,7 @@ font face
 <listitem><simpara>a <link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link></simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or another error such as
 <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 <refsect2 id="cairo-font-type-t" role="enum" condition="since:1.2">
 <title>enum cairo_font_type_t</title>
 <indexterm zone="cairo-font-type-t" role="1.2"><primary sortas="font_type_t">cairo_font_type_t</primary></indexterm>
@@ -165,22 +165,23 @@ New entries may be added in future versions.
 </para><variablelist role="enum">
 <varlistentry id="CAIRO-FONT-TYPE-TOY:CAPS" role="constant">
 <term><literal>CAIRO_FONT_TYPE_TOY</literal></term>
-<listitem><simpara>The font was created using cairo's toy font api
+<listitem><simpara>The font was created using cairo's toy font api (Since: 1.2)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-FONT-TYPE-FT:CAPS" role="constant">
 <term><literal>CAIRO_FONT_TYPE_FT</literal></term>
-<listitem><simpara>The font is of type FreeType
+<listitem><simpara>The font is of type FreeType (Since: 1.2)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-FONT-TYPE-WIN32:CAPS" role="constant">
 <term><literal>CAIRO_FONT_TYPE_WIN32</literal></term>
-<listitem><simpara>The font is of type Win32
+<listitem><simpara>The font is of type Win32 (Since: 1.2)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-FONT-TYPE-QUARTZ:CAPS" role="constant">
 <term><literal>CAIRO_FONT_TYPE_QUARTZ</literal></term>
-<listitem><simpara>The font is of type Quartz (Since: 1.6)
+<listitem><simpara>The font is of type Quartz (Since: 1.6, in 1.2 and
+1.4 it was named CAIRO_FONT_TYPE_ATSUI)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-FONT-TYPE-USER:CAPS" role="constant">
@@ -213,9 +214,9 @@ Returns the current reference count of <parameter>font_face</parameter>.
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the current reference count of <parameter>font_face</parameter>.  If the
 object is a nil object, 0 will be returned.</simpara></listitem></varlistentry>
 </variablelist><para role="since">Since 1.4</para></refsect2>
-<refsect2 id="cairo-font-face-set-user-data" role="function">
+<refsect2 id="cairo-font-face-set-user-data" role="function" condition="since:1.0">
 <title>cairo_font_face_set_user_data ()</title>
-<indexterm zone="cairo-font-face-set-user-data"><primary sortas="font_face_set_user_data">cairo_font_face_set_user_data</primary></indexterm>
+<indexterm zone="cairo-font-face-set-user-data" role="1.0"><primary sortas="font_face_set_user_data">cairo_font_face_set_user_data</primary></indexterm>
 <programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_font_face_set_user_data       (<parameter><link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> *font_face</parameter>,
                                                          <parameter>const <link linkend="cairo-user-data-key-t"><type>cairo_user_data_key_t</type></link> *key</parameter>,
                                                          <parameter><link linkend="void"><type>void</type></link> *user_data</parameter>,
@@ -237,10 +238,10 @@ font face is destroyed or when new user data is attached using the
 same key.</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link> if a
 slot could not be allocated for the user data.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-font-face-get-user-data" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-font-face-get-user-data" role="function" condition="since:1.0">
 <title>cairo_font_face_get_user_data ()</title>
-<indexterm zone="cairo-font-face-get-user-data"><primary sortas="font_face_get_user_data">cairo_font_face_get_user_data</primary></indexterm>
+<indexterm zone="cairo-font-face-get-user-data" role="1.0"><primary sortas="font_face_get_user_data">cairo_font_face_get_user_data</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link> *              cairo_font_face_get_user_data       (<parameter><link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> *font_face</parameter>,
                                                          <parameter>const <link linkend="cairo-user-data-key-t"><type>cairo_user_data_key_t</type></link> *key</parameter>);</programlisting>
 <para>
@@ -254,7 +255,7 @@ function returns <link linkend="NULL:CAPS"><literal>NULL</literal></link>.
 <listitem><simpara>the address of the <link linkend="cairo-user-data-key-t"><type>cairo_user_data_key_t</type></link> the user data was
 attached to</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the user data previously attached or <link linkend="NULL:CAPS"><literal>NULL</literal></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 
 </refsect1>
 <refsect1 id="cairo-cairo-font-face-t.see-also">

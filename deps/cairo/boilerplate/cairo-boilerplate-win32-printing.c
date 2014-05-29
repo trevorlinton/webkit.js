@@ -59,8 +59,34 @@
 # define FEATURESETTING_PSLEVEL 0x0002
 #endif
 
-cairo_status_t
-_cairo_win32_print_gdi_error (const char *context);
+static cairo_status_t
+_cairo_win32_print_gdi_error (const char *context)
+{
+    void *lpMsgBuf;
+    DWORD last_error = GetLastError ();
+
+    if (!FormatMessageW (FORMAT_MESSAGE_ALLOCATE_BUFFER |
+			 FORMAT_MESSAGE_FROM_SYSTEM,
+			 NULL,
+			 last_error,
+			 MAKELANGID (LANG_NEUTRAL, SUBLANG_DEFAULT),
+			 (LPWSTR) &lpMsgBuf,
+			 0, NULL)) {
+	fprintf (stderr, "%s: Unknown GDI error", context);
+    } else {
+	fprintf (stderr, "%s: %S", context, (wchar_t *)lpMsgBuf);
+
+	LocalFree (lpMsgBuf);
+    }
+
+    fflush (stderr);
+
+    /* We should switch off of last_status, but we'd either return
+     * CAIRO_STATUS_NO_MEMORY or CAIRO_STATUS_UNKNOWN_ERROR and there
+     * is no CAIRO_STATUS_UNKNOWN_ERROR.
+     */
+    return CAIRO_STATUS_NO_MEMORY;
+}
 
 static cairo_user_data_key_t win32_closure_key;
 

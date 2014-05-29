@@ -33,10 +33,6 @@
 #define INFINITY HUGE_VAL
 #endif
 
-#if HAVE_FENV_H
-# include <fenv.h>
-#endif
-
 static cairo_test_status_t
 draw (cairo_t *cr, int width, int height)
 {

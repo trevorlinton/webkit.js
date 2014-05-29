@@ -40,7 +40,9 @@
 
 #include "cairo-error-private.h"
 #include "cairo-freelist-private.h"
-#include "cairo-combsort-private.h"
+#include "cairo-combsort-inline.h"
+
+#define DEBUG_POLYGON 0
 
 typedef cairo_point_t cairo_bo_point32_t;
 
@@ -114,7 +116,6 @@ typedef struct _cairo_bo_event_queue {
 
 typedef struct _cairo_bo_sweep_line {
     cairo_bo_edge_t *head;
-    cairo_bo_edge_t *stopped;
     int32_t current_y;
     cairo_bo_edge_t *current_edge;
 } cairo_bo_sweep_line_t;
@@ -476,8 +477,8 @@ edges_compare_x_for_y (const cairo_bo_edge_t *a,
 static inline int
 _line_equal (const cairo_line_t *a, const cairo_line_t *b)
 {
-    return a->p1.x == b->p1.x && a->p1.y == b->p1.y &&
-           a->p2.x == b->p2.x && a->p2.y == b->p2.y;
+    return (a->p1.x == b->p1.x && a->p1.y == b->p1.y &&
+	    a->p2.x == b->p2.x && a->p2.y == b->p2.y);
 }
 
 static int
@@ -1024,7 +1025,6 @@ static void
 _cairo_bo_sweep_line_init (cairo_bo_sweep_line_t *sweep_line)
 {
     sweep_line->head = NULL;
-    sweep_line->stopped = NULL;
     sweep_line->current_y = INT32_MIN;
     sweep_line->current_edge = NULL;
 }
@@ -1139,6 +1139,8 @@ edges_colinear (const cairo_bo_edge_t *a, const cairo_bo_edge_t *b)
      */
     if (a->edge.line.p1.y == b->edge.line.p1.y) {
 	return a->edge.line.p1.x == b->edge.line.p1.x;
+    } else if (a->edge.line.p2.y == b->edge.line.p2.y) {
+	return a->edge.line.p2.x == b->edge.line.p2.x;
     } else if (a->edge.line.p1.y < b->edge.line.p1.y) {
 	return edge_compare_for_y_against_x (b,
 					     a->edge.line.p1.y,
@@ -1205,82 +1207,48 @@ _active_edges_to_polygon (cairo_bo_edge_t		*left,
 			  cairo_polygon_t	        *polygon)
 {
     cairo_bo_edge_t *right;
+    unsigned int mask;
 
-    if (fill_rule == CAIRO_FILL_RULE_WINDING) {
-	while (left != NULL) {
-	    int in_out = left->edge.dir;
+    if (fill_rule == CAIRO_FILL_RULE_WINDING)
+	mask = ~0;
+    else
+	mask = 1;
 
-	    right = left->next;
-	    if (left->deferred.right == NULL) {
-		while (right != NULL && right->deferred.right == NULL)
-		    right = right->next;
+    while (left != NULL) {
+	int in_out = left->edge.dir;
 
-		if (right != NULL && edges_colinear (left, right)) {
-		    /* continuation on left */
-		    left->deferred = right->deferred;
-		    right->deferred.right = NULL;
-		}
-	    }
-
-	    right = left->next;
-	    while (right != NULL) {
-		if (right->deferred.right != NULL)
-		    _cairo_bo_edge_end (right, top, polygon);
-
-		in_out += right->edge.dir;
-		if (in_out == 0) {
-		    cairo_bo_edge_t *next;
-		    cairo_bool_t skip = FALSE;
-
-		    /* skip co-linear edges */
-		    next = right->next;
-		    if (next != NULL)
-			skip = edges_colinear (right, next);
-
-		    if (! skip)
-			break;
-		}
-
+	right = left->next;
+	if (left->deferred.right == NULL) {
+	    while (right != NULL && right->deferred.right == NULL)
 		right = right->next;
+
+	    if (right != NULL && edges_colinear (left, right)) {
+		/* continuation on left */
+		left->deferred = right->deferred;
+		right->deferred.right = NULL;
+	    }
+	}
+
+	right = left->next;
+	while (right != NULL) {
+	    if (right->deferred.right != NULL)
+		_cairo_bo_edge_end (right, top, polygon);
+
+	    in_out += right->edge.dir;
+	    if ((in_out & mask) == 0) {
+		/* skip co-linear edges */
+		if (right->next == NULL || !edges_colinear (right, right->next))
+		    break;
 	    }
 
-	    _cairo_bo_edge_start_or_continue (left, right, top, polygon);
-
-	    left = right;
-	    if (left != NULL)
-		left = left->next;
+	    right = right->next;
 	}
-    } else {
-	while (left != NULL) {
-	    int in_out = 0;
 
-	    right = left->next;
-	    while (right != NULL) {
-		if (right->deferred.right != NULL)
-		    _cairo_bo_edge_end (right, top, polygon);
+	_cairo_bo_edge_start_or_continue (left, right, top, polygon);
 
-		if ((in_out++ & 1) == 0) {
-		    cairo_bo_edge_t *next;
-		    cairo_bool_t skip = FALSE;
-
-		    /* skip co-linear edges */
-		    next = right->next;
-		    if (next != NULL)
-			skip = edges_colinear (right, next);
-
-		    if (! skip)
-			break;
-		}
-
-		right = right->next;
-	    }
-
-	    _cairo_bo_edge_start_or_continue (left, right, top, polygon);
-
-	    left = right;
-	    if (left != NULL)
-		left = left->next;
-	}
+	left = right;
+	if (left != NULL)
+	    left = left->next;
     }
 }
 
@@ -1303,12 +1271,6 @@ _cairo_bentley_ottmann_tessellate_bo_edges (cairo_bo_event_t   **start_events,
 
     while ((event = _cairo_bo_event_dequeue (&event_queue))) {
 	if (event->point.y != sweep_line.current_y) {
-	    for (e1 = sweep_line.stopped; e1; e1 = e1->next) {
-		if (e1->deferred.right != NULL)
-		     _cairo_bo_edge_end (e1, e1->edge.bottom, polygon);
-	    }
-	    sweep_line.stopped = NULL;
-
 	    _active_edges_to_polygon (sweep_line.head,
 				      sweep_line.current_y,
 				      fill_rule, polygon);
@@ -1327,23 +1289,6 @@ _cairo_bentley_ottmann_tessellate_bo_edges (cairo_bo_event_t   **start_events,
 	    status = _cairo_bo_event_queue_insert_stop (&event_queue, e1);
 	    if (unlikely (status))
 		goto unwind;
-
-	    /* check to see if this is a continuation of a stopped edge */
-	    /* XXX change to an infinitesimal lengthening rule */
-	    for (left = sweep_line.stopped; left; left = left->next) {
-		if (e1->edge.top <= left->edge.bottom &&
-		    edges_colinear (e1, left))
-		{
-		    e1->deferred = left->deferred;
-		    if (left->prev != NULL)
-			left->prev = left->next;
-		    else
-			sweep_line.stopped = left->next;
-		    if (left->next != NULL)
-			left->next->prev = left->prev;
-		    break;
-		}
-	    }
 
 	    left = e1->prev;
 	    right = e1->next;
@@ -1371,14 +1316,8 @@ _cairo_bentley_ottmann_tessellate_bo_edges (cairo_bo_event_t   **start_events,
 
 	    _cairo_bo_sweep_line_delete (&sweep_line, e1);
 
-	    /* first, check to see if we have a continuation via a fresh edge */
-	    if (e1->deferred.right != NULL) {
-		e1->next = sweep_line.stopped;
-		if (sweep_line.stopped != NULL)
-		    sweep_line.stopped->prev = e1;
-		sweep_line.stopped = e1;
-		e1->prev = NULL;
-	    }
+	    if (e1->deferred.right != NULL)
+		_cairo_bo_edge_end (e1, e1->edge.bottom, polygon);
 
 	    if (left != NULL && right != NULL) {
 		status = _cairo_bo_event_queue_insert_if_intersect_below_current_y (&event_queue, left, right);
@@ -1420,10 +1359,6 @@ _cairo_bentley_ottmann_tessellate_bo_edges (cairo_bo_event_t   **start_events,
 	}
     }
 
-    for (e1 = sweep_line.stopped; e1; e1 = e1->next) {
-	if (e1->deferred.right != NULL)
-	    _cairo_bo_edge_end (e1, e1->edge.bottom, polygon);
-    }
  unwind:
     _cairo_bo_event_queue_fini (&event_queue);
 
@@ -1446,6 +1381,12 @@ _cairo_polygon_reduce (cairo_polygon_t *polygon,
     num_events = polygon->num_edges;
     if (unlikely (0 == num_events))
 	return CAIRO_STATUS_SUCCESS;
+
+    if (DEBUG_POLYGON) {
+	FILE *file = fopen ("reduce_in.txt", "w");
+	_cairo_debug_print_polygon (file, polygon);
+	fclose (file);
+    }
 
     events = stack_events;
     event_ptrs = stack_event_ptrs;
@@ -1482,10 +1423,16 @@ _cairo_polygon_reduce (cairo_polygon_t *polygon,
 							 num_events,
 							 fill_rule,
 							 polygon);
-     polygon->num_limits = num_limits;
+    polygon->num_limits = num_limits;
 
     if (events != stack_events)
 	free (events);
+
+    if (DEBUG_POLYGON) {
+	FILE *file = fopen ("reduce_out.txt", "w");
+	_cairo_debug_print_polygon (file, polygon);
+	fclose (file);
+    }
 
     return status;
 }

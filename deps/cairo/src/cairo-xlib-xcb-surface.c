@@ -47,6 +47,7 @@
 #include "cairo-xlib-xrender-private.h"
 
 #include "cairo-default-context-private.h"
+#include "cairo-list-inline.h"
 #include "cairo-image-surface-private.h"
 #include "cairo-surface-backend-private.h"
 
@@ -115,12 +116,12 @@ _cairo_xlib_xcb_surface_create_similar_image (void			*abstract_other,
     return cairo_surface_create_similar_image (&surface->xcb->base, format, width, height);
 }
 
-static cairo_surface_t *
+static cairo_image_surface_t *
 _cairo_xlib_xcb_surface_map_to_image (void *abstract_surface,
 				      const cairo_rectangle_int_t *extents)
 {
     cairo_xlib_xcb_surface_t *surface = abstract_surface;
-    return cairo_surface_map_to_image (&surface->xcb->base, extents);
+    return _cairo_surface_map_to_image (&surface->xcb->base, extents);
 }
 
 static cairo_int_status_t
@@ -128,13 +129,7 @@ _cairo_xlib_xcb_surface_unmap (void *abstract_surface,
 			       cairo_image_surface_t *image)
 {
     cairo_xlib_xcb_surface_t *surface = abstract_surface;
-
-    /* cairo_surface_unmap_image destroys the surface, so get a new reference
-     * for it to destroy.
-     */
-    cairo_surface_reference (&image->base);
-    cairo_surface_unmap_image (&surface->xcb->base, &image->base);
-    return cairo_surface_status (&surface->xcb->base);
+    return _cairo_surface_unmap_image (&surface->xcb->base, image);
 }
 
 static cairo_surface_t *
@@ -254,12 +249,11 @@ _cairo_xlib_xcb_surface_glyphs (void			*abstract_surface,
 }
 
 static cairo_status_t
-_cairo_xlib_xcb_surface_flush (void *abstract_surface)
+_cairo_xlib_xcb_surface_flush (void *abstract_surface, unsigned flags)
 {
     cairo_xlib_xcb_surface_t *surface = abstract_surface;
     /* We have to call cairo_surface_flush() to make sure snapshots are detached */
-    cairo_surface_flush (&surface->xcb->base);
-    return CAIRO_STATUS_SUCCESS;
+    return _cairo_surface_flush (&surface->xcb->base, flags);
 }
 
 static cairo_status_t

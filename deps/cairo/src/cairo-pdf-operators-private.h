@@ -53,9 +53,10 @@
  */
 #define PDF_GLYPH_BUFFER_SIZE 200
 
-typedef cairo_status_t (*cairo_pdf_operators_use_font_subset_t) (unsigned int  font_id,
-								 unsigned int  subset_id,
-								 void         *closure);
+typedef cairo_int_status_t
+(*cairo_pdf_operators_use_font_subset_t) (unsigned int  font_id,
+					  unsigned int  subset_id,
+					  void         *closure);
 
 typedef struct _cairo_pdf_glyph {
     unsigned int glyph_index;

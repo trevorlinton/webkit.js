@@ -43,7 +43,7 @@
  *
  * Cairo-gl allows interoperability with other GL rendering through GL
  * context sharing.  Cairo-gl surfaces are created in reference to a
- * #cairo_device_t, which represents an GL context created by the user.
+ * #cairo_device_t, which represents a GL context created by the user.
  * When that GL context is created with its sharePtr set to another
  * context (or vice versa), its objects (textures backing cairo-gl
  * surfaces) can be accessed in the other OpenGL context.  This allows
@@ -55,7 +55,7 @@
  * call which interacts with a cairo-gl surface or the cairo-gl
  * device.  As a result, the user must make their own context current
  * between any cairo calls and their own OpenGL rendering.
- */
+ **/
 
 #ifndef CAIRO_GL_H
 #define CAIRO_GL_H
@@ -87,6 +87,10 @@ cairo_gl_surface_get_height (cairo_surface_t *abstract_surface);
 
 cairo_public void
 cairo_gl_surface_swapbuffers (cairo_surface_t *surface);
+
+cairo_public void
+cairo_gl_device_set_thread_aware (cairo_device_t	*device,
+				  cairo_bool_t		 thread_aware);
 
 #if CAIRO_HAS_GLX_FUNCTIONS
 #include <GL/glx.h>
@@ -133,6 +137,12 @@ cairo_gl_surface_create_for_egl (cairo_device_t	*device,
 				 EGLSurface	 egl,
 				 int		 width,
 				 int		 height);
+
+cairo_public EGLDisplay
+cairo_egl_device_get_display (cairo_device_t *device);
+
+cairo_public EGLSurface
+cairo_egl_device_get_context (cairo_device_t *device);
 
 #endif
 

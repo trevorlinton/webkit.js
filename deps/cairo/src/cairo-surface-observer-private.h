@@ -205,23 +205,4 @@ struct _cairo_surface_observer {
     cairo_list_t finish_callbacks;
 };
 
-static inline cairo_surface_t *
-_cairo_surface_observer_get_target (cairo_surface_t *surface)
-{
-    return ((cairo_surface_observer_t *) surface)->target;
-}
-
-static inline cairo_bool_t
-_cairo_surface_is_observer (cairo_surface_t *surface)
-{
-    return surface->backend->type == (cairo_surface_type_t)CAIRO_INTERNAL_SURFACE_TYPE_OBSERVER;
-}
-
-static inline cairo_bool_t
-_cairo_device_is_observer (cairo_device_t *device)
-{
-    return device->backend->type == (cairo_device_type_t)CAIRO_INTERNAL_DEVICE_TYPE_OBSERVER;
-}
-
-
-#endif /* CAIRO_SURFACE_SNAPSHOT_PRIVATE_H */
+#endif /* CAIRO_SURFACE_OBSERVER_PRIVATE_H */

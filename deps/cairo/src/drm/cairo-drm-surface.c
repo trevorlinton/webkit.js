@@ -35,6 +35,7 @@
 #include "cairo-drm-private.h"
 
 #include "cairo-error-private.h"
+#include "cairo-image-surface-inline.h"
 
 void
 _cairo_drm_surface_init (cairo_drm_surface_t *surface,

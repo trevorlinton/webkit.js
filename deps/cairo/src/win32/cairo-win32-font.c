@@ -77,14 +77,16 @@
  *
  * The Microsoft Windows font backend is primarily used to render text on
  * Microsoft Windows systems.
- */
+ **/
 
 /**
  * CAIRO_HAS_WIN32_FONT:
  *
  * Defined if the Microsoft Windows font backend is available.
  * This macro can be used to conditionally compile backend-specific code.
- */
+ *
+ * Since: 1.8
+ **/
 
 const cairo_scaled_font_backend_t _cairo_win32_scaled_font_backend;
 
@@ -2031,6 +2033,8 @@ _cairo_win32_font_face_keys_equal (const void *key_a,
  *
  * Return value: a newly created #cairo_font_face_t. Free with
  *  cairo_font_face_destroy() when you are done using it.
+ *
+ * Since: 1.6
  **/
 cairo_font_face_t *
 cairo_win32_font_face_create_for_logfontw_hfont (LOGFONTW *logfont, HFONT font)
@@ -2100,6 +2104,8 @@ FAIL:
  *
  * Return value: a newly created #cairo_font_face_t. Free with
  *  cairo_font_face_destroy() when you are done using it.
+ *
+ * Since: 1.0
  **/
 cairo_font_face_t *
 cairo_win32_font_face_create_for_logfontw (LOGFONTW *logfont)
@@ -2120,6 +2126,8 @@ cairo_win32_font_face_create_for_logfontw (LOGFONTW *logfont)
  *
  * Return value: a newly created #cairo_font_face_t. Free with
  *  cairo_font_face_destroy() when you are done using it.
+ *
+ * Since: 1.2
  **/
 cairo_font_face_t *
 cairo_win32_font_face_create_for_hfont (HFONT font)
@@ -2166,6 +2174,8 @@ _cairo_scaled_font_is_win32 (cairo_scaled_font_t *scaled_font)
  * Return value: %CAIRO_STATUS_SUCCESS if the operation succeeded.
  *   otherwise an error such as %CAIRO_STATUS_NO_MEMORY and
  *   the device context is unchanged.
+ *
+ * Since: 1.0
  **/
 cairo_status_t
 cairo_win32_scaled_font_select_font (cairo_scaled_font_t *scaled_font,
@@ -2215,6 +2225,8 @@ cairo_win32_scaled_font_select_font (cairo_scaled_font_t *scaled_font,
  * @scaled_font: A scaled font from the Win32 font backend.
  *
  * Releases any resources allocated by cairo_win32_scaled_font_select_font()
+ *
+ * Since: 1.0
  **/
 void
 cairo_win32_scaled_font_done_font (cairo_scaled_font_t *scaled_font)
@@ -2235,6 +2247,8 @@ cairo_win32_scaled_font_done_font (cairo_scaled_font_t *scaled_font)
  *
  * Return value: factor to multiply logical units by to get font space
  *               coordinates.
+ *
+ * Since: 1.0
  **/
 double
 cairo_win32_scaled_font_get_metrics_factor (cairo_scaled_font_t *scaled_font)

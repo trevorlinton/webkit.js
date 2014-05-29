@@ -34,9 +34,9 @@ This section lists generic data types used in the cairo API.
 </refsect1>
 <refsect1 id="cairo-Types.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="cairo-bool-t" role="typedef">
+<refsect2 id="cairo-bool-t" role="typedef" condition="since:1.0">
 <title>cairo_bool_t</title>
-<indexterm zone="cairo-bool-t"><primary sortas="bool_t">cairo_bool_t</primary></indexterm>
+<indexterm zone="cairo-bool-t" role="1.0"><primary sortas="bool_t">cairo_bool_t</primary></indexterm>
 <programlisting>typedef int cairo_bool_t;
 </programlisting>
 <para>
@@ -51,10 +51,10 @@ value as a boolean condition.
      /<!-- -->* do something *<!-- -->/
  }
 </programlisting></informalexample>
-</para></refsect2>
-<refsect2 id="cairo-user-data-key-t" role="struct">
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-user-data-key-t" role="struct" condition="since:1.0">
 <title>cairo_user_data_key_t</title>
-<indexterm zone="cairo-user-data-key-t"><primary sortas="user_data_key_t">cairo_user_data_key_t</primary></indexterm>
+<indexterm zone="cairo-user-data-key-t" role="1.0"><primary sortas="user_data_key_t">cairo_user_data_key_t</primary></indexterm>
 <programlisting>typedef struct {
     int unused;
 } cairo_user_data_key_t;
@@ -69,10 +69,10 @@ would just use the address of a static <link linkend="cairo-data-key-t"><type>ca
 <varlistentry><term><link linkend="int"><type>int</type></link>&#160;<structfield id="cairo-user-data-key-t.unused">unused</structfield>;</term>
 <listitem><simpara>not used; ignore.</simpara></listitem>
 </varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-destroy-func-t" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-destroy-func-t" role="function" condition="since:1.0">
 <title>cairo_destroy_func_t ()</title>
-<indexterm zone="cairo-destroy-func-t"><primary sortas="destroy_func_t">cairo_destroy_func_t</primary></indexterm>
+<indexterm zone="cairo-destroy-func-t" role="1.0"><primary sortas="destroy_func_t">cairo_destroy_func_t</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*cairo_destroy_func_t)             (<parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
 <para>
 <link linkend="cairo-destroy-func-t"><type>cairo_destroy_func_t</type></link> the type of function which is called when a
@@ -81,7 +81,7 @@ element and should free any memory and resources allocated for it.
 </para><variablelist role="params">
 <varlistentry><term><parameter>data</parameter>&#160;:</term>
 <listitem><simpara>The data element being destroyed.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 <refsect2 id="cairo-rectangle-int-t" role="struct" condition="since:1.10">
 <title>cairo_rectangle_int_t</title>
 <indexterm zone="cairo-rectangle-int-t" role="1.10"><primary sortas="rectangle_int_t">cairo_rectangle_int_t</primary></indexterm>

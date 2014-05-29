@@ -193,6 +193,7 @@ object.
 Memory management of <a class="link" href="cairo-cairo-t.html#cairo-t" title="cairo_t"><span class="type">cairo_t</span></a> is done with
 <a class="link" href="cairo-cairo-t.html#cairo-reference" title="cairo_reference ()"><code class="function">cairo_reference()</code></a> and <a class="link" href="cairo-cairo-t.html#cairo-destroy" title="cairo_destroy ()"><code class="function">cairo_destroy()</code></a>.
 </p>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -223,7 +224,7 @@ maintain a separate reference to it.
 <td>a newly allocated <a class="link" href="cairo-cairo-t.html#cairo-t" title="cairo_t"><span class="type">cairo_t</span></a> with a reference
 count of 1. The initial reference count should be released
 with <a class="link" href="cairo-cairo-t.html#cairo-destroy" title="cairo_destroy ()"><code class="function">cairo_destroy()</code></a> when you are done using the <a class="link" href="cairo-cairo-t.html#cairo-t" title="cairo_t"><span class="type">cairo_t</span></a>.
-This function never returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. If memory cannot be
+This function never returns <code class="literal">NULL</code>. If memory cannot be
 allocated, a special <a class="link" href="cairo-cairo-t.html#cairo-t" title="cairo_t"><span class="type">cairo_t</span></a> object will be returned on
 which <a class="link" href="cairo-cairo-t.html#cairo-status" title="cairo_status ()"><code class="function">cairo_status()</code></a> returns <a class="link" href="cairo-Error-handling.html#CAIRO-STATUS-NO-MEMORY:CAPS"><code class="literal">CAIRO_STATUS_NO_MEMORY</code></a>. If
 you attempt to target a surface which does not support
@@ -233,6 +234,7 @@ object normally, but no drawing will be done.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -261,6 +263,7 @@ The number of references to a <a class="link" href="cairo-cairo-t.html#cairo-t" 
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -279,6 +282,7 @@ See <a class="link" href="cairo-cairo-t.html#cairo-reference" title="cairo_refer
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -301,6 +305,7 @@ Checks whether an error has previously occurred for this context.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -328,6 +333,7 @@ any saved states will be freed along with the <a class="link" href="cairo-cairo-
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -346,6 +352,7 @@ saved states.
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -376,6 +383,7 @@ keep a reference to it, you must call <a class="link" href="cairo-cairo-surface-
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -645,6 +653,7 @@ equivalent to cairo_set_source_rgb(cr, 0.0, 0.0, 0.0)).
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -693,6 +702,7 @@ equivalent to cairo_set_source_rgba(cr, 0.0, 0.0, 0.0, 1.0)).
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -729,6 +739,7 @@ subsequent drawing operations.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -777,6 +788,7 @@ repeating pattern with <a class="link" href="cairo-cairo-pattern-t.html#cairo-pa
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -800,6 +812,7 @@ cairo. To keep a reference to it, you must call
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -846,25 +859,25 @@ the backend, typically this will be similar to <em class="parameter"><code>CAIRO
 <tr>
 <td><p><a name="CAIRO-ANTIALIAS-DEFAULT:CAPS"></a><span class="term"><code class="literal">CAIRO_ANTIALIAS_DEFAULT</code></span></p></td>
 <td>Use the default antialiasing for
-  the subsystem and target device
+  the subsystem and target device, since 1.0
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-ANTIALIAS-NONE:CAPS"></a><span class="term"><code class="literal">CAIRO_ANTIALIAS_NONE</code></span></p></td>
-<td>Use a bilevel alpha mask
+<td>Use a bilevel alpha mask, since 1.0
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-ANTIALIAS-GRAY:CAPS"></a><span class="term"><code class="literal">CAIRO_ANTIALIAS_GRAY</code></span></p></td>
 <td>Perform single-color antialiasing (using
- shades of gray for black text on a white background, for example).
+ shades of gray for black text on a white background, for example), since 1.0
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-ANTIALIAS-SUBPIXEL:CAPS"></a><span class="term"><code class="literal">CAIRO_ANTIALIAS_SUBPIXEL</code></span></p></td>
 <td>Perform antialiasing by taking
  advantage of the order of subpixel elements on devices
- such as LCD panels
+ such as LCD panels, since 1.0
 </td>
 </tr>
 <tr>
@@ -887,6 +900,7 @@ quality, sacrificing speed if necessary, since 1.12
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -917,6 +931,7 @@ Note that this option does not affect text rendering, instead see
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -939,6 +954,7 @@ Gets the current shape antialiasing mode, as set by
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -999,6 +1015,7 @@ If any value in <em class="parameter"><code>dashes</code></em> is negative, or i
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1034,7 +1051,7 @@ See also <a class="link" href="cairo-cairo-t.html#cairo-set-dash" title="cairo_s
                                                          <em class="parameter"><code><span class="type">double</span> *dashes</code></em>,
                                                          <em class="parameter"><code><span class="type">double</span> *offset</code></em>);</pre>
 <p>
-Gets the current dash array.  If not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, <em class="parameter"><code>dashes</code></em> should be big
+Gets the current dash array.  If not <code class="literal">NULL</code>, <em class="parameter"><code>dashes</code></em> should be big
 enough to hold at least the number of values returned by
 <a class="link" href="cairo-cairo-t.html#cairo-get-dash-count" title="cairo_get_dash_count ()"><code class="function">cairo_get_dash_count()</code></a>.
 </p>
@@ -1048,12 +1065,12 @@ enough to hold at least the number of values returned by
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>dashes</code></em> :</span></p></td>
-<td>return value for the dash array, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>return value for the dash array, or <code class="literal">NULL</code>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
-<td>return value for the current dash offset, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>return value for the current dash offset, or <code class="literal">NULL</code>
 </td>
 </tr>
 </tbody>
@@ -1093,7 +1110,7 @@ New entries may be added in future versions.
 left-to-right, counts +1. If the path crosses the ray
 from right to left, counts -1. (Left and right are determined
 from the perspective of looking along the ray from the starting
-point.) If the total count is non-zero, the point will be filled.
+point.) If the total count is non-zero, the point will be filled. (Since 1.0)
 </td>
 </tr>
 <tr>
@@ -1101,11 +1118,12 @@ point.) If the total count is non-zero, the point will be filled.
 <td>Counts the total number of
 intersections, without regard to the orientation of the contour. If
 the total number of intersections is odd, the point will be
-filled.
+filled. (Since 1.0)
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1137,6 +1155,7 @@ The default fill rule is <a class="link" href="cairo-cairo-t.html#CAIRO-FILL-RUL
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1158,6 +1177,7 @@ Gets the current fill rule, as set by <a class="link" href="cairo-cairo-t.html#c
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1179,21 +1199,22 @@ The default line cap style is <a class="link" href="cairo-cairo-t.html#CAIRO-LIN
 <tbody>
 <tr>
 <td><p><a name="CAIRO-LINE-CAP-BUTT:CAPS"></a><span class="term"><code class="literal">CAIRO_LINE_CAP_BUTT</code></span></p></td>
-<td>start(stop) the line exactly at the start(end) point
+<td>start(stop) the line exactly at the start(end) point (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-LINE-CAP-ROUND:CAPS"></a><span class="term"><code class="literal">CAIRO_LINE_CAP_ROUND</code></span></p></td>
-<td>use a round ending, the center of the circle is the end point
+<td>use a round ending, the center of the circle is the end point (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-LINE-CAP-SQUARE:CAPS"></a><span class="term"><code class="literal">CAIRO_LINE_CAP_SQUARE</code></span></p></td>
-<td>use squared ending, the center of the square is the end point
+<td>use squared ending, the center of the square is the end point (Since 1.0)
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1227,6 +1248,7 @@ The default line cap style is <a class="link" href="cairo-cairo-t.html#CAIRO-LIN
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1248,6 +1270,7 @@ Gets the current line cap style, as set by <a class="link" href="cairo-cairo-t.h
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1270,23 +1293,24 @@ The default line join style is <a class="link" href="cairo-cairo-t.html#CAIRO-LI
 <tr>
 <td><p><a name="CAIRO-LINE-JOIN-MITER:CAPS"></a><span class="term"><code class="literal">CAIRO_LINE_JOIN_MITER</code></span></p></td>
 <td>use a sharp (angled) corner, see
-<a class="link" href="cairo-cairo-t.html#cairo-set-miter-limit" title="cairo_set_miter_limit ()"><code class="function">cairo_set_miter_limit()</code></a>
+<a class="link" href="cairo-cairo-t.html#cairo-set-miter-limit" title="cairo_set_miter_limit ()"><code class="function">cairo_set_miter_limit()</code></a> (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-LINE-JOIN-ROUND:CAPS"></a><span class="term"><code class="literal">CAIRO_LINE_JOIN_ROUND</code></span></p></td>
 <td>use a rounded join, the center of the circle is the
-joint point
+joint point (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-LINE-JOIN-BEVEL:CAPS"></a><span class="term"><code class="literal">CAIRO_LINE_JOIN_BEVEL</code></span></p></td>
 <td>use a cut-off join, the join is cut off at half
-the line width from the joint point
+the line width from the joint point (Since 1.0)
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1320,6 +1344,7 @@ The default line join style is <a class="link" href="cairo-cairo-t.html#CAIRO-LI
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1341,6 +1366,7 @@ Gets the current line join style, as set by <a class="link" href="cairo-cairo-t.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1386,6 +1412,7 @@ The default line width value is 2.0.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1410,6 +1437,7 @@ the CTM has changed between the calls to <a class="link" href="cairo-cairo-t.htm
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1457,6 +1485,7 @@ A miter limit for a desired angle can be computed as: miter limit =
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1478,6 +1507,7 @@ Gets the current miter limit, as set by <a class="link" href="cairo-cairo-t.html
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1545,161 +1575,161 @@ the mathematical definitions, see
 <tbody>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-CLEAR:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_CLEAR</code></span></p></td>
-<td>clear destination layer (bounded)
+<td>clear destination layer (bounded) (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-SOURCE:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_SOURCE</code></span></p></td>
-<td>replace destination layer (bounded)
+<td>replace destination layer (bounded) (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-OVER:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_OVER</code></span></p></td>
 <td>draw source layer on top of destination layer
-(bounded)
+(bounded) (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-IN:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_IN</code></span></p></td>
 <td>draw source where there was destination content
-(unbounded)
+(unbounded) (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-OUT:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_OUT</code></span></p></td>
 <td>draw source where there was no destination
-content (unbounded)
+content (unbounded) (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-ATOP:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_ATOP</code></span></p></td>
 <td>draw source on top of destination content and
-only there
+only there (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-DEST:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_DEST</code></span></p></td>
-<td>ignore the source
+<td>ignore the source (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-DEST-OVER:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_DEST_OVER</code></span></p></td>
-<td>draw destination on top of source
+<td>draw destination on top of source (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-DEST-IN:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_DEST_IN</code></span></p></td>
 <td>leave destination only where there was
-source content (unbounded)
+source content (unbounded) (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-DEST-OUT:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_DEST_OUT</code></span></p></td>
 <td>leave destination only where there was no
-source content
+source content (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-DEST-ATOP:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_DEST_ATOP</code></span></p></td>
 <td>leave destination on top of source content
-and only there (unbounded)
+and only there (unbounded) (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-XOR:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_XOR</code></span></p></td>
 <td>source and destination are shown where there is only
-one of them
+one of them (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-ADD:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_ADD</code></span></p></td>
-<td>source and destination layers are accumulated
+<td>source and destination layers are accumulated (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-SATURATE:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_SATURATE</code></span></p></td>
 <td>like over, but assuming source and dest are
-disjoint geometries
+disjoint geometries (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-MULTIPLY:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_MULTIPLY</code></span></p></td>
 <td>source and destination layers are multiplied.
-This causes the result to be at least as dark as the darker inputs.
+This causes the result to be at least as dark as the darker inputs. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-SCREEN:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_SCREEN</code></span></p></td>
 <td>source and destination are complemented and
 multiplied. This causes the result to be at least as light as the lighter
-inputs.
+inputs. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-OVERLAY:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_OVERLAY</code></span></p></td>
 <td>multiplies or screens, depending on the
-lightness of the destination color.
+lightness of the destination color. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-DARKEN:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_DARKEN</code></span></p></td>
 <td>replaces the destination with the source if it
-is darker, otherwise keeps the source.
+is darker, otherwise keeps the source. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-LIGHTEN:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_LIGHTEN</code></span></p></td>
 <td>replaces the destination with the source if it
-is lighter, otherwise keeps the source.
+is lighter, otherwise keeps the source. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-COLOR-DODGE:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_COLOR_DODGE</code></span></p></td>
 <td>brightens the destination color to reflect
-the source color.
+the source color. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-COLOR-BURN:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_COLOR_BURN</code></span></p></td>
 <td>darkens the destination color to reflect
-the source color.
+the source color. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-HARD-LIGHT:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_HARD_LIGHT</code></span></p></td>
 <td>Multiplies or screens, dependent on source
-color.
+color. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-SOFT-LIGHT:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_SOFT_LIGHT</code></span></p></td>
 <td>Darkens or lightens, dependent on source
-color.
+color. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-DIFFERENCE:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_DIFFERENCE</code></span></p></td>
 <td>Takes the difference of the source and
-destination color.
+destination color. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-EXCLUSION:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_EXCLUSION</code></span></p></td>
 <td>Produces an effect similar to difference, but
-with lower contrast.
+with lower contrast. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-HSL-HUE:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_HSL_HUE</code></span></p></td>
 <td>Creates a color with the hue of the source
-and the saturation and luminosity of the target.
+and the saturation and luminosity of the target. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-HSL-SATURATION:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_HSL_SATURATION</code></span></p></td>
 <td>Creates a color with the saturation
 of the source and the hue and luminosity of the target. Painting with
-this mode onto a gray area produces no change.
+this mode onto a gray area produces no change. (Since 1.10)
 </td>
 </tr>
 <tr>
@@ -1707,18 +1737,19 @@ this mode onto a gray area produces no change.
 <td>Creates a color with the hue and saturation
 of the source and the luminosity of the target. This preserves the gray
 levels of the target and is useful for coloring monochrome images or
-tinting color images.
+tinting color images. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-OPERATOR-HSL-LUMINOSITY:CAPS"></a><span class="term"><code class="literal">CAIRO_OPERATOR_HSL_LUMINOSITY</code></span></p></td>
 <td>Creates a color with the luminosity of
 the source and the hue and saturation of the target. This produces an
-inverse effect to <em class="parameter"><code>CAIRO_OPERATOR_HSL_COLOR</code></em>.
+inverse effect to <em class="parameter"><code>CAIRO_OPERATOR_HSL_COLOR</code></em>. (Since 1.10)
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1748,6 +1779,7 @@ The default operator is <a class="link" href="cairo-cairo-t.html#CAIRO-OPERATOR-
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1769,6 +1801,7 @@ Gets the current compositing operator for a cairo context.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1801,6 +1834,7 @@ representable internal value.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1822,6 +1856,7 @@ Gets the current tolerance value, as set by <a class="link" href="cairo-cairo-t.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1856,6 +1891,7 @@ region is <a class="link" href="cairo-cairo-t.html#cairo-reset-clip" title="cair
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1890,6 +1926,7 @@ region is <a class="link" href="cairo-cairo-t.html#cairo-reset-clip" title="cair
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1993,6 +2030,7 @@ robust means of temporarily restricting the clip region.
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2084,7 +2122,7 @@ be dereferenced.
 <pre class="programlisting"><a class="link" href="cairo-cairo-t.html#cairo-rectangle-list-t" title="cairo_rectangle_list_t"><span class="returnvalue">cairo_rectangle_list_t</span></a> * cairo_copy_clip_rectangle_list (<em class="parameter"><code><a class="link" href="cairo-cairo-t.html#cairo-t" title="cairo_t"><span class="type">cairo_t</span></a> *cr</code></em>);</pre>
 <p>
 Gets the current clip region as a list of rectangles in user coordinates.
-Never returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+Never returns <code class="literal">NULL</code>.
 </p>
 <p>
 The status in the list may be <a class="link" href="cairo-Error-handling.html#CAIRO-STATUS-CLIP-NOT-REPRESENTABLE:CAPS"><code class="literal">CAIRO_STATUS_CLIP_NOT_REPRESENTABLE</code></a> to
@@ -2126,6 +2164,7 @@ the cairo context. See <a class="link" href="cairo-cairo-t.html#cairo-set-fill-r
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2147,6 +2186,7 @@ See <a class="link" href="cairo-cairo-t.html#cairo-set-fill-rule" title="cairo_s
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2202,6 +2242,7 @@ See <a class="link" href="cairo-cairo-t.html#cairo-fill" title="cairo_fill ()"><
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2240,6 +2281,7 @@ outside.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2266,6 +2308,7 @@ areas are not painted.)
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2304,6 +2347,7 @@ areas are not painted.)
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2320,6 +2364,7 @@ the current clip region.
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2345,6 +2390,7 @@ is faded out using the alpha value.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2390,6 +2436,7 @@ to be drawn in the case of either degenerate segments or sub-paths.
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2413,6 +2460,7 @@ See <a class="link" href="cairo-cairo-t.html#cairo-set-line-width" title="cairo_
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2471,6 +2519,7 @@ See <a class="link" href="cairo-cairo-t.html#cairo-stroke" title="cairo_stroke (
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2511,6 +2560,7 @@ outside.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2533,6 +2583,7 @@ This is a convenience function that simply calls
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2553,6 +2604,7 @@ This is a convenience function that simply calls
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2587,7 +2639,7 @@ object is a nil object, 0 will be returned.</td>
                                                          <em class="parameter"><code><a class="link" href="cairo-Types.html#cairo-destroy-func-t" title="cairo_destroy_func_t ()"><span class="type">cairo_destroy_func_t</span></a> destroy</code></em>);</pre>
 <p>
 Attach user data to <em class="parameter"><code>cr</code></em>.  To remove user data from a surface,
-call this function with the key that was used to set it and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+call this function with the key that was used to set it and <code class="literal">NULL</code>
 for <em class="parameter"><code>data</code></em>.
 </p>
 <div class="variablelist"><table border="0">
@@ -2631,7 +2683,7 @@ slot could not be allocated for the user data.</td>
 <p>
 Return user data previously attached to <em class="parameter"><code>cr</code></em> using the specified
 key.  If no user data has been attached with the given key this
-function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+function returns <code class="literal">NULL</code>.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -2648,7 +2700,7 @@ attached to</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the user data previously attached or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+<td>the user data previously attached or <code class="literal">NULL</code>.</td>
 </tr>
 </tbody>
 </table></div>

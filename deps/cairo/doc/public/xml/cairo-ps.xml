@@ -56,15 +56,15 @@ PostScript files and is a multi-page vector surface backend.
 </refsect1>
 <refsect1 id="cairo-PostScript-Surfaces.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="CAIRO-HAS-PS-SURFACE:CAPS" role="macro">
+<refsect2 id="CAIRO-HAS-PS-SURFACE:CAPS" role="macro" condition="since:1.2">
 <title>CAIRO_HAS_PS_SURFACE</title>
-<indexterm zone="CAIRO-HAS-PS-SURFACE:CAPS"><primary sortas="HAS_PS_SURFACE">CAIRO_HAS_PS_SURFACE</primary></indexterm>
+<indexterm zone="CAIRO-HAS-PS-SURFACE:CAPS" role="1.2"><primary sortas="HAS_PS_SURFACE">CAIRO_HAS_PS_SURFACE</primary></indexterm>
 <programlisting>#define CAIRO_HAS_PS_SURFACE 1
 </programlisting>
 <para>
 Defined if the PostScript surface backend is available.
 This macro can be used to conditionally compile backend-specific code.
-</para></refsect2>
+</para><para role="since">Since 1.2</para></refsect2>
 <refsect2 id="cairo-ps-surface-create" role="function" condition="since:1.2">
 <title>cairo_ps_surface_create ()</title>
 <indexterm zone="cairo-ps-surface-create" role="1.2"><primary sortas="ps_surface_create">cairo_ps_surface_create</primary></indexterm>
@@ -153,9 +153,9 @@ surface.
 <varlistentry><term><parameter>level</parameter>&#160;:</term>
 <listitem><simpara>PostScript level</simpara></listitem></varlistentry>
 </variablelist><para role="since">Since 1.6</para></refsect2>
-<refsect2 id="cairo-ps-level-t" role="enum">
+<refsect2 id="cairo-ps-level-t" role="enum" condition="since:1.6">
 <title>enum cairo_ps_level_t</title>
-<indexterm zone="cairo-ps-level-t"><primary sortas="ps_level_t">cairo_ps_level_t</primary></indexterm>
+<indexterm zone="cairo-ps-level-t" role="1.6"><primary sortas="ps_level_t">cairo_ps_level_t</primary></indexterm>
 <programlisting>typedef enum {
     CAIRO_PS_LEVEL_2,
     CAIRO_PS_LEVEL_3
@@ -168,15 +168,15 @@ conform to.
 </para><variablelist role="enum">
 <varlistentry id="CAIRO-PS-LEVEL-2:CAPS" role="constant">
 <term><literal>CAIRO_PS_LEVEL_2</literal></term>
-<listitem><simpara>The language level 2 of the PostScript specification.
+<listitem><simpara>The language level 2 of the PostScript specification. (Since 1.6)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-PS-LEVEL-3:CAPS" role="constant">
 <term><literal>CAIRO_PS_LEVEL_3</literal></term>
-<listitem><simpara>The language level 3 of the PostScript specification.
+<listitem><simpara>The language level 3 of the PostScript specification. (Since 1.6)
 </simpara></listitem>
 </varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.6</para></refsect2>
 <refsect2 id="cairo-ps-get-levels" role="function" condition="since:1.6">
 <title>cairo_ps_get_levels ()</title>
 <indexterm zone="cairo-ps-get-levels" role="1.6"><primary sortas="ps_get_levels">cairo_ps_get_levels</primary></indexterm>

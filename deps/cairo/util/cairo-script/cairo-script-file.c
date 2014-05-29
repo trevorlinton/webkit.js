@@ -39,6 +39,10 @@
 #include <string.h>
 #include <zlib.h>
 
+#if HAVE_LZO
+#include <lzo/lzo2a.h>
+#endif
+
 #define CHUNK_SIZE 32768
 
 #define OWN_STREAM 0x1
@@ -166,12 +170,32 @@ csi_file_new_from_string (csi_t *ctx,
 	    return status;
 
 	tmp_str = tmp_obj.datum.string;
-	if (uncompress ((Bytef *) tmp_str->string, &len,
-			(Bytef *) src->string, src->len) != Z_OK)
-	{
+	switch (src->method) {
+	case NONE:
+	default:
+	    status = _csi_error (CAIRO_STATUS_NO_MEMORY);
+	    break;
+
+#if HAVE_ZLIB
+	case ZLIB:
+	    if (uncompress ((Bytef *) tmp_str->string, &len,
+			    (Bytef *) src->string, src->len) != Z_OK)
+		status = _csi_error (CAIRO_STATUS_NO_MEMORY);
+	    break;
+#endif
+#if HAVE_LZO
+	case LZO:
+	    if (lzo2a_decompress ((lzo_bytep) src->string, src->len,
+				  (lzo_bytep) tmp_str->string, &len,
+				  NULL))
+		status = _csi_error (CAIRO_STATUS_NO_MEMORY);
+	    break;
+#endif
+	}
+	if (_csi_unlikely (status)) {
 	    csi_string_free (ctx, tmp_str);
 	    _csi_slab_free (ctx, file, sizeof (csi_file_t));
-	    return _csi_error (CAIRO_STATUS_NO_MEMORY);
+	    return status;
 	}
 
 	file->src  = tmp_str;

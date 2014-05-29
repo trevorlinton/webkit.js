@@ -1,0 +1,47 @@
+<!-- ##### SECTION Title ##### -->
+cairo-quartz-fonts
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_QUARTZ_FONT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_quartz_font_face_create_for_cgfont ##### -->
+<para>
+
+</para>
+
+@font: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_quartz_font_face_create_for_atsu_font_id ##### -->
+<para>
+
+</para>
+
+@font_id: 
+@Returns: 
+
+

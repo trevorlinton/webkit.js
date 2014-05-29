@@ -45,7 +45,7 @@ extern "C" {
 	}
 	int main(int argc, char** argv) {
 		//"<!doctype html><html><body>Hello World</body></html>";//
-		char tmp[] = "<!doctype html><html><body><div style='position:absolute;top:10px;left:10px;width:300px;height:300px;color:white;background-Color:rgba(11,6,77,0.70);'>Hello World</div></body></html>";
+		char tmp[] = "<!doctype html><html><body><div style='position:absolute;top:10px;left:10px;width:300px;height:300px;border-radius:5px;box-shadow:5px 5px 5px #000000;border:solid 1px white;color:white;background-color:rgba(11,6,77,0.70);'>Hello World</div></body></html>";
 		createWebKit(500,500);
 		scalefactor(2.0);
 		setHtml(tmp);

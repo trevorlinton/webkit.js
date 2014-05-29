@@ -1,0 +1,153 @@
+<!-- ##### SECTION Title ##### -->
+cairo-matrix
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT cairo_matrix_t ##### -->
+<para>
+
+</para>
+
+@xx: 
+@yx: 
+@xy: 
+@yy: 
+@x0: 
+@y0: 
+
+<!-- ##### FUNCTION cairo_matrix_init ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@xx: 
+@yx: 
+@xy: 
+@yy: 
+@x0: 
+@y0: 
+
+
+<!-- ##### FUNCTION cairo_matrix_init_identity ##### -->
+<para>
+
+</para>
+
+@matrix: 
+
+
+<!-- ##### FUNCTION cairo_matrix_init_translate ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@tx: 
+@ty: 
+
+
+<!-- ##### FUNCTION cairo_matrix_init_scale ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@sx: 
+@sy: 
+
+
+<!-- ##### FUNCTION cairo_matrix_init_rotate ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@radians: 
+
+
+<!-- ##### FUNCTION cairo_matrix_translate ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@tx: 
+@ty: 
+
+
+<!-- ##### FUNCTION cairo_matrix_scale ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@sx: 
+@sy: 
+
+
+<!-- ##### FUNCTION cairo_matrix_rotate ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@radians: 
+
+
+<!-- ##### FUNCTION cairo_matrix_invert ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_matrix_multiply ##### -->
+<para>
+
+</para>
+
+@result: 
+@a: 
+@b: 
+
+
+<!-- ##### FUNCTION cairo_matrix_transform_distance ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@dx: 
+@dy: 
+
+
+<!-- ##### FUNCTION cairo_matrix_transform_point ##### -->
+<para>
+
+</para>
+
+@matrix: 
+@x: 
+@y: 
+
+

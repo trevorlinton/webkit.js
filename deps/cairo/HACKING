@@ -136,10 +136,11 @@ See test/README for more information.
 Performance Test Suite
 ----------------------
 
-There is a small performance-testing suite for cairo.
-
-The performance test suite is located under the perf/ directory.
-See perf/README for more information.
+There is a performance test suite located under the perf/ directory.
+A collection of traces of real-world behavior are also available in the
+cairo-traces repository, which can be used in isolation or hooked in
+with the main performance test suite.  See perf/README for more
+information.
 
 
 Boilerplate

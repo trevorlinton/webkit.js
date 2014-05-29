@@ -27,6 +27,8 @@
                                                          <parameter><link linkend="double"><type>double</type></link> *y0</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> *width</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> *height</parameter>);
+<link linkend="cairo-bool-t"><returnvalue>cairo_bool_t</returnvalue></link>        <link linkend="cairo-recording-surface-get-extents">cairo_recording_surface_get_extents</link> (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
+                                                         <parameter><link linkend="cairo-rectangle-t"><type>cairo_rectangle_t</type></link> *extents</parameter>);
 </synopsis>
 </refsynopsisdiv>
 
@@ -130,6 +132,21 @@ equivalent) into which to replay the full sequence of drawing operations.
 <varlistentry><term><parameter>height</parameter>&#160;:</term>
 <listitem><simpara>the height of the ink bounding box</simpara></listitem></varlistentry>
 </variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-recording-surface-get-extents" role="function" condition="since:1.12">
+<title>cairo_recording_surface_get_extents ()</title>
+<indexterm zone="cairo-recording-surface-get-extents" role="1.12"><primary sortas="recording_surface_get_extents">cairo_recording_surface_get_extents</primary></indexterm>
+<programlisting><link linkend="cairo-bool-t"><returnvalue>cairo_bool_t</returnvalue></link>        cairo_recording_surface_get_extents (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
+                                                         <parameter><link linkend="cairo-rectangle-t"><type>cairo_rectangle_t</type></link> *extents</parameter>);</programlisting>
+<para>
+Get the extents of the recording-surface.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-recording-surface-t"><type>cairo_recording_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>extents</parameter>&#160;:</term>
+<listitem><simpara>the <link linkend="cairo-rectangle-t"><type>cairo_rectangle_t</type></link> to be assigned the extents</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the surface is bounded, of recording type, and
+not in an error state, otherwise <link linkend="FALSE:CAPS"><literal>FALSE</literal></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.12</para></refsect2>
 
 </refsect1>
 <refsect1 id="cairo-Recording-Surfaces.see-also">

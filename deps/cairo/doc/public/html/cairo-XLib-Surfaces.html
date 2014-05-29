@@ -7,7 +7,7 @@
 <link rel="home" href="index.html" title="Cairo: A Vector Graphics Library">
 <link rel="up" href="cairo-surfaces.html" title="Surfaces">
 <link rel="prev" href="cairo-XCB-Surfaces.html" title="XCB Surfaces">
-<link rel="next" href="cairo-support.html" title="Utilities">
+<link rel="next" href="cairo-XLib-XRender-Backend.html" title="XLib-XRender Backend">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -18,7 +18,7 @@
 <td><a accesskey="u" href="cairo-surfaces.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Cairo: A Vector Graphics Library</th>
-<td><a accesskey="n" href="cairo-support.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="cairo-XLib-XRender-Backend.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#cairo-XLib-Surfaces.synopsis" class="shortcut">Top</a>
@@ -63,6 +63,15 @@
 <span class="returnvalue">int</span>                 <a class="link" href="cairo-XLib-Surfaces.html#cairo-xlib-surface-get-width" title="cairo_xlib_surface_get_width ()">cairo_xlib_surface_get_width</a>        (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>);
 <span class="returnvalue">int</span>                 <a class="link" href="cairo-XLib-Surfaces.html#cairo-xlib-surface-get-height" title="cairo_xlib_surface_get_height ()">cairo_xlib_surface_get_height</a>       (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>);
 <span class="returnvalue">int</span>                 <a class="link" href="cairo-XLib-Surfaces.html#cairo-xlib-surface-get-depth" title="cairo_xlib_surface_get_depth ()">cairo_xlib_surface_get_depth</a>        (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="cairo-XLib-Surfaces.html#cairo-xlib-device-debug-cap-xrender-version" title="cairo_xlib_device_debug_cap_xrender_version ()">cairo_xlib_device_debug_cap_xrender_version</a>
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> major_version</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> minor_version</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="cairo-XLib-Surfaces.html#cairo-xlib-device-debug-get-precision" title="cairo_xlib_device_debug_get_precision ()">cairo_xlib_device_debug_get_precision</a>
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="cairo-XLib-Surfaces.html#cairo-xlib-device-debug-set-precision" title="cairo_xlib_device_debug_set_precision ()">cairo_xlib_device_debug_set_precision</a>
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> precision</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -86,6 +95,7 @@ if it is available.
 Defined if the Xlib surface backend is available.
 This macro can be used to conditionally compile backend-specific code.
 </p>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -142,6 +152,7 @@ Currently, only TrueColor visuals are fully supported.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -186,6 +197,7 @@ This will be drawn to as a <a class="link" href="cairo-Image-Surfaces.html#CAIRO
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -222,6 +234,7 @@ this function on a surface created for a Pixmap.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -305,6 +318,7 @@ compatibility.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -349,7 +363,7 @@ constructor.
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the Visual or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if there is no appropriate Visual for
+<td>the Visual or <code class="literal">NULL</code> if there is no appropriate Visual for
 <em class="parameter"><code>surface</code></em>.</td>
 </tr>
 </tbody>
@@ -424,6 +438,89 @@ Get the number of bits used to represent each pixel value.
 </tbody>
 </table></div>
 <p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-xlib-device-debug-cap-xrender-version"></a><h3>cairo_xlib_device_debug_cap_xrender_version ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                cairo_xlib_device_debug_cap_xrender_version
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> major_version</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> minor_version</code></em>);</pre>
+<p>
+Restricts all future Xlib surfaces for this devices to the specified version
+of the RENDER extension. This function exists solely for debugging purpose.
+It let's you find out how cairo would behave with an older version of
+the RENDER extension.
+</p>
+<p>
+Use the special values -1 and -1 for disabling the RENDER extension.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> for the Xlib backend</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>major_version</code></em> :</span></p></td>
+<td>major version to restrict to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>minor_version</code></em> :</span></p></td>
+<td>minor version to restrict to</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-xlib-device-debug-get-precision"></a><h3>cairo_xlib_device_debug_get_precision ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 cairo_xlib_device_debug_get_precision
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>);</pre>
+<p>
+Get the Xrender precision mode.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> for the Xlib backend</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the render precision mode</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-xlib-device-debug-set-precision"></a><h3>cairo_xlib_device_debug_set_precision ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                cairo_xlib_device_debug_set_precision
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> precision</code></em>);</pre>
+<p>
+Render supports two modes of precision when rendering trapezoids. Set
+the precision to the desired mode.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> for the Xlib backend</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>precision</code></em> :</span></p></td>
+<td>the precision to use</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.12</p>
 </div>
 </div>
 <div class="refsect1">

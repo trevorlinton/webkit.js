@@ -44,6 +44,7 @@ _cairo_xcb_connection_shm_attach (cairo_xcb_connection_t *connection,
 				  cairo_bool_t readonly)
 {
     uint32_t segment = _cairo_xcb_connection_get_xid (connection);
+    assert (connection->flags & CAIRO_XCB_HAS_SHM);
     xcb_shm_attach (connection->xcb_connection, segment, id, readonly);
     return segment;
 }
@@ -64,6 +65,7 @@ _cairo_xcb_connection_shm_put_image (cairo_xcb_connection_t *connection,
 				     uint32_t shm,
 				     uint32_t offset)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_SHM);
     xcb_shm_put_image (connection->xcb_connection, dst, gc, total_width, total_height,
 		       src_x, src_y, width, height, dst_x, dst_y, depth,
 		       XCB_IMAGE_FORMAT_Z_PIXMAP, 0, shm, offset);
@@ -82,6 +84,7 @@ _cairo_xcb_connection_shm_get_image (cairo_xcb_connection_t *connection,
     xcb_shm_get_image_reply_t *reply;
     xcb_generic_error_t *error;
 
+    assert (connection->flags & CAIRO_XCB_HAS_SHM);
     reply = xcb_shm_get_image_reply (connection->xcb_connection,
 				     xcb_shm_get_image (connection->xcb_connection,
 							src,
@@ -106,6 +109,7 @@ void
 _cairo_xcb_connection_shm_detach (cairo_xcb_connection_t *connection,
 				  uint32_t segment)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_SHM);
     xcb_shm_detach (connection->xcb_connection, segment);
     _cairo_xcb_connection_put_xid (connection, segment);
 }

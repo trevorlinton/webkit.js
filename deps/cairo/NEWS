@@ -1,3 +1,349 @@
+Release 1.12.16 (2013-08-21 Chris Wilson <chris@chris-wilson.co.uk>)
+===================================================================
+Thanks to everybody who reported a bug and helped us develop a fix,
+we have amassed quite a few bug fixes. There are still more outstanding
+bugs that seek attention and a little bit of TLC, but this release has
+been delayed long enough...
+
+Bug fixes
+---------
+
+  Set the correct orientation for simple boxes with a negative scale
+  factor.
+
+  Fix the creation of the shading dictionary in PDF.
+
+  Fix a crash in PDF when incorporating an image with CAIRO_EXTEND_PAD.
+  https://bugs.freedesktop.org/show_bug.cgi?id=61451
+
+  Avoid upscaling bitmap fonts if possible.
+
+  Fix an assertion failure within the mempool allocator for shared memory.
+
+  Fix allocation size for CFF subsets.
+
+  Export cairo_matrix_t for GObject bindings.
+
+  Fix a double free in the Quartz backend.
+  https://bugs.freedesktop.org/show_bug.cgi?id=62885
+
+  Fix origin of GDI StretchBlits for the Windows backend
+  https://bugs.freedesktop.org/show_bug.cgi?id=61876
+
+  Fix error propagation for requests to create a similar surface with
+  negative size.
+  https://bugs.freedesktop.org/show_bug.cgi?id=63196
+
+  Fix complex clipping of trapezoids with regions
+  https://bugzilla.gnome.org/show_bug.cgi?id=697357
+
+  Stop leaking the image data when loading PNGs
+
+  Fix unbounded operations with a clip mask through the span compositor
+  https://bugs.freedesktop.org/show_bug.cgi?id=61592
+
+  Add missing checks before rendering to a finished surface - so we return
+  an error rather than hit an assert.
+  https://bugs.freedesktop.org/show_bug.cgi?id=68014
+
+  Prevent an assertion failure when creating similar GL surfaces larger
+  than supported by hardware.
+
+  Prevent a double free of a similar image under Windows.
+  https://bugs.freedesktop.org/show_bug.cgi?id=63787
+
+
+Release 1.12.14 (2013-02-10 Chris Wilson <chris@chris-wilson.co.uk>)
+===================================================================
+In the last week we had a few more bugs reported and promptly resolved.
+As these are a combination of regressions and stability issues, it is
+time for a prompt update and release. Many thanks to everyone for
+testing and reporting issues, and helping to make Cairo better.
+
+Bug fixes
+---------
+
+  Prevent user callbacks accessing user-data during destroy to prevent
+  use-after-free bugs.
+  https://bugzilla.mozilla.org/show_bug.cgi?id=722975
+
+  Use standard names for glyphs in subset fonts (PDF).
+  https://bugs.freedesktop.org/show_bug.cgi?id=60248
+
+  Fix detection of Win98. The logic for detecting Win98 (and its broken
+  AlphaBlend()) was inverted, disabling AlphaBlend() for everyone.
+
+  Prevent numeric overflow from extrapolating polygon edges to the clip
+  boundary and causing severe render artifacts.
+  https://bugs.freedesktop.org/show_bug.cgi?id=60489
+
+  Fix computation of glyph string coordinates when breaking up runs
+  for xlib.
+
+  Fix an assertion in the win32 backend for failing to clear its
+  similar-images.
+  https://bugs.freedesktop.org/show_bug.cgi?id=60519
+
+
+Release 1.12.12 (2013-01-31 Chris Wilson <chris@chris-wilson.co.uk>)
+===================================================================
+The goal of this release is to fix the synchronisation problems that
+were exhibited in the SHM transport for cairo-xlib. This cropped up
+any place that tried to rapidly push fresh pixel data to the X server
+through an ordinary image surface, such as gimp-2.9 and evince.
+
+Bug fixes
+---------
+
+   Avoid replacing the entire image when uploading subimages
+   https://bugs.freedesktop.org/show_bug.cgi?id=59635
+
+   Force synchronisation for scratch SHM image buffers, so that we do
+   not overwrite data as it is being read by X.
+   https://bugs.freedesktop.org/show_bug.cgi?id=59635 (also)
+
+   Fix typos in detecting multisampling for the GL (MSAA) backend.
+
+   Fix a memory leak in the GL (MSAA) backend.
+
+   Fix a reference counting bug when mapping a GL surface to an image.
+
+
+Release 1.12.10 (2013-01-16 Chris Wilson <chris@chris-wilson.co.uk>)
+===================================================================
+A heap of bug fixes everywhere, and the gradual completion of the MSAA
+backend for cairo-gl. Perhaps the most noteworthy set of the bugfixes
+was the crusage lead by Behdad Eshfabod to make font handling by
+pango/cairo/fontconfig fully threadsafe. This testing revealed a couple
+of races that needed fixing in Cairo's scaled-font and glyph cache.
+
+Bug fixes
+---------
+
+  Append coincident elements to the recording's surface bbtree so that
+  the list is not corrupted and the overlapping elements lost.
+
+  Fix cairo-trace to correctly record map-to-image/unmap-image and then
+  replay them.
+
+  Ignore MappingNotifies when running the XCB testsuite as they are sent
+  to all clients when the keyboard changes. The testsuite would detect
+  the unexpected event and complain.
+
+  Handle very large images in the XCB backend.
+
+  Fix a memory leak in the xlib/shm layer, and prevent use of the SHM
+  surfaces after the display is closed.
+  https://bugs.freedesktop.org/show_bug.cgi?id=58253
+
+  Handle resizing of bitmap fonts, in preparation for a fix to
+  fontconfig to correctly pass on the user request for scaling.
+
+  Always include subroutine 4 (hint replacement idion) when subsetting
+  type 1 fonts in order to prevent a crash in cgpdftops on Mac OS/X
+
+  Fix a couple of typos in the cairo-gobject.h header files for
+  introspection.
+
+  Prevent a mutex deadlock when freeing a scaled-glyph containing a
+  recording-surface that itself references another scaled-glyph.
+  https://bugs.freedesktop.org/show_bug.cgi?id=54950
+
+  Make scaled-font cache actually thread-safe and prevent
+  use-after-frees.
+
+  Restore support for older versions of XRender. A couple of typos and a
+  few forgotten chunks prevented the xlib compositor from running
+  correctly with XRender < 0.10. Note that there are still a few
+  regressions remaining.
+
+
+Release 1.12.8 (2012-11-24 Chris Wilson <chris@chris-wilson.co.uk>)
+===================================================================
+Another couple of weeks and a few more bugs have been found and fixed,
+it is time to push the next point release. Many thanks to everyone who
+reported their issues and helped us track down the bugs and helped
+testing the fixes.
+
+Bug fixes
+---------
+
+  Expand the sanity checking for broken combinations of XSendEvent and
+  ShmCompletionEvent.
+
+  Notice that "The X.Org Foundation" sometimes also identifies itself
+  as "The Xorg Foundation".
+
+  Handle various ages of libXext and its Shm headers.
+
+  Fix the invalid clipping of the source drawable when using SHM
+  transport to upload images.
+  https://bugs.freedesktop.org/show_bug.cgi?id=56547
+
+  Handle all Type1 postscript operators for better font compatibility.
+  https://bugs.freedesktop.org/show_bug.cgi?id=56265
+
+  Fix a couple of memory leaks in Type1 font subsetting
+  https://bugs.freedesktop.org/show_bug.cgi?id=56566
+
+  Tighten the evaluation of the start/stop pen vertices, and catch a few
+  instances where we would use a fan instead of a bevel.
+  https://bugs.freedesktop.org/show_bug.cgi?id=56432
+
+  Fix assumption that geometric clipping always succeeds with the
+  span-compositor.
+  https://bugs.freedesktop.org/show_bug.cgi?id=56574
+
+  Fix call to spline intersection when evaluating whether a stoke is
+  visible.
+
+  Remember to copy inferior sources when using SHM to readback the
+  surface for use as a source.
+
+Release 1.12.6 (2012-10-22 Chris Wilson <chris@chris-wilson.co.uk>)
+===================================================================
+Thanks to everyone who download cairo-1.12.4 and gave us their feedback.
+It truly was invaluable and has helped us to fix many portability issues
+that crept in with some of the new features. This release aims to fix
+those stability issues and run on a wider range of systems.
+
+Bug fixes
+---------
+
+  Fix the recording surface to actually snapshot the source and so fix
+  PDF drawing.
+
+  Calling XSendEvent with an XShmCompletionEvent is incompatabile with
+  older Xorg servers.
+
+  Reorder CloseDisplay chain so that XShm is not reinstantiated after
+  shutdown, causing a potential crash if the Display was immediately
+  recreated using the same memory address.
+
+  Make sure that the Xserver has attached to the SHM segment before
+  deleting it from the global namespace on systems that do not support
+  deferred deletion.
+
+  Type1 subsetting support for PDF (and PS) was once again improved to
+  work with a larger number of PDF readers.
+
+  GLESv2 build fixes and improved support for embedded GPUs.
+
+  Tweak the invisible pen detection for applications that are currently
+  using too large values for geometric tolerance.
+
+  A build fix for older freetype libraries.
+
+
+Release 1.12.4 (2012-10-05 Chris Wilson <chris@chris-wilson.co.uk>)
+===================================================================
+More bugs, and more importantly, more fixes. On the cairo-gl side, we
+have refinements to the MSAA compositor which enables hardware
+acceleration of comparitively low-quality antialiasing - which is useful
+in animations and on very high density screens. For cairo-xlib, we have
+finally enabled SHM transport for image transfers to and from the X
+server. A long standing required feature, SHM transport offers a notable
+reduction in rendering latency by reducing the number of copies
+required to upload image data - given hardware and driver support,
+cairo-xlib can now perform zero copy uploads onto the GPU. And as usual
+Adrian Johnson has been very busy fixing many different corner cases in
+cairo-pdf, impoving opacity groups and font subsetting. Last, but not
+least, for cairo-image Søren Sandmann Pedersen added support for
+rendering glyphs to pixman and using that from within cairo. The new
+glyph rendering facility reduces the overhead for setting up the
+compositing operation, improving glyph thoughput for the image backend
+by a factor of about 4. And before he did so, he also fixed up a few
+bugs in the existing glyph rendering code. So many thanks to Andrea
+Canciani, Adrian Johnson, Chuanbo Weng, Dongyeon Kim, Henry Song, Martin
+Robinson, Søren Sandmann Pedersen and Uli Schlachter for their
+contributions, finding and fixing bugs.
+
+Bug fixes
+---------
+
+ Interior boxes were being dropped when amalgamating regions during
+ tesselation.
+ https://bugs.freedesktop.org/show_bug.cgi?id=49446
+
+ Allow building without gtk-doc installed
+
+ Invalid edge generation whilst reducing complex polygons.
+ https://bugs.freedesktop.org/show_bug.cgi?id=50852
+
+ Stroking around tight cusps
+
+ Use locale correct formats for reading font subsetting and valid
+ buffers.
+ https://bugs.freedesktop.org/show_bug.cgi?id=51443
+
+ Ensure that the type1 subset includes all the glyph encodings
+ https://bugs.freedesktop.org/show_bug.cgi?id=53040
+
+ Upload the whole source for a repeating pattern.
+ https://bugs.freedesktop.org/show_bug.cgi?id=51910
+
+ Fix damage tracking to handle continuation chunks corectly and so
+ prevent crashes on win32.
+ https://bugs.freedesktop.org/show_bug.cgi?id=53384
+
+ Avoid emitting miter joins for degenerate line segments
+ https://bugzilla.mozilla.org/show_bug.cgi?id=407107
+
+ Convert the relative path semgents into the backend coordinates
+ and then back again to user coordinates (cairo_copy_path,
+ cairo_append_path)
+ https://bugs.freedesktop.org/show_bug.cgi?id=54732
+ 
+ Fix extents computations for a degenerate path consisting only of a
+ move-to
+ https://bugs.freedesktop.org/show_bug.cgi?id=54549
+
+ Prevent crashing on a degenerate project edge after polygon
+ intersection
+ https://bugs.freedesktop.org/show_bug.cgi?id=54822
+ 
+
+
+Release 1.12.2 (2012-04-29 Chris Wilson <chris@chris-wilson.co.uk>)
+===================================================================
+After such a long gestation period for the release of Cairo 1.12, we
+inevitably accumulated a few bugs that were flushed out by broadening the
+test base. Thanks to everybody who tried the release, apologies to any one
+unfortunate enough to encounter a bug and many thanks for reporting it. As
+a result Adrian Johnson, Alexandros Frantzis, Andrea Canciani, Kalev
+Lember, Maarten Bosman, Marcus Meissner, Nis Martensen and Uli Schlachter
+have squashed many more bugs and improved the documentation. I would
+strongly recommend everyone to upgrade to cairo-1.12.2.
+-Chris
+
+Bug fixes
+---------
+
+ Allow applications to create 0x0 xlib surfaces, such as used by LibreOffice.
+ https://bugs.freedesktop.org/show_bug.cgi?id=49118
+ 
+ Trim composite extents for SOURCE/CLEAR operators to the mask.
+
+ Use fallback fonts in PDF for unhandled computed glyph widths
+ https://bugs.freedesktop.org/show_bug.cgi?id=48349
+
+ Handle snapshots of recording surfaces for analysing pattern extents.
+ Fixes a regression of reporting the PDF bounding box as being the page size.
+
+ Fix allocation size for PDF pattern ids.
+ Bugzilla: https://bugs.freedesktop.org/show_bug.cgi?id=49089
+
+ Fix emission of rectilinear dashed segments, with and without scaling, and
+ application of degenerate line joins.
+
+ Clamp unbounded fixup polygons to the clip extents.
+
+ Prevent infinite loop due to rounding errors whilst incrementing along dashes.
+
+ Prevent overflow for inline a8 span filling.
+
+ Miscellaneous build fixes for Cygwin on Windows and Solaris.
+
 Release 1.12.0 (2012-03-23 Chris Wilson <chris@chris-wilson.co.uk>)
 ===================================================================
 It's taken over 18 months, but the wait is finally over. A new cairo release!

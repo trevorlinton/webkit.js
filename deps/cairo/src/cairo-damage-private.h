@@ -60,6 +60,9 @@ cairo_private cairo_damage_t *
 _cairo_damage_create (void);
 
 cairo_private cairo_damage_t *
+_cairo_damage_create_in_error (cairo_status_t status);
+
+cairo_private cairo_damage_t *
 _cairo_damage_add_box (cairo_damage_t *damage,
 		       const cairo_box_t *box);
 

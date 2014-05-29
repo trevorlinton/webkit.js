@@ -9,15 +9,24 @@ cairo-surface
 
 </para>
 
+
 <!-- ##### SECTION See_Also ##### -->
 <para>
 
 </para>
 
+
 <!-- ##### SECTION Stability_Level ##### -->
 
 
 <!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_MIME_SURFACE ##### -->
+<para>
+
+</para>
+
 
 
 <!-- ##### MACRO CAIRO_MIME_TYPE_JP2 ##### -->
@@ -355,6 +364,16 @@ cairo-surface
 @mime_type: 
 @data: 
 @length: 
+
+
+<!-- ##### FUNCTION cairo_surface_supports_mime_type ##### -->
+<para>
+
+</para>
+
+@surface: 
+@mime_type: 
+@Returns: 
 
 
 <!-- ##### FUNCTION cairo_surface_map_to_image ##### -->

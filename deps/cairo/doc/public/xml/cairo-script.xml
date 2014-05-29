@@ -19,7 +19,8 @@
 <refsynopsisdiv id="cairo-Script-Surfaces.synopsis" role="synopsis">
 <title role="synopsis.title">Synopsis</title>
 
-<synopsis><link linkend="cairo-device-t"><returnvalue>cairo_device_t</returnvalue></link> *    <link linkend="cairo-script-create">cairo_script_create</link>                 (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>);
+<synopsis>#define             <link linkend="CAIRO-HAS-SCRIPT-SURFACE:CAPS">CAIRO_HAS_SCRIPT_SURFACE</link>
+<link linkend="cairo-device-t"><returnvalue>cairo_device_t</returnvalue></link> *    <link linkend="cairo-script-create">cairo_script_create</link>                 (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>);
 <link linkend="cairo-device-t"><returnvalue>cairo_device_t</returnvalue></link> *    <link linkend="cairo-script-create-for-stream">cairo_script_create_for_stream</link>      (<parameter><link linkend="cairo-write-func-t"><type>cairo_write_func_t</type></link> write_func</parameter>,
                                                          <parameter><link linkend="void"><type>void</type></link> *closure</parameter>);
 <link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-script-from-recording-surface">cairo_script_from_recording_surface</link> (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
@@ -52,9 +53,18 @@ or with cairo-perf-trace.
 </refsect1>
 <refsect1 id="cairo-Script-Surfaces.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="cairo-script-create" role="function">
+<refsect2 id="CAIRO-HAS-SCRIPT-SURFACE:CAPS" role="macro" condition="since:1.12">
+<title>CAIRO_HAS_SCRIPT_SURFACE</title>
+<indexterm zone="CAIRO-HAS-SCRIPT-SURFACE:CAPS" role="1.12"><primary sortas="HAS_SCRIPT_SURFACE">CAIRO_HAS_SCRIPT_SURFACE</primary></indexterm>
+<programlisting>#define CAIRO_HAS_SCRIPT_SURFACE 1
+</programlisting>
+<para>
+Defined if the script surface backend is available.
+The script surface backend is always built in since 1.12.
+</para><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-script-create" role="function" condition="since:1.12">
 <title>cairo_script_create ()</title>
-<indexterm zone="cairo-script-create"><primary sortas="script_create">cairo_script_create</primary></indexterm>
+<indexterm zone="cairo-script-create" role="1.12"><primary sortas="script_create">cairo_script_create</primary></indexterm>
 <programlisting><link linkend="cairo-device-t"><returnvalue>cairo_device_t</returnvalue></link> *    cairo_script_create                 (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>);</programlisting>
 <para>
 Creates a output device for emitting the script, used when
@@ -68,10 +78,10 @@ with it.
 This function always returns a valid pointer, but it will return a
 pointer to a "nil" device if an error such as out of memory
 occurs. You can use <link linkend="cairo-device-status"><function>cairo_device_status()</function></link> to check for this.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-script-create-for-stream" role="function">
+</variablelist><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-script-create-for-stream" role="function" condition="since:1.12">
 <title>cairo_script_create_for_stream ()</title>
-<indexterm zone="cairo-script-create-for-stream"><primary sortas="script_create_for_stream">cairo_script_create_for_stream</primary></indexterm>
+<indexterm zone="cairo-script-create-for-stream" role="1.12"><primary sortas="script_create_for_stream">cairo_script_create_for_stream</primary></indexterm>
 <programlisting><link linkend="cairo-device-t"><returnvalue>cairo_device_t</returnvalue></link> *    cairo_script_create_for_stream      (<parameter><link linkend="cairo-write-func-t"><type>cairo_write_func_t</type></link> write_func</parameter>,
                                                          <parameter><link linkend="void"><type>void</type></link> *closure</parameter>);</programlisting>
 <para>
@@ -88,10 +98,10 @@ with it.
 This function always returns a valid pointer, but it will return a
 pointer to a "nil" device if an error such as out of memory
 occurs. You can use <link linkend="cairo-device-status"><function>cairo_device_status()</function></link> to check for this.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-script-from-recording-surface" role="function">
+</variablelist><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-script-from-recording-surface" role="function" condition="since:1.12">
 <title>cairo_script_from_recording_surface ()</title>
-<indexterm zone="cairo-script-from-recording-surface"><primary sortas="script_from_recording_surface">cairo_script_from_recording_surface</primary></indexterm>
+<indexterm zone="cairo-script-from-recording-surface" role="1.12"><primary sortas="script_from_recording_surface">cairo_script_from_recording_surface</primary></indexterm>
 <programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_script_from_recording_surface (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
                                                          <parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *recording_surface</parameter>);</programlisting>
 <para>
@@ -102,10 +112,10 @@ Converts the record operations in <parameter>recording_surface</parameter> into 
 <varlistentry><term><parameter>recording_surface</parameter>&#160;:</term>
 <listitem><simpara>the recording surface to replay</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><type>CAIRO_STATUS_SUCCESS</type></link> on successful completion or an error code.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-script-get-mode" role="function">
+</variablelist><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-script-get-mode" role="function" condition="since:1.12">
 <title>cairo_script_get_mode ()</title>
-<indexterm zone="cairo-script-get-mode"><primary sortas="script_get_mode">cairo_script_get_mode</primary></indexterm>
+<indexterm zone="cairo-script-get-mode" role="1.12"><primary sortas="script_get_mode">cairo_script_get_mode</primary></indexterm>
 <programlisting><link linkend="cairo-script-mode-t"><returnvalue>cairo_script_mode_t</returnvalue></link> cairo_script_get_mode               (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>);</programlisting>
 <para>
 Queries the script for its current output mode.
@@ -113,10 +123,10 @@ Queries the script for its current output mode.
 <varlistentry><term><parameter>script</parameter>&#160;:</term>
 <listitem><simpara>The script (output device) to query</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the current output mode of the script</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-script-mode-t" role="enum" condition="since:1.10">
+</variablelist><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-script-mode-t" role="enum" condition="since:1.12">
 <title>enum cairo_script_mode_t</title>
-<indexterm zone="cairo-script-mode-t" role="1.10"><primary sortas="script_mode_t">cairo_script_mode_t</primary></indexterm>
+<indexterm zone="cairo-script-mode-t" role="1.12"><primary sortas="script_mode_t">cairo_script_mode_t</primary></indexterm>
 <programlisting>typedef enum {
     CAIRO_SCRIPT_MODE_ASCII,
     CAIRO_SCRIPT_MODE_BINARY
@@ -127,18 +137,18 @@ A set of script output variants.
 </para><variablelist role="enum">
 <varlistentry id="CAIRO-SCRIPT-MODE-ASCII:CAPS" role="constant">
 <term><literal>CAIRO_SCRIPT_MODE_ASCII</literal></term>
-<listitem><simpara>the output will be in readable text (default)
+<listitem><simpara>the output will be in readable text (default). (Since 1.12)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-SCRIPT-MODE-BINARY:CAPS" role="constant">
 <term><literal>CAIRO_SCRIPT_MODE_BINARY</literal></term>
-<listitem><simpara>the output will use byte codes
+<listitem><simpara>the output will use byte codes. (Since 1.12)
 </simpara></listitem>
 </varlistentry>
-</variablelist><para role="since">Since 1.10</para></refsect2>
-<refsect2 id="cairo-script-set-mode" role="function">
+</variablelist><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-script-set-mode" role="function" condition="since:1.12">
 <title>cairo_script_set_mode ()</title>
-<indexterm zone="cairo-script-set-mode"><primary sortas="script_set_mode">cairo_script_set_mode</primary></indexterm>
+<indexterm zone="cairo-script-set-mode" role="1.12"><primary sortas="script_set_mode">cairo_script_set_mode</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_script_set_mode               (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
                                                          <parameter><link linkend="cairo-script-mode-t"><type>cairo_script_mode_t</type></link> mode</parameter>);</programlisting>
 <para>
@@ -148,10 +158,10 @@ Change the output mode of the script
 <listitem><simpara>The script (output device)</simpara></listitem></varlistentry>
 <varlistentry><term><parameter>mode</parameter>&#160;:</term>
 <listitem><simpara>the new mode</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-script-surface-create" role="function">
+</variablelist><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-script-surface-create" role="function" condition="since:1.12">
 <title>cairo_script_surface_create ()</title>
-<indexterm zone="cairo-script-surface-create"><primary sortas="script_surface_create">cairo_script_surface_create</primary></indexterm>
+<indexterm zone="cairo-script-surface-create" role="1.12"><primary sortas="script_surface_create">cairo_script_surface_create</primary></indexterm>
 <programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_script_surface_create         (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
                                                          <parameter><link linkend="cairo-content-t"><type>cairo_content_t</type></link> content</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> width</parameter>,
@@ -173,10 +183,10 @@ with it.
 This function always returns a valid pointer, but it will return a
 pointer to a "nil" surface if an error such as out of memory
 occurs. You can use <link linkend="cairo-surface-status"><function>cairo_surface_status()</function></link> to check for this.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-script-surface-create-for-target" role="function">
+</variablelist><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-script-surface-create-for-target" role="function" condition="since:1.12">
 <title>cairo_script_surface_create_for_target ()</title>
-<indexterm zone="cairo-script-surface-create-for-target"><primary sortas="script_surface_create_for_target">cairo_script_surface_create_for_target</primary></indexterm>
+<indexterm zone="cairo-script-surface-create-for-target" role="1.12"><primary sortas="script_surface_create_for_target">cairo_script_surface_create_for_target</primary></indexterm>
 <programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_script_surface_create_for_target
                                                         (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
                                                          <parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *target</parameter>);</programlisting>
@@ -194,10 +204,10 @@ with it.
 This function always returns a valid pointer, but it will return a
 pointer to a "nil" surface if an error such as out of memory
 occurs. You can use <link linkend="cairo-surface-status"><function>cairo_surface_status()</function></link> to check for this.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-script-write-comment" role="function">
+</variablelist><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-script-write-comment" role="function" condition="since:1.12">
 <title>cairo_script_write_comment ()</title>
-<indexterm zone="cairo-script-write-comment"><primary sortas="script_write_comment">cairo_script_write_comment</primary></indexterm>
+<indexterm zone="cairo-script-write-comment" role="1.12"><primary sortas="script_write_comment">cairo_script_write_comment</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_script_write_comment          (<parameter><link linkend="cairo-device-t"><type>cairo_device_t</type></link> *script</parameter>,
                                                          <parameter>const <link linkend="char"><type>char</type></link> *comment</parameter>,
                                                          <parameter><link linkend="int"><type>int</type></link> len</parameter>);</programlisting>
@@ -210,7 +220,7 @@ Emit a string verbatim into the script.
 <listitem><simpara>the string to emit</simpara></listitem></varlistentry>
 <varlistentry><term><parameter>len</parameter>&#160;:</term>
 <listitem><simpara>the length of the sting to write, or -1 to use <link linkend="strlen"><function>strlen()</function></link></simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.12</para></refsect2>
 
 </refsect1>
 <refsect1 id="cairo-Script-Surfaces.see-also">

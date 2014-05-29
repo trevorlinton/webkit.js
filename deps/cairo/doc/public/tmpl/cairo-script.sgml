@@ -9,15 +9,24 @@ cairo-script
 
 </para>
 
+
 <!-- ##### SECTION See_Also ##### -->
 <para>
 
 </para>
 
+
 <!-- ##### SECTION Stability_Level ##### -->
 
 
 <!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_SCRIPT_SURFACE ##### -->
+<para>
+
+</para>
+
 
 
 <!-- ##### FUNCTION cairo_script_create ##### -->

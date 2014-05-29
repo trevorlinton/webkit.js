@@ -46,7 +46,7 @@ CAIRO_BEGIN_DECLS
 
 typedef struct _cairo_abstract_span_renderer {
     cairo_span_renderer_t base;
-    char data[2048];
+    char data[4096];
 } cairo_abstract_span_renderer_t;
 
 struct cairo_spans_compositor {

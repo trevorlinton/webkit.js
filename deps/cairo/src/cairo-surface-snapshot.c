@@ -41,7 +41,7 @@
 
 #include "cairo-error-private.h"
 #include "cairo-image-surface-private.h"
-#include "cairo-surface-snapshot-private.h"
+#include "cairo-surface-snapshot-inline.h"
 
 static cairo_status_t
 _cairo_surface_snapshot_finish (void *abstract_surface)
@@ -58,16 +58,23 @@ _cairo_surface_snapshot_finish (void *abstract_surface)
 	cairo_surface_destroy (surface->clone);
     }
 
+    CAIRO_MUTEX_FINI (surface->mutex);
+
     return status;
 }
 
 static cairo_status_t
-_cairo_surface_snapshot_flush (void *abstract_surface)
+_cairo_surface_snapshot_flush (void *abstract_surface, unsigned flags)
 {
     cairo_surface_snapshot_t *surface = abstract_surface;
+    cairo_surface_t *target;
+    cairo_status_t status;
 
-    cairo_surface_flush (surface->target);
-    return surface->target->status;
+    target = _cairo_surface_snapshot_get_target (&surface->base);
+    status = _cairo_surface_flush (target, flags);
+    cairo_surface_destroy (target);
+
+    return status;
 }
 
 static cairo_surface_t *
@@ -75,8 +82,13 @@ _cairo_surface_snapshot_source (void                    *abstract_surface,
 				cairo_rectangle_int_t *extents)
 {
     cairo_surface_snapshot_t *surface = abstract_surface;
-    return _cairo_surface_get_source (surface->target, extents);
+    return _cairo_surface_get_source (surface->target, extents); /* XXX racy */
 }
+
+struct snapshot_extra {
+    cairo_surface_t *target;
+    void *extra;
+};
 
 static cairo_status_t
 _cairo_surface_snapshot_acquire_source_image (void                    *abstract_surface,
@@ -84,18 +96,34 @@ _cairo_surface_snapshot_acquire_source_image (void                    *abstract_
 					      void                   **extra_out)
 {
     cairo_surface_snapshot_t *surface = abstract_surface;
+    struct snapshot_extra *extra;
+    cairo_status_t status;
 
-    return _cairo_surface_acquire_source_image (surface->target, image_out, extra_out);
+    extra = malloc (sizeof (*extra));
+    if (unlikely (extra == NULL))
+	return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+
+    extra->target = _cairo_surface_snapshot_get_target (&surface->base);
+    status =  _cairo_surface_acquire_source_image (extra->target, image_out, &extra->extra);
+    if (unlikely (status)) {
+	cairo_surface_destroy (extra->target);
+	free (extra);
+    }
+
+    *extra_out = extra;
+    return status;
 }
 
 static void
 _cairo_surface_snapshot_release_source_image (void                   *abstract_surface,
 					      cairo_image_surface_t  *image,
-					      void                   *extra)
+					      void                   *_extra)
 {
-    cairo_surface_snapshot_t *surface = abstract_surface;
+    struct snapshot_extra *extra = _extra;
 
-    _cairo_surface_release_source_image (surface->target, image, extra);
+    _cairo_surface_release_source_image (extra->target, image, extra->extra);
+    cairo_surface_destroy (extra->target);
+    free (extra);
 }
 
 static cairo_bool_t
@@ -103,12 +131,18 @@ _cairo_surface_snapshot_get_extents (void                  *abstract_surface,
 				     cairo_rectangle_int_t *extents)
 {
     cairo_surface_snapshot_t *surface = abstract_surface;
+    cairo_surface_t *target;
+    cairo_bool_t bounded;
 
-    return _cairo_surface_get_extents (surface->target, extents);
+    target = _cairo_surface_snapshot_get_target (&surface->base);
+    bounded = _cairo_surface_get_extents (target, extents);
+    cairo_surface_destroy (target);
+
+    return bounded;
 }
 
 static const cairo_surface_backend_t _cairo_surface_snapshot_backend = {
-    (cairo_surface_type_t)CAIRO_INTERNAL_SURFACE_TYPE_SNAPSHOT,
+    CAIRO_INTERNAL_SURFACE_TYPE_SNAPSHOT,
     _cairo_surface_snapshot_finish,
     NULL,
 
@@ -149,6 +183,8 @@ _cairo_surface_snapshot_copy_on_write (cairo_surface_t *surface)
      * been lost.
      */
 
+    CAIRO_MUTEX_LOCK (snapshot->mutex);
+
     if (snapshot->target->backend->snapshot != NULL) {
 	clone = snapshot->target->backend->snapshot (snapshot->target);
 	if (clone != NULL) {
@@ -164,20 +200,22 @@ _cairo_surface_snapshot_copy_on_write (cairo_surface_t *surface)
     status = _cairo_surface_acquire_source_image (snapshot->target, &image, &extra);
     if (unlikely (status)) {
 	snapshot->target = _cairo_surface_create_in_error (status);
-	status = (cairo_status_t)_cairo_surface_set_error (surface, (cairo_int_status_t)status);
-	return;
+	status = _cairo_surface_set_error (surface, status);
+	goto unlock;
     }
     clone = image->base.backend->snapshot (&image->base);
     _cairo_surface_release_source_image (snapshot->target, image, extra);
 
 done:
-    status = (cairo_status_t)_cairo_surface_set_error (surface, (cairo_int_status_t)clone->status);
+    status = _cairo_surface_set_error (surface, clone->status);
     snapshot->target = snapshot->clone = clone;
     snapshot->base.type = clone->type;
+unlock:
+    CAIRO_MUTEX_UNLOCK (snapshot->mutex);
 }
 
 /**
- * _cairo_surface_snapshot
+ * _cairo_surface_snapshot:
  * @surface: a #cairo_surface_t
  *
  * Make an immutable reference to @surface. It is an error to call a
@@ -230,6 +268,7 @@ _cairo_surface_snapshot (cairo_surface_t *surface)
 			 surface->content);
     snapshot->base.type = surface->type;
 
+    CAIRO_MUTEX_INIT (snapshot->mutex);
     snapshot->target = surface;
     snapshot->clone = NULL;
 

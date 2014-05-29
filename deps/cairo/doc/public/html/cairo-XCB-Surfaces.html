@@ -38,6 +38,7 @@
 <div class="refsynopsisdiv">
 <a name="cairo-XCB-Surfaces.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">#define             <a class="link" href="cairo-XCB-Surfaces.html#CAIRO-HAS-XCB-SURFACE:CAPS" title="CAIRO_HAS_XCB_SURFACE">CAIRO_HAS_XCB_SURFACE</a>
+#define             <a class="link" href="cairo-XCB-Surfaces.html#CAIRO-HAS-XCB-SHM-FUNCTIONS:CAPS" title="CAIRO_HAS_XCB_SHM_FUNCTIONS">CAIRO_HAS_XCB_SHM_FUNCTIONS</a>
 <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="returnvalue">cairo_surface_t</span></a> *   <a class="link" href="cairo-XCB-Surfaces.html#cairo-xcb-surface-create" title="cairo_xcb_surface_create ()">cairo_xcb_surface_create</a>            (<em class="parameter"><code><span class="type">xcb_connection_t</span> *connection</code></em>,
                                                          <em class="parameter"><code><span class="type">xcb_drawable_t</span> drawable</code></em>,
                                                          <em class="parameter"><code><span class="type">xcb_visualtype_t</span> *visual</code></em>,
@@ -62,18 +63,24 @@
                                                          <em class="parameter"><code><span class="type">xcb_drawable_t</span> drawable</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> width</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> height</code></em>);
+<span class="returnvalue">xcb_connection_t</span> *  <a class="link" href="cairo-XCB-Surfaces.html#cairo-xcb-device-get-connection" title="cairo_xcb_device_get_connection ()">cairo_xcb_device_get_connection</a>     (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="cairo-XCB-Surfaces.html#cairo-xcb-device-debug-cap-xrender-version" title="cairo_xcb_device_debug_cap_xrender_version ()">cairo_xcb_device_debug_cap_xrender_version</a>
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> major_version</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> minor_version</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="cairo-XCB-Surfaces.html#cairo-xcb-device-debug-cap-xshm-version" title="cairo_xcb_device_debug_cap_xshm_version ()">cairo_xcb_device_debug_cap_xshm_version</a>
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> major_version</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> minor_version</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="cairo-XCB-Surfaces.html#cairo-xcb-device-debug-get-precision" title="cairo_xcb_device_debug_get_precision ()">cairo_xcb_device_debug_get_precision</a>
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="cairo-XCB-Surfaces.html#cairo-xcb-device-debug-set-precision" title="cairo_xcb_device_debug_set_precision ()">cairo_xcb_device_debug_set_precision</a>
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> precision</code></em>);
 </pre>
 </div>
 <div class="refsect1">
 <a name="cairo-XCB-Surfaces.description"></a><h2>Description</h2>
-<p>
-The XCB surface is used to render cairo graphics to X Window System
-windows and pixmaps using the XCB library.
-</p>
-<p>
-Note that the XCB surface automatically takes advantage of the X render
-extension if it is available.
-</p>
 <p>
 The XCB surface is used to render cairo graphics to X Window System
 windows and pixmaps using the XCB library.
@@ -92,6 +99,15 @@ extension if it is available.
 <p>
 Defined if the xcb surface backend is available.
 This macro can be used to conditionally compile backend-specific code.
+</p>
+<p class="since">Since 1.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAIRO-HAS-XCB-SHM-FUNCTIONS:CAPS"></a><h3>CAIRO_HAS_XCB_SHM_FUNCTIONS</h3>
+<pre class="programlisting">#define CAIRO_HAS_XCB_SHM_FUNCTIONS 1
+</pre>
+<p>
 </p>
 </div>
 <hr>
@@ -156,6 +172,7 @@ occurs. You can use <a class="link" href="cairo-cairo-surface-t.html#cairo-surfa
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.12</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -206,6 +223,7 @@ occurs. You can use <a class="link" href="cairo-cairo-surface-t.html#cairo-surfa
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.12</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -275,6 +293,7 @@ occurs. You can use <a class="link" href="cairo-cairo-surface-t.html#cairo-surfa
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.12</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -315,6 +334,7 @@ might be discarded.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.12</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -352,6 +372,147 @@ might be discarded.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-xcb-device-get-connection"></a><h3>cairo_xcb_device_get_connection ()</h3>
+<pre class="programlisting"><span class="returnvalue">xcb_connection_t</span> *  cairo_xcb_device_get_connection     (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>);</pre>
+<p>
+Get the connection for the XCB device.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> for the XCB backend</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <span class="type">xcb_connection_t</span> for the connection</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-xcb-device-debug-cap-xrender-version"></a><h3>cairo_xcb_device_debug_cap_xrender_version ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                cairo_xcb_device_debug_cap_xrender_version
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> major_version</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> minor_version</code></em>);</pre>
+<p>
+Restricts all future XCB surfaces for this devices to the specified version
+of the RENDER extension. This function exists solely for debugging purpose.
+It let's you find out how cairo would behave with an older version of
+the RENDER extension.
+</p>
+<p>
+Use the special values -1 and -1 for disabling the RENDER extension.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> for the XCB backend</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>major_version</code></em> :</span></p></td>
+<td>major version to restrict to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>minor_version</code></em> :</span></p></td>
+<td>minor version to restrict to</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-xcb-device-debug-cap-xshm-version"></a><h3>cairo_xcb_device_debug_cap_xshm_version ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                cairo_xcb_device_debug_cap_xshm_version
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> major_version</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> minor_version</code></em>);</pre>
+<p>
+Restricts all future XCB surfaces for this devices to the specified version
+of the SHM extension. This function exists solely for debugging purpose.
+It let's you find out how cairo would behave with an older version of
+the SHM extension.
+</p>
+<p>
+Use the special values -1 and -1 for disabling the SHM extension.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> for the XCB backend</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>major_version</code></em> :</span></p></td>
+<td>major version to restrict to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>minor_version</code></em> :</span></p></td>
+<td>minor version to restrict to</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-xcb-device-debug-get-precision"></a><h3>cairo_xcb_device_debug_get_precision ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 cairo_xcb_device_debug_get_precision
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>);</pre>
+<p>
+Get the Xrender precision mode.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> for the XCB backend</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the render precision mode</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-xcb-device-debug-set-precision"></a><h3>cairo_xcb_device_debug_set_precision ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                cairo_xcb_device_debug_set_precision
+                                                        (<em class="parameter"><code><a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> precision</code></em>);</pre>
+<p>
+Render supports two modes of precision when rendering trapezoids. Set
+the precision to the desired mode.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo_device_t"><span class="type">cairo_device_t</span></a> for the XCB backend</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>precision</code></em> :</span></p></td>
+<td>the precision to use</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.12</p>
 </div>
 </div>
 <div class="refsect1">

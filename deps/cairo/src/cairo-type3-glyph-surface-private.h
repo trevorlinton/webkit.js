@@ -45,8 +45,9 @@
 #include "cairo-surface-clipper-private.h"
 #include "cairo-pdf-operators-private.h"
 
-typedef cairo_status_t (*cairo_type3_glyph_surface_emit_image_t) (cairo_image_surface_t *image,
-								  cairo_output_stream_t	*stream);
+typedef cairo_int_status_t
+(*cairo_type3_glyph_surface_emit_image_t) (cairo_image_surface_t *image,
+					   cairo_output_stream_t	*stream);
 
 typedef struct cairo_type3_glyph_surface {
     cairo_surface_t base;

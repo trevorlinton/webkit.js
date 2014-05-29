@@ -159,10 +159,14 @@ radeon_surface_map_to_image (radeon_surface_t *surface)
 }
 
 static cairo_status_t
-radeon_surface_flush (void *abstract_surface)
+radeon_surface_flush (void *abstract_surface,
+		      unsigned flags)
 {
     radeon_surface_t *surface = abstract_surface;
     cairo_status_t status;
+
+    if (flags)
+	return CAIRO_STATUS_SUCCESS;
 
     if (surface->base.fallback == NULL)
 	return CAIRO_STATUS_SUCCESS;

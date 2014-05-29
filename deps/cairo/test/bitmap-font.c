@@ -30,10 +30,8 @@
 #include <unistd.h>
 
 #include <cairo-ft.h>
-#if !PLATFORM(JS)
 #include <fontconfig/fontconfig.h>
 #include <fontconfig/fcfreetype.h>
-#endif
 
 #define FONT "6x13.pcf"
 #define TEXT_SIZE 13
@@ -122,6 +120,7 @@ draw (cairo_t *cr, int width, int height)
 
     cairo_set_font_face (cr, font_face);
     cairo_font_face_destroy (font_face);
+    cairo_set_font_size (cr, 13);
 
     font_options = cairo_font_options_create ();
 

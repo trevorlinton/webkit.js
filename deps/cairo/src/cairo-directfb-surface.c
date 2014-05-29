@@ -40,7 +40,7 @@
 #include "cairo-compositor-private.h"
 #include "cairo-default-context-private.h"
 #include "cairo-error-private.h"
-#include "cairo-image-surface-private.h"
+#include "cairo-image-surface-inline.h"
 #include "cairo-pattern-private.h"
 #include "cairo-surface-backend-private.h"
 #include "cairo-surface-fallback-private.h"
@@ -171,7 +171,7 @@ _cairo_dfb_surface_finish (void *abstract_surface)
     return _cairo_image_surface_finish (abstract_surface);
 }
 
-static cairo_surface_t *
+static cairo_image_surface_t *
 _cairo_dfb_surface_map_to_image (void *abstract_surface,
 				 const cairo_rectangle_int_t *extents)
 {
@@ -184,7 +184,7 @@ _cairo_dfb_surface_map_to_image (void *abstract_surface,
 	int pitch;
 
 	if (buffer->Lock (buffer, DSLF_READ | DSLF_WRITE, &data, &pitch))
-	    return _cairo_surface_create_in_error(_cairo_error (CAIRO_STATUS_NO_MEMORY));
+	    return _cairo_image_surface_create_in_error (_cairo_error (CAIRO_STATUS_NO_MEMORY));
 
 	image = pixman_image_create_bits (surface->image.pixman_format,
 					  surface->image.width,
@@ -192,25 +192,30 @@ _cairo_dfb_surface_map_to_image (void *abstract_surface,
 					  data, pitch);
 	if (image == NULL) {
 	    buffer->Unlock (buffer);
-	    return _cairo_surface_create_in_error(_cairo_error (CAIRO_STATUS_NO_MEMORY));
+	    return _cairo_image_surface_create_in_error (_cairo_error (CAIRO_STATUS_NO_MEMORY));
 	}
 	_cairo_image_surface_init (&surface->image, image, surface->image.pixman_format);
     }
 
-    return _cairo_image_surface_map_to_image (&surface->image, extents);
+    return _cairo_image_surface_map_to_image (&surface->image.base, extents);
 }
 
 static cairo_int_status_t
 _cairo_dfb_surface_unmap_image (void *abstract_surface,
 				cairo_image_surface_t *image)
 {
-    return CAIRO_INT_STATUS_SUCCESS;
+    cairo_dfb_surface_t *surface = abstract_surface;
+    return _cairo_image_surface_unmap_image (&surface->image.base, image);
 }
 
 static cairo_status_t
-_cairo_dfb_surface_flush (void *abstract_surface)
+_cairo_dfb_surface_flush (void *abstract_surface,
+			  unsigned flags)
 {
     cairo_dfb_surface_t *surface = abstract_surface;
+
+    if (flags)
+	return CAIRO_STATUS_SUCCESS;
 
     if (surface->image.pixman_image) {
 	surface->dfb_surface->Unlock (surface->dfb_surface);

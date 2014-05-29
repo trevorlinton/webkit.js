@@ -38,7 +38,16 @@ typedef struct _cairo_stats {
     double ticks_per_ms;
     double std_dev;
     int iterations;
+    cairo_time_t *values;
 } cairo_stats_t;
+
+typedef struct _cairo_histogram {
+    int width, height, max_count;
+    int num_columns, num_rows;
+    cairo_time_t min_value, max_value;
+    int *columns;
+} cairo_histogram_t;
+
 
 /* timers */
 

@@ -1,0 +1,69 @@
+affine-test.o: affine-test.c \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/assert.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/features.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/compat/stdlib.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/stdlib.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/bits/alltypes.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/alloca.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/stdio.h \
+  utils.h ../config.h ../pixman/pixman-private.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/float.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/bits/float.h \
+  ../pixman/pixman.h ../pixman/pixman-version.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/stdint.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/bits/stdint.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/compat/time.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/time.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/compat/string.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/string.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/strings.h \
+  /Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/stddef.h \
+  ../pixman/pixman-compiler.h utils-prng.h
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/assert.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/features.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/compat/stdlib.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/stdlib.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/bits/alltypes.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/alloca.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/stdio.h:
+
+utils.h:
+
+../config.h:
+
+../pixman/pixman-private.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/float.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/bits/float.h:
+
+../pixman/pixman.h:
+
+../pixman/pixman-version.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/stdint.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/bits/stdint.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/compat/time.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/time.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/compat/string.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/string.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/strings.h:
+
+/Users/tlinton/Library/Emscripten/emscripten/1.16.0/system/include/libc/stddef.h:
+
+../pixman/pixman-compiler.h:
+
+utils-prng.h:

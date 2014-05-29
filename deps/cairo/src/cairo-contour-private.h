@@ -93,31 +93,6 @@ cairo_private cairo_int_status_t
 __cairo_contour_add_point (cairo_contour_t *contour,
 			   const cairo_point_t *point);
 
-static inline cairo_int_status_t
-_cairo_contour_add_point (cairo_contour_t *contour,
-			  const cairo_point_t *point)
-{
-    struct _cairo_contour_chain *tail = contour->tail;
-
-    if (unlikely (tail->num_points == tail->size_points))
-	return __cairo_contour_add_point (contour, point);
-
-    tail->points[tail->num_points++] = *point;
-    return CAIRO_INT_STATUS_SUCCESS;
-}
-
-static inline cairo_point_t *
-_cairo_contour_first_point (cairo_contour_t *c)
-{
-    return &c->chain.points[0];
-}
-
-static inline cairo_point_t *
-_cairo_contour_last_point (cairo_contour_t *c)
-{
-    return &c->tail->points[c->tail->num_points-1];
-}
-
 cairo_private void
 _cairo_contour_simplify (cairo_contour_t *contour, double tolerance);
 
@@ -134,16 +109,6 @@ _cairo_contour_add_reversed (cairo_contour_t *dst,
 
 cairo_private void
 __cairo_contour_remove_last_chain (cairo_contour_t *contour);
-
-static inline void
-_cairo_contour_remove_last_point (cairo_contour_t *contour)
-{
-    if (contour->chain.num_points == 0)
-	return;
-
-    if (--contour->tail->num_points == 0)
-	__cairo_contour_remove_last_chain (contour);
-}
 
 cairo_private void
 _cairo_contour_reset (cairo_contour_t *contour);

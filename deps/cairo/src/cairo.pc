@@ -1,0 +1,13 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: cairo
+Description: Multi-platform 2D graphics library
+Version: 1.12.16
+
+Requires.private:      pixman-1 >= 0.16.0    fontconfig >= 2.2.95 freetype2 >= 9.7.3   egl glesv2 libpng 
+Libs: -L${libdir} -lcairo
+Libs.private:        -lz -lz       
+Cflags: -I${includedir}/cairo

@@ -56,19 +56,19 @@ libpng.
 </refsect1>
 <refsect1 id="cairo-PNG-Support.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="CAIRO-HAS-PNG-FUNCTIONS:CAPS" role="macro">
+<refsect2 id="CAIRO-HAS-PNG-FUNCTIONS:CAPS" role="macro" condition="since:1.0">
 <title>CAIRO_HAS_PNG_FUNCTIONS</title>
-<indexterm zone="CAIRO-HAS-PNG-FUNCTIONS:CAPS"><primary sortas="HAS_PNG_FUNCTIONS">CAIRO_HAS_PNG_FUNCTIONS</primary></indexterm>
+<indexterm zone="CAIRO-HAS-PNG-FUNCTIONS:CAPS" role="1.0"><primary sortas="HAS_PNG_FUNCTIONS">CAIRO_HAS_PNG_FUNCTIONS</primary></indexterm>
 <programlisting>#define CAIRO_HAS_PNG_FUNCTIONS 1
 </programlisting>
 <para>
 Defined if the PNG functions are available.
 This macro can be used to conditionally compile code using the cairo
 PNG functions.
-</para></refsect2>
-<refsect2 id="cairo-image-surface-create-from-png" role="function">
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-image-surface-create-from-png" role="function" condition="since:1.0">
 <title>cairo_image_surface_create_from_png ()</title>
-<indexterm zone="cairo-image-surface-create-from-png"><primary sortas="image_surface_create_from_png">cairo_image_surface_create_from_png</primary></indexterm>
+<indexterm zone="cairo-image-surface-create-from-png" role="1.0"><primary sortas="image_surface_create_from_png">cairo_image_surface_create_from_png</primary></indexterm>
 <programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_image_surface_create_from_png (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>);</programlisting>
 <para>
 Creates a new image surface and initializes the contents to the
@@ -86,10 +86,10 @@ may return one of the following values:
 Alternatively, you can allow errors to propagate through the drawing
 operations and check the status on the context upon completion
 using <link linkend="cairo-status"><function>cairo_status()</function></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-read-func-t" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-read-func-t" role="function" condition="since:1.0">
 <title>cairo_read_func_t ()</title>
-<indexterm zone="cairo-read-func-t"><primary sortas="read_func_t">cairo_read_func_t</primary></indexterm>
+<indexterm zone="cairo-read-func-t" role="1.0"><primary sortas="read_func_t">cairo_read_func_t</primary></indexterm>
 <programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      (*cairo_read_func_t)                (<parameter><link linkend="void"><type>void</type></link> *closure</parameter>,
                                                          <parameter>unsigned <link linkend="char"><type>char</type></link> *data</parameter>,
                                                          <parameter>unsigned <link linkend="int"><type>int</type></link> length</parameter>);</programlisting>
@@ -109,10 +109,10 @@ length of the data in bytes.  The read function should return
 <varlistentry><term><parameter>length</parameter>&#160;:</term>
 <listitem><simpara>the amount of data to read</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the status code of the read operation</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-image-surface-create-from-png-stream" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-image-surface-create-from-png-stream" role="function" condition="since:1.0">
 <title>cairo_image_surface_create_from_png_stream ()</title>
-<indexterm zone="cairo-image-surface-create-from-png-stream"><primary sortas="image_surface_create_from_png_stream">cairo_image_surface_create_from_png_stream</primary></indexterm>
+<indexterm zone="cairo-image-surface-create-from-png-stream" role="1.0"><primary sortas="image_surface_create_from_png_stream">cairo_image_surface_create_from_png_stream</primary></indexterm>
 <programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_image_surface_create_from_png_stream
                                                         (<parameter><link linkend="cairo-read-func-t"><type>cairo_read_func_t</type></link> read_func</parameter>,
                                                          <parameter><link linkend="void"><type>void</type></link> *closure</parameter>);</programlisting>
@@ -134,10 +134,10 @@ may return one of the following values:
 Alternatively, you can allow errors to propagate through the drawing
 operations and check the status on the context upon completion
 using <link linkend="cairo-status"><function>cairo_status()</function></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-surface-write-to-png" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-surface-write-to-png" role="function" condition="since:1.0">
 <title>cairo_surface_write_to_png ()</title>
-<indexterm zone="cairo-surface-write-to-png"><primary sortas="surface_write_to_png">cairo_surface_write_to_png</primary></indexterm>
+<indexterm zone="cairo-surface-write-to-png" role="1.0"><primary sortas="surface_write_to_png">cairo_surface_write_to_png</primary></indexterm>
 <programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_surface_write_to_png          (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
                                                          <parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>);</programlisting>
 <para>
@@ -154,10 +154,10 @@ be allocated for the operation or
 <link linkend="CAIRO-STATUS-SURFACE-TYPE-MISMATCH:CAPS"><literal>CAIRO_STATUS_SURFACE_TYPE_MISMATCH</literal></link> if the surface does not have
 pixel contents, or <link linkend="CAIRO-STATUS-WRITE-ERROR:CAPS"><literal>CAIRO_STATUS_WRITE_ERROR</literal></link> if an I/O error occurs
 while attempting to write the file.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-write-func-t" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-write-func-t" role="function" condition="since:1.0">
 <title>cairo_write_func_t ()</title>
-<indexterm zone="cairo-write-func-t"><primary sortas="write_func_t">cairo_write_func_t</primary></indexterm>
+<indexterm zone="cairo-write-func-t" role="1.0"><primary sortas="write_func_t">cairo_write_func_t</primary></indexterm>
 <programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      (*cairo_write_func_t)               (<parameter><link linkend="void"><type>void</type></link> *closure</parameter>,
                                                          <parameter>const unsigned <link linkend="char"><type>char</type></link> *data</parameter>,
                                                          <parameter>unsigned <link linkend="int"><type>int</type></link> length</parameter>);</programlisting>
@@ -177,10 +177,10 @@ data in bytes.  The write function should return
 <varlistentry><term><parameter>length</parameter>&#160;:</term>
 <listitem><simpara>the amount of data to write</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the status code of the write operation</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-surface-write-to-png-stream" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-surface-write-to-png-stream" role="function" condition="since:1.0">
 <title>cairo_surface_write_to_png_stream ()</title>
-<indexterm zone="cairo-surface-write-to-png-stream"><primary sortas="surface_write_to_png_stream">cairo_surface_write_to_png_stream</primary></indexterm>
+<indexterm zone="cairo-surface-write-to-png-stream" role="1.0"><primary sortas="surface_write_to_png_stream">cairo_surface_write_to_png_stream</primary></indexterm>
 <programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_surface_write_to_png_stream   (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
                                                          <parameter><link linkend="cairo-write-func-t"><type>cairo_write_func_t</type></link> write_func</parameter>,
                                                          <parameter><link linkend="void"><type>void</type></link> *closure</parameter>);</programlisting>
@@ -198,7 +198,7 @@ successfully.  Otherwise, <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>C
 memory could not be allocated for the operation,
 <link linkend="CAIRO-STATUS-SURFACE-TYPE-MISMATCH:CAPS"><literal>CAIRO_STATUS_SURFACE_TYPE_MISMATCH</literal></link> if the surface does not have
 pixel contents.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 
 </refsect1>
 <refsect1 id="cairo-PNG-Support.see-also">

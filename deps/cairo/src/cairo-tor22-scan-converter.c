@@ -248,6 +248,8 @@ typedef int grid_scaled_y_t;
 #  define  GRID_AREA_TO_ALPHA(c)  (c)
 #elif GRID_XY == 64
 #  define  GRID_AREA_TO_ALPHA(c)  (((c) << 2) | -(((c) & 0x40) >> 6))
+#elif GRID_XY == 32
+#  define  GRID_AREA_TO_ALPHA(c)  (((c) << 3) | -(((c) & 0x20) >> 5))
 #elif GRID_XY == 128
 #  define  GRID_AREA_TO_ALPHA(c)  ((((c) << 1) | -((c) >> 7)) & 255)
 #elif GRID_XY == 256
@@ -1360,7 +1362,7 @@ glitter_scan_converter_add_edge (glitter_scan_converter_t *converter,
     INPUT_TO_GRID_Y (edge->line.p1.y, e.line.p1.y);
     INPUT_TO_GRID_Y (edge->line.p2.y, e.line.p2.y);
     if (e.line.p1.y == e.line.p2.y)
-	return;
+	e.line.p2.y++; /* Fudge to prevent div-by-zero */
 
     INPUT_TO_GRID_X (edge->line.p1.x, e.line.p1.x);
     INPUT_TO_GRID_X (edge->line.p2.x, e.line.p2.x);

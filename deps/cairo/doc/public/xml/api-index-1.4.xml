@@ -29,11 +29,6 @@
 <indexentry><primaryie linkends="cairo-pattern-get-user-data"><link linkend="cairo-pattern-get-user-data">cairo_pattern_get_user_data</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-pattern-set-user-data"><link linkend="cairo-pattern-set-user-data">cairo_pattern_set_user_data</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
 </indexdiv>
-<indexdiv><title>Q</title>
-<indexentry><primaryie linkends="cairo-quartz-surface-create"><link linkend="cairo-quartz-surface-create">cairo_quartz_surface_create</link>, function in <link linkend="cairo-Quartz-Surfaces">Quartz Surfaces</link></primaryie></indexentry>
-<indexentry><primaryie linkends="cairo-quartz-surface-create-for-cg-context"><link linkend="cairo-quartz-surface-create-for-cg-context">cairo_quartz_surface_create_for_cg_context</link>, function in <link linkend="cairo-Quartz-Surfaces">Quartz Surfaces</link></primaryie></indexentry>
-<indexentry><primaryie linkends="cairo-quartz-surface-get-cg-context"><link linkend="cairo-quartz-surface-get-cg-context">cairo_quartz_surface_get_cg_context</link>, function in <link linkend="cairo-Quartz-Surfaces">Quartz Surfaces</link></primaryie></indexentry>
-</indexdiv>
 <indexdiv><title>R</title>
 <indexentry><primaryie linkends="cairo-rectangle-list-destroy"><link linkend="cairo-rectangle-list-destroy">cairo_rectangle_list_destroy</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-rectangle-list-t"><link linkend="cairo-rectangle-list-t">cairo_rectangle_list_t</link>, struct in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>

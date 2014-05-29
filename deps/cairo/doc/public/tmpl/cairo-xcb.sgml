@@ -1,25 +1,20 @@
 <!-- ##### SECTION Title ##### -->
-XCB Surfaces
+cairo-xcb
 
 <!-- ##### SECTION Short_Description ##### -->
-X Window System rendering using the XCB library
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-The XCB surface is used to render cairo graphics to X Window System
-windows and pixmaps using the XCB library.
+
 </para>
-<para>
-Note that the XCB surface automatically takes advantage of the X render
-extension if it is available.
-</para>
+
 
 <!-- ##### SECTION See_Also ##### -->
 <para>
-<itemizedlist>
-<listitem>#cairo_surface_t</listitem>
-</itemizedlist>
+
 </para>
+
 
 <!-- ##### SECTION Stability_Level ##### -->
 
@@ -28,6 +23,13 @@ extension if it is available.
 
 
 <!-- ##### MACRO CAIRO_HAS_XCB_SURFACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO CAIRO_HAS_XCB_SHM_FUNCTIONS ##### -->
 <para>
 
 </para>
@@ -93,5 +95,52 @@ extension if it is available.
 @drawable: 
 @width: 
 @height: 
+
+
+<!-- ##### FUNCTION cairo_xcb_device_get_connection ##### -->
+<para>
+
+</para>
+
+@device: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xcb_device_debug_cap_xrender_version ##### -->
+<para>
+
+</para>
+
+@device: 
+@major_version: 
+@minor_version: 
+
+
+<!-- ##### FUNCTION cairo_xcb_device_debug_cap_xshm_version ##### -->
+<para>
+
+</para>
+
+@device: 
+@major_version: 
+@minor_version: 
+
+
+<!-- ##### FUNCTION cairo_xcb_device_debug_get_precision ##### -->
+<para>
+
+</para>
+
+@device: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xcb_device_debug_set_precision ##### -->
+<para>
+
+</para>
+
+@device: 
+@precision: 
 
 

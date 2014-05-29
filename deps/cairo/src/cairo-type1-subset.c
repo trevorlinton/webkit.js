@@ -1,3 +1,4 @@
+/* -*- Mode: c; c-basic-offset: 4; indent-tabs-mode: t; tab-width: 8; -*- */
 /* cairo - a vector graphics library with display and print output
  *
  * Copyright © 2006 Red Hat, Inc
@@ -52,6 +53,7 @@
 #include "cairo-output-stream-private.h"
 
 #include <ctype.h>
+#include <locale.h>
 
 #define TYPE1_STACKSIZE 24 /* Defined in Type 1 Font Format */
 
@@ -113,6 +115,8 @@ typedef struct _cairo_type1_font_subset {
 
     const char *rd, *nd, *np;
 
+    int lenIV;
+
     char *type1_data;
     unsigned int type1_length;
     char *type1_end;
@@ -133,11 +137,13 @@ typedef struct _cairo_type1_font_subset {
     int hex_column;
 
     struct {
-	int stack[TYPE1_STACKSIZE], sp, top_value;
+	double stack[TYPE1_STACKSIZE];
+	int sp;
     } build_stack;
 
     struct {
-	int other_subr_args[TYPE1_STACKSIZE], num_other_subr_args, cur_other_subr_arg;
+	int stack[TYPE1_STACKSIZE];
+	int sp;
     } ps_stack;
 
 
@@ -301,8 +307,17 @@ cairo_type1_font_subset_get_matrix (cairo_type1_font_subset_t *font,
 				    double                    *d)
 {
     const char *start, *end, *segment_end;
-    int ret;
+    int ret, s_max, i, j;
     char *s;
+    struct lconv *locale_data;
+    const char *decimal_point;
+    int decimal_point_len;
+
+    locale_data = localeconv ();
+    decimal_point = locale_data->decimal_point;
+    decimal_point_len = strlen (decimal_point);
+
+    assert (decimal_point_len != 0);
 
     segment_end = font->header_segment + font->header_segment_size;
     start = find_token (font->header_segment, segment_end, name);
@@ -313,12 +328,23 @@ cairo_type1_font_subset_get_matrix (cairo_type1_font_subset_t *font,
     if (end == NULL)
 	return CAIRO_INT_STATUS_UNSUPPORTED;
 
-    s = malloc (end - start + 1);
+    s_max = end - start + 5*decimal_point_len + 1;
+    s = malloc (s_max);
     if (unlikely (s == NULL))
 	return _cairo_error (CAIRO_STATUS_NO_MEMORY);
 
-    strncpy (s, start, end - start);
-    s[end - start] = 0;
+    i = 0;
+    j = 0;
+    while (i < end - start && j < s_max - decimal_point_len) {
+	if (start[i] == '.') {
+	    strncpy(s + j, decimal_point, decimal_point_len);
+	    i++;
+	    j += decimal_point_len;
+	} else {
+	    s[j++] = start[i++];
+	}
+    }
+    s[j] = 0;
 
     start = strpbrk (s, "{[");
     if (!start) {
@@ -380,6 +406,7 @@ cairo_type1_font_subset_get_fontname (cairo_type1_font_subset_t *font)
 {
     const char *start, *end, *segment_end;
     char *s;
+    int i;
 
     segment_end = font->header_segment + font->header_segment_size;
     start = find_token (font->header_segment, segment_end, "/FontName");
@@ -403,6 +430,16 @@ cairo_type1_font_subset_get_fontname (cairo_type1_font_subset_t *font)
     if (!start++ || !start) {
 	free (s);
 	return CAIRO_INT_STATUS_UNSUPPORTED;
+    }
+
+    /* If font name is prefixed with a subset tag, strip it off. */
+    if (strlen(start) > 7 && start[6] == '+') {
+	for (i = 0; i < 6; i++) {
+	    if (start[i] < 'A' || start[i] > 'Z')
+		break;
+	}
+	if (i == 6)
+	    start += 7;
     }
 
     font->base.base_font = strdup (start);
@@ -496,18 +533,17 @@ cairo_type1_font_subset_write_header (cairo_type1_font_subset_t *font,
     if (font->scaled_font_subset->is_latin) {
 	for (i = 1; i < 256; i++) {
 	    int subset_glyph = font->scaled_font_subset->latin_to_subset_glyph_index[i];
-	    int glyph_num = font->subset_index_to_glyphs[subset_glyph];
 
 	    if (subset_glyph > 0) {
 		_cairo_output_stream_printf (font->output,
 					     "dup %d /%s put\n",
 					     i,
-					     font->glyph_names[glyph_num]);
+					     _cairo_winansi_to_glyphname (i));
 	    }
 	}
     } else {
-	for (i = 1; i < font->base.num_glyphs; i++) {
-	    if (font->glyphs[i].subset_index < 0)
+	for (i = 0; i < font->base.num_glyphs; i++) {
+	    if (font->glyphs[i].subset_index <= 0)
 		continue;
 	    _cairo_output_stream_printf (font->output,
 					 "dup %d /%s put\n",
@@ -707,17 +743,37 @@ use_standard_encoding_glyph (cairo_type1_font_subset_t *font, int index)
     return CAIRO_INT_STATUS_UNSUPPORTED;
 }
 
-#define TYPE1_CHARSTRING_COMMAND_ESCAPE		0x0c
-#define TYPE1_CHARSTRING_COMMAND_SEAC		0x0c06
-#define TYPE1_CHARSTRING_COMMAND_SBW		0x0c07
-#define TYPE1_CHARSTRING_COMMAND_HSBW		0x0d
-#define TYPE1_CHARSTRING_COMMAND_CALLSUBR	0x0a
-#define TYPE1_CHARSTRING_COMMAND_CALLOTHERSUBR  0x0c10
-#define TYPE1_CHARSTRING_COMMAND_POP	        0x0c11
 
+#define TYPE1_CHARSTRING_COMMAND_HSTEM		 0x01
+#define TYPE1_CHARSTRING_COMMAND_VSTEM		 0x03
+#define TYPE1_CHARSTRING_COMMAND_VMOVETO	 0x04
+#define TYPE1_CHARSTRING_COMMAND_RLINETO	 0x05
+#define TYPE1_CHARSTRING_COMMAND_HLINETO	 0x06
+#define TYPE1_CHARSTRING_COMMAND_VLINETO	 0x07
+#define TYPE1_CHARSTRING_COMMAND_RRCURVETO	 0x08
+#define TYPE1_CHARSTRING_COMMAND_CLOSEPATH	 0x09
+#define TYPE1_CHARSTRING_COMMAND_CALLSUBR	 0x0a
+#define TYPE1_CHARSTRING_COMMAND_RETURN		 0x0b
+#define TYPE1_CHARSTRING_COMMAND_ESCAPE		 0x0c
+#define TYPE1_CHARSTRING_COMMAND_HSBW		 0x0d
+#define TYPE1_CHARSTRING_COMMAND_ENDCHAR	 0x0e
+#define TYPE1_CHARSTRING_COMMAND_RMOVETO	 0x15
+#define TYPE1_CHARSTRING_COMMAND_HMOVETO	 0x16
+#define TYPE1_CHARSTRING_COMMAND_VHCURVETO	 0x1e
+#define TYPE1_CHARSTRING_COMMAND_HVCURVETO	 0x1f
+#define TYPE1_CHARSTRING_COMMAND_DOTSECTION	 0x0c00
+#define TYPE1_CHARSTRING_COMMAND_VSTEM3		 0x0c01
+#define TYPE1_CHARSTRING_COMMAND_HSTEM3		 0x0c02
+#define TYPE1_CHARSTRING_COMMAND_SEAC		 0x0c06
+#define TYPE1_CHARSTRING_COMMAND_SBW		 0x0c07
+#define TYPE1_CHARSTRING_COMMAND_DIV		 0x0c0c
+#define TYPE1_CHARSTRING_COMMAND_CALLOTHERSUBR   0x0c10
+#define TYPE1_CHARSTRING_COMMAND_POP	         0x0c11
+#define TYPE1_CHARSTRING_COMMAND_SETCURRENTPOINT 0x0c21
 
-
-/* Get glyph width and look for seac operatorParse charstring */
+/* Parse the charstring, including recursing into subroutines. Find
+ * the glyph width, subroutines called, and glyphs required by the
+ * SEAC operator. */
 static cairo_status_t
 cairo_type1_font_subset_parse_charstring (cairo_type1_font_subset_t *font,
 					  int                        glyph,
@@ -728,9 +784,7 @@ cairo_type1_font_subset_parse_charstring (cairo_type1_font_subset_t *font,
     unsigned char *charstring;
     const unsigned char *end;
     const unsigned char *p;
-    cairo_bool_t last_op_was_integer;
     int command;
-    int subr_num, i;
 
     charstring = malloc (encrypted_charstring_length);
     if (unlikely (charstring == NULL))
@@ -741,109 +795,165 @@ cairo_type1_font_subset_parse_charstring (cairo_type1_font_subset_t *font,
 						encrypted_charstring_length,
 						charstring);
     end = charstring + encrypted_charstring_length;
-
-    p = charstring + 4;
-
-    last_op_was_integer = FALSE;
-
+    p = charstring + font->lenIV;
+    status = CAIRO_STATUS_SUCCESS;
     while (p < end) {
         if (*p < 32) {
 	    command = *p++;
 	    switch (command) {
-		case TYPE1_CHARSTRING_COMMAND_HSBW:
-		    font->glyphs[glyph].width = font->build_stack.stack[1]/font->base.units_per_em;
-		    font->build_stack.sp = 0;
-		    last_op_was_integer = FALSE;
-		    break;
+	    case TYPE1_CHARSTRING_COMMAND_HSTEM:
+	    case TYPE1_CHARSTRING_COMMAND_VSTEM:
+	    case TYPE1_CHARSTRING_COMMAND_VMOVETO:
+	    case TYPE1_CHARSTRING_COMMAND_RLINETO:
+	    case TYPE1_CHARSTRING_COMMAND_HLINETO:
+	    case TYPE1_CHARSTRING_COMMAND_VLINETO:
+	    case TYPE1_CHARSTRING_COMMAND_RRCURVETO:
+	    case TYPE1_CHARSTRING_COMMAND_CLOSEPATH:
+	    case TYPE1_CHARSTRING_COMMAND_RMOVETO:
+	    case TYPE1_CHARSTRING_COMMAND_HMOVETO:
+	    case TYPE1_CHARSTRING_COMMAND_VHCURVETO:
+	    case TYPE1_CHARSTRING_COMMAND_HVCURVETO:
+	    case TYPE1_CHARSTRING_COMMAND_RETURN:
+	    case TYPE1_CHARSTRING_COMMAND_ENDCHAR:
+	    default:
+		/* stack clearing operator */
+		font->build_stack.sp = 0;
+		break;
 
-		case TYPE1_CHARSTRING_COMMAND_CALLSUBR:
-		    if (font->subset_subrs  &&
-			last_op_was_integer &&
-			font->build_stack.top_value >= 0    &&
-			font->build_stack.top_value < font->num_subrs)
-		    {
-			subr_num = font->build_stack.top_value;
-			font->subrs[subr_num].used = TRUE;
-			last_op_was_integer = FALSE;
-			status = cairo_type1_font_subset_parse_charstring (font,
-									   glyph,
-									   font->subrs[subr_num].subr_string,
-									   font->subrs[subr_num].subr_length);
-		    } else {
-			font->subset_subrs = FALSE;
+	    case TYPE1_CHARSTRING_COMMAND_CALLSUBR:
+		if (font->subset_subrs && font->build_stack.sp > 0) {
+		    double int_val;
+		    if (modf(font->build_stack.stack[--font->build_stack.sp], &int_val) == 0.0) {
+			int subr_num = int_val;
+			if (subr_num >= 0 && subr_num < font->num_subrs) {
+			    font->subrs[subr_num].used = TRUE;
+			    status = cairo_type1_font_subset_parse_charstring (
+				font,
+				glyph,
+				font->subrs[subr_num].subr_string,
+				font->subrs[subr_num].subr_length);
+			    break;
+			}
 		    }
-		    break;
+		}
+		font->subset_subrs = FALSE;
+		break;
 
-		case TYPE1_CHARSTRING_COMMAND_ESCAPE:
-		    command = command << 8 | *p++;
-		    switch (command) {
-			case TYPE1_CHARSTRING_COMMAND_SEAC:
-			    /* The seac command takes five integer arguments.  The
-			     * last two are glyph indices into the PS standard
-			     * encoding give the names of the glyphs that this
-			     * glyph is composed from.  All we need to do is to
-			     * make sure those glyphs are present in the subset
-			     * under their standard names. */
-			    status = use_standard_encoding_glyph (font, font->build_stack.stack[3]);
-			    if (unlikely (status))
-				return status;
+	    case TYPE1_CHARSTRING_COMMAND_HSBW:
+		if (font->build_stack.sp < 2) {
+		    status = CAIRO_INT_STATUS_UNSUPPORTED;
+		    goto cleanup;
+		}
 
-			    status = use_standard_encoding_glyph (font, font->build_stack.stack[4]);
-			    if (unlikely (status))
-				return status;
+		font->glyphs[glyph].width = font->build_stack.stack[1]/font->base.units_per_em;
+		font->build_stack.sp = 0;
+		break;
 
-			    font->build_stack.sp = 0;
-			    last_op_was_integer = FALSE;
-			    break;
-
-			case TYPE1_CHARSTRING_COMMAND_SBW:
-			    font->glyphs[glyph].width = font->build_stack.stack[2]/font->base.units_per_em;
-			    font->build_stack.sp = 0;
-			    last_op_was_integer = FALSE;
-			    break;
-
-			case TYPE1_CHARSTRING_COMMAND_CALLOTHERSUBR:
-			    for (i = 0; i < font->build_stack.sp; i++)
-				font->ps_stack.other_subr_args[i] = font->build_stack.stack[i];
-			    font->ps_stack.num_other_subr_args = font->build_stack.sp;
-			    font->ps_stack.cur_other_subr_arg = 0;
-			    font->build_stack.sp = 0;
-			    last_op_was_integer = FALSE;
-			    break;
-
-			case TYPE1_CHARSTRING_COMMAND_POP:
-			    if (font->ps_stack.num_other_subr_args > font->ps_stack.cur_other_subr_arg) {
-				font->build_stack.top_value = font->ps_stack.other_subr_args[font->ps_stack.cur_other_subr_arg++];
-				last_op_was_integer = TRUE;
-			    } else {
-				font->subset_subrs = FALSE;
-			    }
-			    break;
-
-			default:
-			    font->build_stack.sp = 0;
-			    last_op_was_integer = FALSE;
-			    break;
-		    }
-		    break;
-
+	    case TYPE1_CHARSTRING_COMMAND_ESCAPE:
+		command = command << 8 | *p++;
+		switch (command) {
+		case TYPE1_CHARSTRING_COMMAND_DOTSECTION:
+		case TYPE1_CHARSTRING_COMMAND_VSTEM3:
+		case TYPE1_CHARSTRING_COMMAND_HSTEM3:
+		case TYPE1_CHARSTRING_COMMAND_SETCURRENTPOINT:
 		default:
+		    /* stack clearing operator */
 		    font->build_stack.sp = 0;
-		    last_op_was_integer = FALSE;
 		    break;
+
+		case TYPE1_CHARSTRING_COMMAND_SEAC:
+		    /* The seac command takes five integer arguments.  The
+		     * last two are glyph indices into the PS standard
+		     * encoding give the names of the glyphs that this
+		     * glyph is composed from.  All we need to do is to
+		     * make sure those glyphs are present in the subset
+		     * under their standard names. */
+		    if (font->build_stack.sp < 5) {
+			status = CAIRO_INT_STATUS_UNSUPPORTED;
+			goto cleanup;
+		    }
+
+		    status = use_standard_encoding_glyph (font, font->build_stack.stack[3]);
+		    if (unlikely (status))
+			goto cleanup;
+
+		    status = use_standard_encoding_glyph (font, font->build_stack.stack[4]);
+		    if (unlikely (status))
+			goto cleanup;
+
+		    font->build_stack.sp = 0;
+		    break;
+
+		case TYPE1_CHARSTRING_COMMAND_SBW:
+		    if (font->build_stack.sp < 4) {
+			status = CAIRO_INT_STATUS_UNSUPPORTED;
+			goto cleanup;
+		    }
+
+		    font->glyphs[glyph].width = font->build_stack.stack[2]/font->base.units_per_em;
+		    font->build_stack.sp = 0;
+		    break;
+
+		case TYPE1_CHARSTRING_COMMAND_DIV:
+		    if (font->build_stack.sp < 2) {
+			status = CAIRO_INT_STATUS_UNSUPPORTED;
+			goto cleanup;
+		    } else {
+			double num1 = font->build_stack.stack[font->build_stack.sp - 2];
+			double num2 = font->build_stack.stack[font->build_stack.sp - 1];
+			font->build_stack.sp--;
+			if (num2 == 0.0) {
+			    status = CAIRO_INT_STATUS_UNSUPPORTED;
+			    goto cleanup;
+			}
+			font->build_stack.stack[font->build_stack.sp - 1] = num1/num2;
+		    }
+		    break;
+
+		case TYPE1_CHARSTRING_COMMAND_CALLOTHERSUBR:
+		    if (font->build_stack.sp < 1) {
+			status = CAIRO_INT_STATUS_UNSUPPORTED;
+			goto cleanup;
+		    }
+
+		    font->build_stack.sp--;
+		    font->ps_stack.sp = 0;
+		    while (font->build_stack.sp)
+			font->ps_stack.stack[font->ps_stack.sp++] = font->build_stack.stack[--font->build_stack.sp];
+
+                    break;
+
+		case TYPE1_CHARSTRING_COMMAND_POP:
+		    if (font->ps_stack.sp < 1) {
+			status = CAIRO_INT_STATUS_UNSUPPORTED;
+			goto cleanup;
+		    }
+
+		    /* T1 spec states that if the interpreter does not
+		     * support executing the callothersub, the results
+		     * must be taken from the callothersub arguments. */
+		    font->build_stack.stack[font->build_stack.sp++] = font->ps_stack.stack[--font->ps_stack.sp];
+		    break;
+		}
+		break;
 	    }
-        } else {
+	} else {
             /* integer argument */
-	    p = cairo_type1_font_subset_decode_integer (p, &font->build_stack.top_value);
-	    last_op_was_integer = TRUE;
-	    if (font->build_stack.sp < TYPE1_STACKSIZE)
-		font->build_stack.stack[font->build_stack.sp++] = font->build_stack.top_value;
-        }
+	    if (font->build_stack.sp < TYPE1_STACKSIZE) {
+		int val;
+		p = cairo_type1_font_subset_decode_integer (p, &val);
+		font->build_stack.stack[font->build_stack.sp++] = val;
+	    } else {
+		status = CAIRO_INT_STATUS_UNSUPPORTED;
+		goto cleanup;
+	    }
+	}
     }
 
+cleanup:
     free (charstring);
 
-    return CAIRO_STATUS_SUCCESS;
+    return status;
 }
 
 static cairo_status_t
@@ -1018,9 +1128,33 @@ write_used_glyphs (cairo_type1_font_subset_t *font,
     cairo_status_t status;
     char buffer[256];
     int length;
+    int subset_id;
+    int ch;
+    const char *wa_name;
 
     if (font->glyphs[glyph_number].subset_index < 0)
 	return CAIRO_STATUS_SUCCESS;
+
+    if (font->scaled_font_subset->is_latin) {
+	/* When using the WinAnsi encoding in PDF, the /Encoding array
+	 * is ignored and instead glyphs are keyed by glyph names. To
+	 * ensure correct rendering we replace the glyph name in the
+	 * font with the standard name.
+         **/
+	subset_id = font->glyphs[glyph_number].subset_index;
+	if (subset_id > 0) {
+	    ch = font->scaled_font_subset->to_latin_char[subset_id];
+	    wa_name = _cairo_winansi_to_glyphname (ch);
+	    /* If this subset contains any seac glyphs, additional non
+	     * winansi glyphs (wa_name = NULL) may be included in the
+	     * subset. In this case the original name is used.
+	     */
+	    if (wa_name) {
+		name = wa_name;
+		name_length = strlen(name);
+	    }
+	}
+    }
 
     length = snprintf (buffer, sizeof buffer,
 		       "/%.*s %d %s ",
@@ -1119,9 +1253,9 @@ cairo_type1_font_subset_write_private_dict (cairo_type1_font_subset_t *font,
 {
     cairo_status_t status;
     const char *p, *subrs, *charstrings, *array_start, *array_end, *dict_start, *dict_end;
-    const char *closefile_token;
-    char buffer[32], *subr_count_end, *glyph_count_end;
-    int length;
+    const char *lenIV_start, *lenIV_end, *closefile_token;
+    char buffer[32], *lenIV_str, *subr_count_end, *glyph_count_end;
+    int ret, lenIV, length;
     const cairo_scaled_font_backend_t *backend;
     unsigned int i;
     int glyph, j;
@@ -1130,24 +1264,57 @@ cairo_type1_font_subset_write_private_dict (cairo_type1_font_subset_t *font,
      * the actual glyph definitions (charstrings).
      *
      * What we do here is scan directly to the /Subrs token, which
-     * marks the beginning of the subroutines. We then read in all the
-     * subroutines then move on to the /CharString token, which marks
-     * the beginning of the glyph definitions, and read in the chastrings.
+     * marks the beginning of the subroutines. We read in all the
+     * subroutines, then move on to the /CharString token, which marks
+     * the beginning of the glyph definitions, and read in the charstrings.
      *
-     * The charstrings are parsed to extracts glyph widths, work out
-     * which subroutines are called, and too see if any extra glyphs
+     * The charstrings are parsed to extract glyph widths, work out
+     * which subroutines are called, and to see if any extra glyphs
      * need to be included due to the use of the seac glyph combining
      * operator.
      *
-     * Finally the private dict is copied to the subset font minus the
+     * Finally, the private dict is copied to the subset font minus the
      * subroutines and charstrings not required.
      */
+
+    /* Determine lenIV, the number of random characters at the start of
+       each encrypted charstring. The default is 4, but this can be
+       overridden in the private dict. */
+    font->lenIV = 4;
+    if ((lenIV_start = find_token (font->cleartext, font->cleartext_end, "/lenIV")) != NULL) {
+        lenIV_start += 6;
+        lenIV_end = find_token (lenIV_start, font->cleartext_end, "def");
+        if (lenIV_end == NULL)
+	    return CAIRO_INT_STATUS_UNSUPPORTED;
+
+        lenIV_str = malloc (lenIV_end - lenIV_start + 1);
+        if (unlikely (lenIV_str == NULL))
+	    return _cairo_error (CAIRO_STATUS_NO_MEMORY);
+
+        strncpy (lenIV_str, lenIV_start, lenIV_end - lenIV_start);
+        lenIV_str[lenIV_end - lenIV_start] = 0;
+
+        ret = sscanf(lenIV_str, "%d", &lenIV);
+        free(lenIV_str);
+
+        if (unlikely (ret <= 0))
+	    return CAIRO_INT_STATUS_UNSUPPORTED;
+
+        /* Apparently some fonts signal unencrypted charstrings with a negative lenIV,
+           though this is not part of the Type 1 Font Format specification.  See, e.g.
+           http://lists.gnu.org/archive/html/freetype-devel/2000-06/msg00064.html. */
+        if (unlikely (lenIV < 0))
+	    return CAIRO_INT_STATUS_UNSUPPORTED;
+
+        font->lenIV = lenIV;
+    }
 
     /* Find start of Subrs */
     subrs = find_token (font->cleartext, font->cleartext_end, "/Subrs");
     if (subrs == NULL) {
 	font->subset_subrs = FALSE;
 	p = font->cleartext;
+	array_start = NULL;
 	goto skip_subrs;
     }
 
@@ -1247,13 +1414,19 @@ skip_subrs:
     for (j = 0; j < font->num_glyphs; j++) {
 	glyph = font->subset_index_to_glyphs[j];
 	font->build_stack.sp = 0;
-	font->ps_stack.num_other_subr_args = 0;
+	font->ps_stack.sp = 0;
 	status = cairo_type1_font_subset_parse_charstring (font,
 							   glyph,
 							   font->glyphs[glyph].encrypted_charstring,
 							   font->glyphs[glyph].encrypted_charstring_length);
 	if (unlikely (status))
 	    return status;
+    }
+
+    /* Always include the first five subroutines in case the Flex/hint mechanism is
+     * being used. */
+    for (j = 0; j < MIN (font->num_subrs, 5); j++) {
+	font->subrs[j].used = TRUE;
     }
 
     closefile_token = find_token (dict_end, font->cleartext_end, "closefile");
@@ -1530,6 +1703,8 @@ _cairo_type1_font_subset_fini (cairo_type1_font_subset_t *font)
     free (font->base.base_font);
 
     free (font->subset_index_to_glyphs);
+
+    free (font->cleartext);
 
     return status;
 }

@@ -43,6 +43,7 @@ _cairo_xcb_connection_render_create_picture (cairo_xcb_connection_t  *connection
 					     uint32_t                 value_mask,
 					     uint32_t	             *value_list)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_RENDER);
     xcb_render_create_picture (connection->xcb_connection, picture, drawable,
 			       format, value_mask, value_list);
 }
@@ -53,6 +54,7 @@ _cairo_xcb_connection_render_change_picture (cairo_xcb_connection_t     *connect
 					     uint32_t              value_mask,
 					     uint32_t             *value_list)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_RENDER);
     xcb_render_change_picture (connection->xcb_connection, picture,
 			       value_mask, value_list);
 }
@@ -65,6 +67,7 @@ _cairo_xcb_connection_render_set_picture_clip_rectangles (cairo_xcb_connection_t
 							  uint32_t               rectangles_len,
 							  xcb_rectangle_t *rectangles)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_RENDER);
     xcb_render_set_picture_clip_rectangles (connection->xcb_connection, picture,
 					    clip_x_origin, clip_y_origin,
 					    rectangles_len, rectangles);
@@ -74,6 +77,7 @@ void
 _cairo_xcb_connection_render_free_picture (cairo_xcb_connection_t *connection,
 					   xcb_render_picture_t  picture)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_RENDER);
     xcb_render_free_picture (connection->xcb_connection, picture);
     _cairo_xcb_connection_put_xid (connection, picture);
 }
@@ -93,6 +97,7 @@ _cairo_xcb_connection_render_composite (cairo_xcb_connection_t     *connection,
 					uint16_t              width,
 					uint16_t              height)
 {
+    assert (connection->flags & CAIRO_XCB_RENDER_HAS_COMPOSITE);
     xcb_render_composite (connection->xcb_connection, op, src, mask, dst,
 			  src_x, src_y, mask_x, mask_y, dst_x, dst_y, width, height);
 }
@@ -108,6 +113,7 @@ _cairo_xcb_connection_render_trapezoids (cairo_xcb_connection_t *connection,
 					 uint32_t                      traps_len,
 					 xcb_render_trapezoid_t *traps)
 {
+    assert (connection->flags & CAIRO_XCB_RENDER_HAS_COMPOSITE_TRAPEZOIDS);
     xcb_render_trapezoids (connection->xcb_connection, op, src, dst,
 			   mask_format, src_x, src_y, traps_len, traps);
 }
@@ -117,6 +123,7 @@ _cairo_xcb_connection_render_create_glyph_set (cairo_xcb_connection_t	*connectio
 					       xcb_render_glyphset_t	 id,
 					       xcb_render_pictformat_t  format)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_RENDER);
     xcb_render_create_glyph_set (connection->xcb_connection, id, format);
 }
 
@@ -124,6 +131,7 @@ void
 _cairo_xcb_connection_render_free_glyph_set (cairo_xcb_connection_t      *connection,
 					     xcb_render_glyphset_t  glyphset)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_RENDER);
     xcb_render_free_glyph_set (connection->xcb_connection, glyphset);
     _cairo_xcb_connection_put_xid (connection, glyphset);
 }
@@ -137,6 +145,7 @@ _cairo_xcb_connection_render_add_glyphs (cairo_xcb_connection_t             *con
 					 uint32_t                      data_len,
 					 uint8_t                *data)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_RENDER);
     xcb_render_add_glyphs (connection->xcb_connection, glyphset, num_glyphs,
 				   glyphs_id, glyphs, data_len, data);
 }
@@ -147,6 +156,7 @@ _cairo_xcb_connection_render_free_glyphs (cairo_xcb_connection_t         *connec
 					  uint32_t                  num_glyphs,
 					  xcb_render_glyph_t *glyphs)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_RENDER);
     xcb_render_free_glyphs (connection->xcb_connection, glyphset, num_glyphs, glyphs);
 }
 
@@ -162,6 +172,7 @@ _cairo_xcb_connection_render_composite_glyphs_8 (cairo_xcb_connection_t        *
 						 uint32_t                 glyphcmds_len,
 						 uint8_t           *glyphcmds)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_RENDER);
     xcb_render_composite_glyphs_8 (connection->xcb_connection, op, src, dst, mask_format,
 				   glyphset, src_x, src_y, glyphcmds_len, glyphcmds);
 }
@@ -178,6 +189,7 @@ _cairo_xcb_connection_render_composite_glyphs_16 (cairo_xcb_connection_t        
 						  uint32_t                 glyphcmds_len,
 						  uint8_t           *glyphcmds)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_RENDER);
     xcb_render_composite_glyphs_16 (connection->xcb_connection, op, src, dst, mask_format,
 				    glyphset, src_x, src_y, glyphcmds_len, glyphcmds);
 }
@@ -194,6 +206,7 @@ _cairo_xcb_connection_render_composite_glyphs_32 (cairo_xcb_connection_t        
 						  uint32_t                 glyphcmds_len,
 						  uint8_t           *glyphcmds)
 {
+    assert (connection->flags & CAIRO_XCB_HAS_RENDER);
     xcb_render_composite_glyphs_32 (connection->xcb_connection, op, src, dst, mask_format,
 				    glyphset, src_x, src_y, glyphcmds_len, glyphcmds);
 }
@@ -206,6 +219,7 @@ _cairo_xcb_connection_render_fill_rectangles (cairo_xcb_connection_t      *conne
 					      uint32_t               num_rects,
 					      xcb_rectangle_t *rects)
 {
+    assert (connection->flags & CAIRO_XCB_RENDER_HAS_FILL_RECTANGLES);
     xcb_render_fill_rectangles (connection->xcb_connection, op, dst, color,
 				num_rects, rects);
 }
@@ -215,6 +229,7 @@ _cairo_xcb_connection_render_set_picture_transform (cairo_xcb_connection_t      
 						    xcb_render_picture_t    picture,
 						    xcb_render_transform_t  *transform)
 {
+    assert (connection->flags & CAIRO_XCB_RENDER_HAS_PICTURE_TRANSFORM);
     xcb_render_set_picture_transform (connection->xcb_connection, picture, *transform);
 }
 
@@ -224,6 +239,7 @@ _cairo_xcb_connection_render_set_picture_filter (cairo_xcb_connection_t         
 						 uint16_t                  filter_len,
 						 char               *filter)
 {
+    assert (connection->flags & CAIRO_XCB_RENDER_HAS_FILTERS);
     xcb_render_set_picture_filter (connection->xcb_connection, picture,
 				   filter_len, filter, 0, NULL);
 }
@@ -233,6 +249,7 @@ _cairo_xcb_connection_render_create_solid_fill (cairo_xcb_connection_t     *conn
 						xcb_render_picture_t  picture,
 						xcb_render_color_t    color)
 {
+    assert (connection->flags & CAIRO_XCB_RENDER_HAS_GRADIENTS);
     xcb_render_create_solid_fill (connection->xcb_connection, picture, color);
 }
 
@@ -245,6 +262,7 @@ _cairo_xcb_connection_render_create_linear_gradient (cairo_xcb_connection_t     
 						     xcb_render_fixed_t *stops,
 						     xcb_render_color_t *colors)
 {
+    assert (connection->flags & CAIRO_XCB_RENDER_HAS_GRADIENTS);
     xcb_render_create_linear_gradient (connection->xcb_connection, picture,
 				       p1, p2, num_stops, stops, colors);
 }
@@ -260,6 +278,7 @@ _cairo_xcb_connection_render_create_radial_gradient (cairo_xcb_connection_t     
 						     xcb_render_fixed_t *stops,
 						     xcb_render_color_t *colors)
 {
+    assert (connection->flags & CAIRO_XCB_RENDER_HAS_GRADIENTS);
     xcb_render_create_radial_gradient (connection->xcb_connection, picture,
 				       inner, outer, inner_radius, outer_radius,
 				       num_stops, stops, colors);
@@ -274,6 +293,7 @@ _cairo_xcb_connection_render_create_conical_gradient (cairo_xcb_connection_t    
 						      xcb_render_fixed_t *stops,
 						      xcb_render_color_t *colors)
 {
+    assert (connection->flags & CAIRO_XCB_RENDER_HAS_GRADIENTS);
     xcb_render_create_conical_gradient (connection->xcb_connection, picture,
 				       center, angle, num_stops, stops, colors);
 }

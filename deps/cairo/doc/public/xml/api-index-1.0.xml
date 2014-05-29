@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<indexdiv>
+<indexdiv><title>A</title>
+<indexentry><primaryie linkends="cairo-antialias-t"><link linkend="cairo-antialias-t">cairo_antialias_t</link>, enum in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-append-path"><link linkend="cairo-append-path">cairo_append_path</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-arc"><link linkend="cairo-arc">cairo_arc</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-arc-negative"><link linkend="cairo-arc-negative">cairo_arc_negative</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>B</title>
+<indexentry><primaryie linkends="cairo-bool-t"><link linkend="cairo-bool-t">cairo_bool_t</link>, typedef in <link linkend="cairo-Types">Types</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>C</title>
+<indexentry><primaryie linkends="cairo-clip"><link linkend="cairo-clip">cairo_clip</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-clip-preserve"><link linkend="cairo-clip-preserve">cairo_clip_preserve</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-close-path"><link linkend="cairo-close-path">cairo_close_path</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-content-t"><link linkend="cairo-content-t">cairo_content_t</link>, enum in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-copy-page"><link linkend="cairo-copy-page">cairo_copy_page</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-copy-path"><link linkend="cairo-copy-path">cairo_copy_path</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-copy-path-flat"><link linkend="cairo-copy-path-flat">cairo_copy_path_flat</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-create"><link linkend="cairo-create">cairo_create</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-curve-to"><link linkend="cairo-curve-to">cairo_curve_to</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>D</title>
+<indexentry><primaryie linkends="cairo-debug-reset-static-data"><link linkend="cairo-debug-reset-static-data">cairo_debug_reset_static_data</link>, function in <link linkend="cairo-Error-handling">Error handling</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-destroy"><link linkend="cairo-destroy">cairo_destroy</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-destroy-func-t"><link linkend="cairo-destroy-func-t">cairo_destroy_func_t</link>, user_function in <link linkend="cairo-Types">Types</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-device-to-user"><link linkend="cairo-device-to-user">cairo_device_to_user</link>, function in <link linkend="cairo-Transformations">Transformations</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-device-to-user-distance"><link linkend="cairo-device-to-user-distance">cairo_device_to_user_distance</link>, function in <link linkend="cairo-Transformations">Transformations</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>E</title>
+<indexentry><primaryie linkends="cairo-extend-t"><link linkend="cairo-extend-t">cairo_extend_t</link>, enum in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>F</title>
+<indexentry><primaryie linkends="cairo-fill"><link linkend="cairo-fill">cairo_fill</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-fill-extents"><link linkend="cairo-fill-extents">cairo_fill_extents</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-fill-preserve"><link linkend="cairo-fill-preserve">cairo_fill_preserve</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-fill-rule-t"><link linkend="cairo-fill-rule-t">cairo_fill_rule_t</link>, enum in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-filter-t"><link linkend="cairo-filter-t">cairo_filter_t</link>, enum in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-extents"><link linkend="cairo-font-extents">cairo_font_extents</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-extents-t"><link linkend="cairo-font-extents-t">cairo_font_extents_t</link>, struct in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-face-destroy"><link linkend="cairo-font-face-destroy">cairo_font_face_destroy</link>, function in <link linkend="cairo-cairo-font-face-t">cairo_font_face_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-face-get-user-data"><link linkend="cairo-font-face-get-user-data">cairo_font_face_get_user_data</link>, function in <link linkend="cairo-cairo-font-face-t">cairo_font_face_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-face-reference"><link linkend="cairo-font-face-reference">cairo_font_face_reference</link>, function in <link linkend="cairo-cairo-font-face-t">cairo_font_face_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-face-set-user-data"><link linkend="cairo-font-face-set-user-data">cairo_font_face_set_user_data</link>, function in <link linkend="cairo-cairo-font-face-t">cairo_font_face_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-face-status"><link linkend="cairo-font-face-status">cairo_font_face_status</link>, function in <link linkend="cairo-cairo-font-face-t">cairo_font_face_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-face-t"><link linkend="cairo-font-face-t">cairo_font_face_t</link>, typedef in <link linkend="cairo-cairo-font-face-t">cairo_font_face_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-copy"><link linkend="cairo-font-options-copy">cairo_font_options_copy</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-create"><link linkend="cairo-font-options-create">cairo_font_options_create</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-destroy"><link linkend="cairo-font-options-destroy">cairo_font_options_destroy</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-equal"><link linkend="cairo-font-options-equal">cairo_font_options_equal</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-get-antialias"><link linkend="cairo-font-options-get-antialias">cairo_font_options_get_antialias</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-get-hint-metrics"><link linkend="cairo-font-options-get-hint-metrics">cairo_font_options_get_hint_metrics</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-get-hint-style"><link linkend="cairo-font-options-get-hint-style">cairo_font_options_get_hint_style</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-get-subpixel-order"><link linkend="cairo-font-options-get-subpixel-order">cairo_font_options_get_subpixel_order</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-hash"><link linkend="cairo-font-options-hash">cairo_font_options_hash</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-merge"><link linkend="cairo-font-options-merge">cairo_font_options_merge</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-set-antialias"><link linkend="cairo-font-options-set-antialias">cairo_font_options_set_antialias</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-set-hint-metrics"><link linkend="cairo-font-options-set-hint-metrics">cairo_font_options_set_hint_metrics</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-set-hint-style"><link linkend="cairo-font-options-set-hint-style">cairo_font_options_set_hint_style</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-set-subpixel-order"><link linkend="cairo-font-options-set-subpixel-order">cairo_font_options_set_subpixel_order</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-status"><link linkend="cairo-font-options-status">cairo_font_options_status</link>, function in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-options-t"><link linkend="cairo-font-options-t">cairo_font_options_t</link>, typedef in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-slant-t"><link linkend="cairo-font-slant-t">cairo_font_slant_t</link>, enum in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-font-weight-t"><link linkend="cairo-font-weight-t">cairo_font_weight_t</link>, enum in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-format-t"><link linkend="cairo-format-t">cairo_format_t</link>, enum in <link linkend="cairo-Image-Surfaces">Image Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-ft-font-face-create-for-ft-face"><link linkend="cairo-ft-font-face-create-for-ft-face">cairo_ft_font_face_create_for_ft_face</link>, function in <link linkend="cairo-FreeType-Fonts">FreeType Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-ft-font-face-create-for-pattern"><link linkend="cairo-ft-font-face-create-for-pattern">cairo_ft_font_face_create_for_pattern</link>, function in <link linkend="cairo-FreeType-Fonts">FreeType Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-ft-font-options-substitute"><link linkend="cairo-ft-font-options-substitute">cairo_ft_font_options_substitute</link>, function in <link linkend="cairo-FreeType-Fonts">FreeType Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-ft-scaled-font-lock-face"><link linkend="cairo-ft-scaled-font-lock-face">cairo_ft_scaled_font_lock_face</link>, function in <link linkend="cairo-FreeType-Fonts">FreeType Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-ft-scaled-font-unlock-face"><link linkend="cairo-ft-scaled-font-unlock-face">cairo_ft_scaled_font_unlock_face</link>, function in <link linkend="cairo-FreeType-Fonts">FreeType Fonts</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>G</title>
+<indexentry><primaryie linkends="cairo-get-antialias"><link linkend="cairo-get-antialias">cairo_get_antialias</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-current-point"><link linkend="cairo-get-current-point">cairo_get_current_point</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-fill-rule"><link linkend="cairo-get-fill-rule">cairo_get_fill_rule</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-font-face"><link linkend="cairo-get-font-face">cairo_get_font_face</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-font-matrix"><link linkend="cairo-get-font-matrix">cairo_get_font_matrix</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-font-options"><link linkend="cairo-get-font-options">cairo_get_font_options</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-line-cap"><link linkend="cairo-get-line-cap">cairo_get_line_cap</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-line-join"><link linkend="cairo-get-line-join">cairo_get_line_join</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-line-width"><link linkend="cairo-get-line-width">cairo_get_line_width</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-matrix"><link linkend="cairo-get-matrix">cairo_get_matrix</link>, function in <link linkend="cairo-Transformations">Transformations</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-miter-limit"><link linkend="cairo-get-miter-limit">cairo_get_miter_limit</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-operator"><link linkend="cairo-get-operator">cairo_get_operator</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-source"><link linkend="cairo-get-source">cairo_get_source</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-target"><link linkend="cairo-get-target">cairo_get_target</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-get-tolerance"><link linkend="cairo-get-tolerance">cairo_get_tolerance</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-glyph-extents"><link linkend="cairo-glyph-extents">cairo_glyph_extents</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-glyph-path"><link linkend="cairo-glyph-path">cairo_glyph_path</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-glyph-t"><link linkend="cairo-glyph-t">cairo_glyph_t</link>, struct in <link linkend="cairo-text">text</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>H</title>
+<indexentry><primaryie linkends="CAIRO-HAS-FT-FONT:CAPS"><link linkend="CAIRO-HAS-FT-FONT:CAPS">CAIRO_HAS_FT_FONT</link>, macro in <link linkend="cairo-FreeType-Fonts">FreeType Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-HAS-PNG-FUNCTIONS:CAPS"><link linkend="CAIRO-HAS-PNG-FUNCTIONS:CAPS">CAIRO_HAS_PNG_FUNCTIONS</link>, macro in <link linkend="cairo-PNG-Support">PNG Support</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-HAS-WIN32-SURFACE:CAPS"><link linkend="CAIRO-HAS-WIN32-SURFACE:CAPS">CAIRO_HAS_WIN32_SURFACE</link>, macro in <link linkend="cairo-Win32-Surfaces">Win32 Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-HAS-XLIB-SURFACE:CAPS"><link linkend="CAIRO-HAS-XLIB-SURFACE:CAPS">CAIRO_HAS_XLIB_SURFACE</link>, macro in <link linkend="cairo-XLib-Surfaces">XLib Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-hint-metrics-t"><link linkend="cairo-hint-metrics-t">cairo_hint_metrics_t</link>, enum in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-hint-style-t"><link linkend="cairo-hint-style-t">cairo_hint_style_t</link>, enum in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>I</title>
+<indexentry><primaryie linkends="cairo-identity-matrix"><link linkend="cairo-identity-matrix">cairo_identity_matrix</link>, function in <link linkend="cairo-Transformations">Transformations</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-image-surface-create"><link linkend="cairo-image-surface-create">cairo_image_surface_create</link>, function in <link linkend="cairo-Image-Surfaces">Image Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-image-surface-create-for-data"><link linkend="cairo-image-surface-create-for-data">cairo_image_surface_create_for_data</link>, function in <link linkend="cairo-Image-Surfaces">Image Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-image-surface-create-from-png"><link linkend="cairo-image-surface-create-from-png">cairo_image_surface_create_from_png</link>, function in <link linkend="cairo-PNG-Support">PNG Support</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-image-surface-create-from-png-stream"><link linkend="cairo-image-surface-create-from-png-stream">cairo_image_surface_create_from_png_stream</link>, function in <link linkend="cairo-PNG-Support">PNG Support</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-image-surface-get-height"><link linkend="cairo-image-surface-get-height">cairo_image_surface_get_height</link>, function in <link linkend="cairo-Image-Surfaces">Image Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-image-surface-get-width"><link linkend="cairo-image-surface-get-width">cairo_image_surface_get_width</link>, function in <link linkend="cairo-Image-Surfaces">Image Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-in-fill"><link linkend="cairo-in-fill">cairo_in_fill</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-in-stroke"><link linkend="cairo-in-stroke">cairo_in_stroke</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>L</title>
+<indexentry><primaryie linkends="cairo-line-cap-t"><link linkend="cairo-line-cap-t">cairo_line_cap_t</link>, enum in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-line-join-t"><link linkend="cairo-line-join-t">cairo_line_join_t</link>, enum in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-line-to"><link linkend="cairo-line-to">cairo_line_to</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>M</title>
+<indexentry><primaryie linkends="cairo-mask"><link linkend="cairo-mask">cairo_mask</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-mask-surface"><link linkend="cairo-mask-surface">cairo_mask_surface</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-init"><link linkend="cairo-matrix-init">cairo_matrix_init</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-init-identity"><link linkend="cairo-matrix-init-identity">cairo_matrix_init_identity</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-init-rotate"><link linkend="cairo-matrix-init-rotate">cairo_matrix_init_rotate</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-init-scale"><link linkend="cairo-matrix-init-scale">cairo_matrix_init_scale</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-init-translate"><link linkend="cairo-matrix-init-translate">cairo_matrix_init_translate</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-invert"><link linkend="cairo-matrix-invert">cairo_matrix_invert</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-multiply"><link linkend="cairo-matrix-multiply">cairo_matrix_multiply</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-rotate"><link linkend="cairo-matrix-rotate">cairo_matrix_rotate</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-scale"><link linkend="cairo-matrix-scale">cairo_matrix_scale</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-t"><link linkend="cairo-matrix-t">cairo_matrix_t</link>, struct in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-transform-distance"><link linkend="cairo-matrix-transform-distance">cairo_matrix_transform_distance</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-transform-point"><link linkend="cairo-matrix-transform-point">cairo_matrix_transform_point</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-matrix-translate"><link linkend="cairo-matrix-translate">cairo_matrix_translate</link>, function in <link linkend="cairo-cairo-matrix-t">cairo_matrix_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-move-to"><link linkend="cairo-move-to">cairo_move_to</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>N</title>
+<indexentry><primaryie linkends="cairo-new-path"><link linkend="cairo-new-path">cairo_new_path</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>O</title>
+<indexentry><primaryie linkends="cairo-operator-t"><link linkend="cairo-operator-t">cairo_operator_t</link>, enum in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>P</title>
+<indexentry><primaryie linkends="cairo-paint"><link linkend="cairo-paint">cairo_paint</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-paint-with-alpha"><link linkend="cairo-paint-with-alpha">cairo_paint_with_alpha</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-path-data-t"><link linkend="cairo-path-data-t">cairo_path_data_t</link>, union in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-path-data-type-t"><link linkend="cairo-path-data-type-t">cairo_path_data_type_t</link>, enum in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-path-destroy"><link linkend="cairo-path-destroy">cairo_path_destroy</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-path-t"><link linkend="cairo-path-t">cairo_path_t</link>, struct in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-add-color-stop-rgb"><link linkend="cairo-pattern-add-color-stop-rgb">cairo_pattern_add_color_stop_rgb</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-add-color-stop-rgba"><link linkend="cairo-pattern-add-color-stop-rgba">cairo_pattern_add_color_stop_rgba</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-create-for-surface"><link linkend="cairo-pattern-create-for-surface">cairo_pattern_create_for_surface</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-create-linear"><link linkend="cairo-pattern-create-linear">cairo_pattern_create_linear</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-create-radial"><link linkend="cairo-pattern-create-radial">cairo_pattern_create_radial</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-create-rgb"><link linkend="cairo-pattern-create-rgb">cairo_pattern_create_rgb</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-create-rgba"><link linkend="cairo-pattern-create-rgba">cairo_pattern_create_rgba</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-destroy"><link linkend="cairo-pattern-destroy">cairo_pattern_destroy</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-get-extend"><link linkend="cairo-pattern-get-extend">cairo_pattern_get_extend</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-get-filter"><link linkend="cairo-pattern-get-filter">cairo_pattern_get_filter</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-get-matrix"><link linkend="cairo-pattern-get-matrix">cairo_pattern_get_matrix</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-reference"><link linkend="cairo-pattern-reference">cairo_pattern_reference</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-set-extend"><link linkend="cairo-pattern-set-extend">cairo_pattern_set_extend</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-set-filter"><link linkend="cairo-pattern-set-filter">cairo_pattern_set_filter</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-set-matrix"><link linkend="cairo-pattern-set-matrix">cairo_pattern_set_matrix</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-status"><link linkend="cairo-pattern-status">cairo_pattern_status</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pattern-t"><link linkend="cairo-pattern-t">cairo_pattern_t</link>, typedef in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>R</title>
+<indexentry><primaryie linkends="cairo-read-func-t"><link linkend="cairo-read-func-t">cairo_read_func_t</link>, user_function in <link linkend="cairo-PNG-Support">PNG Support</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-rectangle"><link linkend="cairo-rectangle">cairo_rectangle</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-reference"><link linkend="cairo-reference">cairo_reference</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-rel-curve-to"><link linkend="cairo-rel-curve-to">cairo_rel_curve_to</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-rel-line-to"><link linkend="cairo-rel-line-to">cairo_rel_line_to</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-rel-move-to"><link linkend="cairo-rel-move-to">cairo_rel_move_to</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-reset-clip"><link linkend="cairo-reset-clip">cairo_reset_clip</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-restore"><link linkend="cairo-restore">cairo_restore</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-rotate"><link linkend="cairo-rotate">cairo_rotate</link>, function in <link linkend="cairo-Transformations">Transformations</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>S</title>
+<indexentry><primaryie linkends="cairo-save"><link linkend="cairo-save">cairo_save</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-scale"><link linkend="cairo-scale">cairo_scale</link>, function in <link linkend="cairo-Transformations">Transformations</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-scaled-font-create"><link linkend="cairo-scaled-font-create">cairo_scaled_font_create</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-scaled-font-destroy"><link linkend="cairo-scaled-font-destroy">cairo_scaled_font_destroy</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-scaled-font-extents"><link linkend="cairo-scaled-font-extents">cairo_scaled_font_extents</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-scaled-font-glyph-extents"><link linkend="cairo-scaled-font-glyph-extents">cairo_scaled_font_glyph_extents</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-scaled-font-reference"><link linkend="cairo-scaled-font-reference">cairo_scaled_font_reference</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-scaled-font-status"><link linkend="cairo-scaled-font-status">cairo_scaled_font_status</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-scaled-font-t"><link linkend="cairo-scaled-font-t">cairo_scaled_font_t</link>, typedef in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-select-font-face"><link linkend="cairo-select-font-face">cairo_select_font_face</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-antialias"><link linkend="cairo-set-antialias">cairo_set_antialias</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-dash"><link linkend="cairo-set-dash">cairo_set_dash</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-fill-rule"><link linkend="cairo-set-fill-rule">cairo_set_fill_rule</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-font-face"><link linkend="cairo-set-font-face">cairo_set_font_face</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-font-matrix"><link linkend="cairo-set-font-matrix">cairo_set_font_matrix</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-font-options"><link linkend="cairo-set-font-options">cairo_set_font_options</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-font-size"><link linkend="cairo-set-font-size">cairo_set_font_size</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-line-cap"><link linkend="cairo-set-line-cap">cairo_set_line_cap</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-line-join"><link linkend="cairo-set-line-join">cairo_set_line_join</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-line-width"><link linkend="cairo-set-line-width">cairo_set_line_width</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-matrix"><link linkend="cairo-set-matrix">cairo_set_matrix</link>, function in <link linkend="cairo-Transformations">Transformations</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-miter-limit"><link linkend="cairo-set-miter-limit">cairo_set_miter_limit</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-operator"><link linkend="cairo-set-operator">cairo_set_operator</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-source"><link linkend="cairo-set-source">cairo_set_source</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-source-rgb"><link linkend="cairo-set-source-rgb">cairo_set_source_rgb</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-source-rgba"><link linkend="cairo-set-source-rgba">cairo_set_source_rgba</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-source-surface"><link linkend="cairo-set-source-surface">cairo_set_source_surface</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-set-tolerance"><link linkend="cairo-set-tolerance">cairo_set_tolerance</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-show-glyphs"><link linkend="cairo-show-glyphs">cairo_show_glyphs</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-show-page"><link linkend="cairo-show-page">cairo_show_page</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-show-text"><link linkend="cairo-show-text">cairo_show_text</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-status"><link linkend="cairo-status">cairo_status</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-status-t"><link linkend="cairo-status-t">cairo_status_t</link>, enum in <link linkend="cairo-Error-handling">Error handling</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-status-to-string"><link linkend="cairo-status-to-string">cairo_status_to_string</link>, function in <link linkend="cairo-Error-handling">Error handling</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-stroke"><link linkend="cairo-stroke">cairo_stroke</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-stroke-extents"><link linkend="cairo-stroke-extents">cairo_stroke_extents</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-stroke-preserve"><link linkend="cairo-stroke-preserve">cairo_stroke_preserve</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-subpixel-order-t"><link linkend="cairo-subpixel-order-t">cairo_subpixel_order_t</link>, enum in <link linkend="cairo-cairo-font-options-t">cairo_font_options_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-create-similar"><link linkend="cairo-surface-create-similar">cairo_surface_create_similar</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-destroy"><link linkend="cairo-surface-destroy">cairo_surface_destroy</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-finish"><link linkend="cairo-surface-finish">cairo_surface_finish</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-flush"><link linkend="cairo-surface-flush">cairo_surface_flush</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-get-font-options"><link linkend="cairo-surface-get-font-options">cairo_surface_get_font_options</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-get-user-data"><link linkend="cairo-surface-get-user-data">cairo_surface_get_user_data</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-mark-dirty"><link linkend="cairo-surface-mark-dirty">cairo_surface_mark_dirty</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-mark-dirty-rectangle"><link linkend="cairo-surface-mark-dirty-rectangle">cairo_surface_mark_dirty_rectangle</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-reference"><link linkend="cairo-surface-reference">cairo_surface_reference</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-set-device-offset"><link linkend="cairo-surface-set-device-offset">cairo_surface_set_device_offset</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-set-user-data"><link linkend="cairo-surface-set-user-data">cairo_surface_set_user_data</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-status"><link linkend="cairo-surface-status">cairo_surface_status</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-t"><link linkend="cairo-surface-t">cairo_surface_t</link>, typedef in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-write-to-png"><link linkend="cairo-surface-write-to-png">cairo_surface_write_to_png</link>, function in <link linkend="cairo-PNG-Support">PNG Support</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-write-to-png-stream"><link linkend="cairo-surface-write-to-png-stream">cairo_surface_write_to_png_stream</link>, function in <link linkend="cairo-PNG-Support">PNG Support</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>T</title>
+<indexentry><primaryie linkends="cairo-t"><link linkend="cairo-t">cairo_t</link>, typedef in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-text-extents"><link linkend="cairo-text-extents">cairo_text_extents</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-text-extents-t"><link linkend="cairo-text-extents-t">cairo_text_extents_t</link>, struct in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-text-path"><link linkend="cairo-text-path">cairo_text_path</link>, function in <link linkend="cairo-Paths">Paths</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-transform"><link linkend="cairo-transform">cairo_transform</link>, function in <link linkend="cairo-Transformations">Transformations</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-translate"><link linkend="cairo-translate">cairo_translate</link>, function in <link linkend="cairo-Transformations">Transformations</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>U</title>
+<indexentry><primaryie linkends="cairo-user-data-key-t"><link linkend="cairo-user-data-key-t">cairo_user_data_key_t</link>, struct in <link linkend="cairo-Types">Types</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-to-device"><link linkend="cairo-user-to-device">cairo_user_to_device</link>, function in <link linkend="cairo-Transformations">Transformations</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-user-to-device-distance"><link linkend="cairo-user-to-device-distance">cairo_user_to_device_distance</link>, function in <link linkend="cairo-Transformations">Transformations</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>V</title>
+<indexentry><primaryie linkends="CAIRO-VERSION:CAPS"><link linkend="CAIRO-VERSION:CAPS">CAIRO_VERSION</link>, macro in <link linkend="cairo-Version-Information">Version Information</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-version"><link linkend="cairo-version">cairo_version</link>, function in <link linkend="cairo-Version-Information">Version Information</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-VERSION-ENCODE:CAPS"><link linkend="CAIRO-VERSION-ENCODE:CAPS">CAIRO_VERSION_ENCODE</link>, macro in <link linkend="cairo-Version-Information">Version Information</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-VERSION-MAJOR:CAPS"><link linkend="CAIRO-VERSION-MAJOR:CAPS">CAIRO_VERSION_MAJOR</link>, macro in <link linkend="cairo-Version-Information">Version Information</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-VERSION-MICRO:CAPS"><link linkend="CAIRO-VERSION-MICRO:CAPS">CAIRO_VERSION_MICRO</link>, macro in <link linkend="cairo-Version-Information">Version Information</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-VERSION-MINOR:CAPS"><link linkend="CAIRO-VERSION-MINOR:CAPS">CAIRO_VERSION_MINOR</link>, macro in <link linkend="cairo-Version-Information">Version Information</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-version-string"><link linkend="cairo-version-string">cairo_version_string</link>, function in <link linkend="cairo-Version-Information">Version Information</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>W</title>
+<indexentry><primaryie linkends="cairo-win32-font-face-create-for-logfontw"><link linkend="cairo-win32-font-face-create-for-logfontw">cairo_win32_font_face_create_for_logfontw</link>, function in <link linkend="cairo-Win32-Fonts">Win32 Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-win32-scaled-font-done-font"><link linkend="cairo-win32-scaled-font-done-font">cairo_win32_scaled_font_done_font</link>, function in <link linkend="cairo-Win32-Fonts">Win32 Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-win32-scaled-font-get-metrics-factor"><link linkend="cairo-win32-scaled-font-get-metrics-factor">cairo_win32_scaled_font_get_metrics_factor</link>, function in <link linkend="cairo-Win32-Fonts">Win32 Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-win32-scaled-font-select-font"><link linkend="cairo-win32-scaled-font-select-font">cairo_win32_scaled_font_select_font</link>, function in <link linkend="cairo-Win32-Fonts">Win32 Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-win32-surface-create"><link linkend="cairo-win32-surface-create">cairo_win32_surface_create</link>, function in <link linkend="cairo-Win32-Surfaces">Win32 Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-write-func-t"><link linkend="cairo-write-func-t">cairo_write_func_t</link>, user_function in <link linkend="cairo-PNG-Support">PNG Support</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>X</title>
+<indexentry><primaryie linkends="cairo-xlib-surface-create"><link linkend="cairo-xlib-surface-create">cairo_xlib_surface_create</link>, function in <link linkend="cairo-XLib-Surfaces">XLib Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xlib-surface-create-for-bitmap"><link linkend="cairo-xlib-surface-create-for-bitmap">cairo_xlib_surface_create_for_bitmap</link>, function in <link linkend="cairo-XLib-Surfaces">XLib Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xlib-surface-create-with-xrender-format"><link linkend="cairo-xlib-surface-create-with-xrender-format">cairo_xlib_surface_create_with_xrender_format</link>, function in <link linkend="cairo-XLib-XRender-Backend">XLib-XRender Backend</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xlib-surface-set-drawable"><link linkend="cairo-xlib-surface-set-drawable">cairo_xlib_surface_set_drawable</link>, function in <link linkend="cairo-XLib-Surfaces">XLib Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xlib-surface-set-size"><link linkend="cairo-xlib-surface-set-size">cairo_xlib_surface_set_size</link>, function in <link linkend="cairo-XLib-Surfaces">XLib Surfaces</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

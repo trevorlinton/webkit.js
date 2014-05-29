@@ -71,6 +71,6 @@ draw (cairo_t *cr, int width, int height)
 CAIRO_TEST (subsurface_repeat,
 	    "Tests source clipping with repeat",
 	    "subsurface, repeat", /* keywords */
-	    NULL, /* requirements */
+	    "target=raster", /* FIXME! recursion bug in subsurface/snapshot (with pdf backend) */ /* requirements */
 	    60, 60,
 	    NULL, draw)

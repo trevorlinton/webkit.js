@@ -127,6 +127,45 @@ _cairo_stroke_style_max_distance_from_path (const cairo_stroke_style_t *style,
     }
 }
 
+void
+_cairo_stroke_style_max_line_distance_from_path (const cairo_stroke_style_t *style,
+						 const cairo_path_fixed_t *path,
+						 const cairo_matrix_t *ctm,
+						 double *dx, double *dy)
+{
+    double style_expansion = 0.5 * style->line_width;
+    if (_cairo_matrix_has_unity_scale (ctm)) {
+	*dx = *dy = style_expansion;
+    } else {
+	*dx = style_expansion * hypot (ctm->xx, ctm->xy);
+	*dy = style_expansion * hypot (ctm->yy, ctm->yx);
+    }
+}
+
+void
+_cairo_stroke_style_max_join_distance_from_path (const cairo_stroke_style_t *style,
+						 const cairo_path_fixed_t *path,
+						 const cairo_matrix_t *ctm,
+						 double *dx, double *dy)
+{
+    double style_expansion = 0.5;
+
+    if (style->line_join == CAIRO_LINE_JOIN_MITER &&
+	! path->stroke_is_rectilinear &&
+	style_expansion < M_SQRT2 * style->miter_limit)
+    {
+	style_expansion = M_SQRT2 * style->miter_limit;
+    }
+
+    style_expansion *= style->line_width;
+
+    if (_cairo_matrix_has_unity_scale (ctm)) {
+	*dx = *dy = style_expansion;
+    } else {
+	*dx = style_expansion * hypot (ctm->xx, ctm->xy);
+	*dy = style_expansion * hypot (ctm->yy, ctm->yx);
+    }
+}
 /*
  * Computes the period of a dashed stroke style.
  * Returns 0 for non-dashed styles.

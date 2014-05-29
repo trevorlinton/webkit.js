@@ -415,7 +415,7 @@ i965_shader_acquire_surface (i965_shader_t *shader,
 		    int x;
 
 		    if (s->intel.drm.fallback != NULL) {
-			status = intel_surface_flush (s);
+			status = intel_surface_flush (s, 0);
 			if (unlikely (status))
 			    return status;
 		    }
@@ -489,7 +489,7 @@ i965_shader_acquire_surface (i965_shader_t *shader,
 	    if (s->intel.drm.base.device == shader->target->intel.drm.base.device) {
 		if (s != shader->target) {
 		    if (s->intel.drm.fallback != NULL) {
-			status = intel_surface_flush (s);
+			status = intel_surface_flush (s, 0);
 			if (unlikely (status))
 			    return status;
 		    }

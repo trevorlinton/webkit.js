@@ -65,7 +65,6 @@ void setSourceRGBAFromColor(cairo_t* context, const Color& color)
 {
     float red, green, blue, alpha;
     color.getRGBA(red, green, blue, alpha);
-	fprintf(stdout, "setSourceRGBAFromColor: %f %f %f %f\n",red,green,blue,alpha);
     cairo_set_source_rgba(context, red, green, blue, alpha);
 }
 

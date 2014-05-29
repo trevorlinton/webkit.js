@@ -157,6 +157,7 @@ includes both headers and coordinates for each portion.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -279,6 +280,7 @@ always use <code class="literal">data-&gt;header.length</code> to
 iterate over the path data, instead of hardcoding the number of
 elements for each element type.
 </p>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -300,26 +302,27 @@ See <a class="link" href="cairo-Paths.html#cairo-path-data-t" title="union cairo
 <tbody>
 <tr>
 <td><p><a name="CAIRO-PATH-MOVE-TO:CAPS"></a><span class="term"><code class="literal">CAIRO_PATH_MOVE_TO</code></span></p></td>
-<td>A move-to operation
+<td>A move-to operation, since 1.0
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-PATH-LINE-TO:CAPS"></a><span class="term"><code class="literal">CAIRO_PATH_LINE_TO</code></span></p></td>
-<td>A line-to operation
+<td>A line-to operation, since 1.0
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-PATH-CURVE-TO:CAPS"></a><span class="term"><code class="literal">CAIRO_PATH_CURVE_TO</code></span></p></td>
-<td>A curve-to operation
+<td>A curve-to operation, since 1.0
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-PATH-CLOSE-PATH:CAPS"></a><span class="term"><code class="literal">CAIRO_PATH_CLOSE_PATH</code></span></p></td>
-<td>A close-path operation
+<td>A close-path operation, since 1.0
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -332,7 +335,7 @@ over the returned data structure.
 </p>
 <p>
 This function will always return a valid pointer, but the result
-will have no data (<code class="literal">data==<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></code> and
+will have no data (<code class="literal">data==<code class="literal">NULL</code></code> and
 <code class="literal">num_data==0</code>), if either of the following
 conditions hold:
 </p>
@@ -363,6 +366,7 @@ with it.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -383,7 +387,7 @@ series of <a class="link" href="cairo-Paths.html#CAIRO-PATH-LINE-TO:CAPS"><code 
 </p>
 <p>
 This function will always return a valid pointer, but the result
-will have no data (<code class="literal">data==<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></code> and
+will have no data (<code class="literal">data==<code class="literal">NULL</code></code> and
 <code class="literal">num_data==0</code>), if either of the following
 conditions hold:
 </p>
@@ -414,6 +418,7 @@ with it.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -438,6 +443,7 @@ manually as well.
 <a class="link" href="cairo-Paths.html#cairo-copy-path-flat" title="cairo_copy_path_flat ()"><code class="function">cairo_copy_path_flat()</code></a>.</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -465,6 +471,7 @@ initialized to <a class="link" href="cairo-Error-handling.html#CAIRO-STATUS-SUCC
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -541,6 +548,7 @@ Some functions unset the current path and as a result, current point:
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -557,6 +565,7 @@ no current point.
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -623,6 +632,7 @@ point.
 <td>a cairo context</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -722,6 +732,7 @@ in the box given by <em class="parameter"><code>x</code></em>, <em class="parame
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -772,6 +783,7 @@ direction of the arc between the two angles.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -827,6 +839,7 @@ cairo_move_to(<em class="parameter"><code>cr</code></em>, <em class="parameter">
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -860,6 +873,7 @@ this function will behave as cairo_move_to(<em class="parameter"><code>cr</code>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -888,6 +902,7 @@ Begin a new sub-path. After this call the current point will be (<em class="para
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -950,6 +965,7 @@ This function is logically equivalent to:
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -979,6 +995,7 @@ path if filled, achieves an effect similar to that of
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1017,11 +1034,12 @@ serious text-using applications. See <a class="link" href="cairo-Paths.html#cair
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>utf8</code></em> :</span></p></td>
-<td>a NUL-terminated string of text encoded in UTF-8, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>a NUL-terminated string of text encoded in UTF-8, or <code class="literal">NULL</code>
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1084,6 +1102,7 @@ so will cause <em class="parameter"><code>cr</code></em> to shutdown with a stat
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1123,6 +1142,7 @@ so will cause <em class="parameter"><code>cr</code></em> to shutdown with a stat
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1160,6 +1180,7 @@ so will cause <em class="parameter"><code>cr</code></em> to shutdown with a stat
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">

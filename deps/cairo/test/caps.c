@@ -45,14 +45,13 @@ make_path (cairo_t *cr)
 }
 
 static cairo_test_status_t
-draw (cairo_t *cr, int width, int height)
+draw (cairo_t *cr)
 {
     cairo_save (cr);
     cairo_set_source_rgb (cr, 1.0, 1.0, 1.0); /* white */
     cairo_paint (cr);
     cairo_restore (cr);
 
-    cairo_set_line_width (cr, LINE_WIDTH);
     cairo_translate (cr, PAD + SIZE / 2., PAD + SIZE / 2.);
 
     cairo_set_line_cap (cr, CAIRO_LINE_CAP_BUTT);
@@ -77,11 +76,63 @@ draw (cairo_t *cr, int width, int height)
     return CAIRO_TEST_SUCCESS;
 }
 
+static cairo_test_status_t
+draw_10 (cairo_t *cr, int width, int height)
+{
+    cairo_set_line_width (cr, LINE_WIDTH);
+    return draw (cr);
+}
+
+static cairo_test_status_t
+draw_2 (cairo_t *cr, int width, int height)
+{
+    cairo_set_line_width (cr, 2);
+    return draw (cr);
+}
+
+static cairo_test_status_t
+draw_1 (cairo_t *cr, int width, int height)
+{
+    cairo_set_line_width (cr, 1);
+    return draw (cr);
+}
+
+static cairo_test_status_t
+draw_05 (cairo_t *cr, int width, int height)
+{
+    cairo_set_line_width (cr, 0.5);
+    return draw (cr);
+}
+
 CAIRO_TEST (caps,
 	    "Test caps",
 	    "stroke caps", /* keywords */
 	    NULL, /* requirements */
 	    PAD + SIZE + PAD,
 	    3 * (PAD + SIZE) + PAD,
-	    NULL, draw)
+	    NULL, draw_10)
+
+CAIRO_TEST (caps_2,
+	    "Test normal caps",
+	    "stroke caps", /* keywords */
+	    NULL, /* requirements */
+	    PAD + SIZE + PAD,
+	    3 * (PAD + SIZE) + PAD,
+	    NULL, draw_2)
+
+CAIRO_TEST (caps_1,
+	    "Test hairline caps",
+	    "stroke caps", /* keywords */
+	    NULL, /* requirements */
+	    PAD + SIZE + PAD,
+	    3 * (PAD + SIZE) + PAD,
+	    NULL, draw_1)
+
+CAIRO_TEST (caps_05,
+	    "Test fine caps",
+	    "stroke caps", /* keywords */
+	    NULL, /* requirements */
+	    PAD + SIZE + PAD,
+	    3 * (PAD + SIZE) + PAD,
+	    NULL, draw_05)
 

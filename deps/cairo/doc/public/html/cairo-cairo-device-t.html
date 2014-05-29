@@ -331,7 +331,7 @@ any type, but some backends also provide type-specific functions
 that must only be called with a device of the appropriate
 type. These functions have names that begin with
 <code class="literal">cairo_<span class="emphasis"><em>type</em></span>_device</code> such as
-<code class="function">cairo_xcb_device_debug_cap_xrender_version()</code>.
+<a class="link" href="cairo-XCB-Surfaces.html#cairo-xcb-device-debug-cap-xrender-version" title="cairo_xcb_device_debug_cap_xrender_version ()"><code class="function">cairo_xcb_device_debug_cap_xrender_version()</code></a>.
 </p>
 <p>
 The behavior of calling a type-specific function with a device of
@@ -345,32 +345,32 @@ New entries may be added in future versions.
 <tbody>
 <tr>
 <td><p><a name="CAIRO-DEVICE-TYPE-DRM:CAPS"></a><span class="term"><code class="literal">CAIRO_DEVICE_TYPE_DRM</code></span></p></td>
-<td>The device is of type Direct Render Manager
+<td>The device is of type Direct Render Manager, since 1.10
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-DEVICE-TYPE-GL:CAPS"></a><span class="term"><code class="literal">CAIRO_DEVICE_TYPE_GL</code></span></p></td>
-<td>The device is of type OpenGL
+<td>The device is of type OpenGL, since 1.10
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-DEVICE-TYPE-SCRIPT:CAPS"></a><span class="term"><code class="literal">CAIRO_DEVICE_TYPE_SCRIPT</code></span></p></td>
-<td>The device is of type script
+<td>The device is of type script, since 1.10
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-DEVICE-TYPE-XCB:CAPS"></a><span class="term"><code class="literal">CAIRO_DEVICE_TYPE_XCB</code></span></p></td>
-<td>The device is of type xcb
+<td>The device is of type xcb, since 1.10
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-DEVICE-TYPE-XLIB:CAPS"></a><span class="term"><code class="literal">CAIRO_DEVICE_TYPE_XLIB</code></span></p></td>
-<td>The device is of type xlib
+<td>The device is of type xlib, since 1.10
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-DEVICE-TYPE-XML:CAPS"></a><span class="term"><code class="literal">CAIRO_DEVICE_TYPE_XML</code></span></p></td>
-<td>The device is of type XML
+<td>The device is of type XML, since 1.10
 </td>
 </tr>
 <tr>
@@ -385,7 +385,7 @@ New entries may be added in future versions.
 </tr>
 <tr>
 <td><p><a name="CAIRO-DEVICE-TYPE-INVALID:CAPS"></a><span class="term"><code class="literal">CAIRO_DEVICE_TYPE_INVALID</code></span></p></td>
-<td>The device is invalid
+<td>The device is invalid, since 1.10
 </td>
 </tr>
 </tbody>
@@ -449,7 +449,7 @@ object is a nil object, 0 will be returned.</td>
                                                          <em class="parameter"><code><a class="link" href="cairo-Types.html#cairo-destroy-func-t" title="cairo_destroy_func_t ()"><span class="type">cairo_destroy_func_t</span></a> destroy</code></em>);</pre>
 <p>
 Attach user data to <em class="parameter"><code>device</code></em>.  To remove user data from a surface,
-call this function with the key that was used to set it and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+call this function with the key that was used to set it and <code class="literal">NULL</code>
 for <em class="parameter"><code>data</code></em>.
 </p>
 <div class="variablelist"><table border="0">
@@ -493,7 +493,7 @@ slot could not be allocated for the user data.</td>
 <p>
 Return user data previously attached to <em class="parameter"><code>device</code></em> using the
 specified key.  If no user data has been attached with the given
-key this function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+key this function returns <code class="literal">NULL</code>.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -510,7 +510,7 @@ attached to</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the user data previously attached or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+<td>the user data previously attached or <code class="literal">NULL</code>.</td>
 </tr>
 </tbody>
 </table></div>

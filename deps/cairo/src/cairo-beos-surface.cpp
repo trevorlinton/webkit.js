@@ -41,6 +41,7 @@
 #include "cairo-beos.h"
 
 #include "cairo-error-private.h"
+#include "cairo-image-surface-inline.h"
 
 #include <new>
 
@@ -61,7 +62,7 @@
  *
  * The BeOS surface is used to render cairo graphics to BeOS views 
  * and bitmaps.
- */
+ **/
 
 #define CAIRO_INT_STATUS_SUCCESS (cairo_int_status_t)(CAIRO_STATUS_SUCCESS)
 
@@ -947,6 +948,8 @@ _cairo_beos_surface_create_internal (BView*   view,
  * The caller must ensure that the view does not get deleted before the surface.
  * If the view is attached to a bitmap rather than an on-screen window, use
  * cairo_beos_surface_create_for_bitmap() instead of this function.
+ *
+ * Since: TBD
  **/
 cairo_surface_t *
 cairo_beos_surface_create (BView* view)
@@ -970,6 +973,8 @@ cairo_beos_surface_create (BView* view)
  *
  * For now, only views that draw to the entire area of bmp are supported.
  * The view must already be attached to the bitmap.
+ *
+ * Since: TBD
  **/
 cairo_surface_t *
 cairo_beos_surface_create_for_bitmap (BView*   view,

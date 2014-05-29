@@ -37,6 +37,7 @@
 #include "cairoint.h"
 
 #include "cairo-private.h"
+#include "cairo-backend-private.h"
 #include "cairo-error-private.h"
 #include "cairo-path-private.h"
 #include "cairo-path-fixed-private.h"
@@ -48,7 +49,7 @@
  *
  * Paths are the most basic drawing tools and are primarily used to implicitly
  * generate simple masks.
- */
+ **/
 
 static const cairo_path_t _cairo_path_nil = { CAIRO_STATUS_NO_MEMORY, NULL, 0 };
 
@@ -152,7 +153,7 @@ _cpp_move_to (void *closure,
     x = _cairo_fixed_to_double (point->x);
     y = _cairo_fixed_to_double (point->y);
 
-    cairo_device_to_user (cpp->cr, &x, &y);
+    _cairo_backend_to_user (cpp->cr, &x, &y);
 
     data->header.type = CAIRO_PATH_MOVE_TO;
     data->header.length = 2;
@@ -177,7 +178,7 @@ _cpp_line_to (void *closure,
     x = _cairo_fixed_to_double (point->x);
     y = _cairo_fixed_to_double (point->y);
 
-    cairo_device_to_user (cpp->cr, &x, &y);
+    _cairo_backend_to_user (cpp->cr, &x, &y);
 
     data->header.type = CAIRO_PATH_LINE_TO;
     data->header.length = 2;
@@ -205,15 +206,15 @@ _cpp_curve_to (void			*closure,
 
     x1 = _cairo_fixed_to_double (p1->x);
     y1 = _cairo_fixed_to_double (p1->y);
-    cairo_device_to_user (cpp->cr, &x1, &y1);
+    _cairo_backend_to_user (cpp->cr, &x1, &y1);
 
     x2 = _cairo_fixed_to_double (p2->x);
     y2 = _cairo_fixed_to_double (p2->y);
-    cairo_device_to_user (cpp->cr, &x2, &y2);
+    _cairo_backend_to_user (cpp->cr, &x2, &y2);
 
     x3 = _cairo_fixed_to_double (p3->x);
     y3 = _cairo_fixed_to_double (p3->y);
-    cairo_device_to_user (cpp->cr, &x3, &y3);
+    _cairo_backend_to_user (cpp->cr, &x3, &y3);
 
     data->header.type = CAIRO_PATH_CURVE_TO;
     data->header.length = 4;
@@ -358,6 +359,8 @@ _cairo_path_create_internal (cairo_path_fixed_t *path_fixed,
  * pointer to a #cairo_path_t returned by a cairo function. Any path
  * that is created manually (ie. outside of cairo) should be destroyed
  * manually as well.
+ *
+ * Since: 1.0
  **/
 void
 cairo_path_destroy (cairo_path_t *path)

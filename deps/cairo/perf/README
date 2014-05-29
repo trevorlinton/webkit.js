@@ -1,26 +1,28 @@
-This is cairo's performance test suite.
+This is cairo's micro-benchmark performance test suite.
 
-One of the simplest ways to run the performance suite is:
+One of the simplest ways to run this performance suite is:
 
     make perf
 
 which will give a report of the speed of each individual test. See
 more details on other options for running the suite below.
 
-Running the cairo performance suite
------------------------------------
-The performance suite is composed of two types of tests, micro- and
-macro-benchmarks. The micro-benchmarks are a series of hand-written,
-short, synthetic tests that measure the speed of doing a simple
-operation such as painting a surface or showing glyphs. These aim to
-give very good feedback on whether a performance related patch is
-successful without causing any performance degradations elsewhere. The
-second type of benchmark consists of replaying a cairo-trace from a
-large application during typical usage. These aim to give an overall
-feel as to whether cairo is faster for everyday use.
+A macro test suite (with full traces and more intensive benchmarks) is
+also available; for this, see http://cgit.freedesktop.org/cairo-traces.
+The macro-benchmarks are better measures of actual real-world
+performance, and should be preferred over the micro-benchmarks (and over
+make perf) for identifying performance regressions or improvements.  If
+you copy or symlink this repository at cairo/perf/cairo-traces, then
+make perf will run those tests as well.
 
 Running the micro-benchmarks
 ----------------------------
+The micro-benchmark performance suite is composed of a series of
+hand-written, short, synthetic tests that measure the speed of doing a
+simple operation such as painting a surface or showing glyphs. These aim
+to give very good feedback on whether a performance related patch is
+successful without causing any performance degradations elsewhere.
+
 The micro-benchmarks are compiled into a single executable called
 cairo-perf-micro, which is what "make perf" executes. Some
 examples of running it:
@@ -40,25 +42,6 @@ Raw results aren't useful for reading directly, but are quite useful
 when using cairo-perf-diff to compare separate runs (see more
 below). The advantage of using the raw mode is that test runs can be
 generated incrementally and appended to existing reports.
-
-Running the macro-benchmarks
-----------------------------
-The macro-benchmarks are run by a single program called
-cairo-perf-trace, which is also executed by "make perf".
-cairo-perf-trace loops over the series of traces stored beneath
-cairo-traces/. cairo-perf-trace produces the same output and takes the
-same arguments as cairo-perf-micro.  Some examples of running it:
-
-    # Report on all tests with default number of iterations:
-    ./cairo-perf-trace
-
-    # Report on 100 iterations of all firefox tests:
-    ./cairo-perf-trace -i 100 firefox
-
-    # Generate raw results for 10 iterations into cairo.perf
-    ./cairo-perf-trace -r -i 10 > cairo.perf
-    # Append 10 more iterations of the poppler tests
-    ./cairo-perf-trace -r -i 10 poppler >> cairo.perf
 
 Generating comparisons of separate runs
 ---------------------------------------
@@ -227,43 +210,6 @@ added:
     64x64.
 
 
-How to record new traces
------------------------
-Using cairo-trace you can record the exact sequence of graphic operations
-made by an application and replay them later. These traces can then be
-used by cairo-perf-trace to benchmark the various backends and patches.
-
-To record a trace:
-$ cairo-trace --no-mark-dirty --no-callers $APPLICATION [$ARGV]
-
---no-mark-dirty is useful for applications that are paranoid about
-surfaces being modified by external plugins outside of their control, the
-prime example here is firefox.
---no-callers disables the symbolic caller lookup and so speeds tracing
-(dramatically for large c++ programs) and similarly speeds up the replay
-as the files are much smaller.
-
-The output file will be called $APPLICATION.$PID.trace, the actual path
-written to will be displayed on the terminal.
-
-Alternatively you can use:
-$ cairo-trace --profile $APPLICATION [$ARGV]
-which automatically passes --no-mark-dirty and --no-callers and compresses
-the resultant trace using LZMA. To use the trace with cairo-perf-trace you
-will first need to decompress it.
-
-Then to use cairo-perf-trace:
-$ ./cairo-perf-trace $APPLICATION.$PID.trace
-
-Alternatively you can put the trace into perf/cairo-traces, or set
-CAIRO_TRACE_DIR to point to your trace directory, and the trace will be
-included in the performance tests.
-
-If you record an interesting trace, please consider sharing it by compressing
-it, LZMA preferred, and posting a link to cairo@cairographics.org, or by
-uploading it to git.cairographics.org/cairo-traces.
-
-
 How to run cairo-perf-diff on WINDOWS
 -------------------------------------
 This section explains the specifics of running cairo-perf-diff under
@@ -286,3 +232,8 @@ From your mingw32 window, go to your cairo/perf directory and run the
 cairo-perf-diff script with the right arguments.
 
 Thanks for your contributions and have fun with cairo!
+
+TODO
+----
+Add a control language for crafting and running small sets of micro
+benchmarks.

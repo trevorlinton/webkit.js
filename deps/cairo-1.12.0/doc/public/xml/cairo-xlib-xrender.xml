@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<refentry id="cairo-XLib/XRender-Backend">
+<refmeta>
+<refentrytitle role="top_of_page" id="cairo-XLib/XRender-Backend.top_of_page">XLib/XRender Backend</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  CAIRO Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>XLib/XRender Backend</refname>
+<refpurpose>X Window System rendering using XLib and the X Render extension</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cairo-XLib/XRender-Backend.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="CAIRO-HAS-XLIB-XRENDER-SURFACE:CAPS">CAIRO_HAS_XLIB_XRENDER_SURFACE</link>
+<link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   <link linkend="cairo-xlib-surface-create-with-xrender-format">cairo_xlib_surface_create_with_xrender_format</link>
+                                                        (<parameter><link linkend="Display"><type>Display</type></link> *dpy</parameter>,
+                                                         <parameter><link linkend="Drawable"><type>Drawable</type></link> drawable</parameter>,
+                                                         <parameter><link linkend="Screen"><type>Screen</type></link> *screen</parameter>,
+                                                         <parameter><link linkend="XRenderPictFormat"><type>XRenderPictFormat</type></link> *format</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);
+<link linkend="XRenderPictFormat"><returnvalue>XRenderPictFormat</returnvalue></link> * <link linkend="cairo-xlib-surface-get-xrender-format">cairo_xlib_surface_get_xrender_format</link>
+                                                        (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="cairo-XLib/XRender-Backend.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+The XLib surface is used to render cairo graphics to X Window System
+windows and pixmaps using the XLib and Xrender libraries.
+</para>
+<para>
+Note that the XLib surface automatically takes advantage of X Render extension
+if it is available.
+</para>
+</refsect1>
+<refsect1 id="cairo-XLib/XRender-Backend.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="CAIRO-HAS-XLIB-XRENDER-SURFACE:CAPS" role="macro">
+<title>CAIRO_HAS_XLIB_XRENDER_SURFACE</title>
+<indexterm zone="CAIRO-HAS-XLIB-XRENDER-SURFACE:CAPS"><primary sortas="HAS_XLIB_XRENDER_SURFACE">CAIRO_HAS_XLIB_XRENDER_SURFACE</primary></indexterm>
+<programlisting>#define CAIRO_HAS_XLIB_XRENDER_SURFACE 1
+</programlisting>
+<para>
+Defined if the XLib/XRender surface functions are available.
+This macro can be used to conditionally compile backend-specific code.
+</para></refsect2>
+<refsect2 id="cairo-xlib-surface-create-with-xrender-format" role="function">
+<title>cairo_xlib_surface_create_with_xrender_format ()</title>
+<indexterm zone="cairo-xlib-surface-create-with-xrender-format"><primary sortas="xlib_surface_create_with_xrender_format">cairo_xlib_surface_create_with_xrender_format</primary></indexterm>
+<programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_xlib_surface_create_with_xrender_format
+                                                        (<parameter><link linkend="Display"><type>Display</type></link> *dpy</parameter>,
+                                                         <parameter><link linkend="Drawable"><type>Drawable</type></link> drawable</parameter>,
+                                                         <parameter><link linkend="Screen"><type>Screen</type></link> *screen</parameter>,
+                                                         <parameter><link linkend="XRenderPictFormat"><type>XRenderPictFormat</type></link> *format</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> width</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> height</parameter>);</programlisting>
+<para>
+Creates an Xlib surface that draws to the given drawable.
+The way that colors are represented in the drawable is specified
+by the provided picture format.
+</para>
+<para>
+Note: If <parameter>drawable</parameter> is a Window, then the function
+<link linkend="cairo-xlib-surface-set-size"><function>cairo_xlib_surface_set_size()</function></link> must be called whenever the size of the
+window changes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>dpy</parameter>&#160;:</term>
+<listitem><simpara>an X Display</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>drawable</parameter>&#160;:</term>
+<listitem><simpara>an X Drawable, (a Pixmap or a Window)</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>screen</parameter>&#160;:</term>
+<listitem><simpara>the X Screen associated with <parameter>drawable</parameter></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>the picture format to use for drawing to <parameter>drawable</parameter>. The depth
+of <parameter>format</parameter> must match the depth of the drawable.</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara>the current width of <parameter>drawable</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara>the current height of <parameter>drawable</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the newly created surface</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-xlib-surface-get-xrender-format" role="function" condition="since:1.6">
+<title>cairo_xlib_surface_get_xrender_format ()</title>
+<indexterm zone="cairo-xlib-surface-get-xrender-format" role="1.6"><primary sortas="xlib_surface_get_xrender_format">cairo_xlib_surface_get_xrender_format</primary></indexterm>
+<programlisting><link linkend="XRenderPictFormat"><returnvalue>XRenderPictFormat</returnvalue></link> * cairo_xlib_surface_get_xrender_format
+                                                        (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
+<para>
+Gets the X Render picture format that <parameter>surface</parameter> uses for rendering with the
+X Render extension. If the surface was created by
+<link linkend="cairo-xlib-surface-create-with-xrender-format"><function>cairo_xlib_surface_create_with_xrender_format()</function></link> originally, the return
+value is the format passed to that constructor.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>an xlib surface</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the XRenderPictFormat* associated with <parameter>surface</parameter>,
+or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if the surface is not an xlib surface
+or if the X Render extension is not available.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.6</para></refsect2>
+
+</refsect1>
+<refsect1 id="cairo-XLib/XRender-Backend.see-also">
+<title>See Also</title>
+<link linkend="cairo-surface-t"><type>cairo_surface_t</type></link>
+</refsect1>
+
+</refentry>

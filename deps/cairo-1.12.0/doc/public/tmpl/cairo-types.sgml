@@ -1,0 +1,53 @@
+<!-- ##### SECTION Title ##### -->
+cairo-types
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### TYPEDEF cairo_bool_t ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT cairo_user_data_key_t ##### -->
+<para>
+
+</para>
+
+@unused: 
+
+<!-- ##### USER_FUNCTION cairo_destroy_func_t ##### -->
+<para>
+
+</para>
+
+@data: 
+
+
+<!-- ##### STRUCT cairo_rectangle_int_t ##### -->
+<para>
+
+</para>
+
+@x: 
+@y: 
+@width: 
+@height: 
+

@@ -106,9 +106,9 @@ static cairo_bool_t is_win98 (void)
     os.dwOSVersionInfoSize = sizeof (os);
     GetVersionEx (&os);
 
-    return (VER_PLATFORM_WIN32_WINDOWS != os.dwPlatformId &&
-	    os.dwMajorVersion != 4 &&
-	    os.dwMinorVersion != 10);
+    return (VER_PLATFORM_WIN32_WINDOWS == os.dwPlatformId &&
+	    os.dwMajorVersion == 4 &&
+	    os.dwMinorVersion == 10);
 }
 
 static void *

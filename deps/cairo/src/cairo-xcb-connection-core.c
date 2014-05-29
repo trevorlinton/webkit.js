@@ -159,20 +159,20 @@ _cairo_xcb_connection_put_image (cairo_xcb_connection_t *connection,
     }
 }
 
-void
-_cairo_xcb_connection_put_subimage (cairo_xcb_connection_t *connection,
-				    xcb_drawable_t dst,
-				    xcb_gcontext_t gc,
-				    int16_t src_x,
-				    int16_t src_y,
-				    uint16_t width,
-				    uint16_t height,
-				    uint16_t cpp,
-				    int stride,
-				    int16_t dst_x,
-				    int16_t dst_y,
-				    uint8_t depth,
-				    void *_data)
+static void
+_cairo_xcb_connection_do_put_subimage (cairo_xcb_connection_t *connection,
+				       xcb_drawable_t dst,
+				       xcb_gcontext_t gc,
+				       int16_t src_x,
+				       int16_t src_y,
+				       uint16_t width,
+				       uint16_t height,
+				       uint16_t cpp,
+				       int stride,
+				       int16_t dst_x,
+				       int16_t dst_y,
+				       uint8_t depth,
+				       void *_data)
 {
     xcb_protocol_request_t xcb_req = {
 	0 /* count */,
@@ -237,6 +237,50 @@ _cairo_xcb_connection_put_subimage (cairo_xcb_connection_t *connection,
 
     if (vec != vec_stack)
 	free (vec);
+}
+
+void
+_cairo_xcb_connection_put_subimage (cairo_xcb_connection_t *connection,
+				    xcb_drawable_t dst,
+				    xcb_gcontext_t gc,
+				    int16_t src_x,
+				    int16_t src_y,
+				    uint16_t width,
+				    uint16_t height,
+				    uint16_t cpp,
+				    int stride,
+				    int16_t dst_x,
+				    int16_t dst_y,
+				    uint8_t depth,
+				    void *_data)
+{
+    const uint32_t req_size = sizeof(xcb_put_image_request_t);
+    uint32_t length = height * cpp * width;
+    uint32_t len = (req_size + length) >> 2;
+
+    if (len < connection->maximum_request_length) {
+	_cairo_xcb_connection_do_put_subimage (connection, dst, gc, src_x, src_y,
+			width, height, cpp, stride, dst_x, dst_y, depth, _data);
+    } else {
+	int rows = (connection->maximum_request_length - req_size - 4) / (cpp * width);
+	if (rows > 0) {
+	    do {
+		if (rows > height)
+		    rows = height;
+
+		length = rows * cpp * width;
+
+		_cairo_xcb_connection_do_put_subimage (connection, dst, gc, src_x, src_y,
+			width, rows, cpp, stride, dst_x, dst_y, depth, _data);
+
+		height -= rows;
+		dst_y += rows;
+		_data = (char *) _data + stride * rows;
+	    } while (height);
+	} else {
+	    ASSERT_NOT_REACHED;
+	}
+    }
 }
 
 cairo_status_t

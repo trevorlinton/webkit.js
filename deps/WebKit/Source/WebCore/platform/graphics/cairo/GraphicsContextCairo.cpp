@@ -74,7 +74,6 @@ namespace WebCore {
 static inline void fillRectWithColor(cairo_t* cr, const FloatRect& rect, const Color& color)
 {
 		if (!color.alpha() && cairo_get_operator(cr) == CAIRO_OPERATOR_OVER) {
-			fprintf(stdout, "-- bailing out of fillRectWithColor: alpha is: %d\n",color.alpha());
 				return;
     }
 		setSourceRGBAFromColor(cr, color);
@@ -187,14 +186,11 @@ GraphicsContext::GraphicsContext(cairo_t* cr)
 
 void GraphicsContext::platformInit(PlatformContextCairo* platformContext)
 {
-	webkitTrace();
     m_data = new GraphicsContextPlatformPrivate(platformContext);
     if (platformContext)
         m_data->syncContext(platformContext->cr());
-    else {
-			fprintf(stdout, "SETTING PAINT TO DISABLED!! ************\n");
+    else
         setPaintingDisabled(true);
-		}
 }
 
 void GraphicsContext::platformDestroy()
@@ -239,7 +235,6 @@ void GraphicsContext::restorePlatformState()
 // Draws a filled rectangle with a stroked border.
 void GraphicsContext::drawRect(const IntRect& rect)
 {
-	fprintf(stdout, "-------drawRect %i %i %i %i\n",rect.x(),rect.y(),rect.width(),rect.height());
     if (paintingDisabled())
         return;
 
@@ -354,7 +349,6 @@ void GraphicsContext::drawLine(const IntPoint& point1, const IntPoint& point2)
 // This method is only used to draw the little circles used in lists.
 void GraphicsContext::drawEllipse(const IntRect& rect)
 {
-	fprintf(stdout, "-------drawEllipse\n");
     if (paintingDisabled())
         return;
 
@@ -382,8 +376,6 @@ void GraphicsContext::drawEllipse(const IntRect& rect)
 
 void GraphicsContext::drawConvexPolygon(size_t npoints, const FloatPoint* points, bool shouldAntialias)
 {
-	fprintf(stdout, "-------drawConvexPolygon\n");
-
     if (paintingDisabled())
         return;
 
@@ -437,7 +429,6 @@ void GraphicsContext::clipConvexPolygon(size_t numPoints, const FloatPoint* poin
 
 void GraphicsContext::fillPath(const Path& path)
 {
- 	fprintf(stdout, "-------fillPath\n");
    if (paintingDisabled() || path.isEmpty())
         return;
 
@@ -458,10 +449,8 @@ void GraphicsContext::strokePath(const Path& path)
 
 void GraphicsContext::fillRect(const FloatRect& rect)
 {
-	webkitTrace();
     if (paintingDisabled() || rect.width()==0 || rect.height()==0)
         return;
-	fprintf(stdout, "-------fillRect at (xywh): %f %f %f %f\n",rect.x(),rect.y(),rect.width(),rect.height());
 
     cairo_t* cr = platformContext()->cr();
     cairo_rectangle(cr, rect.x(), rect.y(), rect.width(), rect.height());
@@ -470,10 +459,8 @@ void GraphicsContext::fillRect(const FloatRect& rect)
 
 void GraphicsContext::fillRect(const FloatRect& rect, const Color& color, ColorSpace)
 {
-	webkitTrace();
     if (paintingDisabled() || rect.width()==0 || rect.height()==0)
         return;
-	fprintf(stdout, "-------fillRect at (xywh): %f %f %f %f color (rgba): %d %d %d %d\n",rect.x(),rect.y(),rect.width(),rect.height(),color.red(),color.green(),color.blue(),color.alpha());
 
     if (hasShadow())
         platformContext()->shadowBlur().drawRectShadow(this, rect, RoundedRect::Radii());
@@ -483,10 +470,8 @@ void GraphicsContext::fillRect(const FloatRect& rect, const Color& color, ColorS
 
 void GraphicsContext::clip(const FloatRect& rect)
 {
-	webkitTrace();
     if (paintingDisabled() || rect.width()==0 || rect.height()==0)
         return;
-	fprintf(stdout, "-------clipping at: %f %f %f %f\n",rect.x(),rect.y(),rect.width(),rect.height());
 
     cairo_t* cr = platformContext()->cr();
     cairo_rectangle(cr, rect.x(), rect.y(), rect.width(), rect.height());
@@ -738,7 +723,6 @@ void GraphicsContext::translate(float x, float y)
 
 void GraphicsContext::setPlatformFillColor(const Color&, ColorSpace)
 {
-	fprintf(stdout, "-------setPlatformFillColor\n");
     // Cairo contexts can't hold separate fill and stroke colors
     // so we set them just before we actually fill or stroke
 }
@@ -815,7 +799,6 @@ void GraphicsContext::setCTM(const AffineTransform& transform)
 
 void GraphicsContext::setPlatformShadow(FloatSize const& size, float, Color const&, ColorSpace)
 {
-	fprintf(stdout, "-------setPlatformShadow\n");
     if (paintingDisabled())
         return;
 
@@ -1046,7 +1029,6 @@ void GraphicsContext::clipOut(const IntRect& r)
 
 void GraphicsContext::fillRoundedRect(const IntRect& r, const IntSize& topLeft, const IntSize& topRight, const IntSize& bottomLeft, const IntSize& bottomRight, const Color& color, ColorSpace)
 {
-	fprintf(stdout, "-------fillRoundedRect\n");
     if (paintingDisabled())
         return;
 

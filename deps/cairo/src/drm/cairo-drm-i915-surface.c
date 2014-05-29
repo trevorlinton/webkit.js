@@ -716,10 +716,14 @@ i915_surface_batch_flush (i915_surface_t *surface)
 }
 
 static cairo_status_t
-i915_surface_flush (void *abstract_surface)
+i915_surface_flush (void *abstract_surface,
+		    unsigned flags)
 {
     i915_surface_t *surface = abstract_surface;
     cairo_status_t status;
+
+    if (flags)
+	return CAIRO_STATUS_SUCCESS;
 
     if (surface->intel.drm.fallback == NULL) {
 	if (surface->intel.drm.base.finished) {
@@ -736,7 +740,7 @@ i915_surface_flush (void *abstract_surface)
 	return i915_surface_batch_flush (surface);
     }
 
-    return intel_surface_flush (abstract_surface);
+    return intel_surface_flush (abstract_surface, flags);
 }
 
 /* rasterisation */

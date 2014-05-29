@@ -209,6 +209,16 @@ _cairo_gstate_user_to_backend (cairo_gstate_t *gstate, double *x, double *y)
 }
 
 cairo_private void
+_do_cairo_gstate_user_to_backend_distance (cairo_gstate_t *gstate, double *x, double *y);
+
+static inline void
+_cairo_gstate_user_to_backend_distance (cairo_gstate_t *gstate, double *x, double *y)
+{
+    if (! gstate->is_identity)
+	_do_cairo_gstate_user_to_backend_distance (gstate, x, y);
+}
+
+cairo_private void
 _do_cairo_gstate_backend_to_user (cairo_gstate_t *gstate, double *x, double *y);
 
 static inline void
@@ -216,6 +226,16 @@ _cairo_gstate_backend_to_user (cairo_gstate_t *gstate, double *x, double *y)
 {
     if (! gstate->is_identity)
 	_do_cairo_gstate_backend_to_user (gstate, x, y);
+}
+
+cairo_private void
+_do_cairo_gstate_backend_to_user_distance (cairo_gstate_t *gstate, double *x, double *y);
+
+static inline void
+_cairo_gstate_backend_to_user_distance (cairo_gstate_t *gstate, double *x, double *y)
+{
+    if (! gstate->is_identity)
+	_do_cairo_gstate_backend_to_user_distance (gstate, x, y);
 }
 
 cairo_private void

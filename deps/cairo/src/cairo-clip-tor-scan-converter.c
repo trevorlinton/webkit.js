@@ -1822,7 +1822,7 @@ _cairo_clip_tor_scan_converter_create (cairo_clip_t *clip,
 					  &polygon->edges[i],
 					  FALSE);
 
-    status = (cairo_status_t)_cairo_clip_get_polygon (clip,
+    status = _cairo_clip_get_polygon (clip,
 				      &clipper,
 				      &self->clip_fill_rule,
 				      &self->clip_antialias);

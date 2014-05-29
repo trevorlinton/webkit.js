@@ -8,7 +8,6 @@
 
 #include <stdio.h>
 
-#ifndef TARGET_EMSCRIPTEN
 int
 main (void)
 {
@@ -23,4 +22,3 @@ main (void)
     return 1;
   }
 }
-#endif

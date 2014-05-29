@@ -76,9 +76,9 @@ other application to draw "funky" fonts.
 </refsect1>
 <refsect1 id="cairo-User-Fonts.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="CAIRO-HAS-USER-FONT:CAPS" role="macro">
+<refsect2 id="CAIRO-HAS-USER-FONT:CAPS" role="macro" condition="since:1.8">
 <title>CAIRO_HAS_USER_FONT</title>
-<indexterm zone="CAIRO-HAS-USER-FONT:CAPS"><primary sortas="HAS_USER_FONT">CAIRO_HAS_USER_FONT</primary></indexterm>
+<indexterm zone="CAIRO-HAS-USER-FONT:CAPS" role="1.8"><primary sortas="HAS_USER_FONT">CAIRO_HAS_USER_FONT</primary></indexterm>
 <programlisting>#define CAIRO_HAS_USER_FONT 1
 </programlisting>
 <para>
@@ -86,10 +86,7 @@ Defined if the user font backend is available.
 This macro can be used to conditionally compile backend-specific code.
 The user font backend is always built in versions of cairo that support
 this feature (1.8 and later).
-</para>
-<para>
-<parameter>Since</parameter>: 1.8
-</para></refsect2>
+</para><para role="since">Since 1.8</para></refsect2>
 <refsect2 id="cairo-user-scaled-font-init-func-t" role="function" condition="since:1.8">
 <title>cairo_user_scaled_font_init_func_t ()</title>
 <indexterm zone="cairo-user-scaled-font-init-func-t" role="1.8"><primary sortas="user_scaled_font_init_func_t">cairo_user_scaled_font_init_func_t</primary></indexterm>

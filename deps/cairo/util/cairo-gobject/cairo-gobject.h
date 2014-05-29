@@ -55,6 +55,10 @@ cairo_gobject_context_get_type (void);
 cairo_public GType
 cairo_gobject_device_get_type (void);
 
+#define CAIRO_GOBJECT_TYPE_MATRIX cairo_gobject_matrix_get_type ()
+cairo_public GType
+cairo_gobject_matrix_get_type (void);
+
 #define CAIRO_GOBJECT_TYPE_PATTERN cairo_gobject_pattern_get_type ()
 cairo_public GType
 cairo_gobject_pattern_get_type (void);
@@ -117,7 +121,7 @@ cairo_gobject_line_cap_get_type (void);
 cairo_public GType
 cairo_gobject_line_join_get_type (void);
 
-#define CAIRO_GOBJECT_TYPE_CLUSTER_FLAGS cairo_gobject_cluster_flags_get_type ()
+#define CAIRO_GOBJECT_TYPE_TEXT_CLUSTER_FLAGS cairo_gobject_text_cluster_flags_get_type ()
 cairo_public GType
 cairo_gobject_text_cluster_flags_get_type (void);
 
@@ -137,7 +141,9 @@ cairo_gobject_subpixel_order_get_type (void);
 cairo_public GType
 cairo_gobject_hint_style_get_type (void);
 
+/* historical accident */
 #define CAIRO_GOBJECT_TYPE_HNT_METRICS cairo_gobject_hint_metrics_get_type ()
+#define CAIRO_GOBJECT_TYPE_HINT_METRICS cairo_gobject_hint_metrics_get_type ()
 cairo_public GType
 cairo_gobject_hint_metrics_get_type (void);
 

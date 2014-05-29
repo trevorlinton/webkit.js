@@ -35,18 +35,11 @@ static PassRefPtr<cairo_surface_t> createSurfaceForBackingStore(PlatformWidget w
 #elif PLATFORM(JS)
 	webkitTrace();
 	SDL_Surface *sdl_surface = (SDL_Surface *)widget;
-	fprintf(stdout, "creating surface for backstore: %p with pixels: %p and w: %i h: %i pitch: %i\n",widget,sdl_surface,sdl_surface->w,sdl_surface->h,sdl_surface->pitch);
 	return adoptRef(cairo_image_surface_create_for_data((unsigned char*)sdl_surface->pixels,
 																			CAIRO_FORMAT_ARGB32,
 																			sdl_surface->w,
 																			sdl_surface->h,
 																			sdl_surface->pitch));
-	/*return adoptRef(cairo_image_surface_create_for_data (
-																											 (unsigned char *)widget->pixels,
-																											 CAIRO_FORMAT_ARGB32,
-																											 size.width(),
-																											 size.height(),
-																											 cairo_format_stride_for_width (CAIRO_FORMAT_ARGB32, size.width())));*/
 #else
 		UNUSED_PARAM(widget);
 		return adoptRef(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, size.width(), size.height()));

@@ -338,6 +338,7 @@ _cairo_test_mkdir (const char *path)
     return errno == EEXIST;
 }
 
+/* TODO: Split each ppi case out to its own CAIRO_TEST() test case */
 static cairo_test_status_t
 preamble (cairo_test_context_t *ctx)
 {

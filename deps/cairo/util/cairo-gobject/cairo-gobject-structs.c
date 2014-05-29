@@ -78,10 +78,12 @@ cairo_gobject_cairo_ ## name ## _copy (gpointer src) \
     return g_memdup (src, sizeof (cairo_ ## name ## _t)); \
 }
 
+COPY_FUNC (matrix)
+CAIRO_DEFINE_BOXED ("CairoMatrix", cairo_gobject_matrix, 
+                    cairo_gobject_cairo_matrix_copy, g_free);
 COPY_FUNC (rectangle)
 CAIRO_DEFINE_BOXED ("CairoRectangle", cairo_gobject_rectangle, 
                     cairo_gobject_cairo_rectangle_copy, g_free);
 COPY_FUNC (rectangle_int)
 CAIRO_DEFINE_BOXED ("CairoRectangleInt", cairo_gobject_rectangle_int, 
                     cairo_gobject_cairo_rectangle_int_copy, g_free);
-

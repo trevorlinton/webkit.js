@@ -186,7 +186,7 @@ test_report_parse (test_report_t *report,
 	    skip_space ();
 	} while (*s && *s != '\n');
 	report->stats.iterations = 0;
-	skip_char ('\n');
+	if (*s) skip_char ('\n');
     } else {
 	parse_double (report->stats.min_ticks);
 	skip_space ();

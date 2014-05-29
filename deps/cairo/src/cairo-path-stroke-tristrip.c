@@ -40,7 +40,7 @@
 #define _BSD_SOURCE /* for hypot() */
 #include "cairoint.h"
 
-#include "cairo-box-private.h"
+#include "cairo-box-inline.h"
 #include "cairo-boxes-private.h"
 #include "cairo-error-private.h"
 #include "cairo-path-fixed-private.h"
@@ -1052,7 +1052,7 @@ _cairo_path_fixed_stroke_to_tristrip (const cairo_path_fixed_t	*path,
     stroker.ctm_det_positive =
 	_cairo_matrix_compute_determinant (ctm) >= 0.0;
 
-    status = (cairo_int_status_t)_cairo_pen_init (&stroker.pen,
+    status = _cairo_pen_init (&stroker.pen,
 		              style->line_width / 2.0,
 			      tolerance, ctm);
     if (unlikely (status))
@@ -1072,7 +1072,7 @@ _cairo_path_fixed_stroke_to_tristrip (const cairo_path_fixed_t	*path,
 
     stroker.strip = strip;
 
-    status = (cairo_int_status_t)_cairo_path_fixed_interpret (path,
+    status = _cairo_path_fixed_interpret (path,
 					  move_to,
 					  line_to,
 					  curve_to,

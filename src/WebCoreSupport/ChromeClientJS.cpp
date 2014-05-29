@@ -21,245 +21,6 @@ using namespace WebCore;
 
 namespace WebCore {
 
-
-
-
-
-
-	/**
-	 * characters used for Base64 encoding
-	 */
-	static const char *BASE64_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
-	/**
-	 * encode three bytes using base64 (RFC 3548)
-	 *
-	 * @param triple three bytes that should be encoded
-	 * @param result buffer of four characters where the result is stored
-	 */
-	static void _base64_encode_triple(unsigned char triple[3], char result[4])
-	{
-    int tripleValue, i;
-
-    tripleValue = triple[0];
-    tripleValue *= 256;
-    tripleValue += triple[1];
-    tripleValue *= 256;
-    tripleValue += triple[2];
-
-    for (i=0; i<4; i++)
-    {
-			result[3-i] = BASE64_CHARS[tripleValue%64];
-			tripleValue /= 64;
-    }
-	}
-
-
-
-	/**
-	 * determine the value of a base64 encoding character
-	 *
-	 * @param base64char the character of which the value is searched
-	 * @return the value in case of success (0-63), -1 on failure
-	 */
-	static int _base64_char_value(char base64char)
-	{
-    if (base64char >= 'A' && base64char <= 'Z')
-			return base64char-'A';
-    if (base64char >= 'a' && base64char <= 'z')
-			return base64char-'a'+26;
-    if (base64char >= '0' && base64char <= '9')
-			return base64char-'0'+2*26;
-    if (base64char == '+')
-			return 2*26+10;
-    if (base64char == '/')
-			return 2*26+11;
-    return -1;
-	}
-
-	/**
-	 * decode a 4 char base64 encoded byte triple
-	 *
-	 * @param quadruple the 4 characters that should be decoded
-	 * @param result the decoded data
-	 * @return lenth of the result (1, 2 or 3), 0 on failure
-	 */
-	static int _base64_decode_triple(char quadruple[4], char *result)
-	{
-    int i, triple_value, bytes_to_decode = 3, only_equals_yet = 1;
-    int char_value[4];
-
-    for (i=0; i<4; i++)
-			char_value[i] = _base64_char_value(quadruple[i]);
-
-    /* check if the characters are valid */
-    for (i=3; i>=0; i--)
-    {
-			if (char_value[i]<0)
-			{
-				if (only_equals_yet && quadruple[i]=='=')
-				{
-					/* we will ignore this character anyway, make it something
-					 * that does not break our calculations */
-					char_value[i]=0;
-					bytes_to_decode--;
-					continue;
-				}
-				return 0;
-			}
-			/* after we got a real character, no other '=' are allowed anymore */
-			only_equals_yet = 0;
-    }
-
-    /* if we got "====" as input, bytes_to_decode is -1 */
-    if (bytes_to_decode < 0)
-			bytes_to_decode = 0;
-
-    /* make one big value out of the partial values */
-    triple_value = char_value[0];
-    triple_value *= 64;
-    triple_value += char_value[1];
-    triple_value *= 64;
-    triple_value += char_value[2];
-    triple_value *= 64;
-    triple_value += char_value[3];
-
-    /* break the big value into bytes */
-    for (i=bytes_to_decode; i<3; i++)
-			triple_value /= 256;
-    for (i=bytes_to_decode-1; i>=0; i--)
-    {
-			result[i] = triple_value%256;
-			triple_value /= 256;
-    }
-
-    return bytes_to_decode;
-	}
-
-	/**
-	 * decode base64 encoded data
-	 *
-	 * @param source the encoded data (zero terminated)
-	 * @param target pointer to the target buffer
-	 * @param targetlen length of the target buffer
-	 * @return length of converted data on success, -1 otherwise
-	 */
-	static size_t base64_decode(char *source, unsigned char *target, size_t targetlen)
-	{
-    char *src, *tmpptr;
-    char quadruple[4], tmpresult[3];
-    int i, tmplen = 3;
-    size_t converted = 0;
-
-    /* concatinate '===' to the source to handle unpadded base64 data */
-    src = (char *)malloc(strlen(source)+5);
-    if (src == NULL)
-			return -1;
-    strcpy(src, source);
-    strcat(src, "====");
-    tmpptr = src;
-
-    /* convert as long as we get a full result */
-    while (tmplen == 3)
-    {
-			/* get 4 characters to convert */
-			for (i=0; i<4; i++)
-			{
-				/* skip invalid characters - we won't reach the end */
-				while (*tmpptr != '=' && _base64_char_value(*tmpptr)<0)
-					tmpptr++;
-
-				quadruple[i] = *(tmpptr++);
-			}
-
-			/* convert the characters */
-			tmplen = _base64_decode_triple(quadruple, tmpresult);
-
-			/* check if the fit in the result buffer */
-			if (targetlen < tmplen)
-			{
-				free(src);
-				return -1;
-			}
-
-			/* put the partial result in the result buffer */
-			memcpy(target, tmpresult, tmplen);
-			target += tmplen;
-			targetlen -= tmplen;
-			converted += tmplen;
-    }
-		
-    free(src);
-    return converted;
-	}
-
-
-	/**
-	 * encode an array of bytes using Base64 (RFC 3548)
-	 *
-	 * @param source the source buffer
-	 * @param sourcelen the length of the source buffer
-	 * @param target the target buffer
-	 * @param targetlen the length of the target buffer
-	 * @return 1 on success, 0 otherwise
-	 */
-	static int base64_encode(unsigned char *source, size_t sourcelen, char *target, size_t targetlen)
-	{
-    /* check if the result will fit in the target buffer */
-    if ((sourcelen+2)/3*4 > targetlen-1)
-			return 0;
-
-    /* encode all full triples */
-    while (sourcelen >= 3)
-    {
-			_base64_encode_triple(source, target);
-			sourcelen -= 3;
-			source += 3;
-			target += 4;
-    }
-
-    /* encode the last one or two characters */
-    if (sourcelen > 0)
-    {
-			unsigned char temp[3];
-			memset(temp, 0, sizeof(temp));
-			memcpy(temp, source, sourcelen);
-			_base64_encode_triple(temp, target);
-			target[3] = '=';
-			if (sourcelen == 1)
-				target[2] = '=';
-
-			target += 4;
-    }
-
-    /* terminate the string */
-    target[0] = 0;
-
-    return 1;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	static void paintWebView(WebKit::WebView* webView, Frame* frame, const Region& dirtyRegion);
 
   ChromeClientJS* ChromeClientJS::createClient(WebKit::WebView *view) {
@@ -277,12 +38,12 @@ namespace WebCore {
     // The strategy here is to quickly draw white into this new canvas, so that
     // when a user quickly resizes the WebView in an environment that has opaque
     // resizing (like Gnome Shell), there are no drawing artifacts.
-    //if (!webView->p()->transparent) {
-		//	cairo_set_source_rgb(cr, 1, 1, 1);
-		//	cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-    //} else
-		//	cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
-    //cairo_paint(cr);
+    if (!webView->p()->transparent) {
+			cairo_set_source_rgb(cr, 1, 1, 1);
+			cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+    } else
+			cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
+    cairo_paint(cr);
 	}
 
   ChromeClientJS::ChromeClientJS(WebKit::WebView *view)
@@ -318,82 +79,32 @@ namespace WebCore {
     cairo_clip(cr);
 	}
 
-
-	static char tmp[] = "END";
-	static unsigned char *pngbuffer = NULL;
-	static char *b64pngbuffer = NULL;
-	static size_t pnglength = 0;
-	static size_t pngbufferlength = 0;
-
-	static cairo_status_t cairo_write_png_interm(void *closure,const unsigned char *data, unsigned int length) {
-		char *head = (char *)pngbuffer + pnglength;
-		//if((pnglength + length) > pngbufferlength) {
-		//	pngbufferlength += length;
-		//	pngbuffer = realloc(pngbuffer, pngbufferlength);
-		//}
-		memcpy(head, data, length);
-
-		pnglength += length;
-
-		fprintf(stdout, "Writing png: %u %p\n", length, data);
-		return CAIRO_STATUS_SUCCESS;
-	}
-
-	static void cairo_write_png_begin(cairo_surface_t *surface) {
-		pngbuffer = (unsigned char *)malloc(1024*1024*3);
-		pnglength = 0;
-		pngbufferlength = 1024*1024*3;
-
-		if(cairo_surface_write_to_png_stream(surface, &cairo_write_png_interm, tmp) != CAIRO_STATUS_SUCCESS) {
-			fprintf(stdout, "Failed to write png stream.\n");
-		}
-	}
-
-	static void cairo_write_png_end() {
-		b64pngbuffer = (char *)malloc(1024*1024*3);
-
-		int result = base64_encode(pngbuffer, pnglength, b64pngbuffer, 1024*1024*3);
-		if(result) {
-			fprintf(stdout, "<div style=\"width:500px;height:500px;url(data:image/png;base64,%s);\"></div>",b64pngbuffer);
-		} else {
-			fprintf(stdout, "Failed to encode base64.\n");
-		}
-	}
-
 	void ChromeClientJS::forceRepaint() {
 		m_dirtyRegion.unite(IntRect(IntPoint(), m_view->m_private->backingStore->size()));
 		m_forcePaint = true;
 		paint(0);
 	}
+
 	void ChromeClientJS::paint(WebCore::Timer<ChromeClientJS>*)
 	{
 		webkitTrace();
-		if(m_dirtyRegion.width()==0 || m_dirtyRegion.height()==0) {
-			fprintf(stdout, "paint:: Dirty rectangle is empty, not painting.\n");
+		if(m_dirtyRegion.width()==0 || m_dirtyRegion.height()==0)
 			return;
-		} else {
-			fprintf(stdout, "paint:: dirty rect of %i %i %i %i\n", m_dirtyRegion.x(),m_dirtyRegion.y(),m_dirtyRegion.width(),m_dirtyRegion.height());
 
-		}
-		if(!m_view->m_private->backingStore) {
-			fprintf(stdout, "paint:: Backstore doesn't exist, exiting.\n");
+		if(!m_view->m_private->backingStore)
 			return;
-		}
     static const double minimumFrameInterval = 1.0 / 60.0; // No more than 60 frames a second.
     double timeSinceLastDisplay = monotonicallyIncreasingTime() - m_lastDisplayTime;
     double timeUntilNextDisplay = minimumFrameInterval - timeSinceLastDisplay;
 
     if (timeUntilNextDisplay > 0 && !m_forcePaint) {
 			m_displayTimer.startOneShot(timeUntilNextDisplay);
-			fprintf(stdout,"paint:: bailing out until next display. %f\n", timeUntilNextDisplay);
 			return;
     }
 
     Frame& frame = (m_view->m_private->mainFrame->coreFrame()->mainFrame());
-    if (!frame.contentRenderer() || !frame.view()) {
-			fprintf(stdout, "paint:: Frame view or content renderer doesnt exist, exiting.\n");
+    if (!frame.contentRenderer() || !frame.view())
 			return;
-		}
 
     frame.view()->updateLayoutAndStyleIfNeededRecursive();
     performAllPendingScrolls();
@@ -401,100 +112,12 @@ namespace WebCore {
 
     const IntRect& rect = m_dirtyRegion;
 
-		fprintf(stdout, "paint:: dirtyrect: %i %i %i %i\n",rect.x(),rect.y(),rect.width(),rect.height());
-		// push to SDL surface
-				//if (SDL_MUSTLOCK(m_view->m_private->backingStore->widget())) {
-
-		//}
-		//if(SDL_FillRect(m_view->m_private->sdl_screen, NULL, 0x00ff0000) != 0) {
-		//	fprintf(stderr, "Error on SDL_FillRect: %s\n",SDL_GetError());
-		//}
-
-
-		cairo_write_png_begin(m_view->m_private->backingStore->cairoSurface());
-		cairo_write_png_end();
-
-
-
-
-		/** SDL Test Code
-		SDL_Color pal[3];
-		pal[0].r = 255;
-		pal[0].g = 0;
-		pal[0].b = 0;
-		pal[0].unused = 0;
-
-		pal[1].r = 0;
-		pal[1].g = 255;
-		pal[1].b = 0;
-		pal[1].unused = 0;
-
-		pal[2].r = 0;
-		pal[2].g = 0;
-		pal[2].b = 255;
-		pal[2].unused = 0;
-
-		SDL_SetColors(m_view->m_private->sdl_screen, pal, 0, 3);
-
-		SDL_FillRect(m_view->m_private->sdl_screen, NULL, 0);
-
-		{
-			SDL_Rect rect = { 300, 0, 300, 200 };
-			SDL_FillRect(m_view->m_private->sdl_screen, &rect, 1);
-		}
-
-		{
-			SDL_Rect rect = { 0, 200, 600, 200 };
-			SDL_FillRect(m_view->m_private->sdl_screen, &rect, 2);
-		}
-
-		//changing green color
-		//to yellow
-		pal[1].r = 255;
-		SDL_SetColors(m_view->m_private->sdl_screen, &pal[1], 1, 1);
-
-		{
-			SDL_Rect rect = { 300, 200, 300, 200 };
-			SDL_FillRect(m_view->m_private->sdl_screen, &rect, 1);
-		}**/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		fprintf(stdout, "paint:: beginning lock on SDL for surface: %p screen: %p\n",m_view->m_private->backingStore->widget(), m_view->m_private->sdl_screen);
 		SDL_UnlockSurface(m_view->m_private->backingStore->widget());
 		SDL_UnlockSurface(m_view->m_private->sdl_screen);
-
-		if(SDL_BlitSurface(m_view->m_private->backingStore->widget(), NULL, m_view->m_private->sdl_screen, NULL) != 0) {
-			fprintf(stderr, "Error on SDL_BlitSurface: %s\n",SDL_GetError());
-		}
-
+		SDL_BlitSurface(m_view->m_private->backingStore->widget(), NULL, m_view->m_private->sdl_screen, NULL);
 		SDL_LockSurface(m_view->m_private->backingStore->widget());
 		SDL_LockSurface(m_view->m_private->sdl_screen);
-		//SDL_UpdateRect(m_view->m_private->sdl_screen, 0, 0, 0, 0);
-		//SDL_Flip(m_view->m_private->sdl_screen);
-		//if (SDL_MUSTLOCK(m_view->m_private->backingStore->widget()))
-		//fprintf(stdout, "paint:: ended unlock on SDL.\n");
 
-		//TODO This seems to be inaccurate, it should only swap GL Buffers when
-		// using an accelerated backstore.
-		//m_view->m_private->backingStore = createBackingStore(0, roundedIntSize(m_view->positionAndSize().size()));
-		//RefPtr<cairo_t> cr = adoptRef(cairo_create(m_view->m_private->backingStore->cairoSurface()));
-		//clearEverywhereInBackingStore(m_view, cr.get());
-		fprintf(stdout,"** Resetting dirty region!\n");
 		m_dirtyRegion = IntRect();
     m_lastDisplayTime = monotonicallyIncreasingTime();
     m_repaintSoonSourceId = 0;
@@ -521,13 +144,8 @@ namespace WebCore {
 			coreFrame->view()->resize(roundedIntSize(m_view->m_private->size.size()));
 		}
 
-    // Grow the backing store by at least 1.5 times the current size. This prevents
-    // lots of unnecessary allocations during an opaque resize.
-    //RefPtr<WidgetBackingStore> backingStore = adoptRef(m_view->m_private->backingStore);
-    if (m_view->m_private->backingStore && oldWidgetSize == newSize) {
-			fprintf(stdout,"No change in old vs. new size, exiting.\n");
+    if (m_view->m_private->backingStore && oldWidgetSize == newSize)
 			return;
-		}
 
     if (m_view->m_private->backingStore) {
 			const IntSize& oldSize = m_view->m_private->backingStore->size();
@@ -577,7 +195,7 @@ namespace WebCore {
     // We need to force a redraw and ignore the framerate cap.
     m_lastDisplayTime = 0;
     m_dirtyRegion.unite(IntRect(IntPoint(), m_view->m_private->backingStore->size()));
-		fprintf(stdout, "United m_dirtyRegion: %i %i %i %i\n", m_dirtyRegion.x(),m_dirtyRegion.y(),m_dirtyRegion.width(),m_dirtyRegion.height());
+
     // WebCore timers by default have a lower priority which leads to more artifacts when opaque
     // resize is on
 		emscripten_async_call((void (*)(void *))(&repaintEverythingSoonTimeout), this, 0);
@@ -614,10 +232,8 @@ namespace WebCore {
 	static void paintWebView(WebKit::WebView* webView, Frame* frame, const Region& dirtyRegion)
 	{
 		webkitTrace();
-    if (!webView->p()->backingStore) {
-			fprintf(stdout,"*** Paint requested but backstore is empty!\n");
+    if (!webView->p()->backingStore)
 			return;
-		}
 
     Vector<IntRect> rects = dirtyRegion.rects();
     coalesceRectsIfPossible(dirtyRegion.bounds(), rects);
@@ -652,13 +268,10 @@ namespace WebCore {
     // Scroll all pending scroll rects and invalidate those parts of the widget.
     for (size_t i = 0; i < m_rectsToScroll.size(); i++) {
 			IntRect& scrollRect = m_rectsToScroll[i];
-			fprintf(stdout,"rectsToScroll: %i %i %i %i\n", scrollRect.x(),scrollRect.y(),scrollRect.width(),scrollRect.height());
 
 			m_view->m_private->backingStore->scroll(scrollRect, m_scrollOffsets[i]);
 			//SDL_UpdateRect(m_view->m_private->sdl_screen, scrollRect.x(), scrollRect.y(), scrollRect.width(), scrollRect.height());
 			//SDL_GL_SwapWindow(m_view->m_private->sdl_window);
-
-			//TODO: Update this, shouldn't always be used.
 			//SDL_GL_SwapBuffers();
     }
 
@@ -838,7 +451,6 @@ namespace WebCore {
 
   KeyboardUIMode ChromeClientJS::keyboardUIMode()
   {
-
     return KeyboardAccessDefault;
   }
 
@@ -866,11 +478,9 @@ namespace WebCore {
 		return;
 #endif
 
-		if (updateRect.isEmpty()) {
-			fprintf(stdout, "Requested invalidation of empty root view.\n");
+		if (updateRect.isEmpty())
 			return;
-		} else
-			fprintf(stdout, "Requested invalidation of %i %i %i %i\n", updateRect.x(),updateRect.y(),updateRect.width(),updateRect.height());
+
     m_dirtyRegion.unite(updateRect);
 		paint(0);
     //m_displayTimer.startOneShot(0);

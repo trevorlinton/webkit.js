@@ -37,6 +37,7 @@
 
 #include "cairoint.h"
 
+#include "cairo-clip-inline.h"
 #include "cairo-error-private.h"
 #include "cairo-pattern-private.h"
 #include "cairo-surface-offset-private.h"

@@ -92,6 +92,8 @@ fi[]dnl
 # PKG_CHECK_MODULES(VARIABLE-PREFIX, MODULES, [ACTION-IF-FOUND],
 # [ACTION-IF-NOT-FOUND])
 #
+# ACTION-IF-NOT-FOUND is not allowed to be empty, that trigger PKG_CONFIG_PATH error message.
+# Use : or set a dummy variable to avoid that behavior.
 #
 # Note that if there is a possibility the first call to
 # PKG_CHECK_MODULES might not happen, you should be sure to include an

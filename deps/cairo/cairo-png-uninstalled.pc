@@ -1,0 +1,7 @@
+Name: cairo-png
+Description: PNG functions for cairo graphics library
+Version: 1.12.16
+
+Requires: cairo libpng
+Libs:  
+Cflags: -I${pc_top_builddir}/${pcfiledir}/./src 

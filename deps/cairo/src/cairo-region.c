@@ -52,7 +52,7 @@
  * Regions are a simple graphical data type representing an area of 
  * integer-aligned rectangles. They are often used on raster surfaces 
  * to track areas of interest, such as change or clip areas.
- */
+ **/
 
 static const cairo_region_t _cairo_region_nil = {
     CAIRO_REFERENCE_COUNT_INVALID,	/* ref_count */
@@ -842,13 +842,15 @@ slim_hidden_def (cairo_region_translate);
 
 /**
  * cairo_region_overlap_t:
- * @CAIRO_REGION_OVERLAP_IN: The contents are entirely inside the region
- * @CAIRO_REGION_OVERLAP_OUT: The contents are entirely outside the region
+ * @CAIRO_REGION_OVERLAP_IN: The contents are entirely inside the region. (Since 1.10)
+ * @CAIRO_REGION_OVERLAP_OUT: The contents are entirely outside the region. (Since 1.10)
  * @CAIRO_REGION_OVERLAP_PART: The contents are partially inside and
- *     partially outside the region.
- * 
+ *     partially outside the region. (Since 1.10)
+ *
  * Used as the return value for cairo_region_contains_rectangle().
- */
+ *
+ * Since: 1.10
+ **/
 
 /**
  * cairo_region_contains_rectangle:

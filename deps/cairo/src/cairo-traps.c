@@ -39,6 +39,7 @@
 
 #include "cairoint.h"
 
+#include "cairo-box-inline.h"
 #include "cairo-boxes-private.h"
 #include "cairo-error-private.h"
 #include "cairo-region-private.h"
@@ -73,8 +74,14 @@ _cairo_traps_limit (cairo_traps_t	*traps,
 		    const cairo_box_t	*limits,
 		    int			 num_limits)
 {
+    int i;
+
     traps->limits = limits;
     traps->num_limits = num_limits;
+
+    traps->bounds = limits[0];
+    for (i = 1; i < num_limits; i++)
+	_cairo_box_add_box (&traps->bounds, &limits[i]);
 }
 
 void
@@ -158,8 +165,247 @@ _cairo_traps_add_trap (cairo_traps_t *traps,
     trap->right = *right;
 }
 
+static void
+_cairo_traps_add_clipped_trap (cairo_traps_t *traps,
+			       cairo_fixed_t _top, cairo_fixed_t _bottom,
+			       cairo_line_t *_left, cairo_line_t *_right)
+{
+    /* Note: With the goofy trapezoid specification, (where an
+     * arbitrary two points on the lines can specified for the left
+     * and right edges), these limit checks would not work in
+     * general. For example, one can imagine a trapezoid entirely
+     * within the limits, but with two points used to specify the left
+     * edge entirely to the right of the limits.  Fortunately, for our
+     * purposes, cairo will never generate such a crazy
+     * trapezoid. Instead, cairo always uses for its points the
+     * extreme positions of the edge that are visible on at least some
+     * trapezoid. With this constraint, it's impossible for both
+     * points to be outside the limits while the relevant edge is
+     * entirely inside the limits.
+     */
+    if (traps->num_limits) {
+	const cairo_box_t *b = &traps->bounds;
+	cairo_fixed_t top = _top, bottom = _bottom;
+	cairo_line_t left = *_left, right = *_right;
+
+	/* Trivially reject if trapezoid is entirely to the right or
+	 * to the left of the limits. */
+	if (left.p1.x >= b->p2.x && left.p2.x >= b->p2.x)
+	    return;
+
+	if (right.p1.x <= b->p1.x && right.p2.x <= b->p1.x)
+	    return;
+
+	/* And reject if the trapezoid is entirely above or below */
+	if (top >= b->p2.y || bottom <= b->p1.y)
+	    return;
+
+	/* Otherwise, clip the trapezoid to the limits. We only clip
+	 * where an edge is entirely outside the limits. If we wanted
+	 * to be more clever, we could handle cases where a trapezoid
+	 * edge intersects the edge of the limits, but that would
+	 * require slicing this trapezoid into multiple trapezoids,
+	 * and I'm not sure the effort would be worth it. */
+	if (top < b->p1.y)
+	    top = b->p1.y;
+
+	if (bottom > b->p2.y)
+	    bottom = b->p2.y;
+
+	if (left.p1.x <= b->p1.x && left.p2.x <= b->p1.x)
+	    left.p1.x = left.p2.x = b->p1.x;
+
+	if (right.p1.x >= b->p2.x && right.p2.x >= b->p2.x)
+	    right.p1.x = right.p2.x = b->p2.x;
+
+	/* Trivial discards for empty trapezoids that are likely to
+	 * be produced by our tessellators (most notably convex_quad
+	 * when given a simple rectangle).
+	 */
+	if (top >= bottom)
+	    return;
+
+	/* cheap colinearity check */
+	if (right.p1.x <= left.p1.x && right.p1.y == left.p1.y &&
+	    right.p2.x <= left.p2.x && right.p2.y == left.p2.y)
+	    return;
+
+	_cairo_traps_add_trap (traps, top, bottom, &left, &right);
+    } else
+	_cairo_traps_add_trap (traps, _top, _bottom, _left, _right);
+}
+
+static int
+_compare_point_fixed_by_y (const void *av, const void *bv)
+{
+    const cairo_point_t	*a = av, *b = bv;
+    int ret = a->y - b->y;
+    if (ret == 0)
+	ret = a->x - b->x;
+    return ret;
+}
+
+void
+_cairo_traps_tessellate_convex_quad (cairo_traps_t *traps,
+				     const cairo_point_t q[4])
+{
+    int a, b, c, d;
+    int i;
+    cairo_slope_t ab, ad;
+    cairo_bool_t b_left_of_d;
+    cairo_line_t left;
+    cairo_line_t right;
+
+    /* Choose a as a point with minimal y */
+    a = 0;
+    for (i = 1; i < 4; i++)
+	if (_compare_point_fixed_by_y (&q[i], &q[a]) < 0)
+	    a = i;
+
+    /* b and d are adjacent to a, while c is opposite */
+    b = (a + 1) % 4;
+    c = (a + 2) % 4;
+    d = (a + 3) % 4;
+
+    /* Choose between b and d so that b.y is less than d.y */
+    if (_compare_point_fixed_by_y (&q[d], &q[b]) < 0) {
+	b = (a + 3) % 4;
+	d = (a + 1) % 4;
+    }
+
+    /* Without freedom left to choose anything else, we have four
+     * cases to tessellate.
+     *
+     * First, we have to determine the Y-axis sort of the four
+     * vertices, (either abcd or abdc). After that we need to detemine
+     * which edges will be "left" and which will be "right" in the
+     * resulting trapezoids. This can be determined by computing a
+     * slope comparison of ab and ad to determine if b is left of d or
+     * not.
+     *
+     * Note that "left of" here is in the sense of which edges should
+     * be the left vs. right edges of the trapezoid. In particular, b
+     * left of d does *not* mean that b.x is less than d.x.
+     *
+     * This should hopefully be made clear in the lame ASCII art
+     * below. Since the same slope comparison is used in all cases, we
+     * compute it before testing for the Y-value sort. */
+
+    /* Note: If a == b then the ab slope doesn't give us any
+     * information. In that case, we can replace it with the ac (or
+     * equivalenly the bc) slope which gives us exactly the same
+     * information we need. At worst the names of the identifiers ab
+     * and b_left_of_d are inaccurate in this case, (would be ac, and
+     * c_left_of_d). */
+    if (q[a].x == q[b].x && q[a].y == q[b].y)
+	_cairo_slope_init (&ab, &q[a], &q[c]);
+    else
+	_cairo_slope_init (&ab, &q[a], &q[b]);
+
+    _cairo_slope_init (&ad, &q[a], &q[d]);
+
+    b_left_of_d = _cairo_slope_compare (&ab, &ad) > 0;
+
+    if (q[c].y <= q[d].y) {
+	if (b_left_of_d) {
+	    /* Y-sort is abcd and b is left of d, (slope(ab) > slope (ad))
+	     *
+	     *                      top bot left right
+	     *        _a  a  a
+	     *      / /  /|  |\      a.y b.y  ab   ad
+	     *     b /  b |  b \
+	     *    / /   | |   \ \    b.y c.y  bc   ad
+	     *   c /    c |    c \
+	     *  | /      \|     \ \  c.y d.y  cd   ad
+	     *  d         d       d
+	     */
+	    left.p1  = q[a]; left.p2  = q[b];
+	    right.p1 = q[a]; right.p2 = q[d];
+	    _cairo_traps_add_clipped_trap (traps, q[a].y, q[b].y, &left, &right);
+	    left.p1  = q[b]; left.p2  = q[c];
+	    _cairo_traps_add_clipped_trap (traps, q[b].y, q[c].y, &left, &right);
+	    left.p1  = q[c]; left.p2  = q[d];
+	    _cairo_traps_add_clipped_trap (traps, q[c].y, q[d].y, &left, &right);
+	} else {
+	    /* Y-sort is abcd and b is right of d, (slope(ab) <= slope (ad))
+	     *
+	     *       a  a  a_
+	     *      /|  |\  \ \     a.y b.y  ad  ab
+	     *     / b  | b  \ b
+	     *    / /   | |   \ \   b.y c.y  ad  bc
+	     *   / c    | c    \ c
+	     *  / /     |/      \ | c.y d.y  ad  cd
+	     *  d       d         d
+	     */
+	    left.p1  = q[a]; left.p2  = q[d];
+	    right.p1 = q[a]; right.p2 = q[b];
+	    _cairo_traps_add_clipped_trap (traps, q[a].y, q[b].y, &left, &right);
+	    right.p1 = q[b]; right.p2 = q[c];
+	    _cairo_traps_add_clipped_trap (traps, q[b].y, q[c].y, &left, &right);
+	    right.p1 = q[c]; right.p2 = q[d];
+	    _cairo_traps_add_clipped_trap (traps, q[c].y, q[d].y, &left, &right);
+	}
+    } else {
+	if (b_left_of_d) {
+	    /* Y-sort is abdc and b is left of d, (slope (ab) > slope (ad))
+	     *
+	     *        a   a     a
+	     *       //  / \    |\     a.y b.y  ab  ad
+	     *     /b/  b   \   b \
+	     *    / /    \   \   \ \   b.y d.y  bc  ad
+	     *   /d/      \   d   \ d
+	     *  //         \ /     \|  d.y c.y  bc  dc
+	     *  c           c       c
+	     */
+	    left.p1  = q[a]; left.p2  = q[b];
+	    right.p1 = q[a]; right.p2 = q[d];
+	    _cairo_traps_add_clipped_trap (traps, q[a].y, q[b].y, &left, &right);
+	    left.p1  = q[b]; left.p2  = q[c];
+	    _cairo_traps_add_clipped_trap (traps, q[b].y, q[d].y, &left, &right);
+	    right.p1 = q[d]; right.p2 = q[c];
+	    _cairo_traps_add_clipped_trap (traps, q[d].y, q[c].y, &left, &right);
+	} else {
+	    /* Y-sort is abdc and b is right of d, (slope (ab) <= slope (ad))
+	     *
+	     *      a     a   a
+	     *     /|    / \  \\       a.y b.y  ad  ab
+	     *    / b   /   b  \b\
+	     *   / /   /   /    \ \    b.y d.y  ad  bc
+	     *  d /   d   /	 \d\
+	     *  |/     \ /         \\  d.y c.y  dc  bc
+	     *  c       c	   c
+	     */
+	    left.p1  = q[a]; left.p2  = q[d];
+	    right.p1 = q[a]; right.p2 = q[b];
+	    _cairo_traps_add_clipped_trap (traps, q[a].y, q[b].y, &left, &right);
+	    right.p1 = q[b]; right.p2 = q[c];
+	    _cairo_traps_add_clipped_trap (traps, q[b].y, q[d].y, &left, &right);
+	    left.p1  = q[d]; left.p2  = q[c];
+	    _cairo_traps_add_clipped_trap (traps, q[d].y, q[c].y, &left, &right);
+	}
+    }
+}
+
+/* A triangle is simply a degenerate case of a convex
+ * quadrilateral. We would not benefit from having any distinct
+ * implementation of triangle vs. quadrilateral tessellation here. */
+void
+_cairo_traps_tessellate_triangle (cairo_traps_t *traps,
+				  const cairo_point_t t[3])
+{
+    cairo_point_t quad[4];
+
+    quad[0] = t[0];
+    quad[1] = t[0];
+    quad[2] = t[1];
+    quad[3] = t[2];
+
+    _cairo_traps_tessellate_convex_quad (traps, quad);
+}
+
+
 /**
- * _cairo_traps_init_box:
+ * _cairo_traps_init_boxes:
  * @traps: a #cairo_traps_t
  * @box: an array box that will each be converted to a single trapezoid
  *       to store in @traps.
@@ -240,12 +486,18 @@ _cairo_traps_tessellate_rectangle (cairo_traps_t *traps,
 	cairo_bool_t reversed;
 	int n;
 
+	if (top >= traps->bounds.p2.y || bottom <= traps->bounds.p1.y)
+	    return CAIRO_STATUS_SUCCESS;
+
 	/* support counter-clockwise winding for rectangular tessellation */
 	reversed = top_left->x > bottom_right->x;
 	if (reversed) {
 	    right.p1.x = right.p2.x = top_left->x;
 	    left.p1.x = left.p2.x = bottom_right->x;
 	}
+
+	if (left.p1.x >= traps->bounds.p2.x || right.p1.x <= traps->bounds.p1.x)
+	    return CAIRO_STATUS_SUCCESS;
 
 	for (n = 0; n < traps->num_limits; n++) {
 	    const cairo_box_t *limits = &traps->limits[n];
@@ -572,7 +824,7 @@ _cairo_traps_extract_region (cairo_traps_t   *traps,
 	rects = _cairo_malloc_ab (traps->num_traps, sizeof (cairo_rectangle_int_t));
 
 	if (unlikely (rects == NULL))
-	    return (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
+	    return _cairo_error (CAIRO_STATUS_NO_MEMORY);
     }
 
     rect_count = 0;
@@ -602,7 +854,7 @@ _cairo_traps_extract_region (cairo_traps_t   *traps,
 
 
     *region = cairo_region_create_rectangles (rects, rect_count);
-    status = (cairo_int_status_t)(*region)->status;
+    status = (*region)->status;
 
     if (rects != stack_rects)
 	free (rects);
@@ -806,9 +1058,9 @@ _cairo_rasterise_polygon_to_traps (cairo_polygon_t			*polygon,
 						   r.x + r.width,
 						   r.y + r.height,
 						   fill_rule);
-    status = (cairo_int_status_t)_cairo_mono_scan_converter_add_polygon (converter, polygon);
+    status = _cairo_mono_scan_converter_add_polygon (converter, polygon);
     if (likely (status == CAIRO_INT_STATUS_SUCCESS))
-	status = (cairo_int_status_t)converter->generate (converter, &renderer.base);
+	status = converter->generate (converter, &renderer.base);
     converter->destroy (converter);
     return status;
 }

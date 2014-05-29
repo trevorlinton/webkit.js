@@ -157,10 +157,13 @@ intel_surface_map_to_image (void *abstract_surface)
 }
 
 cairo_status_t
-intel_surface_flush (void *abstract_surface)
+intel_surface_flush (void *abstract_surface, unsigned flags)
 {
     intel_surface_t *surface = abstract_surface;
     cairo_status_t status;
+
+    if (flags)
+	return CAIRO_STATUS_SUCCESS;
 
     if (surface->drm.fallback == NULL)
 	return CAIRO_STATUS_SUCCESS;

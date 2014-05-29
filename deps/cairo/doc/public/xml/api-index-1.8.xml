@@ -8,6 +8,11 @@
 <indexentry><primaryie linkends="cairo-glyph-allocate"><link linkend="cairo-glyph-allocate">cairo_glyph_allocate</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-glyph-free"><link linkend="cairo-glyph-free">cairo_glyph_free</link>, function in <link linkend="cairo-text">text</link></primaryie></indexentry>
 </indexdiv>
+<indexdiv><title>H</title>
+<indexentry><primaryie linkends="CAIRO-HAS-IMAGE-SURFACE:CAPS"><link linkend="CAIRO-HAS-IMAGE-SURFACE:CAPS">CAIRO_HAS_IMAGE_SURFACE</link>, macro in <link linkend="cairo-Image-Surfaces">Image Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-HAS-USER-FONT:CAPS"><link linkend="CAIRO-HAS-USER-FONT:CAPS">CAIRO_HAS_USER_FONT</link>, macro in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-HAS-WIN32-FONT:CAPS"><link linkend="CAIRO-HAS-WIN32-FONT:CAPS">CAIRO_HAS_WIN32_FONT</link>, macro in <link linkend="cairo-Win32-Fonts">Win32 Fonts</link></primaryie></indexentry>
+</indexdiv>
 <indexdiv><title>S</title>
 <indexentry><primaryie linkends="cairo-scaled-font-get-scale-matrix"><link linkend="cairo-scaled-font-get-scale-matrix">cairo_scaled_font_get_scale_matrix</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-scaled-font-text-to-glyphs"><link linkend="cairo-scaled-font-text-to-glyphs">cairo_scaled_font_text_to_glyphs</link>, function in <link linkend="cairo-cairo-scaled-font-t">cairo_scaled_font_t</link></primaryie></indexentry>
@@ -39,5 +44,9 @@
 <indexentry><primaryie linkends="cairo-user-scaled-font-render-glyph-func-t"><link linkend="cairo-user-scaled-font-render-glyph-func-t">cairo_user_scaled_font_render_glyph_func_t</link>, user_function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-user-scaled-font-text-to-glyphs-func-t"><link linkend="cairo-user-scaled-font-text-to-glyphs-func-t">cairo_user_scaled_font_text_to_glyphs_func_t</link>, user_function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-user-scaled-font-unicode-to-glyph-func-t"><link linkend="cairo-user-scaled-font-unicode-to-glyph-func-t">cairo_user_scaled_font_unicode_to_glyph_func_t</link>, user_function in <link linkend="cairo-User-Fonts">User Fonts</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>V</title>
+<indexentry><primaryie linkends="CAIRO-VERSION-STRING:CAPS"><link linkend="CAIRO-VERSION-STRING:CAPS">CAIRO_VERSION_STRING</link>, macro in <link linkend="cairo-Version-Information">Version Information</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-VERSION-STRINGIZE:CAPS"><link linkend="CAIRO-VERSION-STRINGIZE:CAPS">CAIRO_VERSION_STRINGIZE</link>, macro in <link linkend="cairo-Version-Information">Version Information</link></primaryie></indexentry>
 </indexdiv>
 </indexdiv>

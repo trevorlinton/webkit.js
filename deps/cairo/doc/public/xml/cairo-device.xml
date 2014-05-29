@@ -245,32 +245,32 @@ New entries may be added in future versions.
 </para><variablelist role="enum">
 <varlistentry id="CAIRO-DEVICE-TYPE-DRM:CAPS" role="constant">
 <term><literal>CAIRO_DEVICE_TYPE_DRM</literal></term>
-<listitem><simpara>The device is of type Direct Render Manager
+<listitem><simpara>The device is of type Direct Render Manager, since 1.10
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-DEVICE-TYPE-GL:CAPS" role="constant">
 <term><literal>CAIRO_DEVICE_TYPE_GL</literal></term>
-<listitem><simpara>The device is of type OpenGL
+<listitem><simpara>The device is of type OpenGL, since 1.10
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-DEVICE-TYPE-SCRIPT:CAPS" role="constant">
 <term><literal>CAIRO_DEVICE_TYPE_SCRIPT</literal></term>
-<listitem><simpara>The device is of type script
+<listitem><simpara>The device is of type script, since 1.10
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-DEVICE-TYPE-XCB:CAPS" role="constant">
 <term><literal>CAIRO_DEVICE_TYPE_XCB</literal></term>
-<listitem><simpara>The device is of type xcb
+<listitem><simpara>The device is of type xcb, since 1.10
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-DEVICE-TYPE-XLIB:CAPS" role="constant">
 <term><literal>CAIRO_DEVICE_TYPE_XLIB</literal></term>
-<listitem><simpara>The device is of type xlib
+<listitem><simpara>The device is of type xlib, since 1.10
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-DEVICE-TYPE-XML:CAPS" role="constant">
 <term><literal>CAIRO_DEVICE_TYPE_XML</literal></term>
-<listitem><simpara>The device is of type XML
+<listitem><simpara>The device is of type XML, since 1.10
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-DEVICE-TYPE-COGL:CAPS" role="constant">
@@ -285,7 +285,7 @@ New entries may be added in future versions.
 </varlistentry>
 <varlistentry id="CAIRO-DEVICE-TYPE-INVALID:CAPS" role="constant">
 <term><literal>CAIRO_DEVICE_TYPE_INVALID</literal></term>
-<listitem><simpara>The device is invalid
+<listitem><simpara>The device is invalid, since 1.10
 </simpara></listitem>
 </varlistentry>
 </variablelist><para role="since">Since 1.10</para></refsect2>

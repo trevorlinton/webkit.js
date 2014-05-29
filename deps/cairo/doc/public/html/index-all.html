@@ -193,11 +193,19 @@
 </dt>
 <dt>cairo_ft_font_face_create_for_pattern, <a class="indexterm" href="cairo-FreeType-Fonts.html#cairo-ft-font-face-create-for-pattern">cairo_ft_font_face_create_for_pattern ()</a>
 </dt>
+<dt>cairo_ft_font_face_get_synthesize, <a class="indexterm" href="cairo-FreeType-Fonts.html#cairo-ft-font-face-get-synthesize">cairo_ft_font_face_get_synthesize ()</a>
+</dt>
+<dt>cairo_ft_font_face_set_synthesize, <a class="indexterm" href="cairo-FreeType-Fonts.html#cairo-ft-font-face-set-synthesize">cairo_ft_font_face_set_synthesize ()</a>
+</dt>
+<dt>cairo_ft_font_face_unset_synthesize, <a class="indexterm" href="cairo-FreeType-Fonts.html#cairo-ft-font-face-unset-synthesize">cairo_ft_font_face_unset_synthesize ()</a>
+</dt>
 <dt>cairo_ft_font_options_substitute, <a class="indexterm" href="cairo-FreeType-Fonts.html#cairo-ft-font-options-substitute">cairo_ft_font_options_substitute ()</a>
 </dt>
 <dt>cairo_ft_scaled_font_lock_face, <a class="indexterm" href="cairo-FreeType-Fonts.html#cairo-ft-scaled-font-lock-face">cairo_ft_scaled_font_lock_face ()</a>
 </dt>
 <dt>cairo_ft_scaled_font_unlock_face, <a class="indexterm" href="cairo-FreeType-Fonts.html#cairo-ft-scaled-font-unlock-face">cairo_ft_scaled_font_unlock_face ()</a>
+</dt>
+<dt>cairo_ft_synthesize_t, <a class="indexterm" href="cairo-FreeType-Fonts.html#cairo-ft-synthesize-t">enum cairo_ft_synthesize_t</a>
 </dt>
 </dl>
 </div>
@@ -269,6 +277,8 @@
 </dt>
 <dt>CAIRO_HAS_IMAGE_SURFACE, <a class="indexterm" href="cairo-Image-Surfaces.html#CAIRO-HAS-IMAGE-SURFACE:CAPS">CAIRO_HAS_IMAGE_SURFACE</a>
 </dt>
+<dt>CAIRO_HAS_MIME_SURFACE, <a class="indexterm" href="cairo-cairo-surface-t.html#CAIRO-HAS-MIME-SURFACE:CAPS">CAIRO_HAS_MIME_SURFACE</a>
+</dt>
 <dt>CAIRO_HAS_PDF_SURFACE, <a class="indexterm" href="cairo-PDF-Surfaces.html#CAIRO-HAS-PDF-SURFACE:CAPS">CAIRO_HAS_PDF_SURFACE</a>
 </dt>
 <dt>CAIRO_HAS_PNG_FUNCTIONS, <a class="indexterm" href="cairo-PNG-Support.html#CAIRO-HAS-PNG-FUNCTIONS:CAPS">CAIRO_HAS_PNG_FUNCTIONS</a>
@@ -281,6 +291,8 @@
 </dt>
 <dt>CAIRO_HAS_RECORDING_SURFACE, <a class="indexterm" href="cairo-Recording-Surfaces.html#CAIRO-HAS-RECORDING-SURFACE:CAPS">CAIRO_HAS_RECORDING_SURFACE</a>
 </dt>
+<dt>CAIRO_HAS_SCRIPT_SURFACE, <a class="indexterm" href="cairo-Script-Surfaces.html#CAIRO-HAS-SCRIPT-SURFACE:CAPS">CAIRO_HAS_SCRIPT_SURFACE</a>
+</dt>
 <dt>CAIRO_HAS_SVG_SURFACE, <a class="indexterm" href="cairo-SVG-Surfaces.html#CAIRO-HAS-SVG-SURFACE:CAPS">CAIRO_HAS_SVG_SURFACE</a>
 </dt>
 <dt>CAIRO_HAS_USER_FONT, <a class="indexterm" href="cairo-User-Fonts.html#CAIRO-HAS-USER-FONT:CAPS">CAIRO_HAS_USER_FONT</a>
@@ -289,9 +301,13 @@
 </dt>
 <dt>CAIRO_HAS_WIN32_SURFACE, <a class="indexterm" href="cairo-Win32-Surfaces.html#CAIRO-HAS-WIN32-SURFACE:CAPS">CAIRO_HAS_WIN32_SURFACE</a>
 </dt>
+<dt>CAIRO_HAS_XCB_SHM_FUNCTIONS, <a class="indexterm" href="cairo-XCB-Surfaces.html#CAIRO-HAS-XCB-SHM-FUNCTIONS:CAPS">CAIRO_HAS_XCB_SHM_FUNCTIONS</a>
+</dt>
 <dt>CAIRO_HAS_XCB_SURFACE, <a class="indexterm" href="cairo-XCB-Surfaces.html#CAIRO-HAS-XCB-SURFACE:CAPS">CAIRO_HAS_XCB_SURFACE</a>
 </dt>
 <dt>CAIRO_HAS_XLIB_SURFACE, <a class="indexterm" href="cairo-XLib-Surfaces.html#CAIRO-HAS-XLIB-SURFACE:CAPS">CAIRO_HAS_XLIB_SURFACE</a>
+</dt>
+<dt>CAIRO_HAS_XLIB_XRENDER_SURFACE, <a class="indexterm" href="cairo-XLib-XRender-Backend.html#CAIRO-HAS-XLIB-XRENDER-SURFACE:CAPS">CAIRO_HAS_XLIB_XRENDER_SURFACE</a>
 </dt>
 <dt>cairo_hint_metrics_t, <a class="indexterm" href="cairo-cairo-font-options-t.html#cairo-hint-metrics-t">enum cairo_hint_metrics_t</a>
 </dt>
@@ -455,6 +471,8 @@
 </dt>
 <dt>cairo_pattern_create_radial, <a class="indexterm" href="cairo-cairo-pattern-t.html#cairo-pattern-create-radial">cairo_pattern_create_radial ()</a>
 </dt>
+<dt>cairo_pattern_create_raster_source, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-pattern-create-raster-source">cairo_pattern_create_raster_source ()</a>
+</dt>
 <dt>cairo_pattern_create_rgb, <a class="indexterm" href="cairo-cairo-pattern-t.html#cairo-pattern-create-rgb">cairo_pattern_create_rgb ()</a>
 </dt>
 <dt>cairo_pattern_create_rgba, <a class="indexterm" href="cairo-cairo-pattern-t.html#cairo-pattern-create-rgba">cairo_pattern_create_rgba ()</a>
@@ -567,9 +585,41 @@
 <div class="indexdiv">
 <h3>R</h3>
 <dl>
+<dt>cairo_raster_source_acquire_func_t, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-acquire-func-t">cairo_raster_source_acquire_func_t ()</a>
+</dt>
+<dt>cairo_raster_source_copy_func_t, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-copy-func-t">cairo_raster_source_copy_func_t ()</a>
+</dt>
+<dt>cairo_raster_source_finish_func_t, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-finish-func-t">cairo_raster_source_finish_func_t ()</a>
+</dt>
+<dt>cairo_raster_source_pattern_get_acquire, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-pattern-get-acquire">cairo_raster_source_pattern_get_acquire ()</a>
+</dt>
+<dt>cairo_raster_source_pattern_get_callback_data, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-pattern-get-callback-data">cairo_raster_source_pattern_get_callback_data ()</a>
+</dt>
+<dt>cairo_raster_source_pattern_get_copy, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-pattern-get-copy">cairo_raster_source_pattern_get_copy ()</a>
+</dt>
+<dt>cairo_raster_source_pattern_get_finish, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-pattern-get-finish">cairo_raster_source_pattern_get_finish ()</a>
+</dt>
+<dt>cairo_raster_source_pattern_get_snapshot, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-pattern-get-snapshot">cairo_raster_source_pattern_get_snapshot ()</a>
+</dt>
+<dt>cairo_raster_source_pattern_set_acquire, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-pattern-set-acquire">cairo_raster_source_pattern_set_acquire ()</a>
+</dt>
+<dt>cairo_raster_source_pattern_set_callback_data, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-pattern-set-callback-data">cairo_raster_source_pattern_set_callback_data ()</a>
+</dt>
+<dt>cairo_raster_source_pattern_set_copy, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-pattern-set-copy">cairo_raster_source_pattern_set_copy ()</a>
+</dt>
+<dt>cairo_raster_source_pattern_set_finish, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-pattern-set-finish">cairo_raster_source_pattern_set_finish ()</a>
+</dt>
+<dt>cairo_raster_source_pattern_set_snapshot, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-pattern-set-snapshot">cairo_raster_source_pattern_set_snapshot ()</a>
+</dt>
+<dt>cairo_raster_source_release_func_t, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-release-func-t">cairo_raster_source_release_func_t ()</a>
+</dt>
+<dt>cairo_raster_source_snapshot_func_t, <a class="indexterm" href="cairo-Raster-Sources.html#cairo-raster-source-snapshot-func-t">cairo_raster_source_snapshot_func_t ()</a>
+</dt>
 <dt>cairo_read_func_t, <a class="indexterm" href="cairo-PNG-Support.html#cairo-read-func-t">cairo_read_func_t ()</a>
 </dt>
 <dt>cairo_recording_surface_create, <a class="indexterm" href="cairo-Recording-Surfaces.html#cairo-recording-surface-create">cairo_recording_surface_create ()</a>
+</dt>
+<dt>cairo_recording_surface_get_extents, <a class="indexterm" href="cairo-Recording-Surfaces.html#cairo-recording-surface-get-extents">cairo_recording_surface_get_extents ()</a>
 </dt>
 <dt>cairo_recording_surface_ink_extents, <a class="indexterm" href="cairo-Recording-Surfaces.html#cairo-recording-surface-ink-extents">cairo_recording_surface_ink_extents ()</a>
 </dt>
@@ -692,6 +742,24 @@
 </dt>
 <dt>cairo_scaled_font_text_to_glyphs, <a class="indexterm" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-text-to-glyphs">cairo_scaled_font_text_to_glyphs ()</a>
 </dt>
+<dt>cairo_script_create, <a class="indexterm" href="cairo-Script-Surfaces.html#cairo-script-create">cairo_script_create ()</a>
+</dt>
+<dt>cairo_script_create_for_stream, <a class="indexterm" href="cairo-Script-Surfaces.html#cairo-script-create-for-stream">cairo_script_create_for_stream ()</a>
+</dt>
+<dt>cairo_script_from_recording_surface, <a class="indexterm" href="cairo-Script-Surfaces.html#cairo-script-from-recording-surface">cairo_script_from_recording_surface ()</a>
+</dt>
+<dt>cairo_script_get_mode, <a class="indexterm" href="cairo-Script-Surfaces.html#cairo-script-get-mode">cairo_script_get_mode ()</a>
+</dt>
+<dt>cairo_script_mode_t, <a class="indexterm" href="cairo-Script-Surfaces.html#cairo-script-mode-t">enum cairo_script_mode_t</a>
+</dt>
+<dt>cairo_script_set_mode, <a class="indexterm" href="cairo-Script-Surfaces.html#cairo-script-set-mode">cairo_script_set_mode ()</a>
+</dt>
+<dt>cairo_script_surface_create, <a class="indexterm" href="cairo-Script-Surfaces.html#cairo-script-surface-create">cairo_script_surface_create ()</a>
+</dt>
+<dt>cairo_script_surface_create_for_target, <a class="indexterm" href="cairo-Script-Surfaces.html#cairo-script-surface-create-for-target">cairo_script_surface_create_for_target ()</a>
+</dt>
+<dt>cairo_script_write_comment, <a class="indexterm" href="cairo-Script-Surfaces.html#cairo-script-write-comment">cairo_script_write_comment ()</a>
+</dt>
 <dt>cairo_select_font_face, <a class="indexterm" href="cairo-text.html#cairo-select-font-face">cairo_select_font_face ()</a>
 </dt>
 <dt>cairo_set_antialias, <a class="indexterm" href="cairo-cairo-t.html#cairo-set-antialias">cairo_set_antialias ()</a>
@@ -809,6 +877,8 @@
 <dt>cairo_surface_show_page, <a class="indexterm" href="cairo-cairo-surface-t.html#cairo-surface-show-page">cairo_surface_show_page ()</a>
 </dt>
 <dt>cairo_surface_status, <a class="indexterm" href="cairo-cairo-surface-t.html#cairo-surface-status">cairo_surface_status ()</a>
+</dt>
+<dt>cairo_surface_supports_mime_type, <a class="indexterm" href="cairo-cairo-surface-t.html#cairo-surface-supports-mime-type">cairo_surface_supports_mime_type ()</a>
 </dt>
 <dt>cairo_surface_t, <a class="indexterm" href="cairo-cairo-surface-t.html#cairo-surface-t">cairo_surface_t</a>
 </dt>
@@ -942,6 +1012,16 @@
 <div class="indexdiv">
 <h3>X</h3>
 <dl>
+<dt>cairo_xcb_device_debug_cap_xrender_version, <a class="indexterm" href="cairo-XCB-Surfaces.html#cairo-xcb-device-debug-cap-xrender-version">cairo_xcb_device_debug_cap_xrender_version ()</a>
+</dt>
+<dt>cairo_xcb_device_debug_cap_xshm_version, <a class="indexterm" href="cairo-XCB-Surfaces.html#cairo-xcb-device-debug-cap-xshm-version">cairo_xcb_device_debug_cap_xshm_version ()</a>
+</dt>
+<dt>cairo_xcb_device_debug_get_precision, <a class="indexterm" href="cairo-XCB-Surfaces.html#cairo-xcb-device-debug-get-precision">cairo_xcb_device_debug_get_precision ()</a>
+</dt>
+<dt>cairo_xcb_device_debug_set_precision, <a class="indexterm" href="cairo-XCB-Surfaces.html#cairo-xcb-device-debug-set-precision">cairo_xcb_device_debug_set_precision ()</a>
+</dt>
+<dt>cairo_xcb_device_get_connection, <a class="indexterm" href="cairo-XCB-Surfaces.html#cairo-xcb-device-get-connection">cairo_xcb_device_get_connection ()</a>
+</dt>
 <dt>cairo_xcb_surface_create, <a class="indexterm" href="cairo-XCB-Surfaces.html#cairo-xcb-surface-create">cairo_xcb_surface_create ()</a>
 </dt>
 <dt>cairo_xcb_surface_create_for_bitmap, <a class="indexterm" href="cairo-XCB-Surfaces.html#cairo-xcb-surface-create-for-bitmap">cairo_xcb_surface_create_for_bitmap ()</a>
@@ -952,9 +1032,17 @@
 </dt>
 <dt>cairo_xcb_surface_set_size, <a class="indexterm" href="cairo-XCB-Surfaces.html#cairo-xcb-surface-set-size">cairo_xcb_surface_set_size ()</a>
 </dt>
+<dt>cairo_xlib_device_debug_cap_xrender_version, <a class="indexterm" href="cairo-XLib-Surfaces.html#cairo-xlib-device-debug-cap-xrender-version">cairo_xlib_device_debug_cap_xrender_version ()</a>
+</dt>
+<dt>cairo_xlib_device_debug_get_precision, <a class="indexterm" href="cairo-XLib-Surfaces.html#cairo-xlib-device-debug-get-precision">cairo_xlib_device_debug_get_precision ()</a>
+</dt>
+<dt>cairo_xlib_device_debug_set_precision, <a class="indexterm" href="cairo-XLib-Surfaces.html#cairo-xlib-device-debug-set-precision">cairo_xlib_device_debug_set_precision ()</a>
+</dt>
 <dt>cairo_xlib_surface_create, <a class="indexterm" href="cairo-XLib-Surfaces.html#cairo-xlib-surface-create">cairo_xlib_surface_create ()</a>
 </dt>
 <dt>cairo_xlib_surface_create_for_bitmap, <a class="indexterm" href="cairo-XLib-Surfaces.html#cairo-xlib-surface-create-for-bitmap">cairo_xlib_surface_create_for_bitmap ()</a>
+</dt>
+<dt>cairo_xlib_surface_create_with_xrender_format, <a class="indexterm" href="cairo-XLib-XRender-Backend.html#cairo-xlib-surface-create-with-xrender-format">cairo_xlib_surface_create_with_xrender_format ()</a>
 </dt>
 <dt>cairo_xlib_surface_get_depth, <a class="indexterm" href="cairo-XLib-Surfaces.html#cairo-xlib-surface-get-depth">cairo_xlib_surface_get_depth ()</a>
 </dt>
@@ -969,6 +1057,8 @@
 <dt>cairo_xlib_surface_get_visual, <a class="indexterm" href="cairo-XLib-Surfaces.html#cairo-xlib-surface-get-visual">cairo_xlib_surface_get_visual ()</a>
 </dt>
 <dt>cairo_xlib_surface_get_width, <a class="indexterm" href="cairo-XLib-Surfaces.html#cairo-xlib-surface-get-width">cairo_xlib_surface_get_width ()</a>
+</dt>
+<dt>cairo_xlib_surface_get_xrender_format, <a class="indexterm" href="cairo-XLib-XRender-Backend.html#cairo-xlib-surface-get-xrender-format">cairo_xlib_surface_get_xrender_format ()</a>
 </dt>
 <dt>cairo_xlib_surface_set_drawable, <a class="indexterm" href="cairo-XLib-Surfaces.html#cairo-xlib-surface-set-drawable">cairo_xlib_surface_set_drawable ()</a>
 </dt>

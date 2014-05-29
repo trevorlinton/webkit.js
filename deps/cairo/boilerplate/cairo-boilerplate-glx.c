@@ -30,8 +30,6 @@
  * The Initial Developer of the Original Code is Chris Wilson.
  */
 
-#error "webkit.js does not support GLX. Modify cair-boilerplate-glx.c"
-
 #include "cairo-boilerplate-private.h"
 
 #include <cairo-gl.h>
@@ -100,6 +98,9 @@ _cairo_boilerplate_gl_create_surface (const char		*name,
     gltc = calloc (1, sizeof (gl_target_closure_t));
     *closure = gltc;
 
+    width = ceil (width);
+    height = ceil (height);
+
     if (width == 0)
 	width = 1;
     if (height == 0)
@@ -134,10 +135,11 @@ _cairo_boilerplate_gl_create_surface (const char		*name,
     gltc->ctx = ctx;
     gltc->device = cairo_glx_device_create (dpy, ctx);
 
+    if (mode == CAIRO_BOILERPLATE_MODE_PERF)
+	cairo_gl_device_set_thread_aware(gltc->device, FALSE);
+
     gltc->surface = surface = cairo_gl_surface_create (gltc->device,
-						       content,
-						       ceil (width),
-						       ceil (height));
+						       content, width, height);
     if (cairo_surface_status (surface))
 	_cairo_boilerplate_gl_cleanup (gltc);
 
@@ -145,31 +147,23 @@ _cairo_boilerplate_gl_create_surface (const char		*name,
 }
 
 static cairo_surface_t *
-_cairo_boilerplate_gl_create_window (const char 	       *name,
-				     cairo_content_t		content,
-				     double			width,
-				     double			height,
-				     double			max_width,
-				     double			max_height,
-				     cairo_boilerplate_mode_t	mode,
-				     void		      **closure)
+_cairo_boilerplate_gl_create_window_common (int				rgba_attribs[],
+					    cairo_content_t		content,
+					    double			width,
+					    double			height,
+					    double			max_width,
+					    double			max_height,
+					    cairo_boilerplate_mode_t	mode,
+					    gl_target_closure_t		*gltc)
 {
-    int rgba_attribs[] = { GLX_RGBA,
-			   GLX_RED_SIZE, 1,
-			   GLX_GREEN_SIZE, 1,
-			   GLX_BLUE_SIZE, 1,
-			   GLX_ALPHA_SIZE, 1,
-			   GLX_DOUBLEBUFFER,
-			   None };
     XVisualInfo *vi;
     GLXContext ctx;
-    gl_target_closure_t *gltc;
     cairo_surface_t *surface;
     Display *dpy;
     XSetWindowAttributes attr;
 
-    gltc = calloc (1, sizeof (gl_target_closure_t));
-    *closure = gltc;
+    width = ceil (width);
+    height = ceil (height);
 
     if (width == 0)
 	width = 1;
@@ -216,24 +210,26 @@ _cairo_boilerplate_gl_create_window (const char 	       *name,
 
     gltc->surface = surface = cairo_gl_surface_create_for_window (gltc->device,
 								  gltc->drawable,
-								  ceil (width),
-								  ceil (height));
-    if (cairo_surface_status (surface))
+								  width, height);
+    if (cairo_surface_status (surface)) {
 	_cairo_boilerplate_gl_cleanup (gltc);
-
+	return NULL;
+    }
     return surface;
 }
 
 static cairo_surface_t *
-_cairo_boilerplate_gl_create_window_db (const char		  *name,
-					cairo_content_t 	   content,
-					double			   width,
-					double			   height,
-					double			   max_width,
-					double			   max_height,
-					cairo_boilerplate_mode_t   mode,
-					void			 **closure)
+_cairo_boilerplate_gl_create_window (const char		       *name,
+				     cairo_content_t		content,
+				     double			width,
+				     double			height,
+				     double			max_width,
+				     double			max_height,
+				     cairo_boilerplate_mode_t	mode,
+				     void		      **closure)
 {
+    gl_target_closure_t *gltc;
+
     int rgba_attribs[] = { GLX_RGBA,
 			   GLX_RED_SIZE, 1,
 			   GLX_GREEN_SIZE, 1,
@@ -241,64 +237,81 @@ _cairo_boilerplate_gl_create_window_db (const char		  *name,
 			   GLX_ALPHA_SIZE, 1,
 			   GLX_DOUBLEBUFFER,
 			   None };
-    XVisualInfo *vi;
-    GLXContext ctx;
-    gl_target_closure_t *gltc;
-    cairo_surface_t *surface;
-    Display *dpy;
-    XSetWindowAttributes attr;
-    cairo_status_t status;
 
     gltc = calloc (1, sizeof (gl_target_closure_t));
     *closure = gltc;
 
-    if (width == 0)
-	width = 1;
-    if (height == 0)
-	height = 1;
+    return _cairo_boilerplate_gl_create_window_common (rgba_attribs, content,
+						       width, height,
+						       max_width, max_height,
+						       mode, gltc);
+}
 
-    dpy = XOpenDisplay (NULL);
-    gltc->dpy = dpy;
-    if (!gltc->dpy) {
-	fprintf (stderr, "Failed to open display: %s\n", XDisplayName(0));
-	free (gltc);
+static cairo_surface_t *
+_cairo_boilerplate_gl_create_window_msaa (const char		       *name,
+					  cairo_content_t		content,
+					  double			width,
+					  double			height,
+					  double			max_width,
+					  double			max_height,
+					  cairo_boilerplate_mode_t	mode,
+					  void			      **closure)
+{
+    gl_target_closure_t *gltc;
+
+    int rgba_attribs[] = { GLX_RGBA,
+			   GLX_RED_SIZE, 1,
+			   GLX_GREEN_SIZE, 1,
+			   GLX_BLUE_SIZE, 1,
+			   GLX_ALPHA_SIZE, 1,
+			   GLX_STENCIL_SIZE, 1,
+			   GLX_SAMPLES, 4,
+			   GLX_SAMPLE_BUFFERS, 1,
+			   GLX_DOUBLEBUFFER,
+			   None };
+
+    gltc = calloc (1, sizeof (gl_target_closure_t));
+    *closure = gltc;
+    return _cairo_boilerplate_gl_create_window_common (rgba_attribs, content,
+						       width, height,
+						       max_width, max_height,
+						       mode, gltc);
+
+}
+
+static cairo_surface_t *
+_cairo_boilerplate_gl_create_window_db (const char		  *name,
+					cairo_content_t		   content,
+					double			   width,
+					double			   height,
+					double			   max_width,
+					double			   max_height,
+					cairo_boilerplate_mode_t   mode,
+					void			 **closure)
+{
+    cairo_status_t status;
+    cairo_surface_t *surface;
+    gl_target_closure_t *gltc;
+
+    int rgba_attribs[] = { GLX_RGBA,
+			   GLX_RED_SIZE, 1,
+			   GLX_GREEN_SIZE, 1,
+			   GLX_BLUE_SIZE, 1,
+			   GLX_ALPHA_SIZE, 1,
+			   GLX_DOUBLEBUFFER,
+			   None };
+
+    gltc = calloc (1, sizeof (gl_target_closure_t));
+    *closure = gltc;
+
+    surface = _cairo_boilerplate_gl_create_window_common (rgba_attribs, content,
+							  width, height,
+							  max_width, max_height,
+							  mode, gltc);
+
+   if (! surface)
 	return NULL;
-    }
 
-    if (mode == CAIRO_BOILERPLATE_MODE_TEST)
-	XSynchronize (gltc->dpy, 1);
-
-    vi = glXChooseVisual (dpy, DefaultScreen (dpy), rgba_attribs);
-    if (vi == NULL) {
-	fprintf (stderr, "Failed to create RGBA, double-buffered visual\n");
-	XCloseDisplay (dpy);
-	free (gltc);
-	return NULL;
-    }
-
-    attr.colormap = XCreateColormap (dpy,
-				     RootWindow (dpy, vi->screen),
-				     vi->visual,
-				     AllocNone);
-    attr.border_pixel = 0;
-    attr.override_redirect = True;
-    gltc->drawable = XCreateWindow (dpy, DefaultRootWindow (dpy), 0, 0,
-				    width, height, 0, vi->depth,
-				    InputOutput, vi->visual,
-				    CWOverrideRedirect | CWBorderPixel | CWColormap,
-				    &attr);
-    XMapWindow (dpy, gltc->drawable);
-
-    ctx = glXCreateContext (dpy, vi, NULL, True);
-    XFree (vi);
-
-    gltc->ctx = ctx;
-    gltc->device = cairo_glx_device_create (dpy, ctx);
-
-    gltc->surface = cairo_gl_surface_create_for_window (gltc->device,
-							gltc->drawable,
-							ceil (width),
-							ceil (height));
     surface = cairo_surface_create_similar (gltc->surface, content, width, height);
     status = cairo_surface_set_user_data (surface, &gl_closure_key, gltc, NULL);
     if (status == CAIRO_STATUS_SUCCESS)
@@ -400,6 +413,21 @@ static const cairo_boilerplate_target_t targets[] = {
 	CAIRO_SURFACE_TYPE_GL, CAIRO_CONTENT_COLOR_ALPHA, 1,
 	"cairo_gl_surface_create_for_window",
 	_cairo_boilerplate_gl_create_window,
+	cairo_surface_create_similar,
+	NULL,
+	_cairo_boilerplate_gl_finish_window,
+	_cairo_boilerplate_get_image_surface,
+	cairo_surface_write_to_png,
+	_cairo_boilerplate_gl_cleanup,
+	_cairo_boilerplate_gl_synchronize,
+        _cairo_boilerplate_gl_describe,
+	FALSE, FALSE, FALSE
+    },
+    {
+	"gl-window-msaa", "gl", NULL, NULL,
+	CAIRO_SURFACE_TYPE_GL, CAIRO_CONTENT_COLOR_ALPHA, 1,
+	"cairo_gl_surface_create_for_window",
+	_cairo_boilerplate_gl_create_window_msaa,
 	cairo_surface_create_similar,
 	NULL,
 	_cairo_boilerplate_gl_finish_window,

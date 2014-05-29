@@ -52,7 +52,7 @@ CAIRO_BEGIN_DECLS
  * @Short_Description: Generic data types
  *
  * This section lists generic data types used in the cairo API.
- */
+ **/
 
 typedef struct _cairo_array cairo_array_t;
 typedef struct _cairo_backend cairo_backend_t;

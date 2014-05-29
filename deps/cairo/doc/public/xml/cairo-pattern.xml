@@ -175,9 +175,9 @@ functions.
 </refsect1>
 <refsect1 id="cairo-cairo-pattern-t.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="cairo-pattern-t" role="typedef">
+<refsect2 id="cairo-pattern-t" role="typedef" condition="since:1.0">
 <title>cairo_pattern_t</title>
-<indexterm zone="cairo-pattern-t"><primary sortas="pattern_t">cairo_pattern_t</primary></indexterm>
+<indexterm zone="cairo-pattern-t" role="1.0"><primary sortas="pattern_t">cairo_pattern_t</primary></indexterm>
 <programlisting>typedef struct _cairo_pattern cairo_pattern_t;
 </programlisting>
 <para>
@@ -200,10 +200,10 @@ The type of a pattern can be queried with <link linkend="cairo-pattern-get-type"
 <para>
 Memory management of <link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> is done with
 <link linkend="cairo-pattern-reference"><function>cairo_pattern_reference()</function></link> and <link linkend="cairo-pattern-destroy"><function>cairo_pattern_destroy()</function></link>.
-</para></refsect2>
-<refsect2 id="cairo-pattern-add-color-stop-rgb" role="function">
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-pattern-add-color-stop-rgb" role="function" condition="since:1.0">
 <title>cairo_pattern_add_color_stop_rgb ()</title>
-<indexterm zone="cairo-pattern-add-color-stop-rgb"><primary sortas="pattern_add_color_stop_rgb">cairo_pattern_add_color_stop_rgb</primary></indexterm>
+<indexterm zone="cairo-pattern-add-color-stop-rgb" role="1.0"><primary sortas="pattern_add_color_stop_rgb">cairo_pattern_add_color_stop_rgb</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_pattern_add_color_stop_rgb    (<parameter><link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> *pattern</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> offset</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> red</parameter>,
@@ -241,10 +241,10 @@ with a status of <link linkend="CAIRO-STATUS-PATTERN-TYPE-MISMATCH:CAPS"><litera
 <listitem><simpara>green component of color</simpara></listitem></varlistentry>
 <varlistentry><term><parameter>blue</parameter>&#160;:</term>
 <listitem><simpara>blue component of color</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-pattern-add-color-stop-rgba" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-pattern-add-color-stop-rgba" role="function" condition="since:1.0">
 <title>cairo_pattern_add_color_stop_rgba ()</title>
-<indexterm zone="cairo-pattern-add-color-stop-rgba"><primary sortas="pattern_add_color_stop_rgba">cairo_pattern_add_color_stop_rgba</primary></indexterm>
+<indexterm zone="cairo-pattern-add-color-stop-rgba" role="1.0"><primary sortas="pattern_add_color_stop_rgba">cairo_pattern_add_color_stop_rgba</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_pattern_add_color_stop_rgba   (<parameter><link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> *pattern</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> offset</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> red</parameter>,
@@ -285,7 +285,7 @@ with a status of <link linkend="CAIRO-STATUS-PATTERN-TYPE-MISMATCH:CAPS"><litera
 <listitem><simpara>blue component of color</simpara></listitem></varlistentry>
 <varlistentry><term><parameter>alpha</parameter>&#160;:</term>
 <listitem><simpara>alpha component of color</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 <refsect2 id="cairo-pattern-get-color-stop-count" role="function" condition="since:1.4">
 <title>cairo_pattern_get_color_stop_count ()</title>
 <indexterm zone="cairo-pattern-get-color-stop-count" role="1.4"><primary sortas="pattern_get_color_stop_count">cairo_pattern_get_color_stop_count</primary></indexterm>
@@ -337,9 +337,9 @@ if <parameter>index</parameter> is not valid for the given pattern.  If the patt
 not a gradient pattern, <link linkend="CAIRO-STATUS-PATTERN-TYPE-MISMATCH:CAPS"><literal>CAIRO_STATUS_PATTERN_TYPE_MISMATCH</literal></link> is
 returned.</simpara></listitem></varlistentry>
 </variablelist><para role="since">Since 1.4</para></refsect2>
-<refsect2 id="cairo-pattern-create-rgb" role="function">
+<refsect2 id="cairo-pattern-create-rgb" role="function" condition="since:1.0">
 <title>cairo_pattern_create_rgb ()</title>
-<indexterm zone="cairo-pattern-create-rgb"><primary sortas="pattern_create_rgb">cairo_pattern_create_rgb</primary></indexterm>
+<indexterm zone="cairo-pattern-create-rgb" role="1.0"><primary sortas="pattern_create_rgb">cairo_pattern_create_rgb</primary></indexterm>
 <programlisting><link linkend="cairo-pattern-t"><returnvalue>cairo_pattern_t</returnvalue></link> *   cairo_pattern_create_rgb            (<parameter><link linkend="double"><type>double</type></link> red</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> green</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> blue</parameter>);</programlisting>
@@ -362,10 +362,10 @@ finished with it.
 This function will always return a valid pointer, but if an error
 occurred the pattern status will be set to an error.  To inspect
 the status of a pattern use <link linkend="cairo-pattern-status"><function>cairo_pattern_status()</function></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-pattern-create-rgba" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-pattern-create-rgba" role="function" condition="since:1.0">
 <title>cairo_pattern_create_rgba ()</title>
-<indexterm zone="cairo-pattern-create-rgba"><primary sortas="pattern_create_rgba">cairo_pattern_create_rgba</primary></indexterm>
+<indexterm zone="cairo-pattern-create-rgba" role="1.0"><primary sortas="pattern_create_rgba">cairo_pattern_create_rgba</primary></indexterm>
 <programlisting><link linkend="cairo-pattern-t"><returnvalue>cairo_pattern_t</returnvalue></link> *   cairo_pattern_create_rgba           (<parameter><link linkend="double"><type>double</type></link> red</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> green</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> blue</parameter>,
@@ -391,7 +391,7 @@ finished with it.
 This function will always return a valid pointer, but if an error
 occurred the pattern status will be set to an error.  To inspect
 the status of a pattern use <link linkend="cairo-pattern-status"><function>cairo_pattern_status()</function></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 <refsect2 id="cairo-pattern-get-rgba" role="function" condition="since:1.4">
 <title>cairo_pattern_get_rgba ()</title>
 <indexterm zone="cairo-pattern-get-rgba" role="1.4"><primary sortas="pattern_get_rgba">cairo_pattern_get_rgba</primary></indexterm>
@@ -417,9 +417,9 @@ Gets the solid color for a solid color pattern.
 <link linkend="CAIRO-STATUS-PATTERN-TYPE-MISMATCH:CAPS"><literal>CAIRO_STATUS_PATTERN_TYPE_MISMATCH</literal></link> if the pattern is not a solid
 color pattern.</simpara></listitem></varlistentry>
 </variablelist><para role="since">Since 1.4</para></refsect2>
-<refsect2 id="cairo-pattern-create-for-surface" role="function">
+<refsect2 id="cairo-pattern-create-for-surface" role="function" condition="since:1.0">
 <title>cairo_pattern_create_for_surface ()</title>
-<indexterm zone="cairo-pattern-create-for-surface"><primary sortas="pattern_create_for_surface">cairo_pattern_create_for_surface</primary></indexterm>
+<indexterm zone="cairo-pattern-create-for-surface" role="1.0"><primary sortas="pattern_create_for_surface">cairo_pattern_create_for_surface</primary></indexterm>
 <programlisting><link linkend="cairo-pattern-t"><returnvalue>cairo_pattern_t</returnvalue></link> *   cairo_pattern_create_for_surface    (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>);</programlisting>
 <para>
 Create a new <link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> for the given surface.
@@ -433,7 +433,7 @@ finished with it.
 This function will always return a valid pointer, but if an error
 occurred the pattern status will be set to an error.  To inspect
 the status of a pattern use <link linkend="cairo-pattern-status"><function>cairo_pattern_status()</function></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 <refsect2 id="cairo-pattern-get-surface" role="function" condition="since:1.4">
 <title>cairo_pattern_get_surface ()</title>
 <indexterm zone="cairo-pattern-get-surface" role="1.4"><primary sortas="pattern_get_surface">cairo_pattern_get_surface</primary></indexterm>
@@ -452,9 +452,9 @@ Gets the surface of a surface pattern.  The reference returned in
 <link linkend="CAIRO-STATUS-PATTERN-TYPE-MISMATCH:CAPS"><literal>CAIRO_STATUS_PATTERN_TYPE_MISMATCH</literal></link> if the pattern is not a surface
 pattern.</simpara></listitem></varlistentry>
 </variablelist><para role="since">Since 1.4</para></refsect2>
-<refsect2 id="cairo-pattern-create-linear" role="function">
+<refsect2 id="cairo-pattern-create-linear" role="function" condition="since:1.0">
 <title>cairo_pattern_create_linear ()</title>
-<indexterm zone="cairo-pattern-create-linear"><primary sortas="pattern_create_linear">cairo_pattern_create_linear</primary></indexterm>
+<indexterm zone="cairo-pattern-create-linear" role="1.0"><primary sortas="pattern_create_linear">cairo_pattern_create_linear</primary></indexterm>
 <programlisting><link linkend="cairo-pattern-t"><returnvalue>cairo_pattern_t</returnvalue></link> *   cairo_pattern_create_linear         (<parameter><link linkend="double"><type>double</type></link> x0</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> y0</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> x1</parameter>,
@@ -486,7 +486,7 @@ finished with it.
 This function will always return a valid pointer, but if an error
 occurred the pattern status will be set to an error.  To inspect
 the status of a pattern use <link linkend="cairo-pattern-status"><function>cairo_pattern_status()</function></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 <refsect2 id="cairo-pattern-get-linear-points" role="function" condition="since:1.4">
 <title>cairo_pattern_get_linear_points ()</title>
 <indexterm zone="cairo-pattern-get-linear-points" role="1.4"><primary sortas="pattern_get_linear_points">cairo_pattern_get_linear_points</primary></indexterm>
@@ -512,9 +512,9 @@ Gets the gradient endpoints for a linear gradient.
 <link linkend="CAIRO-STATUS-PATTERN-TYPE-MISMATCH:CAPS"><literal>CAIRO_STATUS_PATTERN_TYPE_MISMATCH</literal></link> if <parameter>pattern</parameter> is not a linear
 gradient pattern.</simpara></listitem></varlistentry>
 </variablelist><para role="since">Since 1.4</para></refsect2>
-<refsect2 id="cairo-pattern-create-radial" role="function">
+<refsect2 id="cairo-pattern-create-radial" role="function" condition="since:1.0">
 <title>cairo_pattern_create_radial ()</title>
-<indexterm zone="cairo-pattern-create-radial"><primary sortas="pattern_create_radial">cairo_pattern_create_radial</primary></indexterm>
+<indexterm zone="cairo-pattern-create-radial" role="1.0"><primary sortas="pattern_create_radial">cairo_pattern_create_radial</primary></indexterm>
 <programlisting><link linkend="cairo-pattern-t"><returnvalue>cairo_pattern_t</returnvalue></link> *   cairo_pattern_create_radial         (<parameter><link linkend="double"><type>double</type></link> cx0</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> cy0</parameter>,
                                                          <parameter><link linkend="double"><type>double</type></link> radius0</parameter>,
@@ -552,7 +552,7 @@ finished with it.
 This function will always return a valid pointer, but if an error
 occurred the pattern status will be set to an error.  To inspect
 the status of a pattern use <link linkend="cairo-pattern-status"><function>cairo_pattern_status()</function></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 <refsect2 id="cairo-pattern-get-radial-circles" role="function" condition="since:1.4">
 <title>cairo_pattern_get_radial_circles ()</title>
 <indexterm zone="cairo-pattern-get-radial-circles" role="1.4"><primary sortas="pattern_get_radial_circles">cairo_pattern_get_radial_circles</primary></indexterm>
@@ -1141,9 +1141,9 @@ if <parameter>patch_num</parameter> or <parameter>corner_num</parameter> is not 
 <parameter>pattern</parameter> is not a mesh pattern, <link linkend="CAIRO-STATUS-PATTERN-TYPE-MISMATCH:CAPS"><literal>CAIRO_STATUS_PATTERN_TYPE_MISMATCH</literal></link>
 is returned.</simpara></listitem></varlistentry>
 </variablelist><para role="since">Since 1.12</para></refsect2>
-<refsect2 id="cairo-pattern-reference" role="function">
+<refsect2 id="cairo-pattern-reference" role="function" condition="since:1.0">
 <title>cairo_pattern_reference ()</title>
-<indexterm zone="cairo-pattern-reference"><primary sortas="pattern_reference">cairo_pattern_reference</primary></indexterm>
+<indexterm zone="cairo-pattern-reference" role="1.0"><primary sortas="pattern_reference">cairo_pattern_reference</primary></indexterm>
 <programlisting><link linkend="cairo-pattern-t"><returnvalue>cairo_pattern_t</returnvalue></link> *   cairo_pattern_reference             (<parameter><link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> *pattern</parameter>);</programlisting>
 <para>
 Increases the reference count on <parameter>pattern</parameter> by one. This prevents
@@ -1157,10 +1157,10 @@ The number of references to a <link linkend="cairo-pattern-t"><type>cairo_patter
 <varlistentry><term><parameter>pattern</parameter>&#160;:</term>
 <listitem><simpara>a <link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link></simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the referenced <link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-pattern-destroy" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-pattern-destroy" role="function" condition="since:1.0">
 <title>cairo_pattern_destroy ()</title>
-<indexterm zone="cairo-pattern-destroy"><primary sortas="pattern_destroy">cairo_pattern_destroy</primary></indexterm>
+<indexterm zone="cairo-pattern-destroy" role="1.0"><primary sortas="pattern_destroy">cairo_pattern_destroy</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_pattern_destroy               (<parameter><link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> *pattern</parameter>);</programlisting>
 <para>
 Decreases the reference count on <parameter>pattern</parameter> by one. If the result is
@@ -1169,10 +1169,10 @@ zero, then <parameter>pattern</parameter> and all associated resources are freed
 </para><variablelist role="params">
 <varlistentry><term><parameter>pattern</parameter>&#160;:</term>
 <listitem><simpara>a <link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link></simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-pattern-status" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-pattern-status" role="function" condition="since:1.0">
 <title>cairo_pattern_status ()</title>
-<indexterm zone="cairo-pattern-status"><primary sortas="pattern_status">cairo_pattern_status</primary></indexterm>
+<indexterm zone="cairo-pattern-status" role="1.0"><primary sortas="pattern_status">cairo_pattern_status</primary></indexterm>
 <programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_pattern_status                (<parameter><link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> *pattern</parameter>);</programlisting>
 <para>
 Checks whether an error has previously occurred for this
@@ -1183,10 +1183,10 @@ pattern.
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link>, <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link>,
 <link linkend="CAIRO-STATUS-INVALID-MATRIX:CAPS"><literal>CAIRO_STATUS_INVALID_MATRIX</literal></link>, <link linkend="CAIRO-STATUS-PATTERN-TYPE-MISMATCH:CAPS"><literal>CAIRO_STATUS_PATTERN_TYPE_MISMATCH</literal></link>,
 or <link linkend="CAIRO-STATUS-INVALID-MESH-CONSTRUCTION:CAPS"><literal>CAIRO_STATUS_INVALID_MESH_CONSTRUCTION</literal></link>.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-extend-t" role="enum">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-extend-t" role="enum" condition="since:1.0">
 <title>enum cairo_extend_t</title>
-<indexterm zone="cairo-extend-t"><primary sortas="extend_t">cairo_extend_t</primary></indexterm>
+<indexterm zone="cairo-extend-t" role="1.0"><primary sortas="extend_t">cairo_extend_t</primary></indexterm>
 <programlisting>typedef enum {
     CAIRO_EXTEND_NONE,
     CAIRO_EXTEND_REPEAT,
@@ -1213,18 +1213,18 @@ New entries may be added in future versions.
 <varlistentry id="CAIRO-EXTEND-NONE:CAPS" role="constant">
 <term><literal>CAIRO_EXTEND_NONE</literal></term>
 <listitem><simpara>pixels outside of the source pattern
-  are fully transparent
+  are fully transparent (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-EXTEND-REPEAT:CAPS" role="constant">
 <term><literal>CAIRO_EXTEND_REPEAT</literal></term>
-<listitem><simpara>the pattern is tiled by repeating
+<listitem><simpara>the pattern is tiled by repeating (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-EXTEND-REFLECT:CAPS" role="constant">
 <term><literal>CAIRO_EXTEND_REFLECT</literal></term>
 <listitem><simpara>the pattern is tiled by reflecting
-  at the edges (Implemented for surface patterns since 1.6)
+  at the edges (Since 1.0; but only implemented for surface patterns since 1.6)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-EXTEND-PAD:CAPS" role="constant">
@@ -1234,10 +1234,10 @@ New entries may be added in future versions.
   implemented for surface patterns since 1.6)
 </simpara></listitem>
 </varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-pattern-set-extend" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-pattern-set-extend" role="function" condition="since:1.0">
 <title>cairo_pattern_set_extend ()</title>
-<indexterm zone="cairo-pattern-set-extend"><primary sortas="pattern_set_extend">cairo_pattern_set_extend</primary></indexterm>
+<indexterm zone="cairo-pattern-set-extend" role="1.0"><primary sortas="pattern_set_extend">cairo_pattern_set_extend</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_pattern_set_extend            (<parameter><link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> *pattern</parameter>,
                                                          <parameter><link linkend="cairo-extend-t"><type>cairo_extend_t</type></link> extend</parameter>);</programlisting>
 <para>
@@ -1254,10 +1254,10 @@ and <link linkend="CAIRO-EXTEND-PAD:CAPS"><literal>CAIRO_EXTEND_PAD</literal></l
 <varlistentry><term><parameter>extend</parameter>&#160;:</term>
 <listitem><simpara>a <link linkend="cairo-extend-t"><type>cairo_extend_t</type></link> describing how the area outside of the
 pattern will be drawn</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-pattern-get-extend" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-pattern-get-extend" role="function" condition="since:1.0">
 <title>cairo_pattern_get_extend ()</title>
-<indexterm zone="cairo-pattern-get-extend"><primary sortas="pattern_get_extend">cairo_pattern_get_extend</primary></indexterm>
+<indexterm zone="cairo-pattern-get-extend" role="1.0"><primary sortas="pattern_get_extend">cairo_pattern_get_extend</primary></indexterm>
 <programlisting><link linkend="cairo-extend-t"><returnvalue>cairo_extend_t</returnvalue></link>      cairo_pattern_get_extend            (<parameter><link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> *pattern</parameter>);</programlisting>
 <para>
 Gets the current extend mode for a pattern.  See <link linkend="cairo-extend-t"><type>cairo_extend_t</type></link>
@@ -1267,10 +1267,10 @@ for details on the semantics of each extend strategy.
 <listitem><simpara>a <link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link></simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the current extend strategy used for drawing the
 pattern.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-filter-t" role="enum">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-filter-t" role="enum" condition="since:1.0">
 <title>enum cairo_filter_t</title>
-<indexterm zone="cairo-filter-t"><primary sortas="filter_t">cairo_filter_t</primary></indexterm>
+<indexterm zone="cairo-filter-t" role="1.0"><primary sortas="filter_t">cairo_filter_t</primary></indexterm>
 <programlisting>typedef enum {
     CAIRO_FILTER_FAST,
     CAIRO_FILTER_GOOD,
@@ -1289,41 +1289,41 @@ used with a particular pattern.
 <varlistentry id="CAIRO-FILTER-FAST:CAPS" role="constant">
 <term><literal>CAIRO_FILTER_FAST</literal></term>
 <listitem><simpara>A high-performance filter, with quality similar
-    to <link linkend="CAIRO-FILTER-NEAREST:CAPS"><literal>CAIRO_FILTER_NEAREST</literal></link>
+    to <link linkend="CAIRO-FILTER-NEAREST:CAPS"><literal>CAIRO_FILTER_NEAREST</literal></link> (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-FILTER-GOOD:CAPS" role="constant">
 <term><literal>CAIRO_FILTER_GOOD</literal></term>
 <listitem><simpara>A reasonable-performance filter, with quality
-    similar to <link linkend="CAIRO-FILTER-BILINEAR:CAPS"><literal>CAIRO_FILTER_BILINEAR</literal></link>
+    similar to <link linkend="CAIRO-FILTER-BILINEAR:CAPS"><literal>CAIRO_FILTER_BILINEAR</literal></link> (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-FILTER-BEST:CAPS" role="constant">
 <term><literal>CAIRO_FILTER_BEST</literal></term>
 <listitem><simpara>The highest-quality available, performance may
-    not be suitable for interactive use.
+    not be suitable for interactive use. (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-FILTER-NEAREST:CAPS" role="constant">
 <term><literal>CAIRO_FILTER_NEAREST</literal></term>
-<listitem><simpara>Nearest-neighbor filtering
+<listitem><simpara>Nearest-neighbor filtering (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-FILTER-BILINEAR:CAPS" role="constant">
 <term><literal>CAIRO_FILTER_BILINEAR</literal></term>
-<listitem><simpara>Linear interpolation in two dimensions
+<listitem><simpara>Linear interpolation in two dimensions (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-FILTER-GAUSSIAN:CAPS" role="constant">
 <term><literal>CAIRO_FILTER_GAUSSIAN</literal></term>
 <listitem><simpara>This filter value is currently
-    unimplemented, and should not be used in current code.
+    unimplemented, and should not be used in current code. (Since 1.0)
 </simpara></listitem>
 </varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-pattern-set-filter" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-pattern-set-filter" role="function" condition="since:1.0">
 <title>cairo_pattern_set_filter ()</title>
-<indexterm zone="cairo-pattern-set-filter"><primary sortas="pattern_set_filter">cairo_pattern_set_filter</primary></indexterm>
+<indexterm zone="cairo-pattern-set-filter" role="1.0"><primary sortas="pattern_set_filter">cairo_pattern_set_filter</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_pattern_set_filter            (<parameter><link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> *pattern</parameter>,
                                                          <parameter><link linkend="cairo-filter-t"><type>cairo_filter_t</type></link> filter</parameter>);</programlisting>
 <para>
@@ -1348,10 +1348,10 @@ cairo_pattern_set_filter (cairo_get_source (cr), CAIRO_FILTER_NEAREST);
 <varlistentry><term><parameter>filter</parameter>&#160;:</term>
 <listitem><simpara>a <link linkend="cairo-filter-t"><type>cairo_filter_t</type></link> describing the filter to use for resizing
 the pattern</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-pattern-get-filter" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-pattern-get-filter" role="function" condition="since:1.0">
 <title>cairo_pattern_get_filter ()</title>
-<indexterm zone="cairo-pattern-get-filter"><primary sortas="pattern_get_filter">cairo_pattern_get_filter</primary></indexterm>
+<indexterm zone="cairo-pattern-get-filter" role="1.0"><primary sortas="pattern_get_filter">cairo_pattern_get_filter</primary></indexterm>
 <programlisting><link linkend="cairo-filter-t"><returnvalue>cairo_filter_t</returnvalue></link>      cairo_pattern_get_filter            (<parameter><link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> *pattern</parameter>);</programlisting>
 <para>
 Gets the current filter for a pattern.  See <link linkend="cairo-filter-t"><type>cairo_filter_t</type></link>
@@ -1360,10 +1360,10 @@ for details on each filter.
 <varlistentry><term><parameter>pattern</parameter>&#160;:</term>
 <listitem><simpara>a <link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link></simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the current filter used for resizing the pattern.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-pattern-set-matrix" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-pattern-set-matrix" role="function" condition="since:1.0">
 <title>cairo_pattern_set_matrix ()</title>
-<indexterm zone="cairo-pattern-set-matrix"><primary sortas="pattern_set_matrix">cairo_pattern_set_matrix</primary></indexterm>
+<indexterm zone="cairo-pattern-set-matrix" role="1.0"><primary sortas="pattern_set_matrix">cairo_pattern_set_matrix</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_pattern_set_matrix            (<parameter><link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> *pattern</parameter>,
                                                          <parameter>const <link linkend="cairo-matrix-t"><type>cairo_matrix_t</type></link> *matrix</parameter>);</programlisting>
 <para>
@@ -1404,10 +1404,10 @@ semantics of <link linkend="cairo-set-source"><function>cairo_set_source()</func
 <listitem><simpara>a <link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link></simpara></listitem></varlistentry>
 <varlistentry><term><parameter>matrix</parameter>&#160;:</term>
 <listitem><simpara>a <link linkend="cairo-matrix-t"><type>cairo_matrix_t</type></link></simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-pattern-get-matrix" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-pattern-get-matrix" role="function" condition="since:1.0">
 <title>cairo_pattern_get_matrix ()</title>
-<indexterm zone="cairo-pattern-get-matrix"><primary sortas="pattern_get_matrix">cairo_pattern_get_matrix</primary></indexterm>
+<indexterm zone="cairo-pattern-get-matrix" role="1.0"><primary sortas="pattern_get_matrix">cairo_pattern_get_matrix</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_pattern_get_matrix            (<parameter><link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link> *pattern</parameter>,
                                                          <parameter><link linkend="cairo-matrix-t"><type>cairo_matrix_t</type></link> *matrix</parameter>);</programlisting>
 <para>
@@ -1417,7 +1417,7 @@ Stores the pattern's transformation matrix into <parameter>matrix</parameter>.
 <listitem><simpara>a <link linkend="cairo-pattern-t"><type>cairo_pattern_t</type></link></simpara></listitem></varlistentry>
 <varlistentry><term><parameter>matrix</parameter>&#160;:</term>
 <listitem><simpara>return value for the matrix</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 <refsect2 id="cairo-pattern-type-t" role="enum" condition="since:1.2">
 <title>enum cairo_pattern_type_t</title>
 <indexterm zone="cairo-pattern-type-t" role="1.2"><primary sortas="pattern_type_t">cairo_pattern_type_t</primary></indexterm>
@@ -1458,27 +1458,27 @@ New entries may be added in future versions.
 <varlistentry id="CAIRO-PATTERN-TYPE-SOLID:CAPS" role="constant">
 <term><literal>CAIRO_PATTERN_TYPE_SOLID</literal></term>
 <listitem><simpara>The pattern is a solid (uniform)
-color. It may be opaque or translucent.
+color. It may be opaque or translucent, since 1.2.
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-PATTERN-TYPE-SURFACE:CAPS" role="constant">
 <term><literal>CAIRO_PATTERN_TYPE_SURFACE</literal></term>
-<listitem><simpara>The pattern is a based on a surface (an image).
+<listitem><simpara>The pattern is a based on a surface (an image), since 1.2.
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-PATTERN-TYPE-LINEAR:CAPS" role="constant">
 <term><literal>CAIRO_PATTERN_TYPE_LINEAR</literal></term>
-<listitem><simpara>The pattern is a linear gradient.
+<listitem><simpara>The pattern is a linear gradient, since 1.2.
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-PATTERN-TYPE-RADIAL:CAPS" role="constant">
 <term><literal>CAIRO_PATTERN_TYPE_RADIAL</literal></term>
-<listitem><simpara>The pattern is a radial gradient.
+<listitem><simpara>The pattern is a radial gradient, since 1.2.
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-PATTERN-TYPE-MESH:CAPS" role="constant">
 <term><literal>CAIRO_PATTERN_TYPE_MESH</literal></term>
-<listitem><simpara>The pattern is a mesh.
+<listitem><simpara>The pattern is a mesh, since 1.12.
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-PATTERN-TYPE-RASTER-SOURCE:CAPS" role="constant">

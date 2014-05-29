@@ -45,6 +45,7 @@ struct chart {
     int width, height;
     int num_tests, num_reports;
     double min_value, max_value;
+    double *average;
 
     cairo_bool_t use_html;
     cairo_bool_t relative;
@@ -142,11 +143,19 @@ find_ranges (struct chart *chart)
     int num_tests = 0;
     double slow_sum = 0, fast_sum = 0, sum;
     int slow_count = 0, fast_count = 0;
+    int *count;
     int i;
 
     num_values = 0;
     size_values = 64;
     values = xmalloc (size_values * sizeof (double));
+
+    chart->average = xmalloc(chart->num_reports * sizeof(double));
+    count = xmalloc(chart->num_reports * sizeof(int));
+    for (i = 0; i < chart->num_reports; i++) {
+	chart->average[i] = 0;
+	count[i] = 0;
+    }
 
     tests = xmalloc (chart->num_reports * sizeof (test_report_t *));
     for (i = 0; i < chart->num_reports; i++)
@@ -202,6 +211,9 @@ find_ranges (struct chart *chart)
 		if (test_time == 0)
 		    test_time = report_time;
 
+		chart->average[i] += report_time / test_time;
+		count[i]++;
+
 		if (chart->relative) {
 		    if (test_time != report_time) {
 			double v = to_factor (test_time / report_time);
@@ -232,14 +244,22 @@ find_ranges (struct chart *chart)
 	}
     }
 
+    for (i = 0; i < chart->num_reports; i++) {
+	if (count[i])
+	    chart->average[i] = count[i] / chart->average[i];
+	else
+	    chart->average[i] = 1.;
+    }
+
     if (chart->relative)
 	trim_outliers (values, num_values, &min, &max);
     chart->min_value = min;
     chart->max_value = max;
-    chart->num_tests = num_tests;
+    chart->num_tests = num_tests + !!chart->relative;
 
     free (values);
     free (tests);
+    free (count);
 
     printf ("%d: slow[%d] average: %f, fast[%d] average: %f, %f\n",
 	    num_values, slow_count, slow_sum / slow_count, fast_count, fast_sum / fast_count, sum / num_values);
@@ -359,21 +379,26 @@ add_chart (struct chart *c,
 	dx = c->width / (double) (c->num_tests * c->num_reports);
 	x = dx * (c->num_reports * test + report - .5);
 
-	set_report_gradient (c, report,
-			     floor (x), c->height / 2.,
-			     floor (x + dx) - floor (x),
-			     ceil (-dy*value - c->height/2.) + c->height/2.);
-
 	cairo_rectangle (c->cr,
 			 floor (x), c->height / 2.,
 			 floor (x + dx) - floor (x),
 			 ceil (-dy*value - c->height/2.) + c->height/2.);
-	cairo_fill_preserve (c->cr);
-	cairo_save (c->cr);
-	cairo_clip_preserve (c->cr);
-	set_report_color (c, report);
-	cairo_stroke (c->cr);
-	cairo_restore (c->cr);
+	if (dx < 5) {
+	    set_report_color (c, report);
+	    cairo_fill (c->cr);
+	} else {
+	    set_report_gradient (c, report,
+				 floor (x), c->height / 2.,
+				 floor (x + dx) - floor (x),
+				 ceil (-dy*value - c->height/2.) + c->height/2.);
+
+	    cairo_fill_preserve (c->cr);
+	    cairo_save (c->cr);
+	    cairo_clip_preserve (c->cr);
+	    set_report_color (c, report);
+	    cairo_stroke (c->cr);
+	    cairo_restore (c->cr);
+	}
 
 	/* Skip the label if the difference between the two is less than 0.1% */
 	if (fabs (value) < 0.1)
@@ -423,15 +448,60 @@ add_chart (struct chart *c,
 	dx = c->width / (double) (c->num_tests * (c->num_reports+1));
 	x = dx * ((c->num_reports+1) * test + report + .5);
 
-	set_report_gradient (c, report,
-			 floor (x), c->height,
-			 floor (x + dx) - floor (x),
-			 floor (c->height - dy*value) - c->height);
-
 	cairo_rectangle (c->cr,
 			 floor (x), c->height,
 			 floor (x + dx) - floor (x),
 			 floor (c->height - dy*value) - c->height);
+	if (dx < 5) {
+	    set_report_color (c, report);
+	    cairo_fill (c->cr);
+	} else {
+	    set_report_gradient (c, report,
+				 floor (x), c->height,
+				 floor (x + dx) - floor (x),
+				 floor (c->height - dy*value) - c->height);
+	    cairo_fill_preserve (c->cr);
+	    cairo_save (c->cr);
+	    cairo_clip_preserve (c->cr);
+	    set_report_color (c, report);
+	    cairo_stroke (c->cr);
+	    cairo_restore (c->cr);
+	}
+    }
+}
+
+static void
+add_average (struct chart *c,
+	     int		 test,
+	     int		 report,
+	     double	 value)
+{
+    double dx, dy, x;
+    cairo_text_extents_t extents;
+    char buf[80];
+    double y;
+
+    if (fabs (value) < 0.1)
+	return;
+
+    dy = (c->height/2. - PAD) / MAX (-c->min_value, c->max_value);
+    /* the first report is always skipped, as it is used as the baseline */
+    dx = c->width / (double) (c->num_tests * c->num_reports);
+    x = dx * (c->num_reports * test + report - .5);
+
+    cairo_rectangle (c->cr,
+		     floor (x), c->height / 2.,
+		     floor (x + dx) - floor (x),
+		     ceil (-dy*value - c->height/2.) + c->height/2.);
+    if (dx < 5) {
+	set_report_color (c, report);
+	cairo_fill (c->cr);
+    } else {
+	set_report_gradient (c, report,
+			     floor (x), c->height / 2.,
+			     floor (x + dx) - floor (x),
+			     ceil (-dy*value - c->height/2.) + c->height/2.);
+
 	cairo_fill_preserve (c->cr);
 	cairo_save (c->cr);
 	cairo_clip_preserve (c->cr);
@@ -439,6 +509,50 @@ add_chart (struct chart *c,
 	cairo_stroke (c->cr);
 	cairo_restore (c->cr);
     }
+
+    /* Skip the label if the difference between the two is less than 0.1% */
+    if (fabs (value) < 0.1)
+	return;
+
+    cairo_save (c->cr);
+    cairo_set_font_size (c->cr, dx - 2);
+
+    if (value < 0) {
+	sprintf (buf, "%.1f", -value/100 + 1);
+    } else {
+	sprintf (buf, "%.1f", value/100 + 1);
+    }
+    cairo_text_extents (c->cr, buf, &extents);
+
+    /* will it be clipped? */
+    y = -dy * value;
+    if (y < -c->height/2) {
+	y = -c->height/2;
+    } else if (y > c->height/2) {
+	y = c->height/2;
+    }
+
+    if (y < 0) {
+	if (y > -extents.width - 6)
+	    y -= extents.width + 6;
+    } else {
+	if (y < extents.width + 6)
+	    y += extents.width + 6;
+    }
+
+    cairo_translate (c->cr,
+		     floor (x) + (floor (x + dx) - floor (x))/2,
+		     floor (y) + c->height/2.);
+    cairo_rotate (c->cr, -M_PI/2);
+    if (y < 0) {
+	cairo_move_to (c->cr, -extents.x_bearing -extents.width - 4, -extents.y_bearing/2);
+    } else {
+	cairo_move_to (c->cr, 2, -extents.y_bearing/2);
+    }
+
+    cairo_set_source_rgb (c->cr, .95, .95, .95);
+    cairo_show_text (c->cr, buf);
+    cairo_restore (c->cr);
 }
 
 static void
@@ -816,6 +930,11 @@ cairo_perf_reports_compare (struct chart *chart,
 
 	num_test++;
     }
+    if (chart->relative) {
+	add_label (chart, num_test, "(geometric mean)");
+	for (i = 0; i < chart->num_reports; i++)
+	    add_average (chart, num_test, i, to_factor (chart->average[i]));
+    }
     free (tests);
 
     if (print) {
@@ -880,6 +999,31 @@ add_legend (struct chart *chart)
     }
 }
 
+static void
+usage (void)
+{
+	printf("Usage:\n");
+	printf("  cairo-perf-chart [OPTION...] <result1> <result2>...<resultN>\n");
+	printf("\n");
+	printf("Help Options:\n");
+	printf("  --help, --?\tShow help options\n");
+	printf("\n");
+	printf("Application Options:\n");
+	printf("  --html\tOutput an HTML table comparing the results\n");
+	printf("  --height=\tSet the height of the output graph"\
+			" (default 480)\n");
+	printf("  --width=\tSet the width of the output graph"\
+			" (default 640)\n");
+	printf("  --name\tSet the name of graph series."\
+			" This only sets the name for the\n\t\tfirst result file."\
+			" The graph series is usually set using the\n\t\tfile name for"\
+			" the results file.\n");
+	printf("\n");
+	printf("Example:\n");
+	printf("  cairo-perf-chart --width=1024 --height=768 run1 run2 run3\n");
+	return;
+}
+
 int
 main (int	  argc,
       const char *argv[])
@@ -909,6 +1053,10 @@ main (int	  argc,
 		chart.names[chart.num_reports] = argv[++i];
 	} else if (strncmp (argv[i], "--name=", 7) == 0) {
 	    chart.names[chart.num_reports] = argv[i] + 7;
+	} else if ((strcmp (argv[i], "--help") == 0) ||
+		(strcmp (argv[i], "--?") == 0)) {
+		usage();
+		return 0;
 	} else {
 	    cairo_perf_report_load (&chart.reports[chart.num_reports++],
 				    argv[i], i,
@@ -946,9 +1094,7 @@ main (int	  argc,
 	add_legend (&chart);
 
 	cairo_surface_write_to_png (cairo_get_target (chart.cr),
-				    chart.relative ?
-				    "cairo-perf-chart-relative.png" :
-				    "cairo-perf-chart-absolute.png");
+				    chart.relative ? "relative.png" : "absolute.png");
 	cairo_destroy (chart.cr);
     }
 

@@ -61,7 +61,6 @@ IntRect Widget::frameRect() const
 void Widget::setFrameRect(const IntRect& rect)
 {
 	webkitTrace();
-	fprintf(stdout, "Widget frame size changed to: %i %i %i %i\n",rect.x(),rect.y(),rect.width(),rect.height());
 		m_frame = rect;
     Widget::frameRectsChanged();
 }

@@ -46,9 +46,15 @@ typedef struct _xcb_target_closure {
 static cairo_status_t
 _cairo_boilerplate_xcb_handle_errors (xcb_target_closure_t *xtc)
 {
-    xcb_generic_event_t *ev;
+    xcb_generic_event_t *ev = NULL;
 
-    if ((ev = xcb_poll_for_event (xtc->c)) != NULL) {
+    /* Ignore all MappingNotify events; those might happen without us causing them */
+    do {
+	free(ev);
+	ev = xcb_poll_for_event(xtc->c);
+    } while (ev != NULL && ev->response_type == XCB_MAPPING_NOTIFY);
+
+    if (ev != NULL) {
 	if (ev->response_type == CAIRO_XCB_ERROR) {
 	    xcb_generic_error_t *error = (xcb_generic_error_t *) ev;
 
@@ -822,7 +828,7 @@ static const cairo_boilerplate_target_t targets[] = {
 	FALSE, FALSE, FALSE
     },
     {
-	"xcb-render-0.0", "xlib-fallback", NULL, NULL,
+	"xcb-render-0_0", "xlib-fallback", NULL, NULL,
 	CAIRO_SURFACE_TYPE_XCB, CAIRO_CONTENT_COLOR_ALPHA, 1,
 	"cairo_xcb_surface_create_with_xrender_format",
 	_cairo_boilerplate_xcb_create_render_0_0,
@@ -837,7 +843,7 @@ static const cairo_boilerplate_target_t targets[] = {
 	FALSE, FALSE, FALSE
     },
     {
-	"xcb-render-0.0", "xlib-fallback", NULL, NULL,
+	"xcb-render-0_0", "xlib-fallback", NULL, NULL,
 	CAIRO_SURFACE_TYPE_XCB, CAIRO_CONTENT_COLOR, 1,
 	"cairo_xcb_surface_create_with_xrender_format",
 	_cairo_boilerplate_xcb_create_render_0_0,

@@ -224,9 +224,7 @@
 # define CAIRO_MUTEX_IMPL_NIL_INITIALIZER NULL
 
 #elif CAIRO_HAS_PTHREAD /* and finally if there are no native mutexes ********/
-#ifdef TARGET_EMSCRIPTEN
-#error "Cannot implement pthreads on javascript."
-#endif
+
 # include <pthread.h>
 
   typedef pthread_mutex_t cairo_mutex_impl_t;

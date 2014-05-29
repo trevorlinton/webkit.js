@@ -50,12 +50,13 @@
 #include "cairo-error-private.h"
 #include "cairo-image-info-private.h"
 #include "cairo-image-surface-private.h"
-#include "cairo-recording-surface-private.h"
+#include "cairo-recording-surface-inline.h"
 #include "cairo-output-stream-private.h"
 #include "cairo-path-fixed-private.h"
 #include "cairo-paginated-private.h"
 #include "cairo-scaled-font-subsets-private.h"
 #include "cairo-surface-clipper-private.h"
+#include "cairo-surface-snapshot-inline.h"
 #include "cairo-svg-surface-private.h"
 
 /**
@@ -66,14 +67,16 @@
  *
  * The SVG surface is used to render cairo graphics to
  * SVG files and is a multi-page vector surface backend.
- */
+ **/
 
 /**
  * CAIRO_HAS_SVG_SURFACE:
  *
  * Defined if the SVG surface backend is available.
  * This macro can be used to conditionally compile backend-specific code.
- */
+ *
+ * Since: 1.2
+ **/
 
 typedef struct cairo_svg_page cairo_svg_page_t;
 
@@ -205,7 +208,7 @@ static const cairo_paginated_surface_backend_t cairo_svg_surface_paginated_backe
  * occurs. You can use cairo_surface_status() to check for this.
  *
  * Since: 1.2
- */
+ **/
 cairo_surface_t *
 cairo_svg_surface_create_for_stream (cairo_write_func_t		 write_func,
 				     void			*closure,
@@ -1485,6 +1488,17 @@ _cairo_svg_surface_emit_recording_surface (cairo_svg_document_t      *document,
 					    document, NULL);
 }
 
+static cairo_recording_surface_t *
+to_recording_surface (const cairo_surface_pattern_t *pattern)
+{
+    cairo_surface_t *surface = pattern->surface;
+    if (_cairo_surface_is_paginated (surface))
+	surface = _cairo_paginated_surface_get_recording (surface);
+    if (_cairo_surface_is_snapshot (surface))
+	surface = _cairo_surface_snapshot_get_target (surface);
+    return (cairo_recording_surface_t *) surface;
+}
+
 static cairo_status_t
 _cairo_svg_surface_emit_composite_recording_pattern (cairo_output_stream_t	*output,
 						     cairo_svg_surface_t	*surface,
@@ -1504,7 +1518,7 @@ _cairo_svg_surface_emit_composite_recording_pattern (cairo_output_stream_t	*outp
     /* cairo_pattern_set_matrix ensures the matrix is invertible */
     assert (status == CAIRO_STATUS_SUCCESS);
 
-    recording_surface = (cairo_recording_surface_t *) pattern->surface;
+    recording_surface = to_recording_surface (pattern);
     status = _cairo_svg_surface_emit_recording_surface (document, recording_surface);
     if (unlikely (status))
 	return status;
@@ -1551,7 +1565,7 @@ _cairo_svg_surface_emit_composite_pattern (cairo_output_stream_t   *output,
 					   const char		   *extra_attributes)
 {
 
-    if (_cairo_surface_is_recording (pattern->surface)) {
+    if (pattern->surface->type == CAIRO_SURFACE_TYPE_RECORDING) {
 	return _cairo_svg_surface_emit_composite_recording_pattern (output, surface,
 								    op, pattern,
 								    pattern_id,
@@ -2391,7 +2405,7 @@ _cairo_svg_surface_mask (void		    *abstract_surface,
 
     if (mask->type == CAIRO_PATTERN_TYPE_SURFACE) {
 	const cairo_surface_pattern_t *surface_pattern = (const cairo_surface_pattern_t*) mask;
-	cairo_content_t content = cairo_surface_get_content (surface_pattern->surface);
+	cairo_content_t content = surface_pattern->surface->content;
 	if (content == CAIRO_CONTENT_ALPHA)
 	    discard_filter = TRUE;
     }

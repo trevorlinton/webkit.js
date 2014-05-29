@@ -72,6 +72,7 @@ endif
 test_sources += $(test)
 
 noinst_PROGRAMS = cairo-test-suite$(EXEEXT) # always build
+noinst_SCRIPTS = check-refs.sh
 
 TESTS += cairo-test-suite$(EXEEXT)
 
@@ -289,6 +290,9 @@ $(top_builddir)/src/libcairo.la:
 $(top_builddir)/test/pdiff/libpdiff.la:
 	cd $(top_builddir)/test/pdiff && $(MAKE) $(AM_MAKEFLAGS) libpdiff.la
 
+$(top_builddir)/test/pdiff/perceptualdiff:
+	cd $(top_builddir)/test/pdiff && $(MAKE) $(AM_MAKEFLAGS) perceptualdiff
+
 $(top_builddir)/util/cairo-script/libcairo-script-interpreter.la: $(top_builddir)/src/libcairo.la
 	cd $(top_builddir)/util/cairo-script && $(MAKE) $(AM_MAKEFLAGS) libcairo-script-interpreter.la
 
@@ -445,10 +449,12 @@ $(NOLOG_TESTS_LOG):
 	@echo dummy > $@
 
 # Identify identical reference images
-check-ref-dups:
-	@LANG=C; \
-	( cd "$(srcdir)" && sha1sum *.ref.png | sort ) > ref.hash; \
-	join ref.hash ref.hash | grep -v -E '( .*.ref.png).*\1' | cut -d' ' -f 1-2 | sort -u
+check-ref-dups: check-refs.sh $(top_builddir)/test/pdiff/perceptualdiff
+	sh $(srcdir)/check-refs.sh $(top_builddir)/test/pdiff/perceptualdiff
+
+# Remove identical reference images (DANGEROUS)
+clean-ref-dups: check-refs.sh $(top_builddir)/test/pdiff/perceptualdiff
+	sh $(srcdir)/check-refs.sh | cut -d' ' -f2 | while read f; do git rm "reference/$$f"; done
 
 results.tar:
 	@tar cf $@ index.html testtable.js *.log output/*.log; \

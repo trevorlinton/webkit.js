@@ -35,6 +35,7 @@
 
 #include "cairoint.h"
 
+#include "cairo-clip-inline.h"
 #include "cairo-surface-clipper-private.h"
 
 /* A collection of routines to facilitate vector surface clipping */

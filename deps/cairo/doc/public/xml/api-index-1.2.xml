@@ -11,6 +11,11 @@
 <indexdiv><title>G</title>
 <indexentry><primaryie linkends="cairo-get-group-target"><link linkend="cairo-get-group-target">cairo_get_group_target</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
 </indexdiv>
+<indexdiv><title>H</title>
+<indexentry><primaryie linkends="CAIRO-HAS-PDF-SURFACE:CAPS"><link linkend="CAIRO-HAS-PDF-SURFACE:CAPS">CAIRO_HAS_PDF_SURFACE</link>, macro in <link linkend="cairo-PDF-Surfaces">PDF Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-HAS-PS-SURFACE:CAPS"><link linkend="CAIRO-HAS-PS-SURFACE:CAPS">CAIRO_HAS_PS_SURFACE</link>, macro in <link linkend="cairo-PostScript-Surfaces">PostScript Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-HAS-SVG-SURFACE:CAPS"><link linkend="CAIRO-HAS-SVG-SURFACE:CAPS">CAIRO_HAS_SVG_SURFACE</link>, macro in <link linkend="cairo-SVG-Surfaces">SVG Surfaces</link></primaryie></indexentry>
+</indexdiv>
 <indexdiv><title>I</title>
 <indexentry><primaryie linkends="cairo-image-surface-get-data"><link linkend="cairo-image-surface-get-data">cairo_image_surface_get_data</link>, function in <link linkend="cairo-Image-Surfaces">Image Surfaces</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-image-surface-get-format"><link linkend="cairo-image-surface-get-format">cairo_image_surface_get_format</link>, function in <link linkend="cairo-Image-Surfaces">Image Surfaces</link></primaryie></indexentry>
@@ -53,9 +58,11 @@
 <indexentry><primaryie linkends="cairo-svg-surface-create"><link linkend="cairo-svg-surface-create">cairo_svg_surface_create</link>, function in <link linkend="cairo-SVG-Surfaces">SVG Surfaces</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-svg-surface-create-for-stream"><link linkend="cairo-svg-surface-create-for-stream">cairo_svg_surface_create_for_stream</link>, function in <link linkend="cairo-SVG-Surfaces">SVG Surfaces</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-svg-surface-restrict-to-version"><link linkend="cairo-svg-surface-restrict-to-version">cairo_svg_surface_restrict_to_version</link>, function in <link linkend="cairo-SVG-Surfaces">SVG Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-svg-version-t"><link linkend="cairo-svg-version-t">cairo_svg_version_t</link>, enum in <link linkend="cairo-SVG-Surfaces">SVG Surfaces</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-svg-version-to-string"><link linkend="cairo-svg-version-to-string">cairo_svg_version_to_string</link>, function in <link linkend="cairo-SVG-Surfaces">SVG Surfaces</link></primaryie></indexentry>
 </indexdiv>
 <indexdiv><title>W</title>
+<indexentry><primaryie linkends="cairo-win32-font-face-create-for-hfont"><link linkend="cairo-win32-font-face-create-for-hfont">cairo_win32_font_face_create_for_hfont</link>, function in <link linkend="cairo-Win32-Fonts">Win32 Fonts</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-win32-surface-create-with-dib"><link linkend="cairo-win32-surface-create-with-dib">cairo_win32_surface_create_with_dib</link>, function in <link linkend="cairo-Win32-Surfaces">Win32 Surfaces</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-win32-surface-get-dc"><link linkend="cairo-win32-surface-get-dc">cairo_win32_surface_get_dc</link>, function in <link linkend="cairo-Win32-Surfaces">Win32 Surfaces</link></primaryie></indexentry>
 </indexdiv>

@@ -40,7 +40,8 @@
 
 #include "cairo-error-private.h"
 #include "cairo-freelist-private.h"
-#include "cairo-combsort-private.h"
+#include "cairo-combsort-inline.h"
+#include "cairo-contour-inline.h"
 #include "cairo-contour-private.h"
 
 void
@@ -68,7 +69,7 @@ __cairo_contour_add_point (cairo_contour_t *contour,
 				    sizeof (cairo_point_t),
 				    sizeof (cairo_contour_chain_t));
     if (unlikely (next == NULL))
-	return (cairo_int_status_t) _cairo_error (CAIRO_STATUS_NO_MEMORY);
+	return _cairo_error (CAIRO_STATUS_NO_MEMORY);
 
     next->size_points = tail->size_points*2;
     next->num_points = 1;

@@ -1,0 +1,306 @@
+Regression test suite for cairo.
+
+How to use cairo's test suite
+=============================
+Using this test should be as simple as running:
+
+	make test
+
+assuming that the cairo distribution in the directory above has been
+configured and built. The test suite here goes through some effort to
+run against the locally compiled library rather than any installed
+version, but those efforts may fall short depending on the level of your
+libtool madness.
+
+The results of the test suite run are summarized in an index.html
+file, which, when viewed in a web browser makes it quite easy to
+visually see any failed renderings alongside the corresponding
+reference image, (and a diff image as well).
+
+The test suite needs to be run before any code is committed and before
+any release. See below for hints and rules governing the use of the suite.
+
+The test suite is built as a single binary, which allows you to choose
+individual or categories of tests to run. For example, if you want to
+run all text related tests you can use:
+    ./cairo-test-suite text
+Or if you want to check the current status of known failures:
+    ./cairo-test-suite XFAIL
+This binary should be backwards-compatible with all library versions,
+allowing you to compare current versus past behaviour for any test.
+
+Tailoring tests running
+-----------------------
+There are some mechanisms to limit the tests run during "make test".
+These come very handy when doing development, but should not be used
+to circumvent the "pass" requirements listed below.
+
+To limit the backends that the tests are run against, use the
+TARGETS make variable, that can also be passed to make.
+It should contain a (space-, comma-, etc-separated) list of backends to test.
+To limit the tests run, use the CAIRO_TESTS environment variable, which
+should be a space-separated list of tests to run.  For example:
+
+  CAIRO_TESTS="zero-alpha" make test TARGETS=image,ps
+
+Another very handy mechanism when trying to fix bugs is:
+
+  make retest
+
+This will re-run the test suite, but only on tests that failed on the
+last run. So this is a much faster way of checking if changes actually
+fix bugs rather than running the entire test suite again.
+
+The test suite first compares the output from the current run against the
+previous in order to skip more expensive image comparisons . If you think
+this is interfering with the results, you can clear the cached results using:
+
+  make clean-caches
+
+Running tests under modified environments or tools
+-------------------------------------------------
+To run tests under a tool like gdb, one can use the run target and
+the TOOL variable.  For example:
+
+  CAIRO_TESTS=user-font make run TOOL=gdb TARGETS=pdf
+
+If you want to run under valgrind, there is a specific target for that
+that also sets a bunch of useful valgrind options.  Try:
+
+  CAIRO_TESTS=user-font make check-valgrind
+
+You can run tests under a modified environment you can use the ENV
+make variable.  However, that environment will also affect the libtool
+wrapper of the tests.  To only affect the actual test binaries, pass
+such environment as TOOL:
+
+  CAIRO_TESTS=user-font make run TOOL="LD_PRELOAD=/path/to/something.so"
+
+Getting the elusive zero failures
+---------------------------------
+It's generally been very difficult to achieve a test run with zero
+failures. The difficulties stem from the various versions of the many
+libraries that the test suite depends on, (it depends on a lot more
+than cairo itself), as well as fonts and other system-specific
+settings. If your system differs significantly from the system on
+which the reference images were generated, then you will likely see
+the test suite reporting "failures", (even if cairo is working just
+fine).
+
+We are constantly working to reduce the number of variables that need
+to be tweaked to get a clean run, (for example, by bundling fonts with
+the test suite itself), and also working to more carefully document
+the software configuration used to generate the reference images.
+
+Here are some of the relevant details:
+
+  * Your system must have a copy of the DejaVu font, the sha1sum of
+    the version used are listed in [...].  These are
+      "DejaVu Sans" (DejaVuSans.ttf) [1cd336329f45f241002ded61893d91e3acd04436];
+      "DejaVu Sans Mono" (DejaVuSansMono.ttf) [0458c0f0fb57f3eb8ced62f26fe7c5ed4e6a9a68];
+      "DejaVu Serif" (DejaVuSerif.ttf) [93502d0d0445d1fe1c9f51e51b3e0169266346ce];
+      [the DejaVu fonts can be installed from the ttf-dejavu 2.33-2 Debian package]
+    and also
+      "Nimbus Sans L" (n019003l.pfb)
+      [which can be found in the gsfonts Debian package].
+
+  * Currently, you must be using a build of cairo using freetype
+    (cairo-ft) as the default font backend. Otherwise all tests
+    involving text are likely to fail.
+
+  * To test the pdf backend, you will want the very latest version of
+    poppler as made available via git:
+
+	git clone git://anongit.freedesktop.org/git/poppler/poppler
+
+    As of this writing, no released version of poppler contains all
+    the fixes you will need to avoid false negatives from the test
+    suite.
+
+  * To test the ps backend, you will need ghostscript version 9.04.
+
+  * Testing the xlib backend is problematic since many X server
+    drivers have bugs that are exercised by the test suite. (Or, if
+    not actual bugs, differ slightly in their output in such a way
+    that the test suite will report errors.) This can be quite handy
+    if you want to debug an X server driver, but since most people
+    don't want to do that, another option is to run against a headless
+    X server that uses only software for all rendering. One such X
+    server is Xvfb which can be started like this:
+
+	Xvfb -screen 0 1680x1024x24 -ac -nolisten tcp :2
+
+    after which the test suite can be run against it like so:
+
+	DISPLAY=:2 make test
+
+    We have been using Xvfb for testing cairo releases and ensuring
+    that all tests behave as expected with this X server.
+
+What if I can't make my system match?
+-------------------------------------
+For one reason or another, you may be unable to get a clean run of the
+test suite even if cairo is working properly, (for example, you might
+be on a system without freetype). In this case, it's still useful to
+be able to determine if code changes you make to cairo result in any
+regressions to the test suite. But it's hard to notice regressions if
+there are many failures both before and after your changes.
+
+For this scenario, you can capture the output of a run of the test
+suite before your changes, and then use the CAIRO_REF_DIR environment
+variable to use that output as the reference images for a run after
+your changes. The process looks like this:
+
+        # Before code change there may be failures we don't care about
+        make test
+
+        # Let's save those output images
+        mkdir /some/directory/
+        cp test/*-out.png /some/directory/
+
+        # hack, hack, hack
+
+        # Now to see if nothing changed:
+        CAIRO_REF_DIR=/some/directory/ make test
+
+Best practices for cairo developers
+===================================
+If we all follow the guidelines below, then both the test suite and
+cairo itself will stay much healthier, and we'll all have a lot more
+fun hacking on cairo.
+
+Before committing
+-----------------
+All tests should return a result of PASS or XFAIL. The XFAIL results
+indicate known bugs. The final message should be one of the following:
+
+	All XX tests behaved as expected (YY expected failures)
+	All XX tests passed
+
+If any tests have a status of FAIL, then the new code has caused a
+regression error which should be fixed before the code is committed.
+
+When a new bug is found
+-----------------------
+A new test case should be added by imitating the style of an existing
+test. This means adding the following files:
+
+	new-bug.c
+	new-bug-ref.png
+
+Where new-bug.c is a minimal program to demonstrate the bug, following
+the style of existing tests. The new-bug-ref.png image should contain
+the desired result of new-bug.c if the bug were fixed.
+
+Makefile.am should be edited, adding new-bug.c to both the TESTS and
+XFAIL_TESTS lists and new-bug-ref.png to EXTRA_DIST. Add new-bug to
+.gitignore, and last but not least, don't forget to "git add" the new
+files.
+
+When a new feature is added
+---------------------------
+It's important for the regression suite to keep pace with development
+of the library. So a new test should be added for each new feature.
+The work involved is similar the work described above for new bugs.
+The only distinction is that the test is expected to pass so it
+should not be added to the XFAIL_TESTS list.
+
+While working on a test
+-----------------------
+Before a bugfix or feature is ready, it may be useful to compare
+output from different builds. For convenience, you can set
+CAIRO_REF_DIR to point at a previous test directory, relative
+to the current test directory, and any previous output will be
+used by preference as reference images.
+
+When a bug is fixed
+-------------------
+The fix should be verified by running the test suite which should
+result in an "unexpected pass" for the test of interest. Rejoice as
+appropriate, then remove the relevant file name from the XFAIL_TESTS
+variable in Makefile.am.
+
+Before releasing
+----------------
+All tests should return a result of PASS for all supported (those enabled by
+default) backends, meaning all known bugs are fixed, resulting in the happy
+message:
+
+	All XX tests passed
+
+Some notes on limitations in poppler
+====================================
+One of the difficulties of our current test infrastructure is that we
+rely on external tools to convert cairo's vector output (PDF,
+PostScript, and SVG), into an image that can be used for the image
+comparison. This means that any bugs in that conversion tool will
+result in false negatives in the test suite.
+
+We've identified several such bugs in the poppler library which is
+used to convert PDF to an image. This is particularly discouraging
+because 1) poppler is free software that will be used by *many* cairo
+users, and 2) poppler calls into cairo for its rendering so it should
+be able to do a 100% faithful conversion.
+
+So we have an interest in ensuring that these poppler bugs get fixed
+sooner rather than later. As such, we're trying to be good citizens by
+reporting all such poppler bugs that we identify to the poppler
+bugzilla. Here's a tracking bug explaining the situation:
+
+	Poppler does not yet handle everything in the cairo test suite
+	https://bugs.freedesktop.org/show_bug.cgi?id=12143
+
+Here's the rule: If a cairo-pdf test reports a failure, but viewing
+the resulting PDF file with acroread suggests that the PDF itself is
+correct, then there's likely a bug in poppler. In this case, we can
+simply report the poppler bug, (making it block 12143 above), post the
+PDF result from the test suite, and list the bug in this file. Once
+we've done this, we can capture poppler's buggy output as a
+pdf-specific reference image so that the test suite will regard the
+test as passing, (and we'll ensure there is no regression).
+
+Once the poppler bug gets fixed, the test suite will start reporting a
+false negative again, and this will be easy to fix by simply removing
+the pdf-specific reference image.
+
+Here are the reported poppler bugs and the tests they affect:
+
+Poppler doesn't correctly handle gradients with transparency
+https://bugs.freedesktop.org/show_bug.cgi?id=12144
+--------------------------------------------------
+fill-alpha-pattern
+gradient-alpha
+gradient-constant-alpha
+linear-gradient
+linear-gradient-reflect
+radial-gradient
+trap-clip
+
+Poppler should paint images with CAIRO_EXTEND_PAD
+https://bugs.freedesktop.org/show_bug.cgi?id=14578
+--------------------------------------------------
+paint-source-alpha
+paint-with-alpha
+rotate-image-surface-paint
+scale-source-surface-paint
+
+Incorrect clipping of group object (regression?)
+https://bugs.freedesktop.org/show_bug.cgi?id=14580
+--------------------------------------------------
+push-group
+
+spurious horizontal stripes in color gradients
+https://bugs.freedesktop.org/show_bug.cgi?id=10942
+--------------------------------------------------
+smask 
+smask-fill 
+smask-image-mask 
+smask-mask 
+smask-paint 
+smask-stroke 
+smask-text
+
+Ghostscript does not correctly render small miters
+http://bugs.ghostscript.com/show_bug.cgi?id=690098
+--------------------------------------------------
+miter-precision

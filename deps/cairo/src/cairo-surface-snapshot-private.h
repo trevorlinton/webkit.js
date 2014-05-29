@@ -36,32 +36,16 @@
 #ifndef CAIRO_SURFACE_SNAPSHOT_PRIVATE_H
 #define CAIRO_SURFACE_SNAPSHOT_PRIVATE_H
 
+#include "cairo-mutex-private.h"
 #include "cairo-surface-private.h"
 #include "cairo-surface-backend-private.h"
 
 struct _cairo_surface_snapshot {
     cairo_surface_t base;
 
+    cairo_mutex_t mutex;
     cairo_surface_t *target;
     cairo_surface_t *clone;
 };
-
-static inline cairo_bool_t
-_cairo_surface_snapshot_is_reused (cairo_surface_t *surface)
-{
-    return CAIRO_REFERENCE_COUNT_GET_VALUE (&surface->ref_count) > 2;
-}
-
-static inline cairo_surface_t *
-_cairo_surface_snapshot_get_target (cairo_surface_t *surface)
-{
-    return ((cairo_surface_snapshot_t *) surface)->target;
-}
-
-static inline cairo_bool_t
-_cairo_surface_is_snapshot (cairo_surface_t *surface)
-{
-    return surface->backend->type == (cairo_surface_type_t)CAIRO_INTERNAL_SURFACE_TYPE_SNAPSHOT;
-}
 
 #endif /* CAIRO_SURFACE_SNAPSHOT_PRIVATE_H */

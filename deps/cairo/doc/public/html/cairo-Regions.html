@@ -379,7 +379,7 @@ Checks whether <em class="parameter"><code>region</code></em> is empty.
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>
-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>region</code></em> is empty, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if it isn't.</td>
+<code class="literal">TRUE</code> if <em class="parameter"><code>region</code></em> is empty, <code class="literal">FALSE</code> if it isn't.</td>
 </tr>
 </tbody>
 </table></div>
@@ -413,7 +413,7 @@ Checks whether (<em class="parameter"><code>x</code></em>, <em class="parameter"
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>
-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if (<em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em>) is contained in <em class="parameter"><code>region</code></em>, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if it is not.</td>
+<code class="literal">TRUE</code> if (<em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em>) is contained in <em class="parameter"><code>region</code></em>, <code class="literal">FALSE</code> if it is not.</td>
 </tr>
 </tbody>
 </table></div>
@@ -436,22 +436,23 @@ Used as the return value for <a class="link" href="cairo-Regions.html#cairo-regi
 <tbody>
 <tr>
 <td><p><a name="CAIRO-REGION-OVERLAP-IN:CAPS"></a><span class="term"><code class="literal">CAIRO_REGION_OVERLAP_IN</code></span></p></td>
-<td>The contents are entirely inside the region
+<td>The contents are entirely inside the region. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-REGION-OVERLAP-OUT:CAPS"></a><span class="term"><code class="literal">CAIRO_REGION_OVERLAP_OUT</code></span></p></td>
-<td>The contents are entirely outside the region
+<td>The contents are entirely outside the region. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-REGION-OVERLAP-PART:CAPS"></a><span class="term"><code class="literal">CAIRO_REGION_OVERLAP_PART</code></span></p></td>
 <td>The contents are partially inside and
-    partially outside the region.
+    partially outside the region. (Since 1.10)
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.10</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -492,27 +493,27 @@ in <em class="parameter"><code>region</code></em>
 <pre class="programlisting"><a class="link" href="cairo-Types.html#cairo-bool-t" title="cairo_bool_t"><span class="returnvalue">cairo_bool_t</span></a>        cairo_region_equal                  (<em class="parameter"><code>const <a class="link" href="cairo-Regions.html#cairo-region-t" title="cairo_region_t"><span class="type">cairo_region_t</span></a> *a</code></em>,
                                                          <em class="parameter"><code>const <a class="link" href="cairo-Regions.html#cairo-region-t" title="cairo_region_t"><span class="type">cairo_region_t</span></a> *b</code></em>);</pre>
 <p>
-Compares whether region_a is equivalent to region_b. <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> as an argument
-is equal to itself, but not to any non-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> region.
+Compares whether region_a is equivalent to region_b. <code class="literal">NULL</code> as an argument
+is equal to itself, but not to any non-<code class="literal">NULL</code> region.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
-<td>a <a class="link" href="cairo-Regions.html#cairo-region-t" title="cairo_region_t"><span class="type">cairo_region_t</span></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>a <a class="link" href="cairo-Regions.html#cairo-region-t" title="cairo_region_t"><span class="type">cairo_region_t</span></a> or <code class="literal">NULL</code>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
-<td>a <a class="link" href="cairo-Regions.html#cairo-region-t" title="cairo_region_t"><span class="type">cairo_region_t</span></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>a <a class="link" href="cairo-Regions.html#cairo-region-t" title="cairo_region_t"><span class="type">cairo_region_t</span></a> or <code class="literal">NULL</code>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>
-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if both regions contained the same coverage,
-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if it is not or any region is in an error status.</td>
+<code class="literal">TRUE</code> if both regions contained the same coverage,
+<code class="literal">FALSE</code> if it is not or any region is in an error status.</td>
 </tr>
 </tbody>
 </table></div>

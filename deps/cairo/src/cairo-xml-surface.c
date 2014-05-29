@@ -50,7 +50,7 @@
 #include "cairo-image-surface-private.h"
 #include "cairo-error-private.h"
 #include "cairo-output-stream-private.h"
-#include "cairo-recording-surface-private.h"
+#include "cairo-recording-surface-inline.h"
 
 #define static cairo_warn static
 
@@ -459,6 +459,67 @@ to_xml (cairo_xml_surface_t *surface)
 }
 
 static cairo_status_t
+_cairo_xml_surface_emit_clip_boxes (cairo_xml_surface_t *surface,
+				    cairo_clip_t *clip)
+{
+    cairo_box_t *box;
+    cairo_status_t status;
+    cairo_xml_t *xml;
+    int n;
+
+    if (clip->num_boxes == 0)
+	return CAIRO_STATUS_SUCCESS;
+
+    /* skip the trivial clip covering the surface extents */
+    if (surface->width >= 0 && surface->height >= 0 && clip->num_boxes == 1) {
+	box = &clip->boxes[0];
+	if (box->p1.x <= 0 && box->p1.y <= 0 &&
+	    box->p2.x - box->p1.x >= _cairo_fixed_from_double (surface->width) &&
+	    box->p2.y - box->p1.y >= _cairo_fixed_from_double (surface->height))
+	{
+	    return CAIRO_STATUS_SUCCESS;
+	}
+    }
+
+    xml = to_xml (surface);
+
+    _cairo_xml_printf (xml, "<clip>");
+    _cairo_xml_indent (xml, 2);
+
+    _cairo_xml_printf (xml, "<path>");
+    _cairo_xml_indent (xml, 2);
+    for (n = 0; n < clip->num_boxes; n++) {
+	box = &clip->boxes[n];
+
+	_cairo_xml_printf_start (xml, "%f %f m",
+				 _cairo_fixed_to_double (box->p1.x),
+				 _cairo_fixed_to_double (box->p1.y));
+	_cairo_xml_printf_continue (xml, " %f %f l",
+				    _cairo_fixed_to_double (box->p2.x),
+				    _cairo_fixed_to_double (box->p1.y));
+	_cairo_xml_printf_continue (xml, " %f %f l",
+				    _cairo_fixed_to_double (box->p2.x),
+				    _cairo_fixed_to_double (box->p2.y));
+	_cairo_xml_printf_continue (xml, " %f %f l",
+				    _cairo_fixed_to_double (box->p1.x),
+				    _cairo_fixed_to_double (box->p2.y));
+	_cairo_xml_printf_end (xml, " h");
+    }
+    _cairo_xml_indent (xml, -2);
+    _cairo_xml_printf (xml, "</path>");
+    _cairo_xml_emit_double (xml, "tolerance", 1.0);
+    _cairo_xml_emit_string (xml, "antialias",
+			    _antialias_to_string (CAIRO_ANTIALIAS_NONE));
+    _cairo_xml_emit_string (xml, "fill-rule",
+			    _fill_rule_to_string (CAIRO_FILL_RULE_WINDING));
+
+    _cairo_xml_indent (xml, -2);
+    _cairo_xml_printf (xml, "</clip>");
+
+    return CAIRO_STATUS_SUCCESS;
+}
+
+static cairo_status_t
 _cairo_xml_surface_emit_clip_path (cairo_xml_surface_t *surface,
 				   cairo_clip_path_t *clip_path)
 {
@@ -466,12 +527,12 @@ _cairo_xml_surface_emit_clip_path (cairo_xml_surface_t *surface,
     cairo_status_t status;
     cairo_xml_t *xml;
 
-    if (clip_path->prev != NULL) {
-	status = _cairo_xml_surface_emit_clip_path (surface, clip_path->prev);
-	if (unlikely (status))
-	    return status;
-    }
+    if (clip_path == NULL)
+	return CAIRO_STATUS_SUCCESS;
 
+    status = _cairo_xml_surface_emit_clip_path (surface, clip_path->prev);
+    if (unlikely (status))
+	return status;
 
     /* skip the trivial clip covering the surface extents */
     if (surface->width >= 0 && surface->height >= 0 &&
@@ -507,8 +568,14 @@ static cairo_status_t
 _cairo_xml_surface_emit_clip (cairo_xml_surface_t *surface,
 			      const cairo_clip_t *clip)
 {
+    cairo_status_t status;
+
     if (clip == NULL)
 	return CAIRO_STATUS_SUCCESS;
+
+    status = _cairo_xml_surface_emit_clip_boxes (surface, clip);
+    if (unlikely (status))
+	return status;
 
     return _cairo_xml_surface_emit_clip_path (surface, clip->path);
 }

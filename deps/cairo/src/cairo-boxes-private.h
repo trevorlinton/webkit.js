@@ -95,14 +95,6 @@ _cairo_boxes_to_array (const cairo_boxes_t *boxes,
 		       int *num_boxes,
 		       cairo_bool_t force_allocation);
 
-static inline void
-_cairo_boxes_free_array (const cairo_boxes_t *boxes,
-			 cairo_box_t *box)
-{
-    if (box != boxes->chunks.base)
-	free(box);
-}
-
 cairo_private cairo_status_t
 _cairo_boxes_intersect (const cairo_boxes_t *a,
 			const cairo_boxes_t *b,

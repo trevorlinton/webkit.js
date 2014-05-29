@@ -24,19 +24,15 @@
 #include "args.h"
 #include "pdiff.h"
 
-#ifdef TARGET_EMSCRIPTEN
-#error "main defined on JS build, this file should not have been linked or compiled."
-#endif
-
 static bool Yee_Compare(args_t *args)
 {
-    int width_a, height_a, stride_a;
+    unsigned int width_a, height_a, stride_a;
     unsigned char *data_a, *row_a;
     uint32_t *pixel_a;
-    int width_b, height_b, stride_b;
+    unsigned int width_b, height_b, stride_b;
     unsigned char *data_b, *row_b;
     uint32_t *pixel_b;
-    unsigned int x, y, dim, pixels_failed;
+    unsigned int x, y, pixels_failed;
     bool identical = true;
 
     width_a = cairo_image_surface_get_width (args->surface_a);
@@ -89,7 +85,6 @@ static bool Yee_Compare(args_t *args)
     return false;
 }
 
-#ifndef TARGET_EMSCRIPTEN
 int main(int argc, char **argv)
 {
     args_t args;
@@ -104,4 +99,3 @@ int main(int argc, char **argv)
     }
     return ! Yee_Compare(&args);
 }
-#endif

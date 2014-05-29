@@ -1,0 +1,109 @@
+<!-- ##### SECTION Title ##### -->
+cairo-script
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### FUNCTION cairo_script_create ##### -->
+<para>
+
+</para>
+
+@filename: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_script_create_for_stream ##### -->
+<para>
+
+</para>
+
+@write_func: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_script_from_recording_surface ##### -->
+<para>
+
+</para>
+
+@script: 
+@recording_surface: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_script_get_mode ##### -->
+<para>
+
+</para>
+
+@script: 
+@Returns: 
+
+
+<!-- ##### ENUM cairo_script_mode_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_SCRIPT_MODE_ASCII: 
+@CAIRO_SCRIPT_MODE_BINARY: 
+
+<!-- ##### FUNCTION cairo_script_set_mode ##### -->
+<para>
+
+</para>
+
+@script: 
+@mode: 
+
+
+<!-- ##### FUNCTION cairo_script_surface_create ##### -->
+<para>
+
+</para>
+
+@script: 
+@content: 
+@width: 
+@height: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_script_surface_create_for_target ##### -->
+<para>
+
+</para>
+
+@script: 
+@target: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_script_write_comment ##### -->
+<para>
+
+</para>
+
+@script: 
+@comment: 
+@len: 
+
+

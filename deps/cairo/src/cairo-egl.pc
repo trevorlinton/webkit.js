@@ -1,0 +1,12 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: cairo-egl
+Description: EGL functions for cairo graphics library
+Version: 1.12.16
+
+Requires: cairo egl
+Libs:  
+Cflags: -I${includedir}/cairo 

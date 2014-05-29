@@ -67,7 +67,7 @@
  * #cairo_matrix_t, defines the transformation from user-space
  * coordinates to device-space coordinates. See cairo_get_matrix() and
  * cairo_set_matrix().
- */
+ **/
 
 static void
 _cairo_matrix_scalar_multiply (cairo_matrix_t *matrix, double scalar);
@@ -80,6 +80,8 @@ _cairo_matrix_compute_adjoint (cairo_matrix_t *matrix);
  * @matrix: a #cairo_matrix_t
  *
  * Modifies @matrix to be an identity transformation.
+ *
+ * Since: 1.0
  **/
 void
 cairo_matrix_init_identity (cairo_matrix_t *matrix)
@@ -108,6 +110,8 @@ slim_hidden_def(cairo_matrix_init_identity);
  *  x_new = xx * x + xy * y + x0;
  *  y_new = yx * x + yy * y + y0;
  * </programlisting>
+ *
+ * Since: 1.0
  **/
 void
 cairo_matrix_init (cairo_matrix_t *matrix,
@@ -168,6 +172,8 @@ _cairo_matrix_get_affine (const cairo_matrix_t *matrix,
  *
  * Initializes @matrix to a transformation that translates by @tx and
  * @ty in the X and Y dimensions, respectively.
+ *
+ * Since: 1.0
  **/
 void
 cairo_matrix_init_translate (cairo_matrix_t *matrix,
@@ -190,6 +196,8 @@ slim_hidden_def(cairo_matrix_init_translate);
  * @matrix. The effect of the new transformation is to first translate
  * the coordinates by @tx and @ty, then apply the original transformation
  * to the coordinates.
+ *
+ * Since: 1.0
  **/
 void
 cairo_matrix_translate (cairo_matrix_t *matrix, double tx, double ty)
@@ -210,6 +218,8 @@ slim_hidden_def (cairo_matrix_translate);
  *
  * Initializes @matrix to a transformation that scales by @sx and @sy
  * in the X and Y dimensions, respectively.
+ *
+ * Since: 1.0
  **/
 void
 cairo_matrix_init_scale (cairo_matrix_t *matrix,
@@ -231,6 +241,8 @@ slim_hidden_def(cairo_matrix_init_scale);
  * Applies scaling by @sx, @sy to the transformation in @matrix. The
  * effect of the new transformation is to first scale the coordinates
  * by @sx and @sy, then apply the original transformation to the coordinates.
+ *
+ * Since: 1.0
  **/
 void
 cairo_matrix_scale (cairo_matrix_t *matrix, double sx, double sy)
@@ -253,6 +265,8 @@ slim_hidden_def(cairo_matrix_scale);
  * direction.
  *
  * Initialized @matrix to a transformation that rotates by @radians.
+ *
+ * Since: 1.0
  **/
 void
 cairo_matrix_init_rotate (cairo_matrix_t *matrix,
@@ -284,6 +298,8 @@ slim_hidden_def(cairo_matrix_init_rotate);
  * @matrix. The effect of the new transformation is to first rotate the
  * coordinates by @radians, then apply the original transformation
  * to the coordinates.
+ *
+ * Since: 1.0
  **/
 void
 cairo_matrix_rotate (cairo_matrix_t *matrix, double radians)
@@ -308,6 +324,8 @@ cairo_matrix_rotate (cairo_matrix_t *matrix, double radians)
  * coordinates.
  *
  * It is allowable for @result to be identical to either @a or @b.
+ *
+ * Since: 1.0
  **/
 /*
  * XXX: The ordering of the arguments to this function corresponds
@@ -368,6 +386,8 @@ _cairo_matrix_multiply (cairo_matrix_t *r,
  * always transforms to the same vector. If (@x1,@y1) transforms
  * to (@x2,@y2) then (@x1+@dx1,@y1+@dy1) will transform to
  * (@x1+@dx2,@y1+@dy2) for all values of @x1 and @x2.
+ *
+ * Since: 1.0
  **/
 void
 cairo_matrix_transform_distance (const cairo_matrix_t *matrix, double *dx, double *dy)
@@ -389,6 +409,8 @@ slim_hidden_def(cairo_matrix_transform_distance);
  * @y: Y position. An in/out parameter
  *
  * Transforms the point (@x, @y) by @matrix.
+ *
+ * Since: 1.0
  **/
 void
 cairo_matrix_transform_point (const cairo_matrix_t *matrix, double *x, double *y)
@@ -563,6 +585,8 @@ _cairo_matrix_compute_adjoint (cairo_matrix_t *matrix)
  * Returns: If @matrix has an inverse, modifies @matrix to
  *  be the inverse matrix and returns %CAIRO_STATUS_SUCCESS. Otherwise,
  *  returns %CAIRO_STATUS_INVALID_MATRIX.
+ *
+ * Since: 1.0
  **/
 cairo_status_t
 cairo_matrix_invert (cairo_matrix_t *matrix)
@@ -1117,7 +1141,7 @@ _cairo_matrix_to_pixman_matrix_offset (const cairo_matrix_t	*matrix,
 
     if (is_pixman_translation) {
 	*out_transform = pixman_identity_transform;
-	return (cairo_status_t)CAIRO_INT_STATUS_NOTHING_TO_DO;
+	return CAIRO_INT_STATUS_NOTHING_TO_DO;
     } else {
 	cairo_matrix_t m;
 

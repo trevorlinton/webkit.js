@@ -156,7 +156,7 @@ your changes. The process looks like this:
 
         # Let's save those output images
         mkdir /some/directory/
-        cp test/*-out.png /some/directory/
+        cp -r test/output /some/directory/
 
         # hack, hack, hack
 
@@ -256,8 +256,9 @@ correct, then there's likely a bug in poppler. In this case, we can
 simply report the poppler bug, (making it block 12143 above), post the
 PDF result from the test suite, and list the bug in this file. Once
 we've done this, we can capture poppler's buggy output as a
-pdf-specific reference image so that the test suite will regard the
-test as passing, (and we'll ensure there is no regression).
+pdf-specific reference image (as reference/*.xfail.png) so that the 
+test suite will regard the test as passing, (and we'll ensure there
+is no regression).
 
 Once the poppler bug gets fixed, the test suite will start reporting a
 false negative again, and this will be easy to fix by simply removing

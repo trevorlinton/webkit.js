@@ -40,6 +40,7 @@
 #include "cairo-fixed-type-private.h"
 
 #include "cairo-wideint-private.h"
+#include "cairoint.h"
 
 /* Implementation */
 
@@ -51,6 +52,8 @@
 #define CAIRO_FIXED_ONE        ((cairo_fixed_t)(1 << CAIRO_FIXED_FRAC_BITS))
 #define CAIRO_FIXED_ONE_DOUBLE ((double)(1 << CAIRO_FIXED_FRAC_BITS))
 #define CAIRO_FIXED_EPSILON    ((cairo_fixed_t)(1))
+
+#define CAIRO_FIXED_ERROR_DOUBLE (1. / (2 * CAIRO_FIXED_ONE_DOUBLE))
 
 #define CAIRO_FIXED_FRAC_MASK  ((cairo_fixed_t)(((cairo_fixed_unsigned_t)(-1)) >> (CAIRO_FIXED_BITS - CAIRO_FIXED_FRAC_BITS)))
 #define CAIRO_FIXED_WHOLE_MASK (~CAIRO_FIXED_FRAC_MASK)
@@ -348,6 +351,40 @@ _cairo_edge_compute_intersection_x_for_y (const cairo_point_t *p1,
 	x += _cairo_fixed_mul_div_floor (y - p1->y, p2->x - p1->x, dy);
 
     return x;
+}
+
+/* Intersect two segments based on the algorithm described at
+ * http://paulbourke.net/geometry/pointlineplane/. This implementation
+ * uses floating point math. */
+static inline cairo_bool_t
+_slow_segment_intersection (const cairo_point_t *seg1_p1,
+			    const cairo_point_t *seg1_p2,
+			    const cairo_point_t *seg2_p1,
+			    const cairo_point_t *seg2_p2,
+			    cairo_point_t *intersection)
+{
+    double denominator, u_a, u_b;
+    double seg1_dx, seg1_dy, seg2_dx, seg2_dy, seg_start_dx, seg_start_dy;
+
+    seg1_dx = _cairo_fixed_to_double (seg1_p2->x - seg1_p1->x);
+    seg1_dy = _cairo_fixed_to_double (seg1_p2->y - seg1_p1->y);
+    seg2_dx = _cairo_fixed_to_double (seg2_p2->x - seg2_p1->x);
+    seg2_dy = _cairo_fixed_to_double (seg2_p2->y - seg2_p1->y);
+    denominator = (seg2_dy * seg1_dx) - (seg2_dx * seg1_dy);
+    if (denominator == 0)
+	return FALSE;
+
+    seg_start_dx = _cairo_fixed_to_double (seg1_p1->x - seg2_p1->x);
+    seg_start_dy = _cairo_fixed_to_double (seg1_p1->y - seg2_p1->y);
+    u_a = ((seg2_dx * seg_start_dy) - (seg2_dy * seg_start_dx)) / denominator;
+    u_b = ((seg1_dx * seg_start_dy) - (seg1_dy * seg_start_dx)) / denominator;
+
+    if (u_a <= 0 || u_a >= 1 || u_b <= 0 || u_b >= 1)
+	return FALSE;
+
+    intersection->x = seg1_p1->x + _cairo_fixed_from_double ((u_a * seg1_dx));
+    intersection->y = seg1_p1->y + _cairo_fixed_from_double ((u_a * seg1_dy));
+    return TRUE;
 }
 
 #else

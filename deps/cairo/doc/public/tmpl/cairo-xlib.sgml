@@ -9,10 +9,12 @@ cairo-xlib
 
 </para>
 
+
 <!-- ##### SECTION See_Also ##### -->
 <para>
 
 </para>
+
 
 <!-- ##### SECTION Stability_Level ##### -->
 
@@ -135,5 +137,33 @@ cairo-xlib
 
 @surface: 
 @Returns: 
+
+
+<!-- ##### FUNCTION cairo_xlib_device_debug_cap_xrender_version ##### -->
+<para>
+
+</para>
+
+@device: 
+@major_version: 
+@minor_version: 
+
+
+<!-- ##### FUNCTION cairo_xlib_device_debug_get_precision ##### -->
+<para>
+
+</para>
+
+@device: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_xlib_device_debug_set_precision ##### -->
+<para>
+
+</para>
+
+@device: 
+@precision: 
 
 

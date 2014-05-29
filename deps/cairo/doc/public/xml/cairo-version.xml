@@ -138,58 +138,55 @@ if (cairo_version() &gt;= CAIRO_VERSION_ENCODE(1, 0, 0))
 </refsect1>
 <refsect1 id="cairo-Version-Information.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="CAIRO-VERSION:CAPS" role="macro">
+<refsect2 id="CAIRO-VERSION:CAPS" role="macro" condition="since:1.0">
 <title>CAIRO_VERSION</title>
-<indexterm zone="CAIRO-VERSION:CAPS"><primary sortas="VERSION">CAIRO_VERSION</primary></indexterm>
+<indexterm zone="CAIRO-VERSION:CAPS" role="1.0"><primary sortas="VERSION">CAIRO_VERSION</primary></indexterm>
 <programlisting>#define             CAIRO_VERSION</programlisting>
 <para>
 The version of cairo available at compile-time, encoded using
 <link linkend="CAIRO-VERSION-ENCODE:CAPS"><function>CAIRO_VERSION_ENCODE()</function></link>.
-</para></refsect2>
-<refsect2 id="CAIRO-VERSION-MAJOR:CAPS" role="macro">
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="CAIRO-VERSION-MAJOR:CAPS" role="macro" condition="since:1.0">
 <title>CAIRO_VERSION_MAJOR</title>
-<indexterm zone="CAIRO-VERSION-MAJOR:CAPS"><primary sortas="VERSION_MAJOR">CAIRO_VERSION_MAJOR</primary></indexterm>
+<indexterm zone="CAIRO-VERSION-MAJOR:CAPS" role="1.0"><primary sortas="VERSION_MAJOR">CAIRO_VERSION_MAJOR</primary></indexterm>
 <programlisting>#define CAIRO_VERSION_MAJOR USE_cairo_version_OR_cairo_version_string_INSTEAD
 </programlisting>
 <para>
 The major component of the version of cairo available at compile-time.
-</para></refsect2>
-<refsect2 id="CAIRO-VERSION-MINOR:CAPS" role="macro">
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="CAIRO-VERSION-MINOR:CAPS" role="macro" condition="since:1.0">
 <title>CAIRO_VERSION_MINOR</title>
-<indexterm zone="CAIRO-VERSION-MINOR:CAPS"><primary sortas="VERSION_MINOR">CAIRO_VERSION_MINOR</primary></indexterm>
+<indexterm zone="CAIRO-VERSION-MINOR:CAPS" role="1.0"><primary sortas="VERSION_MINOR">CAIRO_VERSION_MINOR</primary></indexterm>
 <programlisting>#define CAIRO_VERSION_MINOR USE_cairo_version_OR_cairo_version_string_INSTEAD
 </programlisting>
 <para>
 The minor component of the version of cairo available at compile-time.
-</para></refsect2>
-<refsect2 id="CAIRO-VERSION-MICRO:CAPS" role="macro">
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="CAIRO-VERSION-MICRO:CAPS" role="macro" condition="since:1.0">
 <title>CAIRO_VERSION_MICRO</title>
-<indexterm zone="CAIRO-VERSION-MICRO:CAPS"><primary sortas="VERSION_MICRO">CAIRO_VERSION_MICRO</primary></indexterm>
+<indexterm zone="CAIRO-VERSION-MICRO:CAPS" role="1.0"><primary sortas="VERSION_MICRO">CAIRO_VERSION_MICRO</primary></indexterm>
 <programlisting>#define CAIRO_VERSION_MICRO USE_cairo_version_OR_cairo_version_string_INSTEAD
 </programlisting>
 <para>
 The micro component of the version of cairo available at compile-time.
-</para></refsect2>
-<refsect2 id="CAIRO-VERSION-STRING:CAPS" role="macro">
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="CAIRO-VERSION-STRING:CAPS" role="macro" condition="since:1.8">
 <title>CAIRO_VERSION_STRING</title>
-<indexterm zone="CAIRO-VERSION-STRING:CAPS"><primary sortas="VERSION_STRING">CAIRO_VERSION_STRING</primary></indexterm>
+<indexterm zone="CAIRO-VERSION-STRING:CAPS" role="1.8"><primary sortas="VERSION_STRING">CAIRO_VERSION_STRING</primary></indexterm>
 <programlisting>#define             CAIRO_VERSION_STRING</programlisting>
 <para>
 A human-readable string literal containing the version of cairo available
 at compile-time, in the form of "X.Y.Z".
-</para></refsect2>
-<refsect2 id="CAIRO-VERSION-ENCODE:CAPS" role="macro">
+</para><para role="since">Since 1.8</para></refsect2>
+<refsect2 id="CAIRO-VERSION-ENCODE:CAPS" role="macro" condition="since:1.0">
 <title>CAIRO_VERSION_ENCODE()</title>
-<indexterm zone="CAIRO-VERSION-ENCODE:CAPS"><primary sortas="VERSION_ENCODE">CAIRO_VERSION_ENCODE</primary></indexterm>
+<indexterm zone="CAIRO-VERSION-ENCODE:CAPS" role="1.0"><primary sortas="VERSION_ENCODE">CAIRO_VERSION_ENCODE</primary></indexterm>
 <programlisting>#define             CAIRO_VERSION_ENCODE(major, minor, micro)</programlisting>
 <para>
 This macro encodes the given cairo version into an integer.  The numbers
 returned by <link linkend="CAIRO-VERSION:CAPS"><literal>CAIRO_VERSION</literal></link> and <link linkend="cairo-version"><function>cairo_version()</function></link> are encoded using this macro.
 Two encoded version numbers can be compared as integers.  The encoding ensures
 that later versions compare greater than earlier versions.
-</para>
-<para>
-<parameter>Returns</parameter>: the encoded version.
 </para><variablelist role="params">
 <varlistentry><term><parameter>major</parameter>&#160;:</term>
 <listitem><simpara>the major component of the version number</simpara></listitem></varlistentry>
@@ -197,21 +194,16 @@ that later versions compare greater than earlier versions.
 <listitem><simpara>the minor component of the version number</simpara></listitem></varlistentry>
 <varlistentry><term><parameter>micro</parameter>&#160;:</term>
 <listitem><simpara>the micro component of the version number</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="CAIRO-VERSION-STRINGIZE:CAPS" role="macro">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the encoded version.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="CAIRO-VERSION-STRINGIZE:CAPS" role="macro" condition="since:1.8">
 <title>CAIRO_VERSION_STRINGIZE()</title>
-<indexterm zone="CAIRO-VERSION-STRINGIZE:CAPS"><primary sortas="VERSION_STRINGIZE">CAIRO_VERSION_STRINGIZE</primary></indexterm>
+<indexterm zone="CAIRO-VERSION-STRINGIZE:CAPS" role="1.8"><primary sortas="VERSION_STRINGIZE">CAIRO_VERSION_STRINGIZE</primary></indexterm>
 <programlisting>#define             CAIRO_VERSION_STRINGIZE(major, minor, micro)</programlisting>
 <para>
 This macro encodes the given cairo version into an string.  The numbers
 returned by <link linkend="CAIRO-VERSION-STRING:CAPS"><literal>CAIRO_VERSION_STRING</literal></link> and <link linkend="cairo-version-string"><function>cairo_version_string()</function></link> are encoded using this macro.
 The parameters to this macro must expand to numerical literals.
-</para>
-<para>
-<parameter>Returns</parameter>: a string literal containing the version.
-</para>
-<para>
-<parameter>Since</parameter>: 1.8
 </para><variablelist role="params">
 <varlistentry><term><parameter>major</parameter>&#160;:</term>
 <listitem><simpara>the major component of the version number</simpara></listitem></varlistentry>
@@ -219,10 +211,11 @@ The parameters to this macro must expand to numerical literals.
 <listitem><simpara>the minor component of the version number</simpara></listitem></varlistentry>
 <varlistentry><term><parameter>micro</parameter>&#160;:</term>
 <listitem><simpara>the micro component of the version number</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-version" role="function">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a string literal containing the version.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.8</para></refsect2>
+<refsect2 id="cairo-version" role="function" condition="since:1.0">
 <title>cairo_version ()</title>
-<indexterm zone="cairo-version"><primary sortas="version">cairo_version</primary></indexterm>
+<indexterm zone="cairo-version" role="1.0"><primary sortas="version">cairo_version</primary></indexterm>
 <programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 cairo_version                       (<parameter><type>void</type></parameter>);</programlisting>
 <para>
 Returns the version of the cairo library encoded in a single
@@ -243,10 +236,10 @@ See also <link linkend="cairo-version-string"><function>cairo_version_string()</
 equivalents <link linkend="CAIRO-VERSION:CAPS"><literal>CAIRO_VERSION</literal></link> and <link linkend="CAIRO-VERSION-STRING:CAPS"><literal>CAIRO_VERSION_STRING</literal></link>.
 </para><variablelist role="params">
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the encoded version.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-version-string" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-version-string" role="function" condition="since:1.0">
 <title>cairo_version_string ()</title>
-<indexterm zone="cairo-version-string"><primary sortas="version_string">cairo_version_string</primary></indexterm>
+<indexterm zone="cairo-version-string" role="1.0"><primary sortas="version_string">cairo_version_string</primary></indexterm>
 <programlisting>const <link linkend="char"><returnvalue>char</returnvalue></link> *        cairo_version_string                (<parameter><type>void</type></parameter>);</programlisting>
 <para>
 Returns the version of the cairo library as a human-readable string
@@ -257,7 +250,7 @@ See also <link linkend="cairo-version"><function>cairo_version()</function></lin
 <link linkend="CAIRO-VERSION-STRING:CAPS"><literal>CAIRO_VERSION_STRING</literal></link> and <link linkend="CAIRO-VERSION:CAPS"><literal>CAIRO_VERSION</literal></link>.
 </para><variablelist role="params">
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a string containing the version.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 
 </refsect1>
 

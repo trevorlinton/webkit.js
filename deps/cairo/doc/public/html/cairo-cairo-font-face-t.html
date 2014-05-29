@@ -90,6 +90,7 @@ font face can be queried using <a class="link" href="cairo-cairo-font-face-t.htm
 Memory management of <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> is done with
 <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-reference" title="cairo_font_face_reference ()"><code class="function">cairo_font_face_reference()</code></a> and <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-destroy" title="cairo_font_face_destroy ()"><code class="function">cairo_font_face_destroy()</code></a>.
 </p>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -109,7 +110,7 @@ The number of references to a <a class="link" href="cairo-cairo-font-face-t.html
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>font_face</code></em> :</span></p></td>
-<td>a <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a>, (may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> in which case this
+<td>a <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a>, (may be <code class="literal">NULL</code> in which case this
 function does nothing).</td>
 </tr>
 <tr>
@@ -118,6 +119,7 @@ function does nothing).</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -136,6 +138,7 @@ See <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-reference
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -161,6 +164,7 @@ font face
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -213,22 +217,23 @@ New entries may be added in future versions.
 <tbody>
 <tr>
 <td><p><a name="CAIRO-FONT-TYPE-TOY:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_TYPE_TOY</code></span></p></td>
-<td>The font was created using cairo's toy font api
+<td>The font was created using cairo's toy font api (Since: 1.2)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-FONT-TYPE-FT:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_TYPE_FT</code></span></p></td>
-<td>The font is of type FreeType
+<td>The font is of type FreeType (Since: 1.2)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-FONT-TYPE-WIN32:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_TYPE_WIN32</code></span></p></td>
-<td>The font is of type Win32
+<td>The font is of type Win32 (Since: 1.2)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-FONT-TYPE-QUARTZ:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_TYPE_QUARTZ</code></span></p></td>
-<td>The font is of type Quartz (Since: 1.6)
+<td>The font is of type Quartz (Since: 1.6, in 1.2 and
+1.4 it was named CAIRO_FONT_TYPE_ATSUI)
 </td>
 </tr>
 <tr>
@@ -296,7 +301,7 @@ object is a nil object, 0 will be returned.</td>
                                                          <em class="parameter"><code><a class="link" href="cairo-Types.html#cairo-destroy-func-t" title="cairo_destroy_func_t ()"><span class="type">cairo_destroy_func_t</span></a> destroy</code></em>);</pre>
 <p>
 Attach user data to <em class="parameter"><code>font_face</code></em>.  To remove user data from a font face,
-call this function with the key that was used to set it and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+call this function with the key that was used to set it and <code class="literal">NULL</code>
 for <em class="parameter"><code>data</code></em>.
 </p>
 <div class="variablelist"><table border="0">
@@ -329,6 +334,7 @@ slot could not be allocated for the user data.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -338,7 +344,7 @@ slot could not be allocated for the user data.</td>
 <p>
 Return user data previously attached to <em class="parameter"><code>font_face</code></em> using the specified
 key.  If no user data has been attached with the given key this
-function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+function returns <code class="literal">NULL</code>.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -355,10 +361,11 @@ attached to</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the user data previously attached or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+<td>the user data previously attached or <code class="literal">NULL</code>.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 </div>
 <div class="refsect1">

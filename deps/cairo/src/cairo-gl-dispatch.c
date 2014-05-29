@@ -205,6 +205,27 @@ _cairo_gl_dispatch_init_fbo (cairo_gl_dispatch_t *dispatch,
     return CAIRO_STATUS_SUCCESS;
 }
 
+static cairo_status_t
+_cairo_gl_dispatch_init_multisampling (cairo_gl_dispatch_t *dispatch,
+				       cairo_gl_get_proc_addr_func_t get_proc_addr,
+				       int gl_version,
+				       cairo_gl_flavor_t gl_flavor)
+{
+    /* For the multisampling table, there are two GLES versions of the
+     * extension, so we put one in the EXT slot and one in the real ES slot.*/
+    cairo_gl_dispatch_name_t dispatch_name = CAIRO_GL_DISPATCH_NAME_CORE;
+    if (gl_flavor == CAIRO_GL_FLAVOR_ES) {
+	if (_cairo_gl_has_extension ("GL_EXT_multisampled_render_to_texture"))
+	    dispatch_name = CAIRO_GL_DISPATCH_NAME_EXT;
+	else if (_cairo_gl_has_extension ("GL_IMG_multisampled_render_to_texture"))
+	    dispatch_name = CAIRO_GL_DISPATCH_NAME_ES;
+    }
+    _cairo_gl_dispatch_init_entries (dispatch, get_proc_addr,
+				     dispatch_multisampling_entries,
+				     dispatch_name);
+    return CAIRO_STATUS_SUCCESS;
+}
+
 cairo_status_t
 _cairo_gl_dispatch_init (cairo_gl_dispatch_t *dispatch,
 			 cairo_gl_get_proc_addr_func_t get_proc_addr)
@@ -228,6 +249,11 @@ _cairo_gl_dispatch_init (cairo_gl_dispatch_t *dispatch,
 
     status = _cairo_gl_dispatch_init_fbo (dispatch, get_proc_addr,
 					  gl_version, gl_flavor);
+    if (status != CAIRO_STATUS_SUCCESS)
+	return status;
+
+    status = _cairo_gl_dispatch_init_multisampling (dispatch, get_proc_addr,
+						    gl_version, gl_flavor);
     if (status != CAIRO_STATUS_SUCCESS)
 	return status;
 

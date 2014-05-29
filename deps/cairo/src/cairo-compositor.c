@@ -139,6 +139,10 @@ _cairo_compositor_stroke (const cairo_compositor_t	*compositor,
     cairo_int_status_t status;
 
     TRACE ((stderr, "%s\n", __FUNCTION__));
+
+    if (_cairo_pen_vertices_needed (tolerance, style->line_width/2, ctm) <= 1)
+	return CAIRO_INT_STATUS_NOTHING_TO_DO;
+
     status = _cairo_composite_rectangles_init_for_stroke (&extents, surface,
 							  op, source,
 							  path, style, ctm,

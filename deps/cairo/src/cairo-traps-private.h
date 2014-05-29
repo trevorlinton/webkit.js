@@ -47,6 +47,7 @@ CAIRO_BEGIN_DECLS
 struct _cairo_traps {
     cairo_status_t status;
 
+    cairo_box_t bounds;
     const cairo_box_t *limits;
     int num_limits;
 
@@ -88,6 +89,14 @@ _cairo_traps_fini (cairo_traps_t *traps);
 
 cairo_private void
 _cairo_traps_translate (cairo_traps_t *traps, int x, int y);
+
+cairo_private void
+_cairo_traps_tessellate_triangle (cairo_traps_t *traps,
+				  const cairo_point_t t[3]);
+
+cairo_private void
+_cairo_traps_tessellate_convex_quad (cairo_traps_t *traps,
+				     const cairo_point_t q[4]);
 
 cairo_private cairo_status_t
 _cairo_traps_tessellate_rectangle (cairo_traps_t *traps,

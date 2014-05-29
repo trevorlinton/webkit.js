@@ -12,7 +12,9 @@ cairo_sphinx_la_SOURCES = fdr.c
 cairo_sphinx_la_CPPFLAGS = $(AM_CPPFLAGS)
 cairo_sphinx_la_CFLAGS = $(CAIRO_CFLAGS)
 cairo_sphinx_la_LDFLAGS = -module -no-undefined
+if CAIRO_HAS_DL
 cairo_sphinx_la_LIBADD = -ldl
+endif
 
 cairo_sphinx_SOURCES = sphinx.c
 cairo_sphinx_CPPFLAGS = $(AM_CPPFLAGS) -DLIBDIR="\"$(cairolibdir)\""

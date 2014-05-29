@@ -75,8 +75,6 @@ typedef struct _cairo_pdf_source_surface_entry {
     cairo_pdf_resource_t surface_res;
     int width;
     int height;
-    double x_offset;
-    double y_offset;
     cairo_rectangle_int_t extents;
 } cairo_pdf_source_surface_entry_t;
 

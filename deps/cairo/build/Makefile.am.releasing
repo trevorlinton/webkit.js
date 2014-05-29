@@ -38,7 +38,7 @@ MANUAL_VERSIONED =		manual-$(VERSION)
 MANUAL_TAR_FILE =		$(MANUAL_VERSIONED).tar.gz
 MANUAL_UPLOAD_DIR =		$(RELEASE_UPLOAD_BASE)
 
-tar_file = $(PACKAGE)-$(VERSION).tar.gz
+tar_file = $(PACKAGE)-$(VERSION).tar.xz
 sha1_file = $(tar_file).sha1
 gpg_file = $(sha1_file).asc
 

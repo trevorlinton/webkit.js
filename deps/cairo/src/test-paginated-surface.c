@@ -186,7 +186,7 @@ _test_paginated_surface_fill (void				*abstract_surface,
     test_paginated_surface_t *surface = abstract_surface;
 
     if (surface->paginated_mode == CAIRO_PAGINATED_MODE_ANALYZE)
-	return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
+	return CAIRO_STATUS_SUCCESS;
 
     return _cairo_surface_fill (surface->target, op, source,
 				path, fill_rule,
@@ -219,9 +219,9 @@ _test_paginated_surface_show_text_glyphs (void			    *abstract_surface,
     test_paginated_surface_t *surface = abstract_surface;
 
     if (surface->paginated_mode == CAIRO_PAGINATED_MODE_ANALYZE)
-	return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
+	return CAIRO_STATUS_SUCCESS;
 
-    return (cairo_int_status_t)_cairo_surface_show_text_glyphs (surface->target, op, source,
+    return _cairo_surface_show_text_glyphs (surface->target, op, source,
 					    utf8, utf8_len,
 					    glyphs, num_glyphs,
 					    clusters, num_clusters,

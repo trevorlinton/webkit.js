@@ -67,14 +67,14 @@ _cairo_shape_mask_compositor_stroke (const cairo_compositor_t *_compositor,
 						  extents->bounded.width,
 						  extents->bounded.height);
     if (unlikely (mask->status))
-	return (cairo_int_status_t)mask->status;
+	return mask->status;
 
     clip = extents->clip;
     if (! _cairo_clip_is_region (clip))
 	clip = _cairo_clip_copy_region (clip);
 
     if (! mask->is_clear) {
-	status = (cairo_int_status_t)_cairo_surface_offset_paint (mask,
+	status = _cairo_surface_offset_paint (mask,
 					      extents->bounded.x,
 					      extents->bounded.y,
 					      CAIRO_OPERATOR_CLEAR,
@@ -84,7 +84,7 @@ _cairo_shape_mask_compositor_stroke (const cairo_compositor_t *_compositor,
 	    goto error;
     }
 
-    status = (cairo_int_status_t)_cairo_surface_offset_stroke (mask,
+    status = _cairo_surface_offset_stroke (mask,
 					   extents->bounded.x,
 					   extents->bounded.y,
 					   CAIRO_OPERATOR_ADD,
@@ -96,7 +96,7 @@ _cairo_shape_mask_compositor_stroke (const cairo_compositor_t *_compositor,
 	goto error;
 
     if (clip != extents->clip) {
-	status = (cairo_int_status_t)_cairo_clip_combine_with_surface (extents->clip, mask,
+	status = _cairo_clip_combine_with_surface (extents->clip, mask,
 						   extents->bounded.x,
 						   extents->bounded.y);
 	if (unlikely (status))
@@ -110,20 +110,20 @@ _cairo_shape_mask_compositor_stroke (const cairo_compositor_t *_compositor,
     pattern.base.filter = CAIRO_FILTER_NEAREST;
     pattern.base.extend = CAIRO_EXTEND_NONE;
     if (extents->op == CAIRO_OPERATOR_SOURCE) {
-	status = (cairo_int_status_t)_cairo_surface_mask (extents->surface,
+	status = _cairo_surface_mask (extents->surface,
 				      CAIRO_OPERATOR_DEST_OUT,
 				      &_cairo_pattern_white.base,
 				      &pattern.base,
 				      clip);
-	if (status == CAIRO_INT_STATUS_SUCCESS) {
-	    status = (cairo_int_status_t)_cairo_surface_mask (extents->surface,
+	if ((status == CAIRO_INT_STATUS_SUCCESS)) {
+	    status = _cairo_surface_mask (extents->surface,
 					  CAIRO_OPERATOR_ADD,
 					  &extents->source_pattern.base,
 					  &pattern.base,
 					  clip);
 	}
     } else {
-	status = (cairo_int_status_t)_cairo_surface_mask (extents->surface,
+	status = _cairo_surface_mask (extents->surface,
 				      extents->op,
 				      &extents->source_pattern.base,
 				      &pattern.base,
@@ -161,14 +161,14 @@ _cairo_shape_mask_compositor_fill (const cairo_compositor_t *_compositor,
 						  extents->bounded.width,
 						  extents->bounded.height);
     if (unlikely (mask->status))
-	return (cairo_int_status_t)mask->status;
+	return mask->status;
 
     clip = extents->clip;
     if (! _cairo_clip_is_region (clip))
 	clip = _cairo_clip_copy_region (clip);
 
     if (! mask->is_clear) {
-	status = (cairo_int_status_t)_cairo_surface_offset_paint (mask,
+	status = _cairo_surface_offset_paint (mask,
 					      extents->bounded.x,
 					      extents->bounded.y,
 					      CAIRO_OPERATOR_CLEAR,
@@ -178,7 +178,7 @@ _cairo_shape_mask_compositor_fill (const cairo_compositor_t *_compositor,
 	    goto error;
     }
 
-    status = (cairo_int_status_t)_cairo_surface_offset_fill (mask,
+    status = _cairo_surface_offset_fill (mask,
 					 extents->bounded.x,
 					 extents->bounded.y,
 					 CAIRO_OPERATOR_ADD,
@@ -189,7 +189,7 @@ _cairo_shape_mask_compositor_fill (const cairo_compositor_t *_compositor,
 	goto error;
 
     if (clip != extents->clip) {
-	status = (cairo_int_status_t)_cairo_clip_combine_with_surface (extents->clip, mask,
+	status = _cairo_clip_combine_with_surface (extents->clip, mask,
 						   extents->bounded.x,
 						   extents->bounded.y);
 	if (unlikely (status))
@@ -203,20 +203,20 @@ _cairo_shape_mask_compositor_fill (const cairo_compositor_t *_compositor,
     pattern.base.filter = CAIRO_FILTER_NEAREST;
     pattern.base.extend = CAIRO_EXTEND_NONE;
     if (extents->op == CAIRO_OPERATOR_SOURCE) {
-	status = (cairo_int_status_t)_cairo_surface_mask (extents->surface,
+	status = _cairo_surface_mask (extents->surface,
 				      CAIRO_OPERATOR_DEST_OUT,
 				      &_cairo_pattern_white.base,
 				      &pattern.base,
 				      clip);
-	if (status == CAIRO_INT_STATUS_SUCCESS) {
-	    status = (cairo_int_status_t)_cairo_surface_mask (extents->surface,
+	if ((status == CAIRO_INT_STATUS_SUCCESS)) {
+	    status = _cairo_surface_mask (extents->surface,
 					  CAIRO_OPERATOR_ADD,
 					  &extents->source_pattern.base,
 					  &pattern.base,
 					  clip);
 	}
     } else {
-	status = (cairo_int_status_t) _cairo_surface_mask (extents->surface,
+	status = _cairo_surface_mask (extents->surface,
 				      extents->op,
 				      &extents->source_pattern.base,
 				      &pattern.base,
@@ -253,14 +253,14 @@ _cairo_shape_mask_compositor_glyphs (const cairo_compositor_t *_compositor,
 						  extents->bounded.width,
 						  extents->bounded.height);
     if (unlikely (mask->status))
-	return (cairo_int_status_t)mask->status;
+	return mask->status;
 
     clip = extents->clip;
     if (! _cairo_clip_is_region (clip))
 	clip = _cairo_clip_copy_region (clip);
 
     if (! mask->is_clear) {
-	status = (cairo_int_status_t)_cairo_surface_offset_paint (mask,
+	status = _cairo_surface_offset_paint (mask,
 					      extents->bounded.x,
 					      extents->bounded.y,
 					      CAIRO_OPERATOR_CLEAR,
@@ -270,7 +270,7 @@ _cairo_shape_mask_compositor_glyphs (const cairo_compositor_t *_compositor,
 	    goto error;
     }
 
-    status = (cairo_int_status_t)_cairo_surface_offset_glyphs (mask,
+    status = _cairo_surface_offset_glyphs (mask,
 					   extents->bounded.x,
 					   extents->bounded.y,
 					   CAIRO_OPERATOR_ADD,
@@ -281,7 +281,7 @@ _cairo_shape_mask_compositor_glyphs (const cairo_compositor_t *_compositor,
 	goto error;
 
     if (clip != extents->clip) {
-	status = (cairo_int_status_t)_cairo_clip_combine_with_surface (extents->clip, mask,
+	status = _cairo_clip_combine_with_surface (extents->clip, mask,
 						   extents->bounded.x,
 						   extents->bounded.y);
 	if (unlikely (status))
@@ -295,20 +295,20 @@ _cairo_shape_mask_compositor_glyphs (const cairo_compositor_t *_compositor,
     pattern.base.filter = CAIRO_FILTER_NEAREST;
     pattern.base.extend = CAIRO_EXTEND_NONE;
     if (extents->op == CAIRO_OPERATOR_SOURCE) {
-	status = (cairo_int_status_t)_cairo_surface_mask (extents->surface,
+	status = _cairo_surface_mask (extents->surface,
 				      CAIRO_OPERATOR_DEST_OUT,
 				      &_cairo_pattern_white.base,
 				      &pattern.base,
 				      clip);
-	if (status == CAIRO_INT_STATUS_SUCCESS) {
-	    status = (cairo_int_status_t)_cairo_surface_mask (extents->surface,
+	if ((status == CAIRO_INT_STATUS_SUCCESS)) {
+	    status = _cairo_surface_mask (extents->surface,
 					  CAIRO_OPERATOR_ADD,
 					  &extents->source_pattern.base,
 					  &pattern.base,
 					  clip);
 	}
     } else {
-	status = (cairo_int_status_t)_cairo_surface_mask (extents->surface,
+	status = _cairo_surface_mask (extents->surface,
 				      extents->op,
 				      &extents->source_pattern.base,
 				      &pattern.base,

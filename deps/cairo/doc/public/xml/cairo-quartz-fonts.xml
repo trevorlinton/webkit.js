@@ -37,15 +37,15 @@ implementation of the font backend methods.
 </refsect1>
 <refsect1 id="cairo-Quartz-(CGFont)-Fonts.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="CAIRO-HAS-QUARTZ-FONT:CAPS" role="macro">
+<refsect2 id="CAIRO-HAS-QUARTZ-FONT:CAPS" role="macro" condition="since:1.6">
 <title>CAIRO_HAS_QUARTZ_FONT</title>
-<indexterm zone="CAIRO-HAS-QUARTZ-FONT:CAPS"><primary sortas="HAS_QUARTZ_FONT">CAIRO_HAS_QUARTZ_FONT</primary></indexterm>
+<indexterm zone="CAIRO-HAS-QUARTZ-FONT:CAPS" role="1.6"><primary sortas="HAS_QUARTZ_FONT">CAIRO_HAS_QUARTZ_FONT</primary></indexterm>
 <programlisting>#define CAIRO_HAS_QUARTZ_FONT 1
 </programlisting>
 <para>
 Defined if the Quartz font backend is available.
 This macro can be used to conditionally compile backend-specific code.
-</para></refsect2>
+</para><para role="since">Since 1.6</para></refsect2>
 <refsect2 id="cairo-quartz-font-face-create-for-cgfont" role="function" condition="since:1.6">
 <title>cairo_quartz_font_face_create_for_cgfont ()</title>
 <indexterm zone="cairo-quartz-font-face-create-for-cgfont" role="1.6"><primary sortas="quartz_font_face_create_for_cgfont">cairo_quartz_font_face_create_for_cgfont</primary></indexterm>

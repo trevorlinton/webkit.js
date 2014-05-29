@@ -47,6 +47,7 @@
 #define _cairo_uint32s_to_uint64(h,l) ((uint64_t) (h) << 32 | (l))
 
 #else
+
 #define uint64_lo32(i)	((i).lo)
 #define uint64_hi32(i)	((i).hi)
 
@@ -703,7 +704,8 @@ _cairo_int128_divrem (cairo_int128_t num, cairo_int128_t den)
  * bits then the returned remainder is equal to the divisor, and the
  * quotient is the largest representable 64 bit integer.  It is an
  * error to call this function with the high 32 bits of @num being
- * non-zero. */
+ * non-zero.
+ **/
 cairo_uquorem64_t
 _cairo_uint_96by64_32x64_divrem (cairo_uint128_t num,
 				 cairo_uint64_t den)

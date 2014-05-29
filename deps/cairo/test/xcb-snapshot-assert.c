@@ -36,8 +36,12 @@ create_image (int width, int height)
     surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
     /* Paint something random to the image */
     cr = cairo_create (surface);
+    cairo_surface_destroy (surface);
+
     cairo_set_source_rgb (cr, 0, 1, 1);
     cairo_paint (cr);
+
+    surface = cairo_surface_reference (cairo_get_target (cr));
     cairo_destroy (cr);
 
     return surface;
@@ -46,8 +50,12 @@ create_image (int width, int height)
 static cairo_test_status_t
 draw (cairo_t *cr, int width, int height)
 {
+    cairo_surface_t *image;
+
     /* Image has to have same geometry as xcb surface to be added as a snapshot */
-    cairo_set_source_surface (cr, create_image (width, height), 0, 0);
+    image = create_image (width, height);
+    cairo_set_source_surface (cr, image, 0, 0);
+    cairo_surface_destroy (image);
 
     /* This attaches the tested xcb surface as a snapshot */
     cairo_paint (cr);

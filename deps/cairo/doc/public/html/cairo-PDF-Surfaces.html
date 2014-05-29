@@ -74,6 +74,7 @@ PDF files and is a multi-page vector surface backend.
 Defined if the PDF surface backend is available.
 This macro can be used to conditionally compile backend-specific code.
 </p>
+<p class="since">Since 1.2</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -90,7 +91,7 @@ to <em class="parameter"><code>filename</code></em>.
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
-<td>a filename for the PDF output (must be writable), <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> may be
+<td>a filename for the PDF output (must be writable), <code class="literal">NULL</code> may be
 used to specify no output. This will generate a PDF surface that
 may be queried and used as a source, without generating a
 temporary file.</td>
@@ -132,7 +133,7 @@ incrementally to the stream represented by <em class="parameter"><code>write_fun
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>write_func</code></em> :</span></p></td>
-<td>a <a class="link" href="cairo-PNG-Support.html#cairo-write-func-t" title="cairo_write_func_t ()"><span class="type">cairo_write_func_t</span></a> to accept the output data, may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>a <a class="link" href="cairo-PNG-Support.html#cairo-write-func-t" title="cairo_write_func_t ()"><span class="type">cairo_write_func_t</span></a> to accept the output data, may be <code class="literal">NULL</code>
 to indicate a no-op <em class="parameter"><code>write_func</code></em>. With a no-op <em class="parameter"><code>write_func</code></em>,
 the surface may be queried or used as a source without
 generating any temporary files.</td>
@@ -207,24 +208,22 @@ surface.
 <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-version-t" title="enum cairo_pdf_version_t"><span class="type">cairo_pdf_version_t</span></a> is used to describe the version number of the PDF
 specification that a generated PDF file will conform to.
 </p>
-<p>
-Since 1.10
-</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><a name="CAIRO-PDF-VERSION-1-4:CAPS"></a><span class="term"><code class="literal">CAIRO_PDF_VERSION_1_4</code></span></p></td>
-<td>The version 1.4 of the PDF specification.
+<td>The version 1.4 of the PDF specification. (Since 1.10)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-PDF-VERSION-1-5:CAPS"></a><span class="term"><code class="literal">CAIRO_PDF_VERSION_1_5</code></span></p></td>
-<td>The version 1.5 of the PDF specification.
+<td>The version 1.5 of the PDF specification. (Since 1.10)
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.10</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -256,7 +255,7 @@ Used to retrieve the list of supported versions. See
 <pre class="programlisting">const <span class="returnvalue">char</span> *        cairo_pdf_version_to_string         (<em class="parameter"><code><a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-version-t" title="enum cairo_pdf_version_t"><span class="type">cairo_pdf_version_t</span></a> version</code></em>);</pre>
 <p>
 Get the string representation of the given <em class="parameter"><code>version</code></em> id. This function
-will return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>version</code></em> isn't valid. See <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-get-versions" title="cairo_pdf_get_versions ()"><code class="function">cairo_pdf_get_versions()</code></a>
+will return <code class="literal">NULL</code> if <em class="parameter"><code>version</code></em> isn't valid. See <a class="link" href="cairo-PDF-Surfaces.html#cairo-pdf-get-versions" title="cairo_pdf_get_versions ()"><code class="function">cairo_pdf_get_versions()</code></a>
 for a way to get the list of valid version ids.
 </p>
 <div class="variablelist"><table border="0">

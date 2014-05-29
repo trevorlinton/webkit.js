@@ -1,0 +1,51 @@
+<!-- ##### SECTION Title ##### -->
+cairo-recording
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### MACRO CAIRO_HAS_RECORDING_SURFACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION cairo_recording_surface_create ##### -->
+<para>
+
+</para>
+
+@content: 
+@extents: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_recording_surface_ink_extents ##### -->
+<para>
+
+</para>
+
+@surface: 
+@x0: 
+@y0: 
+@width: 
+@height: 
+
+

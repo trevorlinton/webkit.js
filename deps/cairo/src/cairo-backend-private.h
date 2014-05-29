@@ -37,6 +37,7 @@
 #define CAIRO_BACKEND_PRIVATE_H
 
 #include "cairo-types-private.h"
+#include "cairo-private.h"
 
 typedef enum _cairo_backend_type {
     CAIRO_TYPE_DEFAULT,
@@ -95,6 +96,11 @@ struct _cairo_backend {
     void (*user_to_device_distance) (void *cr, double *x, double *y);
     void (*device_to_user) (void *cr, double *x, double *y);
     void (*device_to_user_distance) (void *cr, double *x, double *y);
+
+    void (*user_to_backend) (void *cr, double *x, double *y);
+    void (*user_to_backend_distance) (void *cr, double *x, double *y);
+    void (*backend_to_user) (void *cr, double *x, double *y);
+    void (*backend_to_user_distance) (void *cr, double *x, double *y);
 
     cairo_status_t (*new_path) (void *cr);
     cairo_status_t (*new_sub_path) (void *cr);
@@ -167,5 +173,29 @@ struct _cairo_backend {
     cairo_status_t (*copy_page) (void *cr);
     cairo_status_t (*show_page) (void *cr);
 };
+
+static inline void
+_cairo_backend_to_user (cairo_t *cr, double *x, double *y)
+{
+    cr->backend->backend_to_user (cr, x, y);
+}
+
+static inline void
+_cairo_backend_to_user_distance (cairo_t *cr, double *x, double *y)
+{
+    cr->backend->backend_to_user_distance (cr, x, y);
+}
+
+static inline void
+_cairo_user_to_backend (cairo_t *cr, double *x, double *y)
+{
+    cr->backend->user_to_backend (cr, x, y);
+}
+
+static inline void
+_cairo_user_to_backend_distance (cairo_t *cr, double *x, double *y)
+{
+    cr->backend->user_to_backend_distance (cr, x, y);
+}
 
 #endif /* CAIRO_BACKEND_PRIVATE_H */

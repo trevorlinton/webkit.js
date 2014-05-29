@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{8A6F5E6E-316F-22D4-1547-253B04CB32E7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\src">
+      <UniqueIdentifier>{8CDEE807-BC53-E450-C8B8-4DEBB66742D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\src\lib_json">
+      <UniqueIdentifier>{98BE9737-7BE7-EBC3-04A1-C44D1866838D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\include">
+      <UniqueIdentifier>{57CA55B8-BCC5-4000-CE3A-58972F82E9CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\include\json">
+      <UniqueIdentifier>{925A1F1B-2B9E-1800-B702-8923A5680923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="overrides">
+      <UniqueIdentifier>{84AD2EB6-5184-86E2-7EC9-59E84A4DB552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="overrides\src">
+      <UniqueIdentifier>{8CDEE807-BC53-E450-C8B8-4DEBB66742D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="overrides\src\lib_json">
+      <UniqueIdentifier>{98BE9737-7BE7-EBC3-04A1-C44D1866838D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="overrides\include">
+      <UniqueIdentifier>{57CA55B8-BCC5-4000-CE3A-58972F82E9CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="overrides\include\json">
+      <UniqueIdentifier>{925A1F1B-2B9E-1800-B702-8923A5680923}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jsoncpp.gyp"/>
+    <ClInclude Include="source\src\lib_json\json_batchallocator.h">
+      <Filter>source\src\lib_json</Filter>
+    </ClInclude>
+    <ClCompile Include="source\src\lib_json\json_reader.cpp">
+      <Filter>source\src\lib_json</Filter>
+    </ClCompile>
+    <ClInclude Include="source\src\lib_json\json_tool.h">
+      <Filter>source\src\lib_json</Filter>
+    </ClInclude>
+    <ClCompile Include="source\src\lib_json\json_writer.cpp">
+      <Filter>source\src\lib_json</Filter>
+    </ClCompile>
+    <ClInclude Include="source\include\json\features.h">
+      <Filter>source\include\json</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\json\writer.h">
+      <Filter>source\include\json</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\json\config.h">
+      <Filter>source\include\json</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\json\json.h">
+      <Filter>source\include\json</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\json\reader.h">
+      <Filter>source\include\json</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\json\autolink.h">
+      <Filter>source\include\json</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\json\assertions.h">
+      <Filter>source\include\json</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\json\forwards.h">
+      <Filter>source\include\json</Filter>
+    </ClInclude>
+    <ClCompile Include="overrides\src\lib_json\json_value.cpp">
+      <Filter>overrides\src\lib_json</Filter>
+    </ClCompile>
+    <ClInclude Include="overrides\include\json\value.h">
+      <Filter>overrides\include\json</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

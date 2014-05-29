@@ -73,7 +73,7 @@
 				# We add -O2 to get rid of dead functions, -g2 preserves the symbol names for a fairly
 				#		decent stack trace on an abort or heap/stack violation.  Using js-opts 0 disables any
 				#		mangaling of the javascript, this is the optimal way of debugging.
-				'jsflags+':['<(emscripten_linktojs) -s ASSERTIONS=2 -O2 -g2 --js-opts 0'],
+				'jsflags+':['<(emscripten_linktojs) -s ASSERTIONS=2 -O2 -g2 --js-opts 0 -s ALIASING_FUNCTION_POINTERS=0'],
 			},
 		},
 	},

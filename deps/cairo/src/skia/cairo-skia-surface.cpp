@@ -90,22 +90,14 @@ _cairo_skia_surface_finish (void *asurface)
     return CAIRO_STATUS_SUCCESS;
 }
 
-static cairo_surface_t *
+static cairo_image_surface_t *
 _cairo_skia_surface_map_to_image (void *asurface,
 				  const cairo_rectangle_int_t *extents)
 {
     cairo_skia_surface_t *surface = (cairo_skia_surface_t *) asurface;
 
     surface->bitmap->lockPixels ();
-
-    if (extents->width < surface->image.width ||
-	extents->height < surface->image.height)
-    {
-	return _cairo_surface_create_for_rectangle_int (&surface->image.base,
-							extents);
-    }
-
-    return cairo_surface_reference (&surface->image.base);
+    return _cairo_image_surface_map_to_image (&surface->image, extents);
 }
 
 static cairo_int_status_t
@@ -113,9 +105,12 @@ _cairo_skia_surface_unmap_image (void *asurface,
 				 cairo_image_surface_t *image)
 {
     cairo_skia_surface_t *surface = (cairo_skia_surface_t *) asurface;
+    cairo_int_status_t status;
 
+    status = _cairo_image_surface_unmap_image (&surface->image, image);
     surface->bitmap->unlockPixels ();
-    return CAIRO_INT_STATUS_SUCCESS;
+
+    return status;
 }
 
 static cairo_status_t

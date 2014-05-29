@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<refentry id="cairo-Recording-Surfaces">
+<refmeta>
+<refentrytitle role="top_of_page" id="cairo-Recording-Surfaces.top_of_page">Recording Surfaces</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  CAIRO Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Recording Surfaces</refname>
+<refpurpose>Records all drawing operations</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cairo-Recording-Surfaces.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="CAIRO-HAS-RECORDING-SURFACE:CAPS">CAIRO_HAS_RECORDING_SURFACE</link>
+<link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   <link linkend="cairo-recording-surface-create">cairo_recording_surface_create</link>      (<parameter><link linkend="cairo-content-t"><type>cairo_content_t</type></link> content</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-t"><type>cairo_rectangle_t</type></link> *extents</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-recording-surface-ink-extents">cairo_recording_surface_ink_extents</link> (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> *x0</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> *y0</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> *width</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> *height</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="cairo-Recording-Surfaces.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+A recording surface is a surface that records all drawing operations at
+the highest level of the surface backend interface, (that is, the
+level of paint, mask, stroke, fill, and show_text_glyphs). The recording
+surface can then be "replayed" against any target surface by using it
+as a source surface.
+</para>
+<para>
+If you want to replay a surface so that the results in target will be
+identical to the results that would have been obtained if the original
+operations applied to the recording surface had instead been applied to the
+target surface, you can use code like this:
+<informalexample><programlisting>
+cairo_t *cr;
+
+cr = cairo_create (target);
+cairo_set_source_surface (cr, recording_surface, 0.0, 0.0);
+cairo_paint (cr);
+cairo_destroy (cr);
+</programlisting></informalexample>
+</para>
+<para>
+A recording surface is logically unbounded, i.e. it has no implicit constraint
+on the size of the drawing surface. However, in practice this is rarely
+useful as you wish to replay against a particular target surface with
+known bounds. For this case, it is more efficient to specify the target
+extents to the recording surface upon creation.
+</para>
+<para>
+The recording phase of the recording surface is careful to snapshot all
+necessary objects (paths, patterns, etc.), in order to achieve
+accurate replay. The efficiency of the recording surface could be
+improved by improving the implementation of snapshot for the
+various objects. For example, it would be nice to have a
+copy-on-write implementation for _cairo_surface_snapshot.
+</para>
+</refsect1>
+<refsect1 id="cairo-Recording-Surfaces.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="CAIRO-HAS-RECORDING-SURFACE:CAPS" role="macro" condition="since:1.10">
+<title>CAIRO_HAS_RECORDING_SURFACE</title>
+<indexterm zone="CAIRO-HAS-RECORDING-SURFACE:CAPS" role="1.10"><primary sortas="HAS_RECORDING_SURFACE">CAIRO_HAS_RECORDING_SURFACE</primary></indexterm>
+<programlisting>#define CAIRO_HAS_RECORDING_SURFACE 1
+</programlisting>
+<para>
+Defined if the recording surface backend is available.
+The recording surface backend is always built in.
+This macro was added for completeness in cairo 1.10.
+</para><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-recording-surface-create" role="function" condition="since:1.10">
+<title>cairo_recording_surface_create ()</title>
+<indexterm zone="cairo-recording-surface-create" role="1.10"><primary sortas="recording_surface_create">cairo_recording_surface_create</primary></indexterm>
+<programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_recording_surface_create      (<parameter><link linkend="cairo-content-t"><type>cairo_content_t</type></link> content</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-t"><type>cairo_rectangle_t</type></link> *extents</parameter>);</programlisting>
+<para>
+Creates a recording-surface which can be used to record all drawing operations
+at the highest level (that is, the level of paint, mask, stroke, fill
+and show_text_glyphs). The recording surface can then be "replayed" against
+any target surface by using it as a source to drawing operations.
+</para>
+<para>
+The recording phase of the recording surface is careful to snapshot all
+necessary objects (paths, patterns, etc.), in order to achieve
+accurate replay.
+</para><variablelist role="params">
+<varlistentry><term><parameter>content</parameter>&#160;:</term>
+<listitem><simpara>the content of the recording surface</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>extents</parameter>&#160;:</term>
+<listitem><simpara>the extents to record in pixels, can be <link linkend="NULL:CAPS"><literal>NULL</literal></link> to record
+unbounded operations.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a pointer to the newly created surface. The caller
+owns the surface and should call <link linkend="cairo-surface-destroy"><function>cairo_surface_destroy()</function></link> when done
+with it.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-recording-surface-ink-extents" role="function" condition="since:1.10">
+<title>cairo_recording_surface_ink_extents ()</title>
+<indexterm zone="cairo-recording-surface-ink-extents" role="1.10"><primary sortas="recording_surface_ink_extents">cairo_recording_surface_ink_extents</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_recording_surface_ink_extents (<parameter><link linkend="cairo-surface-t"><type>cairo_surface_t</type></link> *surface</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> *x0</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> *y0</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> *width</parameter>,
+                                                         <parameter><link linkend="double"><type>double</type></link> *height</parameter>);</programlisting>
+<para>
+Measures the extents of the operations stored within the recording-surface.
+This is useful to compute the required size of an image surface (or
+equivalent) into which to replay the full sequence of drawing operations.
+</para><variablelist role="params">
+<varlistentry><term><parameter>surface</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-recording-surface-t"><type>cairo_recording_surface_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x0</parameter>&#160;:</term>
+<listitem><simpara>the x-coordinate of the top-left of the ink bounding box</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y0</parameter>&#160;:</term>
+<listitem><simpara>the y-coordinate of the top-left of the ink bounding box</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&#160;:</term>
+<listitem><simpara>the width of the ink bounding box</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&#160;:</term>
+<listitem><simpara>the height of the ink bounding box</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+
+</refsect1>
+<refsect1 id="cairo-Recording-Surfaces.see-also">
+<title>See Also</title>
+<link linkend="cairo-surface-t"><type>cairo_surface_t</type></link>
+</refsect1>
+
+</refentry>

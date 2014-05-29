@@ -522,11 +522,6 @@ _cairo_sub_font_add_glyph (cairo_sub_font_t	   *sub_font,
     y_advance = scaled_glyph->metrics.y_advance;
     _cairo_scaled_font_thaw_cache (sub_font->scaled_font);
 
-    if (unlikely (status)) {
-	_cairo_sub_font_glyph_destroy (sub_font_glyph);
-	return status;
-    }
-
     if (!is_latin && sub_font->num_glyphs_in_current_subset == sub_font->max_glyphs_per_subset)
     {
 	sub_font->current_subset++;

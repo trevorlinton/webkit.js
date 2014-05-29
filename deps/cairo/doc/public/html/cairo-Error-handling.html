@@ -121,103 +121,103 @@ to get a human-readable representation of an error message.
 <tbody>
 <tr>
 <td><p><a name="CAIRO-STATUS-SUCCESS:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_SUCCESS</code></span></p></td>
-<td>no error has occurred
+<td>no error has occurred (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-NO-MEMORY:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_NO_MEMORY</code></span></p></td>
-<td>out of memory
+<td>out of memory (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-INVALID-RESTORE:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_INVALID_RESTORE</code></span></p></td>
-<td>cairo_restore() called without matching <a class="link" href="cairo-cairo-t.html#cairo-save" title="cairo_save ()"><code class="function">cairo_save()</code></a>
+<td>cairo_restore() called without matching <a class="link" href="cairo-cairo-t.html#cairo-save" title="cairo_save ()"><code class="function">cairo_save()</code></a> (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-INVALID-POP-GROUP:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_INVALID_POP_GROUP</code></span></p></td>
-<td>no saved group to pop, i.e. <a class="link" href="cairo-cairo-t.html#cairo-pop-group" title="cairo_pop_group ()"><code class="function">cairo_pop_group()</code></a> without matching <a class="link" href="cairo-cairo-t.html#cairo-push-group" title="cairo_push_group ()"><code class="function">cairo_push_group()</code></a>
+<td>no saved group to pop, i.e. <a class="link" href="cairo-cairo-t.html#cairo-pop-group" title="cairo_pop_group ()"><code class="function">cairo_pop_group()</code></a> without matching <a class="link" href="cairo-cairo-t.html#cairo-push-group" title="cairo_push_group ()"><code class="function">cairo_push_group()</code></a> (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-NO-CURRENT-POINT:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_NO_CURRENT_POINT</code></span></p></td>
-<td>no current point defined
+<td>no current point defined (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-INVALID-MATRIX:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_INVALID_MATRIX</code></span></p></td>
-<td>invalid matrix (not invertible)
+<td>invalid matrix (not invertible) (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-INVALID-STATUS:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_INVALID_STATUS</code></span></p></td>
-<td>invalid value for an input <a class="link" href="cairo-Error-handling.html#cairo-status-t" title="enum cairo_status_t"><span class="type">cairo_status_t</span></a>
+<td>invalid value for an input <a class="link" href="cairo-Error-handling.html#cairo-status-t" title="enum cairo_status_t"><span class="type">cairo_status_t</span></a> (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-NULL-POINTER:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_NULL_POINTER</code></span></p></td>
 <td>
-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> pointer
+<code class="literal">NULL</code> pointer (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-INVALID-STRING:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_INVALID_STRING</code></span></p></td>
-<td>input string not valid UTF-8
+<td>input string not valid UTF-8 (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-INVALID-PATH-DATA:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_INVALID_PATH_DATA</code></span></p></td>
-<td>input path data not valid
+<td>input path data not valid (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-READ-ERROR:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_READ_ERROR</code></span></p></td>
-<td>error while reading from input stream
+<td>error while reading from input stream (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-WRITE-ERROR:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_WRITE_ERROR</code></span></p></td>
-<td>error while writing to output stream
+<td>error while writing to output stream (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-SURFACE-FINISHED:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_SURFACE_FINISHED</code></span></p></td>
-<td>target surface has been finished
+<td>target surface has been finished (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-SURFACE-TYPE-MISMATCH:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_SURFACE_TYPE_MISMATCH</code></span></p></td>
-<td>the surface type is not appropriate for the operation
+<td>the surface type is not appropriate for the operation (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-PATTERN-TYPE-MISMATCH:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_PATTERN_TYPE_MISMATCH</code></span></p></td>
-<td>the pattern type is not appropriate for the operation
+<td>the pattern type is not appropriate for the operation (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-INVALID-CONTENT:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_INVALID_CONTENT</code></span></p></td>
-<td>invalid value for an input <a class="link" href="cairo-cairo-surface-t.html#cairo-content-t" title="enum cairo_content_t"><span class="type">cairo_content_t</span></a>
+<td>invalid value for an input <a class="link" href="cairo-cairo-surface-t.html#cairo-content-t" title="enum cairo_content_t"><span class="type">cairo_content_t</span></a> (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-INVALID-FORMAT:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_INVALID_FORMAT</code></span></p></td>
-<td>invalid value for an input <a class="link" href="cairo-Image-Surfaces.html#cairo-format-t" title="enum cairo_format_t"><span class="type">cairo_format_t</span></a>
+<td>invalid value for an input <a class="link" href="cairo-Image-Surfaces.html#cairo-format-t" title="enum cairo_format_t"><span class="type">cairo_format_t</span></a> (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-INVALID-VISUAL:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_INVALID_VISUAL</code></span></p></td>
-<td>invalid value for an input Visual*
+<td>invalid value for an input Visual* (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-FILE-NOT-FOUND:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_FILE_NOT_FOUND</code></span></p></td>
-<td>file not found
+<td>file not found (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-STATUS-INVALID-DASH:CAPS"></a><span class="term"><code class="literal">CAIRO_STATUS_INVALID_DASH</code></span></p></td>
-<td>invalid value for a dash setting
+<td>invalid value for a dash setting (Since 1.0)
 </td>
 </tr>
 <tr>
@@ -323,6 +323,7 @@ to get a human-readable representation of an error message.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -344,6 +345,7 @@ Provides a human-readable description of a <a class="link" href="cairo-Error-han
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -370,6 +372,7 @@ functions have been called as necessary). If there are active cairo
 objects, this call is likely to cause a crash, (eg. an assertion
 failure due to a hash table being destroyed when non-empty).
 </p>
+<p class="since">Since 1.0</p>
 </div>
 </div>
 <div class="refsect1">

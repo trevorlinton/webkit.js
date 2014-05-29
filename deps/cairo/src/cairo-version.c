@@ -137,53 +137,65 @@
  * </programlisting></informalexample>
  * </para>
  * </refsect2>
- */
+ **/
 
 /**
  * CAIRO_VERSION:
  *
  * The version of cairo available at compile-time, encoded using
  * CAIRO_VERSION_ENCODE().
- */
+ *
+ * Since: 1.0
+ **/
 
 /**
  * CAIRO_VERSION_MAJOR:
  *
  * The major component of the version of cairo available at compile-time.
- */
+ *
+ * Since: 1.0
+ **/
 
 /**
  * CAIRO_VERSION_MINOR:
  *
  * The minor component of the version of cairo available at compile-time.
- */
+ *
+ * Since: 1.0
+ **/
 
 /**
  * CAIRO_VERSION_MICRO:
  *
  * The micro component of the version of cairo available at compile-time.
- */
+ *
+ * Since: 1.0
+ **/
 
 /**
  * CAIRO_VERSION_STRING:
  *
  * A human-readable string literal containing the version of cairo available
  * at compile-time, in the form of "X.Y.Z".
- */
+ *
+ * Since: 1.8
+ **/
 
 /**
  * CAIRO_VERSION_ENCODE:
  * @major: the major component of the version number
  * @minor: the minor component of the version number
  * @micro: the micro component of the version number
- * 
+ *
  * This macro encodes the given cairo version into an integer.  The numbers
  * returned by %CAIRO_VERSION and cairo_version() are encoded using this macro.
  * Two encoded version numbers can be compared as integers.  The encoding ensures
  * that later versions compare greater than earlier versions.
  *
- * @Returns: the encoded version.
- */
+ * Returns: the encoded version.
+ *
+ * Since: 1.0
+ **/
 
 /**
  * CAIRO_VERSION_STRINGIZE:
@@ -195,10 +207,10 @@
  * returned by %CAIRO_VERSION_STRING and cairo_version_string() are encoded using this macro.
  * The parameters to this macro must expand to numerical literals.
  *
- * @Returns: a string literal containing the version.
+ * Returns: a string literal containing the version.
  *
- * @Since: 1.8
- */
+ * Since: 1.8
+ **/
 
 /**
  * cairo_version:
@@ -218,6 +230,8 @@
  * equivalents %CAIRO_VERSION and %CAIRO_VERSION_STRING.
  *
  * Return value: the encoded version.
+ *
+ * Since: 1.0
  **/
 int
 cairo_version (void)
@@ -235,6 +249,8 @@ cairo_version (void)
  * %CAIRO_VERSION_STRING and %CAIRO_VERSION.
  *
  * Return value: a string containing the version.
+ *
+ * Since: 1.0
  **/
 const char*
 cairo_version_string (void)

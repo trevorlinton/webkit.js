@@ -314,11 +314,15 @@ gallium_surface_release_source_image (void *abstract_surface,
 }
 
 static cairo_status_t
-gallium_surface_flush (void *abstract_surface)
+gallium_surface_flush (void *abstract_surface,
+		       unsigned flags)
 {
     gallium_surface_t *surface = abstract_surface;
     gallium_device_t *device = gallium_device (surface);
     cairo_status_t status;
+
+    if (flags)
+	return CAIRO_STATUS_SUCCESS;
 
     if (surface->fallback == NULL) {
 	device->pipe->flush (device->pipe,

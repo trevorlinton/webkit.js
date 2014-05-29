@@ -47,10 +47,12 @@
 #include "cairo-win32-private.h"
 
 #include "cairo-boxes-private.h"
+#include "cairo-clip-inline.h"
 #include "cairo-compositor-private.h"
 #include "cairo-image-surface-private.h"
 #include "cairo-pattern-private.h"
 #include "cairo-region-private.h"
+#include "cairo-surface-inline.h"
 #include "cairo-surface-offset-private.h"
 
 #if !defined(AC_SRC_OVER)
@@ -149,10 +151,11 @@ static cairo_bool_t upload_box (cairo_box_t *box, void *closure)
     int y = _cairo_fixed_integer_part (box->p1.y);
     int width  = _cairo_fixed_integer_part (box->p2.x - box->p1.x);
     int height = _cairo_fixed_integer_part (box->p2.y - box->p1.y);
+    int src_height = -cb->bi.bmiHeader.biHeight;
 
     TRACE ((stderr, "%s\n", __FUNCTION__));
     return StretchDIBits (cb->dst, x, y + height - 1, width, -height,
-			  x + cb->tx,  height - (y + cb->ty - 1),
+			  x + cb->tx,  src_height - (y + cb->ty - 1),
 			  width, -height,
 			  cb->data, &cb->bi,
 			  DIB_RGB_COLORS, SRCCOPY);
@@ -234,7 +237,7 @@ copy_boxes (cairo_win32_display_surface_t *dst,
     if (! _cairo_boxes_for_each_box (boxes, source_contains_box, &cb))
 	return CAIRO_INT_STATUS_UNSUPPORTED;
 
-    status = _cairo_surface_flush (surface);
+    status = __cairo_surface_flush (surface, 0);
     if (status)
 	return status;
 
@@ -358,7 +361,7 @@ alpha_blend_boxes (cairo_win32_display_surface_t *dst,
     if (! _cairo_boxes_for_each_box (boxes, source_contains_box, &cb))
 	return CAIRO_INT_STATUS_UNSUPPORTED;
 
-    status = _cairo_surface_flush (&src->win32.base);
+    status = __cairo_surface_flush (&src->win32.base, 0);
     if (status)
 	return status;
 

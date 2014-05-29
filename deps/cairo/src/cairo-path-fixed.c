@@ -38,8 +38,9 @@
 
 #include "cairoint.h"
 
-#include "cairo-box-private.h"
+#include "cairo-box-inline.h"
 #include "cairo-error-private.h"
+#include "cairo-list-inline.h"
 #include "cairo-path-fixed-private.h"
 #include "cairo-slope-private.h"
 
@@ -67,19 +68,6 @@ static void
 _cairo_path_buf_add_points (cairo_path_buf_t       *buf,
 			    const cairo_point_t    *points,
 			    int		            num_points);
-
-#define cairo_path_head(path__) (&(path__)->buf.base)
-#define cairo_path_tail(path__) cairo_path_buf_prev (cairo_path_head (path__))
-
-#define cairo_path_buf_next(pos__) \
-    cairo_list_entry ((pos__)->link.next, cairo_path_buf_t, link)
-#define cairo_path_buf_prev(pos__) \
-    cairo_list_entry ((pos__)->link.prev, cairo_path_buf_t, link)
-
-#define cairo_path_foreach_buf_start(pos__, path__) \
-    pos__ = cairo_path_head (path__); do
-#define cairo_path_foreach_buf_end(pos__, path__) \
-    while ((pos__ = cairo_path_buf_next (pos__)) !=  cairo_path_head (path__))
 
 void
 _cairo_path_fixed_init (cairo_path_fixed_t *path)
@@ -418,6 +406,7 @@ _cairo_path_fixed_move_to (cairo_path_fixed_t  *path,
     path->has_current_point = TRUE;
     path->current_point.x = x;
     path->current_point.y = y;
+    path->last_move_point = path->current_point;
 
     return CAIRO_STATUS_SUCCESS;
 }
@@ -976,8 +965,19 @@ _cairo_path_fixed_offset_and_scale (cairo_path_fixed_t *path,
 
     path->extents.p1.x = _cairo_fixed_mul (scalex, path->extents.p1.x) + offx;
     path->extents.p2.x = _cairo_fixed_mul (scalex, path->extents.p2.x) + offx;
+    if (scalex < 0) {
+	cairo_fixed_t t = path->extents.p1.x;
+	path->extents.p1.x = path->extents.p2.x;
+	path->extents.p2.x = t;
+    }
+
     path->extents.p1.y = _cairo_fixed_mul (scaley, path->extents.p1.y) + offy;
     path->extents.p2.y = _cairo_fixed_mul (scaley, path->extents.p2.y) + offy;
+    if (scaley < 0) {
+	cairo_fixed_t t = path->extents.p1.y;
+	path->extents.p1.y = path->extents.p2.y;
+	path->extents.p2.y = t;
+    }
 }
 
 void
@@ -1217,17 +1217,10 @@ _canonical_box (cairo_box_t *box,
     }
 }
 
-/*
- * Check whether the given path contains a single rectangle.
- */
-cairo_bool_t
-_cairo_path_fixed_is_box (const cairo_path_fixed_t *path,
-			  cairo_box_t *box)
+static inline cairo_bool_t
+_path_is_quad (const cairo_path_fixed_t *path)
 {
     const cairo_path_buf_t *buf = cairo_path_head (path);
-
-    if (! path->fill_is_rectilinear)
-	return FALSE;
 
     /* Do we have the right number of ops? */
     if (buf->num_ops < 4 || buf->num_ops > 6)
@@ -1263,26 +1256,129 @@ _cairo_path_fixed_is_box (const cairo_path_fixed_t *path,
 	}
     }
 
-    /* Ok, we may have a box, if the points line up */
-    if (buf->points[0].y == buf->points[1].y &&
-	buf->points[1].x == buf->points[2].x &&
-	buf->points[2].y == buf->points[3].y &&
-	buf->points[3].x == buf->points[0].x)
-    {
-	_canonical_box (box, &buf->points[0], &buf->points[2]);
-	return TRUE;
-    }
+    return TRUE;
+}
 
-    if (buf->points[0].x == buf->points[1].x &&
-	buf->points[1].y == buf->points[2].y &&
-	buf->points[2].x == buf->points[3].x &&
-	buf->points[3].y == buf->points[0].y)
-    {
+static inline cairo_bool_t
+_points_form_rect (const cairo_point_t *points)
+{
+    if (points[0].y == points[1].y &&
+	points[1].x == points[2].x &&
+	points[2].y == points[3].y &&
+	points[3].x == points[0].x)
+	return TRUE;
+    if (points[0].x == points[1].x &&
+	points[1].y == points[2].y &&
+	points[2].x == points[3].x &&
+	points[3].y == points[0].y)
+	return TRUE;
+    return FALSE;
+}
+
+/*
+ * Check whether the given path contains a single rectangle.
+ */
+cairo_bool_t
+_cairo_path_fixed_is_box (const cairo_path_fixed_t *path,
+			  cairo_box_t *box)
+{
+    const cairo_path_buf_t *buf;
+
+    if (! path->fill_is_rectilinear)
+	return FALSE;
+
+    if (! _path_is_quad (path))
+	return FALSE;
+
+    buf = cairo_path_head (path);
+    if (_points_form_rect (buf->points)) {
 	_canonical_box (box, &buf->points[0], &buf->points[2]);
 	return TRUE;
     }
 
     return FALSE;
+}
+
+/* Determine whether two lines A->B and C->D intersect based on the 
+ * algorithm described here: http://paulbourke.net/geometry/pointlineplane/ */
+static inline cairo_bool_t
+_lines_intersect_or_are_coincident (cairo_point_t a,
+				    cairo_point_t b,
+				    cairo_point_t c,
+				    cairo_point_t d)
+{
+    cairo_int64_t numerator_a, numerator_b, denominator;
+    cairo_bool_t denominator_negative;
+
+    denominator = _cairo_int64_sub (_cairo_int32x32_64_mul (d.y - c.y, b.x - a.x),
+				    _cairo_int32x32_64_mul (d.x - c.x, b.y - a.y));
+    numerator_a = _cairo_int64_sub (_cairo_int32x32_64_mul (d.x - c.x, a.y - c.y),
+				    _cairo_int32x32_64_mul (d.y - c.y, a.x - c.x));
+    numerator_b = _cairo_int64_sub (_cairo_int32x32_64_mul (b.x - a.x, a.y - c.y),
+				    _cairo_int32x32_64_mul (b.y - a.y, a.x - c.x));
+
+    if (_cairo_int64_is_zero (denominator)) {
+	/* If the denominator and numerators are both zero,
+	 * the lines are coincident. */
+	if (_cairo_int64_is_zero (numerator_a) && _cairo_int64_is_zero (numerator_b))
+	    return TRUE;
+
+	/* Otherwise, a zero denominator indicates the lines are
+	*  parallel and never intersect. */
+	return FALSE;
+    }
+
+    /* The lines intersect if both quotients are between 0 and 1 (exclusive). */
+
+     /* We first test whether either quotient is a negative number. */
+    denominator_negative = _cairo_int64_negative (denominator);
+    if (_cairo_int64_negative (numerator_a) ^ denominator_negative)
+	return FALSE;
+    if (_cairo_int64_negative (numerator_b) ^ denominator_negative)
+	return FALSE;
+
+    /* A zero quotient indicates an "intersection" at an endpoint, which
+     * we aren't considering a true intersection. */
+    if (_cairo_int64_is_zero (numerator_a) || _cairo_int64_is_zero (numerator_b))
+	return FALSE;
+
+    /* If the absolute value of the numerator is larger than or equal to the
+     * denominator the result of the division would be greater than or equal
+     * to one. */
+    if (! denominator_negative) {
+        if (! _cairo_int64_lt (numerator_a, denominator) ||
+	    ! _cairo_int64_lt (numerator_b, denominator))
+	    return FALSE;
+    } else {
+        if (! _cairo_int64_lt (denominator, numerator_a) ||
+	    ! _cairo_int64_lt (denominator, numerator_b))
+	    return FALSE;
+    }
+
+    return TRUE;
+}
+
+cairo_bool_t
+_cairo_path_fixed_is_simple_quad (const cairo_path_fixed_t *path)
+{
+    const cairo_point_t *points;
+
+    if (! _path_is_quad (path))
+	return FALSE;
+
+    points = cairo_path_head (path)->points;
+    if (_points_form_rect (points))
+	return TRUE;
+
+    if (_lines_intersect_or_are_coincident (points[0], points[1],
+					    points[3], points[2]))
+	return FALSE;
+
+    if (_lines_intersect_or_are_coincident (points[0], points[3],
+					    points[1], points[2]))
+	return FALSE;
+
+    return TRUE;
 }
 
 cairo_bool_t

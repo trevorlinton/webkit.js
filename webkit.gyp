@@ -27,6 +27,7 @@
 			'cairo',
 			'curl',
 			'zlib',
+			'libpixman',
 			'fontconfig',
 			'webcore_xml',
 			'webcore_wtf',
@@ -199,13 +200,7 @@
 	},
 	{
 		'target_name':'webcore_platform',
-		'defines+':[
-			'<@(feature_defines)',
-			'CAIRO_HAS_FT_FONT',
-			'CAIRO_HAS_FC_FONT',
-			'CAIRO_HAS_EGL_FUNCTIONS',
-			# 'SK_SUPPORT_DEPRECATED_SCALARROUND',
-		],
+		'defines+':[ '<@(feature_defines)', 'CAIRO_HAS_FT_FONT', 'CAIRO_HAS_FC_FONT', 'CAIRO_HAS_EGL_FUNCTIONS', ],
 		'sources':['<@(webcore_platform_files)',],
 		'sources/':[ ['exclude','<(webcore_excludes)'] ],
 		'include_dirs':['<@(webcore_includes)'], #,'<(DEPTH)/deps/skia/include/core/','<(DEPTH)/deps/skia/include/config/'
@@ -247,9 +242,7 @@
 		'target_name': 'xml',
 		'sources':['<@(libxml2)',],
 		'include_dirs':[
-			'<(DEPTH)/deps/zlib',
-			'<(DEPTH)/deps/libxml2/include',
-			'<(DEPTH)/deps/libxml2/config',
+			'<(DEPTH)/deps/zlib', '<(DEPTH)/deps/libxml2/include', '<(DEPTH)/deps/libxml2/config',
 		],
 		'sources/':[['exclude','(test|rngparser|trio|runxmlconf|runtest|runsuite|python/|macos/|win32config|nano|elfgccheck|tutorial|win32/|example|doc/|xmlcatalog\\.c$|testlimits\\.c$|gjobread\\.c$|macos_main\\.c$|xmllint\\.c$)'],],
 		'cflags+':['-Werror'],
@@ -290,6 +283,18 @@
 		'cflags+':['-Werror'],
 	},
 	{
+		'target_name':'libpixman',
+		'defines': ['HAVE_CONFIG_H','PIXMAN_NO_TLS'],
+		'sources': ['<@(pixman)',],
+		'sources/': [ ['exclude', '(demos/|test/|pixman-sse2\\.c$|pixman-ssse3\\.c$|pixman-vmx\\.c$|pixman-region\\.c$)'] ],
+		'include_dirs': [
+			'<(DEPTH)/deps/pixman',
+			'<(DEPTH)/deps/pixman/pixman',
+		],
+		'cxx':'<(emscripten_cc)',
+		'cflags+':['-Werror'],
+	},
+	{
 		'target_name':'harfbuzz',
 		'defines': ['HB_OT','HB_NO_MT','HAVE_OT',],
 		'sources': ['<@(harfbuzz_files)',],
@@ -301,13 +306,13 @@
 			'<(DEPTH)/deps/freetype/include/freetype/config/',
 		],
 		'cxx':'<(emscripten_cc)',
-		'cflags+':['-Werror -include ../deps/cairo/config/config.h'],
+		'cflags+':['-Werror'],
 	},
 	{
 		'target_name': 'cairo',
-		'defines+': ['HAVE_CONFIG_H','CAIRO_NO_MUTEX','HAVE_UINT64_T'], #
+		'defines+': ['CAIRO_NO_MUTEX','HAVE_CONFIG_H'], #,'PIXMAN_NO_TLS','HAVE_UINT64_T'
 		'sources': ['<@(cairo)',],
-		'sources/': [['exclude', '(prefs/|perf/|util/|test/|os2|win32|beos|qt|boilerplate|arm-|sse2|pdf|quartz|script-|wgl|xcb|vg-|-drm|skia-|tee-|xlib-|xml-|-vmx|utils/|cogl|directfb-|glx-|check-has-hidden|pixman-region.c$|perceptualdiff\\.c$|cairo-ps-surface\\.c$|cairo-pdf-surface\\.c$|cairo-svg-surface\\.c$|cairo-time\\.c$|/test-)'],], #|cairo-gl-info\\.c$|cairo-gl-device\\.c$|cairo-gl-dispatch\\.c$|cairo-gl-device\\.c$|cairo_gl_dispatch\\.c$|cairo-path-stroke-polygon\\.c$|cairo-contour\\.c$
+		'sources/': [['exclude', '(prefs/|perf/|util/|test/|os2|win32|beos|qt|boilerplate|arm-|sse2|pdf|quartz|script-|wgl|xcb|vg-|-drm|skia-|tee-|xlib-|xml-|-vmx|utils/|cogl|directfb-|glx-|check-has-hidden|perceptualdiff\\.c$|cairo-ps-surface\\.c$|cairo-pdf-surface\\.c$|cairo-svg-surface\\.c$|cairo-time\\.c$|/test-|check-link\\.c$)'],], 
 		'include_dirs': [
 			'<(DEPTH)/deps/cairo',
 			'<(DEPTH)/deps/cairo/src',
@@ -319,10 +324,11 @@
 			'<(DEPTH)/deps/freetype/include',
 			'<(DEPTH)/deps/freetype/include/freetype/config/',
 			'<(DEPTH)/deps/fontconfig',
+			'<(DEPTH)/deps/pixman/pixman',
 			'<(DEPTH)/src/WebCoreSupport/',
 		],
 		'cxx':'<(emscripten_cc)',
-		'cflags+':['-Werror -include ../deps/cairo/config/config.h'],
+		'cflags+':['-Werror'],
 	},
 	{
 		'target_name': 'fontconfig',
@@ -362,7 +368,6 @@
 	},
 
 	#'sources/': [['exclude', '(fcobjs.c$)'],],
-
 	#{
 	#  'target_name':'webcore_derived_sources',
 	#  'type':'none',

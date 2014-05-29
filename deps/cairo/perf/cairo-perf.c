@@ -69,6 +69,9 @@ cairo_perf_timer_start (void)
 void
 cairo_perf_timer_stop (void)
 {
+    if (cairo_perf_timer_synchronize)
+	cairo_perf_timer_synchronize (cairo_perf_timer_synchronize_closure);
+
     timer = _cairo_time_get_delta (timer);
 }
 

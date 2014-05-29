@@ -59,6 +59,20 @@ typedef char cairo_path_op_t;
 #define CAIRO_PATH_BUF_SIZE ((512 - sizeof (cairo_path_buf_t)) \
 			   / (2 * sizeof (cairo_point_t) + sizeof (cairo_path_op_t)))
 
+#define cairo_path_head(path__) (&(path__)->buf.base)
+#define cairo_path_tail(path__) cairo_path_buf_prev (cairo_path_head (path__))
+
+#define cairo_path_buf_next(pos__) \
+    cairo_list_entry ((pos__)->link.next, cairo_path_buf_t, link)
+#define cairo_path_buf_prev(pos__) \
+    cairo_list_entry ((pos__)->link.prev, cairo_path_buf_t, link)
+
+#define cairo_path_foreach_buf_start(pos__, path__) \
+    pos__ = cairo_path_head (path__); do
+#define cairo_path_foreach_buf_end(pos__, path__) \
+    while ((pos__ = cairo_path_buf_next (pos__)) !=  cairo_path_head (path__))
+
+
 typedef struct _cairo_path_buf {
     cairo_list_t link;
     unsigned int num_ops;
@@ -185,5 +199,8 @@ _cairo_path_fixed_fill_maybe_region (const cairo_path_fixed_t *path)
 cairo_private cairo_bool_t
 _cairo_path_fixed_is_stroke_box (const cairo_path_fixed_t *path,
 				 cairo_box_t *box);
+
+cairo_private cairo_bool_t
+_cairo_path_fixed_is_simple_quad (const cairo_path_fixed_t *path);
 
 #endif /* CAIRO_PATH_FIXED_PRIVATE_H */

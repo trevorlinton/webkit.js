@@ -7,6 +7,10 @@ cairo_ft_font_face_create_for_pattern
 cairo_ft_font_options_substitute
 cairo_ft_scaled_font_lock_face
 cairo_ft_scaled_font_unlock_face
+cairo_ft_synthesize_t
+cairo_ft_font_face_get_synthesize
+cairo_ft_font_face_set_synthesize
+cairo_ft_font_face_unset_synthesize
 </SECTION>
 
 <SECTION>
@@ -106,6 +110,7 @@ cairo_ps_surface_dsc_comment
 CAIRO_HAS_RECORDING_SURFACE
 cairo_recording_surface_create
 cairo_recording_surface_ink_extents
+cairo_recording_surface_get_extents
 </SECTION>
 
 <SECTION>
@@ -117,6 +122,19 @@ cairo_win32_surface_create_with_ddb
 cairo_win32_printing_surface_create
 cairo_win32_surface_get_dc
 cairo_win32_surface_get_image
+<SUBSECTION Private>
+SB_NONE
+SHADEBLENDCAPS
+WIN32_FONT_LOGICAL_SCALE
+cairo_win32_device_t
+cairo_win32_display_surface_t
+cairo_win32_printing_surface_t
+cairo_win32_surface_t
+to_win32_device
+to_win32_device_from_surface
+to_win32_display_surface
+to_win32_printing_surface
+to_win32_surface
 </SECTION>
 
 <SECTION>
@@ -144,6 +162,9 @@ cairo_xlib_surface_get_visual
 cairo_xlib_surface_get_width
 cairo_xlib_surface_get_height
 cairo_xlib_surface_get_depth
+cairo_xlib_device_debug_cap_xrender_version
+cairo_xlib_device_debug_get_precision
+cairo_xlib_device_debug_set_precision
 </SECTION>
 
 <SECTION>
@@ -156,11 +177,17 @@ cairo_xlib_surface_get_xrender_format
 <SECTION>
 <FILE>cairo-xcb</FILE>
 CAIRO_HAS_XCB_SURFACE
+CAIRO_HAS_XCB_SHM_FUNCTIONS
 cairo_xcb_surface_create
 cairo_xcb_surface_create_for_bitmap
 cairo_xcb_surface_create_with_xrender_format
 cairo_xcb_surface_set_size
 cairo_xcb_surface_set_drawable
+cairo_xcb_device_get_connection
+cairo_xcb_device_debug_cap_xrender_version
+cairo_xcb_device_debug_cap_xshm_version
+cairo_xcb_device_debug_get_precision
+cairo_xcb_device_debug_set_precision
 </SECTION>
 
 <SECTION>
@@ -171,7 +198,7 @@ cairo_svg_surface_create_for_stream
 cairo_svg_surface_restrict_to_version
 cairo_svg_version_t
 cairo_svg_get_versions
-cairo_svg_version_to_string 
+cairo_svg_version_to_string
 </SECTION>
 
 <SECTION>
@@ -193,6 +220,7 @@ cairo_device_release
 
 <SECTION>
 <FILE>cairo-surface</FILE>
+CAIRO_HAS_MIME_SURFACE
 CAIRO_MIME_TYPE_JP2
 CAIRO_MIME_TYPE_JPEG
 CAIRO_MIME_TYPE_PNG
@@ -227,6 +255,7 @@ cairo_surface_show_page
 cairo_surface_has_show_text_glyphs
 cairo_surface_set_mime_data
 cairo_surface_get_mime_data
+cairo_surface_supports_mime_type
 cairo_surface_map_to_image
 cairo_surface_unmap_image
 </SECTION>
@@ -654,6 +683,7 @@ cairo_atsui_font_face_create_for_atsu_font_id
 
 <SECTION>
 <FILE>cairo-script</FILE>
+CAIRO_HAS_SCRIPT_SURFACE
 cairo_script_create
 cairo_script_create_for_stream
 cairo_script_from_recording_surface

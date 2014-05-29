@@ -43,9 +43,9 @@
 #include "cairoint.h"
 
 #include "cairo-error-private.h"
-#include "cairo-list-private.h"
+#include "cairo-list-inline.h"
 #include "cairo-freelist-private.h"
-#include "cairo-combsort-private.h"
+#include "cairo-combsort-inline.h"
 
 #include <setjmp.h>
 
@@ -2124,42 +2124,6 @@ botor_add_edge (cairo_botor_scan_converter_t *self,
     e->flags = START;
 
     self->num_edges++;
-
-    return CAIRO_STATUS_SUCCESS;
-}
-
-static cairo_status_t
-_cairo_botor_scan_converter_add_edge (void		*converter,
-				      const cairo_point_t *p1,
-				      const cairo_point_t *p2,
-				      int top, int bottom,
-				      int dir)
-{
-    cairo_botor_scan_converter_t *self = converter;
-    cairo_edge_t edge;
-
-    edge.line.p1 = *p1;
-    edge.line.p2 = *p2;
-    edge.top = top;
-    edge.bottom = bottom;
-    edge.dir = dir;
-
-    return botor_add_edge (self, &edge);
-}
-
-static cairo_status_t
-_cairo_botor_scan_converter_add_polygon (void		*converter,
-					 const cairo_polygon_t *polygon)
-{
-    cairo_botor_scan_converter_t *self = converter;
-    cairo_status_t status;
-    int i;
-
-    for (i = 0; i < polygon->num_edges; i++) {
-	status = botor_add_edge (self, &polygon->edges[i]);
-	if (unlikely (status))
-	    return status;
-    }
 
     return CAIRO_STATUS_SUCCESS;
 }

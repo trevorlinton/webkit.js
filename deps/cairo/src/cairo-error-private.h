@@ -109,13 +109,6 @@ typedef enum _cairo_int_status cairo_int_status_t;
 #define _cairo_int_status_is_error(status) \
     (status != CAIRO_INT_STATUS_SUCCESS && status < CAIRO_INT_STATUS_LAST_STATUS)
 
-static inline cairo_status_t
-_cairo_public_status (cairo_int_status_t status)
-{
-    assert (status <= CAIRO_INT_STATUS_LAST_STATUS);
-    return (cairo_status_t) status;
-}
-
 cairo_private cairo_status_t
 _cairo_error (cairo_status_t status);
 

@@ -204,7 +204,7 @@ _cairo_rtree_insert (cairo_rtree_t	     *rtree,
 			      &rtree->available, link)
     {
 	if (node->width >= width && node->height >= height)
-	    return (cairo_int_status_t)_cairo_rtree_node_insert (rtree, node, width, height, out);
+	    return _cairo_rtree_node_insert (rtree, node, width, height, out);
     }
 
     return CAIRO_INT_STATUS_UNSUPPORTED;
@@ -271,7 +271,7 @@ _cairo_rtree_evict_random (cairo_rtree_t	 *rtree,
 	    cairo_list_move (&node->link, &rtree->available);
 
 	    *out = node;
-	    ret = (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
+	    ret = CAIRO_STATUS_SUCCESS;
 	    break;
 	}
     }

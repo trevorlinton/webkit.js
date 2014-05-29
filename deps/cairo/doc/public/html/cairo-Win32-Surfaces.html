@@ -77,6 +77,7 @@ The surface returned by the other win32 constructors is of surface type
 Defined if the Microsoft Windows surface backend is available.
 This macro can be used to conditionally compile backend-specific code.
 </p>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -103,6 +104,7 @@ you will need to create one through
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -213,8 +215,8 @@ associated methods must be used for correct output.
 <a name="cairo-win32-surface-get-dc"></a><h3>cairo_win32_surface_get_dc ()</h3>
 <pre class="programlisting"><span class="returnvalue">HDC</span>                 cairo_win32_surface_get_dc          (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>);</pre>
 <p>
-Returns the HDC associated with this surface, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if none.
-Also returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the surface is not a win32 surface.
+Returns the HDC associated with this surface, or <code class="literal">NULL</code> if none.
+Also returns <code class="literal">NULL</code> if the surface is not a win32 surface.
 </p>
 <p>
 A call to <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-flush" title="cairo_surface_flush ()"><code class="function">cairo_surface_flush()</code></a> is required before using the HDC to
@@ -233,7 +235,7 @@ the content of the HDC has been modified.
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>HDC or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if no HDC available.</td>
+<td>HDC or <code class="literal">NULL</code> if no HDC available.</td>
 </tr>
 </tbody>
 </table></div>
@@ -246,7 +248,7 @@ the content of the HDC has been modified.
 <p>
 Returns a <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> image surface that refers to the same bits
 as the DIB of the Win32 surface.  If the passed-in win32 surface
-is not a DIB surface, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned.
+is not a DIB surface, <code class="literal">NULL</code> is returned.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -259,7 +261,7 @@ is not a DIB surface, <a href="http://library.gnome.org/devel/glib/unstable/glib
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>a <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> (owned by the win32 <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a>),
-or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the win32 surface is not a DIB.</td>
+or <code class="literal">NULL</code> if the win32 surface is not a DIB.</td>
 </tr>
 </tbody>
 </table></div>

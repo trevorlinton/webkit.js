@@ -47,6 +47,7 @@
 #include "cairo-default-context-private.h"
 #include "cairo-freed-pool-private.h"
 #include "cairo-gstate-private.h"
+#include "cairo-image-surface-inline.h"
 #include "cairo-path-private.h"
 #include "cairo-pattern-private.h"
 #include "cairo-skia-private.h"
@@ -1634,6 +1635,10 @@ static const cairo_backend_t _cairo_skia_context_backend = {
     _cairo_skia_context_user_to_device_distance,
     _cairo_skia_context_device_to_user,
     _cairo_skia_context_device_to_user_distance,
+    _cairo_skia_context_user_to_device, /* XXX backend */
+    _cairo_skia_context_user_to_device_distance, /* XXX backend */
+    _cairo_skia_context_device_to_user, /* XXX backend */
+    _cairo_skia_context_device_to_user_distance, /* XXX backend */
 
     _cairo_skia_context_new_path,
     _cairo_skia_context_new_sub_path,

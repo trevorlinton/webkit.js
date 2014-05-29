@@ -7,7 +7,7 @@
 <link rel="home" href="index.html" title="Cairo: A Vector Graphics Library">
 <link rel="up" href="cairo-drawing.html" title="Drawing">
 <link rel="prev" href="cairo-Transformations.html" title="Transformations">
-<link rel="next" href="cairo-fonts.html" title="Fonts">
+<link rel="next" href="cairo-Raster-Sources.html" title="Raster Sources">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -18,7 +18,7 @@
 <td><a accesskey="u" href="cairo-drawing.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Cairo: A Vector Graphics Library</th>
-<td><a accesskey="n" href="cairo-fonts.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="cairo-Raster-Sources.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#cairo-text.synopsis" class="shortcut">Top</a>
@@ -166,6 +166,7 @@ drawing or measuring the string and the origin of this glyph.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -184,21 +185,22 @@ Specifies variants of a font face based on their slant.
 <tbody>
 <tr>
 <td><p><a name="CAIRO-FONT-SLANT-NORMAL:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_SLANT_NORMAL</code></span></p></td>
-<td>Upright font style
+<td>Upright font style, since 1.0
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-FONT-SLANT-ITALIC:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_SLANT_ITALIC</code></span></p></td>
-<td>Italic font style
+<td>Italic font style, since 1.0
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-FONT-SLANT-OBLIQUE:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_SLANT_OBLIQUE</code></span></p></td>
-<td>Oblique font style
+<td>Oblique font style, since 1.0
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -216,16 +218,17 @@ Specifies variants of a font face based on their weight.
 <tbody>
 <tr>
 <td><p><a name="CAIRO-FONT-WEIGHT-NORMAL:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_WEIGHT_NORMAL</code></span></p></td>
-<td>Normal font weight
+<td>Normal font weight, since 1.0
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-FONT-WEIGHT-BOLD:CAPS"></a><span class="term"><code class="literal">CAIRO_FONT_WEIGHT_BOLD</code></span></p></td>
-<td>Bold font weight
+<td>Bold font weight, since 1.0
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -281,7 +284,7 @@ Specifies properties of a text cluster mapping.
 <tbody><tr>
 <td><p><a name="CAIRO-TEXT-CLUSTER-FLAG-BACKWARD:CAPS"></a><span class="term"><code class="literal">CAIRO_TEXT_CLUSTER_FLAG_BACKWARD</code></span></p></td>
 <td>The clusters in the cluster array
-map to glyphs in the glyph array from end to start.
+map to glyphs in the glyph array from end to start. (Since 1.8)
 </td>
 </tr></tbody>
 </table></div>
@@ -368,6 +371,7 @@ followed by <a class="link" href="cairo-text.html#cairo-set-font-face" title="ca
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -400,6 +404,7 @@ font size is 10.0.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -429,6 +434,7 @@ the current font.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -453,6 +459,7 @@ Stores the current font matrix into <em class="parameter"><code>matrix</code></e
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -480,6 +487,7 @@ from the surface is used.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -507,6 +515,7 @@ the retrieved options. All existing values are overwritten</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -528,10 +537,11 @@ destroyed if there are no other references to it.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>font_face</code></em> :</span></p></td>
-<td>a <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to restore to the default font</td>
+<td>a <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a>, or <code class="literal">NULL</code> to restore to the default font</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -553,7 +563,7 @@ Gets the current font face for a <a class="link" href="cairo-cairo-t.html#cairo-
 <td>the current font face.  This object is owned by
 cairo. To keep a reference to it, you must call
 <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-reference" title="cairo_font_face_reference ()"><code class="function">cairo_font_face_reference()</code></a>.
-This function never returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. If memory cannot be allocated, a
+This function never returns <code class="literal">NULL</code>. If memory cannot be allocated, a
 special "nil" <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> object will be returned on which
 <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-status" title="cairo_font_face_status ()"><code class="function">cairo_font_face_status()</code></a> returns <a class="link" href="cairo-Error-handling.html#CAIRO-STATUS-NO-MEMORY:CAPS"><code class="literal">CAIRO_STATUS_NO_MEMORY</code></a>. Using
 this nil object will cause its error state to propagate to other
@@ -563,6 +573,7 @@ will shutdown the <a class="link" href="cairo-cairo-t.html#cairo-t" title="cairo
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -613,7 +624,7 @@ Gets the current scaled font for a <a class="link" href="cairo-cairo-t.html#cair
 <td>the current scaled font. This object is owned by
 cairo. To keep a reference to it, you must call
 <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-reference" title="cairo_scaled_font_reference ()"><code class="function">cairo_scaled_font_reference()</code></a>.
-This function never returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. If memory cannot be allocated, a
+This function never returns <code class="literal">NULL</code>. If memory cannot be allocated, a
 special "nil" <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-t" title="cairo_scaled_font_t"><span class="type">cairo_scaled_font_t</span></a> object will be returned on which
 <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-status" title="cairo_scaled_font_status ()"><code class="function">cairo_scaled_font_status()</code></a> returns <a class="link" href="cairo-Error-handling.html#CAIRO-STATUS-NO-MEMORY:CAPS"><code class="literal">CAIRO_STATUS_NO_MEMORY</code></a>. Using
 this nil object will cause its error state to propagate to other
@@ -665,11 +676,12 @@ serious text-using applications. See <a class="link" href="cairo-text.html#cairo
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>utf8</code></em> :</span></p></td>
-<td>a NUL-terminated string of text encoded in UTF-8, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>a NUL-terminated string of text encoded in UTF-8, or <code class="literal">NULL</code>
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -699,6 +711,7 @@ rendered according to the current font face, font size
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -798,6 +811,7 @@ will be stored.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -830,7 +844,7 @@ affect the x_advance and y_advance values.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>utf8</code></em> :</span></p></td>
-<td>a NUL-terminated string of text encoded in UTF-8, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>a NUL-terminated string of text encoded in UTF-8, or <code class="literal">NULL</code>
 </td>
 </tr>
 <tr>
@@ -840,6 +854,7 @@ will be stored</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -884,6 +899,7 @@ will be stored</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1009,8 +1025,8 @@ For all other uses, user can use their own allocation method
 for glyphs.
 </p>
 <p>
-This function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>num_glyphs</code></em> is not positive,
-or if out of memory.  That means, the <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> return value
+This function returns <code class="literal">NULL</code> if <em class="parameter"><code>num_glyphs</code></em> is not positive,
+or if out of memory.  That means, the <code class="literal">NULL</code> return value
 signals out-of-memory only if <em class="parameter"><code>num_glyphs</code></em> was positive.
 </p>
 <div class="variablelist"><table border="0">
@@ -1046,7 +1062,7 @@ for glyphs.
 <col align="left" valign="top">
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>glyphs</code></em> :</span></p></td>
-<td>array of glyphs to free, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>array of glyphs to free, or <code class="literal">NULL</code>
 </td>
 </tr></tbody>
 </table></div>
@@ -1065,8 +1081,8 @@ For all other uses, user can use their own allocation method
 for text clusters.
 </p>
 <p>
-This function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>num_clusters</code></em> is not positive,
-or if out of memory.  That means, the <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> return value
+This function returns <code class="literal">NULL</code> if <em class="parameter"><code>num_clusters</code></em> is not positive,
+or if out of memory.  That means, the <code class="literal">NULL</code> return value
 signals out-of-memory only if <em class="parameter"><code>num_clusters</code></em> was positive.
 </p>
 <div class="variablelist"><table border="0">
@@ -1102,7 +1118,7 @@ for text clusters.
 <col align="left" valign="top">
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>clusters</code></em> :</span></p></td>
-<td>array of text clusters to free, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>array of text clusters to free, or <code class="literal">NULL</code>
 </td>
 </tr></tbody>
 </table></div>

@@ -1,3 +1,4 @@
+/* -*- Mode: c; tab-width: 8; c-basic-offset: 4; indent-tabs-mode: t; -*- */
 /* cairo - a vector graphics library with display and print output
  *
  * Copyright © 2006 Adrian Johnson
@@ -51,6 +52,7 @@
 #include "cairo-scaled-font-subsets-private.h"
 #include "cairo-truetype-subset-private.h"
 #include <string.h>
+#include <locale.h>
 
 /* CFF Dict Operators. If the high byte is 0 the command is encoded
  * with a single byte. */
@@ -151,8 +153,8 @@ typedef struct _cairo_cff_font {
     int  		 units_per_em;
     int 		 global_sub_bias;
     int			 local_sub_bias;
-    int                  default_width;
-    int                  nominal_width;
+    double               default_width;
+    double               nominal_width;
 
     /* CID Font Data */
     int                 *fdselect;
@@ -161,8 +163,8 @@ typedef struct _cairo_cff_font {
     cairo_hash_table_t **fd_private_dict;
     cairo_array_t       *fd_local_sub_index;
     int			*fd_local_sub_bias;
-    int                 *fd_default_width;
-    int                 *fd_nominal_width;
+    double              *fd_default_width;
+    double              *fd_nominal_width;
 
     /* Subsetted Font Data */
     char                *subset_font_name;
@@ -293,10 +295,22 @@ decode_nibble (int n, char *buf)
 static unsigned char *
 decode_real (unsigned char *p, double *real)
 {
+    struct lconv *locale_data;
+    const char *decimal_point;
+    int decimal_point_len;
     int n;
     char buffer[100];
+    char buffer2[200];
+    char *q;
     char *buf = buffer;
-    char *buf_end = buffer + sizeof (buf);
+    char *buf_end = buffer + sizeof (buffer);
+
+    locale_data = localeconv ();
+    decimal_point = locale_data->decimal_point;
+    decimal_point_len = strlen (decimal_point);
+
+    assert (decimal_point_len != 0);
+    assert (sizeof(buffer) + decimal_point_len < sizeof(buffer2));
 
     p++;
     while (buf + 2 < buf_end) {
@@ -312,7 +326,18 @@ decode_real (unsigned char *p, double *real)
     };
     *buf = 0;
 
-    if (sscanf(buffer, "%lf", real) != 1)
+    buf = buffer;
+    if (strchr (buffer, '.')) {
+	 q = strchr (buffer, '.');
+	 strncpy (buffer2, buffer, q - buffer);
+	 buf = buffer2 + (q - buffer);
+	 strncpy (buf, decimal_point, decimal_point_len);
+	 buf += decimal_point_len;
+	 strcpy (buf, q + 1);
+	 buf = buffer2;
+    }
+
+    if (sscanf(buf, "%lf", real) != 1)
         *real = 0.0;
 
     return p;
@@ -886,8 +911,8 @@ cairo_cff_font_read_private_dict (cairo_cff_font_t   *font,
                                   cairo_array_t      *local_sub_index,
                                   int                *local_sub_bias,
                                   cairo_bool_t      **local_subs_used,
-                                  int                *default_width,
-                                  int                *nominal_width,
+                                  double             *default_width,
+                                  double             *nominal_width,
                                   unsigned char      *ptr,
                                   int                 size)
 {
@@ -922,12 +947,12 @@ cairo_cff_font_read_private_dict (cairo_cff_font_t   *font,
     *default_width = 0;
     operand = cff_dict_get_operands (private_dict, DEFAULTWIDTH_OP, &i);
     if (operand)
-        decode_integer (operand, default_width);
+        decode_number (operand, default_width);
 
     *nominal_width = 0;
     operand = cff_dict_get_operands (private_dict, NOMINALWIDTH_OP, &i);
     if (operand)
-        decode_integer (operand, nominal_width);
+	 decode_number (operand, nominal_width);
 
     num_subs = _cairo_array_num_elements (local_sub_index);
     *local_subs_used = calloc (num_subs, sizeof (cairo_bool_t));
@@ -1027,13 +1052,13 @@ cairo_cff_font_read_cid_fontdict (cairo_cff_font_t *font, unsigned char *ptr)
         goto fail;
     }
 
-    font->fd_default_width = calloc (sizeof (int), font->num_fontdicts);
+    font->fd_default_width = calloc (font->num_fontdicts, sizeof (double));
     if (unlikely (font->fd_default_width == NULL)) {
         status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
         goto fail;
     }
 
-    font->fd_nominal_width = calloc (sizeof (int), font->num_fontdicts);
+    font->fd_nominal_width = calloc (font->num_fontdicts, sizeof (double));
     if (unlikely (font->fd_nominal_width == NULL)) {
         status = _cairo_error (CAIRO_STATUS_NO_MEMORY);
         goto fail;
@@ -1178,14 +1203,16 @@ cairo_cff_font_read_top_dict (cairo_cff_font_t *font)
         goto fail;
     font->num_glyphs = _cairo_array_num_elements (&font->charstrings_index);
 
-    operand = cff_dict_get_operands (font->top_dict, CHARSET_OP, &size);
-    if (font->is_cid && !operand)
-	return CAIRO_INT_STATUS_UNSUPPORTED;
+    if (font->is_cid) {
+	 operand = cff_dict_get_operands (font->top_dict, CHARSET_OP, &size);
+	 if (!operand)
+	      return CAIRO_INT_STATUS_UNSUPPORTED;
 
-    decode_integer (operand, &offset);
-    font->charset = font->data + offset;
-    if (font->charset >= font->data_end)
-	return CAIRO_INT_STATUS_UNSUPPORTED;
+	 decode_integer (operand, &offset);
+	 font->charset = font->data + offset;
+	 if (font->charset >= font->data_end)
+	      return CAIRO_INT_STATUS_UNSUPPORTED;
+    }
 
     if (!font->is_opentype)
         cairo_cff_font_read_font_metrics (font, font->top_dict);
@@ -1442,9 +1469,8 @@ type2_decode_integer (unsigned char *p, int *integer)
         *integer = -(p[0] - 251) * 256 - p[1] - 108;
         p += 2;
     } else { /* *p == 255 */
-    /* This actually a 16.16 fixed-point number however we are not interested in
-     * the value of fixed-point numbers. */
-        *integer = (p[1] << 24) | (p[2] << 16) | (p[3] << 8) | p[4];
+	 /* 16.16 fixed-point number. The fraction is ignored. */
+	 *integer = (int16_t)((p[1] << 8) | p[2]);
         p += 5;
     }
     return p;
@@ -2761,7 +2787,7 @@ _cairo_cff_font_create (cairo_scaled_font_subset_t  *scaled_font_subset,
     if (backend->is_synthetic && backend->is_synthetic (scaled_font_subset->scaled_font))
 	return CAIRO_INT_STATUS_UNSUPPORTED;
 
-    font = malloc (sizeof (cairo_cff_font_t));
+    font = calloc (1, sizeof (cairo_cff_font_t));
     if (unlikely (font == NULL))
         return _cairo_error (CAIRO_STATUS_NO_MEMORY);
 
@@ -2836,11 +2862,11 @@ fail4:
 fail3:
     free (font->subset_font_name);
 fail2:
-    free (font->data);
-    free (font->font_name);
     free (font->ps_name);
     _cairo_array_fini (&font->output);
 fail1:
+    free (font->data);
+    free (font->font_name);
     free (font);
 
     return status;
@@ -3167,6 +3193,7 @@ _cairo_cff_font_fallback_create (cairo_scaled_font_subset_t  *scaled_font_subset
     cff_index_init (&font->strings_subset_index);
     font->global_subs_used = NULL;
     font->local_subs_used = NULL;
+    font->subset_subroutines = FALSE;
     font->fdselect = NULL;
     font->fd_dict = NULL;
     font->fd_private_dict = NULL;

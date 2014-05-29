@@ -40,7 +40,7 @@
 
 #include "cairo-error-private.h"
 #include "cairo-freelist-private.h"
-#include "cairo-combsort-private.h"
+#include "cairo-combsort-inline.h"
 
 typedef cairo_point_t cairo_bo_point32_t;
 
@@ -1394,7 +1394,7 @@ _cairo_polygon_intersect (cairo_polygon_t *a, int winding_a,
     if (unlikely (0 == a->num_edges))
 	return CAIRO_STATUS_SUCCESS;
 
-    if (unlikely (b->num_edges == 0)) {
+    if (unlikely (0 == b->num_edges)) {
 	a->num_edges = 0;
 	return CAIRO_STATUS_SUCCESS;
     }
@@ -1505,16 +1505,22 @@ _cairo_polygon_intersect_with_boxes (cairo_polygon_t *polygon,
 
     _cairo_polygon_init (&b, NULL, 0);
     for (n = 0; n < num_boxes; n++) {
-	cairo_point_t p1, p2;
+	if (boxes[n].p2.x > polygon->extents.p1.x &&
+	    boxes[n].p1.x < polygon->extents.p2.x &&
+	    boxes[n].p2.y > polygon->extents.p1.y &&
+	    boxes[n].p1.y < polygon->extents.p2.y)
+	{
+	    cairo_point_t p1, p2;
 
-	p1.y = boxes[n].p1.y;
-	p2.y = boxes[n].p2.y;
+	    p1.y = boxes[n].p1.y;
+	    p2.y = boxes[n].p2.y;
 
-	p2.x = p1.x = boxes[n].p1.x;
-	_cairo_polygon_add_external_edge (&b, &p1, &p2);
+	    p2.x = p1.x = boxes[n].p1.x;
+	    _cairo_polygon_add_external_edge (&b, &p1, &p2);
 
-	p2.x = p1.x = boxes[n].p2.x;
-	_cairo_polygon_add_external_edge (&b, &p2, &p1);
+	    p2.x = p1.x = boxes[n].p2.x;
+	    _cairo_polygon_add_external_edge (&b, &p2, &p1);
+	}
     }
 
     status = _cairo_polygon_intersect (polygon, *winding,

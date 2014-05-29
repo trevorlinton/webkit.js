@@ -9,10 +9,12 @@ cairo-ft
 
 </para>
 
+
 <!-- ##### SECTION See_Also ##### -->
 <para>
 
 </para>
+
 
 <!-- ##### SECTION Stability_Level ##### -->
 
@@ -77,5 +79,40 @@ cairo-ft
 </para>
 
 @scaled_font: 
+
+
+<!-- ##### ENUM cairo_ft_synthesize_t ##### -->
+<para>
+
+</para>
+
+@CAIRO_FT_SYNTHESIZE_BOLD: 
+@CAIRO_FT_SYNTHESIZE_OBLIQUE: 
+
+<!-- ##### FUNCTION cairo_ft_font_face_get_synthesize ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@Returns: 
+
+
+<!-- ##### FUNCTION cairo_ft_font_face_set_synthesize ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@synth_flags: 
+
+
+<!-- ##### FUNCTION cairo_ft_font_face_unset_synthesize ##### -->
+<para>
+
+</para>
+
+@font_face: 
+@synth_flags: 
 
 

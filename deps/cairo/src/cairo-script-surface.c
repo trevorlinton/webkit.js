@@ -52,7 +52,7 @@
  * script that matches the cairo drawing model. The scripts can
  * be replayed using tools under the util/cairo-script directoriy,
  * or with cairo-perf-trace.
- */
+ **/
 
 /**
  * CAIRO_HAS_SCRIPT_SURFACE:
@@ -60,8 +60,8 @@
  * Defined if the script surface backend is available.
  * The script surface backend is always built in since 1.12.
  *
- * @Since: 1.10
- */
+ * Since: 1.12
+ **/
 
 
 #include "cairoint.h"
@@ -73,14 +73,14 @@
 #include "cairo-default-context-private.h"
 #include "cairo-device-private.h"
 #include "cairo-error-private.h"
-#include "cairo-list-private.h"
+#include "cairo-list-inline.h"
 #include "cairo-image-surface-private.h"
 #include "cairo-output-stream-private.h"
 #include "cairo-pattern-private.h"
-#include "cairo-recording-surface-private.h"
+#include "cairo-recording-surface-inline.h"
 #include "cairo-scaled-font-private.h"
 #include "cairo-surface-clipper-private.h"
-#include "cairo-surface-snapshot-private.h"
+#include "cairo-surface-snapshot-inline.h"
 #include "cairo-surface-subsurface-private.h"
 #include "cairo-surface-wrapper-private.h"
 
@@ -1549,7 +1549,7 @@ _emit_surface_pattern (cairo_script_surface_t *surface,
 {
     cairo_script_context_t *ctx = to_context (surface);
     cairo_surface_pattern_t *surface_pattern;
-    cairo_surface_t *source, *snapshot;
+    cairo_surface_t *source, *snapshot, *free_me = NULL;
     cairo_surface_t *take_snapshot = NULL;
     cairo_int_status_t status;
 
@@ -1568,7 +1568,7 @@ _emit_surface_pattern (cairo_script_surface_t *surface,
 	if (_cairo_surface_snapshot_is_reused (source))
 	    take_snapshot = source;
 
-	source = _cairo_surface_snapshot_get_target (source);
+	free_me = source = _cairo_surface_snapshot_get_target (source);
     }
 
     switch ((int) source->backend->type) {
@@ -1585,6 +1585,7 @@ _emit_surface_pattern (cairo_script_surface_t *surface,
 	status = _emit_image_surface_pattern (surface, source);
 	break;
     }
+    cairo_surface_destroy (free_me);
     if (unlikely (status))
 	return status;
 
@@ -2096,9 +2097,11 @@ _cairo_script_surface_source (void                    *abstract_surface,
 {
     cairo_script_surface_t *surface = abstract_surface;
 
-    extents->x = extents->y = 0;
-    extents->width  = surface->width;
-    extents->height = surface->height;
+    if (extents) {
+	extents->x = extents->y = 0;
+	extents->width  = surface->width;
+	extents->height = surface->height;
+    }
 
     return &surface->base;
 }
@@ -3387,8 +3390,10 @@ _cairo_script_surface_show_text_glyphs (void			    *abstract_surface,
 					     glyphs[n].index,
 					     CAIRO_SCALED_GLYPH_INFO_METRICS,
 					     &scaled_glyph);
-	if (unlikely (status))
+	if (unlikely (status)) {
+	    _cairo_scaled_font_thaw_cache (scaled_font);
 	    goto BAIL;
+	}
 
 	if (fabs (glyphs[n].x - x) > 1e-5 || fabs (glyphs[n].y - y) > 1e-5) {
 	    if (fabs (glyphs[n].y - y) < 1e-5) {
@@ -3744,6 +3749,8 @@ _cairo_script_context_create (cairo_output_stream_t *stream)
  * This function always returns a valid pointer, but it will return a
  * pointer to a "nil" device if an error such as out of memory
  * occurs. You can use cairo_device_status() to check for this.
+ *
+ * Since: 1.12
  **/
 cairo_device_t *
 cairo_script_create (const char *filename)
@@ -3773,6 +3780,8 @@ cairo_script_create (const char *filename)
  * This function always returns a valid pointer, but it will return a
  * pointer to a "nil" device if an error such as out of memory
  * occurs. You can use cairo_device_status() to check for this.
+ *
+ * Since: 1.12
  **/
 cairo_device_t *
 cairo_script_create_for_stream (cairo_write_func_t	 write_func,
@@ -3795,6 +3804,8 @@ cairo_script_create_for_stream (cairo_write_func_t	 write_func,
  * @len:the length of the sting to write, or -1 to use strlen()
  *
  * Emit a string verbatim into the script.
+ *
+ * Since: 1.12
  **/
 void
 cairo_script_write_comment (cairo_device_t *script,
@@ -3817,6 +3828,8 @@ cairo_script_write_comment (cairo_device_t *script,
  * @mode: the new mode
  *
  * Change the output mode of the script
+ *
+ * Since: 1.12
  **/
 void
 cairo_script_set_mode (cairo_device_t *script,
@@ -3834,6 +3847,8 @@ cairo_script_set_mode (cairo_device_t *script,
  * Queries the script for its current output mode.
  *
  * Return value: the current output mode of the script
+ *
+ * Since: 1.12
  **/
 cairo_script_mode_t
 cairo_script_get_mode (cairo_device_t *script)
@@ -3859,6 +3874,8 @@ cairo_script_get_mode (cairo_device_t *script)
  * This function always returns a valid pointer, but it will return a
  * pointer to a "nil" surface if an error such as out of memory
  * occurs. You can use cairo_surface_status() to check for this.
+ *
+ * Since: 1.12
  **/
 cairo_surface_t *
 cairo_script_surface_create (cairo_device_t *script,
@@ -3902,6 +3919,8 @@ slim_hidden_def (cairo_script_surface_create);
  * This function always returns a valid pointer, but it will return a
  * pointer to a "nil" surface if an error such as out of memory
  * occurs. You can use cairo_surface_status() to check for this.
+ *
+ * Since: 1.12
  **/
 cairo_surface_t *
 cairo_script_surface_create_for_target (cairo_device_t *script,
@@ -3939,6 +3958,8 @@ cairo_script_surface_create_for_target (cairo_device_t *script,
  * Converts the record operations in @recording_surface into a script.
  *
  * Return value: #CAIRO_STATUS_SUCCESS on successful completion or an error code.
+ *
+ * Since: 1.12
  **/
 cairo_status_t
 cairo_script_from_recording_surface (cairo_device_t *script,

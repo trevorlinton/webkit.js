@@ -55,16 +55,34 @@ static void draw_edges (cairo_t *cr, polygon_t *p, gdouble sf, int dir)
 {
     int n;
 
+    if (dir < 0)
+	cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
+    else
+	cairo_set_source_rgb (cr, 1.0, 0.0, 0.0);
+
     for (n = 0; n < p->num_edges; n++) {
 	const edge_t *e = &p->edges[n];
+	double dx, dy;
+	double x1, x2;
 
 	if (e->dir != dir)
 	    continue;
 
-	cairo_arc (cr, e->p1.x, e->p1.y, 2/sf, 0, 2*M_PI);
-	cairo_arc (cr, e->p2.x, e->p2.y, 2/sf, 0, 2*M_PI);
+	dx = e->p2.x - e->p1.x;
+	dy = e->p2.y - e->p1.y;
+
+	x1 = e->p1.x + (e->top - e->p1.y) / dy * dx;
+	x2 = e->p1.x + (e->bot - e->p1.y) / dy * dx;
+
+	cairo_arc (cr, x1, e->top, 2/sf, 0, 2*M_PI);
+	cairo_arc (cr, x2, e->bot, 2/sf, 0, 2*M_PI);
 	cairo_fill (cr);
     }
+
+    if (dir < 0)
+	cairo_set_source_rgba (cr, 0.0, 0.0, 1.0, 0.5);
+    else
+	cairo_set_source_rgba (cr, 1.0, 0.0, 0.0, 0.5);
 
     for (n = 0; n < p->num_edges; n++) {
 	const edge_t *e = &p->edges[n];
@@ -80,14 +98,40 @@ static void draw_edges (cairo_t *cr, polygon_t *p, gdouble sf, int dir)
 	cairo_set_line_width (cr, 1.);
 	cairo_stroke (cr);
     } cairo_restore (cr);
+
+    if (dir < 0)
+	cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
+    else
+	cairo_set_source_rgb (cr, 1.0, 0.0, 0.0);
+
+    for (n = 0; n < p->num_edges; n++) {
+	const edge_t *e = &p->edges[n];
+	double dx, dy;
+	double x1, x2;
+
+	if (e->dir != dir)
+	    continue;
+
+	dx = e->p2.x - e->p1.x;
+	dy = e->p2.y - e->p1.y;
+
+	x1 = e->p1.x + (e->top - e->p1.y) / dy * dx;
+	x2 = e->p1.x + (e->bot - e->p1.y) / dy * dx;
+
+	cairo_move_to (cr, x1, e->top);
+	cairo_line_to (cr, x2, e->bot);
+    }
+    cairo_save (cr); {
+	cairo_identity_matrix (cr);
+	cairo_set_line_width (cr, 1.);
+	cairo_stroke (cr);
+    } cairo_restore (cr);
 }
 
 static void draw_polygon (cairo_t *cr, polygon_t *p, gdouble sf)
 {
-    cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
     draw_edges (cr, p, sf, -1);
 
-    cairo_set_source_rgb (cr, 1.0, 0.0, 0.0);
     draw_edges (cr, p, sf, +1);
 }
 

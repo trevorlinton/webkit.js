@@ -1,0 +1,78 @@
+top_srcdir = ..
+include $(top_srcdir)/build/Makefile.win32.common
+include $(top_srcdir)/perf/Makefile.sources
+
+CFLAGS += -I$(top_srcdir)/boilerplate -I$(top_srcdir)/util/cairo-script/
+
+PERF_LIBS = \
+	  $(CFG)/libcairoperf.lib	\
+	  $(top_builddir)/boilerplate/$(CFG)/boiler.lib	\
+	  $(top_builddir)/src/$(CFG)/cairo-static.lib	\
+	  $(NULL)
+
+PERF_EXES = \
+	  $(CFG)/cairo-perf-trace.exe	\
+	  $(CFG)/cairo-perf-micro.exe	\
+	  $(CFG)/cairo-perf-diff-files.exe	\
+	  $(CFG)/cairo-perf-print.exe	\
+	  $(CFG)/cairo-perf-chart.exe	\
+	  $(CFG)/cairo-perf-compare-backends.exe	\
+	  $(NULL)
+
+all: inform $(PERF_EXES)
+
+perf: inform $(CFG)/cairo-perf-micro.exe
+	./$(CFG)/cairo-perf-micro.exe
+
+
+libcairoperf_OBJECTS = $(patsubst %.c, $(CFG)/%-static.obj, $(libcairoperf_sources))
+
+$(CFG)/libcairoperf.lib: $(libcairoperf_OBJECTS)
+	@$(AR) $(CAIRO_ARFLAGS) -OUT:$@ $(libcairoperf_OBJECTS)
+
+cairo_perf_trace_OBJECTS = \
+	$(patsubst %.c, $(CFG)/%-static.obj, $(cairo_perf_trace_sources))		\
+	$(top_builddir)/util/cairo-script/$(CFG)/libcairo-script-interpreter.lib	\
+	$(NULL)
+
+cairo_perf_micro_OBJECTS = \
+	$(patsubst %.c, $(CFG)/%-static.obj, $(cairo_perf_micro_sources))	\
+	./micro/$(CFG)/libcairo-perf-micro.lib 					\
+	$(NULL)
+
+cairo_perf_diff_files_OBJECTS = $(patsubst %.c, $(CFG)/%-static.obj, $(cairo_perf_diff_files_sources))
+cairo_perf_print_OBJECTS = $(patsubst %.c, $(CFG)/%-static.obj, $(cairo_perf_print_sources))
+cairo_perf_chart_OBJECTS = $(patsubst %.c, $(CFG)/%-static.obj, $(cairo_perf_chart_sources))
+cairo_perf_compare_backends_OBJECTS = $(patsubst %.c, $(CFG)/%-static.obj, $(cairo_perf_compare_backends_sources))
+
+
+$(CFG)/cairo-perf-trace.exe: $(cairo_perf_trace_OBJECTS) $(PERF_LIBS)
+	@$(LD) $(CAIRO_LDFLAGS) -OUT:$@ $(cairo_perf_trace_OBJECTS) $(PERF_LIBS) $(CAIRO_LIBS)
+
+$(CFG)/cairo-perf-micro.exe: $(cairo_perf_micro_OBJECTS) $(PERF_LIBS)
+	@$(LD) $(CAIRO_LDFLAGS) -OUT:$@ $(cairo_perf_micro_OBJECTS) $(PERF_LIBS) $(CAIRO_LIBS)
+
+$(CFG)/cairo-perf-diff-files.exe: $(cairo_perf_diff_files_OBJECTS) $(PERF_LIBS)
+	@$(LD) $(CAIRO_LDFLAGS) -OUT:$@ $(cairo_perf_diff_files_OBJECTS) $(PERF_LIBS) $(CAIRO_LIBS)
+
+$(CFG)/cairo-perf-print.exe: $(cairo_perf_print_OBJECTS) $(PERF_LIBS)
+	@$(LD) $(CAIRO_LDFLAGS) -OUT:$@ $(cairo_perf_print_OBJECTS) $(PERF_LIBS) $(CAIRO_LIBS)
+
+$(CFG)/cairo-perf-chart.exe: $(cairo_perf_chart_OBJECTS) $(PERF_LIBS)
+	@$(LD) $(CAIRO_LDFLAGS) -OUT:$@ $(cairo_perf_chart_OBJECTS) $(PERF_LIBS) $(CAIRO_LIBS)
+
+$(CFG)/cairo-perf-compare-backends.exe: $(cairo_perf_compare_backends_OBJECTS) $(PERF_LIBS)
+	@$(LD) $(CAIRO_LDFLAGS) -OUT:$@ $(cairo_perf_compare_backends_OBJECTS) $(PERF_LIBS) $(CAIRO_LIBS)
+
+
+./micro/$(CFG)/libcairo-perf-micro.lib:
+	$(MAKE) -C micro -f Makefile.win32
+
+$(top_builddir)/src/$(CFG)/cairo-static.lib:
+	$(MAKE) -C $(top_srcdir)/src -f Makefile.win32
+
+$(top_builddir)/boilerplate/$(CFG)/boiler.lib:
+	$(MAKE) -C $(top_srcdir)/boilerplate -f Makefile.win32
+
+$(top_builddir)/util/cairo-script/$(CFG)/libcairo-script-interpreter.lib:
+	$(MAKE) -C $(top_srcdir)/util/cairo-script -f Makefile.win32

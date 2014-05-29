@@ -21,6 +21,12 @@ MAYBE_WARN="-Wall -Wextra \
 -Wno-missing-field-initializers -Wno-unused-parameter \
 -Wno-attributes -Wno-long-long -Winline"
 
+# New -Wno options should be added here
+# gcc-4.4 and later accept every -Wno- option but may complain later that this
+# option is unknow each time another warning happen.
+# -Wunused-but-set-variable is too noisy at present
+NO_WARN="unused-but-set-variable"
+
 dnl Sun Studio 12 likes to rag at us for abusing enums like
 dnl having cairo_status_t variables hold cairo_int_status_t
 dnl values.  It's bad, we know.  Now please be quiet.
@@ -29,7 +35,18 @@ MAYBE_WARN="$MAYBE_WARN -erroff=E_ENUM_TYPE_MISMATCH_ARG \
 
 dnl We also abuse the warning-flag facility to enable other compiler
 dnl options.  Namely, the following:
-MAYBE_WARN="$MAYBE_WARN -fno-strict-aliasing -fno-common -flto"
+
+dnl -flto working really needs a test link, not just a compile
+
+safe_MAYBE_WARN="$MAYBE_WARN"
+MAYBE_WARN="$MAYBE_WARN -flto"
+AC_TRY_LINK([],[
+	int main(int argc, char **argv) { return 0; }
+],[],[
+	MAYBE_WARN="$safe_MAYBE_WARN"
+])
+
+MAYBE_WARN="$MAYBE_WARN -fno-strict-aliasing -fno-common"
 
 dnl Also to turn various gcc/glibc-specific preprocessor checks
 MAYBE_WARN="$MAYBE_WARN -Wp,-D_FORTIFY_SOURCE=2"
@@ -56,7 +73,9 @@ AC_CACHE_CHECK([for supported warning flags], cairo_cv_warn_cflags, [
 	for W in $MAYBE_WARN; do
 		CAIRO_CC_TRY_FLAG([$W],, [WARN_CFLAGS="$WARN_CFLAGS $W"])
 	done
-
+	for W in $NO_WARN; do
+		CAIRO_CC_TRY_FLAG([-W$W -Wno-$W],, [WARN_CFLAGS="$WARN_CFLAGS -Wno-$W"])
+	done
 	cairo_cv_warn_cflags=$WARN_CFLAGS
 	cairo_cv_warn_maybe=$MAYBE_WARN
 
@@ -84,7 +103,7 @@ AC_DEFINE_UNQUOTED([WARN_UNUSED_RESULT], [$cairo_cv_warn_unused_result],
 
 dnl check linker flags
 AC_CACHE_CHECK([how to allow undefined symbols in shared libraries used by test suite], cairo_cv_test_undefined_ldflags,
-	       [CAIRO_CC_TRY_FLAG([-Wl,--allow-shlib-undefined], [],
+	       [CAIRO_CC_TRY_FLAG_SILENT([-Wl,--allow-shlib-undefined], [],
 				  [cairo_cv_test_undefined_ldflags="-Wl,--allow-shlib-undefined]")])
 CAIRO_TEST_UNDEFINED_LDFLAGS="$cairo_cv_test_undefined_ldflags"
 AC_SUBST(CAIRO_TEST_UNDEFINED_LDFLAGS)

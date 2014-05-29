@@ -1258,7 +1258,7 @@ i915_surface_fallback_flush (i915_surface_t *surface)
     cairo_status_t status;
 
     if (unlikely (surface->intel.drm.fallback != NULL))
-	return intel_surface_flush (&surface->intel);
+	return intel_surface_flush (&surface->intel, 0);
 
     status = CAIRO_STATUS_SUCCESS;
     if (unlikely (surface->deferred_clear))

@@ -92,7 +92,7 @@
  * interactions with existing surface API of the device functions for
  * surfaces of that type.
  * </para></note>
- */
+ **/
 
 static const cairo_device_t _nil_device = {
     CAIRO_REFERENCE_COUNT_INVALID,

@@ -89,7 +89,7 @@ TESTS_ENVIRONMENT = \
 	$(NULL)
 TESTS_SH = \
 	check-def.sh \
-	check-doc-syntax.sh\
+	check-doc-syntax.sh \
 	check-headers.sh \
 	check-plt.sh \
 	check-preprocessor-syntax.sh \
@@ -100,7 +100,7 @@ else
 TESTS += check-link$(EXEEXT)
 endif
 
-EXTRA_DIST += $(TESTS_SH) check-has-hidden-symbols.c
+EXTRA_DIST += $(TESTS_SH) check-has-hidden-symbols.c check-doc-syntax.awk
 check_PROGRAMS += check-link
 check_link_LDADD = libcairo.la
 

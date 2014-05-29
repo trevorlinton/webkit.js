@@ -49,6 +49,9 @@ typedef struct _cairo_egl_context {
     EGLContext context;
 
     EGLSurface dummy_surface;
+
+    EGLContext previous_context;
+    EGLSurface previous_surface;
 } cairo_egl_context_t;
 
 typedef struct _cairo_egl_surface {
@@ -58,19 +61,50 @@ typedef struct _cairo_egl_surface {
 } cairo_egl_surface_t;
 
 
+static cairo_bool_t
+_context_acquisition_changed_egl_state (cairo_egl_context_t *ctx,
+					EGLSurface current_surface)
+{
+    return ctx->previous_context != ctx->context ||
+	   ctx->previous_surface != current_surface;
+}
+
+static EGLSurface
+_egl_get_current_surface (cairo_egl_context_t *ctx)
+{
+    if (ctx->base.current_target == NULL ||
+        _cairo_gl_surface_is_texture (ctx->base.current_target)) {
+	return  ctx->dummy_surface;
+    }
+
+    return ((cairo_egl_surface_t *) ctx->base.current_target)->egl;
+}
+
+static void
+_egl_query_current_state (cairo_egl_context_t *ctx)
+{
+    ctx->previous_surface = eglGetCurrentSurface (EGL_DRAW);
+    ctx->previous_context = eglGetCurrentContext ();
+
+    /* If any of the values were none, assume they are all none. Not all
+       drivers seem well behaved when it comes to using these values across
+       multiple threads. */
+    if (ctx->previous_surface == EGL_NO_SURFACE ||
+	ctx->previous_context == EGL_NO_CONTEXT) {
+	ctx->previous_surface = EGL_NO_SURFACE;
+	ctx->previous_context = EGL_NO_CONTEXT;
+    }
+}
+
 static void
 _egl_acquire (void *abstract_ctx)
 {
     cairo_egl_context_t *ctx = abstract_ctx;
-    EGLSurface current_surface;
+    EGLSurface current_surface = _egl_get_current_surface (ctx);
 
-    if (ctx->base.current_target == NULL ||
-        _cairo_gl_surface_is_texture (ctx->base.current_target)) {
-        current_surface = ctx->dummy_surface;
-    } else {
-        cairo_egl_surface_t *surface = (cairo_egl_surface_t *) ctx->base.current_target;
-        current_surface = surface->egl ;
-    }
+    _egl_query_current_state (ctx);
+    if (!_context_acquisition_changed_egl_state (ctx, current_surface))
+	return;
 
     eglMakeCurrent (ctx->display,
 		    current_surface, current_surface, ctx->context);
@@ -80,6 +114,11 @@ static void
 _egl_release (void *abstract_ctx)
 {
     cairo_egl_context_t *ctx = abstract_ctx;
+    if (!ctx->base.thread_aware ||
+	!_context_acquisition_changed_egl_state (ctx,
+						 _egl_get_current_surface (ctx))) {
+	return;
+    }
 
     eglMakeCurrent (ctx->display,
 		    EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
@@ -122,8 +161,10 @@ _egl_make_current_surfaceless(cairo_egl_context_t *ctx)
     const char *extensions;
 
     extensions = eglQueryString(ctx->display, EGL_EXTENSIONS);
-    if (!strstr(extensions, "EGL_KHR_surfaceless_opengl"))
+    if (strstr(extensions, "EGL_KHR_surfaceless_context") == NULL &&
+	strstr(extensions, "EGL_KHR_surfaceless_opengl") == NULL)
 	return FALSE;
+
     if (!eglMakeCurrent(ctx->display,
 			EGL_NO_SURFACE, EGL_NO_SURFACE, ctx->context))
 	return FALSE;
@@ -157,8 +198,11 @@ cairo_egl_device_create (EGLDisplay dpy, EGLContext egl)
     ctx->base.swap_buffers = _egl_swap_buffers;
     ctx->base.destroy = _egl_destroy;
 
+    /* We are about the change the current state of EGL, so we should
+     * query the pre-existing surface now instead of later. */
+    _egl_query_current_state (ctx);
+
     if (!_egl_make_current_surfaceless (ctx)) {
-#ifndef TARGET_EMSCRIPTEN
 	/* Fall back to dummy surface, meh. */
 	EGLint config_attribs[] = {
 	    EGL_CONFIG_ID, 0,
@@ -175,7 +219,6 @@ cairo_egl_device_create (EGLDisplay dpy, EGLContext egl)
 	eglChooseConfig (dpy, config_attribs, &config, 1, &numConfigs);
 
 	ctx->dummy_surface = eglCreatePbufferSurface (dpy, config, attribs);
-
 	if (ctx->dummy_surface == NULL) {
 	    free (ctx);
 	    return _cairo_gl_context_create_in_error (CAIRO_STATUS_NO_MEMORY);
@@ -185,7 +228,6 @@ cairo_egl_device_create (EGLDisplay dpy, EGLContext egl)
 	    free (ctx);
 	    return _cairo_gl_context_create_in_error (CAIRO_STATUS_NO_MEMORY);
 	}
-#endif
     }
 
     status = _cairo_gl_dispatch_init (&ctx->base.dispatch, eglGetProcAddress);
@@ -233,4 +275,37 @@ cairo_gl_surface_create_for_egl (cairo_device_t	*device,
     surface->egl = egl;
 
     return &surface->base.base;
+}
+
+static cairo_bool_t is_egl_device (cairo_device_t *device)
+{
+    return (device->backend != NULL &&
+	    device->backend->type == CAIRO_DEVICE_TYPE_GL);
+}
+
+static cairo_egl_context_t *to_egl_context (cairo_device_t *device)
+{
+    return (cairo_egl_context_t *) device;
+}
+
+EGLDisplay
+cairo_egl_device_get_display (cairo_device_t *device)
+{
+    if (! is_egl_device (device)) {
+	_cairo_error_throw (CAIRO_STATUS_DEVICE_TYPE_MISMATCH);
+	return EGL_NO_DISPLAY;
+    }
+
+    return to_egl_context (device)->display;
+}
+
+cairo_public EGLContext
+cairo_egl_device_get_context (cairo_device_t *device)
+{
+    if (! is_egl_device (device)) {
+	_cairo_error_throw (CAIRO_STATUS_DEVICE_TYPE_MISMATCH);
+	return EGL_NO_CONTEXT;
+    }
+
+    return to_egl_context (device)->context;
 }

@@ -59,19 +59,19 @@ _cairo_gl_gradient_sample_width (unsigned int                 n_stops,
 	int ramp;
 
 	if (dx == 0)
-	    continue;
+	    return 1024; /* we need to emulate an infinitely sharp step */
 
-	max = stops[n].color.red - stops[n-1].color.red;
+	max = fabs (stops[n].color.red - stops[n-1].color.red);
 
-	delta = stops[n].color.green - stops[n-1].color.green;
+	delta = fabs (stops[n].color.green - stops[n-1].color.green);
 	if (delta > max)
 	    max = delta;
 
-	delta = stops[n].color.blue - stops[n-1].color.blue;
+	delta = fabs (stops[n].color.blue - stops[n-1].color.blue);
 	if (delta > max)
 	    max = delta;
 
-	delta = stops[n].color.alpha - stops[n-1].color.alpha;
+	delta = fabs (stops[n].color.alpha - stops[n-1].color.alpha);
 	if (delta > max)
 	    max = delta;
 
@@ -80,8 +80,28 @@ _cairo_gl_gradient_sample_width (unsigned int                 n_stops,
 	    width = ramp;
     }
 
-    width = (width + 7) & -8;
-    return MIN (width, 1024);
+    return (width + 7) & -8;
+}
+
+static uint8_t premultiply(double c, double a)
+{
+    int v = c * a * 256;
+    return v - (v >> 8);
+}
+
+static uint32_t color_stop_to_pixel(const cairo_gradient_stop_t *stop)
+{
+    uint8_t a, r, g, b;
+
+    a = stop->color.alpha_short >> 8;
+    r = premultiply(stop->color.red,   stop->color.alpha);
+    g = premultiply(stop->color.green, stop->color.alpha);
+    b = premultiply(stop->color.blue,  stop->color.alpha);
+
+    if (_cairo_is_little_endian ())
+	return a << 24 | r << 16 | g << 8 | b << 0;
+    else
+	return a << 0 | r << 8 | g << 16 | b << 24;
 }
 
 static cairo_status_t
@@ -124,9 +144,9 @@ _cairo_gl_gradient_render (const cairo_gl_context_t    *ctx,
 	pixman_stops[i].color.alpha = stops[i].color.alpha_short;
     }
 
-    p1.x = 0;
+    p1.x = _cairo_fixed_16_16_from_double (0.5);
     p1.y = 0;
-    p2.x = width << 16;
+    p2.x = _cairo_fixed_16_16_from_double (width - 0.5);
     p2.y = 0;
 
     gradient = pixman_image_create_linear_gradient (&p1, &p2,
@@ -157,6 +177,14 @@ _cairo_gl_gradient_render (const cairo_gl_context_t    *ctx,
 
     pixman_image_unref (gradient);
     pixman_image_unref (image);
+
+    /* We need to fudge pixel 0 to hold the left-most color stop and not
+     * the neareset stop to the zeroth pixel centre in order to correctly
+     * populate the border color. For completeness, do both edges.
+     */
+    ((uint32_t*)bytes)[0] = color_stop_to_pixel(&stops[0]);
+    ((uint32_t*)bytes)[width-1] = color_stop_to_pixel(&stops[n_stops-1]);
+
     return CAIRO_STATUS_SUCCESS;
 }
 
@@ -206,8 +234,8 @@ _cairo_gl_gradient_create (cairo_gl_context_t           *ctx,
     cairo_gl_gradient_t *gradient;
     cairo_status_t status;
     int tex_width;
+    GLint internal_format;
     void *data;
-    cairo_gl_dispatch_t *dispatch = &ctx->dispatch;
 
     if ((unsigned int) ctx->max_texture_size / 2 <= n_stops)
 	return CAIRO_INT_STATUS_UNSUPPORTED;
@@ -217,14 +245,16 @@ _cairo_gl_gradient_create (cairo_gl_context_t           *ctx,
     gradient = _cairo_gl_gradient_lookup (ctx, hash, n_stops, stops);
     if (gradient) {
 	*gradient_out = _cairo_gl_gradient_reference (gradient);
-	return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
+	return CAIRO_STATUS_SUCCESS;
     }
 
     gradient = malloc (sizeof (cairo_gl_gradient_t) + sizeof (cairo_gradient_stop_t) * (n_stops - 1));
     if (gradient == NULL)
-	return (cairo_int_status_t)_cairo_error (CAIRO_STATUS_NO_MEMORY);
+	return _cairo_error (CAIRO_STATUS_NO_MEMORY);
 
     tex_width = _cairo_gl_gradient_sample_width (n_stops, stops);
+    if (tex_width > ctx->max_texture_size)
+	tex_width = ctx->max_texture_size;
 
     CAIRO_REFERENCE_COUNT_INIT (&gradient->ref_count, 2);
     gradient->cache_entry.hash = hash;
@@ -248,7 +278,16 @@ _cairo_gl_gradient_create (cairo_gl_context_t           *ctx,
     if (unlikely (status))
 	goto cleanup_data;
 
-    glTexImage2D (ctx->tex_target, 0, GL_RGBA, tex_width, 1, 0,
+    /*
+     * In OpenGL ES 2.0 no format conversion is allowed i.e. 'internalFormat'
+     * must match 'format' in glTexImage2D.
+     */
+    if (_cairo_gl_get_flavor () == CAIRO_GL_FLAVOR_ES)
+	internal_format = GL_BGRA;
+    else
+	internal_format = GL_RGBA;
+
+    glTexImage2D (ctx->tex_target, 0, internal_format, tex_width, 1, 0,
 		  GL_BGRA, GL_UNSIGNED_BYTE, data);
 
     free (data);
@@ -258,13 +297,13 @@ _cairo_gl_gradient_create (cairo_gl_context_t           *ctx,
 	CAIRO_REFERENCE_COUNT_INIT (&gradient->ref_count, 1);
 
     *gradient_out = gradient;
-    return (cairo_int_status_t)CAIRO_STATUS_SUCCESS;
+    return CAIRO_STATUS_SUCCESS;
 
 cleanup_data:
     free (data);
 cleanup_gradient:
     free (gradient);
-    return (cairo_int_status_t)status;
+    return status;
 }
 
 cairo_gl_gradient_t *
@@ -289,6 +328,8 @@ _cairo_gl_gradient_destroy (cairo_gl_gradient_t *gradient)
 	return;
 
     if (_cairo_gl_context_acquire (gradient->device, &ctx) == CAIRO_STATUS_SUCCESS) {
+	/* The gradient my still be active in the last operation, so flush */
+	_cairo_gl_composite_flush (ctx);
         glDeleteTextures (1, &gradient->tex);
         ignore = _cairo_gl_context_release (ctx, CAIRO_STATUS_SUCCESS);
     }

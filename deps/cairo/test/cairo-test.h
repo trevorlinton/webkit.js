@@ -48,6 +48,7 @@ typedef unsigned __int32 uint32_t;
 typedef __int64 int64_t;
 typedef unsigned __int64 uint64_t;
 # ifndef HAVE_UINT64_T
+#  define HAVE_UINT64_T 1
 # endif
 #else
 #error Cannot find definitions for fixed-width integral types (uint8_t, uint32_t, \etc.)
@@ -59,6 +60,26 @@ typedef unsigned __int64 uint64_t;
 #include <float.h>
 #define isnan(x) _isnan(x)
 
+#endif
+
+#if HAVE_FENV_H
+# include <fenv.h>
+#endif
+/* The following are optional in C99, so define them if they aren't yet */
+#ifndef FE_DIVBYZERO
+#define FE_DIVBYZERO 0
+#endif
+#ifndef FE_INEXACT
+#define FE_INEXACT 0
+#endif
+#ifndef FE_INVALID
+#define FE_INVALID 0
+#endif
+#ifndef FE_OVERFLOW
+#define FE_OVERFLOW 0
+#endif
+#ifndef FE_UNDERFLOW
+#define FE_UNDERFLOW 0
 #endif
 
 #include <math.h>

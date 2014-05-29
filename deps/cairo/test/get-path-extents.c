@@ -31,6 +31,19 @@ enum ExtentsType { FILL, STROKE, PATH };
 
 enum Relation { EQUALS, APPROX_EQUALS, CONTAINS };
 
+
+static cairo_bool_t within_tolerance(double x1, double y1,
+				     double x2, double y2,
+				     double expected_x1, double expected_y1,
+				     double expected_x2, double expected_y2,
+				     double tolerance)
+{
+    return (fabs (expected_x1 - x1) < tolerance &&
+	    fabs (expected_y1 - y1) < tolerance &&
+	    fabs (expected_x2 - x2) < tolerance &&
+	    fabs (expected_y2 - y2) < tolerance);
+}
+
 static cairo_bool_t
 check_extents (const cairo_test_context_t *ctx,
 	       const char *message, cairo_t *cr, enum ExtentsType type,
@@ -65,18 +78,17 @@ check_extents (const cairo_test_context_t *ctx,
     default:
     case EQUALS:
         relation_string = "equal";
-        if (ext_x1 == x && ext_y1 == y && ext_x2 == x + width && ext_y2 == y + height)
-            return 1;
+	if (within_tolerance(x, y, x + width, y + height,
+			     ext_x1, ext_y1, ext_x2, ext_y2,
+			     cairo_get_tolerance(cr)))
+	    return 1;
         break;
     case APPROX_EQUALS:
         relation_string = "approx. equal";
-        if (fabs (ext_x1 - x) < 1. &&
-	    fabs (ext_y1 - y) < 1. &&
-	    fabs (ext_x2 - (x + width))  < 1. &&
-	    fabs (ext_y2 - (y + height)) < 1.)
-	{
-            return 1;
-	}
+	if (within_tolerance(x, y, x + width, y + height,
+			     ext_x1, ext_y1, ext_x2, ext_y2,
+			     1.))
+	    return 1;
         break;
     case CONTAINS:
         relation_string = "contain";
@@ -110,7 +122,7 @@ draw (cairo_t *cr, int width, int height)
     int              errors = 0;
 
     surface = cairo_surface_create_similar (cairo_get_group_target (cr),
-                                            CAIRO_CONTENT_COLOR, 100, 100);
+                                            CAIRO_CONTENT_COLOR, 1000, 1000);
     /* don't use cr accidentally */
     cr = NULL;
     cr2 = cairo_create (surface);
@@ -126,6 +138,14 @@ draw (cairo_t *cr, int width, int height)
     errors += !check_extents (ctx, phase, cr2, PATH, EQUALS, 0, 0, 0, 0);
 
     cairo_save (cr2);
+
+    cairo_new_path (cr2);
+    cairo_move_to (cr2, 200, 400);
+    cairo_close_path (cr2);
+    phase = "Degenerate closed path";
+    errors += !check_extents (ctx, phase, cr2, FILL, EQUALS, 0, 0, 0, 0);
+    errors += !check_extents (ctx, phase, cr2, STROKE, EQUALS, 0, 0, 0, 0);
+    errors += !check_extents (ctx, phase, cr2, PATH, EQUALS, 200, 400, 0, 0);
 
     cairo_new_path (cr2);
     cairo_move_to (cr2, 200, 400);

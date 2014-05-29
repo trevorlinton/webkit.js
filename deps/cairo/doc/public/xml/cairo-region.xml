@@ -257,9 +257,9 @@ Checks whether (<parameter>x</parameter>, <parameter>y</parameter>) is contained
 <listitem><simpara>the y coordinate of a point</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if (<parameter>x</parameter>, <parameter>y</parameter>) is contained in <parameter>region</parameter>, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if it is not.</simpara></listitem></varlistentry>
 </variablelist><para role="since">Since 1.10</para></refsect2>
-<refsect2 id="cairo-region-overlap-t" role="enum">
+<refsect2 id="cairo-region-overlap-t" role="enum" condition="since:1.10">
 <title>enum cairo_region_overlap_t</title>
-<indexterm zone="cairo-region-overlap-t"><primary sortas="region_overlap_t">cairo_region_overlap_t</primary></indexterm>
+<indexterm zone="cairo-region-overlap-t" role="1.10"><primary sortas="region_overlap_t">cairo_region_overlap_t</primary></indexterm>
 <programlisting>typedef enum {
     CAIRO_REGION_OVERLAP_IN,		/* completely inside region */
     CAIRO_REGION_OVERLAP_OUT,		/* completely outside region */
@@ -271,21 +271,21 @@ Used as the return value for <link linkend="cairo-region-contains-rectangle"><fu
 </para><variablelist role="enum">
 <varlistentry id="CAIRO-REGION-OVERLAP-IN:CAPS" role="constant">
 <term><literal>CAIRO_REGION_OVERLAP_IN</literal></term>
-<listitem><simpara>The contents are entirely inside the region
+<listitem><simpara>The contents are entirely inside the region. (Since 1.10)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-REGION-OVERLAP-OUT:CAPS" role="constant">
 <term><literal>CAIRO_REGION_OVERLAP_OUT</literal></term>
-<listitem><simpara>The contents are entirely outside the region
+<listitem><simpara>The contents are entirely outside the region. (Since 1.10)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-REGION-OVERLAP-PART:CAPS" role="constant">
 <term><literal>CAIRO_REGION_OVERLAP_PART</literal></term>
 <listitem><simpara>The contents are partially inside and
-    partially outside the region.
+    partially outside the region. (Since 1.10)
 </simpara></listitem>
 </varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.10</para></refsect2>
 <refsect2 id="cairo-region-contains-rectangle" role="function" condition="since:1.10">
 <title>cairo_region_contains_rectangle ()</title>
 <indexterm zone="cairo-region-contains-rectangle" role="1.10"><primary sortas="region_contains_rectangle">cairo_region_contains_rectangle</primary></indexterm>

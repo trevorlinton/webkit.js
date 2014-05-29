@@ -17,9 +17,7 @@
  */
 
 #define _GNU_SOURCE
-#ifdef TARGET_EMSCRIPTEN
-#error "Accidently included utilities with TARGET_EMSCRIPTEN, bailing compile."
-#endif
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -32,6 +30,7 @@
 
 #include <dlfcn.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
@@ -165,6 +164,7 @@ struct _object {
     int width, height;
     cairo_bool_t foreign;
     cairo_bool_t defined;
+    cairo_bool_t unknown;
     int operand;
     void *data;
     void (*destroy)(void *);
@@ -834,7 +834,7 @@ _init_logfile (void)
 		filename, name, getpid());
 
 	filename = buf;
-
+    } else {
 	setenv ("CAIRO_TRACE_FD", "-1", 1);
     }
 
@@ -939,13 +939,13 @@ ensure_operands (int num_operands)
 }
 
 static void
-_consume_operand (void)
+_consume_operand (bool discard)
 {
     Object *obj;
 
     ensure_operands (1);
     obj = current_object[--current_stack_depth];
-    if (! obj->defined) {
+    if (!discard && ! obj->defined) {
 	_trace_printf ("dup /%s%ld exch def\n",
 		       obj->type->op_code,
 		       obj->token);
@@ -969,24 +969,18 @@ _exch_operands (void)
 }
 
 static cairo_bool_t
-_pop_operands_to_object (Object *obj)
+_pop_operands_to_depth (int depth)
 {
-    if (obj->operand == -1)
-	return FALSE;
-
-    if (obj->operand == current_stack_depth - 2) {
-	_exch_operands ();
-	_trace_printf ("exch ");
-	return TRUE;
-    }
-
-    while (current_stack_depth > obj->operand + 1) {
+    while (current_stack_depth > depth) {
 	Object *c_obj;
 
 	ensure_operands (1);
 	c_obj = current_object[--current_stack_depth];
 	c_obj->operand = -1;
 	if (! c_obj->defined) {
+	    if (c_obj->unknown)
+		return FALSE;
+
 	    _trace_printf ("/%s%ld exch def\n",
 		     c_obj->type->op_code,
 		     c_obj->token);
@@ -998,6 +992,27 @@ _pop_operands_to_object (Object *obj)
     }
 
     return TRUE;
+}
+
+static cairo_bool_t
+_pop_operands_to_object (Object *obj)
+{
+    if (!obj)
+	return FALSE;
+
+    if (obj->operand == -1)
+	return FALSE;
+
+    if (obj->operand == current_stack_depth - 1)
+	return TRUE;
+
+    if (obj->operand == current_stack_depth - 2) {
+	_exch_operands ();
+	_trace_printf ("exch ");
+	return TRUE;
+    }
+
+    return _pop_operands_to_depth (obj->operand + 2);
 }
 
 static cairo_bool_t
@@ -1136,12 +1151,6 @@ _has_id (enum operand_type op_type, const void *ptr)
 }
 
 static long
-_get_context_id (cairo_t *cr)
-{
-    return _get_id (CONTEXT, cr);
-}
-
-static long
 _create_font_face_id (cairo_font_face_t *font_face)
 {
     Object *obj;
@@ -1214,25 +1223,33 @@ _emit_pattern_id (cairo_pattern_t *pattern)
     }
 }
 
+static void
+_emit_scaled_font_id (const cairo_scaled_font_t *scaled_font)
+{
+    Object *obj = _get_object (SCALED_FONT, scaled_font);
+    if (obj == NULL) {
+	_trace_printf ("null ");
+    } else {
+	if (obj->defined) {
+	    _trace_printf ("sf%ld ", obj->token);
+	} else {
+	    _trace_printf ("%d index ",
+		     current_stack_depth - obj->operand - 1);
+	}
+    }
+}
+
 static long
 _create_scaled_font_id (cairo_scaled_font_t *font)
 {
     Object *obj;
 
-    obj = _get_object (SCALED_FONT, font);
-    if (obj == NULL) {
-	obj = _type_object_create (SCALED_FONT, font);
-	DLCALL (cairo_scaled_font_set_user_data,
-		font, &destroy_key, obj, _object_undef);
-    }
+    assert(_get_object (SCALED_FONT, font) == NULL);
+    obj = _type_object_create (SCALED_FONT, font);
+    DLCALL (cairo_scaled_font_set_user_data,
+	    font, &destroy_key, obj, _object_undef);
 
     return obj->token;
-}
-
-static long
-_get_scaled_font_id (const cairo_scaled_font_t *font)
-{
-    return _get_id (SCALED_FONT, font);
 }
 
 static cairo_bool_t
@@ -1877,7 +1894,21 @@ static void
 _emit_current (Object *obj)
 {
     if (obj != NULL && ! _pop_operands_to_object (obj)) {
-	_trace_printf ("%s%ld\n", obj->type->op_code, obj->token);
+	if (obj->defined) {
+	    _trace_printf ("%s%ld\n", obj->type->op_code, obj->token);
+	} else {
+	    int n;
+
+	    _trace_printf ("%d -1 roll %% %s%ld\n",
+			   current_stack_depth - obj->operand + 1,
+			   obj->type->op_code, obj->token);
+
+	    for (n = obj->operand; n < current_stack_depth - 1; n++) {
+		current_object[n] = current_object[n+1];
+		current_object[n]->operand = n;
+	    }
+	    current_stack_depth--;
+	}
 	_push_object (obj);
     }
 }
@@ -1937,7 +1968,7 @@ cairo_create (cairo_surface_t *target)
 
 	    /* we presume that we will continue to use the context */
 	    if (_pop_operands_to (SURFACE, target)){
-		_consume_operand ();
+		_consume_operand (false);
 	    } else {
 		_trace_printf ("s%ld ", surface_id);
 	    }
@@ -2170,14 +2201,15 @@ cairo_set_source_surface (cairo_t *cr, cairo_surface_t *surface, double x, doubl
 	if (_is_current (SURFACE, surface, 0) &&
 	    _is_current (CONTEXT, cr, 1))
 	{
-	    _consume_operand ();
+	    _consume_operand (false);
 	}
 	else if (_is_current (SURFACE, surface, 1) &&
-		 _is_current (CONTEXT, cr, 0))
+		 _is_current (CONTEXT, cr, 0) &&
+		 obj->defined)
 	{
 	    _trace_printf ("exch ");
 	    _exch_operands ();
-	    _consume_operand ();
+	    _consume_operand (false);
 	} else if (obj->defined) {
 	    _emit_context (cr);
 	    _trace_printf ("s%ld ", obj->token);
@@ -2215,9 +2247,12 @@ cairo_set_source (cairo_t *cr, cairo_pattern_t *source)
 	    _is_current (CONTEXT, cr, 1))
 	{
 	    if (obj->defined) {
-		_consume_operand ();
-		need_context_and_pattern = FALSE;
+		_consume_operand (false);
+	    } else {
+		_trace_printf ("exch 1 index ");
+		_exch_operands ();
 	    }
+	    need_context_and_pattern = FALSE;
 	}
 	else if (_is_current (PATTERN, source, 1) &&
 		 _is_current (CONTEXT, cr, 0))
@@ -2225,7 +2260,7 @@ cairo_set_source (cairo_t *cr, cairo_pattern_t *source)
 	    if (obj->defined) {
 		_trace_printf ("exch ");
 		_exch_operands ();
-		_consume_operand ();
+		_consume_operand (false);
 		need_context_and_pattern = FALSE;
 	    }
 	}
@@ -2677,7 +2712,7 @@ cairo_mask (cairo_t *cr, cairo_pattern_t *pattern)
 	    _is_current (CONTEXT, cr, 1))
 	{
 	    if (obj->defined) {
-		_consume_operand ();
+		_consume_operand (false);
 		need_context_and_pattern = FALSE;
 	    }
 	}
@@ -2687,7 +2722,7 @@ cairo_mask (cairo_t *cr, cairo_pattern_t *pattern)
 	    if (obj->defined) {
 		_trace_printf ("exch ");
 		_exch_operands ();
-		_consume_operand ();
+		_consume_operand (false);
 		need_context_and_pattern = FALSE;
 	    }
 	}
@@ -2714,14 +2749,14 @@ cairo_mask_surface (cairo_t *cr, cairo_surface_t *surface, double x, double y)
 	if (_is_current (SURFACE, surface, 0) &&
 	    _is_current (CONTEXT, cr, 1))
 	{
-	    _consume_operand ();
+	    _consume_operand (false);
 	}
 	else if (_is_current (SURFACE, surface, 1) &&
 		 _is_current (CONTEXT, cr, 0))
 	{
 	    _trace_printf ("exch ");
 	    _exch_operands ();
-	    _consume_operand ();
+	    _consume_operand (false);
 	} else if (obj->defined){
 	    _emit_context (cr);
 	    _trace_printf ("s%ld ", obj->token);
@@ -2903,14 +2938,14 @@ cairo_set_font_face (cairo_t *cr, cairo_font_face_t *font_face)
 	if (_is_current (FONT_FACE, font_face, 0) &&
 	    _is_current (CONTEXT, cr, 1))
 	{
-	    _consume_operand ();
+	    _consume_operand (false);
 	}
 	else if (_is_current (FONT_FACE, font_face, 1) &&
 		 _is_current (CONTEXT, cr, 0))
 	{
 	    _trace_printf ("exch ");
 	    _exch_operands ();
-	    _consume_operand ();
+	    _consume_operand (false);
 	}
 	else
 	{
@@ -3069,31 +3104,39 @@ cairo_set_scaled_font (cairo_t *cr, const cairo_scaled_font_t *scaled_font)
 {
     _enter_trace ();
     _emit_line_info ();
-    if (cr != NULL && scaled_font != NULL) {
-	if (_pop_operands_to (SCALED_FONT, scaled_font)) {
-	    if (_is_current (CONTEXT, cr, 1)) {
-		if (_write_lock ()) {
-		    _consume_operand ();
-		    _trace_printf ("set-scaled-font\n");
-		    _write_unlock ();
-		}
+    if (cr != NULL && scaled_font != NULL && _write_lock ()) {
+	Object *obj = _get_object (SCALED_FONT, scaled_font);
+	cairo_bool_t need_context_and_font = TRUE;
+
+	if (_is_current (SCALED_FONT, scaled_font, 0) &&
+	    _is_current (CONTEXT, cr, 1))
+	{
+	    if (obj->defined) {
+		_consume_operand (false);
 	    } else {
-		if (_get_object (CONTEXT, cr)->defined) {
-		    if (_write_lock ()) {
-			_consume_operand ();
-			_trace_printf ("c%ld exch set-scaled-font pop\n",
-				       _get_context_id (cr));
-			_write_unlock ();
-		    }
-		} else {
-		    _emit_cairo_op (cr, "sf%ld set-scaled-font\n",
-				    _get_scaled_font_id (scaled_font));
-		}
+		_trace_printf ("exch 1 index ");
+		_exch_operands ();
 	    }
-	} else {
-	    _emit_cairo_op (cr, "sf%ld set-scaled-font\n",
-			    _get_scaled_font_id (scaled_font));
+	    need_context_and_font = FALSE;
 	}
+	else if (_is_current (SCALED_FONT, scaled_font, 1) &&
+		 _is_current (CONTEXT, cr, 0))
+	{
+	    if (obj->defined) {
+		_trace_printf ("exch ");
+		_exch_operands ();
+		_consume_operand (false);
+		need_context_and_font = FALSE;
+	    }
+	}
+
+	if (need_context_and_font) {
+	    _emit_context (cr);
+	    _emit_scaled_font_id (scaled_font);
+	}
+
+	_trace_printf ("set-scaled-font\n");
+	_write_unlock ();
     }
     DLCALL (cairo_set_scaled_font, cr, scaled_font);
     _exit_trace ();
@@ -3122,12 +3165,12 @@ cairo_scaled_font_create (cairo_font_face_t *font_face,
 			  const cairo_font_options_t *options)
 {
     cairo_scaled_font_t *ret;
-    long scaled_font_id;
 
     _enter_trace ();
 
     ret = DLCALL (cairo_scaled_font_create, font_face, font_matrix, ctm, options);
-    scaled_font_id = _create_scaled_font_id (ret);
+    if (_has_scaled_font_id (ret))
+	    goto out;
 
     _emit_line_info ();
     if (font_face != NULL &&
@@ -3137,7 +3180,7 @@ cairo_scaled_font_create (cairo_font_face_t *font_face,
 	&& _write_lock ())
     {
 	if (_pop_operands_to (FONT_FACE, font_face))
-	    _consume_operand ();
+	    _consume_operand (false);
 	else
 	    _trace_printf ("f%ld ", _get_font_face_id (font_face));
 
@@ -3149,20 +3192,15 @@ cairo_scaled_font_create (cairo_font_face_t *font_face,
 
 	_emit_font_options (options);
 
-	if (_get_object (SCALED_FONT, ret)->defined) {
-	    _trace_printf ("  scaled-font pop %% sf%ld\n",
-			   scaled_font_id);
-	} else {
-	    _trace_printf ("  scaled-font dup /sf%ld exch def\n",
-			   scaled_font_id);
-	    _push_operand (SCALED_FONT, ret);
-
-	    _get_object (SCALED_FONT, ret)->defined = TRUE;
-	}
+	_trace_printf ("  scaled-font dup /sf%ld exch def\n",
+		       _create_scaled_font_id (ret));
+	_push_operand (SCALED_FONT, ret);
+	_get_object (SCALED_FONT, ret)->defined = TRUE;
 
 	_write_unlock ();
     }
 
+out:
     _exit_trace ();
     return ret;
 }
@@ -3664,15 +3702,19 @@ cairo_surface_map_to_image (cairo_surface_t *surface,
     if (_write_lock ()) {
 	Object *obj = _create_surface (ret);
 
+	_emit_surface (surface);
 	if (extents) {
-	    _trace_printf ("[%d %d %d %d] map-to-image\n",
+	    _trace_printf ("[%d %d %d %d] map-to-image %% s%ld\n",
 			   extents->x, extents->y,
-			   extents->width, extents->height);
+			   extents->width, extents->height,
+			   obj->token);
 	    obj->width  = extents->width;
 	    obj->height = extents->height;
 	} else {
-	    _trace_printf ("[ ] map-to-image\n");
+	    _trace_printf ("[ ] map-to-image %% s%ld\n", obj->token);
 	}
+
+	obj->unknown = TRUE;
 	_push_object (obj);
 	_write_unlock ();
     }
@@ -3689,10 +3731,17 @@ cairo_surface_unmap_image (cairo_surface_t *surface,
 
     _emit_line_info ();
     if (_write_lock ()) {
-	_trace_printf ("/s%ld /s%ld  unmap-image\n",
-		       _get_surface_id (surface),
-		       _get_surface_id (image));
-	_consume_operand ();
+	Object *s = _get_object (SURFACE, surface);
+	Object *i = _get_object (SURFACE, image);
+	if (!(s->operand == current_stack_depth - 2 &&
+	      i->operand == current_stack_depth - 1)) {
+	    if (i->operand != s->operand + 1 || ! _pop_operands_to_depth (i->operand + 1)) {
+		_emit_surface (surface);
+		_emit_surface (image);
+	    }
+	}
+	_trace_printf ("unmap-image\n");
+	_consume_operand (true);
 	_write_unlock ();
     }
 
@@ -4022,7 +4071,7 @@ cairo_pattern_create_for_surface (cairo_surface_t *surface)
 	surface_id = _get_surface_id (surface);
 
 	if (_pop_operands_to (SURFACE, surface)) {
-	    _consume_operand ();
+	    _consume_operand (false);
 	} else {
 	    _trace_printf ("s%ld ", surface_id);
 	}

@@ -4,6 +4,16 @@
 <!ENTITY version SYSTEM "version.xml">
 ]>
 <indexdiv>
+<indexdiv><title>F</title>
+<indexentry><primaryie linkends="cairo-ft-font-face-get-synthesize"><link linkend="cairo-ft-font-face-get-synthesize">cairo_ft_font_face_get_synthesize</link>, function in <link linkend="cairo-FreeType-Fonts">FreeType Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-ft-font-face-set-synthesize"><link linkend="cairo-ft-font-face-set-synthesize">cairo_ft_font_face_set_synthesize</link>, function in <link linkend="cairo-FreeType-Fonts">FreeType Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-ft-font-face-unset-synthesize"><link linkend="cairo-ft-font-face-unset-synthesize">cairo_ft_font_face_unset_synthesize</link>, function in <link linkend="cairo-FreeType-Fonts">FreeType Fonts</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-ft-synthesize-t"><link linkend="cairo-ft-synthesize-t">cairo_ft_synthesize_t</link>, enum in <link linkend="cairo-FreeType-Fonts">FreeType Fonts</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>H</title>
+<indexentry><primaryie linkends="CAIRO-HAS-SCRIPT-SURFACE:CAPS"><link linkend="CAIRO-HAS-SCRIPT-SURFACE:CAPS">CAIRO_HAS_SCRIPT_SURFACE</link>, macro in <link linkend="cairo-Script-Surfaces">Script Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-HAS-XCB-SURFACE:CAPS"><link linkend="CAIRO-HAS-XCB-SURFACE:CAPS">CAIRO_HAS_XCB_SURFACE</link>, macro in <link linkend="cairo-XCB-Surfaces">XCB Surfaces</link></primaryie></indexentry>
+</indexdiv>
 <indexdiv><title>M</title>
 <indexentry><primaryie linkends="cairo-mesh-pattern-begin-patch"><link linkend="cairo-mesh-pattern-begin-patch">cairo_mesh_pattern_begin_patch</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-mesh-pattern-curve-to"><link linkend="cairo-mesh-pattern-curve-to">cairo_mesh_pattern_curve_to</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
@@ -17,6 +27,7 @@
 <indexentry><primaryie linkends="cairo-mesh-pattern-set-control-point"><link linkend="cairo-mesh-pattern-set-control-point">cairo_mesh_pattern_set_control_point</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-mesh-pattern-set-corner-color-rgb"><link linkend="cairo-mesh-pattern-set-corner-color-rgb">cairo_mesh_pattern_set_corner_color_rgb</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-mesh-pattern-set-corner-color-rgba"><link linkend="cairo-mesh-pattern-set-corner-color-rgba">cairo_mesh_pattern_set_corner_color_rgba</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-MIME-TYPE-UNIQUE-ID:CAPS"><link linkend="CAIRO-MIME-TYPE-UNIQUE-ID:CAPS">CAIRO_MIME_TYPE_UNIQUE_ID</link>, macro in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
 </indexdiv>
 <indexdiv><title>P</title>
 <indexentry><primaryie linkends="cairo-pattern-create-mesh"><link linkend="cairo-pattern-create-mesh">cairo_pattern_create_mesh</link>, function in <link linkend="cairo-cairo-pattern-t">cairo_pattern_t</link></primaryie></indexentry>
@@ -38,10 +49,36 @@
 <indexentry><primaryie linkends="cairo-raster-source-pattern-set-snapshot"><link linkend="cairo-raster-source-pattern-set-snapshot">cairo_raster_source_pattern_set_snapshot</link>, function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-raster-source-release-func-t"><link linkend="cairo-raster-source-release-func-t">cairo_raster_source_release_func_t</link>, user_function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-raster-source-snapshot-func-t"><link linkend="cairo-raster-source-snapshot-func-t">cairo_raster_source_snapshot_func_t</link>, user_function in <link linkend="cairo-Raster-Sources">Raster Sources</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-recording-surface-get-extents"><link linkend="cairo-recording-surface-get-extents">cairo_recording_surface_get_extents</link>, function in <link linkend="cairo-Recording-Surfaces">Recording Surfaces</link></primaryie></indexentry>
 </indexdiv>
 <indexdiv><title>S</title>
+<indexentry><primaryie linkends="cairo-script-create"><link linkend="cairo-script-create">cairo_script_create</link>, function in <link linkend="cairo-Script-Surfaces">Script Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-script-create-for-stream"><link linkend="cairo-script-create-for-stream">cairo_script_create_for_stream</link>, function in <link linkend="cairo-Script-Surfaces">Script Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-script-from-recording-surface"><link linkend="cairo-script-from-recording-surface">cairo_script_from_recording_surface</link>, function in <link linkend="cairo-Script-Surfaces">Script Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-script-get-mode"><link linkend="cairo-script-get-mode">cairo_script_get_mode</link>, function in <link linkend="cairo-Script-Surfaces">Script Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-script-mode-t"><link linkend="cairo-script-mode-t">cairo_script_mode_t</link>, enum in <link linkend="cairo-Script-Surfaces">Script Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-script-set-mode"><link linkend="cairo-script-set-mode">cairo_script_set_mode</link>, function in <link linkend="cairo-Script-Surfaces">Script Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-script-surface-create"><link linkend="cairo-script-surface-create">cairo_script_surface_create</link>, function in <link linkend="cairo-Script-Surfaces">Script Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-script-surface-create-for-target"><link linkend="cairo-script-surface-create-for-target">cairo_script_surface_create_for_target</link>, function in <link linkend="cairo-Script-Surfaces">Script Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-script-write-comment"><link linkend="cairo-script-write-comment">cairo_script_write_comment</link>, function in <link linkend="cairo-Script-Surfaces">Script Surfaces</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-surface-create-similar-image"><link linkend="cairo-surface-create-similar-image">cairo_surface_create_similar_image</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-surface-map-to-image"><link linkend="cairo-surface-map-to-image">cairo_surface_map_to_image</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-surface-supports-mime-type"><link linkend="cairo-surface-supports-mime-type">cairo_surface_supports_mime_type</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-surface-unmap-image"><link linkend="cairo-surface-unmap-image">cairo_surface_unmap_image</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>X</title>
+<indexentry><primaryie linkends="cairo-xcb-device-debug-cap-xrender-version"><link linkend="cairo-xcb-device-debug-cap-xrender-version">cairo_xcb_device_debug_cap_xrender_version</link>, function in <link linkend="cairo-XCB-Surfaces">XCB Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xcb-device-debug-cap-xshm-version"><link linkend="cairo-xcb-device-debug-cap-xshm-version">cairo_xcb_device_debug_cap_xshm_version</link>, function in <link linkend="cairo-XCB-Surfaces">XCB Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xcb-device-debug-get-precision"><link linkend="cairo-xcb-device-debug-get-precision">cairo_xcb_device_debug_get_precision</link>, function in <link linkend="cairo-XCB-Surfaces">XCB Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xcb-device-debug-set-precision"><link linkend="cairo-xcb-device-debug-set-precision">cairo_xcb_device_debug_set_precision</link>, function in <link linkend="cairo-XCB-Surfaces">XCB Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xcb-device-get-connection"><link linkend="cairo-xcb-device-get-connection">cairo_xcb_device_get_connection</link>, function in <link linkend="cairo-XCB-Surfaces">XCB Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xcb-surface-create"><link linkend="cairo-xcb-surface-create">cairo_xcb_surface_create</link>, function in <link linkend="cairo-XCB-Surfaces">XCB Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xcb-surface-create-for-bitmap"><link linkend="cairo-xcb-surface-create-for-bitmap">cairo_xcb_surface_create_for_bitmap</link>, function in <link linkend="cairo-XCB-Surfaces">XCB Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xcb-surface-create-with-xrender-format"><link linkend="cairo-xcb-surface-create-with-xrender-format">cairo_xcb_surface_create_with_xrender_format</link>, function in <link linkend="cairo-XCB-Surfaces">XCB Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xcb-surface-set-drawable"><link linkend="cairo-xcb-surface-set-drawable">cairo_xcb_surface_set_drawable</link>, function in <link linkend="cairo-XCB-Surfaces">XCB Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xcb-surface-set-size"><link linkend="cairo-xcb-surface-set-size">cairo_xcb_surface_set_size</link>, function in <link linkend="cairo-XCB-Surfaces">XCB Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xlib-device-debug-cap-xrender-version"><link linkend="cairo-xlib-device-debug-cap-xrender-version">cairo_xlib_device_debug_cap_xrender_version</link>, function in <link linkend="cairo-XLib-Surfaces">XLib Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xlib-device-debug-get-precision"><link linkend="cairo-xlib-device-debug-get-precision">cairo_xlib_device_debug_get_precision</link>, function in <link linkend="cairo-XLib-Surfaces">XLib Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-xlib-device-debug-set-precision"><link linkend="cairo-xlib-device-debug-set-precision">cairo_xlib_device_debug_set_precision</link>, function in <link linkend="cairo-XLib-Surfaces">XLib Surfaces</link></primaryie></indexentry>
 </indexdiv>
 </indexdiv>

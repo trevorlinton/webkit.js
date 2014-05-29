@@ -392,6 +392,11 @@ struct _csi_string {
     csi_compound_object_t base;
     csi_integer_t len;
     csi_integer_t deflate;
+    enum {
+	NONE,
+	ZLIB,
+	LZO,
+    } method;
     char *string;
 };
 

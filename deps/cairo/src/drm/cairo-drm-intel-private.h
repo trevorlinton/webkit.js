@@ -394,7 +394,8 @@ cairo_private cairo_surface_t *
 intel_surface_map_to_image (void *abstract_surface);
 
 cairo_private cairo_status_t
-intel_surface_flush (void *abstract_surface);
+intel_surface_flush (void *abstract_surface,
+		     unsigned flags);
 
 cairo_private cairo_status_t
 intel_surface_finish (void *abstract_surface);

@@ -1,0 +1,7 @@
+Name: cairo-egl
+Description: EGL functions for cairo graphics library
+Version: 1.12.16
+
+Requires: cairo egl
+Libs:  
+Cflags: -I${pc_top_builddir}/${pcfiledir}/./src 

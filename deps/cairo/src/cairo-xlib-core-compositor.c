@@ -52,6 +52,7 @@
 #include "cairo-xlib-surface-private.h"
 
 #include "cairo-boxes-private.h"
+#include "cairo-clip-inline.h"
 #include "cairo-compositor-private.h"
 #include "cairo-image-surface-private.h"
 #include "cairo-pattern-private.h"
@@ -82,6 +83,7 @@ struct _fill_box {
     Display *dpy;
     Drawable drawable;
     GC gc;
+    //cairo_surface_t *dither = NULL;
 };
 
 static cairo_bool_t fill_box (cairo_box_t *box, void *closure)
@@ -127,27 +129,25 @@ color_to_pixel (cairo_xlib_surface_t    *dst,
 }
 
 static cairo_int_status_t
-fill_boxes (cairo_xlib_surface_t    *dst,
-	    const cairo_color_t     *color,
-	    cairo_boxes_t	    *boxes)
+_fill_box_init (struct _fill_box *fb,
+		cairo_xlib_surface_t *dst,
+		const cairo_color_t *color)
 {
-    cairo_surface_t *dither = NULL;
-    cairo_status_t status;
-    struct _fill_box fb;
+    cairo_int_status_t status;
 
-    status = _cairo_xlib_surface_get_gc (dst->display, dst, &fb.gc);
+    status = _cairo_xlib_surface_get_gc (dst->display, dst, &fb->gc);
     if (unlikely (status))
         return status;
 
-    fb.dpy = dst->display->display;
-    fb.drawable = dst->drawable;
+    fb->dpy = dst->display->display;
+    fb->drawable = dst->drawable;
 
     if (dst->visual && dst->visual->class != TrueColor && 0) {
+#if 0
 	cairo_solid_pattern_t solid;
 	cairo_surface_attributes_t attrs;
 
 	_cairo_pattern_init_solid (&solid, color);
-#if 0
 	status = _cairo_pattern_acquire_surface (&solid.base, &dst->base,
 						 0, 0,
 						 ARRAY_LENGTH (dither_pattern[0]),
@@ -159,27 +159,70 @@ fill_boxes (cairo_xlib_surface_t    *dst,
 	    _cairo_xlib_surface_put_gc (dst->display, dst, fb.gc);
 	    return status;
 	}
-#endif
 
-	XSetTSOrigin (fb.dpy, fb.gc,
+	XSetTSOrigin (fb->dpy, fb->gc,
 		      - (dst->base.device_transform.x0 + attrs.x_offset),
 		      - (dst->base.device_transform.y0 + attrs.y_offset));
-	XSetTile (fb.dpy, fb.gc, ((cairo_xlib_surface_t *) dither)->drawable);
+	XSetTile (fb->dpy, fb->gc, ((cairo_xlib_surface_t *) dither)->drawable);
+#endif
     } else {
 	XGCValues gcv;
 
 	gcv.foreground = color_to_pixel (dst, color);
 	gcv.fill_style = FillSolid;
 
-	XChangeGC (fb.dpy, fb.gc, GCFillStyle | GCForeground, &gcv);
+	XChangeGC (fb->dpy, fb->gc, GCFillStyle | GCForeground, &gcv);
     }
+
+    return CAIRO_INT_STATUS_SUCCESS;
+}
+
+static void
+_fill_box_fini (struct _fill_box *fb,
+		cairo_xlib_surface_t *dst)
+{
+    _cairo_xlib_surface_put_gc (dst->display, dst, fb->gc);
+    //cairo_surface_destroy (fb->dither);
+}
+
+cairo_int_status_t
+_cairo_xlib_core_fill_boxes (cairo_xlib_surface_t    *dst,
+			     const cairo_color_t     *color,
+			     cairo_boxes_t	    *boxes)
+{
+    cairo_int_status_t status;
+    struct _fill_box fb;
+
+    status = _fill_box_init (&fb, dst, color);
+    if (unlikely (status))
+        return status;
 
     _cairo_boxes_for_each_box (boxes, fill_box, &fb);
 
-    _cairo_xlib_surface_put_gc (dst->display, dst, fb.gc);
+    _fill_box_fini (&fb, dst);
+    return CAIRO_STATUS_SUCCESS;
+}
 
-    cairo_surface_destroy (dither);
+cairo_int_status_t
+_cairo_xlib_core_fill_rectangles (cairo_xlib_surface_t    *dst,
+				  const cairo_color_t     *color,
+				  int num_rects,
+				  cairo_rectangle_int_t *rects)
+{
+    cairo_int_status_t status;
+    struct _fill_box fb;
+    int i;
 
+    status = _fill_box_init (&fb, dst, color);
+    if (unlikely (status))
+        return status;
+
+    for (i = 0; i < num_rects; i++)
+	XFillRectangle (fb.dpy, fb.drawable, fb.gc,
+			rects[i].x, rects[i].y,
+			rects[i].width, rects[i].height);
+
+    _fill_box_fini (&fb, dst);
     return CAIRO_STATUS_SUCCESS;
 }
 
@@ -494,9 +537,8 @@ draw_boxes (cairo_composite_rectangles_t *extents,
 	return status;
 
     if (src->type == CAIRO_PATTERN_TYPE_SOLID) {
-	status = fill_boxes (dst,
-			     &((cairo_solid_pattern_t *) src)->color,
-			     boxes);
+	status = _cairo_xlib_core_fill_boxes
+	    (dst, &((cairo_solid_pattern_t *) src)->color, boxes);
     } else {
 	status = upload_image_inplace (dst, src, boxes);
 	if (status == CAIRO_INT_STATUS_UNSUPPORTED)

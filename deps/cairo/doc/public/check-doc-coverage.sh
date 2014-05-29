@@ -31,7 +31,7 @@ fi >&2
 if test -f "$DOC_MODULE-unused.txt"; then
 	unused=`cat "$DOC_MODULE-unused.txt"`
 	if test -n "$unused"; then
-		echo "*** ERROR: Unused documentated symbols:" 1>&2
+		echo "*** ERROR: Unused documented symbols:" 1>&2
 		cat "$DOC_MODULE-unused.txt" 1>&2
 		stat=1
 	fi

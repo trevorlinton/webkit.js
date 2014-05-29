@@ -37,7 +37,8 @@
 </tr></table></div>
 <div class="refsynopsisdiv">
 <a name="cairo-cairo-surface-t.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">#define             <a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-JP2:CAPS" title="CAIRO_MIME_TYPE_JP2">CAIRO_MIME_TYPE_JP2</a>
+<pre class="synopsis">#define             <a class="link" href="cairo-cairo-surface-t.html#CAIRO-HAS-MIME-SURFACE:CAPS" title="CAIRO_HAS_MIME_SURFACE">CAIRO_HAS_MIME_SURFACE</a>
+#define             <a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-JP2:CAPS" title="CAIRO_MIME_TYPE_JP2">CAIRO_MIME_TYPE_JP2</a>
 #define             <a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-JPEG:CAPS" title="CAIRO_MIME_TYPE_JPEG">CAIRO_MIME_TYPE_JPEG</a>
 #define             <a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-PNG:CAPS" title="CAIRO_MIME_TYPE_PNG">CAIRO_MIME_TYPE_PNG</a>
 #define             <a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-URI:CAPS" title="CAIRO_MIME_TYPE_URI">CAIRO_MIME_TYPE_URI</a>
@@ -108,6 +109,8 @@ unsigned <span class="returnvalue">int</span>        <a class="link" href="cairo
                                                          <em class="parameter"><code>const <span class="type">char</span> *mime_type</code></em>,
                                                          <em class="parameter"><code>const unsigned <span class="type">char</span> **data</code></em>,
                                                          <em class="parameter"><code>unsigned <span class="type">long</span> *length</code></em>);
+<a class="link" href="cairo-Types.html#cairo-bool-t" title="cairo_bool_t"><span class="returnvalue">cairo_bool_t</span></a>        <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-supports-mime-type" title="cairo_surface_supports_mime_type ()">cairo_surface_supports_mime_type</a>    (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *mime_type</code></em>);
 <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="returnvalue">cairo_surface_t</span></a> *   <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-map-to-image" title="cairo_surface_map_to_image ()">cairo_surface_map_to_image</a>          (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>,
                                                          <em class="parameter"><code>const <a class="link" href="cairo-Types.html#cairo-rectangle-int-t" title="cairo_rectangle_int_t"><span class="type">cairo_rectangle_int_t</span></a> *extents</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-unmap-image" title="cairo_surface_unmap_image ()">cairo_surface_unmap_image</a>           (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>,
@@ -133,7 +136,7 @@ functions. If you do this, keep in mind that it is mandatory that you call
 you must use <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-mark-dirty" title="cairo_surface_mark_dirty ()"><code class="function">cairo_surface_mark_dirty()</code></a> after modifying it.
 </p>
 <div class="example">
-<a name="idp17271824"></a><p class="title"><b>Example 1. Directly modifying an image surface</b></p>
+<a name="idp17937024"></a><p class="title"><b>Example 1. Directly modifying an image surface</b></p>
 <div class="example-contents">
   <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
     <tbody>
@@ -191,15 +194,21 @@ devices.
 <div class="refsect1">
 <a name="cairo-cairo-surface-t.details"></a><h2>Details</h2>
 <div class="refsect2">
+<a name="CAIRO-HAS-MIME-SURFACE:CAPS"></a><h3>CAIRO_HAS_MIME_SURFACE</h3>
+<pre class="programlisting">#define CAIRO_HAS_MIME_SURFACE 1
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
 <a name="CAIRO-MIME-TYPE-JP2:CAPS"></a><h3>CAIRO_MIME_TYPE_JP2</h3>
 <pre class="programlisting">#define CAIRO_MIME_TYPE_JP2 "image/jp2"
 </pre>
 <p>
 The Joint Photographic Experts Group (JPEG) 2000 image coding standard (ISO/IEC 15444-1).
 </p>
-<p>
-<em class="parameter"><code>Since</code></em>: 1.10
-</p>
+<p class="since">Since 1.10</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -209,9 +218,7 @@ The Joint Photographic Experts Group (JPEG) 2000 image coding standard (ISO/IEC 
 <p>
 The Joint Photographic Experts Group (JPEG) image coding standard (ISO/IEC 10918-1).
 </p>
-<p>
-<em class="parameter"><code>Since</code></em>: 1.10
-</p>
+<p class="since">Since 1.10</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -221,9 +228,7 @@ The Joint Photographic Experts Group (JPEG) image coding standard (ISO/IEC 10918
 <p>
 The Portable Network Graphics image file format (ISO/IEC 15948).
 </p>
-<p>
-<em class="parameter"><code>Since</code></em>: 1.10
-</p>
+<p class="since">Since 1.10</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -233,9 +238,7 @@ The Portable Network Graphics image file format (ISO/IEC 15948).
 <p>
 URI for an image file (unofficial MIME type).
 </p>
-<p>
-<em class="parameter"><code>Since</code></em>: 1.10
-</p>
+<p class="since">Since 1.10</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -245,9 +248,7 @@ URI for an image file (unofficial MIME type).
 <p>
 Unique identifier for a surface (cairo specific MIME type).
 </p>
-<p>
-<em class="parameter"><code>Since</code></em>: 1.12
-</p>
+<p class="since">Since 1.12</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -280,6 +281,7 @@ not modified; for example, <a class="link" href="cairo-Image-Surfaces.html#cairo
 Memory management of <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> is done with
 <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-reference" title="cairo_surface_reference ()"><code class="function">cairo_surface_reference()</code></a> and <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-destroy" title="cairo_surface_destroy ()"><code class="function">cairo_surface_destroy()</code></a>.
 </p>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -305,21 +307,22 @@ implementation can detect the error if users confuse the two types.
 <tbody>
 <tr>
 <td><p><a name="CAIRO-CONTENT-COLOR:CAPS"></a><span class="term"><code class="literal">CAIRO_CONTENT_COLOR</code></span></p></td>
-<td>The surface will hold color content only.
+<td>The surface will hold color content only. (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-CONTENT-ALPHA:CAPS"></a><span class="term"><code class="literal">CAIRO_CONTENT_ALPHA</code></span></p></td>
-<td>The surface will hold alpha content only.
+<td>The surface will hold alpha content only. (Since 1.0)
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-CONTENT-COLOR-ALPHA:CAPS"></a><span class="term"><code class="literal">CAIRO_CONTENT_COLOR_ALPHA</code></span></p></td>
-<td>The surface will hold color and alpha content.
+<td>The surface will hold color and alpha content. (Since 1.0)
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -374,6 +377,7 @@ or any other error occurs.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -517,6 +521,7 @@ The number of references to a <a class="link" href="cairo-cairo-surface-t.html#c
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -535,6 +540,7 @@ zero, then <em class="parameter"><code>surface</code></em> and all associated re
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -562,6 +568,7 @@ surface.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -591,6 +598,7 @@ associated with the surface.
 <td>the <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> to finish</td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -612,6 +620,7 @@ then this function does nothing.
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -631,7 +640,7 @@ See <a class="link" href="cairo-cairo-device-t.html#cairo-device-t" title="cairo
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>The device for <em class="parameter"><code>surface</code></em> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the surface does
+<td>The device for <em class="parameter"><code>surface</code></em> or <code class="literal">NULL</code> if the surface does
 not have an associated device.</td>
 </tr>
 </tbody>
@@ -665,6 +674,7 @@ the retrieved options. All existing values are overwritten</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -708,6 +718,7 @@ that you must call <a class="link" href="cairo-cairo-surface-t.html#cairo-surfac
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -753,6 +764,7 @@ expect.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -792,6 +804,7 @@ using the surface in a source pattern.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -977,72 +990,72 @@ New entries may be added in future versions.
 <tbody>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-IMAGE:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_IMAGE</code></span></p></td>
-<td>The surface is of type image
+<td>The surface is of type image, since 1.2
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-PDF:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_PDF</code></span></p></td>
-<td>The surface is of type pdf
+<td>The surface is of type pdf, since 1.2
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-PS:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_PS</code></span></p></td>
-<td>The surface is of type ps
+<td>The surface is of type ps, since 1.2
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-XLIB:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_XLIB</code></span></p></td>
-<td>The surface is of type xlib
+<td>The surface is of type xlib, since 1.2
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-XCB:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_XCB</code></span></p></td>
-<td>The surface is of type xcb
+<td>The surface is of type xcb, since 1.2
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-GLITZ:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_GLITZ</code></span></p></td>
-<td>The surface is of type glitz
+<td>The surface is of type glitz, since 1.2
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-QUARTZ:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_QUARTZ</code></span></p></td>
-<td>The surface is of type quartz
+<td>The surface is of type quartz, since 1.2
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-WIN32:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_WIN32</code></span></p></td>
-<td>The surface is of type win32
+<td>The surface is of type win32, since 1.2
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-BEOS:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_BEOS</code></span></p></td>
-<td>The surface is of type beos
+<td>The surface is of type beos, since 1.2
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-DIRECTFB:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_DIRECTFB</code></span></p></td>
-<td>The surface is of type directfb
+<td>The surface is of type directfb, since 1.2
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-SVG:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_SVG</code></span></p></td>
-<td>The surface is of type svg
+<td>The surface is of type svg, since 1.2
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-OS2:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_OS2</code></span></p></td>
-<td>The surface is of type os2
+<td>The surface is of type os2, since 1.4
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-WIN32-PRINTING:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_WIN32_PRINTING</code></span></p></td>
-<td>The surface is a win32 printing surface
+<td>The surface is a win32 printing surface, since 1.6
 </td>
 </tr>
 <tr>
 <td><p><a name="CAIRO-SURFACE-TYPE-QUARTZ-IMAGE:CAPS"></a><span class="term"><code class="literal">CAIRO_SURFACE_TYPE_QUARTZ_IMAGE</code></span></p></td>
-<td>The surface is of type quartz_image
+<td>The surface is of type quartz_image, since 1.6
 </td>
 </tr>
 <tr>
@@ -1162,7 +1175,7 @@ object is a nil object, 0 will be returned.</td>
                                                          <em class="parameter"><code><a class="link" href="cairo-Types.html#cairo-destroy-func-t" title="cairo_destroy_func_t ()"><span class="type">cairo_destroy_func_t</span></a> destroy</code></em>);</pre>
 <p>
 Attach user data to <em class="parameter"><code>surface</code></em>.  To remove user data from a surface,
-call this function with the key that was used to set it and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+call this function with the key that was used to set it and <code class="literal">NULL</code>
 for <em class="parameter"><code>data</code></em>.
 </p>
 <div class="variablelist"><table border="0">
@@ -1195,6 +1208,7 @@ slot could not be allocated for the user data.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1204,7 +1218,7 @@ slot could not be allocated for the user data.</td>
 <p>
 Return user data previously attached to <em class="parameter"><code>surface</code></em> using the specified
 key.  If no user data has been attached with the given key this
-function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+function returns <code class="literal">NULL</code>.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -1221,10 +1235,11 @@ attached to</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the user data previously attached or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+<td>the user data previously attached or <code class="literal">NULL</code>.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1283,7 +1298,7 @@ whether it actually uses the provided text and cluster data
 to a <a class="link" href="cairo-text.html#cairo-show-text-glyphs" title="cairo_show_text_glyphs ()"><code class="function">cairo_show_text_glyphs()</code></a> call.
 </p>
 <p>
-Note: Even if this function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, a
+Note: Even if this function returns <code class="literal">FALSE</code>, a
 <a class="link" href="cairo-text.html#cairo-show-text-glyphs" title="cairo_show_text_glyphs ()"><code class="function">cairo_show_text_glyphs()</code></a> operation targeted at <em class="parameter"><code>surface</code></em> will
 still succeed.  It just will
 act like a <a class="link" href="cairo-text.html#cairo-show-glyphs" title="cairo_show_glyphs ()"><code class="function">cairo_show_glyphs()</code></a> operation.  Users can use this
@@ -1301,8 +1316,8 @@ target surface does not use it.
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>
-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>surface</code></em> supports
-<a class="link" href="cairo-text.html#cairo-show-text-glyphs" title="cairo_show_text_glyphs ()"><code class="function">cairo_show_text_glyphs()</code></a>, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</td>
+<code class="literal">TRUE</code> if <em class="parameter"><code>surface</code></em> supports
+<a class="link" href="cairo-text.html#cairo-show-text-glyphs" title="cairo_show_text_glyphs ()"><code class="function">cairo_show_text_glyphs()</code></a>, <code class="literal">FALSE</code> otherwise</td>
 </tr>
 </tbody>
 </table></div>
@@ -1320,7 +1335,7 @@ target surface does not use it.
 <p>
 Attach an image in the format <em class="parameter"><code>mime_type</code></em> to <em class="parameter"><code>surface</code></em>. To remove
 the data from a surface, call this function with same mime type
-and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> for <em class="parameter"><code>data</code></em>.
+and <code class="literal">NULL</code> for <em class="parameter"><code>data</code></em>.
 </p>
 <p>
 The attached image (or filename) data can later be used by backends
@@ -1331,7 +1346,8 @@ memory and disk space.
 </p>
 <p>
 The recognized MIME types are the following: <a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-JPEG:CAPS" title="CAIRO_MIME_TYPE_JPEG"><code class="literal">CAIRO_MIME_TYPE_JPEG</code></a>,
-<a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-PNG:CAPS" title="CAIRO_MIME_TYPE_PNG"><code class="literal">CAIRO_MIME_TYPE_PNG</code></a>, <a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-JP2:CAPS" title="CAIRO_MIME_TYPE_JP2"><code class="literal">CAIRO_MIME_TYPE_JP2</code></a>, <a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-URI:CAPS" title="CAIRO_MIME_TYPE_URI"><code class="literal">CAIRO_MIME_TYPE_URI</code></a>.
+<a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-PNG:CAPS" title="CAIRO_MIME_TYPE_PNG"><code class="literal">CAIRO_MIME_TYPE_PNG</code></a>, <a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-JP2:CAPS" title="CAIRO_MIME_TYPE_JP2"><code class="literal">CAIRO_MIME_TYPE_JP2</code></a>, <a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-URI:CAPS" title="CAIRO_MIME_TYPE_URI"><code class="literal">CAIRO_MIME_TYPE_URI</code></a>,
+<a class="link" href="cairo-cairo-surface-t.html#CAIRO-MIME-TYPE-UNIQUE-ID:CAPS" title="CAIRO_MIME_TYPE_UNIQUE_ID"><code class="literal">CAIRO_MIME_TYPE_UNIQUE_ID</code></a>.
 </p>
 <p>
 See corresponding backend surface docs for details about which MIME
@@ -1389,7 +1405,7 @@ slot could not be allocated for the user data.</td>
 <p>
 Return mime data previously attached to <em class="parameter"><code>surface</code></em> using the
 specified mime type.  If no data has been attached with the given
-mime type, <em class="parameter"><code>data</code></em> is set <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+mime type, <em class="parameter"><code>data</code></em> is set <code class="literal">NULL</code>.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -1417,19 +1433,52 @@ mime type, <em class="parameter"><code>data</code></em> is set <a href="http://l
 </div>
 <hr>
 <div class="refsect2">
+<a name="cairo-surface-supports-mime-type"></a><h3>cairo_surface_supports_mime_type ()</h3>
+<pre class="programlisting"><a class="link" href="cairo-Types.html#cairo-bool-t" title="cairo_bool_t"><span class="returnvalue">cairo_bool_t</span></a>        cairo_surface_supports_mime_type    (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *mime_type</code></em>);</pre>
+<p>
+Return whether <em class="parameter"><code>surface</code></em> supports <em class="parameter"><code>mime_type</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>surface</code></em> :</span></p></td>
+<td>a <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mime_type</code></em> :</span></p></td>
+<td>the mime type</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if <em class="parameter"><code>surface</code></em> supports
+<em class="parameter"><code>mime_type</code></em>, <code class="literal">FALSE</code> otherwise</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.12</p>
+</div>
+<hr>
+<div class="refsect2">
 <a name="cairo-surface-map-to-image"></a><h3>cairo_surface_map_to_image ()</h3>
 <pre class="programlisting"><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="returnvalue">cairo_surface_t</span></a> *   cairo_surface_map_to_image          (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>,
                                                          <em class="parameter"><code>const <a class="link" href="cairo-Types.html#cairo-rectangle-int-t" title="cairo_rectangle_int_t"><span class="type">cairo_rectangle_int_t</span></a> *extents</code></em>);</pre>
 <p>
 Returns an image surface that is the most efficient mechanism for
 modifying the backing store of the target surface. The region retrieved
-may be limited to the <em class="parameter"><code>extents</code></em> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> for the whole surface
+may be limited to the <em class="parameter"><code>extents</code></em> or <code class="literal">NULL</code> for the whole surface
 </p>
 <p>
-Note, the use of the original surface as a target or source whilst it is
-mapped is undefined. The result of mapping the surface multiple times is
-undefined. Calling <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-destroy" title="cairo_surface_destroy ()"><code class="function">cairo_surface_destroy()</code></a> or <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-finish" title="cairo_surface_finish ()"><code class="function">cairo_surface_finish()</code></a> on the
-resulting image surface results in undefined behavior.
+Note, the use of the original surface as a target or source whilst
+it is mapped is undefined. The result of mapping the surface
+multiple times is undefined. Calling <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-destroy" title="cairo_surface_destroy ()"><code class="function">cairo_surface_destroy()</code></a> or
+<a class="link" href="cairo-cairo-surface-t.html#cairo-surface-finish" title="cairo_surface_finish ()"><code class="function">cairo_surface_finish()</code></a> on the resulting image surface results in
+undefined behavior. Changing the device transform of the image
+surface or of <em class="parameter"><code>surface</code></em> before the image surface is unmapped results
+in undefined behavior.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -1448,7 +1497,9 @@ resulting image surface results in undefined behavior.
 must use <a class="link" href="cairo-cairo-surface-t.html#cairo-surface-unmap-image" title="cairo_surface_unmap_image ()"><code class="function">cairo_surface_unmap_image()</code></a> to destroy this image surface.
 This function always returns a valid pointer, but it will return a
 pointer to a "nil" surface if <em class="parameter"><code>other</code></em> is already in an error state
-or any other error occurs.</td>
+or any other error occurs. If the returned pointer does not have an
+error status, it is guaranteed to be an image surface whose format
+is not <a class="link" href="cairo-Image-Surfaces.html#CAIRO-FORMAT-INVALID:CAPS"><code class="literal">CAIRO_FORMAT_INVALID</code></a>.</td>
 </tr>
 </tbody>
 </table></div>

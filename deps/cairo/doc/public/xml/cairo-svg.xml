@@ -46,15 +46,15 @@ SVG files and is a multi-page vector surface backend.
 </refsect1>
 <refsect1 id="cairo-SVG-Surfaces.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="CAIRO-HAS-SVG-SURFACE:CAPS" role="macro">
+<refsect2 id="CAIRO-HAS-SVG-SURFACE:CAPS" role="macro" condition="since:1.2">
 <title>CAIRO_HAS_SVG_SURFACE</title>
-<indexterm zone="CAIRO-HAS-SVG-SURFACE:CAPS"><primary sortas="HAS_SVG_SURFACE">CAIRO_HAS_SVG_SURFACE</primary></indexterm>
+<indexterm zone="CAIRO-HAS-SVG-SURFACE:CAPS" role="1.2"><primary sortas="HAS_SVG_SURFACE">CAIRO_HAS_SVG_SURFACE</primary></indexterm>
 <programlisting>#define CAIRO_HAS_SVG_SURFACE 1
 </programlisting>
 <para>
 Defined if the SVG surface backend is available.
 This macro can be used to conditionally compile backend-specific code.
-</para></refsect2>
+</para><para role="since">Since 1.2</para></refsect2>
 <refsect2 id="cairo-svg-surface-create" role="function" condition="since:1.2">
 <title>cairo_svg_surface_create ()</title>
 <indexterm zone="cairo-svg-surface-create" role="1.2"><primary sortas="svg_surface_create">cairo_svg_surface_create</primary></indexterm>
@@ -150,9 +150,9 @@ surface.
 <varlistentry><term><parameter>version</parameter>&#160;:</term>
 <listitem><simpara>SVG version</simpara></listitem></varlistentry>
 </variablelist><para role="since">Since 1.2</para></refsect2>
-<refsect2 id="cairo-svg-version-t" role="enum">
+<refsect2 id="cairo-svg-version-t" role="enum" condition="since:1.2">
 <title>enum cairo_svg_version_t</title>
-<indexterm zone="cairo-svg-version-t"><primary sortas="svg_version_t">cairo_svg_version_t</primary></indexterm>
+<indexterm zone="cairo-svg-version-t" role="1.2"><primary sortas="svg_version_t">cairo_svg_version_t</primary></indexterm>
 <programlisting>typedef enum {
     CAIRO_SVG_VERSION_1_1,
     CAIRO_SVG_VERSION_1_2
@@ -164,15 +164,15 @@ specification that a generated SVG file will conform to.
 </para><variablelist role="enum">
 <varlistentry id="CAIRO-SVG-VERSION-1-1:CAPS" role="constant">
 <term><literal>CAIRO_SVG_VERSION_1_1</literal></term>
-<listitem><simpara>The version 1.1 of the SVG specification.
+<listitem><simpara>The version 1.1 of the SVG specification. (Since 1.2)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-SVG-VERSION-1-2:CAPS" role="constant">
 <term><literal>CAIRO_SVG_VERSION_1_2</literal></term>
-<listitem><simpara>The version 1.2 of the SVG specification.
+<listitem><simpara>The version 1.2 of the SVG specification. (Since 1.2)
 </simpara></listitem>
 </varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.2</para></refsect2>
 <refsect2 id="cairo-svg-get-versions" role="function" condition="since:1.2">
 <title>cairo_svg_get_versions ()</title>
 <indexterm zone="cairo-svg-get-versions" role="1.2"><primary sortas="svg_get_versions">cairo_svg_get_versions</primary></indexterm>

@@ -52,6 +52,9 @@
    significant word first */
 #undef FLOAT_WORDS_BIGENDIAN
 
+/* Enable pixman glyph cache */
+#undef HAS_PIXMAN_GLYPHS
+
 /* Define to 1 if you have the `alarm' function. */
 #undef HAVE_ALARM
 
@@ -104,8 +107,8 @@
 /* Define to 1 if you have the `fork' function. */
 #undef HAVE_FORK
 
-/* FT_Bitmap_Size structure includes y_ppem field */
-#undef HAVE_FT_BITMAP_SIZE_Y_PPEM
+/* Define to 1 if you have the `FT_Get_X11_Font_Format' function. */
+#undef HAVE_FT_GET_X11_FONT_FORMAT
 
 /* Define to 1 if you have the `FT_GlyphSlot_Embolden' function. */
 #undef HAVE_FT_GLYPHSLOT_EMBOLDEN
@@ -151,6 +154,9 @@
 
 /* Define to 1 if you have the Valgrind lockdep tool */
 #undef HAVE_LOCKDEP
+
+/* Define to 1 if you have lzo available */
+#undef HAVE_LZO
 
 /* Define to 1 if you have the Valgrind memfault tool */
 #undef HAVE_MEMFAULT
@@ -207,6 +213,9 @@
 /* Define to 1 if you have the <sys/int_types.h> header file. */
 #undef HAVE_SYS_INT_TYPES_H
 
+/* Define to 1 if you have the <sys/ioctl.h> header file. */
+#undef HAVE_SYS_IOCTL_H
+
 /* Define to 1 if you have the <sys/mman.h> header file. */
 #undef HAVE_SYS_MMAN_H
 
@@ -249,6 +258,15 @@
 /* Define to 1 if you have the <windows.h> header file. */
 #undef HAVE_WINDOWS_H
 
+/* Define to 1 if you have the <X11/extensions/shmproto.h> header file. */
+#undef HAVE_X11_EXTENSIONS_SHMPROTO_H
+
+/* Define to 1 if you have the <X11/extensions/shmstr.h> header file. */
+#undef HAVE_X11_EXTENSIONS_SHMSTR_H
+
+/* Define to 1 if you have the <X11/extensions/XShm.h> header file. */
+#undef HAVE_X11_EXTENSIONS_XSHM_H
+
 /* Define to 1 if you have the `XRenderCreateConicalGradient' function. */
 #undef HAVE_XRENDERCREATECONICALGRADIENT
 
@@ -263,6 +281,9 @@
 
 /* Define to 1 if the system has the type `__uint128_t'. */
 #undef HAVE___UINT128_T
+
+/* Define to 1 if shared memory segments are released deferred. */
+#undef IPC_RMID_DEFERRED_RELEASE
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */

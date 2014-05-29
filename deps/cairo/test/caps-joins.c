@@ -72,7 +72,7 @@ draw_caps_joins (cairo_t *cr)
 }
 
 static cairo_test_status_t
-draw (cairo_t *cr, int width, int height)
+draw (cairo_t *cr, float line_width)
 {
     /* We draw in the default black, so paint white first. */
     cairo_save (cr);
@@ -80,17 +80,41 @@ draw (cairo_t *cr, int width, int height)
     cairo_paint (cr);
     cairo_restore (cr);
 
-    cairo_set_line_width (cr, LINE_WIDTH);
+    cairo_set_line_width (cr, line_width);
 
     draw_caps_joins (cr);
 
     /* and reflect to generate the opposite vertex ordering */
-    cairo_translate (cr, 0, height);
+    cairo_translate (cr, 0, 2 * (PAD + SIZE) + PAD);
     cairo_scale (cr, 1, -1);
 
     draw_caps_joins (cr);
 
     return CAIRO_TEST_SUCCESS;
+}
+
+static cairo_test_status_t
+draw_10 (cairo_t *cr, int width, int height)
+{
+    return draw (cr, LINE_WIDTH);
+}
+
+static cairo_test_status_t
+draw_2 (cairo_t *cr, int width, int height)
+{
+    return draw (cr, 2.0);
+}
+
+static cairo_test_status_t
+draw_1 (cairo_t *cr, int width, int height)
+{
+    return draw (cr, 1.0);
+}
+
+static cairo_test_status_t
+draw_05 (cairo_t *cr, int width, int height)
+{
+    return draw (cr, 0.5);
 }
 
 CAIRO_TEST (caps_joins,
@@ -99,5 +123,28 @@ CAIRO_TEST (caps_joins,
 	    NULL, /* requirements */
 	    3 * (PAD + SIZE) + PAD,
 	    2 * (PAD + SIZE) + PAD,
-	    NULL, draw)
+	    NULL, draw_10)
 
+CAIRO_TEST (caps_joins_2,
+	    "Test caps and joins with default line width",
+	    "stroke", /* keywords */
+	    NULL, /* requirements */
+	    3 * (PAD + SIZE) + PAD,
+	    2 * (PAD + SIZE) + PAD,
+	    NULL, draw_2)
+
+CAIRO_TEST (caps_joins_1,
+	    "Test caps and joins with hairlines",
+	    "stroke", /* keywords */
+	    NULL, /* requirements */
+	    3 * (PAD + SIZE) + PAD,
+	    2 * (PAD + SIZE) + PAD,
+	    NULL, draw_1)
+
+CAIRO_TEST (caps_joins_05,
+	    "Test caps and joins with fine lines",
+	    "stroke", /* keywords */
+	    NULL, /* requirements */
+	    3 * (PAD + SIZE) + PAD,
+	    2 * (PAD + SIZE) + PAD,
+	    NULL, draw_05)

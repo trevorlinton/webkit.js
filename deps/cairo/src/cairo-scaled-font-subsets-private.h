@@ -225,7 +225,7 @@ typedef cairo_int_status_t
 					     void			*closure);
 
 /**
- * _cairo_scaled_font_subsets_foreach:
+ * _cairo_scaled_font_subsets_foreach_scaled:
  * @font_subsets: a #cairo_scaled_font_subsets_t
  * @font_subset_callback: a function to be called for each font subset
  * @closure: closure data for the callback function
@@ -439,7 +439,7 @@ typedef struct _cairo_truetype_subset {
 } cairo_truetype_subset_t;
 
 /**
- * _cairo_truetype_subset_init:
+ * _cairo_truetype_subset_init_ps:
  * @truetype_subset: a #cairo_truetype_subset_t to initialize
  * @font_subset: the #cairo_scaled_font_subset_t to initialize from
  *
@@ -460,7 +460,7 @@ _cairo_truetype_subset_init_ps (cairo_truetype_subset_t    *truetype_subset,
 				cairo_scaled_font_subset_t *font_subset);
 
 /**
- * _cairo_truetype_subset_init:
+ * _cairo_truetype_subset_init_pdf:
  * @truetype_subset: a #cairo_truetype_subset_t to initialize
  * @font_subset: the #cairo_scaled_font_subset_t to initialize from
  *
@@ -576,7 +576,7 @@ _cairo_type1_fallback_init_binary (cairo_type1_subset_t	      *type_subset,
                                    cairo_scaled_font_subset_t *font_subset);
 
 /**
- * _cairo_type1_fallback_init_hexencode:
+ * _cairo_type1_fallback_init_hex:
  * @type1_subset: a #cairo_type1_subset_t to initialize
  * @font_subset: the #cairo_scaled_font_subset_t to initialize from
  *

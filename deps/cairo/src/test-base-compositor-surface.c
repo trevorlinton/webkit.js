@@ -662,10 +662,10 @@ base_compositor_stroke (const cairo_compositor_t *_compositor,
 
     info.antialias = antialias;
     _cairo_traps_init_with_clip (&info.traps, extents->clip);
-    status = _cairo_path_fixed_stroke_to_traps (path, style,
-						ctm, ctm_inverse,
-						tolerance,
-						&info.traps);
+    status = _cairo_path_fixed_stroke_polygon_to_traps (path, style,
+							ctm, ctm_inverse,
+							tolerance,
+							&info.traps);
     if (likely (status == CAIRO_INT_STATUS_SUCCESS))
 	status = trim_extents_to_traps (extents, &info.traps);
     if (likely (status == CAIRO_INT_STATUS_SUCCESS))

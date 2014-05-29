@@ -33,4 +33,20 @@ _cairo_stats_compute (cairo_stats_t *stats,
 		      cairo_time_t  *values,
 		      int	     num_values);
 
+cairo_bool_t
+_cairo_histogram_init (cairo_histogram_t *h,
+		       int width, int height);
+
+cairo_bool_t
+_cairo_histogram_compute (cairo_histogram_t *h,
+			  const cairo_time_t  *values,
+			  int num_values);
+
+void
+_cairo_histogram_printf (cairo_histogram_t *h,
+			 FILE *file);
+
+void
+_cairo_histogram_fini (cairo_histogram_t *h);
+
 #endif /* _CAIRO_STATS_H_ */

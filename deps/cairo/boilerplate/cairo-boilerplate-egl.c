@@ -130,6 +130,8 @@ _cairo_boilerplate_egl_create_surface (const char		 *name,
     }
 
     gltc->device = cairo_egl_device_create (gltc->dpy, gltc->ctx);
+    if (mode == CAIRO_BOILERPLATE_MODE_PERF)
+	cairo_gl_device_set_thread_aware(gltc->device, FALSE);
 
     if (width < 1)
 	width = 1;

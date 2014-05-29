@@ -45,6 +45,8 @@
                                                          <em class="parameter"><code><span class="type">double</span> *y0</code></em>,
                                                          <em class="parameter"><code><span class="type">double</span> *width</code></em>,
                                                          <em class="parameter"><code><span class="type">double</span> *height</code></em>);
+<a class="link" href="cairo-Types.html#cairo-bool-t" title="cairo_bool_t"><span class="returnvalue">cairo_bool_t</span></a>        <a class="link" href="cairo-Recording-Surfaces.html#cairo-recording-surface-get-extents" title="cairo_recording_surface_get_extents ()">cairo_recording_surface_get_extents</a> (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="cairo-cairo-t.html#cairo-rectangle-t" title="cairo_rectangle_t"><span class="type">cairo_rectangle_t</span></a> *extents</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -139,7 +141,7 @@ accurate replay.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>extents</code></em> :</span></p></td>
-<td>the extents to record in pixels, can be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to record
+<td>the extents to record in pixels, can be <code class="literal">NULL</code> to record
 unbounded operations.</td>
 </tr>
 <tr>
@@ -192,6 +194,37 @@ equivalent) into which to replay the full sequence of drawing operations.
 </tbody>
 </table></div>
 <p class="since">Since 1.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-recording-surface-get-extents"></a><h3>cairo_recording_surface_get_extents ()</h3>
+<pre class="programlisting"><a class="link" href="cairo-Types.html#cairo-bool-t" title="cairo_bool_t"><span class="returnvalue">cairo_bool_t</span></a>        cairo_recording_surface_get_extents (<em class="parameter"><code><a class="link" href="cairo-cairo-surface-t.html#cairo-surface-t" title="cairo_surface_t"><span class="type">cairo_surface_t</span></a> *surface</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="cairo-cairo-t.html#cairo-rectangle-t" title="cairo_rectangle_t"><span class="type">cairo_rectangle_t</span></a> *extents</code></em>);</pre>
+<p>
+Get the extents of the recording-surface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>surface</code></em> :</span></p></td>
+<td>a <span class="type">cairo_recording_surface_t</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extents</code></em> :</span></p></td>
+<td>the <a class="link" href="cairo-cairo-t.html#cairo-rectangle-t" title="cairo_rectangle_t"><span class="type">cairo_rectangle_t</span></a> to be assigned the extents</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if the surface is bounded, of recording type, and
+not in an error state, otherwise <code class="literal">FALSE</code>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.12</p>
 </div>
 </div>
 <div class="refsect1">

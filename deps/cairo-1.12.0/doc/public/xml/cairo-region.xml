@@ -1,0 +1,458 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<refentry id="cairo-Regions">
+<refmeta>
+<refentrytitle role="top_of_page" id="cairo-Regions.top_of_page">Regions</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  CAIRO Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Regions</refname>
+<refpurpose>Representing a pixel-aligned area</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="cairo-Regions.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>typedef             <link linkend="cairo-region-t">cairo_region_t</link>;
+<link linkend="cairo-region-t"><returnvalue>cairo_region_t</returnvalue></link> *    <link linkend="cairo-region-create">cairo_region_create</link>                 (<parameter><type>void</type></parameter>);
+<link linkend="cairo-region-t"><returnvalue>cairo_region_t</returnvalue></link> *    <link linkend="cairo-region-create-rectangle">cairo_region_create_rectangle</link>       (<parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);
+<link linkend="cairo-region-t"><returnvalue>cairo_region_t</returnvalue></link> *    <link linkend="cairo-region-create-rectangles">cairo_region_create_rectangles</link>      (<parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rects</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> count</parameter>);
+<link linkend="cairo-region-t"><returnvalue>cairo_region_t</returnvalue></link> *    <link linkend="cairo-region-copy">cairo_region_copy</link>                   (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *original</parameter>);
+<link linkend="cairo-region-t"><returnvalue>cairo_region_t</returnvalue></link> *    <link linkend="cairo-region-reference">cairo_region_reference</link>              (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-region-destroy">cairo_region_destroy</link>                (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-region-status">cairo_region_status</link>                 (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-region-get-extents">cairo_region_get_extents</link>            (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>,
+                                                         <parameter><link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *extents</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="cairo-region-num-rectangles">cairo_region_num_rectangles</link>         (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-region-get-rectangle">cairo_region_get_rectangle</link>          (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> nth</parameter>,
+                                                         <parameter><link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);
+<link linkend="cairo-bool-t"><returnvalue>cairo_bool_t</returnvalue></link>        <link linkend="cairo-region-is-empty">cairo_region_is_empty</link>               (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>);
+<link linkend="cairo-bool-t"><returnvalue>cairo_bool_t</returnvalue></link>        <link linkend="cairo-region-contains-point">cairo_region_contains_point</link>         (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> x</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> y</parameter>);
+enum                <link linkend="cairo-region-overlap-t">cairo_region_overlap_t</link>;
+<link linkend="cairo-region-overlap-t"><returnvalue>cairo_region_overlap_t</returnvalue></link> <link linkend="cairo-region-contains-rectangle">cairo_region_contains_rectangle</link>  (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);
+<link linkend="cairo-bool-t"><returnvalue>cairo_bool_t</returnvalue></link>        <link linkend="cairo-region-equal">cairo_region_equal</link>                  (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *b</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-region-translate">cairo_region_translate</link>              (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> dx</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> dy</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-region-intersect">cairo_region_intersect</link>              (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *other</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-region-intersect-rectangle">cairo_region_intersect_rectangle</link>    (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-region-subtract">cairo_region_subtract</link>               (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *other</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-region-subtract-rectangle">cairo_region_subtract_rectangle</link>     (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-region-union">cairo_region_union</link>                  (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *other</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-region-union-rectangle">cairo_region_union_rectangle</link>        (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-region-xor">cairo_region_xor</link>                    (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *other</parameter>);
+<link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      <link linkend="cairo-region-xor-rectangle">cairo_region_xor_rectangle</link>          (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="cairo-Regions.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Regions are a simple graphical data type representing an area of 
+integer-aligned rectangles. They are often used on raster surfaces 
+to track areas of interest, such as change or clip areas.
+</para>
+</refsect1>
+<refsect1 id="cairo-Regions.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="cairo-region-t" role="typedef" condition="since:1.10">
+<title>cairo_region_t</title>
+<indexterm zone="cairo-region-t" role="1.10"><primary sortas="region_t">cairo_region_t</primary></indexterm>
+<programlisting>typedef struct _cairo_region cairo_region_t;
+</programlisting>
+<para>
+A <link linkend="cairo-region-t"><type>cairo_region_t</type></link> represents a set of integer-aligned rectangles.
+</para>
+<para>
+It allows set-theoretical operations like <link linkend="cairo-region-union"><function>cairo_region_union()</function></link> and
+<link linkend="cairo-region-intersect"><function>cairo_region_intersect()</function></link> to be performed on them.
+</para>
+<para>
+Memory management of <link linkend="cairo-region-t"><type>cairo_region_t</type></link> is done with
+<link linkend="cairo-region-reference"><function>cairo_region_reference()</function></link> and <link linkend="cairo-region-destroy"><function>cairo_region_destroy()</function></link>.
+</para><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-create" role="function" condition="since:1.10">
+<title>cairo_region_create ()</title>
+<indexterm zone="cairo-region-create" role="1.10"><primary sortas="region_create">cairo_region_create</primary></indexterm>
+<programlisting><link linkend="cairo-region-t"><returnvalue>cairo_region_t</returnvalue></link> *    cairo_region_create                 (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Allocates a new empty region object.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>A newly allocated <link linkend="cairo-region-t"><type>cairo_region_t</type></link>. Free with
+<link linkend="cairo-region-destroy"><function>cairo_region_destroy()</function></link>. This function always returns a
+valid pointer; if memory cannot be allocated, then a special
+error object is returned where all operations on the object do nothing.
+You can check for this with <link linkend="cairo-region-status"><function>cairo_region_status()</function></link>.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-create-rectangle" role="function" condition="since:1.10">
+<title>cairo_region_create_rectangle ()</title>
+<indexterm zone="cairo-region-create-rectangle" role="1.10"><primary sortas="region_create_rectangle">cairo_region_create_rectangle</primary></indexterm>
+<programlisting><link linkend="cairo-region-t"><returnvalue>cairo_region_t</returnvalue></link> *    cairo_region_create_rectangle       (<parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);</programlisting>
+<para>
+Allocates a new region object containing <parameter>rectangle</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>rectangle</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>A newly allocated <link linkend="cairo-region-t"><type>cairo_region_t</type></link>. Free with
+<link linkend="cairo-region-destroy"><function>cairo_region_destroy()</function></link>. This function always returns a
+valid pointer; if memory cannot be allocated, then a special
+error object is returned where all operations on the object do nothing.
+You can check for this with <link linkend="cairo-region-status"><function>cairo_region_status()</function></link>.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-create-rectangles" role="function" condition="since:1.10">
+<title>cairo_region_create_rectangles ()</title>
+<indexterm zone="cairo-region-create-rectangles" role="1.10"><primary sortas="region_create_rectangles">cairo_region_create_rectangles</primary></indexterm>
+<programlisting><link linkend="cairo-region-t"><returnvalue>cairo_region_t</returnvalue></link> *    cairo_region_create_rectangles      (<parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rects</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> count</parameter>);</programlisting>
+<para>
+Allocates a new region object containing the union of all given <parameter>rects</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>rects</parameter>&#160;:</term>
+<listitem><simpara>an array of <parameter>count</parameter> rectangles</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>count</parameter>&#160;:</term>
+<listitem><simpara>number of rectangles</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>A newly allocated <link linkend="cairo-region-t"><type>cairo_region_t</type></link>. Free with
+<link linkend="cairo-region-destroy"><function>cairo_region_destroy()</function></link>. This function always returns a
+valid pointer; if memory cannot be allocated, then a special
+error object is returned where all operations on the object do nothing.
+You can check for this with <link linkend="cairo-region-status"><function>cairo_region_status()</function></link>.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-copy" role="function" condition="since:1.10">
+<title>cairo_region_copy ()</title>
+<indexterm zone="cairo-region-copy" role="1.10"><primary sortas="region_copy">cairo_region_copy</primary></indexterm>
+<programlisting><link linkend="cairo-region-t"><returnvalue>cairo_region_t</returnvalue></link> *    cairo_region_copy                   (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *original</parameter>);</programlisting>
+<para>
+Allocates a new region object copying the area from <parameter>original</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>original</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>A newly allocated <link linkend="cairo-region-t"><type>cairo_region_t</type></link>. Free with
+<link linkend="cairo-region-destroy"><function>cairo_region_destroy()</function></link>. This function always returns a
+valid pointer; if memory cannot be allocated, then a special
+error object is returned where all operations on the object do nothing.
+You can check for this with <link linkend="cairo-region-status"><function>cairo_region_status()</function></link>.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-reference" role="function" condition="since:1.10">
+<title>cairo_region_reference ()</title>
+<indexterm zone="cairo-region-reference" role="1.10"><primary sortas="region_reference">cairo_region_reference</primary></indexterm>
+<programlisting><link linkend="cairo-region-t"><returnvalue>cairo_region_t</returnvalue></link> *    cairo_region_reference              (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>);</programlisting>
+<para>
+Increases the reference count on <parameter>region</parameter> by one. This prevents
+<parameter>region</parameter> from being destroyed until a matching call to
+<link linkend="cairo-region-destroy"><function>cairo_region_destroy()</function></link> is made.
+</para><variablelist role="params">
+<varlistentry><term><parameter>region</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the referenced <link linkend="cairo-region-t"><type>cairo_region_t</type></link>.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-destroy" role="function" condition="since:1.10">
+<title>cairo_region_destroy ()</title>
+<indexterm zone="cairo-region-destroy" role="1.10"><primary sortas="region_destroy">cairo_region_destroy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_region_destroy                (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>);</programlisting>
+<para>
+Destroys a <link linkend="cairo-region-t"><type>cairo_region_t</type></link> object created with
+<link linkend="cairo-region-create"><function>cairo_region_create()</function></link>, <link linkend="cairo-region-copy"><function>cairo_region_copy()</function></link>, or
+or <link linkend="cairo-region-create-rectangle"><function>cairo_region_create_rectangle()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>region</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-status" role="function" condition="since:1.10">
+<title>cairo_region_status ()</title>
+<indexterm zone="cairo-region-status" role="1.10"><primary sortas="region_status">cairo_region_status</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_region_status                 (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>);</programlisting>
+<para>
+Checks whether an error has previous occurred for this
+region object.
+</para><variablelist role="params">
+<varlistentry><term><parameter>region</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-get-extents" role="function" condition="since:1.10">
+<title>cairo_region_get_extents ()</title>
+<indexterm zone="cairo-region-get-extents" role="1.10"><primary sortas="region_get_extents">cairo_region_get_extents</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_region_get_extents            (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>,
+                                                         <parameter><link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *extents</parameter>);</programlisting>
+<para>
+Gets the bounding rectangle of <parameter>region</parameter> as a <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link>
+</para><variablelist role="params">
+<varlistentry><term><parameter>region</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>extents</parameter>&#160;:</term>
+<listitem><simpara>rectangle into which to store the extents</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-num-rectangles" role="function" condition="since:1.10">
+<title>cairo_region_num_rectangles ()</title>
+<indexterm zone="cairo-region-num-rectangles" role="1.10"><primary sortas="region_num_rectangles">cairo_region_num_rectangles</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 cairo_region_num_rectangles         (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>);</programlisting>
+<para>
+Returns the number of rectangles contained in <parameter>region</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>region</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>The number of rectangles contained in <parameter>region</parameter>.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-get-rectangle" role="function" condition="since:1.10">
+<title>cairo_region_get_rectangle ()</title>
+<indexterm zone="cairo-region-get-rectangle" role="1.10"><primary sortas="region_get_rectangle">cairo_region_get_rectangle</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_region_get_rectangle          (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> nth</parameter>,
+                                                         <parameter><link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);</programlisting>
+<para>
+Stores the <parameter>nth</parameter> rectangle from the region in <parameter>rectangle</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>region</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>nth</parameter>&#160;:</term>
+<listitem><simpara>a number indicating which rectangle should be returned</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rectangle</parameter>&#160;:</term>
+<listitem><simpara>return location for a <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-is-empty" role="function" condition="since:1.10">
+<title>cairo_region_is_empty ()</title>
+<indexterm zone="cairo-region-is-empty" role="1.10"><primary sortas="region_is_empty">cairo_region_is_empty</primary></indexterm>
+<programlisting><link linkend="cairo-bool-t"><returnvalue>cairo_bool_t</returnvalue></link>        cairo_region_is_empty               (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>);</programlisting>
+<para>
+Checks whether <parameter>region</parameter> is empty.
+</para><variablelist role="params">
+<varlistentry><term><parameter>region</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if <parameter>region</parameter> is empty, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if it isn't.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-contains-point" role="function" condition="since:1.10">
+<title>cairo_region_contains_point ()</title>
+<indexterm zone="cairo-region-contains-point" role="1.10"><primary sortas="region_contains_point">cairo_region_contains_point</primary></indexterm>
+<programlisting><link linkend="cairo-bool-t"><returnvalue>cairo_bool_t</returnvalue></link>        cairo_region_contains_point         (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> x</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> y</parameter>);</programlisting>
+<para>
+Checks whether (<parameter>x</parameter>, <parameter>y</parameter>) is contained in <parameter>region</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>region</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara>the x coordinate of a point</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara>the y coordinate of a point</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if (<parameter>x</parameter>, <parameter>y</parameter>) is contained in <parameter>region</parameter>, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if it is not.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-overlap-t" role="enum">
+<title>enum cairo_region_overlap_t</title>
+<indexterm zone="cairo-region-overlap-t"><primary sortas="region_overlap_t">cairo_region_overlap_t</primary></indexterm>
+<programlisting>typedef enum {
+    CAIRO_REGION_OVERLAP_IN,		/* completely inside region */
+    CAIRO_REGION_OVERLAP_OUT,		/* completely outside region */
+    CAIRO_REGION_OVERLAP_PART		/* partly inside region */
+} cairo_region_overlap_t;
+</programlisting>
+<para>
+Used as the return value for <link linkend="cairo-region-contains-rectangle"><function>cairo_region_contains_rectangle()</function></link>.
+</para><variablelist role="enum">
+<varlistentry id="CAIRO-REGION-OVERLAP-IN:CAPS" role="constant">
+<term><literal>CAIRO_REGION_OVERLAP_IN</literal></term>
+<listitem><simpara>The contents are entirely inside the region
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-REGION-OVERLAP-OUT:CAPS" role="constant">
+<term><literal>CAIRO_REGION_OVERLAP_OUT</literal></term>
+<listitem><simpara>The contents are entirely outside the region
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-REGION-OVERLAP-PART:CAPS" role="constant">
+<term><literal>CAIRO_REGION_OVERLAP_PART</literal></term>
+<listitem><simpara>The contents are partially inside and
+    partially outside the region.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cairo-region-contains-rectangle" role="function" condition="since:1.10">
+<title>cairo_region_contains_rectangle ()</title>
+<indexterm zone="cairo-region-contains-rectangle" role="1.10"><primary sortas="region_contains_rectangle">cairo_region_contains_rectangle</primary></indexterm>
+<programlisting><link linkend="cairo-region-overlap-t"><returnvalue>cairo_region_overlap_t</returnvalue></link> cairo_region_contains_rectangle  (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);</programlisting>
+<para>
+Checks whether <parameter>rectangle</parameter> is inside, outside or partially contained
+in <parameter>region</parameter>
+</para><variablelist role="params">
+<varlistentry><term><parameter>region</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rectangle</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-REGION-OVERLAP-IN:CAPS"><literal>CAIRO_REGION_OVERLAP_IN</literal></link> if <parameter>rectangle</parameter> is entirely inside <parameter>region</parameter>,
+<link linkend="CAIRO-REGION-OVERLAP-OUT:CAPS"><literal>CAIRO_REGION_OVERLAP_OUT</literal></link> if <parameter>rectangle</parameter> is entirely outside <parameter>region</parameter>, or
+<link linkend="CAIRO-REGION-OVERLAP-PART:CAPS"><literal>CAIRO_REGION_OVERLAP_PART</literal></link> if <parameter>rectangle</parameter> is partially inside and partially outside <parameter>region</parameter>.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-equal" role="function" condition="since:1.10">
+<title>cairo_region_equal ()</title>
+<indexterm zone="cairo-region-equal" role="1.10"><primary sortas="region_equal">cairo_region_equal</primary></indexterm>
+<programlisting><link linkend="cairo-bool-t"><returnvalue>cairo_bool_t</returnvalue></link>        cairo_region_equal                  (<parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *b</parameter>);</programlisting>
+<para>
+Compares whether region_a is equivalent to region_b. <link linkend="NULL:CAPS"><literal>NULL</literal></link> as an argument
+is equal to itself, but not to any non-<link linkend="NULL:CAPS"><literal>NULL</literal></link> region.
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link> or <link linkend="NULL:CAPS"><literal>NULL</literal></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link> or <link linkend="NULL:CAPS"><literal>NULL</literal></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if both regions contained the same coverage,
+<link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if it is not or any region is in an error status.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-translate" role="function" condition="since:1.10">
+<title>cairo_region_translate ()</title>
+<indexterm zone="cairo-region-translate" role="1.10"><primary sortas="region_translate">cairo_region_translate</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_region_translate              (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *region</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> dx</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> dy</parameter>);</programlisting>
+<para>
+Translates <parameter>region</parameter> by (<parameter>dx</parameter>, <parameter>dy</parameter>).
+</para><variablelist role="params">
+<varlistentry><term><parameter>region</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dx</parameter>&#160;:</term>
+<listitem><simpara>Amount to translate in the x direction</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dy</parameter>&#160;:</term>
+<listitem><simpara>Amount to translate in the y direction</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-intersect" role="function" condition="since:1.10">
+<title>cairo_region_intersect ()</title>
+<indexterm zone="cairo-region-intersect" role="1.10"><primary sortas="region_intersect">cairo_region_intersect</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_region_intersect              (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *other</parameter>);</programlisting>
+<para>
+Computes the intersection of <parameter>dst</parameter> with <parameter>other</parameter> and places the result in <parameter>dst</parameter>
+</para><variablelist role="params">
+<varlistentry><term><parameter>dst</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>other</parameter>&#160;:</term>
+<listitem><simpara>another <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-intersect-rectangle" role="function" condition="since:1.10">
+<title>cairo_region_intersect_rectangle ()</title>
+<indexterm zone="cairo-region-intersect-rectangle" role="1.10"><primary sortas="region_intersect_rectangle">cairo_region_intersect_rectangle</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_region_intersect_rectangle    (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);</programlisting>
+<para>
+Computes the intersection of <parameter>dst</parameter> with <parameter>rectangle</parameter> and places the
+result in <parameter>dst</parameter>
+</para><variablelist role="params">
+<varlistentry><term><parameter>dst</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rectangle</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-subtract" role="function" condition="since:1.10">
+<title>cairo_region_subtract ()</title>
+<indexterm zone="cairo-region-subtract" role="1.10"><primary sortas="region_subtract">cairo_region_subtract</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_region_subtract               (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *other</parameter>);</programlisting>
+<para>
+Subtracts <parameter>other</parameter> from <parameter>dst</parameter> and places the result in <parameter>dst</parameter>
+</para><variablelist role="params">
+<varlistentry><term><parameter>dst</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>other</parameter>&#160;:</term>
+<listitem><simpara>another <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-subtract-rectangle" role="function" condition="since:1.10">
+<title>cairo_region_subtract_rectangle ()</title>
+<indexterm zone="cairo-region-subtract-rectangle" role="1.10"><primary sortas="region_subtract_rectangle">cairo_region_subtract_rectangle</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_region_subtract_rectangle     (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);</programlisting>
+<para>
+Subtracts <parameter>rectangle</parameter> from <parameter>dst</parameter> and places the result in <parameter>dst</parameter>
+</para><variablelist role="params">
+<varlistentry><term><parameter>dst</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rectangle</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-union" role="function" condition="since:1.10">
+<title>cairo_region_union ()</title>
+<indexterm zone="cairo-region-union" role="1.10"><primary sortas="region_union">cairo_region_union</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_region_union                  (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *other</parameter>);</programlisting>
+<para>
+Computes the union of <parameter>dst</parameter> with <parameter>other</parameter> and places the result in <parameter>dst</parameter>
+</para><variablelist role="params">
+<varlistentry><term><parameter>dst</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>other</parameter>&#160;:</term>
+<listitem><simpara>another <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-union-rectangle" role="function" condition="since:1.10">
+<title>cairo_region_union_rectangle ()</title>
+<indexterm zone="cairo-region-union-rectangle" role="1.10"><primary sortas="region_union_rectangle">cairo_region_union_rectangle</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_region_union_rectangle        (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);</programlisting>
+<para>
+Computes the union of <parameter>dst</parameter> with <parameter>rectangle</parameter> and places the result in <parameter>dst</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>dst</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rectangle</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-xor" role="function" condition="since:1.10">
+<title>cairo_region_xor ()</title>
+<indexterm zone="cairo-region-xor" role="1.10"><primary sortas="region_xor">cairo_region_xor</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_region_xor                    (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-region-t"><type>cairo_region_t</type></link> *other</parameter>);</programlisting>
+<para>
+Computes the exclusive difference of <parameter>dst</parameter> with <parameter>other</parameter> and places the
+result in <parameter>dst</parameter>. That is, <parameter>dst</parameter> will be set to contain all areas that
+are either in <parameter>dst</parameter> or in <parameter>other</parameter>, but not in both.
+</para><variablelist role="params">
+<varlistentry><term><parameter>dst</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>other</parameter>&#160;:</term>
+<listitem><simpara>another <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-region-xor-rectangle" role="function" condition="since:1.10">
+<title>cairo_region_xor_rectangle ()</title>
+<indexterm zone="cairo-region-xor-rectangle" role="1.10"><primary sortas="region_xor_rectangle">cairo_region_xor_rectangle</primary></indexterm>
+<programlisting><link linkend="cairo-status-t"><returnvalue>cairo_status_t</returnvalue></link>      cairo_region_xor_rectangle          (<parameter><link linkend="cairo-region-t"><type>cairo_region_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link> *rectangle</parameter>);</programlisting>
+<para>
+Computes the exclusive difference of <parameter>dst</parameter> with <parameter>rectangle</parameter> and places the
+result in <parameter>dst</parameter>. That is, <parameter>dst</parameter> will be set to contain all areas that are 
+either in <parameter>dst</parameter> or in <parameter>rectangle</parameter>, but not in both.
+</para><variablelist role="params">
+<varlistentry><term><parameter>dst</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-region-t"><type>cairo_region_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rectangle</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="cairo-rectangle-int-t"><type>cairo_rectangle_int_t</type></link></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><link linkend="CAIRO-STATUS-SUCCESS:CAPS"><literal>CAIRO_STATUS_SUCCESS</literal></link> or <link linkend="CAIRO-STATUS-NO-MEMORY:CAPS"><literal>CAIRO_STATUS_NO_MEMORY</literal></link></simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+
+</refsect1>
+
+</refentry>

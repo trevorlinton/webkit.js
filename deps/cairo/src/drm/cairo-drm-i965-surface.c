@@ -695,10 +695,13 @@ i965_surface_finish (void *abstract_surface)
 }
 
 static cairo_status_t
-i965_surface_flush (void *abstract_surface)
+i965_surface_flush (void *abstract_surface, unsigned flags)
 {
     i965_surface_t *surface = abstract_surface;
     cairo_status_t status = CAIRO_STATUS_SUCCESS;
+
+    if (flags)
+	return CAIRO_STATUS_SUCCESS;
 
     if (surface->intel.drm.fallback != NULL)
 	return intel_surface_flush (abstract_surface);

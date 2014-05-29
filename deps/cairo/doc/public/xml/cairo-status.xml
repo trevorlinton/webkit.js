@@ -43,9 +43,9 @@ code is required before or after each individual cairo function call.
 </refsect1>
 <refsect1 id="cairo-Error-handling.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="cairo-status-t" role="enum">
+<refsect2 id="cairo-status-t" role="enum" condition="since:1.0">
 <title>enum cairo_status_t</title>
-<indexterm zone="cairo-status-t"><primary sortas="status_t">cairo_status_t</primary></indexterm>
+<indexterm zone="cairo-status-t" role="1.0"><primary sortas="status_t">cairo_status_t</primary></indexterm>
 <programlisting>typedef enum {
     CAIRO_STATUS_SUCCESS = 0,
 
@@ -102,102 +102,102 @@ to get a human-readable representation of an error message.
 </para><variablelist role="enum">
 <varlistentry id="CAIRO-STATUS-SUCCESS:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_SUCCESS</literal></term>
-<listitem><simpara>no error has occurred
+<listitem><simpara>no error has occurred (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-NO-MEMORY:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_NO_MEMORY</literal></term>
-<listitem><simpara>out of memory
+<listitem><simpara>out of memory (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-INVALID-RESTORE:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_INVALID_RESTORE</literal></term>
-<listitem><simpara>cairo_restore() called without matching <link linkend="cairo-save"><function>cairo_save()</function></link>
+<listitem><simpara>cairo_restore() called without matching <link linkend="cairo-save"><function>cairo_save()</function></link> (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-INVALID-POP-GROUP:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_INVALID_POP_GROUP</literal></term>
-<listitem><simpara>no saved group to pop, i.e. <link linkend="cairo-pop-group"><function>cairo_pop_group()</function></link> without matching <link linkend="cairo-push-group"><function>cairo_push_group()</function></link>
+<listitem><simpara>no saved group to pop, i.e. <link linkend="cairo-pop-group"><function>cairo_pop_group()</function></link> without matching <link linkend="cairo-push-group"><function>cairo_push_group()</function></link> (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-NO-CURRENT-POINT:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_NO_CURRENT_POINT</literal></term>
-<listitem><simpara>no current point defined
+<listitem><simpara>no current point defined (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-INVALID-MATRIX:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_INVALID_MATRIX</literal></term>
-<listitem><simpara>invalid matrix (not invertible)
+<listitem><simpara>invalid matrix (not invertible) (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-INVALID-STATUS:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_INVALID_STATUS</literal></term>
-<listitem><simpara>invalid value for an input <link linkend="cairo-status-t"><type>cairo_status_t</type></link>
+<listitem><simpara>invalid value for an input <link linkend="cairo-status-t"><type>cairo_status_t</type></link> (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-NULL-POINTER:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_NULL_POINTER</literal></term>
-<listitem><simpara><link linkend="NULL:CAPS"><literal>NULL</literal></link> pointer
+<listitem><simpara><link linkend="NULL:CAPS"><literal>NULL</literal></link> pointer (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-INVALID-STRING:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_INVALID_STRING</literal></term>
-<listitem><simpara>input string not valid UTF-8
+<listitem><simpara>input string not valid UTF-8 (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-INVALID-PATH-DATA:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_INVALID_PATH_DATA</literal></term>
-<listitem><simpara>input path data not valid
+<listitem><simpara>input path data not valid (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-READ-ERROR:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_READ_ERROR</literal></term>
-<listitem><simpara>error while reading from input stream
+<listitem><simpara>error while reading from input stream (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-WRITE-ERROR:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_WRITE_ERROR</literal></term>
-<listitem><simpara>error while writing to output stream
+<listitem><simpara>error while writing to output stream (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-SURFACE-FINISHED:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_SURFACE_FINISHED</literal></term>
-<listitem><simpara>target surface has been finished
+<listitem><simpara>target surface has been finished (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-SURFACE-TYPE-MISMATCH:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_SURFACE_TYPE_MISMATCH</literal></term>
-<listitem><simpara>the surface type is not appropriate for the operation
+<listitem><simpara>the surface type is not appropriate for the operation (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-PATTERN-TYPE-MISMATCH:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_PATTERN_TYPE_MISMATCH</literal></term>
-<listitem><simpara>the pattern type is not appropriate for the operation
+<listitem><simpara>the pattern type is not appropriate for the operation (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-INVALID-CONTENT:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_INVALID_CONTENT</literal></term>
-<listitem><simpara>invalid value for an input <link linkend="cairo-content-t"><type>cairo_content_t</type></link>
+<listitem><simpara>invalid value for an input <link linkend="cairo-content-t"><type>cairo_content_t</type></link> (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-INVALID-FORMAT:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_INVALID_FORMAT</literal></term>
-<listitem><simpara>invalid value for an input <link linkend="cairo-format-t"><type>cairo_format_t</type></link>
+<listitem><simpara>invalid value for an input <link linkend="cairo-format-t"><type>cairo_format_t</type></link> (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-INVALID-VISUAL:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_INVALID_VISUAL</literal></term>
-<listitem><simpara>invalid value for an input Visual*
+<listitem><simpara>invalid value for an input Visual* (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-FILE-NOT-FOUND:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_FILE_NOT_FOUND</literal></term>
-<listitem><simpara>file not found
+<listitem><simpara>file not found (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-INVALID-DASH:CAPS" role="constant">
 <term><literal>CAIRO_STATUS_INVALID_DASH</literal></term>
-<listitem><simpara>invalid value for a dash setting
+<listitem><simpara>invalid value for a dash setting (Since 1.0)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-STATUS-INVALID-DSC-COMMENT:CAPS" role="constant">
@@ -301,10 +301,10 @@ to get a human-readable representation of an error message.
   defined than the value of this symbol at compile-time. (Since 1.10)
 </simpara></listitem>
 </varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-status-to-string" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-status-to-string" role="function" condition="since:1.0">
 <title>cairo_status_to_string ()</title>
-<indexterm zone="cairo-status-to-string"><primary sortas="status_to_string">cairo_status_to_string</primary></indexterm>
+<indexterm zone="cairo-status-to-string" role="1.0"><primary sortas="status_to_string">cairo_status_to_string</primary></indexterm>
 <programlisting>const <link linkend="char"><returnvalue>char</returnvalue></link> *        cairo_status_to_string              (<parameter><link linkend="cairo-status-t"><type>cairo_status_t</type></link> status</parameter>);</programlisting>
 <para>
 Provides a human-readable description of a <link linkend="cairo-status-t"><type>cairo_status_t</type></link>.
@@ -312,10 +312,10 @@ Provides a human-readable description of a <link linkend="cairo-status-t"><type>
 <varlistentry><term><parameter>status</parameter>&#160;:</term>
 <listitem><simpara>a cairo status</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a string representation of the status</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-debug-reset-static-data" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-debug-reset-static-data" role="function" condition="since:1.0">
 <title>cairo_debug_reset_static_data ()</title>
-<indexterm zone="cairo-debug-reset-static-data"><primary sortas="debug_reset_static_data">cairo_debug_reset_static_data</primary></indexterm>
+<indexterm zone="cairo-debug-reset-static-data" role="1.0"><primary sortas="debug_reset_static_data">cairo_debug_reset_static_data</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_debug_reset_static_data       (<parameter><type>void</type></parameter>);</programlisting>
 <para>
 Resets all static data within cairo to its original state,
@@ -337,7 +337,7 @@ active cairo objects remaining, (ie. the appropriate destroy
 functions have been called as necessary). If there are active cairo
 objects, this call is likely to cause a crash, (eg. an assertion
 failure due to a hash table being destroyed when non-empty).
-</para></refsect2>
+</para><para role="since">Since 1.0</para></refsect2>
 
 </refsect1>
 <refsect1 id="cairo-Error-handling.see-also">

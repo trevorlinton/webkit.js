@@ -48,17 +48,17 @@
 
 #include "cairo-compositor-private.h"
 #include "cairo-error-private.h"
-#include "cairo-pattern-private.h"
+#include "cairo-pattern-inline.h"
 #include "cairo-paginated-private.h"
 #include "cairo-recording-surface-private.h"
 #include "cairo-surface-observer-private.h"
-#include "cairo-surface-snapshot-private.h"
+#include "cairo-surface-snapshot-inline.h"
 #include "cairo-surface-subsurface-private.h"
 
 #define PIXMAN_MAX_INT ((pixman_fixed_1 >> 1) - pixman_fixed_e) /* need to ensure deltas also fit */
 
 #if CAIRO_NO_MUTEX
-// #define PIXMAN_HAS_ATOMIC_OPS 1
+#define PIXMAN_HAS_ATOMIC_OPS 1
 #endif
 
 #if PIXMAN_HAS_ATOMIC_OPS
@@ -86,7 +86,7 @@ _pixman_transparent_image (void)
 	if (unlikely (image == NULL))
 	    return NULL;
 
-	if (_cairo_atomic_ptr_cmpxchg ((void **)&__pixman_transparent_image,
+	if (_cairo_atomic_ptr_cmpxchg (&__pixman_transparent_image,
 				       NULL, image))
 	{
 	    pixman_image_ref (image);
@@ -118,7 +118,7 @@ _pixman_black_image (void)
 	if (unlikely (image == NULL))
 	    return NULL;
 
-	if (_cairo_atomic_ptr_cmpxchg ((void **)&__pixman_black_image,
+	if (_cairo_atomic_ptr_cmpxchg (&__pixman_black_image,
 				       NULL, image))
 	{
 	    pixman_image_ref (image);
@@ -150,7 +150,7 @@ _pixman_white_image (void)
 	if (unlikely (image == NULL))
 	    return NULL;
 
-	if (_cairo_atomic_ptr_cmpxchg ((void **)&__pixman_white_image,
+	if (_cairo_atomic_ptr_cmpxchg (&__pixman_white_image,
 				       NULL, image))
 	{
 	    pixman_image_ref (image);
@@ -210,35 +210,31 @@ _pixman_image_for_color (const cairo_color_t *cairo_color)
 #if PIXMAN_HAS_ATOMIC_OPS
     int i;
 
-		if (CAIRO_COLOR_IS_CLEAR (cairo_color)) {
-			fprintf(stdout, "_pixman_image_for_color bailing for clear.\n");
-			return _pixman_transparent_image ();
-		}
-    if (CAIRO_COLOR_IS_OPAQUE (cairo_color)) {
-			if (cairo_color->red_short <= 0x00ff &&
-					cairo_color->green_short <= 0x00ff &&
-					cairo_color->blue_short <= 0x00ff)
-			{
-				fprintf(stdout, "_pixman_image_for_color bailing for black.\n");
-				return _pixman_black_image ();
-			}
+    if (CAIRO_COLOR_IS_CLEAR (cairo_color))
+	return _pixman_transparent_image ();
 
-			if (cairo_color->red_short >= 0xff00 &&
-					cairo_color->green_short >= 0xff00 &&
-					cairo_color->blue_short >= 0xff00)
-			{
-				fprintf(stdout, "_pixman_image_for_color bailing for white.\n");
-				return _pixman_white_image ();
-			}
+    if (CAIRO_COLOR_IS_OPAQUE (cairo_color)) {
+	if (cairo_color->red_short <= 0x00ff &&
+	    cairo_color->green_short <= 0x00ff &&
+	    cairo_color->blue_short <= 0x00ff)
+	{
+	    return _pixman_black_image ();
+	}
+
+	if (cairo_color->red_short >= 0xff00 &&
+	    cairo_color->green_short >= 0xff00 &&
+	    cairo_color->blue_short >= 0xff00)
+	{
+	    return _pixman_white_image ();
+	}
     }
 
     CAIRO_MUTEX_LOCK (_cairo_image_solid_cache_mutex);
     for (i = 0; i < n_cached; i++) {
-			if (_cairo_color_equal (&cache[i].color, cairo_color)) {
-				image = pixman_image_ref (cache[i].image);
-				fprintf(stdout, "_pixman_image_for_color jumping to UNLOCK.\n");
-				goto UNLOCK;
-			}
+	if (_cairo_color_equal (&cache[i].color, cairo_color)) {
+	    image = pixman_image_ref (cache[i].image);
+	    goto UNLOCK;
+	}
     }
 #endif
 
@@ -249,15 +245,14 @@ _pixman_image_for_color (const cairo_color_t *cairo_color)
 
     image = pixman_image_create_solid_fill (&color);
 #if PIXMAN_HAS_ATOMIC_OPS
-		if (image == NULL) {
-			fprintf(stdout, "_pixman_image_for_color jumping to UNLOCK[image==null].\n");
-			goto UNLOCK;
-		}
+    if (image == NULL)
+	goto UNLOCK;
+
     if (n_cached < ARRAY_LENGTH (cache)) {
-			i = n_cached++;
+	i = n_cached++;
     } else {
-			i = hars_petruska_f54_1_random () % ARRAY_LENGTH (cache);
-			pixman_image_unref (cache[i].image);
+	i = hars_petruska_f54_1_random () % ARRAY_LENGTH (cache);
+	pixman_image_unref (cache[i].image);
     }
     cache[i].image = pixman_image_ref (image);
     cache[i].color = *cairo_color;
@@ -354,7 +349,7 @@ _pixman_image_for_gradient (const cairo_gradient_pattern_t *pattern,
 	return NULL;
 
     *ix = *iy = 0;
-    status = (cairo_int_status_t)_cairo_matrix_to_pixman_matrix_offset (&matrix, pattern->base.filter,
+    status = _cairo_matrix_to_pixman_matrix_offset (&matrix, pattern->base.filter,
 						    extents->x + extents->width/2.,
 						    extents->y + extents->height/2.,
 						    &pixman_transform, ix, iy);
@@ -435,6 +430,13 @@ _acquire_source_cleanup (pixman_image_t *pixman_image,
 					 data->image,
 					 data->image_extra);
     free (data);
+}
+
+static void
+_defer_free_cleanup (pixman_image_t *pixman_image,
+		     void *closure)
+{
+    cairo_surface_destroy (closure);
 }
 
 static uint16_t
@@ -533,7 +535,7 @@ _pixman_image_set_properties (pixman_image_t *pixman_image,
     pixman_transform_t pixman_transform;
     cairo_int_status_t status;
 
-    status = (cairo_int_status_t)_cairo_matrix_to_pixman_matrix_offset (&pattern->matrix,
+    status = _cairo_matrix_to_pixman_matrix_offset (&pattern->matrix,
 						    pattern->filter,
 						    extents->x + extents->width/2.,
 						    extents->y + extents->height/2.,
@@ -641,7 +643,7 @@ proxy_finish (void *abstract_surface)
 }
 
 static const cairo_surface_backend_t proxy_backend  = {
-    (cairo_surface_type_t)CAIRO_INTERNAL_SURFACE_TYPE_NULL,
+    CAIRO_INTERNAL_SURFACE_TYPE_NULL,
     proxy_finish,
     NULL,
 
@@ -821,11 +823,14 @@ _pixman_image_for_surface (cairo_image_surface_t *dst,
 	(! is_mask || ! pattern->base.has_component_alpha ||
 	 (pattern->surface->content & CAIRO_CONTENT_COLOR) == 0))
     {
+	cairo_surface_t *defer_free = NULL;
 	cairo_image_surface_t *source = (cairo_image_surface_t *) pattern->surface;
 	cairo_surface_type_t type;
 
-	if (_cairo_surface_is_snapshot (&source->base))
-	    source = (cairo_image_surface_t *) _cairo_surface_snapshot_get_target (&source->base);
+	if (_cairo_surface_is_snapshot (&source->base)) {
+	    defer_free = _cairo_surface_snapshot_get_target (&source->base);
+	    source = (cairo_image_surface_t *) defer_free;
+	}
 
 	type = source->base.backend->type;
 	if (type == CAIRO_SURFACE_TYPE_IMAGE) {
@@ -844,15 +849,19 @@ _pixman_image_for_surface (cairo_image_surface_t *dst,
 		    sample->x >= source->width ||
 		    sample->y >= source->height)
 		{
-		    if (extend == CAIRO_EXTEND_NONE)
+		    if (extend == CAIRO_EXTEND_NONE) {
+			cairo_surface_destroy (defer_free);
 			return _pixman_transparent_image ();
+		    }
 		}
 		else
 		{
 		    pixman_image = _pixel_to_solid (source,
 						    sample->x, sample->y);
-                    if (pixman_image)
+                    if (pixman_image) {
+			cairo_surface_destroy (defer_free);
                         return pixman_image;
+		    }
 		}
 	    }
 
@@ -863,6 +872,7 @@ _pixman_image_for_surface (cairo_image_surface_t *dst,
 						     pattern->base.filter,
 						     ix, iy))
 	    {
+		cairo_surface_destroy (defer_free);
 		return pixman_image_ref (source->pixman_image);
 	    }
 #endif
@@ -872,8 +882,16 @@ _pixman_image_for_surface (cairo_image_surface_t *dst,
 						     source->height,
 						     (uint32_t *) source->data,
 						     source->stride);
-	    if (unlikely (pixman_image == NULL))
+	    if (unlikely (pixman_image == NULL)) {
+		cairo_surface_destroy (defer_free);
 		return NULL;
+	    }
+
+	    if (defer_free) {
+		pixman_image_set_destroy_function (pixman_image,
+						   _defer_free_cleanup,
+						   defer_free);
+	    }
 	} else if (type == CAIRO_SURFACE_TYPE_SUBSURFACE) {
 	    cairo_surface_subsurface_t *sub;
 	    cairo_bool_t is_contained = FALSE;

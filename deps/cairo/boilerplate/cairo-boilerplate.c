@@ -514,6 +514,8 @@ _cairo_boilerplate_target_matches_name (const cairo_boilerplate_target_t *target
     size_t name_len;
     size_t content_len;
 
+    if (content_start >= end)
+	content_start = NULL;
     if (content_start != NULL)
 	end = content_start++;
 

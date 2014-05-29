@@ -30,6 +30,12 @@
                                                          <parameter><link linkend="FcPattern"><type>FcPattern</type></link> *pattern</parameter>);
 <link linkend="FT-Face"><returnvalue>FT_Face</returnvalue></link>             <link linkend="cairo-ft-scaled-font-lock-face">cairo_ft_scaled_font_lock_face</link>      (<parameter><link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> *scaled_font</parameter>);
 <link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-ft-scaled-font-unlock-face">cairo_ft_scaled_font_unlock_face</link>    (<parameter><link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> *scaled_font</parameter>);
+enum                <link linkend="cairo-ft-synthesize-t">cairo_ft_synthesize_t</link>;
+unsigned <link linkend="int"><returnvalue>int</returnvalue></link>        <link linkend="cairo-ft-font-face-get-synthesize">cairo_ft_font_face_get_synthesize</link>   (<parameter><link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> *font_face</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-ft-font-face-set-synthesize">cairo_ft_font_face_set_synthesize</link>   (<parameter><link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> *font_face</parameter>,
+                                                         <parameter>unsigned <link linkend="int"><type>int</type></link> synth_flags</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cairo-ft-font-face-unset-synthesize">cairo_ft_font_face_unset_synthesize</link> (<parameter><link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> *font_face</parameter>,
+                                                         <parameter>unsigned <link linkend="int"><type>int</type></link> synth_flags</parameter>);
 </synopsis>
 </refsynopsisdiv>
 
@@ -42,28 +48,28 @@ systems, but can be used on other platforms too.
 </refsect1>
 <refsect1 id="cairo-FreeType-Fonts.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="CAIRO-HAS-FT-FONT:CAPS" role="macro">
+<refsect2 id="CAIRO-HAS-FT-FONT:CAPS" role="macro" condition="since:1.0">
 <title>CAIRO_HAS_FT_FONT</title>
-<indexterm zone="CAIRO-HAS-FT-FONT:CAPS"><primary sortas="HAS_FT_FONT">CAIRO_HAS_FT_FONT</primary></indexterm>
+<indexterm zone="CAIRO-HAS-FT-FONT:CAPS" role="1.0"><primary sortas="HAS_FT_FONT">CAIRO_HAS_FT_FONT</primary></indexterm>
 <programlisting>#define CAIRO_HAS_FT_FONT 1
 </programlisting>
 <para>
 Defined if the FreeType font backend is available.
 This macro can be used to conditionally compile backend-specific code.
-</para></refsect2>
-<refsect2 id="CAIRO-HAS-FC-FONT:CAPS" role="macro">
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="CAIRO-HAS-FC-FONT:CAPS" role="macro" condition="since:1.10">
 <title>CAIRO_HAS_FC_FONT</title>
-<indexterm zone="CAIRO-HAS-FC-FONT:CAPS"><primary sortas="HAS_FC_FONT">CAIRO_HAS_FC_FONT</primary></indexterm>
+<indexterm zone="CAIRO-HAS-FC-FONT:CAPS" role="1.10"><primary sortas="HAS_FC_FONT">CAIRO_HAS_FC_FONT</primary></indexterm>
 <programlisting>#define CAIRO_HAS_FC_FONT 1
 </programlisting>
 <para>
 Defined if the Fontconfig-specific functions of the FreeType font backend
 are available.
 This macro can be used to conditionally compile backend-specific code.
-</para></refsect2>
-<refsect2 id="cairo-ft-font-face-create-for-ft-face" role="function">
+</para><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="cairo-ft-font-face-create-for-ft-face" role="function" condition="since:1.0">
 <title>cairo_ft_font_face_create_for_ft_face ()</title>
-<indexterm zone="cairo-ft-font-face-create-for-ft-face"><primary sortas="ft_font_face_create_for_ft_face">cairo_ft_font_face_create_for_ft_face</primary></indexterm>
+<indexterm zone="cairo-ft-font-face-create-for-ft-face" role="1.0"><primary sortas="ft_font_face_create_for_ft_face">cairo_ft_font_face_create_for_ft_face</primary></indexterm>
 <programlisting><link linkend="cairo-font-face-t"><returnvalue>cairo_font_face_t</returnvalue></link> * cairo_ft_font_face_create_for_ft_face
                                                         (<parameter><link linkend="FT-Face"><type>FT_Face</type></link> face</parameter>,
                                                          <parameter><link linkend="int"><type>int</type></link> load_flags</parameter>);</programlisting>
@@ -114,10 +120,10 @@ are useful. You should not pass any of the flags affecting
 the load target, such as <link linkend="FT-LOAD-TARGET-LIGHT:CAPS"><literal>FT_LOAD_TARGET_LIGHT</literal></link>.</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a newly created <link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link>. Free with
 <link linkend="cairo-font-face-destroy"><function>cairo_font_face_destroy()</function></link> when you are done using it.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-ft-font-face-create-for-pattern" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-ft-font-face-create-for-pattern" role="function" condition="since:1.0">
 <title>cairo_ft_font_face_create_for_pattern ()</title>
-<indexterm zone="cairo-ft-font-face-create-for-pattern"><primary sortas="ft_font_face_create_for_pattern">cairo_ft_font_face_create_for_pattern</primary></indexterm>
+<indexterm zone="cairo-ft-font-face-create-for-pattern" role="1.0"><primary sortas="ft_font_face_create_for_pattern">cairo_ft_font_face_create_for_pattern</primary></indexterm>
 <programlisting><link linkend="cairo-font-face-t"><returnvalue>cairo_font_face_t</returnvalue></link> * cairo_ft_font_face_create_for_pattern
                                                         (<parameter><link linkend="FcPattern"><type>FcPattern</type></link> *pattern</parameter>);</programlisting>
 <para>
@@ -159,10 +165,10 @@ the life time of the FT_Face to that of the cairo font-face.
 if it needs to.  You are free to modify or free <parameter>pattern</parameter> after this call.</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>a newly created <link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link>. Free with
 <link linkend="cairo-font-face-destroy"><function>cairo_font_face_destroy()</function></link> when you are done using it.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-ft-font-options-substitute" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-ft-font-options-substitute" role="function" condition="since:1.0">
 <title>cairo_ft_font_options_substitute ()</title>
-<indexterm zone="cairo-ft-font-options-substitute"><primary sortas="ft_font_options_substitute">cairo_ft_font_options_substitute</primary></indexterm>
+<indexterm zone="cairo-ft-font-options-substitute" role="1.0"><primary sortas="ft_font_options_substitute">cairo_ft_font_options_substitute</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_ft_font_options_substitute    (<parameter>const <link linkend="cairo-font-options-t"><type>cairo_font_options_t</type></link> *options</parameter>,
                                                          <parameter><link linkend="FcPattern"><type>FcPattern</type></link> *pattern</parameter>);</programlisting>
 <para>
@@ -176,10 +182,10 @@ before calling <link linkend="FcDefaultSubstitute"><function>FcDefaultSubstitute
 <listitem><simpara>a <link linkend="cairo-font-options-t"><type>cairo_font_options_t</type></link> object</simpara></listitem></varlistentry>
 <varlistentry><term><parameter>pattern</parameter>&#160;:</term>
 <listitem><simpara>an existing <link linkend="FcPattern"><type>FcPattern</type></link></simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-ft-scaled-font-lock-face" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-ft-scaled-font-lock-face" role="function" condition="since:1.0">
 <title>cairo_ft_scaled_font_lock_face ()</title>
-<indexterm zone="cairo-ft-scaled-font-lock-face"><primary sortas="ft_scaled_font_lock_face">cairo_ft_scaled_font_lock_face</primary></indexterm>
+<indexterm zone="cairo-ft-scaled-font-lock-face" role="1.0"><primary sortas="ft_scaled_font_lock_face">cairo_ft_scaled_font_lock_face</primary></indexterm>
 <programlisting><link linkend="FT-Face"><returnvalue>FT_Face</returnvalue></link>             cairo_ft_scaled_font_lock_face      (<parameter><link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> *scaled_font</parameter>);</programlisting>
 <para>
 <link linkend="cairo-ft-scaled-font-lock-face"><function>cairo_ft_scaled_font_lock_face()</function></link> gets the <link linkend="FT-Face"><type>FT_Face</type></link> object from a FreeType
@@ -210,10 +216,10 @@ FreeType backend font face (see <link linkend="cairo-ft-font-face-create-for-pat
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>The <link linkend="FT-Face"><type>FT_Face</type></link> object for <parameter>font</parameter>, scaled appropriately,
 or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if <parameter>scaled_font</parameter> is in an error state (see
 <link linkend="cairo-scaled-font-status"><function>cairo_scaled_font_status()</function></link>) or there is insufficient memory.</simpara></listitem></varlistentry>
-</variablelist></refsect2>
-<refsect2 id="cairo-ft-scaled-font-unlock-face" role="function">
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-ft-scaled-font-unlock-face" role="function" condition="since:1.0">
 <title>cairo_ft_scaled_font_unlock_face ()</title>
-<indexterm zone="cairo-ft-scaled-font-unlock-face"><primary sortas="ft_scaled_font_unlock_face">cairo_ft_scaled_font_unlock_face</primary></indexterm>
+<indexterm zone="cairo-ft-scaled-font-unlock-face" role="1.0"><primary sortas="ft_scaled_font_unlock_face">cairo_ft_scaled_font_unlock_face</primary></indexterm>
 <programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_ft_scaled_font_unlock_face    (<parameter><link linkend="cairo-scaled-font-t"><type>cairo_scaled_font_t</type></link> *scaled_font</parameter>);</programlisting>
 <para>
 Releases a face obtained with <link linkend="cairo-ft-scaled-font-lock-face"><function>cairo_ft_scaled_font_lock_face()</function></link>.
@@ -223,7 +229,80 @@ Releases a face obtained with <link linkend="cairo-ft-scaled-font-lock-face"><fu
 object can be created by calling <link linkend="cairo-scaled-font-create"><function>cairo_scaled_font_create()</function></link> on a
 FreeType backend font face (see <link linkend="cairo-ft-font-face-create-for-pattern"><function>cairo_ft_font_face_create_for_pattern()</function></link>,
 <link linkend="cairo-ft-font-face-create-for-ft-face"><function>cairo_ft_font_face_create_for_ft_face()</function></link>).</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-ft-synthesize-t" role="enum" condition="since:1.12">
+<title>enum cairo_ft_synthesize_t</title>
+<indexterm zone="cairo-ft-synthesize-t" role="1.12"><primary sortas="ft_synthesize_t">cairo_ft_synthesize_t</primary></indexterm>
+<programlisting>typedef enum {
+    CAIRO_FT_SYNTHESIZE_BOLD = 1 &lt;&lt; 0,
+    CAIRO_FT_SYNTHESIZE_OBLIQUE = 1 &lt;&lt; 1
+} cairo_ft_synthesize_t;
+</programlisting>
+<para>
+A set of synthesis options to control how FreeType renders the glyphs
+for a particular font face.
+</para>
+<para>
+Individual synthesis features of a <link linkend="cairo-ft-font-face-t"><type>cairo_ft_font_face_t</type></link> can be set
+using <link linkend="cairo-ft-font-face-set-synthesize"><function>cairo_ft_font_face_set_synthesize()</function></link>, or disabled using
+<link linkend="cairo-ft-font-face-unset-synthesize"><function>cairo_ft_font_face_unset_synthesize()</function></link>. The currently enabled set of
+synthesis options can be queried with <link linkend="cairo-ft-font-face-get-synthesize"><function>cairo_ft_font_face_get_synthesize()</function></link>.
+</para>
+<para>
+Note: that when synthesizing glyphs, the font metrics returned will only
+be estimates.
+</para><variablelist role="enum">
+<varlistentry id="CAIRO-FT-SYNTHESIZE-BOLD:CAPS" role="constant">
+<term><literal>CAIRO_FT_SYNTHESIZE_BOLD</literal></term>
+<listitem><simpara>Embolden the glyphs (redraw with a pixel offset)
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="CAIRO-FT-SYNTHESIZE-OBLIQUE:CAPS" role="constant">
+<term><literal>CAIRO_FT_SYNTHESIZE_OBLIQUE</literal></term>
+<listitem><simpara>Slant the glyph outline by 12 degrees to the
+right.
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-ft-font-face-get-synthesize" role="function" condition="since:1.12">
+<title>cairo_ft_font_face_get_synthesize ()</title>
+<indexterm zone="cairo-ft-font-face-get-synthesize" role="1.12"><primary sortas="ft_font_face_get_synthesize">cairo_ft_font_face_get_synthesize</primary></indexterm>
+<programlisting>unsigned <link linkend="int"><returnvalue>int</returnvalue></link>        cairo_ft_font_face_get_synthesize   (<parameter><link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> *font_face</parameter>);</programlisting>
+<para>
+See <link linkend="cairo-ft-synthesize-t"><type>cairo_ft_synthesize_t</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>font_face</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="cairo-ft-font-face-t"><type>cairo_ft_font_face_t</type></link> object to query</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the current set of synthesis options.</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-ft-font-face-set-synthesize" role="function" condition="since:1.12">
+<title>cairo_ft_font_face_set_synthesize ()</title>
+<indexterm zone="cairo-ft-font-face-set-synthesize" role="1.12"><primary sortas="ft_font_face_set_synthesize">cairo_ft_font_face_set_synthesize</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_ft_font_face_set_synthesize   (<parameter><link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> *font_face</parameter>,
+                                                         <parameter>unsigned <link linkend="int"><type>int</type></link> synth_flags</parameter>);</programlisting>
+<para>
+FreeType provides the ability to synthesize different glyphs from a base
+font, which is useful if you lack those glyphs from a true bold or oblique
+font. See also <link linkend="cairo-ft-synthesize-t"><type>cairo_ft_synthesize_t</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>font_face</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="cairo-ft-font-face-t"><type>cairo_ft_font_face_t</type></link> object to modify</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>synth_flags</parameter>&#160;:</term>
+<listitem><simpara>the set of synthesis options to enable</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.12</para></refsect2>
+<refsect2 id="cairo-ft-font-face-unset-synthesize" role="function" condition="since:1.12">
+<title>cairo_ft_font_face_unset_synthesize ()</title>
+<indexterm zone="cairo-ft-font-face-unset-synthesize" role="1.12"><primary sortas="ft_font_face_unset_synthesize">cairo_ft_font_face_unset_synthesize</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cairo_ft_font_face_unset_synthesize (<parameter><link linkend="cairo-font-face-t"><type>cairo_font_face_t</type></link> *font_face</parameter>,
+                                                         <parameter>unsigned <link linkend="int"><type>int</type></link> synth_flags</parameter>);</programlisting>
+<para>
+See <link linkend="cairo-ft-font-face-set-synthesize"><function>cairo_ft_font_face_set_synthesize()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>font_face</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="cairo-ft-font-face-t"><type>cairo_ft_font_face_t</type></link> object to modify</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>synth_flags</parameter>&#160;:</term>
+<listitem><simpara>the set of synthesis options to disable</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.12</para></refsect2>
 
 </refsect1>
 <refsect1 id="cairo-FreeType-Fonts.see-also">

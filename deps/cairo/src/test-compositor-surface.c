@@ -145,6 +145,8 @@ test_compositor_surface_stroke (void				*_surface,
 				const cairo_clip_t		*clip)
 {
     test_compositor_surface_t *surface = _surface;
+    if (antialias == CAIRO_ANTIALIAS_DEFAULT)
+	antialias = CAIRO_ANTIALIAS_BEST;
     return _cairo_compositor_stroke (surface->base.compositor,
 				     _surface, op, source,
 				     path, style, ctm, ctm_inverse,
@@ -163,6 +165,8 @@ test_compositor_surface_fill (void			*_surface,
 			      const cairo_clip_t	*clip)
 {
     test_compositor_surface_t *surface = _surface;
+    if (antialias == CAIRO_ANTIALIAS_DEFAULT)
+	antialias = CAIRO_ANTIALIAS_BEST;
     return _cairo_compositor_fill (surface->base.compositor,
 				   _surface, op, source,
 				   path, fill_rule, tolerance, antialias,

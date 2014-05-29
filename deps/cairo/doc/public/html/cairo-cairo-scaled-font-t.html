@@ -114,6 +114,7 @@ scaled font can be queried using <a class="link" href="cairo-cairo-scaled-font-t
 Memory management of <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-t" title="cairo_scaled_font_t"><span class="type">cairo_scaled_font_t</span></a> is done with
 <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-reference" title="cairo_scaled_font_reference ()"><code class="function">cairo_scaled_font_reference()</code></a> and <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-destroy" title="cairo_scaled_font_destroy ()"><code class="function">cairo_scaled_font_destroy()</code></a>.
 </p>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -161,6 +162,7 @@ rendering with it.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -180,7 +182,7 @@ The number of references to a <a class="link" href="cairo-cairo-scaled-font-t.ht
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>scaled_font</code></em> :</span></p></td>
-<td>a <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-t" title="cairo_scaled_font_t"><span class="type">cairo_scaled_font_t</span></a>, (may be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> in which case
+<td>a <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-t" title="cairo_scaled_font_t"><span class="type">cairo_scaled_font_t</span></a>, (may be <code class="literal">NULL</code> in which case
 this function does nothing)</td>
 </tr>
 <tr>
@@ -190,6 +192,7 @@ this function does nothing)</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -208,6 +211,7 @@ See <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-refer
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -233,6 +237,7 @@ scaled_font.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -305,6 +310,7 @@ vertically.)</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -328,6 +334,7 @@ Gets the metrics for a <a class="link" href="cairo-cairo-scaled-font-t.html#cair
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -389,6 +396,7 @@ for vertical text layout as found in East-Asian languages.</td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -475,6 +483,7 @@ rectangle (extents.width and extents.height).
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -494,7 +503,7 @@ Converts UTF-8 text to an array of glyphs, optionally with cluster
 mapping, that can be used to render later using <em class="parameter"><code>scaled_font</code></em>.
 </p>
 <p>
-If <em class="parameter"><code>glyphs</code></em> initially points to a non-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> value, that array is used
+If <em class="parameter"><code>glyphs</code></em> initially points to a non-<code class="literal">NULL</code> value, that array is used
 as a glyph buffer, and <em class="parameter"><code>num_glyphs</code></em> should point to the number of glyph
 entries available there.  If the provided glyph array is too short for
 the conversion, a new glyph array is allocated using <a class="link" href="cairo-text.html#cairo-glyph-allocate" title="cairo_glyph_allocate ()"><code class="function">cairo_glyph_allocate()</code></a>
@@ -505,11 +514,11 @@ array using <a class="link" href="cairo-text.html#cairo-glyph-free" title="cairo
 array was large enough.
 </p>
 <p>
-If <em class="parameter"><code>clusters</code></em> is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, <em class="parameter"><code>num_clusters</code></em> and <em class="parameter"><code>cluster_flags</code></em> should not be <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>,
+If <em class="parameter"><code>clusters</code></em> is not <code class="literal">NULL</code>, <em class="parameter"><code>num_clusters</code></em> and <em class="parameter"><code>cluster_flags</code></em> should not be <code class="literal">NULL</code>,
 and cluster mapping will be computed.
 The semantics of how cluster array allocation works is similar to the glyph
 array.  That is,
-if <em class="parameter"><code>clusters</code></em> initially points to a non-<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> value, that array is used
+if <em class="parameter"><code>clusters</code></em> initially points to a non-<code class="literal">NULL</code> value, that array is used
 as a cluster buffer, and <em class="parameter"><code>num_clusters</code></em> should point to the number of cluster
 entries available there.  If the provided cluster array is too short for
 the conversion, a new cluster array is allocated using <a class="link" href="cairo-text.html#cairo-text-cluster-allocate" title="cairo_text_cluster_allocate ()"><code class="function">cairo_text_cluster_allocate()</code></a>
@@ -520,7 +529,7 @@ array using <a class="link" href="cairo-text.html#cairo-text-cluster-free" title
 array was large enough.
 </p>
 <p>
-In the simplest case, <em class="parameter"><code>glyphs</code></em> and <em class="parameter"><code>clusters</code></em> can point to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> initially
+In the simplest case, <em class="parameter"><code>glyphs</code></em> and <em class="parameter"><code>clusters</code></em> can point to <code class="literal">NULL</code> initially
 and a suitable array will be allocated.  In code:
 </p>
 <div class="informalexample">
@@ -738,18 +747,18 @@ same <em class="parameter"><code>scaled_font</code></em> is used for the operati
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>clusters</code></em> :</span></p></td>
-<td>pointer to array of cluster mapping information to fill, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>pointer to array of cluster mapping information to fill, or <code class="literal">NULL</code>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>num_clusters</code></em> :</span></p></td>
-<td>pointer to number of clusters, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+<td>pointer to number of clusters, or <code class="literal">NULL</code>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cluster_flags</code></em> :</span></p></td>
 <td>pointer to location to store cluster flags corresponding to the
-output <em class="parameter"><code>clusters</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+output <em class="parameter"><code>clusters</code></em>, or <code class="literal">NULL</code>
 </td>
 </tr>
 <tr>
@@ -784,7 +793,8 @@ hold true for all possible cases.
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>The <a class="link" href="cairo-cairo-font-face-t.html#cairo-font-face-t" title="cairo_font_face_t"><span class="type">cairo_font_face_t</span></a> with which <em class="parameter"><code>scaled_font</code></em> was
-created.</td>
+created.  This object is owned by cairo. To keep a reference to it,
+you must call <a class="link" href="cairo-cairo-scaled-font-t.html#cairo-scaled-font-reference" title="cairo_scaled_font_reference ()"><code class="function">cairo_scaled_font_reference()</code></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -953,7 +963,7 @@ object is a nil object, 0 will be returned.</td>
                                                          <em class="parameter"><code><a class="link" href="cairo-Types.html#cairo-destroy-func-t" title="cairo_destroy_func_t ()"><span class="type">cairo_destroy_func_t</span></a> destroy</code></em>);</pre>
 <p>
 Attach user data to <em class="parameter"><code>scaled_font</code></em>.  To remove user data from a surface,
-call this function with the key that was used to set it and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+call this function with the key that was used to set it and <code class="literal">NULL</code>
 for <em class="parameter"><code>data</code></em>.
 </p>
 <div class="variablelist"><table border="0">
@@ -997,7 +1007,7 @@ slot could not be allocated for the user data.</td>
 <p>
 Return user data previously attached to <em class="parameter"><code>scaled_font</code></em> using the
 specified key.  If no user data has been attached with the given
-key this function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+key this function returns <code class="literal">NULL</code>.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -1014,7 +1024,7 @@ attached to</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the user data previously attached or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</td>
+<td>the user data previously attached or <code class="literal">NULL</code>.</td>
 </tr>
 </tbody>
 </table></div>

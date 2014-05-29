@@ -39,7 +39,7 @@ for def in $defs; do
 
 	{
 		echo EXPORTS
-		eval $get_cairo_syms | c++filt --no-params | grep -v '^_cairo_test_\|^_fini\|^_init\|^_save[fg]pr\|^_rest[fg]pr\|^_Z\|^__gnu' | sort -u
+		eval $get_cairo_syms | c++filt --no-params | grep -v '^_cairo_test_\|^_fini\|^_init\|^_save[fg]pr\|^_rest[fg]pr\|^_Z\|^__gnu\|^__bss\|^_edata\|^_end' | sort -u
 		# cheat: copy the last line from the def file!
 		tail -n1 "$def"
 	} | diff "$def" - >&2 || stat=1

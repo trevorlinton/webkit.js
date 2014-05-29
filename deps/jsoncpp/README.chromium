@@ -1,0 +1,10 @@
+Name: jsoncpp
+URL: http://jsoncpp.svn.sourceforge.net/svnroot/jsoncpp/trunk/jsoncpp
+Version: 248
+License: MIT
+License File: LICENSE
+Security Critical: yes
+
+Description:
+The libjingle/webrtc uses jsoncpp for signaling message serialization and deserialization.
+

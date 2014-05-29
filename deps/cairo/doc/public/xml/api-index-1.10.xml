@@ -20,14 +20,22 @@
 <indexentry><primaryie linkends="cairo-device-type-t"><link linkend="cairo-device-type-t">cairo_device_type_t</link>, enum in <link linkend="cairo-cairo-device-t">cairo_device_t</link></primaryie></indexentry>
 </indexdiv>
 <indexdiv><title>H</title>
+<indexentry><primaryie linkends="CAIRO-HAS-FC-FONT:CAPS"><link linkend="CAIRO-HAS-FC-FONT:CAPS">CAIRO_HAS_FC_FONT</link>, macro in <link linkend="cairo-FreeType-Fonts">FreeType Fonts</link></primaryie></indexentry>
 <indexentry><primaryie linkends="CAIRO-HAS-RECORDING-SURFACE:CAPS"><link linkend="CAIRO-HAS-RECORDING-SURFACE:CAPS">CAIRO_HAS_RECORDING_SURFACE</link>, macro in <link linkend="cairo-Recording-Surfaces">Recording Surfaces</link></primaryie></indexentry>
 </indexdiv>
 <indexdiv><title>I</title>
 <indexentry><primaryie linkends="cairo-in-clip"><link linkend="cairo-in-clip">cairo_in_clip</link>, function in <link linkend="cairo-cairo-t">cairo_t</link></primaryie></indexentry>
 </indexdiv>
+<indexdiv><title>M</title>
+<indexentry><primaryie linkends="CAIRO-MIME-TYPE-JP2:CAPS"><link linkend="CAIRO-MIME-TYPE-JP2:CAPS">CAIRO_MIME_TYPE_JP2</link>, macro in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-MIME-TYPE-JPEG:CAPS"><link linkend="CAIRO-MIME-TYPE-JPEG:CAPS">CAIRO_MIME_TYPE_JPEG</link>, macro in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-MIME-TYPE-PNG:CAPS"><link linkend="CAIRO-MIME-TYPE-PNG:CAPS">CAIRO_MIME_TYPE_PNG</link>, macro in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+<indexentry><primaryie linkends="CAIRO-MIME-TYPE-URI:CAPS"><link linkend="CAIRO-MIME-TYPE-URI:CAPS">CAIRO_MIME_TYPE_URI</link>, macro in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
+</indexdiv>
 <indexdiv><title>P</title>
 <indexentry><primaryie linkends="cairo-pdf-get-versions"><link linkend="cairo-pdf-get-versions">cairo_pdf_get_versions</link>, function in <link linkend="cairo-PDF-Surfaces">PDF Surfaces</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-pdf-surface-restrict-to-version"><link linkend="cairo-pdf-surface-restrict-to-version">cairo_pdf_surface_restrict_to_version</link>, function in <link linkend="cairo-PDF-Surfaces">PDF Surfaces</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-pdf-version-t"><link linkend="cairo-pdf-version-t">cairo_pdf_version_t</link>, enum in <link linkend="cairo-PDF-Surfaces">PDF Surfaces</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-pdf-version-to-string"><link linkend="cairo-pdf-version-to-string">cairo_pdf_version_to_string</link>, function in <link linkend="cairo-PDF-Surfaces">PDF Surfaces</link></primaryie></indexentry>
 </indexdiv>
 <indexdiv><title>R</title>
@@ -48,6 +56,7 @@
 <indexentry><primaryie linkends="cairo-region-intersect-rectangle"><link linkend="cairo-region-intersect-rectangle">cairo_region_intersect_rectangle</link>, function in <link linkend="cairo-Regions">Regions</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-region-is-empty"><link linkend="cairo-region-is-empty">cairo_region_is_empty</link>, function in <link linkend="cairo-Regions">Regions</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-region-num-rectangles"><link linkend="cairo-region-num-rectangles">cairo_region_num_rectangles</link>, function in <link linkend="cairo-Regions">Regions</link></primaryie></indexentry>
+<indexentry><primaryie linkends="cairo-region-overlap-t"><link linkend="cairo-region-overlap-t">cairo_region_overlap_t</link>, enum in <link linkend="cairo-Regions">Regions</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-region-reference"><link linkend="cairo-region-reference">cairo_region_reference</link>, function in <link linkend="cairo-Regions">Regions</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-region-status"><link linkend="cairo-region-status">cairo_region_status</link>, function in <link linkend="cairo-Regions">Regions</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-region-subtract"><link linkend="cairo-region-subtract">cairo_region_subtract</link>, function in <link linkend="cairo-Regions">Regions</link></primaryie></indexentry>
@@ -60,7 +69,6 @@
 <indexentry><primaryie linkends="cairo-region-xor-rectangle"><link linkend="cairo-region-xor-rectangle">cairo_region_xor_rectangle</link>, function in <link linkend="cairo-Regions">Regions</link></primaryie></indexentry>
 </indexdiv>
 <indexdiv><title>S</title>
-<indexentry><primaryie linkends="cairo-script-mode-t"><link linkend="cairo-script-mode-t">cairo_script_mode_t</link>, enum in <link linkend="cairo-Script-Surfaces">Script Surfaces</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-surface-create-for-rectangle"><link linkend="cairo-surface-create-for-rectangle">cairo_surface_create_for_rectangle</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-surface-get-device"><link linkend="cairo-surface-get-device">cairo_surface_get_device</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>
 <indexentry><primaryie linkends="cairo-surface-get-mime-data"><link linkend="cairo-surface-get-mime-data">cairo_surface_get_mime_data</link>, function in <link linkend="cairo-cairo-surface-t">cairo_surface_t</link></primaryie></indexentry>

@@ -56,7 +56,7 @@
  * or implicitly using the <firstterm>toy</firstterm> text API by way of
  * cairo_select_font_face().  The resulting face can be accessed using
  * cairo_get_font_face().
- */
+ **/
 
 /* #cairo_font_face_t */
 
@@ -108,6 +108,8 @@ _cairo_font_face_init (cairo_font_face_t               *font_face,
  * cairo_font_face_get_reference_count().
  *
  * Return value: the referenced #cairo_font_face_t.
+ *
+ * Since: 1.0
  **/
 cairo_font_face_t *
 cairo_font_face_reference (cairo_font_face_t *font_face)
@@ -133,6 +135,8 @@ slim_hidden_def (cairo_font_face_reference);
  * Decreases the reference count on @font_face by one. If the result
  * is zero, then @font_face and all associated resources are freed.
  * See cairo_font_face_reference().
+ *
+ * Since: 1.0
  **/
 void
 cairo_font_face_destroy (cairo_font_face_t *font_face)
@@ -212,6 +216,8 @@ cairo_font_face_get_reference_count (cairo_font_face_t *font_face)
  *
  * Return value: %CAIRO_STATUS_SUCCESS or another error such as
  *   %CAIRO_STATUS_NO_MEMORY.
+ *
+ * Since: 1.0
  **/
 cairo_status_t
 cairo_font_face_status (cairo_font_face_t *font_face)
@@ -230,6 +236,8 @@ cairo_font_face_status (cairo_font_face_t *font_face)
  * function returns %NULL.
  *
  * Return value: the user data previously attached or %NULL.
+ *
+ * Since: 1.0
  **/
 void *
 cairo_font_face_get_user_data (cairo_font_face_t	   *font_face,
@@ -255,6 +263,8 @@ slim_hidden_def (cairo_font_face_get_user_data);
  *
  * Return value: %CAIRO_STATUS_SUCCESS or %CAIRO_STATUS_NO_MEMORY if a
  * slot could not be allocated for the user data.
+ *
+ * Since: 1.0
  **/
 cairo_status_t
 cairo_font_face_set_user_data (cairo_font_face_t	   *font_face,

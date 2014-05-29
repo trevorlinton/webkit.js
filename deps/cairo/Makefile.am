@@ -14,7 +14,7 @@ EXTRA_DIST += \
 #	$(srcdir)/build/Makefile.win32.features-h \
 #	$(NULL)
 
-ACLOCAL_AMFLAGS = -I build
+ACLOCAL_AMFLAGS = -I build ${ACLOCAL_FLAGS}
 
 DIST_SUBDIRS = src doc util boilerplate test perf
 SUBDIRS = src doc util

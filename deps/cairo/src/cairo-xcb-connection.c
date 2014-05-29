@@ -35,7 +35,7 @@
 #include "cairo-xcb-private.h"
 #include "cairo-hash-private.h"
 #include "cairo-freelist-private.h"
-#include "cairo-list-private.h"
+#include "cairo-list-inline.h"
 
 #include <xcb/xcbext.h>
 #include <xcb/bigreq.h>
@@ -809,6 +809,8 @@ cairo_xcb_device_get_connection (cairo_device_t *device)
  * the SHM extension.
  *
  * Use the special values -1 and -1 for disabling the SHM extension.
+ *
+ * Since: 1.12
  **/
 void
 cairo_xcb_device_debug_cap_xshm_version (cairo_device_t *device,
@@ -848,6 +850,8 @@ cairo_xcb_device_debug_cap_xshm_version (cairo_device_t *device,
  * the RENDER extension.
  *
  * Use the special values -1 and -1 for disabling the RENDER extension.
+ *
+ * Since: 1.12
  **/
 void
 cairo_xcb_device_debug_cap_xrender_version (cairo_device_t *device,

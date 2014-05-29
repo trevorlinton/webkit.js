@@ -35,6 +35,7 @@
 
 #include "cairoint.h"
 
+#include "cairo-clip-inline.h"
 #include "cairo-error-private.h"
 #include "cairo-image-surface-private.h"
 #include "cairo-recording-surface-private.h"
@@ -83,23 +84,19 @@ _cairo_surface_subsurface_create_similar_image (void *other,
 							   width, height);
 }
 
-static cairo_surface_t *
+static cairo_image_surface_t *
 _cairo_surface_subsurface_map_to_image (void *abstract_surface,
 					const cairo_rectangle_int_t *extents)
 {
     cairo_surface_subsurface_t *surface = abstract_surface;
     cairo_rectangle_int_t target_extents;
 
-    if (surface->target->backend->map_to_image == NULL)
-	return NULL;
-
     target_extents.x = extents->x + surface->extents.x;
     target_extents.y = extents->y + surface->extents.y;
     target_extents.width  = extents->width;
     target_extents.height = extents->height;
 
-    return surface->target->backend->map_to_image (surface->target,
-						   &target_extents);
+    return _cairo_surface_map_to_image (surface->target, &target_extents);
 }
 
 static cairo_int_status_t
@@ -107,11 +104,7 @@ _cairo_surface_subsurface_unmap_image (void *abstract_surface,
 				       cairo_image_surface_t *image)
 {
     cairo_surface_subsurface_t *surface = abstract_surface;
-
-    if (surface->target->backend->unmap_image == NULL)
-	return CAIRO_INT_STATUS_UNSUPPORTED;
-
-    return surface->target->backend->unmap_image (surface->target, image);
+    return _cairo_surface_unmap_image (surface->target, image);
 }
 
 static cairo_int_status_t
@@ -130,7 +123,7 @@ _cairo_surface_subsurface_paint (void *abstract_surface,
 					 -surface->extents.x, -surface->extents.y,
 					  op, source, target_clip);
     _cairo_clip_destroy (target_clip);
-    return (cairo_int_status_t)status;
+    return status;
 }
 
 static cairo_int_status_t
@@ -150,7 +143,7 @@ _cairo_surface_subsurface_mask (void *abstract_surface,
 					 -surface->extents.x, -surface->extents.y,
 					 op, source, mask, target_clip);
     _cairo_clip_destroy (target_clip);
-    return (cairo_int_status_t)status;
+    return status;
 }
 
 static cairo_int_status_t
@@ -174,7 +167,7 @@ _cairo_surface_subsurface_fill (void			*abstract_surface,
 					 op, source, path, fill_rule, tolerance, antialias,
 					 target_clip);
     _cairo_clip_destroy (target_clip);
-    return (cairo_int_status_t)status;
+    return status;
 }
 
 static cairo_int_status_t
@@ -201,7 +194,7 @@ _cairo_surface_subsurface_stroke (void				*abstract_surface,
 					   tolerance, antialias,
 					   target_clip);
     _cairo_clip_destroy (target_clip);
-    return (cairo_int_status_t)status;
+    return status;
 }
 
 static cairo_int_status_t
@@ -225,16 +218,14 @@ _cairo_surface_subsurface_glyphs (void			*abstract_surface,
 					   scaled_font, glyphs, num_glyphs,
 					   target_clip);
     _cairo_clip_destroy (target_clip);
-    return (cairo_int_status_t)status;
+    return status;
 }
 
 static cairo_status_t
-_cairo_surface_subsurface_flush (void *abstract_surface)
+_cairo_surface_subsurface_flush (void *abstract_surface, unsigned flags)
 {
     cairo_surface_subsurface_t *surface = abstract_surface;
-
-    cairo_surface_flush (surface->target);
-    return surface->target->status;
+    return _cairo_surface_flush (surface->target, flags);
 }
 
 static cairo_status_t
@@ -301,7 +292,8 @@ _cairo_surface_subsurface_source (void *abstract_surface,
     cairo_surface_t *source;
 
     source = _cairo_surface_get_source (surface->target, extents);
-    *extents = surface->extents;
+    if (extents)
+	*extents = surface->extents;
 
     return source;
 }
@@ -562,6 +554,12 @@ _cairo_surface_subsurface_set_snapshot (cairo_surface_t *surface,
 
     TRACE ((stderr, "%s: target=%d, snapshot=%d\n", __FUNCTION__,
 	    ss->target->unique_id, snapshot->unique_id));
+
+    /* FIXME: attaching the subsurface as a snapshot to its target creates
+     * a reference cycle.  Let's make this call as a no-op until that bug
+     * is fixed.
+     */
+    return;
 
     if (ss->snapshot)
 	_cairo_surface_detach_snapshot (ss->snapshot);

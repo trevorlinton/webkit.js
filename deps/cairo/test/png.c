@@ -57,6 +57,7 @@ format_to_string (cairo_format_t format)
     case CAIRO_FORMAT_A8:     return "a8";
     case CAIRO_FORMAT_RGB16_565:  return "rgb16";
     case CAIRO_FORMAT_RGB24:  return "rgb24";
+    case CAIRO_FORMAT_RGB30:  return "rgb30";
     case CAIRO_FORMAT_ARGB32: return "argb32";
     case CAIRO_FORMAT_INVALID:
     default: return "???";

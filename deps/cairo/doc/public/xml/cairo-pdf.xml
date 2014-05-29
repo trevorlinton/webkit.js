@@ -49,15 +49,15 @@ PDF files and is a multi-page vector surface backend.
 </refsect1>
 <refsect1 id="cairo-PDF-Surfaces.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="CAIRO-HAS-PDF-SURFACE:CAPS" role="macro">
+<refsect2 id="CAIRO-HAS-PDF-SURFACE:CAPS" role="macro" condition="since:1.2">
 <title>CAIRO_HAS_PDF_SURFACE</title>
-<indexterm zone="CAIRO-HAS-PDF-SURFACE:CAPS"><primary sortas="HAS_PDF_SURFACE">CAIRO_HAS_PDF_SURFACE</primary></indexterm>
+<indexterm zone="CAIRO-HAS-PDF-SURFACE:CAPS" role="1.2"><primary sortas="HAS_PDF_SURFACE">CAIRO_HAS_PDF_SURFACE</primary></indexterm>
 <programlisting>#define CAIRO_HAS_PDF_SURFACE 1
 </programlisting>
 <para>
 Defined if the PDF surface backend is available.
 This macro can be used to conditionally compile backend-specific code.
-</para></refsect2>
+</para><para role="since">Since 1.2</para></refsect2>
 <refsect2 id="cairo-pdf-surface-create" role="function" condition="since:1.2">
 <title>cairo_pdf_surface_create ()</title>
 <indexterm zone="cairo-pdf-surface-create" role="1.2"><primary sortas="pdf_surface_create">cairo_pdf_surface_create</primary></indexterm>
@@ -134,9 +134,9 @@ surface.
 <varlistentry><term><parameter>version</parameter>&#160;:</term>
 <listitem><simpara>PDF version</simpara></listitem></varlistentry>
 </variablelist><para role="since">Since 1.10</para></refsect2>
-<refsect2 id="cairo-pdf-version-t" role="enum">
+<refsect2 id="cairo-pdf-version-t" role="enum" condition="since:1.10">
 <title>enum cairo_pdf_version_t</title>
-<indexterm zone="cairo-pdf-version-t"><primary sortas="pdf_version_t">cairo_pdf_version_t</primary></indexterm>
+<indexterm zone="cairo-pdf-version-t" role="1.10"><primary sortas="pdf_version_t">cairo_pdf_version_t</primary></indexterm>
 <programlisting>typedef enum {
     CAIRO_PDF_VERSION_1_4,
     CAIRO_PDF_VERSION_1_5
@@ -145,21 +145,18 @@ surface.
 <para>
 <link linkend="cairo-pdf-version-t"><type>cairo_pdf_version_t</type></link> is used to describe the version number of the PDF
 specification that a generated PDF file will conform to.
-</para>
-<para>
-Since 1.10
 </para><variablelist role="enum">
 <varlistentry id="CAIRO-PDF-VERSION-1-4:CAPS" role="constant">
 <term><literal>CAIRO_PDF_VERSION_1_4</literal></term>
-<listitem><simpara>The version 1.4 of the PDF specification.
+<listitem><simpara>The version 1.4 of the PDF specification. (Since 1.10)
 </simpara></listitem>
 </varlistentry>
 <varlistentry id="CAIRO-PDF-VERSION-1-5:CAPS" role="constant">
 <term><literal>CAIRO_PDF_VERSION_1_5</literal></term>
-<listitem><simpara>The version 1.5 of the PDF specification.
+<listitem><simpara>The version 1.5 of the PDF specification. (Since 1.10)
 </simpara></listitem>
 </varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.10</para></refsect2>
 <refsect2 id="cairo-pdf-get-versions" role="function" condition="since:1.10">
 <title>cairo_pdf_get_versions ()</title>
 <indexterm zone="cairo-pdf-get-versions" role="1.10"><primary sortas="pdf_get_versions">cairo_pdf_get_versions</primary></indexterm>

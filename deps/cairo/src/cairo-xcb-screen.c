@@ -33,6 +33,7 @@
 #include "cairoint.h"
 
 #include "cairo-xcb-private.h"
+#include "cairo-list-inline.h"
 
 struct pattern_cache_entry {
     cairo_cache_entry_t key;

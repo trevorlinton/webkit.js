@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Types</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Cairo: A Vector Graphics Library">
+<link rel="up" href="cairo-support.html" title="Utilities">
+<link rel="prev" href="cairo-Error-handling.html" title="Error handling">
+<link rel="next" href="index-all.html" title="Index">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="cairo-Error-handling.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="cairo-support.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Cairo: A Vector Graphics Library</th>
+<td><a accesskey="n" href="index-all.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#cairo-Types.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#cairo-Types.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="cairo-Types"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="cairo-Types.top_of_page"></a>Types</span></h2>
+<p>Types — Generic data types</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="cairo-Types.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">typedef             <a class="link" href="cairo-Types.html#cairo-bool-t" title="cairo_bool_t">cairo_bool_t</a>;
+                    <a class="link" href="cairo-Types.html#cairo-user-data-key-t" title="cairo_user_data_key_t">cairo_user_data_key_t</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="cairo-Types.html#cairo-destroy-func-t" title="cairo_destroy_func_t ()">*cairo_destroy_func_t</a>)             (<em class="parameter"><code><span class="type">void</span> *data</code></em>);
+                    <a class="link" href="cairo-Types.html#cairo-rectangle-int-t" title="cairo_rectangle_int_t">cairo_rectangle_int_t</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="cairo-Types.description"></a><h2>Description</h2>
+<p>
+This section lists generic data types used in the cairo API.
+</p>
+</div>
+<div class="refsect1">
+<a name="cairo-Types.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="cairo-bool-t"></a><h3>cairo_bool_t</h3>
+<pre class="programlisting">typedef int cairo_bool_t;
+</pre>
+<p>
+<a class="link" href="cairo-Types.html#cairo-bool-t" title="cairo_bool_t"><span class="type">cairo_bool_t</span></a> is used for boolean values. Returns of type
+<a class="link" href="cairo-Types.html#cairo-bool-t" title="cairo_bool_t"><span class="type">cairo_bool_t</span></a> will always be either 0 or 1, but testing against
+these values explicitly is not encouraged; just use the
+value as a boolean condition.
+</p>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="keyword">if</span> <span class="gtkdoc opt">(</span><span class="function"><a href="../cairo/cairo-cairo-t.html#cairo-in-stroke">cairo_in_stroke</a></span> <span class="gtkdoc opt">(</span>cr<span class="gtkdoc opt">,</span> x<span class="gtkdoc opt">,</span> y<span class="gtkdoc opt">)) {</span>
+    <span class="comment">/* do something */</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-user-data-key-t"></a><h3>cairo_user_data_key_t</h3>
+<pre class="programlisting">typedef struct {
+    int unused;
+} cairo_user_data_key_t;
+</pre>
+<p>
+<a class="link" href="cairo-Types.html#cairo-user-data-key-t" title="cairo_user_data_key_t"><span class="type">cairo_user_data_key_t</span></a> is used for attaching user data to cairo
+data structures.  The actual contents of the struct is never used,
+and there is no need to initialize the object; only the unique
+address of a <span class="type">cairo_data_key_t</span> object is used.  Typically, you
+would just use the address of a static <span class="type">cairo_data_key_t</span> object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="cairo-user-data-key-t.unused"></a>unused</code></em>;</span></p></td>
+<td>not used; ignore.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-destroy-func-t"></a><h3>cairo_destroy_func_t ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*cairo_destroy_func_t)             (<em class="parameter"><code><span class="type">void</span> *data</code></em>);</pre>
+<p>
+<a class="link" href="cairo-Types.html#cairo-destroy-func-t" title="cairo_destroy_func_t ()"><span class="type">cairo_destroy_func_t</span></a> the type of function which is called when a
+data element is destroyed. It is passed the pointer to the data
+element and should free any memory and resources allocated for it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>The data element being destroyed.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cairo-rectangle-int-t"></a><h3>cairo_rectangle_int_t</h3>
+<pre class="programlisting">typedef struct {
+    int x, y;
+    int width, height;
+} cairo_rectangle_int_t;
+</pre>
+<p>
+A data structure for holding a rectangle with integer coordinates.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="cairo-rectangle-int-t.x"></a>x</code></em>;</span></p></td>
+<td>X coordinate of the left side of the rectangle</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="cairo-rectangle-int-t.y"></a>y</code></em>;</span></p></td>
+<td>Y coordinate of the the top side of the rectangle</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="cairo-rectangle-int-t.width"></a>width</code></em>;</span></p></td>
+<td>width of the rectangle</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="cairo-rectangle-int-t.height"></a>height</code></em>;</span></p></td>
+<td>height of the rectangle</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.10</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

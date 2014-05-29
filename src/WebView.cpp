@@ -137,7 +137,6 @@ namespace WebKit {
 		m_private->corePage = new Page(pageClients);
     m_private->corePage->addLayoutMilestones(DidFirstVisuallyNonEmptyLayout);
     m_private->corePage->setGroupName(L"webkit.js");
-		fprintf(stdout, "*** SETTING KICK OFF\n");
 
 		m_private->corePage->settings().setMediaEnabled(false);
 		m_private->corePage->settings().setScreenFontSubstitutionEnabled(true);
@@ -171,14 +170,10 @@ namespace WebKit {
 		m_private->corePage->settings().setAcceleratedDrawingEnabled(false);
 		m_private->corePage->settings().setTiledBackingStoreEnabled(false);
 #endif
-		fprintf(stdout, "*** INIT KICK OFF\n");
-
 		m_private->mainFrame->init();
 		m_private->corePage->setIsVisible(true, true);
 		m_private->corePage->setIsInWindow(true);
-		fprintf(stdout, "*** RESIZING KICK OFF\n");
 		resize(width, height);
-		fprintf(stdout, "*** RESIZING DONE\n");
 	}
 
 	WebView::~WebView() {

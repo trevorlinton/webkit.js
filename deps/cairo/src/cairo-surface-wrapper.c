@@ -37,6 +37,7 @@
 
 #include "cairoint.h"
 
+#include "cairo-clip-inline.h"
 #include "cairo-error-private.h"
 #include "cairo-pattern-private.h"
 #include "cairo-surface-wrapper-private.h"
@@ -147,7 +148,7 @@ _cairo_surface_wrapper_paint (cairo_surface_wrapper_t *wrapper,
 
     dev_clip = _cairo_surface_wrapper_get_clip (wrapper, clip);
     if (_cairo_clip_is_all_clipped (dev_clip))
-	return (cairo_status_t)CAIRO_INT_STATUS_NOTHING_TO_DO;
+	return CAIRO_INT_STATUS_NOTHING_TO_DO;
 
     if (wrapper->needs_transform) {
 	cairo_matrix_t m;
@@ -185,7 +186,7 @@ _cairo_surface_wrapper_mask (cairo_surface_wrapper_t *wrapper,
 
     dev_clip = _cairo_surface_wrapper_get_clip (wrapper, clip);
     if (_cairo_clip_is_all_clipped (dev_clip))
-	return (cairo_status_t)CAIRO_INT_STATUS_NOTHING_TO_DO;
+	return CAIRO_INT_STATUS_NOTHING_TO_DO;
 
     if (wrapper->needs_transform) {
 	cairo_matrix_t m;
@@ -232,7 +233,7 @@ _cairo_surface_wrapper_stroke (cairo_surface_wrapper_t *wrapper,
 
     dev_clip = _cairo_surface_wrapper_get_clip (wrapper, clip);
     if (_cairo_clip_is_all_clipped (dev_clip))
-	return (cairo_status_t)CAIRO_INT_STATUS_NOTHING_TO_DO;
+	return CAIRO_INT_STATUS_NOTHING_TO_DO;
 
     if (wrapper->needs_transform) {
 	cairo_matrix_t m;
@@ -300,7 +301,7 @@ _cairo_surface_wrapper_fill_stroke (cairo_surface_wrapper_t *wrapper,
 
     dev_clip = _cairo_surface_wrapper_get_clip (wrapper, clip);
     if (_cairo_clip_is_all_clipped (dev_clip))
-	return (cairo_status_t)CAIRO_INT_STATUS_NOTHING_TO_DO;
+	return CAIRO_INT_STATUS_NOTHING_TO_DO;
 
     if (wrapper->needs_transform) {
 	cairo_matrix_t m;
@@ -365,7 +366,7 @@ _cairo_surface_wrapper_fill (cairo_surface_wrapper_t	*wrapper,
 
     dev_clip = _cairo_surface_wrapper_get_clip (wrapper, clip);
     if (_cairo_clip_is_all_clipped (dev_clip))
-	return (cairo_status_t)CAIRO_INT_STATUS_NOTHING_TO_DO;
+	return CAIRO_INT_STATUS_NOTHING_TO_DO;
 
     if (wrapper->needs_transform) {
 	cairo_matrix_t m;
@@ -425,7 +426,7 @@ _cairo_surface_wrapper_show_text_glyphs (cairo_surface_wrapper_t *wrapper,
 
     dev_clip = _cairo_surface_wrapper_get_clip (wrapper, clip);
     if (_cairo_clip_is_all_clipped (dev_clip))
-	return (cairo_status_t)CAIRO_INT_STATUS_NOTHING_TO_DO;
+	return CAIRO_INT_STATUS_NOTHING_TO_DO;
 
     cairo_surface_get_font_options (wrapper->target, &options);
     cairo_font_options_merge (&options, &scaled_font->options);

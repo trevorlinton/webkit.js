@@ -48,38 +48,8 @@ struct _cairo_surface_subsurface {
     cairo_surface_t *snapshot;
 };
 
-static inline cairo_surface_t *
-_cairo_surface_subsurface_get_target (cairo_surface_t *surface)
-{
-    return ((cairo_surface_subsurface_t *) surface)->target;
-}
-
-static inline void
-_cairo_surface_subsurface_offset (cairo_surface_t *surface,
-				  int *x, int *y)
-{
-    cairo_surface_subsurface_t *ss = (cairo_surface_subsurface_t *) surface;
-    *x += ss->extents.x;
-    *y += ss->extents.y;
-}
-
-static inline cairo_surface_t *
-_cairo_surface_subsurface_get_target_with_offset (cairo_surface_t *surface,
-						  int *x, int *y)
-{
-    cairo_surface_subsurface_t *ss = (cairo_surface_subsurface_t *) surface;
-    *x += ss->extents.x;
-    *y += ss->extents.y;
-    return ss->target;
-}
-
-static inline cairo_bool_t
-_cairo_surface_is_subsurface (cairo_surface_t *surface)
-{
-    return surface->backend->type == CAIRO_SURFACE_TYPE_SUBSURFACE;
-}
-
 cairo_private void
 _cairo_surface_subsurface_set_snapshot (cairo_surface_t *surface,
 					cairo_surface_t *snapshot);
+
 #endif /* CAIRO_SURFACE_SUBSURFACE_PRIVATE_H */

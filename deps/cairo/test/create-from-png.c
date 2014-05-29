@@ -182,6 +182,7 @@ preamble (cairo_test_context_t *ctx)
 	return result;
 
     /* check that loading alpha/opaque PNGs generate the correct surfaces */
+    /* TODO: Avoid using target-specific references as sample images */
     xasprintf (&filename, "%s/%s", path, "create-from-png.alpha.ref.png");
     surface = cairo_image_surface_create_from_png (filename);
     if (cairo_surface_status (surface)) {
@@ -223,6 +224,7 @@ preamble (cairo_test_context_t *ctx)
 	return result;
 
     /* check paletted PNGs */
+    /* TODO: Avoid using target-specific references as sample images */
     xasprintf (&filename, "%s/%s", path, "create-from-png.indexed-alpha.ref.png");
     surface = cairo_image_surface_create_from_png (filename);
     if (cairo_surface_status (surface)) {
@@ -243,6 +245,7 @@ preamble (cairo_test_context_t *ctx)
     if (result != CAIRO_TEST_SUCCESS)
 	return result;
 
+    /* TODO: Avoid using target-specific references as sample images */
     xasprintf (&filename, "%s/%s", path, "create-from-png.indexed.ref.png");
     surface = cairo_image_surface_create_from_png (filename);
     if (cairo_surface_status (surface)) {
@@ -264,6 +267,7 @@ preamble (cairo_test_context_t *ctx)
 	return result;
 
     /* check grayscale PNGs */
+    /* TODO: Avoid using target-specific references as sample images */
     xasprintf (&filename, "%s/%s", path, "create-from-png.gray-alpha.ref.png");
     surface = cairo_image_surface_create_from_png (filename);
     if (cairo_surface_status (surface)) {
@@ -284,6 +288,7 @@ preamble (cairo_test_context_t *ctx)
     if (result != CAIRO_TEST_SUCCESS)
 	return result;
 
+    /* TODO: Avoid using target-specific references as sample images */
     xasprintf (&filename, "%s/%s", path, "create-from-png.gray.ref.png");
     surface = cairo_image_surface_create_from_png (filename);
     if (cairo_surface_status (surface)) {

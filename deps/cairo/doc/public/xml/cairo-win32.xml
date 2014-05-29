@@ -52,18 +52,18 @@ The surface returned by the other win32 constructors is of surface type
 </refsect1>
 <refsect1 id="cairo-Win32-Surfaces.details" role="details">
 <title role="details.title">Details</title>
-<refsect2 id="CAIRO-HAS-WIN32-SURFACE:CAPS" role="macro">
+<refsect2 id="CAIRO-HAS-WIN32-SURFACE:CAPS" role="macro" condition="since:1.0">
 <title>CAIRO_HAS_WIN32_SURFACE</title>
-<indexterm zone="CAIRO-HAS-WIN32-SURFACE:CAPS"><primary sortas="HAS_WIN32_SURFACE">CAIRO_HAS_WIN32_SURFACE</primary></indexterm>
+<indexterm zone="CAIRO-HAS-WIN32-SURFACE:CAPS" role="1.0"><primary sortas="HAS_WIN32_SURFACE">CAIRO_HAS_WIN32_SURFACE</primary></indexterm>
 <programlisting>#define CAIRO_HAS_WIN32_SURFACE 1
 </programlisting>
 <para>
 Defined if the Microsoft Windows surface backend is available.
 This macro can be used to conditionally compile backend-specific code.
-</para></refsect2>
-<refsect2 id="cairo-win32-surface-create" role="function">
+</para><para role="since">Since 1.0</para></refsect2>
+<refsect2 id="cairo-win32-surface-create" role="function" condition="since:1.0">
 <title>cairo_win32_surface_create ()</title>
-<indexterm zone="cairo-win32-surface-create"><primary sortas="win32_surface_create">cairo_win32_surface_create</primary></indexterm>
+<indexterm zone="cairo-win32-surface-create" role="1.0"><primary sortas="win32_surface_create">cairo_win32_surface_create</primary></indexterm>
 <programlisting><link linkend="cairo-surface-t"><returnvalue>cairo_surface_t</returnvalue></link> *   cairo_win32_surface_create          (<parameter><link linkend="HDC:CAPS"><type>HDC</type></link> hdc</parameter>);</programlisting>
 <para>
 Creates a cairo surface that targets the given DC.  The DC will be
@@ -76,7 +76,7 @@ you will need to create one through
 <varlistentry><term><parameter>hdc</parameter>&#160;:</term>
 <listitem><simpara>the DC to create a surface for</simpara></listitem></varlistentry>
 <varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the newly created surface</simpara></listitem></varlistentry>
-</variablelist></refsect2>
+</variablelist><para role="since">Since 1.0</para></refsect2>
 <refsect2 id="cairo-win32-surface-create-with-dib" role="function" condition="since:1.2">
 <title>cairo_win32_surface_create_with_dib ()</title>
 <indexterm zone="cairo-win32-surface-create-with-dib" role="1.2"><primary sortas="win32_surface_create_with_dib">cairo_win32_surface_create_with_dib</primary></indexterm>

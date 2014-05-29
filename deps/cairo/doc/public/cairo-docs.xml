@@ -17,6 +17,7 @@
     <xi:include href="xml/cairo-region.xml"/>
     <xi:include href="xml/cairo-transforms.xml"/>
     <xi:include href="xml/cairo-text.xml"/>
+    <xi:include href="xml/cairo-raster-source.xml"/>
   </chapter>
   <chapter id="cairo-fonts">
     <title>Fonts</title>
@@ -44,6 +45,8 @@
     <!--xi:include href="xml/cairo-quartz-image.xml"/-->
     <xi:include href="xml/cairo-xcb.xml"/>
     <xi:include href="xml/cairo-xlib.xml"/>
+    <xi:include href="xml/cairo-xlib-xrender.xml"/>
+    <xi:include href="xml/cairo-script.xml"/>
   </chapter>
   <chapter id="cairo-support">
     <title>Utilities</title>
