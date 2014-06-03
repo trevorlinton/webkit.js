@@ -383,7 +383,9 @@ void Settings::setMediaTypeOverride(const String& mediaTypeOverride)
 void Settings::setLoadsImagesAutomatically(bool loadsImagesAutomatically)
 {
     m_loadsImagesAutomatically = loadsImagesAutomatically;
-    
+#if PLATFORM(JS)
+		setImageLoadingSettings(m_page);
+#else
     // Changing this setting to true might immediately start new loads for images that had previously had loading disabled.
     // If this happens while a WebView is being dealloc'ed, and we don't know the WebView is being dealloc'ed, these new loads
     // can cause crashes downstream when the WebView memory has actually been free'd.
@@ -392,6 +394,7 @@ void Settings::setLoadsImagesAutomatically(bool loadsImagesAutomatically)
     // before they have a chance to really start.
     // See http://webkit.org/b/60572 for more discussion.
     m_setImageLoadingSettingsTimer.startOneShot(0);
+#endif
 }
 
 void Settings::imageLoadingSettingsTimerFired(Timer<Settings>*)
@@ -428,7 +431,11 @@ void Settings::setImagesEnabled(bool areImagesEnabled)
     m_areImagesEnabled = areImagesEnabled;
 
     // See comment in setLoadsImagesAutomatically.
-    m_setImageLoadingSettingsTimer.startOneShot(0);
+#if PLATFORM(JS)
+		setImageLoadingSettings(m_page);
+#else
+		m_setImageLoadingSettingsTimer.startOneShot(0);
+#endif
 }
 
 void Settings::setPluginsEnabled(bool arePluginsEnabled)

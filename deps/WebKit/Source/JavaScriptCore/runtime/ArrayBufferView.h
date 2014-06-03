@@ -58,8 +58,10 @@ public:
 
     void* baseAddress() const
     {
-        if (isNeutered())
+			if (isNeutered()) {
+				fprintf(stdout, "isNeutered as true.");
             return 0;
+			}
         return m_baseAddress;
     }
 

@@ -65,7 +65,15 @@ void setSourceRGBAFromColor(cairo_t* context, const Color& color)
 {
     float red, green, blue, alpha;
     color.getRGBA(red, green, blue, alpha);
-    cairo_set_source_rgba(context, red, green, blue, alpha);
+#if PLATFORM(JS) && USE(ACCELERATED_COMPOSITING)
+		cairo_set_source_rgba(context, red, green, blue, alpha);
+#else
+		// Swap the RGBA channels, canvas painting needs to be ARGB
+		// but since the channels come out backwards as ABGR we just
+		// swap the red and blue to get the same channel format without
+		// haveing to go through all of the pixels and swap them post-blit.
+    cairo_set_source_rgba(context, blue, green, red, alpha);
+#endif
 }
 
 void appendPathToCairoContext(cairo_t* to, cairo_t* from)

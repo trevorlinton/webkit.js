@@ -135,6 +135,7 @@ _cairo_spline_add_point (cairo_spline_t *spline,
     _cairo_slope_init (&slope, point, knot);
 
     spline->last_point = *point;
+
     return spline->add_point_func (spline->closure, point, &slope);
 }
 
@@ -244,8 +245,8 @@ _cairo_spline_decompose_into (cairo_spline_knots_t *s1,
     cairo_spline_knots_t s2;
     cairo_status_t status;
 
-    if (_cairo_spline_error_squared (s1) < tolerance_squared)
-	return _cairo_spline_add_point (result, &s1->a, &s1->b);
+	if (_cairo_spline_error_squared (s1) < tolerance_squared)
+		return _cairo_spline_add_point (result, &s1->a, &s1->b);
 
     _de_casteljau (s1, &s2);
 
@@ -266,8 +267,7 @@ _cairo_spline_decompose (cairo_spline_t *spline, double tolerance)
     spline->last_point = s1.a;
     status = _cairo_spline_decompose_into (&s1, tolerance * tolerance, spline);
     if (unlikely (status))
-	return status;
-
+			return status;
     return spline->add_point_func (spline->closure,
 				   &spline->knots.d, &spline->final_slope);
 }

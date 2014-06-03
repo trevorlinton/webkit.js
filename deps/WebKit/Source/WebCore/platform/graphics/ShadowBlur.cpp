@@ -37,7 +37,9 @@
 #include "Timer.h"
 #include <wtf/MathExtras.h>
 #include <wtf/Noncopyable.h>
-
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 namespace WebCore {
 
 enum {
@@ -211,6 +213,9 @@ ShadowBlur::ShadowBlur()
 
 void ShadowBlur::setShadowValues(const FloatSize& radius, const FloatSize& offset, const Color& color, ColorSpace colorSpace, bool ignoreTransforms)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_blurRadius = radius;
     m_offset = offset;
     m_color = color;
@@ -222,6 +227,9 @@ void ShadowBlur::setShadowValues(const FloatSize& radius, const FloatSize& offse
 
 void ShadowBlur::updateShadowBlurValues()
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     // Limit blur radius to 128 to avoid lots of very expensive blurring.
     m_blurRadius = m_blurRadius.shrunkTo(FloatSize(128, 128));
 
@@ -245,6 +253,9 @@ static const int blurSumShift = 15;
 // Takes a two dimensional array with three rows and two columns for the lobes.
 static void calculateLobes(int lobes[][2], float blurRadius, bool shadowsIgnoreTransforms)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     int diameter;
     if (shadowsIgnoreTransforms)
         diameter = std::max(2, static_cast<int>(floorf((2 / 3.f) * blurRadius))); // Canvas shadow. FIXME: we should adjust the blur radius higher up.
@@ -285,6 +296,9 @@ static void calculateLobes(int lobes[][2], float blurRadius, bool shadowsIgnoreT
 
 void ShadowBlur::clear()
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_type = NoShadow;
     m_color = Color();
     m_blurRadius = FloatSize();
@@ -293,6 +307,9 @@ void ShadowBlur::clear()
 
 void ShadowBlur::blurLayerImage(unsigned char* imageData, const IntSize& size, int rowStride)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     const int channels[4] = { 3, 0, 1, 3 };
 
     int lobes[3][2]; // indexed by pass, and left/right lobe
@@ -375,6 +392,9 @@ void ShadowBlur::blurLayerImage(unsigned char* imageData, const IntSize& size, i
 
 void ShadowBlur::adjustBlurRadius(GraphicsContext* context)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (!m_shadowsIgnoreTransforms)
         return;
 
@@ -384,6 +404,9 @@ void ShadowBlur::adjustBlurRadius(GraphicsContext* context)
 
 IntSize ShadowBlur::blurredEdgeSize() const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     IntSize edgeSize = expandedIntSize(m_blurRadius);
 
     // To avoid slowing down blurLayerImage() for radius == 1, we give it two empty pixels on each side.
@@ -398,6 +421,9 @@ IntSize ShadowBlur::blurredEdgeSize() const
 
 IntRect ShadowBlur::calculateLayerBoundingRect(GraphicsContext* context, const FloatRect& shadowedRect, const IntRect& clipRect)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     IntSize edgeSize = blurredEdgeSize();
 
     // Calculate the destination of the blurred and/or transformed layer.
@@ -464,6 +490,9 @@ IntRect ShadowBlur::calculateLayerBoundingRect(GraphicsContext* context, const F
 
 void ShadowBlur::drawShadowBuffer(GraphicsContext* graphicsContext)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (!m_layerImage)
         return;
 
@@ -484,6 +513,9 @@ void ShadowBlur::drawShadowBuffer(GraphicsContext* graphicsContext)
 
 static void computeSliceSizesFromRadii(const IntSize& twiceRadius, const RoundedRect::Radii& radii, int& leftSlice, int& rightSlice, int& topSlice, int& bottomSlice)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     leftSlice = twiceRadius.width() + std::max(radii.topLeft().width(), radii.bottomLeft().width());
     rightSlice = twiceRadius.width() + std::max(radii.topRight().width(), radii.bottomRight().width());
 
@@ -493,6 +525,9 @@ static void computeSliceSizesFromRadii(const IntSize& twiceRadius, const Rounded
 
 IntSize ShadowBlur::templateSize(const IntSize& radiusPadding, const RoundedRect::Radii& radii) const
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     const int templateSideLength = 1;
 
     int leftSlice;
@@ -511,6 +546,9 @@ IntSize ShadowBlur::templateSize(const IntSize& radiusPadding, const RoundedRect
 
 void ShadowBlur::drawRectShadow(GraphicsContext* graphicsContext, const FloatRect& shadowedRect, const RoundedRect::Radii& radii)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     IntRect layerRect = calculateLayerBoundingRect(graphicsContext, shadowedRect, graphicsContext->clipBounds());
     if (layerRect.isEmpty())
         return;
@@ -538,6 +576,9 @@ void ShadowBlur::drawRectShadow(GraphicsContext* graphicsContext, const FloatRec
 
 void ShadowBlur::drawInsetShadow(GraphicsContext* graphicsContext, const FloatRect& rect, const FloatRect& holeRect, const RoundedRect::Radii& holeRadii)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     IntRect layerRect = calculateLayerBoundingRect(graphicsContext, rect, graphicsContext->clipBounds());
     if (layerRect.isEmpty())
         return;
@@ -565,6 +606,9 @@ void ShadowBlur::drawInsetShadow(GraphicsContext* graphicsContext, const FloatRe
 
 void ShadowBlur::drawRectShadowWithoutTiling(GraphicsContext* graphicsContext, const FloatRect& shadowedRect, const RoundedRect::Radii& radii, const IntRect& layerRect)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_layerImage = ScratchBuffer::shared().getScratchBuffer(layerRect.size());
     if (!m_layerImage)
         return;
@@ -600,6 +644,9 @@ void ShadowBlur::drawRectShadowWithoutTiling(GraphicsContext* graphicsContext, c
 
 void ShadowBlur::drawInsetShadowWithoutTiling(GraphicsContext* graphicsContext, const FloatRect& rect, const FloatRect& holeRect, const RoundedRect::Radii& holeRadii, const IntRect& layerRect)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_layerImage = ScratchBuffer::shared().getScratchBuffer(layerRect.size());
     if (!m_layerImage)
         return;
@@ -673,6 +720,9 @@ void ShadowBlur::drawInsetShadowWithoutTiling(GraphicsContext* graphicsContext, 
 
 void ShadowBlur::drawInsetShadowWithTiling(GraphicsContext* graphicsContext, const FloatRect& rect, const FloatRect& holeRect, const RoundedRect::Radii& radii, const IntSize& templateSize, const IntSize& edgeSize)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_layerImage = ScratchBuffer::shared().getScratchBuffer(templateSize);
     if (!m_layerImage)
         return;
@@ -738,6 +788,9 @@ void ShadowBlur::drawInsetShadowWithTiling(GraphicsContext* graphicsContext, con
 
 void ShadowBlur::drawRectShadowWithTiling(GraphicsContext* graphicsContext, const FloatRect& shadowedRect, const RoundedRect::Radii& radii, const IntSize& templateSize, const IntSize& edgeSize)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_layerImage = ScratchBuffer::shared().getScratchBuffer(templateSize);
     if (!m_layerImage)
         return;
@@ -783,6 +836,9 @@ void ShadowBlur::drawRectShadowWithTiling(GraphicsContext* graphicsContext, cons
 
 void ShadowBlur::drawLayerPieces(GraphicsContext* graphicsContext, const FloatRect& shadowBounds, const RoundedRect::Radii& radii, const IntSize& bufferPadding, const IntSize& templateSize, ShadowDirection direction)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     const IntSize twiceRadius = IntSize(bufferPadding.width() * 2, bufferPadding.height() * 2);
 
     int leftSlice;
@@ -861,6 +917,9 @@ void ShadowBlur::drawLayerPieces(GraphicsContext* graphicsContext, const FloatRe
 
 void ShadowBlur::blurShadowBuffer(const IntSize& templateSize)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     if (m_type != BlurShadow)
         return;
 
@@ -872,6 +931,9 @@ void ShadowBlur::blurShadowBuffer(const IntSize& templateSize)
 
 void ShadowBlur::blurAndColorShadowBuffer(const IntSize& templateSize)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     blurShadowBuffer(templateSize);
 
     // Mask the image with the shadow color.
@@ -884,6 +946,9 @@ void ShadowBlur::blurAndColorShadowBuffer(const IntSize& templateSize)
 
 GraphicsContext* ShadowBlur::beginShadowLayer(GraphicsContext *context, const FloatRect& layerArea)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     adjustBlurRadius(context);
 
     IntRect layerRect = calculateLayerBoundingRect(context, layerArea, context->clipBounds());
@@ -908,6 +973,9 @@ GraphicsContext* ShadowBlur::beginShadowLayer(GraphicsContext *context, const Fl
 
 void ShadowBlur::endShadowLayer(GraphicsContext* context)
 {
+#if PLATFORM(JS)
+	webkitTrace();
+#endif
     m_layerImage->context()->restore();
 
     blurAndColorShadowBuffer(expandedIntSize(m_layerSize));

@@ -49,11 +49,13 @@ namespace WebCore {
   , m_defersEvents(true)
   //, m_candidateApplicationCacheGroup(0)
   {
+		notImplemented();
     ASSERT(m_documentLoader);
   }
 
   ApplicationCacheHost::~ApplicationCacheHost()
   {
+		notImplemented();
 //    ASSERT(!m_applicationCache || !m_candidateApplicationCacheGroup || m_applicationCache->group() == m_candidateApplicationCacheGroup);
 
     //if (m_applicationCache)
@@ -65,16 +67,19 @@ namespace WebCore {
 
   void ApplicationCacheHost::selectCacheWithoutManifest()
   {
+		notImplemented();
     //ApplicationCacheGroup::selectCacheWithoutManifestURL(m_documentLoader->frame());
   }
 
   void ApplicationCacheHost::selectCacheWithManifest(const URL& manifestURL)
   {
+		notImplemented();
     //ApplicationCacheGroup::selectCache(m_documentLoader->frame(), manifestURL);
   }
 
   void ApplicationCacheHost::maybeLoadMainResource(ResourceRequest& request, SubstituteData& substituteData)
   {
+		notImplemented();
     // Check if this request should be loaded from the application cache
     /*if (!substituteData.isValid() && isApplicationCacheEnabled()) {
       ASSERT(!m_mainResourceApplicationCache);
@@ -96,6 +101,7 @@ namespace WebCore {
 
   void ApplicationCacheHost::maybeLoadMainResourceForRedirect(ResourceRequest& request, SubstituteData& substituteData)
   {
+		notImplemented();
     ASSERT(status() == UNCACHED);
     maybeLoadMainResource(request, substituteData);
   }
@@ -116,6 +122,7 @@ namespace WebCore {
 */
   bool ApplicationCacheHost::maybeLoadFallbackForMainError(const ResourceRequest& request, const ResourceError& error)
   {
+		notImplemented();
    /* if (!error.isCancellation()) {
       ASSERT(!m_mainResourceApplicationCache);
       if (isApplicationCacheEnabled()) {
@@ -135,6 +142,7 @@ namespace WebCore {
 */
   void ApplicationCacheHost::failedLoadingMainResource()
   {
+		notImplemented();
     /*ApplicationCacheGroup* group = m_candidateApplicationCacheGroup;
     if (!group && m_applicationCache) {
       if (mainResourceApplicationCache()) {
@@ -150,6 +158,7 @@ namespace WebCore {
 
   void ApplicationCacheHost::finishedLoadingMainResource()
   {
+		notImplemented();
     /*ApplicationCacheGroup* group = candidateApplicationCacheGroup();
     if (!group && applicationCache() && !mainResourceApplicationCache())
       group = applicationCache()->group();
@@ -160,6 +169,7 @@ namespace WebCore {
 
   bool ApplicationCacheHost::maybeLoadResource(ResourceLoader* loader, ResourceRequest& request, const URL& originalURL)
   {
+		notImplemented();
     /*if (!isApplicationCacheEnabled())
       return false;
 
@@ -179,6 +189,7 @@ namespace WebCore {
 
   bool ApplicationCacheHost::maybeLoadFallbackForRedirect(ResourceLoader* resourceLoader, ResourceRequest& request, const ResourceResponse& redirectResponse)
   {
+		notImplemented();
    /* if (!redirectResponse.isNull() && !protocolHostAndPortAreEqual(request.url(), redirectResponse.url()))
       if (scheduleLoadFallbackResourceFromApplicationCache(resourceLoader))
         return true;*/
@@ -187,6 +198,7 @@ namespace WebCore {
 
   bool ApplicationCacheHost::maybeLoadFallbackForResponse(ResourceLoader* resourceLoader, const ResourceResponse& response)
   {
+		notImplemented();
     //if (response.httpStatusCode() / 100 == 4 || response.httpStatusCode() / 100 == 5)
     //  if (scheduleLoadFallbackResourceFromApplicationCache(resourceLoader))
     //    return true;
@@ -195,6 +207,7 @@ namespace WebCore {
 
   bool ApplicationCacheHost::maybeLoadFallbackForError(ResourceLoader* resourceLoader, const ResourceError& error)
   {
+		notImplemented();
     /*if (!error.isCancellation()) {
       if (resourceLoader == m_documentLoader->mainResourceLoader())
         return maybeLoadFallbackForMainError(resourceLoader->request(), error);
@@ -206,6 +219,7 @@ namespace WebCore {
 
   bool ApplicationCacheHost::maybeLoadSynchronously(ResourceRequest& request, ResourceError& error, ResourceResponse& response, Vector<char>& data)
   {
+		notImplemented();
     /*ApplicationCacheResource* resource;
     if (shouldLoadResourceFromApplicationCache(request, resource)) {
       if (resource) {
@@ -221,6 +235,7 @@ namespace WebCore {
 
   void ApplicationCacheHost::maybeLoadFallbackSynchronously(const ResourceRequest& request, ResourceError& error, ResourceResponse& response, Vector<char>& data)
   {
+		notImplemented();
     /*
     // If normal loading results in a redirect to a resource with another origin (indicative of a captive portal), or a 4xx or 5xx status code or equivalent,
     // or if there were network errors (but not if the user canceled the download), then instead get, from the cache, the resource of the fallback entry
@@ -239,6 +254,7 @@ namespace WebCore {
 
   bool ApplicationCacheHost::canCacheInPageCache()
   {
+		notImplemented();
     return false;
     //return !applicationCache() && !candidateApplicationCacheGroup();
   }
@@ -251,6 +267,7 @@ namespace WebCore {
 
   void ApplicationCacheHost::notifyDOMApplicationCache(EventID id, int total, int done)
   {
+		notImplemented();
     /*if (id != PROGRESS_EVENT)
       InspectorInstrumentation::updateApplicationCacheStatus(m_documentLoader->frame());
 
@@ -264,6 +281,7 @@ namespace WebCore {
 
   void ApplicationCacheHost::stopLoadingInFrame(Frame* frame)
   {
+		notImplemented();
     /*ASSERT(!m_applicationCache || !m_candidateApplicationCacheGroup || m_applicationCache->group() == m_candidateApplicationCacheGroup);
 
     if (m_candidateApplicationCacheGroup)
@@ -274,6 +292,7 @@ namespace WebCore {
 
   void ApplicationCacheHost::stopDeferringEvents()
   {
+		notImplemented();
     /*RefPtr<DocumentLoader> protect(documentLoader());
     for (unsigned i = 0; i < m_deferredEvents.size(); ++i) {
       const DeferredEvent& deferred = m_deferredEvents[i];
@@ -285,6 +304,7 @@ namespace WebCore {
 
   void ApplicationCacheHost::dispatchDOMEvent(EventID id, int total, int done)
   {
+		notImplemented();
     /*if (m_domApplicationCache) {
       const AtomicString& eventType = DOMApplicationCache::toEventType(id);
       RefPtr<Event> event;
@@ -385,6 +405,7 @@ namespace WebCore {
 
   ApplicationCacheHost::Status ApplicationCacheHost::status() const
   {
+		notImplemented();
     /*ApplicationCache* cache = applicationCache();
     if (!cache)
       return UNCACHED;
@@ -409,6 +430,7 @@ namespace WebCore {
 
   bool ApplicationCacheHost::update()
   {
+		notImplemented();
     /*ApplicationCache* cache = applicationCache();
     if (!cache)
       return false;
@@ -419,6 +441,7 @@ namespace WebCore {
 
   bool ApplicationCacheHost::swapCache()
   {
+		notImplemented();
     /*ApplicationCache* cache = applicationCache();
     if (!cache)
       return false;
@@ -445,6 +468,7 @@ namespace WebCore {
 
   void ApplicationCacheHost::abort()
   {
+		notImplemented();
     /*ApplicationCacheGroup* cacheGroup = candidateApplicationCacheGroup();
     if (cacheGroup)
       cacheGroup->abort(m_documentLoader->frame());
@@ -457,6 +481,7 @@ namespace WebCore {
 
   bool ApplicationCacheHost::isApplicationCacheEnabled()
   {
+		notImplemented();
     return false;
     //return m_documentLoader->frame() && m_documentLoader->frame()->settings().offlineWebApplicationCacheEnabled();
   }

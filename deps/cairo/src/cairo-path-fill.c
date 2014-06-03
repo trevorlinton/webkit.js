@@ -55,7 +55,7 @@ typedef struct cairo_filler {
 
 static cairo_status_t
 _cairo_filler_line_to (void *closure,
-		       const cairo_point_t *point)
+		       const cairo_point_t *point, const cairo_slope_t *tangent)
 {
     cairo_filler_t *filler = closure;
     cairo_status_t status;
@@ -70,12 +70,19 @@ _cairo_filler_line_to (void *closure,
 }
 
 static cairo_status_t
+_cairo_filler_line_to_wrap (void *closure,
+											 const cairo_point_t *point)
+{
+	return _cairo_filler_line_to (closure, point, NULL);
+}
+
+static cairo_status_t
 _cairo_filler_close (void *closure)
 {
     cairo_filler_t *filler = closure;
 
     /* close the subpath */
-    return _cairo_filler_line_to (closure, &filler->last_move_to);
+    return _cairo_filler_line_to (closure, &filler->last_move_to, NULL);
 }
 
 static cairo_status_t
@@ -109,14 +116,14 @@ _cairo_filler_curve_to (void		*closure,
     if (filler->has_limits) {
 	if (! _cairo_spline_intersects (&filler->current_point, p1, p2, p3,
 					&filler->limit))
-	    return _cairo_filler_line_to (filler, p3);
+	    return _cairo_filler_line_to (filler, p3, NULL);
     }
 
     if (! _cairo_spline_init (&spline,
 			      (cairo_spline_add_point_func_t)_cairo_filler_line_to, filler,
 			      &filler->current_point, p1, p2, p3))
     {
-	return _cairo_filler_line_to (closure, p3);
+	return _cairo_filler_line_to (closure, p3, NULL);
     }
 
     return _cairo_spline_decompose (&spline, filler->tolerance);
@@ -146,7 +153,7 @@ _cairo_path_fixed_fill_to_polygon (const cairo_path_fixed_t *path,
 
     status = _cairo_path_fixed_interpret (path,
 					  _cairo_filler_move_to,
-					  _cairo_filler_line_to,
+					  _cairo_filler_line_to_wrap,
 					  _cairo_filler_curve_to,
 					  _cairo_filler_close,
 					  &filler);

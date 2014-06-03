@@ -99,11 +99,8 @@ namespace WebKit {
 		friend class WebCore::FrameLoaderClientJS;
 		friend class WebCore::WebFrameJS;
 		friend class WebCore::AcceleratedContext;
-		void invalidate(WebCore::IntRect rect, int immediate);
 	private:
-		void draw(WebCore::IntRect rect, int immediate);
     void handleSDLEvent(const SDL_Event& event);
-		bool recreateSurface(int width, int height);
 		WebViewPrivate* m_private;
 	};
 }

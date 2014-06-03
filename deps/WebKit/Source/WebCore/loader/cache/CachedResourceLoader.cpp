@@ -674,6 +674,10 @@ void CachedResourceLoader::printAccessDeniedMessage(const URL& url) const
 
 void CachedResourceLoader::setAutoLoadImages(bool enable)
 {
+// TODO: For some unknown reason this code causes a segmentation fault.
+// We don't have any use for caches so its irrelevant but worth taking a
+// closer eye as to why.
+#if !PLATFORM(JS)
     if (enable == m_autoLoadImages)
         return;
 
@@ -683,10 +687,15 @@ void CachedResourceLoader::setAutoLoadImages(bool enable)
         return;
 
     reloadImagesIfNotDeferred();
+#endif
 }
 
 void CachedResourceLoader::setImagesEnabled(bool enable)
 {
+	// TODO: For some unknown reason this code causes a segmentation fault.
+	// We don't have any use for caches so its irrelevant but worth taking a
+	// closer eye as to why.
+#if !PLATFORM(JS)
     if (enable == m_imagesEnabled)
         return;
 
@@ -696,6 +705,7 @@ void CachedResourceLoader::setImagesEnabled(bool enable)
         return;
 
     reloadImagesIfNotDeferred();
+#endif
 }
 
 bool CachedResourceLoader::clientDefersImage(const URL& url) const

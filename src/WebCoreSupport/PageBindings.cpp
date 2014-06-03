@@ -237,106 +237,6 @@ namespace WebCore {
   WebCore::ScriptCallFrame::~ScriptCallFrame() { notImplemented(); }
 }
 
-namespace WTF {
-	/*
-	 void *fastCalloc(unsigned int n_elements, unsigned int element_size) {
-	 return calloc(n_elements, element_size);
-	 }
-
-	 void fastFree(void* ptr) {
-	 free(ptr);
-	 }
-
-	 void *fastMalloc(unsigned int n) {
-	 return malloc(n);
-	 }
-
-	 unsigned int fastMallocGoodSize(unsigned int bytes) {
-	 return bytes;
-	 }
-
-	 void *fastRealloc(void* p, unsigned int n) {
-	 return realloc(p, n);
-	 }
-
-	 char* fastStrDup(const char* src)
-	 {
-	 size_t len = strlen(src) + 1;
-	 char* dup = static_cast<char*>(fastMalloc(len));
-	 memcpy(dup, src, len);
-	 return dup;
-	 }
-	 void* fastZeroedMalloc(size_t n)
-	 {
-	 void* result = fastMalloc(n);
-	 memset(result, 0, n);
-	 return result;
-	 }
-	 void scheduleDispatchFunctionsOnMainThread() { return; }
-
-	 TryMallocReturnValue tryFastMalloc(size_t n)
-	 {
-	 return malloc(n);
-	 }
-	 */
-  /*
-   bool ApplicationCacheHost::canCacheInPageCache() { return false; }
-   void ApplicationCacheHost::failedLoadingMainResource() { notImplemented(); }
-   void ApplicationCacheHost::finishedLoadingMainResource() { notImplemented(); }
-   void ApplicationCacheHost::maybeLoadFallbackSynchronously(WebCore::ResourceRequest const&, WebCore::ResourceError&, WebCore::ResourceResponse&, WTF::Vector<char, 0u, WTF::CrashOnOverflow>&) { notImplemented(); }
-   void ApplicationCacheHost::maybeLoadMainResource(WebCore::ResourceRequest&, WebCore::SubstituteData&) { notImplemented(); }
-   void ApplicationCacheHost::maybeLoadMainResourceForRedirect(WebCore::ResourceRequest&, WebCore::SubstituteData&) { notImplemented(); }
-   bool ApplicationCacheHost::maybeLoadSynchronously(WebCore::ResourceRequest&, WebCore::ResourceError&, WebCore::ResourceResponse&, WTF::Vector<char, 0u, WTF::CrashOnOverflow>&) { return false; }
-   void ApplicationCacheHost::selectCacheWithManifest(WebCore::URL const&) { notImplemented(); }
-   void ApplicationCacheHost::selectCacheWithoutManifest() { notImplemented(); }
-   void ApplicationCacheHost::stopDeferringEvents() { notImplemented(); }
-   void ApplicationCacheHost::stopLoadingInFrame(WebCore::Frame*) { notImplemented(); }
-   ApplicationCacheHost::~ApplicationCacheHost() { notImplemented(); }
-   bool ApplicationCacheHost::maybeLoadResource(ResourceLoader* loader, ResourceRequest& request, const URL& originalURL)
-   {
-   if (!isApplicationCacheEnabled())
-   return false;
-
-   if (request.url() != originalURL)
-   return false;
-
-   ApplicationCacheResource* resource;
-   if (!shouldLoadResourceFromApplicationCache(request, resource))
-   return false;
-
-   m_documentLoader->m_pendingSubstituteResources.set(loader, resource);
-   m_documentLoader->deliverSubstituteResourcesAfterDelay();
-
-   return true;
-   }
-
-   bool ApplicationCacheHost::maybeLoadFallbackForRedirect(ResourceLoader* resourceLoader, ResourceRequest& request, const ResourceResponse& redirectResponse)
-   {
-   if (!redirectResponse.isNull() && !protocolHostAndPortAreEqual(request.url(), redirectResponse.url()))
-   if (scheduleLoadFallbackResourceFromApplicationCache(resourceLoader))
-   return true;
-   return false;
-   }
-   bool ApplicationCacheHost::maybeLoadFallbackForResponse(ResourceLoader* resourceLoader, const ResourceResponse& response)
-   {
-   if (response.httpStatusCode() / 100 == 4 || response.httpStatusCode() / 100 == 5)
-   if (scheduleLoadFallbackResourceFromApplicationCache(resourceLoader))
-   return true;
-   return false;
-   }
-
-   bool ApplicationCacheHost::maybeLoadFallbackForError(ResourceLoader* resourceLoader, const ResourceError& error)
-   {
-   if (!error.isCancellation()) {
-   if (resourceLoader == m_documentLoader->mainResourceLoader())
-   return maybeLoadFallbackForMainError(resourceLoader->request(), error);
-   if (scheduleLoadFallbackResourceFromApplicationCache(resourceLoader))
-   return true;
-   }
-   return false;
-   }
-   */
-}
 
 namespace Inspector {
 
@@ -357,8 +257,37 @@ namespace Deprecated {
 }
 
 namespace JSC {
-  ArrayBufferView::ArrayBufferView(PassRefPtr<ArrayBuffer> buffer, unsigned byteOffset) { notImplemented(); }
-  ArrayBufferView::~ArrayBufferView() { notImplemented(); }
+	ArrayBufferView::ArrayBufferView(PassRefPtr<ArrayBuffer> buffer, unsigned byteOffset)
+		: m_byteOffset(byteOffset)
+		, m_isNeuterable(true)
+		, m_buffer(buffer)
+	{
+    m_baseAddress = m_buffer ? (static_cast<char*>(m_buffer->data()) + m_byteOffset) : 0;
+	}
+
+
+	ArrayBufferView::~ArrayBufferView()
+	{
+    if (!m_isNeuterable)
+			m_buffer->unpin();
+	}
+
+
+	void ArrayBufferView::setNeuterable(bool flag)
+	{
+    if (flag == m_isNeuterable)
+			return;
+
+    m_isNeuterable = flag;
+
+    if (!m_buffer)
+			return;
+
+    if (flag)
+			m_buffer->unpin();
+    else
+			m_buffer->pin();
+	}
 
   namespace Bindings {
     void RootObject::invalidate() { notImplemented(); }
