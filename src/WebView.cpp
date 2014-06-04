@@ -238,11 +238,7 @@ namespace WebKit {
 
 	}
 	void WebView::scalefactor(float t) {
-//#if !USE(ACCELERATED_COMPOSITING)
-//		m_private->context->applyDeviceScaleFactor(t);
-//#else
-//		m_private->corePage->setDeviceScaleFactor(t);
-//#endif
+		m_private->corePage->setDeviceScaleFactor(t);
 	}
 	void WebView::resizeEvent(void *) {
 	
