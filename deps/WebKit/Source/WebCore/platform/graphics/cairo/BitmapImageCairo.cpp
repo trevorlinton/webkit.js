@@ -56,9 +56,6 @@ BitmapImage::BitmapImage(PassRefPtr<cairo_surface_t> nativeImage, ImageObserver*
     , m_sizeAvailable(true)
     , m_haveFrameCount(true)
 {
-#if PLATFORM(JS)
-	
-#endif
     m_frames.grow(1);
     m_frames[0].m_hasAlpha = cairo_surface_get_content(nativeImage.get()) != CAIRO_CONTENT_COLOR;
     m_frames[0].m_frame = nativeImage;
@@ -70,9 +67,6 @@ BitmapImage::BitmapImage(PassRefPtr<cairo_surface_t> nativeImage, ImageObserver*
 void BitmapImage::draw(GraphicsContext* context, const FloatRect& dst, const FloatRect& src, ColorSpace styleColorSpace, CompositeOperator op,
     BlendMode blendMode, ImageOrientationDescription description)
 {
-#if PLATFORM(JS)
-	
-#endif
     if (!dst.width() || !dst.height() || !src.width() || !src.height())
         return;
 

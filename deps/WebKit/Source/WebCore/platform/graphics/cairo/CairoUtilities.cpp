@@ -65,7 +65,7 @@ void setSourceRGBAFromColor(cairo_t* context, const Color& color)
 {
     float red, green, blue, alpha;
     color.getRGBA(red, green, blue, alpha);
-#if PLATFORM(JS) && USE(ACCELERATED_COMPOSITING)
+#if !PLATFORM(JS) || USE(ACCELERATED_COMPOSITING)
 		cairo_set_source_rgba(context, red, green, blue, alpha);
 #else
 		// Swap the RGBA channels, canvas painting needs to be ARGB

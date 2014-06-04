@@ -160,9 +160,8 @@ static void drawPatternToCairoContext(cairo_t* cr, cairo_pattern_t* pattern, con
 
 void PlatformContextCairo::drawSurfaceToContext(cairo_surface_t* surface, const FloatRect& destRect, const FloatRect& originalSrcRect, GraphicsContext* context)
 {
-
     // Avoid invalid cairo matrix with small values.
-    if (std::fabs(destRect.width()) < 0.5f || std::fabs(destRect.height()) < 0.5f)
+		if (std::fabs(destRect.width()) < 0.5f || std::fabs(destRect.height()) < 0.5f)
         return;
 
     FloatRect srcRect = originalSrcRect;
@@ -217,7 +216,8 @@ void PlatformContextCairo::drawSurfaceToContext(cairo_surface_t* surface, const 
     // of the scale since the original width and height might be negative.
     float scaleX = std::fabs(srcRect.width() / destRect.width());
     float scaleY = std::fabs(srcRect.height() / destRect.height());
-    cairo_matrix_t matrix = { scaleX, 0, 0, scaleY, leftPadding, topPadding };
+
+		cairo_matrix_t matrix = { scaleX, 0, 0, scaleY, leftPadding, topPadding };
     cairo_pattern_set_matrix(pattern.get(), &matrix);
 
     ShadowBlur& shadow = context->platformContext()->shadowBlur();

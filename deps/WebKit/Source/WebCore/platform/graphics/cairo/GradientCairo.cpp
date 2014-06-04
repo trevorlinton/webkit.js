@@ -61,9 +61,19 @@ cairo_pattern_t* Gradient::platformGradient(float globalAlpha)
 
     Vector<ColorStop>::iterator stopIterator = m_stops.begin();
     while (stopIterator != m_stops.end()) {
+#if !PLATFORM(JS) || USE(ACCELERATED_COMPOSITING)
         cairo_pattern_add_color_stop_rgba(m_gradient, stopIterator->stop,
                                           stopIterator->red, stopIterator->green, stopIterator->blue,
                                           stopIterator->alpha * globalAlpha);
+#else
+				// Swap the RGBA channels, canvas painting needs to be ARGB
+				// but since the channels come out backwards as ABGR we just
+				// swap the red and blue to get the same channel format without
+				// haveing to go through all of the pixels and swap them post-blit.
+				cairo_pattern_add_color_stop_rgba(m_gradient, stopIterator->stop,
+																					stopIterator->blue, stopIterator->green, stopIterator->red,
+																					stopIterator->alpha * globalAlpha);
+#endif
         ++stopIterator;
     }
 

@@ -96,7 +96,7 @@ enum PathDrawingStyle {
 };
 
 static inline void drawPathShadow(GraphicsContext* context, PathDrawingStyle drawingStyle)
-	{
+{
     ShadowBlur& shadow = context->platformContext()->shadowBlur();
     if (shadow.type() == ShadowBlur::NoShadow)
         return;
@@ -154,7 +154,7 @@ static inline void drawPathShadow(GraphicsContext* context, PathDrawingStyle dra
 }
 
 static inline void fillCurrentCairoPath(GraphicsContext* context)
-	{
+{
     cairo_t* cr = context->platformContext()->cr();
     cairo_save(cr);
 
@@ -165,13 +165,13 @@ static inline void fillCurrentCairoPath(GraphicsContext* context)
 }
 
 static inline void shadowAndFillCurrentCairoPath(GraphicsContext* context)
-	{
+{
     drawPathShadow(context, Fill);
     fillCurrentCairoPath(context);
 }
 
 static inline void shadowAndStrokeCurrentCairoPath(GraphicsContext* context)
-	{
+{
     drawPathShadow(context, Stroke);
     context->platformContext()->prepareForStroking(context->state());
     cairo_stroke(context->platformContext()->cr());
@@ -385,8 +385,12 @@ void GraphicsContext::drawConvexPolygon(size_t npoints, const FloatPoint* points
     cairo_t* cr = platformContext()->cr();
 
     cairo_save(cr);
-    cairo_set_antialias(cr, shouldAntialias ? CAIRO_ANTIALIAS_DEFAULT : CAIRO_ANTIALIAS_NONE);
-    addConvexPolygonToContext(cr, npoints, points);
+#if PLATFORM(JS)
+		cairo_set_antialias(cr, shouldAntialias ? CAIRO_ANTIALIAS_SUBPIXEL : CAIRO_ANTIALIAS_NONE);
+#else
+		cairo_set_antialias(cr, shouldAntialias ? CAIRO_ANTIALIAS_DEFAULT : CAIRO_ANTIALIAS_NONE);
+#endif
+		addConvexPolygonToContext(cr, npoints, points);
 
     if (fillColor().alpha()) {
         setSourceRGBAFromColor(cr, fillColor());
@@ -417,9 +421,12 @@ void GraphicsContext::clipConvexPolygon(size_t numPoints, const FloatPoint* poin
     cairo_new_path(cr);
     cairo_fill_rule_t savedFillRule = cairo_get_fill_rule(cr);
     cairo_antialias_t savedAntialiasRule = cairo_get_antialias(cr);
-
-    cairo_set_antialias(cr, antialiased ? CAIRO_ANTIALIAS_DEFAULT : CAIRO_ANTIALIAS_NONE);
-    cairo_set_fill_rule(cr, CAIRO_FILL_RULE_WINDING);
+#if PLATFORM(JS)
+		cairo_set_antialias(cr, antialiased ? CAIRO_ANTIALIAS_SUBPIXEL : CAIRO_ANTIALIAS_NONE);
+#else
+		cairo_set_antialias(cr, antialiased ? CAIRO_ANTIALIAS_DEFAULT : CAIRO_ANTIALIAS_NONE);
+#endif
+		cairo_set_fill_rule(cr, CAIRO_FILL_RULE_WINDING);
     addConvexPolygonToContext(cr, numPoints, points);
     cairo_clip(cr);
 
@@ -1095,7 +1102,11 @@ void GraphicsContext::setPlatformShouldAntialias(bool enable)
     // When true, use the default Cairo backend antialias mode (usually this
     // enables standard 'grayscale' antialiasing); false to explicitly disable
     // antialiasing. This is the same strategy as used in drawConvexPolygon().
+#if PLATFORM(JS)
+		cairo_set_antialias(platformContext()->cr(), enable ? CAIRO_ANTIALIAS_SUBPIXEL : CAIRO_ANTIALIAS_NONE);
+#else
     cairo_set_antialias(platformContext()->cr(), enable ? CAIRO_ANTIALIAS_DEFAULT : CAIRO_ANTIALIAS_NONE);
+#endif
 }
 
 void GraphicsContext::setImageInterpolationQuality(InterpolationQuality quality)
