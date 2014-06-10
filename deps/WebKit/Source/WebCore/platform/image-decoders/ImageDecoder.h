@@ -162,8 +162,12 @@ namespace WebCore {
                 g = fixPointUnsignedMultiply(g, alphaMult);
                 b = fixPointUnsignedMultiply(b, alphaMult);
             }
+#if !PLATFORM(JS) || USE(ACCELERATED_COMPOSITING)
             *dest = (a << 24 | r << 16 | g << 8 | b);
-        }
+#else
+						*dest = (a << 24 | b << 16 | g << 8 | r);
+#endif
+				}
 
     private:
         int width() const

@@ -113,10 +113,12 @@ namespace WebCore {
     const IntRect& rect = m_dirtyRegion;
 
 		SDL_UnlockSurface(m_view->m_private->backingStore->widget());
-		SDL_UnlockSurface(m_view->m_private->sdl_screen);
-		SDL_BlitSurface(m_view->m_private->backingStore->widget(), NULL, m_view->m_private->sdl_screen, NULL);
+		//SDL_UnlockSurface(m_view->m_private->sdl_screen);
+		// This is not supported (due to drawImage) within web workers, locking/unlocking surfaces
+		// already call putImageData, drawImage would be an extra unnecessary call.
+		//SDL_BlitSurface(m_view->m_private->backingStore->widget(), NULL, m_view->m_private->sdl_screen, NULL);
 		SDL_LockSurface(m_view->m_private->backingStore->widget());
-		SDL_LockSurface(m_view->m_private->sdl_screen);
+		//SDL_LockSurface(m_view->m_private->sdl_screen);
 
 		m_dirtyRegion = IntRect();
     m_lastDisplayTime = monotonicallyIncreasingTime();
@@ -166,7 +168,7 @@ namespace WebCore {
 																									 0x0000FF00,	/* Gmask */
 																									 0x000000FF,	/* Bmask */
 																									 0xFF000000); /* Amask */
-			SDL_LockSurface(surface);
+			//SDL_LockSurface(surface);
 			PassOwnPtr<WidgetBackingStore> newBackingStore = WebCore::WidgetBackingStoreCairo::create(surface, newSize);
 			RefPtr<cairo_t> cr = adoptRef(cairo_create(newBackingStore->cairoSurface()));
 

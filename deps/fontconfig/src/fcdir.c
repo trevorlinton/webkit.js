@@ -64,30 +64,38 @@ FcFileScanFontConfig (FcFontSet		*set,
   do
   {
     font = 0;
+#ifdef DEBUG
     /*
      * Nothing in the cache, scan the file
      */
     if (FcDebug () & FC_DBG_SCAN)
     {
         printf ("\tScanning file %s...", file);
-        fflush (stdout);
+				fflush (stdout);
     }
+#endif
     font = FcFreeTypeQuery (file, id, blanks, &count);
+#ifdef DEBUG
     if (FcDebug () & FC_DBG_SCAN)
         printf ("done\n");
+#endif
 
     /*
      * Edit pattern with user-defined rules
      */
+#ifdef DEBUG
     if(!font && (FcDebug() & FC_DBG_SCANV)) {
         fprintf(stderr, "Font is empty\n");
     }
     if(!config && (FcDebug() & FC_DBG_SCANV)) {
       fprintf(stderr, "Config is empty\n");
     }
+#endif
     if (font && config && !FcConfigSubstitute (config, font, FcMatchScan))
     {
+#ifdef DEBUG
         fprintf(stderr, "Font failed to load: %s\n", file);
+#endif
         FcPatternDestroy (font);
         font = NULL;
         ret = FcFalse;
@@ -98,11 +106,13 @@ FcFileScanFontConfig (FcFontSet		*set,
      */
     if (font)
     {
+#ifdef DEBUG
         if (FcDebug() & FC_DBG_SCANV)
         {
             printf ("Final font pattern:\n");
             FcPatternPrint (font);
         }
+#endif
         if (!FcFontSetAdd (set, font))
         {
             FcPatternDestroy (font);
@@ -110,10 +120,12 @@ FcFileScanFontConfig (FcFontSet		*set,
             ret = FcFalse;
         }
     }
+#ifdef DEBUG
     else {
       fprintf(stderr, "Failed to load font (no substitute or unknown type: %s\n",file);
       FcPatternDestroy (font);
     }
+#endif
     id++;
   } while (font && ret && id < count);
   return ret;
@@ -187,10 +199,10 @@ FcDirScanConfig (FcFontSet	*set,
     strcpy ((char *) file, (char *) dir);
     strcat ((char *) file, "/");
     base = file + strlen ((char *) file);
-
+#ifdef DEBUG
     if (FcDebug () & FC_DBG_SCAN)
 	printf ("\tScanning dir %s\n", dir);
-	
+#endif
     d = opendir ((char *) dir);
     if (!d)
     {
@@ -264,10 +276,10 @@ FcDirCacheScan (const FcChar8 *dir, FcConfig *config)
     FcFontSet		*set;
     FcCache		*cache = NULL;
     struct stat		dir_stat;
-
+#ifdef DEBUG
     if (FcDebug () & FC_DBG_FONTSET)
 	printf ("cache scan dir %s\n", dir);
-
+#endif
     if (FcStatChecksum (dir, &dir_stat) < 0)
 	goto bail;
 

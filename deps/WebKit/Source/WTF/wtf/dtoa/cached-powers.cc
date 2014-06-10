@@ -158,6 +158,9 @@ namespace double_conversion {
                                                                 int max_exponent,
                                                                 DiyFp* power,
                                                                 int* decimal_exponent) {
+#if PLATFORM(JS)
+				initialize();
+#endif
         UNUSED_PARAM(max_exponent);
         int kQ = DiyFp::kSignificandSize;
         double k = ceil((min_exponent + kQ - 1) * kD_1_LOG2_10);
@@ -176,7 +179,10 @@ namespace double_conversion {
     void PowersOfTenCache::GetCachedPowerForDecimalExponent(int requested_exponent,
                                                             DiyFp* power,
                                                             int* found_exponent) {
-        ASSERT(kMinDecimalExponent <= requested_exponent);
+#if PLATFORM(JS)
+				initialize();
+#endif
+				ASSERT(kMinDecimalExponent <= requested_exponent);
         ASSERT(requested_exponent < kMaxDecimalExponent + kDecimalExponentDistance);
         int index =
         (requested_exponent + kCachedPowersOffset) / kDecimalExponentDistance;

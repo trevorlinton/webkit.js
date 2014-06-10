@@ -1,10 +1,25 @@
 #include "WebView.h"
 #include "IntSize.h"
 #include <emscripten.h>
+#ifdef DEBUG
+#include "Logging.h"
+#include <wtf/text/WTFString.h>
+#endif
 
 namespace WebKit {
 	static WebKit::WebView* mainView = NULL;
 }
+
+#ifdef DEBUG
+namespace WebCore {
+
+	String logLevelString()
+	{
+		return getenv("WEBKIT_DEBUG");
+	}
+
+} // namespace WebCore
+#endif
 
 // Private
 void tick() {
@@ -45,10 +60,13 @@ extern "C" {
 	}
 	int main(int argc, char** argv) {
 		//"<!doctype html><html><body>Hello World</body></html>";//
-		char tmp[] = "<!doctype html><html><body><div style='position:absolute;top:10px;left:10px;width:300px;height:300px;border-radius:5px;box-shadow:5px 5px 5px #000000;border:solid 1px white;color:white;background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%);-webkit-transform:rotate(7deg);'>Hello World</div></body></html>";
+		//char tmp[] = "<!doctype html><html><body><div style='position:absolute;top:10px;left:10px;width:300px;height:300px;border-radius:5px;box-shadow:5px 5px 5px #000000;border:solid 1px white;color:white;background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%);-webkit-transform:rotate(7deg);'>Hello World</div></body></html>";
+#ifdef DEBUG
+		WebCore::initializeLoggingChannelsIfNecessary();
+#endif
 		createWebKit(500,500);
-		scalefactor(2.0);
-		setHtml(tmp);
+		//scalefactor(2.0);
+		//setHtml(tmp);
 		emscripten_set_main_loop(&tick, 0, false);
 	}
 }

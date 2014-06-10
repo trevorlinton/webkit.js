@@ -2356,6 +2356,7 @@
    '<@(DEPTH)/deps/WebKit/Source/WebCore/platform/mock/ScrollbarThemeMock.cpp',
    '<@(DEPTH)/deps/WebKit/Source/WebCore/platform/mock/ScrollbarThemeMock.h',
    '<@(DEPTH)/deps/WebKit/Source/WebCore/platform/mock/TimerEventBasedMock.h',
+   '<@(DEPTH)/deps/WebKit/Source/WebCore/platform/network/emscripten/ResourceHandlerEmscripten.cpp',
    '<@(DEPTH)/deps/WebKit/Source/WebCore/platform/network/AuthenticationChallengeBase.cpp',
    '<@(DEPTH)/deps/WebKit/Source/WebCore/platform/network/AuthenticationChallengeBase.h',
    '<@(DEPTH)/deps/WebKit/Source/WebCore/platform/network/AuthenticationClient.h',

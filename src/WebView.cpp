@@ -57,47 +57,7 @@ namespace WebKit {
     if(SDL_Init(SDL_INIT_VIDEO) < 0) {
 			abort();
     }
-#if USE(ACCELERATED_COMPOSITING)
-		SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-		SDL_GL_SetAttribute(SDL_GL_RED_SIZE,        8);
-		SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,      8);
-		SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,       8);
-		SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE,      8);
 
-		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,      16);
-		SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE,        32);
-
-		SDL_GL_SetAttribute(SDL_GL_ACCUM_RED_SIZE,    8);
-		SDL_GL_SetAttribute(SDL_GL_ACCUM_GREEN_SIZE,    8);
-		SDL_GL_SetAttribute(SDL_GL_ACCUM_BLUE_SIZE,    8);
-		SDL_GL_SetAttribute(SDL_GL_ACCUM_ALPHA_SIZE,    8);
-
-		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS,  1);
-		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,  2);
-
-    m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_OPENGL);
-		//SDL_GL_SetSwapInterval(1);
-
-		// Unsure why, but we need to initialize both EGL adn GL contexts.
-		//m_private->glContext = GLContext::createContextForWindow(1, GLContext::sharingContext());
-		//ASSERT(m_private->glContext->makeContextCurrent());
-		//GLContext* context = GLContext::getCurrent();
-		//ASSERT(context->makeContextCurrent());
-
-    if ( !m_private->sdl_screen ) {
-			printf("Unable to set video mode: %s\n", SDL_GetError());
-			SDL_Quit();
-			exit(2);
-    }
-#else
-		m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_SWSURFACE);
-		if (!m_private->sdl_screen) {
-			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
-			SDL_Quit();
-			exit(2);
-		}
-		SDL_LockSurface(m_private->sdl_screen);
-#endif
 		m_private->chromeClient = WebCore::ChromeClientJS::createClient(this);
 		pageClients.chromeClient = m_private->chromeClient->toChromeClient();
     m_private->mainFrame = new WebCore::WebFrameJS(this);
@@ -142,6 +102,9 @@ namespace WebKit {
 		m_private->corePage->setIsVisible(true, true);
 		m_private->corePage->setIsInWindow(true);
 		resize(width, height);
+		EM_ASM({
+			postMessage({target:'status',context:'ready'});
+		});
 	}
 
 	WebView::~WebView() {
@@ -193,6 +156,48 @@ namespace WebKit {
 
 	void WebView::resize(int width, int height)
 	{
+		webkitTrace();
+#if USE(ACCELERATED_COMPOSITING)
+		SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+		SDL_GL_SetAttribute(SDL_GL_RED_SIZE,        8);
+		SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,      8);
+		SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,       8);
+		SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE,      8);
+
+		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,      16);
+		SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE,        32);
+
+		SDL_GL_SetAttribute(SDL_GL_ACCUM_RED_SIZE,    8);
+		SDL_GL_SetAttribute(SDL_GL_ACCUM_GREEN_SIZE,    8);
+		SDL_GL_SetAttribute(SDL_GL_ACCUM_BLUE_SIZE,    8);
+		SDL_GL_SetAttribute(SDL_GL_ACCUM_ALPHA_SIZE,    8);
+
+		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS,  1);
+		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,  2);
+
+		m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_OPENGL);
+		//SDL_GL_SetSwapInterval(1);
+
+		// Unsure why, but we need to initialize both EGL adn GL contexts.
+		//m_private->glContext = GLContext::createContextForWindow(1, GLContext::sharingContext());
+		//ASSERT(m_private->glContext->makeContextCurrent());
+		//GLContext* context = GLContext::getCurrent();
+		//ASSERT(context->makeContextCurrent());
+
+		if ( !m_private->sdl_screen ) {
+			printf("Unable to set video mode: %s\n", SDL_GetError());
+			SDL_Quit();
+			exit(2);
+		}
+#else
+		m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_SWSURFACE);
+		if (!m_private->sdl_screen) {
+			fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
+			SDL_Quit();
+			exit(2);
+		}
+		SDL_LockSurface(m_private->sdl_screen);
+#endif
 		IntSize oldSize = IntSize(m_private->size.width(), m_private->size.height());
 		m_private->chromeClient->widgetSizeChanged(oldSize, IntSize(width,height));
 	}

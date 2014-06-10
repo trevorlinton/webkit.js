@@ -1,3 +1,6 @@
+package-test.sh
+*.xcworkspace/
+*.xcworkspace
 webkit.xcodeproj/
 webkit.xcodeproj
 deps/fontconfig/src/.deps/

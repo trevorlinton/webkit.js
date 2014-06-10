@@ -28,7 +28,7 @@ namespace WebCore {
 
 String logLevelString()
 {
-    return getenv("WEBKIT_DEBUG");
+    return "WebKit Logging: ";
 }
 
 } // namespace WebCore

@@ -1226,6 +1226,12 @@ _cairo_stroker_line_to_dashed (void *closure,
 }
 
 static cairo_status_t
+_cairo_stroker_line_to_dashed_wrap(void *closure,
+																	 const cairo_point_t *p2, const cairo_slope_t *tangent) {
+	return _cairo_stroker_line_to_dashed(closure, p2);
+}
+
+static cairo_status_t
 _cairo_stroker_curve_to (void *closure,
 			 const cairo_point_t *b,
 			 const cairo_point_t *c,
@@ -1241,12 +1247,12 @@ _cairo_stroker_curve_to (void *closure,
     cairo_status_t status = CAIRO_STATUS_SUCCESS;
 
     line_to = stroker->dash.dashed ?
-	(cairo_spline_add_point_func_t) _cairo_stroker_line_to_dashed :
+	(cairo_spline_add_point_func_t) _cairo_stroker_line_to_dashed_wrap :
 	(cairo_spline_add_point_func_t) _cairo_stroker_line_to;
 
     /* spline_to is only capable of rendering non-degenerate splines. */
     spline_to = stroker->dash.dashed ?
-	(cairo_spline_add_point_func_t) _cairo_stroker_line_to_dashed :
+	(cairo_spline_add_point_func_t) _cairo_stroker_line_to_dashed_wrap :
 	(cairo_spline_add_point_func_t) _cairo_stroker_spline_to;
 
     if (! _cairo_spline_init (&spline,

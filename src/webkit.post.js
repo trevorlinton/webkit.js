@@ -1,32 +1,16 @@
-Module['print'] = function(e) { postMessage({call:'print',value:e}) }
-Module['printErr'] = function(e) { postMessage({call:'printErr',value:e}); }
-Module['canvas'] = new Canvas();
-
-var WebKit = { };
-WebKit.create = Module.cwrap('createWebKit','number',['number','number']);
-WebKit.html = Module.cwrap('setHtml','number',['string']);
-WebKit.transparent = Module.cwrap('setTransparent','number',['boolean']);
-WebKit.resize = Module.cwrap('resize','number',['number','number']);
-WebKit.scalefactor = Module.cwrap('scalefactor','number',['number']);
 
 var priormessage = onmessage;
+var functionhandles = [];
 onmessage = function(msg) {
-	
-  if(msg.data['call']) {
-  	if(msg.data['call']=='create') {
-  		WebKit.create(msg.data['width'],msg.data['height']);
-  	} else if(msg.data['call']=='html') {
-  		WebKit.html(msg.data['value']);
-  	} else if(msg.data['call']=='transparent') {
-  		WebKit.transparent(msg.data['value'])
-  	} else if(msg.data['call']=='resize') {
-  		WebKit.resize(msg.data['width'],msg.data['height']);
-  	} else if(msg.data['call']=='scalefactor') {
-			WebKit.scalefactor(msg.data['scalefactor']);
-		}
+  if(msg.data && msg.data['wrap']) {
+  	functionhandles[msg.data['wrap']] = Module.cwrap(msg.data['wrap'],msg.data['returntype'],msg.data['argtypes']);
+  	postMessage({target:'status', context:'next'});
+  } else if (msg.data && msg.data['call']) {
+  	var args = JSON.parse(msg.data['arguments']);
+    //.apply(null,JSON.parse(msg.data['arguments']));
+    (functionhandles[msg.data['call']])(args[0],args[1]); 
+  	postMessage({target:'status', context:'next'});
   } else {
   	priormessage(msg);
   }
 }
-
-postMessage({call:'ready'});

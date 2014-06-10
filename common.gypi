@@ -13,7 +13,7 @@
 		# -s OUTLINING_LIMIT=5000, outlining never worked, i'm unsure why, emscripten 1.13.0
 		# -s LINKABLE=1, adding this removes the warning:unresolved symbols to odd emscripten_gl<func> but
 		# -s EXPORTED_FUNCTIONS=@../src/Symbols.exports
-		'emscripten_linktojs':'-s EXPORTED_FUNCTIONS="[\'_main\',\'_scalefactor\',\'_createWebKit\',\'_setHtml\',\'_setTransparent\',\'_scrollBy\',\'_resize\']" --embed-files ../src/assets/fontconfig/fonts@/usr/share/fonts --embed-files ../src/assets/fontconfig/config/fonts.conf@/etc/fonts/fonts.conf --embed-files ../src/assets/fontconfig/cache@/usr/local/var/cache/fontconfig -s TOTAL_MEMORY=50331648 -s FULL_ES2=1  -o webkit.html', # --proxy-to-worker --post-js ../src/webkit.post.js --pre-js ../src/webkit.pre.js -o webkit.js
+		'emscripten_linktojs':'-s ALLOW_MEMORY_GROWTH=1 -s EXPORTED_FUNCTIONS="[\'_main\',\'_scalefactor\',\'_createWebKit\',\'_setHtml\',\'_setTransparent\',\'_scrollBy\',\'_resize\']" --embed-files ../src/assets/fontconfig/fonts@/usr/share/fonts --embed-files ../src/assets/fontconfig/config/fonts.conf@/etc/fonts/fonts.conf --embed-files ../src/assets/fontconfig/cache@/usr/local/var/cache/fontconfig -s TOTAL_MEMORY=50331648 -s FULL_ES2=1 --post-js ../src/webkit.post.js --pre-js ../src/webkit.pre.js --proxy-to-worker -o webkit.html', # --proxy-to-worker -o webkit.js
 		# Ensure that Apple, and Win32 builds do not interfere with the compile, we'll assume we're linux since
 		# emscripten has a very posix unix compile interface, should be the most compatible with existing code.
 		# -fshort-wchar is needed, emscripten uses a 4, not 8 wchar (32 vs. 64 bit). 
