@@ -91,12 +91,12 @@ namespace WebKit {
 		m_private->corePage->settings().setForceCompositingMode(true);
 		m_private->corePage->settings().setApplyDeviceScaleFactorInCompositor(true);
 #else
-		m_private->corePage->settings().setAcceleratedCompositedAnimationsEnabled(false);
+		/*m_private->corePage->settings().setAcceleratedCompositedAnimationsEnabled(false);
 		m_private->corePage->settings().setAcceleratedDrawingEnabled(false);
 		m_private->corePage->settings().setAcceleratedFiltersEnabled(false);
 		m_private->corePage->settings().setAcceleratedCompositingEnabled(false);
 		m_private->corePage->settings().setAcceleratedDrawingEnabled(false);
-		m_private->corePage->settings().setTiledBackingStoreEnabled(false);
+		m_private->corePage->settings().setTiledBackingStoreEnabled(false);*/
 #endif
 		m_private->mainFrame->init();
 		m_private->corePage->setIsVisible(true, true);

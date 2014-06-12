@@ -94,11 +94,12 @@
           hidpi:(document.getElementById('hidpi').checked ? 1 : 0)
         });
         window.webkit.addEventListener('call',function(e){
-          running[e.call] = performance.now();
+          running[e.call] = typeof(performance) != 'undefined' ? performance.now() : Date.now();
         });
         window.webkit.addEventListener('done',function(e){
+          var t0 = typeof(performance) != 'undefined' ? performance.now() : Date.now();
           document.getElementById('info').innerHTML += e.call + ' took ' + 
-              (Math.floor(((performance.now() - running[e.call])/1000)*1000)/1000) + ' seconds.<br>';
+              (Math.floor(((t0 - running[e.call])/1000)*1000)/1000) + ' seconds.<br>';
           running[e.call] = null;
         });
         window.webkit.addEventListener('ready',function() {

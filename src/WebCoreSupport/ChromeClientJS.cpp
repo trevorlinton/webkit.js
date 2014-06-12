@@ -484,8 +484,8 @@ namespace WebCore {
 			return;
 
     m_dirtyRegion.unite(updateRect);
-		paint(0);
-    //m_displayTimer.startOneShot(0);
+		//paint(0);
+    m_displayTimer.startOneShot(0);
 		//m_view->invalidate(updateRect, immediate);
   }
 

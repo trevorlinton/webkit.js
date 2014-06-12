@@ -398,23 +398,36 @@ void PNGImageDecoder::headerAvailable()
 
 static inline void setPixelRGB(ImageFrame::PixelData* dest, png_bytep pixel)
 {
+#if !PLATFORM(JS) || USE(ACCELERATED_COMPOSITING)
     *dest = 0xFF000000U | pixel[0] << 16 | pixel[1] << 8 | pixel[2];
+#else
+		*dest = 0xFF000000U | pixel[2] << 16 | pixel[1] << 8 | pixel[0];
+#endif
 }
 
 static inline void setPixelRGBA(ImageFrame::PixelData* dest, png_bytep pixel, unsigned char& nonTrivialAlphaMask)
 {
     unsigned char a = pixel[3];
+#if !PLATFORM(JS) || USE(ACCELERATED_COMPOSITING)
     *dest = a << 24 | pixel[0] << 16 | pixel[1] << 8 | pixel[2];
-    nonTrivialAlphaMask |= (255 - a);
+#else
+		*dest = a << 24 | pixel[2] << 16 | pixel[1] << 8 | pixel[0];
+#endif
+		nonTrivialAlphaMask |= (255 - a);
 }
 
 static inline void setPixelPremultipliedRGBA(ImageFrame::PixelData* dest, png_bytep pixel, unsigned char& nonTrivialAlphaMask)
 {
     unsigned char a = pixel[3];
-    unsigned char r = fastDivideBy255(pixel[0] * a);
+#if !PLATFORM(JS) || USE(ACCELERATED_COMPOSITING)
+		unsigned char r = fastDivideBy255(pixel[0] * a);
+		unsigned char g = fastDivideBy255(pixel[1] * a);
+		unsigned char b = fastDivideBy255(pixel[2] * a);
+#else
+    unsigned char r = fastDivideBy255(pixel[2] * a);
     unsigned char g = fastDivideBy255(pixel[1] * a);
-    unsigned char b = fastDivideBy255(pixel[2] * a);
-
+    unsigned char b = fastDivideBy255(pixel[0] * a);
+#endif
     *dest = a << 24 | r << 16 | g << 8 | b;
     nonTrivialAlphaMask |= (255 - a);
 }
