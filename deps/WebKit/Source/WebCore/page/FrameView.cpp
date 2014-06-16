@@ -444,7 +444,6 @@ bool FrameView::didFirstLayout() const
 
 void FrameView::invalidateRect(const IntRect& rect)
 {
-
     if (!parent()) {
         if (HostWindow* window = hostWindow())
             window->invalidateContentsAndRootView(rect, false /*immediate*/);
@@ -463,8 +462,6 @@ void FrameView::invalidateRect(const IntRect& rect)
 
 void FrameView::setFrameRect(const IntRect& newRect)
 {
-
-
     IntRect oldRect = frameRect();
     if (newRect == oldRect)
         return;
@@ -543,7 +540,6 @@ bool FrameView::isFrameFlatteningValidForThisFrame() const
 
 bool FrameView::avoidScrollbarCreation() const
 {
-
     // with frame flattening no subframe can have scrollbars
     // but we also cannot turn scrollbars off as we determine
     // our flattening policy using that.
@@ -552,14 +548,12 @@ bool FrameView::avoidScrollbarCreation() const
 
 void FrameView::setCanHaveScrollbars(bool canHaveScrollbars)
 {
-
     m_canHaveScrollbars = canHaveScrollbars;
     ScrollView::setCanHaveScrollbars(canHaveScrollbars);
 }
 
 void FrameView::updateCanHaveScrollbars()
 {
-
     ScrollbarMode hMode;
     ScrollbarMode vMode;
     scrollbarModes(hMode, vMode);
@@ -571,7 +565,6 @@ void FrameView::updateCanHaveScrollbars()
 
 PassRefPtr<Scrollbar> FrameView::createScrollbar(ScrollbarOrientation orientation)
 {
-
     if (!frame().settings().allowCustomScrollbarInMainFrame() && frame().isMainFrame())
         return ScrollView::createScrollbar(orientation);
 
@@ -599,7 +592,6 @@ PassRefPtr<Scrollbar> FrameView::createScrollbar(ScrollbarOrientation orientatio
 
 void FrameView::setContentsSize(const IntSize& size)
 {
-
     if (size == contentsSize())
         return;
 
@@ -625,7 +617,6 @@ void FrameView::setContentsSize(const IntSize& size)
 
 void FrameView::adjustViewSize()
 {
-
     RenderView* renderView = this->renderView();
     if (!renderView)
         return;
@@ -641,7 +632,6 @@ void FrameView::adjustViewSize()
 
 void FrameView::applyOverflowToViewport(RenderElement* o, ScrollbarMode& hMode, ScrollbarMode& vMode)
 {
-
     // Handle the overflow:hidden/scroll case for the body/html elements.  WinIE treats
     // overflow:hidden and overflow:scroll on <body> as applying to the document's
     // scrollbars.  The CSS2.1 draft states that HTML UAs should use the <html> or <body> element and XML/XHTML UAs should
@@ -707,7 +697,6 @@ void FrameView::applyOverflowToViewport(RenderElement* o, ScrollbarMode& hMode, 
 
 void FrameView::applyPaginationToViewport()
 {
-
     Document* document = frame().document();
     auto documentElement = document->documentElement();
     RenderElement* documentRenderer = documentElement ? documentElement->renderer() : nullptr;
@@ -736,7 +725,6 @@ void FrameView::applyPaginationToViewport()
 
 void FrameView::calculateScrollbarModesForLayout(ScrollbarMode& hMode, ScrollbarMode& vMode, ScrollbarModesCalculationStrategy strategy)
 {
-
     m_viewportRenderer = 0;
 
     const HTMLFrameOwnerElement* owner = frame().ownerElement();
@@ -781,7 +769,6 @@ void FrameView::calculateScrollbarModesForLayout(ScrollbarMode& hMode, Scrollbar
 #if USE(ACCELERATED_COMPOSITING)
 void FrameView::updateCompositingLayersAfterStyleChange()
 {
-
     RenderView* renderView = this->renderView();
     if (!renderView)
         return;
@@ -798,9 +785,6 @@ void FrameView::updateCompositingLayersAfterStyleChange()
 
 void FrameView::updateCompositingLayersAfterLayout()
 {
-#if PLATFORM(JS)
-	
-#endif
     RenderView* renderView = this->renderView();
     if (!renderView)
         return;
@@ -811,9 +795,6 @@ void FrameView::updateCompositingLayersAfterLayout()
 
 void FrameView::clearBackingStores()
 {
-#if PLATFORM(JS)
-	
-#endif
     RenderView* renderView = this->renderView();
     if (!renderView)
         return;
@@ -914,7 +895,6 @@ uint64_t FrameView::scrollLayerID() const
 #if ENABLE(RUBBER_BANDING)
 GraphicsLayer* FrameView::layerForOverhangAreas() const
 {
-
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -923,7 +903,6 @@ GraphicsLayer* FrameView::layerForOverhangAreas() const
 
 GraphicsLayer* FrameView::setWantsLayerForTopOverHangArea(bool wantsLayer) const
 {
-
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -933,7 +912,6 @@ GraphicsLayer* FrameView::setWantsLayerForTopOverHangArea(bool wantsLayer) const
 
 GraphicsLayer* FrameView::setWantsLayerForBottomOverHangArea(bool wantsLayer) const
 {
-
     RenderView* renderView = this->renderView();
     if (!renderView)
         return 0;
@@ -945,8 +923,6 @@ GraphicsLayer* FrameView::setWantsLayerForBottomOverHangArea(bool wantsLayer) co
 
 bool FrameView::flushCompositingStateForThisFrame(Frame* rootFrameForFlush)
 {
-
-
     RenderView* renderView = this->renderView();
     if (!renderView)
         return true; // We don't want to keep trying to update layers if we have no renderer.
@@ -974,16 +950,12 @@ bool FrameView::flushCompositingStateForThisFrame(Frame* rootFrameForFlush)
 
 void FrameView::setNeedsOneShotDrawingSynchronization()
 {
-
-
     if (Page* page = frame().page())
         page->chrome().client().setNeedsOneShotDrawingSynchronization();
 }
 
 GraphicsLayer* FrameView::graphicsLayerForPlatformWidget(PlatformWidget platformWidget)
 {
-
-
     // To find the Widget that corresponds with platformWidget we have to do a linear
     // search of our child widgets.
     Widget* foundWidget = nullptr;
@@ -1010,7 +982,6 @@ GraphicsLayer* FrameView::graphicsLayerForPlatformWidget(PlatformWidget platform
 
 void FrameView::scheduleLayerFlushAllowingThrottling()
 {
-
     RenderView* view = this->renderView();
     if (!view)
         return;
@@ -1020,7 +991,6 @@ void FrameView::scheduleLayerFlushAllowingThrottling()
 
 void FrameView::setHeaderHeight(int headerHeight)
 {
-
     if (frame().page())
         ASSERT(frame().isMainFrame());
     m_headerHeight = headerHeight;
@@ -1031,7 +1001,6 @@ void FrameView::setHeaderHeight(int headerHeight)
 
 void FrameView::setFooterHeight(int footerHeight)
 {
-
     if (frame().page())
         ASSERT(frame().isMainFrame());
     m_footerHeight = footerHeight;
@@ -1042,8 +1011,6 @@ void FrameView::setFooterHeight(int footerHeight)
 
 bool FrameView::hasCompositedContent() const
 {
-
-
 #if USE(ACCELERATED_COMPOSITING)
     if (RenderView* renderView = this->renderView())
         return renderView->compositor().inCompositingMode();
@@ -1053,7 +1020,6 @@ bool FrameView::hasCompositedContent() const
 
 bool FrameView::hasCompositedContentIncludingDescendants() const
 {
-
 #if USE(ACCELERATED_COMPOSITING)
     for (Frame* frame = m_frame.get(); frame; frame = frame->tree().traverseNext(m_frame.get())) {
         RenderView* renderView = frame->contentRenderer();
@@ -1071,7 +1037,6 @@ bool FrameView::hasCompositedContentIncludingDescendants() const
 
 bool FrameView::hasCompositingAncestor() const
 {
-
 #if USE(ACCELERATED_COMPOSITING)
     for (Frame* frame = this->frame().tree().parent(); frame; frame = frame->tree().parent()) {
         if (FrameView* view = frame->view()) {
@@ -1086,8 +1051,6 @@ bool FrameView::hasCompositingAncestor() const
 // Sometimes (for plug-ins) we need to eagerly go into compositing mode.
 void FrameView::enterCompositingMode()
 {
-
-
 #if USE(ACCELERATED_COMPOSITING)
     if (RenderView* renderView = this->renderView()) {
         renderView->compositor().enableCompositingMode();
@@ -1099,7 +1062,6 @@ void FrameView::enterCompositingMode()
 
 bool FrameView::isEnclosedInCompositingLayer() const
 {
-
 #if USE(ACCELERATED_COMPOSITING)
     auto frameOwnerRenderer = frame().ownerRenderer();
     if (frameOwnerRenderer && frameOwnerRenderer->containerForRepaint())
@@ -1113,7 +1075,6 @@ bool FrameView::isEnclosedInCompositingLayer() const
 
 bool FrameView::flushCompositingStateIncludingSubframes()
 {
-
 #if USE(ACCELERATED_COMPOSITING)
     bool allFramesFlushed = flushCompositingStateForThisFrame(&frame());
     

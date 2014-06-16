@@ -17,10 +17,11 @@
 #include "WebView.h"
 
 namespace WebCore {
+
   FrameLoaderClient* FrameLoaderClientJS::createClient(WebFrameJS *webframe) {
     return static_cast<FrameLoaderClient *>(new FrameLoaderClientJS(webframe));
-
   }
+
   FrameLoaderClientJS::FrameLoaderClientJS(WebFrameJS *webframe) {
 		m_frame = webframe;
     notImplemented();
@@ -30,31 +31,31 @@ namespace WebCore {
     notImplemented();
   }
 
-
   bool FrameLoaderClientJS::hasHTMLView() const {
-
     return true;
   }
+
   void FrameLoaderClientJS::frameLoaderDestroyed() {
     notImplemented();
   }
 
   bool FrameLoaderClientJS::hasWebView() const  {
-
+		webkitTrace();
 		return m_frame;
   }
 
   void FrameLoaderClientJS::makeRepresentation(DocumentLoader*) {
     notImplemented();
   }
-  void FrameLoaderClientJS::forceLayout() {
 
+  void FrameLoaderClientJS::forceLayout() {
+		webkitTrace();
 		FrameView* view = m_frame->coreFrame()->view();
 		view->setNeedsLayout();
     if (view)
 			view->forceLayout(true);
-
   }
+
   void FrameLoaderClientJS::forceLayoutForNonHTML() {
     notImplemented();
   }
@@ -66,6 +67,7 @@ namespace WebCore {
   void FrameLoaderClientJS::detachedFromParent2() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::detachedFromParent3() {
     notImplemented();
   }
@@ -77,13 +79,16 @@ namespace WebCore {
   void FrameLoaderClientJS::dispatchWillSendRequest(DocumentLoader*, unsigned long identifier, ResourceRequest&, const ResourceResponse& redirectResponse) {
     notImplemented();
   }
+
   bool FrameLoaderClientJS::shouldUseCredentialStorage(DocumentLoader*, unsigned long identifier) {
     notImplemented();
     return false;
   }
+
   void FrameLoaderClientJS::dispatchDidReceiveAuthenticationChallenge(DocumentLoader*, unsigned long identifier, const AuthenticationChallenge&) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidCancelAuthenticationChallenge(DocumentLoader*, unsigned long identifier, const AuthenticationChallenge&) {
     notImplemented();
   }
@@ -91,15 +96,19 @@ namespace WebCore {
   void FrameLoaderClientJS::dispatchDidReceiveResponse(DocumentLoader*, unsigned long identifier, const ResourceResponse&) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidReceiveContentLength(DocumentLoader*, unsigned long identifier, int dataLength) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidFinishLoading(DocumentLoader*, unsigned long identifier) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidFailLoading(DocumentLoader*, unsigned long identifier, const ResourceError&) {
     notImplemented();
   }
+
   bool FrameLoaderClientJS::dispatchDidLoadResourceFromMemoryCache(DocumentLoader*, const ResourceRequest&, const ResourceResponse&, int length) {
     notImplemented();
     return false;
@@ -108,12 +117,15 @@ namespace WebCore {
   void FrameLoaderClientJS::dispatchDidHandleOnloadEvents() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidReceiveServerRedirectForProvisionalLoad() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidCancelClientRedirect() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchWillPerformClientRedirect(const URL&, double interval, double fireDate) {
     notImplemented();
   }
@@ -121,42 +133,55 @@ namespace WebCore {
   void FrameLoaderClientJS::dispatchDidChangeLocationWithinPage() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidPushStateWithinPage() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidReplaceStateWithinPage() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidPopStateWithinPage() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchWillClose() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidReceiveIcon() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidStartProvisionalLoad() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidReceiveTitle(const StringWithDirection&) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidChangeIcons(IconType) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidCommitLoad() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidFailProvisionalLoad(const ResourceError&) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidFailLoad(const ResourceError&) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidFinishDocumentLoad() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDidFinishLoad() {
     notImplemented();
   }
@@ -165,6 +190,7 @@ namespace WebCore {
 		webkitTrace();
 		return m_frame->coreFrame();
   }
+
   void FrameLoaderClientJS::dispatchShow() {
     notImplemented();
   }
@@ -172,13 +198,16 @@ namespace WebCore {
   void FrameLoaderClientJS::dispatchDecidePolicyForResponse(const ResourceResponse&, const ResourceRequest&, FramePolicyFunction) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDecidePolicyForNewWindowAction(const NavigationAction&, const ResourceRequest&, PassRefPtr<FormState>, const String& frameName, FramePolicyFunction)
   {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchDecidePolicyForNavigationAction(const NavigationAction&, const ResourceRequest&, PassRefPtr<FormState>, FramePolicyFunction) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::cancelPolicyCheck() {
     notImplemented();
   }
@@ -190,6 +219,7 @@ namespace WebCore {
   void FrameLoaderClientJS::dispatchWillSendSubmitEvent(PassRefPtr<FormState>) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::dispatchWillSubmitForm(PassRefPtr<FormState>, FramePolicyFunction) {
     notImplemented();
   }
@@ -197,6 +227,7 @@ namespace WebCore {
   void FrameLoaderClientJS::revertToProvisionalState(DocumentLoader*) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::setMainDocumentError(DocumentLoader*, const ResourceError&) {
     notImplemented();
   }
@@ -204,9 +235,11 @@ namespace WebCore {
   void FrameLoaderClientJS::postProgressStartedNotification() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::postProgressEstimateChangedNotification() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::postProgressFinishedNotification() {
     notImplemented();
   }
@@ -222,6 +255,7 @@ namespace WebCore {
   void FrameLoaderClientJS::willChangeTitle(DocumentLoader* loader) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::didChangeTitle(DocumentLoader* loader) {
     notImplemented();
   }
@@ -235,6 +269,7 @@ namespace WebCore {
 		if (coreFrame && coreFrame->document()->isMediaDocument())
 			loader->cancelMainResourceLoad(coreFrame->loader().client().pluginWillHandleLoadError(loader->response()));
   }
+
   void FrameLoaderClientJS::finishedLoading(DocumentLoader*) {
 		notImplemented();
   }
@@ -242,6 +277,7 @@ namespace WebCore {
   void FrameLoaderClientJS::updateGlobalHistory() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::updateGlobalHistoryRedirectLinks() {
     notImplemented();
   }
@@ -250,10 +286,12 @@ namespace WebCore {
     notImplemented();
     return false;
   }
+
   bool FrameLoaderClientJS::shouldStopLoadingForHistoryItem(HistoryItem*) const {
     notImplemented();
     return false;
   }
+
   void FrameLoaderClientJS::didDisplayInsecureContent() {
     notImplemented();
   }
@@ -261,22 +299,26 @@ namespace WebCore {
   void FrameLoaderClientJS::didRunInsecureContent(SecurityOrigin*, const URL&) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::didDetectXSS(const URL&, bool didBlockEntirePage) {
     notImplemented();
   }
 
- ResourceError FrameLoaderClientJS::cancelledError(const ResourceRequest&) {
+	ResourceError FrameLoaderClientJS::cancelledError(const ResourceRequest&) {
    notImplemented();
    return ResourceError();
   }
+
   ResourceError FrameLoaderClientJS::blockedError(const ResourceRequest&) {
     notImplemented();
     return ResourceError();
   }
+
   ResourceError FrameLoaderClientJS::cannotShowURLError(const ResourceRequest&) {
     notImplemented();
     return ResourceError();
   }
+
   ResourceError FrameLoaderClientJS::interruptedForPolicyChangeError(const ResourceRequest&) {
     notImplemented();
     return ResourceError();
@@ -286,10 +328,12 @@ namespace WebCore {
     notImplemented();
     return ResourceError();
   }
+
   ResourceError FrameLoaderClientJS::fileDoesNotExistError(const ResourceResponse&) {
     notImplemented();
     return ResourceError();
   }
+
   ResourceError FrameLoaderClientJS::pluginWillHandleLoadError(const ResourceResponse&) {
     notImplemented();
     return ResourceError();
@@ -304,19 +348,23 @@ namespace WebCore {
     notImplemented();
     return true;
   }
-  bool FrameLoaderClientJS::canShowMIMEType(const String& MIMEType) const {
-	
+
+	bool FrameLoaderClientJS::canShowMIMEType(const String& MIMEType) const {
+		webkitTrace();
     return MIMETypeRegistry::canShowMIMEType(MIMEType);
   }
-  bool FrameLoaderClientJS::canShowMIMETypeAsHTML(const String& MIMEType) const {
+
+	bool FrameLoaderClientJS::canShowMIMETypeAsHTML(const String& MIMEType) const {
     notImplemented();
     return true;
   }
-  bool FrameLoaderClientJS::representationExistsForURLScheme(const String& URLScheme) const {
+
+	bool FrameLoaderClientJS::representationExistsForURLScheme(const String& URLScheme) const {
     notImplemented();
     return true;
   }
-  String FrameLoaderClientJS::generatedMIMETypeForURLScheme(const String& URLScheme) const {
+
+	String FrameLoaderClientJS::generatedMIMETypeForURLScheme(const String& URLScheme) const {
     notImplemented();
     return "text/html";
   }
@@ -324,48 +372,54 @@ namespace WebCore {
   void FrameLoaderClientJS::frameLoadCompleted() {
     notImplemented();
   }
-  void FrameLoaderClientJS::saveViewStateToItem(HistoryItem*) {
+
+	void FrameLoaderClientJS::saveViewStateToItem(HistoryItem*) {
     notImplemented();
   }
-  void FrameLoaderClientJS::restoreViewState() {
+
+	void FrameLoaderClientJS::restoreViewState() {
     notImplemented();
   }
-  void FrameLoaderClientJS::provisionalLoadStarted() {
+
+	void FrameLoaderClientJS::provisionalLoadStarted() {
     notImplemented();
   }
-  void FrameLoaderClientJS::didFinishLoad() {
+
+	void FrameLoaderClientJS::didFinishLoad() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::prepareForDataSourceReplacement() {
     notImplemented();
   }
 
   PassRefPtr<DocumentLoader> FrameLoaderClientJS::createDocumentLoader(const ResourceRequest& request, const SubstituteData& subtituteData) {
-
+		webkitTrace();
     RefPtr<WebCore::DocumentLoader> loader = WebCore::DocumentLoaderJS::create(request, subtituteData);
-		//GRefPtr<WebKitWebDataSource> webDataSource(adoptGRef(kitNew(loader.get())));
-    //loader->setDataSource(webDataSource.get());
     return loader.release();
   }
+
   void FrameLoaderClientJS::setTitle(const StringWithDirection&, const URL&) {
     notImplemented();
   }
 
   String FrameLoaderClientJS::userAgent(const URL&) {
-
     return "webkit.js";
   }
 
   void FrameLoaderClientJS::savePlatformDataToCachedFrame(CachedFrame*) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::transitionToCommittedFromCachedFrame(CachedFrame*) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::transitionToCommittedForNewPage() {
 		webkitTrace();
 		WebKit::WebView* webView = m_frame->webView();
-		FloatRect rect = webView->p()->size;
+		FloatRect rect = webView->positionAndSize();
+		fprintf(stderr,"transitionToCommitedForNewPage (x,y,w,h) %f %f %f %f\n",rect.x(),rect.y(),rect.width(),rect.height());
 		bool transparent = webView->transparent();
 		Color backgroundColor = transparent ? Color::transparent : Color::white;
 		m_frame->coreFrame()->createView(roundedIntSize(rect.size()), backgroundColor, transparent);
@@ -374,13 +428,14 @@ namespace WebCore {
   void FrameLoaderClientJS::didSaveToPageCache() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::didRestoreFromPageCache() {
     notImplemented();
   }
 
   void FrameLoaderClientJS::dispatchDidBecomeFrameset(bool) {
     notImplemented();
-  } // Can change due to navigation or DOM modification.
+  }
 
   bool FrameLoaderClientJS::canCachePage() const {
     notImplemented();
@@ -414,6 +469,7 @@ namespace WebCore {
     return childFrame.release();*/
     return nullptr;
   }
+
   PassRefPtr<Widget> FrameLoaderClientJS::createPlugin(const IntSize&, HTMLPlugInElement*, const URL&, const Vector<String>&, const Vector<String>&, const String&, bool loadManually) {
     notImplemented();
     return nullptr;
@@ -432,9 +488,6 @@ namespace WebCore {
     return nullptr;
   }
 
- /* void FrameLoaderClientJS::dispatchDidFailToStartPlugin(const PluginView*) const {
-  }*/
-
   ObjectContentType FrameLoaderClientJS::objectContentType(const URL&, const String& mimeType, bool shouldPreferPlugInsForImages) {
     notImplemented();
     return ObjectContentType();
@@ -442,61 +495,29 @@ namespace WebCore {
 
   String FrameLoaderClientJS::overrideMediaType() const {
     notImplemented();
-    return String(); //return "text/html"; // This really neesds to be changed.
+    return String();
   }
 
   void FrameLoaderClientJS::dispatchDidClearWindowObjectInWorld(DOMWrapperWorld&) {
     notImplemented();
   }
+
   void FrameLoaderClientJS::documentElementAvailable() {
     notImplemented();
   }
+
   void FrameLoaderClientJS::didPerformFirstNavigation() const {
     notImplemented();
-  } // "Navigation" here means a transition from one page to another that ends up in the back/forward list.
+  }
 
   void FrameLoaderClientJS::registerForIconNotification(bool listen) {
     notImplemented();
   }
+
   PassRefPtr<FrameNetworkingContext> FrameLoaderClientJS::createNetworkingContext() {
     notImplemented();
     return nullptr;
   }
-/*
-  bool FrameLoaderClientJS::shouldAlwaysUsePluginDocument(const String&) const { return false; }
-  bool FrameLoaderClientJS::shouldLoadMediaElementURL(const URL&) const { return true; }
-
-  void FrameLoaderClientJS::didChangeScrollOffset() { }
-
-  bool FrameLoaderClientJS::allowScript(bool enabledPerSettings) { return enabledPerSettings; }
-  bool FrameLoaderClientJS::allowScriptFromSource(bool enabledPerSettings, const URL&) { return enabledPerSettings; }
-  bool FrameLoaderClientJS::allowPlugins(bool enabledPerSettings) { return enabledPerSettings; }
-  bool FrameLoaderClientJS::allowImage(bool enabledPerSettings, const URL&) { return enabledPerSettings; }
-  bool FrameLoaderClientJS::allowDisplayingInsecureContent(bool enabledPerSettings, SecurityOrigin*, const URL&) { return enabledPerSettings; }
-  bool FrameLoaderClientJS::allowRunningInsecureContent(bool enabledPerSettings, SecurityOrigin*, const URL&) { return enabledPerSettings; }
-
-  // Clients that generally disallow universal access can make exceptions for particular URLs.
-  bool FrameLoaderClientJS::shouldForceUniversalAccessFromLocalURL(const URL&) { return false; }
-
-
-
-  bool FrameLoaderClientJS::shouldPaintBrokenImage(const URL&) const { return true; }
-
-  void FrameLoaderClientJS::dispatchWillOpenSocketStream(SocketStreamHandle*) { }
-
-  void FrameLoaderClientJS::dispatchGlobalObjectAvailable(DOMWrapperWorld&) { }
-  void FrameLoaderClientJS::dispatchWillDisconnectDOMWindowExtensionFromGlobalObject(DOMWindowExtension*) { }
-  void FrameLoaderClientJS::dispatchDidReconnectDOMWindowExtensionToGlobalObject(DOMWindowExtension*) { }
-  void FrameLoaderClientJS::dispatchWillDestroyGlobalObjectForDOMWindowExtension(DOMWindowExtension*) { }
-
-  bool FrameLoaderClientJS::allowWebGL(bool enabledPerSettings) { return enabledPerSettings; }
-  void FrameLoaderClientJS::didLoseWebGLContext(int) { }
-
-  void FrameLoaderClientJS::forcePageTransitionIfNeeded() { }
-
-  bool FrameLoaderClientJS::isEmptyFrameLoaderClientJS() { return false; }
-  };*/
-
-} // namespace WebKit
+}
 
 

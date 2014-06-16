@@ -1,0 +1,10 @@
+Name: colorama
+URL: http://code.google.com/p/colorama
+Version: 2.3 + c25659277b30
+Revision: c25659277b30
+
+Description:
+Provides a simple cross-platform API to print colored terminal text from Python
+applications.
+
+LICENSE.txt is the license file copied from upstream.

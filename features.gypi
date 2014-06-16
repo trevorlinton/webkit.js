@@ -22,7 +22,7 @@
       'ENABLE_CHANNEL_MESSAGING=1',
       'ENABLE_CSP_NEXT=0',
       'ENABLE_CSS_BOX_DECORATION_BREAK=1',
-      'ENABLE_CSS_COMPOSITING=0', #must be disabled if ACCELERATED_COMPOSITING=0
+      'ENABLE_CSS_COMPOSITING=1', #must be disabled if ACCELERATED_COMPOSITING=0
       'ENABLE_CSS_DEVICE_ADAPTATION=0',
       'ENABLE_CSS_EXCLUSIONS=1',
       'ENABLE_CSS_FILTERS=1',
@@ -95,7 +95,7 @@
       'ENABLE_PROXIMITY_EVENTS=0',
       'ENABLE_PUBLIC_SUFFIX_LIST=1',
       'ENABLE_QUOTA=0',
-      'ENABLE_REQUEST_ANIMATION_FRAME=1',
+      'ENABLE_REQUEST_ANIMATION_FRAME=0',
       'ENABLE_REMOTE_INSPECTOR=0',
       'ENABLE_RESOLUTION_MEDIA_QUERY=0',
       'ENABLE_SCRIPTED_SPEECH=0',
@@ -191,13 +191,13 @@
       'WTF_USE_OPENGL=1',
       'WTF_USE_OPENGL_ES_2=1',
       'WTF_USE_EGL=1',
-			'WTF_USE_ACCELERATED_COMPOSITING=0',
+			'WTF_USE_ACCELERATED_COMPOSITING=1',
       'WTF_USE_GLX=0',
 			'WTF_USE_3D_GRAPHICS=1',
 
 			# turning on any of the below tend to require one another...
-      'WTF_USE_TEXTURE_MAPPER=0', # requires cairo, won't work with skia.
-      'WTF_USE_TEXTURE_MAPPER_GL=0', # requires cairo, won't work with skia.
+      'WTF_USE_TEXTURE_MAPPER=1', # requires cairo, won't work with skia.
+      'WTF_USE_TEXTURE_MAPPER_GL=1', # requires cairo, won't work with skia.
       'WTF_USE_TILED_BACKING_STORE=0', # requires cairo, won't work with skia. Not used by us.
 			'WTF_USE_COORDINATED_GRAPHICS=0', # requires cairo, won't work with skia. Not used by us.
       'WTF_USE_GRAPHICS_SURFACE=0', # requires cairo, won't work with skia. Not used by us.

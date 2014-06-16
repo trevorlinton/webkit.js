@@ -51,11 +51,11 @@ extern "C" {
 		//WebCore::IntSize rect = WebKit::mainView->size();
 		//WebKit::mainView->resize(rect.width(),rect.height());
 	}
-	void createWebKit(int width, int height) {
+	void createWebKit(int width, int height, bool accel) {
 		//if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
 		//	exit(1);
 		//}
-		WebKit::mainView = new WebKit::WebView(width, height);
+		WebKit::mainView = new WebKit::WebView(width, height, accel);
 		//emscripten_set_main_loop(&tick, 0, false);
 	}
 	int main(int argc, char** argv) {
@@ -64,7 +64,7 @@ extern "C" {
 #ifdef DEBUG
 		WebCore::initializeLoggingChannelsIfNecessary();
 #endif
-		createWebKit(500,500);
+		createWebKit(500,500,true);
 		//scalefactor(2.0);
 		//setHtml(tmp);
 		emscripten_set_main_loop(&tick, 0, false);

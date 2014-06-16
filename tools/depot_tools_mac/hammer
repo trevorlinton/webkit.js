@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Copyright (c) 2006-2008 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# A script to invoke scons in gyp generated projects.
+
+# Find the 'src' directory by looking for the site_scons directory.
+# This method allows trees that don't use the name src to use this script.
+# Explicitly skip site_scons directories that are from the 'software
+# construction toolkit', since these are not gyp compatible.
+SRC_DIR=`pwd`
+while [ ! -d "${SRC_DIR}/site_scons" ] || \
+      [ -e "${SRC_DIR}/site_scons/site_tools/component_setup.py" ]; do
+  PARENT_DIR="$(dirname "${SRC_DIR}")"
+  if [ "${SRC_DIR}" = "${PARENT_DIR}" ]; then
+    echo "ERROR: hammer must be run in a directory with site_scons under" >&2
+    echo "       the root of the project tree." >&2
+    exit 1
+  fi
+  SRC_DIR="${PARENT_DIR}"
+done
+
+SCONS="${SRC_DIR}/third_party/scons/scons.py"
+SITE_SCONS="${SRC_DIR}/site_scons"
+
+exec python "${SCONS}" "--site-dir=${SITE_SCONS}" "$@"

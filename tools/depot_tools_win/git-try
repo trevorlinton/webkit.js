@@ -1,0 +1,21 @@
+#!/bin/sh
+# Copyright (c) 2011 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# Test if this script is running under a MSys install.  If it is, we will
+# hardcode the path to Python where possible.
+OUTPUT="$(uname | grep 'MINGW')"
+MINGW=$?
+
+if [ $MINGW = 0 ]; then
+  base_dir="${0%\\*}"
+else
+  base_dir=$(dirname "$0")
+fi
+
+if [ -d "$base_dir/python_bin" -a $MINGW = 0 ]; then
+  PYTHONDONTWRITEBYTECODE=1 exec "$base_dir/python_bin/python.exe" "$base_dir"/git_try.py "$@"
+else
+  PYTHONDONTWRITEBYTECODE=1 exec "$base_dir/git_try.py" "$@"
+fi

@@ -1,0 +1,200 @@
+#!/usr/bin/env -S bash -e
+#
+# Copyright (c) 2009 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+#
+# create-chromium-git-src
+#
+# Create and configure a local Chromium git repository.
+#
+
+GITSERVER="${GITSERVER:-git.chromium.org}"
+SVNSERVER="${SVNSERVER:-svn://svn.chromium.org/chrome}"
+TMP=".create_chromium_git_src.$$"
+
+function cleanup {
+  rm -rf "${TMP}"
+}
+
+trap 'cleanup; echo Failure!; tput bel; exit 1' TERM QUIT HUP INT EXIT
+
+function get_email {
+  # Get user email address.
+  EMAIL=""
+  while [ "x${EMAIL}" = "x" ]; do
+    echo -n "Email address git should configure in your checkout: "
+    read EMAIL
+    if [ "x${EMAIL}" = "x${EMAIL%@*}" ]; then
+      echo "Invalid email address (must contain @)!"
+      EMAIL=""
+    fi
+  done
+  echo -n "Using ${EMAIL} for email address... "
+  sleep 1
+  echo OK
+}
+
+# Verify we can write to particular directories.
+function check_dirs {
+  if [ -d src ]; then
+    echo "Found a src directory, do you already have a Chromium checkout?"
+    exit 1
+  fi
+}
+
+# Test git and git --version.
+function test_git {
+  echo -n "Trying git... "
+  local GITV="$(git --version)" || {
+    echo "git isn't installed, please install it"
+    exit 1
+  }
+
+  GITV="${GITV##* }"          # Only examine last word (i.e. version number)
+  local GITD=( ${GITV//./ } ) # Split version number into decimals
+  if ((GITD[0] < 1 || (GITD[0] == 1 && GITD[1] < 6) )); then
+    echo "git version is ${GITV}, please update to a version later than 1.6"
+    exit 1
+  fi
+  echo "found git version ${GITV}"
+}
+
+# Test git svn and git svn --version.
+function test_git_svn {
+  echo -n "Trying git-svn... "
+  rm -rf "${TMP}"
+  git clone git://github.com/git/hello-world.git "${TMP}" &>/dev/null &&
+  local GITV="$(cd "${TMP}" && git svn --version)" || {
+    echo "git-svn isn't installed, please install it"
+    exit 1
+  }
+
+  GITV="${GITV#* version }"   # git svn --version has extra output to remove.
+  GITV="${GITV% (svn*}"
+  local GITD=( ${GITV//./ } ) # Split version number into decimals
+  if ((GITD[0] < 1 || (GITD[0] == 1 && GITD[1] < 6) )); then
+    echo "git version is ${GITV}, please update to a version later than 1.6"
+    exit 1
+  fi
+  echo "found git-svn version ${GITV}"
+
+  echo "Testing git svn init..."
+  (cd "${TMP}" && git svn init --username="${EMAIL}" --prefix=origin/ \
+    -T trunk/src "${SVNSERVER}") &
+  local pid="$!"
+  { sleep 10 && kill "${pid}"; } &>/dev/null &
+  wait "${pid}" &>/dev/null || {
+    echo "Could not initialize repository, is SVN server ${SVNSERVER} correct?"
+    echo "The supplied username and password may be incorrect."
+    exit 1
+  }
+}
+
+# Verify we can reach our main git URL.
+function test_git_url {
+  echo -n "Testing Chromium git URL... "
+  mkdir -p "${TMP}"
+  (cd "${TMP}" &&
+   rm -rf .git .gitignore &&
+   git init &&
+   git remote add origin git://"${GITSERVER}"/chromium.git &&
+   git remote show origin) &>/dev/null &
+  local pid="$!"
+  { sleep 10 && kill "${pid}"; } &>/dev/null &
+  wait "${pid}" &>/dev/null || {
+    echo "timeout accessing Chromium git URL, is ${GITSERVER} correct?"
+    exit 1
+  }
+  echo OK
+}
+
+# Grab a clone of the Chromium git repository.
+function cr_git_clone {
+  echo "Grabbing Chromium git repository..."
+  git clone git://"${GITSERVER}"/chromium.git src || {
+    echo "git clone exited with error"
+    echo "You should probably remove 'src' before retrying"
+    exit 1
+  }
+}
+
+# Configure the git repository to know about the upstream SVN server.
+function cr_git_svn_init {
+  echo "Configuring upstream SVN..."
+  (cd src && git svn init --username="${EMAIL}" --prefix=origin/ -T trunk/src \
+   "${SVNSERVER}") || {
+    echo "'git svn init' exited with error"
+    exit 1
+  }
+}
+
+# Initialize the SVN history in the repository, also sanity checks our upstream
+# SVN configuration.
+function cr_git_svn_fetch {
+  echo "Fetching SVN history..."
+  (cd src && git svn fetch && git pull) || {
+    echo "'git svn fetch' exited with error"
+    exit 1
+  }
+}
+
+# Remaining configuration of the git repository:
+# - associate with codereview/rietveld
+# - set the repository's email address
+# - disable crlf munging
+# - grab a stock .gclient file
+function git_config {
+  echo -n "Associating with Rietveld... "
+  (cd src && git cl config http://src.chromium.org/svn/)
+  echo OK
+
+  echo -n "Configuring email address... "
+  (cd src && git config user.email "${EMAIL}")
+  echo OK
+
+  echo -n "Disabling crlf munging... "
+  (cd src && git config --global core.autocrlf false)
+  echo OK
+
+  echo -n "Creating a .gclient file... "
+  gclient config http://src.chromium.org/svn/trunk/src
+  echo OK
+}
+
+get_email
+check_dirs
+test_git
+test_git_svn
+test_git_url
+cr_git_clone
+cr_git_svn_init
+cr_git_svn_fetch
+git_config
+
+echo
+echo "A Chromium Git repository was created in 'src'."
+echo
+echo "  To create a CL..."
+echo "    Update: git pull && gclient sync"
+echo "    Create and use a branch mychange: git checkout -q -b mychange origin"
+echo "    Edit files and commit: git commit -a -v"
+echo "    Upload CL: git cl upload"
+echo "    Try a change: git try origin"
+echo "    Commit a CL: git cl dcommit"
+echo "    Switch to the trunk: git checkout trunk"
+echo "    Delete a branch mychange: git branch -d mychange"
+echo
+echo "  If while on a branch you need to switch back to the trunk..."
+echo "    Switch to the trunk: git checkout trunk"
+echo "    List all branches: git branch"
+echo "    Switch to branch mychange: git checkout mychange"
+echo
+echo "  Examining files and changes..."
+echo "    Log with patches: git log -p"
+echo "    Changes to DEPS: git log -p DEPS"
+echo "    View latest commit: git cat-file commit HEAD"
+echo
+echo "You should run: gclient sync"
+echo
+trap cleanup EXIT

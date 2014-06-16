@@ -1,0 +1,49 @@
+Package Generation Notes for gsutil
+
+Gsutil can be distributed in one of three ways:
+
+1. legacy mode - User unpacks archive file into a private directory tree 
+and maintains his/her own private copy of gsutil, boto, etc. This is the 
+only supported installation mode for Windows users.
+
+2. enterprise mode - User unpacks the gsutil archive file and runs
+'python setup.py install' (as root), which installs everything into 
+a shared directory tree (/usr/share/gsutil) with a symlink from 
+/usr/bin/gsutil to /usr/share/gsutil/gsutil to provide easy access to
+the shared gsutil command. In enterprise mode, the software gets installed 
+in one shared location, which makes it easier to install, update and 
+manage gsutil for a community of users.
+
+NOTE: Enterprise mode (installing gsutil via setup.py) is no longer 
+officially supported - unpacking the zip file into a directory is the 
+preferred method for installing gsutil for both shared and private 
+configurations.
+
+3. rpm mode - User installs the gsutil rpm package file on a Red Hat
+Linux system using the rpm command. The resulting installation image 
+looks precisely the same as the results of installing with enterprise 
+mode, i.e. a shared directory tree (/usr/share/gsutil) with a symlink 
+from /usr/bin/gsutil. rpm mode is intended for enterprises that want 
+a stable release that does not necessarily contain the latest changes.
+
+All three modes derive their inventory from a common text file called
+MANIFEST.in. If you want to add one or more new files or directories, 
+you only need to edit that one file and all three installation modes
+will automatically inherit the change(s). 
+
+GENERATING PACKAGE FILES
+
+First update the VERSION file and the gsutil.spec files to reflect the 
+new version number.
+
+Legacy mode and enterprise mode are both embodied in the same gsutil
+archive file, the only difference being that the latter entails running 
+one additional command after unpacking the gsutil archive file. So the
+same archive file we've always distributed for gsutil will be used for
+both legacy and enterprise installation modes.
+
+For rpm mode, there's a new tool call pkg_gen.sh, which when run with no
+arguments creates an rpm file at this location:
+
+  $HOME/rpmbuild/RPMS/noarch/gsutil-2.0-1.noarch.rpm
+

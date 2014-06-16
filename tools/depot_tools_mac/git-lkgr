@@ -1,0 +1,208 @@
+#!/bin/bash
+
+# Copyright (c) 2012 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+branch_name=""
+checkout_branch=no
+create_branch=no
+quiet=no
+svn_lkgr=
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --checkout|--force-branch)
+      checkout_branch=yes
+      create_branch=yes
+      ;;
+    --closest)
+      use_closest=yes
+      ;;
+    --create)
+      create_branch=yes
+      ;;
+    -n|--name)
+      branch_name=$2
+      create_branch=yes
+      shift
+      ;;
+    -q|--quiet)
+      quiet=yes
+      ;;
+    -r|--revision)
+      svn_lkgr="$2"
+      shift
+      ;;
+    *)
+      echo "Unknown option: $1"
+      echo "Usage:"
+      echo "  --checkout         Create a branch and check it out."
+      echo "  --create           Create a branch."
+      echo "  --closest          Use closest git commit to the target svn revision."
+      echo "                       Otherwise --checkout may be required to create"
+      echo "                       a git commit for a specific svn revision."
+      echo "  -n, --name <name>  Specify the name of branch to create or reset."
+      echo "                       This will force the branch using 'git branch -f '."
+      echo "  -q, --quiet        Quiet."
+      echo "  -r, --revision <r> Svn revision number use instead of server provided lkgr."
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+if [ -z "$svn_lkgr" ]; then
+  svn_lkgr=`curl -s http://chromium-status.appspot.com/lkgr`
+  if [ $? != 0 -o -z "$svn_lkgr" ]; then
+    echo 'Could not get svn lkgr from chromium-status.appspot.com/lkgr'
+    exit 1
+  fi
+fi
+
+if [ "${svn_lkgr:0:1}" = "r" ]; then
+  svn_lkgr="${svn_lkgr:1}"
+fi
+
+# Run a trivial git-svn command to force it to update the revision cache
+# (which causes spew that might otherwise confuse the next command).
+git svn info > /dev/null
+if [ $? != 0 ]; then
+  cat <<EOF 1>&2
+Could not run a trivial git-svn command.  You probably need to set up your
+working directory for git-svn, by following these instructions:
+
+http://code.google.com/p/chromium/wiki/UsingNewGit#Initial_checkout
+EOF
+  exit 1
+fi
+
+git_lkgr=`git svn find-rev r${svn_lkgr}`
+if [ $? != 0 -o -z "$git_lkgr" ]; then
+  cat <<EOF 1>&2
+Could not map svn revision ${svn_lkgr} to a git commit.
+You may need to 'git fetch' and try again.
+EOF
+  exit 1
+fi
+
+set -o pipefail
+closest_commit=`git rev-list --ancestry-path \
+    --grep='SVN changes up to revision [0-9]*' \
+    ${git_lkgr}..refs/remotes/origin/master | tail -1`
+if [ $? != 0 -o -z "$closest_commit" ]; then
+  closest_commit=
+  closest_svn_commit=
+else
+  closest_svn_commit=`git rev-list -n 1 ${closest_commit}^1`
+  if [ $? != 0 -o -z "$closest_svn_commit" ]; then
+    cat <<EOF 1>&2
+  I am thoroughly confused.  Please file a bug report at http://new.crbug.com.
+EOF
+    exit 1
+  fi
+  closest_svn=`git svn find-rev ${closest_svn_commit}`
+fi
+
+if [ "${use_closest}" = "yes" ]; then
+  svn_lkgr="${closest_svn}"
+  git_lkgr="${closest_svn_commit}"
+fi
+
+# Determine lkgr_branch:
+if [ "${branch_name}" != "" ]; then
+  # Use the provided name for the branch.
+  lkgr_branch="${branch_name}"
+
+  # If the branch already exists, force the update to it.
+  git rev-parse --verify -q "${branch_name}" >/dev/null
+  if [ $? -eq 0 ]; then
+    old_branch_value=`git rev-parse "${branch_name}"`
+    echo "Will update branch ${lkgr_branch}, it previously was at ${old_branch_value}."
+    force_branch="--force"
+  fi
+else
+  # Pick a name for the new branch.  Use `git rev-parse` to make sure the branch
+  # doesn't already exist; if it does, iterate an integer suffix to uniquify it.
+  lkgr_branch="lkgr_r${svn_lkgr}"
+  digit=1
+  git rev-parse --verify -q "${lkgr_branch}" >/dev/null
+  while [ $? -eq 0 ]; do
+    lkgr_branch="lkgr_r${svn_lkgr}_${digit}"
+    digit=`expr $digit + 1`
+    git rev-parse --verify -q "${lkgr_branch}" >/dev/null
+  done
+fi
+
+if [ "${closest_svn_commit}" = "${git_lkgr}" ]; then
+  echo "${closest_commit}"
+  if [ "$create_branch" = "yes" ]; then
+    echo "Creating branch ${lkgr_branch}"
+    git branch ${force_branch} "${lkgr_branch}" "${closest_commit}" || exit 1
+  fi
+  if [ "$checkout_branch" = "yes" ]; then
+    git checkout "${lkgr_branch}"
+  fi
+  exit 0
+elif [ "${quiet}" = "yes" ]; then
+  exit 1
+elif [ "${checkout_branch}" = "no" ]; then
+  echo "There is no master commit which corresponds exactly to svn revision ${svn_lkgr}."
+  echo "Call 'git lkgr --checkout' to create a branch with a commit to match ${svn_lkgr}."
+  if [ -n "$closest_commit" ]; then
+    echo "The closest commit is r${closest_svn}, ${closest_commit}."
+    echo "Use the --closest option to use the closest instead of the target revision."
+  fi
+  exit 0
+fi
+
+current_head=`git branch | grep '^\*' | cut -c3-`
+if [ "${current_head}" = "(no branch)" ]; then
+  current_head=`git rev-parse HEAD`
+fi
+
+git checkout --detach "${git_lkgr}" &&
+python tools/deps2git/deps2git.py -d DEPS -o .DEPS.git -w .. &&
+git add .DEPS.git &&
+python tools/deps2git/deps2submodules.py .DEPS.git &&
+git commit -m "SVN changes up to revision $svn_lkgr" &&
+git branch ${force_branch} "${lkgr_branch}" HEAD
+
+if [ $? != 0 ]; then
+  cat <<EOF
+
+--------------------------------------------------------------------------------
+Something went wrong!  Restoring your previous state by checking out
+$current_head
+
+Please file a bug report at http://new.crbug.com.
+--------------------------------------------------------------------------------
+
+EOF
+  git checkout --force $current_head
+  exit 1
+fi
+
+git checkout "${lkgr_branch}"
+
+cat <<EOF
+
+--------------------------------------------------------------------------------
+The new branch "$lkgr_branch" was branched from this commit:
+
+$git_lkgr
+
+... which maps to the svn commit r${svn_lkgr}.  The new branch
+has one additional commit, to bring .DEPS.git, .gitmodules, and the
+invisible git submodule files up to date with DEPS.
+
+To create a working branch, do this:
+
+\$ git branch --track my_new_branch $lkgr_branch
+
+'git-cl upload' will do the right thing, i.e., it will cherry-pick all
+your changes from my_new_branch, but *not* the .DEPS.git+.gitmodules+submodules
+commit on $lkgr_branch.
+--------------------------------------------------------------------------------
+
+EOF

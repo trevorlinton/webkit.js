@@ -19,7 +19,6 @@
 #ifndef AcceleratedContext_h
 #define AcceleratedContext_h
 
-#if USE(ACCELERATED_COMPOSITING) && USE(TEXTURE_MAPPER_GL)
 
 #include "GraphicsLayer.h"
 #include "GraphicsLayerClient.h"
@@ -34,7 +33,7 @@
 
 namespace WebCore {
 
-	class AcceleratedContext : public WebCore::GraphicsLayerClient {
+class AcceleratedContext : public WebCore::GraphicsLayerClient {
     WTF_MAKE_NONCOPYABLE(AcceleratedContext);
 	public:
 		static PassOwnPtr<AcceleratedContext> create(WebKit::WebView* webView)
@@ -45,10 +44,8 @@ namespace WebCore {
     virtual ~AcceleratedContext();
     void setRootCompositingLayer(WebCore::GraphicsLayer*);
     void setNonCompositedContentsNeedDisplay(const WebCore::IntRect&);
-    //void scheduleLayerFlush();
+    void scheduleLayerFlush();
     void resizeRootLayer(const WebCore::IntSize&);
-
-    bool renderLayersToWindow(cairo_t*, const WebCore::IntRect& clipRect);
     bool enabled();
 
     virtual void notifyAnimationStarted(const WebCore::GraphicsLayer*, double time);
@@ -64,37 +61,13 @@ namespace WebCore {
     bool flushPendingLayerChanges();
     void scrollNonCompositedContents(const WebCore::IntRect& scrollRect, const WebCore::IntSize& scrollOffset);
 
-
-    bool shouldUseTiledBacking(const GraphicsLayer*) const { return false; }
-    void tiledBackingUsageChanged(const GraphicsLayer*, bool /*usingTiledBacking*/) { }
-
-    // Notification that this layer requires a flush before the next display refresh.
-		void notifyFlushBeforeDisplayRefresh(const GraphicsLayer*) { }
-    void didCommitChangesForLayer(const GraphicsLayer*) const { }
-
-    // Provides current transform (taking transform-origin and animations into account). Input matrix has been
-    // initialized to identity already. Returns false if the layer has no transform.
-    bool getCurrentTransform(const GraphicsLayer*, TransformationMatrix&) const { return false; }
-
-    // Allows the client to modify a layer position used during the visibleRect calculation, for example to ignore
-    // scroll overhang.
-		void customPositionForVisibleRectComputation(const GraphicsLayer*, FloatPoint&) const { }
-
-    // Multiplier for backing store size, related to high DPI.
-		float deviceScaleFactor() const { return m_webView->p()->corePage->deviceScaleFactor(); }
-    // Page scale factor.
-    float pageScaleFactor() const { return m_webView->p()->corePage->pageScaleFactor(); }
-
-    float contentsScaleMultiplierForNewTiles(const GraphicsLayer*) const { return 1; }
-
-    bool isTrackingRepaints() const { return false; }
-
-    bool shouldSkipLayerInDump(const GraphicsLayer*) const { return false; }
-    bool shouldDumpPropertyForLayer(const GraphicsLayer*, const char*) const { return true; }
-
+		// Multiplier for backing store size, related to high DPI.
+		float deviceScaleFactor() const { return m_view->p()->corePage->deviceScaleFactor(); }
+		// Page scale factor.
+		float pageScaleFactor() const { return m_view->p()->corePage->pageScaleFactor(); }
 
 	private:
-		WebKit::WebView* m_webView;
+		WebKit::WebView* m_view;
     unsigned int m_layerFlushTimerCallbackId;
 
 #if USE(TEXTURE_MAPPER_GL)
@@ -106,21 +79,19 @@ namespace WebCore {
     bool m_needsExtraFlush;
     WebCore::TextureMapperFPSCounter m_fpsCounter;
 
-    //void layerFlushTimerFired();
-    void stopAnyPendingLayerFlush();
-    //static bool layerFlushTimerFiredCallback(WebCore::AcceleratedContext*);
+		void layerFlushTimerFired();
+		void stopAnyPendingLayerFlush();
+		static void layerFlushTimerFiredCallback(void *);
     WebCore::GLContext* prepareForRendering();
     void clearEverywhere();
 #elif USE(TEXTURE_MAPPER)
-    WebCore::TextureMapperLayer* m_rootTextureMapperLayer;
-    std::unique_ptr<WebCore::GraphicsLayer> m_rootGraphicsLayer;
-    OwnPtr<WebCore::TextureMapper> m_textureMapper;
+		WebCore::TextureMapperLayer* m_rootTextureMapperLayer;
+		std::unique_ptr<WebCore::GraphicsLayer> m_rootGraphicsLayer;
+		OwnPtr<WebCore::TextureMapper> m_textureMapper;
 #endif
-
     AcceleratedContext(WebKit::WebView*);
-	};
+};
 
 }
 
-#endif
 #endif // AcceleratedContext_h

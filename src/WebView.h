@@ -48,15 +48,16 @@ namespace WebKit {
 		WebCore::WebFrameJS* mainFrame = NULL;
     bool transparent = false;
     WebCore::FloatRect size;
+		bool accelerated;
 #if USE(ACCELERATED_COMPOSITING)
-		//OwnPtr<WebCore::AcceleratedContext> acceleratedContext;
+		OwnPtr<WebCore::AcceleratedContext> acceleratedContext;
 		OwnPtr<WebCore::GLContext> glContext;
 #endif
 	};
 
 	class WebView {
 	public:
-		WebView(int width, int height);
+		WebView(int width, int height, bool accelerated);
 		~WebView();
 
 		void setTransparent(bool transparent) { m_private->transparent = transparent; };
@@ -90,6 +91,7 @@ namespace WebKit {
     void focusOutEvent(void *);
     void inputMethodEvent(void *);
     bool focusNextPrevChild(bool next);
+		void initializeScreens(int width, int height);
 #if USE(ACCELERATED_COMPOSITING)
 		WebCore::GLContext *glWindowContext();
 #endif

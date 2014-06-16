@@ -1,0 +1,10 @@
+#!/bin/bash
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# git_reparent_branch.py -- Change the parent (upstream) branch of the current
+# branch. Afterwards, run a `git rebase-update` cycle to ensure that all
+# branches correctly reflect their parentage.
+
+. $(type -P python_git_runner.sh)

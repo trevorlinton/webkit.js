@@ -1,0 +1,10 @@
+URL: http://www.logilab.org/project/pylint
+Version: 0.25.1
+License: GPL
+License File: LICENSE.txt
+
+Description:
+This directory contains the pylint module.
+
+Local Modifications:
+None

@@ -1,0 +1,16 @@
+Including the following third parties:
+
+7zip version 4.65
+7za.exe is a free software distributed under the GNU LGPL.
+Read license.txt for more information.
+
+Source code of 7za.exe and 7-Zip can be found at
+http://www.7-zip.org/
+
+Note: packed with UPX to reduce code size.
+
+
+wget 1.11.4 from http://www.gnu.org/software/wget/
+
+Note: local compile without openssl support to reduce code size.
+Note: packed with UPX to reduce code size.

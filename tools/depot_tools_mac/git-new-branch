@@ -1,0 +1,9 @@
+#!/bin/bash
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# git_new_branch.py -- Create a new branch which tracks the default upstream
+# (origin/master).
+
+. $(type -P python_git_runner.sh)

@@ -1,0 +1,9 @@
+#!/bin/bash
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# git_map_branches.py -- a git-command for presenting a graphical view of git
+# branches in the current repo, and their relationships to each other.
+
+. $(type -P python_git_runner.sh)

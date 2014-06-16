@@ -1,0 +1,44 @@
+# Ignore any python bytecode.
+*.pyc
+
+# Ignore the batch files produced by the Windows bootstrapping.
+/git.bat
+/gitk.bat
+/pylint.bat
+/python
+/python.bat
+/ssh.bat
+/ssh-keygen.bat
+/svn
+/svn.bat
+/svnversion.bat
+/.codereview_upload_cookies
+/.gitconfig
+/.git_cl_description_backup
+/.last_codereview_email_address
+/.ssh
+/.subversion
+
+# Ignore locations where third-party tools are placed during bootstrapping.
+/python_bin
+/python_274
+/git_bin
+/git-1.8.0_bin
+/svn_bin
+
+# Ignore ctags/cscope index files
+/TAGS
+/cscope.files
+/cscope.in.out
+/cscope.out
+/cscope.po.out
+/tags
+
+# Ignore unittest related files.
+/testing_support/_rietveld
+/tests/git-svn-submodule/
+/tests/subversion_config/README.txt
+/tests/subversion_config/auth
+/tests/subversion_config/servers
+/tests/svn/
+/tests/svnrepo/

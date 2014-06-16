@@ -1,0 +1,150 @@
+#!/usr/bin/env bash
+# Copyright (c) 2012 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# This script will try to sync the bootstrap directories and then defer control.
+
+if [ "$USER" == "root" ];
+then
+  echo Running depot tools as root is sad.
+  exit
+fi
+
+# Test if this script is running under a MSys install.  If it is, we will
+# hardcode the paths to SVN and Git where possible.
+OUTPUT="$(uname | grep 'MINGW')"
+MINGW=$?
+
+if [ $MINGW = 0 ]; then
+  base_dir="${0%\\*}"
+else
+  base_dir=$(dirname "$0")
+  if [ -L "$base_dir" ]; then
+    base_dir=`cd "$base_dir" && pwd -P`
+  fi
+fi
+
+# Don't try to use Cygwin tools.  Get real win32 tools using the batch script.
+OUTPUT="$(uname | grep 'CYGWIN')"
+CYGWIN=$?
+if [ $CYGWIN = 0 ]; then
+  cmd /c `cygpath -w "$base_dir/bootstrap/win/win_tools.bat"`
+fi
+
+CANONICAL_GIT_URL="https://chromium.googlesource.com/chromium/tools/depot_tools.git"
+
+SVN="svn"
+if [ -d "$base_dir/svn_bin" -a $MINGW = 0 ]; then
+  SVN="$base_dir/svn_bin/svn.exe"
+fi
+
+GIT="git"
+if [ -e "$base_dir/git.bat" -a $MINGW = 0 ]; then
+  GIT="cmd.exe //c \"$base_dir\\git.bat\""
+fi
+
+# Test git and git --version.
+function test_git {
+  local GITV
+  GITV="$(eval "$GIT" --version)" || {
+    echo "git isn't installed, please install it"
+    exit 1
+  }
+
+  GITV="${GITV##* }"          # Only examine last word (i.e. version number)
+  local GITD=( ${GITV//./ } ) # Split version number into decimals
+  if ((GITD[0] < 1 || (GITD[0] == 1 && GITD[1] < 6) )); then
+    echo "git version is ${GITV}, please update to a version later than 1.6"
+    exit 1
+  fi
+}
+
+# Test git svn and git svn --version.
+function test_git_svn {
+  local GITV
+  GITV="$(eval "$GIT" svn --version)" || {
+    echo "git-svn isn't installed, please install it"
+    exit 1
+  }
+
+  GITV="${GITV#* version }"   # git svn --version has extra output to remove.
+  GITV="${GITV% (svn*}"
+  local GITD=( ${GITV//./ } ) # Split version number into decimals
+  if ((GITD[0] < 1 || (GITD[0] == 1 && GITD[1] < 6) )); then
+    echo "git version is ${GITV}, please update to a version later than 1.6"
+    exit 1
+  fi
+}
+
+function is_git_clone_repo {
+  eval "$GIT" config remote.origin.fetch > /dev/null
+}
+
+function update_git_repo {
+  remote_url=$(eval "$GIT" config --get remote.origin.url)
+  if [ -n "$remote_url" -a "$remote_url" != "$CANONICAL_GIT_URL" ]; then
+    echo "Your copy of depot_tools is configured to fetch from an obsolete URL:"
+    echo
+    echo "  $remote_url"
+    echo
+    read -t 60 -p "OK to update it to $CANONICAL_GIT_URL ? [Y/n] " -n 1
+    STATUS=$?
+    echo
+    if [[ $STATUS -ne 0 ]]; then
+      echo "Timeout; not updating remote URL."
+    elif [ -z "$REPLY" -o "$REPLY" = "Y" -o "$REPLY" = "y" ]; then
+      eval "$GIT" config remote.origin.url "$CANONICAL_GIT_URL"
+      echo "Remote URL updated."
+    fi
+  fi
+
+  if is_git_clone_repo; then
+    git fetch -q origin &> /dev/null
+    local REBASE_TXT STATUS
+    REBASE_TXT=$(git rebase -q origin/master 2>&1)
+    STATUS=$?
+    if [[ $STATUS -ne 0 ]]; then
+      echo "depot_tools update failed. Conflict in $base_dir" >&2
+      echo "$REBASE_TXT" >&2
+      git rebase --abort 2> /dev/null
+    fi
+    return $STATUS
+  fi
+
+  test_git_svn
+  # work around a git-svn --quiet bug
+  OUTPUT=`eval "$GIT" svn rebase -q -q`
+  if [[ ! "$OUTPUT" == *Current.branch* ]]; then
+    echo $OUTPUT 1>&2
+  fi
+  return 0
+}
+
+# Get the current SVN revision.
+get_svn_revision() {
+  LANGUAGE=C "$SVN" info "$base_dir" | \
+      awk -F': ' '{ if ($1 == "Last Changed Rev") { print $2 }}'
+}
+
+# Update git checkouts.
+if [ "X$DEPOT_TOOLS_UPDATE" != "X0" -a -e "$base_dir/.git" ]
+then
+  cd $base_dir
+  update_git_repo
+  cd - > /dev/null
+fi
+
+# We're on POSIX. We can now safely look for svn checkout.
+if [ "X$DEPOT_TOOLS_UPDATE" != "X0" -a -e "$base_dir/.svn" ]
+then
+  # Update the root directory to stay up-to-date with the latest depot_tools.
+  BEFORE_REVISION=$(get_svn_revision)
+  "$SVN" -q up "$base_dir"
+  AFTER_REVISION=$(get_svn_revision)
+  if [[ "$BEFORE_REVISION" != "$AFTER_REVISION" ]]; then
+    echo "Depot Tools has been updated to revision $AFTER_REVISION." 1>&2
+  fi
+fi
+
+find "$base_dir" -iname "*.pyc" -exec rm {} \;

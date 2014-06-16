@@ -25,9 +25,7 @@
 #include "GraphicsLayerFactory.h"
 #include "ImageBuffer.h"
 #include <wtf/CurrentTime.h>
-#if PLATFORM(JS)
-#include "DebuggerJS.h"
-#endif
+
 #if USE(TEXTURE_MAPPER)
 
 namespace WebCore {
@@ -39,8 +37,6 @@ TextureMapperLayer* toTextureMapperLayer(GraphicsLayer* layer)
 
 std::unique_ptr<GraphicsLayer> GraphicsLayer::create(GraphicsLayerFactory* factory, GraphicsLayerClient* client)
 {
-
-
     if (!factory)
         return std::make_unique<GraphicsLayerTextureMapper>(client);
 
@@ -59,12 +55,10 @@ GraphicsLayerTextureMapper::GraphicsLayerTextureMapper(GraphicsLayerClient* clie
     , m_animationStartTime(0)
     , m_isScrollable(false)
 {
-	webkitTrace();
 }
 
 void GraphicsLayerTextureMapper::notifyChange(ChangeMask changeMask)
 {
-	webkitTrace();
     m_changeMask |= changeMask;
     if (!client())
         return;
@@ -93,8 +87,6 @@ void GraphicsLayerTextureMapper::willBeDestroyed()
 */
 void GraphicsLayerTextureMapper::setNeedsDisplay()
 {
-
-
     if (!drawsContent())
         return;
 
@@ -592,10 +584,7 @@ void GraphicsLayerTextureMapper::commitLayerChanges()
 /* \reimp (GraphicsLayer.h)
 */
 void GraphicsLayerTextureMapper::flushCompositingState(const FloatRect& rect)
-	{
-#if PLATFORM(JS)
-	
-#endif
+{
     if (!m_layer->textureMapper())
         return;
 

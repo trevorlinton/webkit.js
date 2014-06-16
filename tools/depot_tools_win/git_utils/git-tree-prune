@@ -1,0 +1,122 @@
+#!/usr/bin/env python
+# Copyright (c) 2012 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+"""Lists branches with closed and abandoned issues."""
+
+import optparse
+import os
+import sys
+import urllib2
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DEPOT_TOOLS_DIR = os.path.dirname(BASE_DIR)
+sys.path.insert(0, DEPOT_TOOLS_DIR)
+
+import git_cl
+
+
+def get_branches():
+  """Get list of all local git branches."""
+  branches = [l.split() for l in git_cl.RunGit(
+      ["for-each-ref",
+      "--format=%(refname:short) %(upstream:short)",
+      "refs/heads"]).splitlines()]
+  return [Branch(*b) for b in branches] 
+
+def get_change_count(start, end):
+  return int(git_cl.RunGit(["rev-list", "%s..%s" % (start, end), "--count" ]))
+
+
+class Branch(git_cl.Changelist):
+  def __init__(self, name, upstream=None):
+    git_cl.Changelist.__init__(self, branchref=name)
+    self._upstream = upstream
+    self._distance = None
+    self._issue_status = None
+
+  def GetStatus(self):
+    if not self._issue_status:
+      if self.GetIssue():
+        try:
+          issue_properties = self.RpcServer().get_issue_properties(
+              self.GetIssue(), None)
+          if issue_properties['closed']:
+            self._issue_status = 'closed'
+          else:
+            self._issue_status = 'pending'
+        except urllib2.HTTPError, e:
+          if e.code == 404:
+            self._issue_status = 'abandoned'
+      else:
+        self._issue_status = 'no-issue'
+      if (self._issue_status != 'pending'
+         and self._upstream
+         and not self.GetDistance()[0]
+         and not self._upstream.startswith("origin/")):
+        self._issue_status = 'empty'
+    return self._issue_status
+    
+  def GetDistance(self):
+    if self._upstream is None:
+      return None;
+    if not self._distance:
+      self._distance = [get_change_count(self._upstream, self.GetBranch()),
+          get_change_count(self.GetBranch(), self._upstream)]
+    return self._distance
+
+  def GetDistanceInfo(self):
+    if not self._upstream:
+      return "<No upstream branch>"
+    formatted_dist = ", ".join(["%s %d" % (x,y)
+        for (x,y) in zip(["ahead","behind"], self.GetDistance()) if y])
+    return "[%s%s]" % (
+        self._upstream, ": " + formatted_dist if formatted_dist else "")
+
+def print_branches(title, fmt, branches):
+  if branches:
+    print title
+    for branch in branches:
+      print fmt.format(branch=branch.GetBranch(),
+                       issue=branch.GetIssue(),
+                       distance=branch.GetDistanceInfo())
+
+def main():
+  parser = optparse.OptionParser(usage=sys.modules['__main__'].__doc__)
+  options, args = parser.parse_args()
+  if args:
+    parser.error('Unsupported arg: %s' % args)
+
+  branches = get_branches()
+  filtered = { 'closed' : [],
+               'empty' : [],
+               'pending' : [],
+               'abandoned' : [],
+               'no-issue' : []}
+
+  for branch in branches:
+    filtered[branch.GetStatus()].append(branch)
+
+  print_branches("# Branches with closed issues",
+                 "git branch -D {branch} # Issue {issue} is closed.",
+                 filtered['closed'])
+  print_branches("\n# Empty branches",
+                 "git branch -D {branch} # Empty.",
+                 filtered['empty'])
+  print_branches("\n# Pending Branches",
+                 "# Branch {branch} - Issue {issue} - {distance}",
+                 filtered['pending']);
+  print_branches("\n# Branches with abandoned issues",
+                 "# Branch {branch} - was issue {issue} - {distance}",
+                 filtered['abandoned'])
+
+  print_branches("\n# Branches without associated issues",
+                 "# Branch {branch} - {distance}",
+                 filtered['no-issue'])
+
+  return 0
+
+
+if __name__ == '__main__':
+  sys.exit(main())

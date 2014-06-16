@@ -1,0 +1,187 @@
+#!/usr/bin/env python
+# Copyright (c) 2011 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file at
+# http://src.chromium.org/viewvc/chrome/trunk/src/LICENSE
+
+"""Commit bot fake author svn server hook.
+
+Looks for svn commit --withrevprop realauthor=foo, replaces svn:author with this
+author and sets the property commitbot to the commit bot credential to signify
+this revision was committed with the commit bot.
+
+It achieves its goal using an undocumented way. This script could use 'svnlook'
+to read revprop properties but the code would still be needed to overwrite the
+properties.
+
+http://svnbook.red-bean.com/nightly/en/svn.reposadmin.create.html#svn.reposadmin.create.hooks
+strongly advise against modifying a transation in a commit because the svn
+client caches certain bits of repository data. Upon asking subversion devs,
+having the wrong svn:author cached on the commit checkout is the worst that can
+happen.
+
+This code doesn't care about this issue because only the commit bot will trigger
+this code, which runs in a controlled environment.
+
+The transaction file format is also extremely unlikely to change. If it does,
+the hook will throw an UnexpectedFileFormat exception which will be silently
+ignored.
+"""
+
+import os
+import re
+import sys
+
+
+class UnexpectedFileFormat(Exception):
+    """The transaction file format is not the format expected."""
+
+
+def read_svn_dump(filepath):
+    """Returns list of (K, V) from a keyed svn file.
+
+    Don't use a map so ordering is kept.
+
+    raise UnexpectedFileFormat if the file cannot be understood.
+    """
+    class InvalidHeaderLine(Exception):
+        """Raised by read_entry when the line read is not the format expected.
+        """
+
+    try:
+        f = open(filepath, 'rb')
+    except EnvironmentError:
+        raise UnexpectedFileFormat('The transaction file cannot be opened')
+
+    try:
+        out = []
+        def read_entry(entrytype):
+            header = f.readline()
+            match = re.match(r'^' + entrytype + ' (\d+)$', header)
+            if not match:
+                raise InvalidHeaderLine(header)
+            datalen = int(match.group(1))
+            data = f.read(datalen)
+            if len(data) != datalen:
+                raise UnpexpectedFileFormat(
+                    'Data value is not the expected length')
+            # Reads and ignore \n
+            if f.read(1) != '\n':
+                raise UnpexpectedFileFormat('Data value doesn\'t end with \\n')
+            return data
+
+        while True:
+            try:
+                key = read_entry('K')
+            except InvalidHeaderLine, e:
+                # Check if it's the end of the file.
+                if e.args[0] == 'END\n':
+                    break
+                raise UnpexectedFileFormat('Failed to read a key: %s' % e)
+            try:
+                value = read_entry('V')
+            except InvalidHeaderLine, e:
+                raise UnpexectedFileFormat('Failed to read a value: %s' % e)
+            out.append([key, value])
+        return out
+    finally:
+        f.close()
+
+
+def write_svn_dump(filepath, data):
+    """Writes a svn keyed file with a list of (K, V)."""
+    f = open(filepath, 'wb')
+    try:
+        def write_entry(entrytype, value):
+            f.write('%s %d\n' % (entrytype, len(value)))
+            f.write(value)
+            f.write('\n')
+
+        for k, v in data:
+            write_entry('K', k)
+            write_entry('V', v)
+        f.write('END\n')
+    finally:
+        f.close()
+
+
+def find_key(data, key):
+    """Finds the item in a list of tuple where item[0] == key.
+
+    asserts if there is more than one item with the key.
+    """
+    items = [i for i in data if i[0] == key]
+    if not items:
+        return None
+    assert len(items) == 1
+    return items[0]
+
+
+def handle_commit_bot(repo_path, tx, commit_bot, admin_email):
+    """Replaces svn:author with realauthor and sets commit-bot."""
+    # The file format is described there:
+    # http://svn.apache.org/repos/asf/subversion/trunk/notes/dump-load-format.txt
+    propfilepath = os.path.join(
+        repo_path, 'db', 'transactions', tx + '.txn', 'props')
+
+    # Do a lot of checks to make sure everything is in the expected format.
+    try:
+        data = read_svn_dump(propfilepath)
+    except UnexpectedFileFormat:
+        return (
+            'Failed to parse subversion server transaction format.\n'
+            'Please contact %s ASAP with\n'
+            'this error message.') % admin_email
+    if not data:
+        return (
+            'Failed to load subversion server transaction file.\n'
+            'Please contact %s ASAP with\n'
+            'this error message.') % admin_email
+
+    realauthor = find_key(data, 'realauthor')
+    if not realauthor:
+        # That's fine, there is no author to fake.
+        return
+
+    author = find_key(data, 'svn:author')
+    if not author or not author[1]:
+        return (
+            'Failed to load svn:author from the transaction file.\n'
+            'Please contact %s ASAP with\n'
+            'this error message.') % admin_email
+
+    if author[1] != commit_bot:
+        # The author will not be changed and realauthor will be kept as a
+        # revision property.
+        return
+
+    if len(realauthor[1]) > 50:
+        return 'Fake author was rejected due to being too long.'
+
+    if not re.match(r'^[a-zA-Z0-9\@\-\_\+\%\.]+$', realauthor[1]):
+        return 'Fake author was rejected due to not passing regexp.'
+
+    # Overwrite original author
+    author[1] = realauthor[1]
+    # Remove realauthor svn property
+    data.remove(realauthor)
+    # Add svn property commit-bot=<commit-bot username>
+    data.append(('commit-bot', commit_bot))
+    write_svn_dump(propfilepath, data)
+
+
+def main():
+    # Replace with your commit-bot credential.
+    commit_bot = 'user1@example.com'
+    admin_email = 'dude@example.com'
+    ret = handle_commit_bot(sys.argv[1], sys.argv[2], commit_bot, admin_email)
+    if ret:
+        print >> sys.stderr, ret
+        return 1
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())
+
+# vim: ts=4:sw=4:tw=80:et:

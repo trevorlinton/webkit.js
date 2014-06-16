@@ -1,0 +1,75 @@
+#
+# gsutil.spec - RPM specification file for Google Cloud Storage command 
+# line utility (gsutil).
+#
+# Copyright 2011 Google Inc.
+# 
+
+Name: 	   gsutil
+Version:   2.0
+Release:   1%{?dist}
+Summary:   gsutil command line utility for Google Cloud Storage
+License:   ASL 2.0
+Group:     Development/Libraries
+Url:       http://code.google.com/apis/storage/docs/gsutil.html
+Source0:   http://gsutil.googlecode.com/files/%{name}-%{version}.zip
+BuildArch: noarch
+BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+# Dependency on boto commented out for now because initially we plan to 
+# bundle boto with this package, however, when we're ready to depend on 
+# a separate boto rpm package, this line should be uncommented.
+#Requires:  python-boto
+
+%description
+
+GSUtil is a Python application that facilitates access to Google Cloud Storage 
+from the command line. You can use GSUtil to do a wide range of bucket and 
+object management tasks, including:
+
+- Creating and deleting buckets.
+- Uploading, downloading, and deleting objects.
+- Listing buckets and objects.
+- Moving, copying, and renaming objects.
+- Setting object and bucket ACLs.
+
+%prep
+%setup -q
+
+%build
+python setup.py build
+
+%install
+python setup.py install --skip-build --root=%{buildroot}
+# Make all files and dirs in build area readable by other
+# and make all directories executable by other. These steps
+# are performed in support of the rpm installation mode, 
+# in which users with different user/group than the 
+# installation user/group must be able to run gsutil.
+chmod -R o+r %{buildroot}/usr/share/gsutil
+find %{buildroot}/usr/share/gsutil -type d | xargs chmod o+x
+# Make main gsutil script readable and executable by other.
+chmod o+rx %{buildroot}/usr/share/gsutil/gsutil
+# Remove Python egg file, which we don't use (but setup.py insists on 
+# building) so we remove it here.
+rm %{buildroot}/usr/local/lib/python2.6/dist-packages/gsutil-2.0.egg-info
+# Remove update command, which shouldn't be used when gsutil is managed by RPM.
+rm %{buildroot}/usr/share/gsutil/gslib/commands/update.py
+# Create /usr/bin under buildroot and symlink gsutil so users don't
+# need to add a custom directory to their PATH.
+mkdir -p %{buildroot}%{_bindir}
+cd %{buildroot}%{_bindir}
+ln -s ../share/gsutil/gsutil gsutil
+
+%clean
+rm -rf %{buildroot}
+
+%files
+%defattr(-,root,root,-)
+# Lines ending with a slash cause recursive enumeration of directory contents.
+%{_bindir}/%{name}
+###FILES_GO_HERE###
+
+%changelog
+* Tue Dec 10 2011 Marc Cohen <gs-team@google.com> 2.0-1
+- initial version of rpm spec file for gsutil for inclusion in RHEL
+

@@ -281,7 +281,6 @@ void GraphicsLayer::removeFromParent()
 
 void GraphicsLayer::noteDeviceOrPageScaleFactorChangedIncludingDescendants()
 {
-
     deviceOrPageScaleFactorChanged();
 
     if (m_maskLayer)
@@ -326,7 +325,6 @@ void GraphicsLayer::setOffsetFromRenderer(const IntSize& offset, ShouldSetNeedsD
 
 void GraphicsLayer::setSize(const FloatSize& size)
 {
-
     if (size == m_size)
         return;
     
@@ -343,7 +341,6 @@ void GraphicsLayer::setBackgroundColor(const Color& color)
 
 void GraphicsLayer::paintGraphicsLayerContents(GraphicsContext& context, const IntRect& clip)
 {
-
     if (m_client) {
         IntSize offset = offsetFromRenderer();
         context.translate(-offset);
@@ -357,7 +354,6 @@ void GraphicsLayer::paintGraphicsLayerContents(GraphicsContext& context, const I
 
 String GraphicsLayer::animationNameForTransition(AnimatedPropertyID property)
 {
-
     // | is not a valid identifier character in CSS, so this can never conflict with a keyframe identifier.
     StringBuilder id;
     id.appendLiteral("-|transition");
@@ -376,7 +372,6 @@ void GraphicsLayer::resumeAnimations()
 
 void GraphicsLayer::getDebugBorderInfo(Color& color, float& width) const
 {
-
     if (drawsContent()) {
         if (m_usingTiledBacking) {
             color = Color(255, 128, 0, 128); // tiled layer: orange
@@ -407,7 +402,6 @@ void GraphicsLayer::getDebugBorderInfo(Color& color, float& width) const
 
 void GraphicsLayer::updateDebugIndicators()
 {
-
     if (!isShowingDebugBorder())
         return;
 
@@ -419,13 +413,11 @@ void GraphicsLayer::updateDebugIndicators()
 
 void GraphicsLayer::setZPosition(float position)
 {
-
     m_zPosition = position;
 }
 
 float GraphicsLayer::accumulatedOpacity() const
 {
-
     if (!preserves3D())
         return 1;
         
@@ -434,7 +426,6 @@ float GraphicsLayer::accumulatedOpacity() const
 
 void GraphicsLayer::distributeOpacity(float accumulatedOpacity)
 {
-
     // If this is a transform layer we need to distribute our opacity to all our children
     
     // Incoming accumulatedOpacity is the contribution from our parent(s). We mutiply this by our own
@@ -453,13 +444,11 @@ void GraphicsLayer::distributeOpacity(float accumulatedOpacity)
 #if ENABLE(CSS_FILTERS)
 static inline const FilterOperations& filterOperationsAt(const KeyframeValueList& valueList, size_t index)
 {
-
     return static_cast<const FilterAnimationValue&>(valueList.at(index)).value();
 }
 
 int GraphicsLayer::validateFilterOperations(const KeyframeValueList& valueList)
 {
-
     ASSERT(valueList.property() == AnimatedPropertyWebkitFilter);
 
     if (valueList.size() < 2)
@@ -498,13 +487,11 @@ int GraphicsLayer::validateFilterOperations(const KeyframeValueList& valueList)
 
 static inline const TransformOperations& operationsAt(const KeyframeValueList& valueList, size_t index)
 {
-
     return static_cast<const TransformAnimationValue&>(valueList.at(index)).value();
 }
 
 int GraphicsLayer::validateTransformOperations(const KeyframeValueList& valueList, bool& hasBigRotation)
 {
-
     ASSERT(valueList.property() == AnimatedPropertyWebkitTransform);
 
     hasBigRotation = false;
@@ -806,7 +793,6 @@ void GraphicsLayer::dumpProperties(TextStream& ts, int indent, LayerTreeAsTextBe
 
 String GraphicsLayer::layerTreeAsText(LayerTreeAsTextBehavior behavior) const
 {
-
     TextStream ts;
 
     dumpLayer(ts, 0, behavior);
@@ -818,7 +804,6 @@ String GraphicsLayer::layerTreeAsText(LayerTreeAsTextBehavior behavior) const
 #ifndef NDEBUG
 void showGraphicsLayerTree(const WebCore::GraphicsLayer* layer)
 {
-
     if (!layer)
         return;
 

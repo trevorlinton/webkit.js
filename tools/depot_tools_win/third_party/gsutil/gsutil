@@ -1,0 +1,382 @@
+#!/usr/bin/env python
+# coding=utf8
+# Copyright 2010 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""Main module for Google Cloud Storage command line tool."""
+
+
+import ConfigParser
+import errno
+import getopt
+import logging
+import os
+import re
+import signal
+import socket
+import sys
+import traceback
+
+third_party_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(third_party_dir))
+sys.path.insert(0, third_party_dir)
+
+
+def _OutputAndExit(message):
+  global debug
+  if debug == 4:
+    stack_trace = traceback.format_exc()
+    sys.stderr.write('DEBUG: Exception stack trace:\n    %s\n' %
+                     re.sub('\\n', '\n    ', stack_trace))
+  else:
+    sys.stderr.write('%s\n' % message)
+  sys.exit(1)
+
+
+def _OutputUsageAndExit(command_runner):
+  command_runner.RunNamedCommand('help')
+  sys.exit(1)
+
+
+debug = 0
+# Before importing boto, find where gsutil is installed and include its
+# boto sub-directory at the start of the PYTHONPATH, to ensure the versions of
+# gsutil and boto stay in sync after software updates. This also allows gsutil
+# to be used without explicitly adding it to the PYTHONPATH.
+# We use realpath() below to unwind symlinks if any were used in the gsutil
+# installation.
+gsutil_bin_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+if not gsutil_bin_dir:
+  _OutputAndExit('Unable to determine where gsutil is installed. Sorry, '
+                'cannot run correctly without this.\n')
+boto_lib_dir = os.path.join(gsutil_bin_dir, '..', 'boto')
+if not os.path.isdir(boto_lib_dir):
+  _OutputAndExit('There is no boto library under the gsutil install directory '
+                '(%s).\nThe gsutil command cannot work properly when installed '
+                'this way.\nPlease re-install gsutil per the installation '
+                'instructions.' % gsutil_bin_dir)
+# sys.path.insert(0, boto_lib_dir)
+import boto
+from boto.exception import BotoClientError
+from boto.exception import InvalidAclError
+from boto.exception import InvalidUriError
+from boto.exception import ResumableUploadException
+from boto.exception import StorageResponseError
+from gslib.command_runner import CommandRunner
+from gslib.exception import CommandException
+from gslib.exception import ProjectIdException
+from gslib import util
+from gslib.util import ExtractErrorDetail
+from gslib.util import HasConfiguredCredentials
+from gslib.wildcard_iterator import WildcardException
+
+# Load the gsutil version number and append it to boto.UserAgent so the value
+# is set before anything instantiates boto. (If parts of boto were instantiated
+# first those parts would have the old value of boto.UserAgent, so we wouldn't
+# be guaranteed that all code paths send the correct user agent.)
+ver_file_path = os.path.join(gsutil_bin_dir, 'VERSION')
+if not os.path.isfile(ver_file_path):
+  raise CommandException(
+      '%s not found. Please reinstall gsutil from scratch' % ver_file_path)
+ver_file = open(ver_file_path, 'r')
+gsutil_ver = ver_file.read().rstrip()
+ver_file.close()
+boto.UserAgent += ' gsutil/%s (%s)' % (gsutil_ver, sys.platform)
+
+# We don't use the oauth2 authentication plugin directly; importing it here
+# ensures that it's loaded and available by default when an operation requiring
+# authentication is performed.
+try:
+  from oauth2_plugin import oauth2_plugin
+except ImportError:
+  pass
+
+
+def main():
+  global debug
+
+  if sys.version_info[:3] < (2, 6):
+    raise CommandException('gsutil requires Python 2.6 or higher.')
+
+  config_file_list = _GetBotoConfigFileList()
+  command_runner = CommandRunner(gsutil_bin_dir, boto_lib_dir, config_file_list,
+                                 gsutil_ver)
+  headers = {}
+  parallel_operations = False
+  debug = 0
+
+  # If user enters no commands just print the usage info.
+  if len(sys.argv) == 1:
+    sys.argv.append('help')
+
+  # Change the default of the 'https_validate_certificates' boto option to
+  # True (it is currently False in boto).
+  if not boto.config.has_option('Boto', 'https_validate_certificates'):
+    if not boto.config.has_section('Boto'):
+      boto.config.add_section('Boto')
+    boto.config.setbool('Boto', 'https_validate_certificates', True)
+
+  try:
+    opts, args = getopt.getopt(sys.argv[1:], 'dDvh:m',
+                               ['debug', 'detailedDebug', 'version', 'help',
+                                'header', 'multithreaded'])
+  except getopt.GetoptError, e:
+    _HandleCommandException(CommandException(e.msg))
+  for o, a in opts:
+    if o in ('-d', '--debug'):
+      # Passing debug=2 causes boto to include httplib header output.
+      debug = 2
+    if o in ('-D', '--detailedDebug'):
+      # We use debug level 3 to ask gsutil code to output more detailed
+      # debug output. This is a bit of a hack since it overloads the same
+      # flag that was originally implemented for boto use. And we use -DD
+      # to ask for really detailed debugging (i.e., including HTTP payload).
+      if debug == 3:
+        debug = 4
+      else:
+        debug = 3
+    if o in ('-?', '--help'):
+      _OutputUsageAndExit(command_runner)
+    if o in ('-h', '--header'):
+      (hdr_name, unused_ptn, hdr_val) = a.partition(':')
+      if not hdr_name:
+        _OutputUsageAndExit(command_runner)
+      headers[hdr_name] = hdr_val
+    if o in ('-m', '--multithreaded'):
+      parallel_operations = True
+  if debug > 1:
+    sys.stderr.write(
+        '***************************** WARNING *****************************\n'
+        '*** You are running gsutil with debug output enabled.\n'
+        '*** Be aware that debug output includes authentication '
+        'credentials.\n'
+        '*** Do not share (e.g., post to support forums) debug output\n'
+        '*** unless you have sanitized authentication tokens in the\n'
+        '*** output, or have revoked your credentials.\n'
+        '***************************** WARNING *****************************\n')
+  if debug == 2:
+    logging.basicConfig(level=logging.INFO)
+  elif debug > 2:
+    logging.basicConfig(level=logging.DEBUG)
+    command_runner.RunNamedCommand('ver')
+    config_items = []
+    try:
+      config_items.extend(boto.config.items('Boto'))
+      config_items.extend(boto.config.items('GSUtil'))
+    except ConfigParser.NoSectionError:
+      pass
+    sys.stderr.write('config_file_list: %s\n' % config_file_list)
+    sys.stderr.write('config: %s\n' % str(config_items))
+  else:
+    logging.basicConfig()
+
+  if not args:
+    command_name = 'help'
+  else:
+    command_name = args[0]
+
+  # Unset http_proxy environment variable if it's set, because it confuses
+  # boto. (Proxies should instead be configured via the boto config file.)
+  if 'http_proxy' in os.environ:
+    if debug > 1:
+      sys.stderr.write(
+          'Unsetting http_proxy environment variable within gsutil run.\n')
+    del os.environ['http_proxy']
+
+  return _RunNamedCommandAndHandleExceptions(command_runner, command_name,
+                                             args[1:], headers, debug,
+                                             parallel_operations)
+
+
+def _GetBotoConfigFileList():
+  """Returns list of boto config files that exist."""
+  config_paths = boto.pyami.config.BotoConfigLocations
+  if 'AWS_CREDENTIAL_FILE' in os.environ:
+    config_paths.append(os.environ['AWS_CREDENTIAL_FILE'])
+  config_files = {}
+  for config_path in config_paths:
+    if os.path.exists(config_path):
+      config_files[config_path] = 1
+  cf_list = []
+  for config_file in config_files:
+    cf_list.append(config_file)
+  return cf_list
+
+
+def _HandleUnknownFailure(e):
+  global debug
+  # Called if we fall through all known/handled exceptions. Allows us to
+  # print a stacktrace if -D option used.
+  if debug > 2:
+    stack_trace = traceback.format_exc()
+    sys.stderr.write('DEBUG: Exception stack trace:\n    %s\n' %
+                     re.sub('\\n', '\n    ', stack_trace))
+  else:
+    _OutputAndExit('Failure: %s.' % e)
+
+
+def _HandleCommandException(e):
+  if e.informational:
+    _OutputAndExit(e.reason)
+  else:
+    _OutputAndExit('CommandException: %s' % e.reason)
+
+
+def _HandleControlC(signal_num, cur_stack_frame):
+  """Called when user hits ^C so we can print a brief message instead of
+  the normal Python stack trace (unless -D option is used)."""
+  global debug
+  if debug > 2:
+    stack_trace = ''.join(traceback.format_list(traceback.extract_stack()))
+    _OutputAndExit('DEBUG: Caught signal %d - Exception stack trace:\n'
+                  '    %s' % (signal_num, re.sub('\\n', '\n    ', stack_trace)))
+  else:
+    _OutputAndExit('Caught signal %d - exiting' % signal_num)
+
+
+def _HandleSigQuit(signal_num, cur_stack_frame):
+  """Called when user hits ^\, so we can force breakpoint a running gsutil."""
+  import pdb; pdb.set_trace()
+
+
+def _RunNamedCommandAndHandleExceptions(command_runner, command_name, args=None,
+                                        headers=None, debug=0,
+                                        parallel_operations=False):
+  try:
+    # Catch ^C so we can print a brief message instead of the normal Python
+    # stack trace.
+    signal.signal(signal.SIGINT, _HandleControlC)
+    # Catch ^\ so we can force a breakpoint in a running gsutil.
+    if not util.IS_WINDOWS:
+      signal.signal(signal.SIGQUIT, _HandleSigQuit)
+    return command_runner.RunNamedCommand(command_name, args, headers, debug,
+                                          parallel_operations)
+  except AttributeError, e:
+    if str(e).find('secret_access_key') != -1:
+      _OutputAndExit('Missing credentials for the given URI(s). Does your '
+                    'boto config file contain all needed credentials?')
+    else:
+      _OutputAndExit(str(e))
+  except BotoClientError, e:
+    _OutputAndExit('BotoClientError: %s.' % e.reason)
+  except CommandException, e:
+    _HandleCommandException(e)
+  except getopt.GetoptError, e:
+    _HandleCommandException(CommandException(e.msg))
+  except InvalidAclError, e:
+    _OutputAndExit('InvalidAclError: %s.' % str(e))
+  except InvalidUriError, e:
+    _OutputAndExit('InvalidUriError: %s.' % e.message)
+  except ProjectIdException, e:
+    _OutputAndExit('ProjectIdException: %s.' % e.reason)
+  except boto.auth_handler.NotReadyToAuthenticate:
+    _OutputAndExit('NotReadyToAuthenticate')
+  except OSError, e:
+    _OutputAndExit('OSError: %s.' % e.strerror)
+  except WildcardException, e:
+    _OutputAndExit(e.reason)
+  except StorageResponseError, e:
+    # Check for access denied, and provide detail to users who have no boto
+    # config file (who might previously have been using gsutil only for
+    # accessing publicly readable buckets and objects).
+    if e.status == 403:
+      if not HasConfiguredCredentials():
+        _OutputAndExit(
+            'You are attempting to access protected data with no configured '
+            'credentials.\nPlease see '
+            'http://code.google.com/apis/storage/docs/signup.html for\ndetails '
+            'about activating the Google Cloud Storage service and then run '
+            'the\n"gsutil config" command to configure gsutil to use these '
+            'credentials.')
+      elif (e.error_code == 'AccountProblem'
+            and ','.join(args).find('gs://') != -1):
+        default_project_id = boto.config.get_value('GSUtil',
+                                                   'default_project_id')
+        acct_help_part_1 = (
+"""Your request resulted in an AccountProblem (403) error. Usually this happens
+if you attempt to create a bucket or upload an object without having first
+enabled billing for the project you are using. To remedy this problem, please do
+the following:
+
+1. Navigate to the Google APIs console (https://code.google.com/apis/console),
+   and ensure the drop-down selector beneath "Google APIs" shows the project
+   you're attempting to use.
+
+""")
+        acct_help_part_2 = '\n'
+        if default_project_id:
+          acct_help_part_2 = (
+"""2. Click "Google Cloud Storage" on the left hand pane, and then check that
+   the value listed for "x-goog-project-id" on this page matches the project ID
+   (%s) from your boto config file.
+
+""" % default_project_id)
+        acct_help_part_3 = (
+"""Check whether there's an "!" next to Billing. If so, click Billing and then
+   enable billing for this project. Note that it can take up to one hour after
+   enabling billing for the project to become activated for creating buckets and
+   uploading objects.
+
+If the above doesn't resolve your AccountProblem, please send mail to
+gs-team@google.com requesting assistance, noting the exact command you ran, the
+fact that you received a 403 AccountProblem error, and your project ID. Please
+do not post your project ID on the public discussion forum (gs-discussion) or on
+StackOverflow.
+
+Note: It's possible to use Google Cloud Storage without enabling billing if
+you're only listing or reading objects for which you're authorized, or if
+you're uploading objects to a bucket billed to a project that has billing
+enabled. But if you're attempting to create buckets or upload objects to a
+bucket owned by your own project, you must first enable billing for that
+project.""")
+        if default_project_id:
+            _OutputAndExit(acct_help_part_1 + acct_help_part_2 + '3. '
+                           + acct_help_part_3)
+        else:
+            _OutputAndExit(acct_help_part_1 + '2. ' + acct_help_part_3)
+
+    if not e.body:
+      e.body = ''
+    exc_name, error_detail = ExtractErrorDetail(e)
+    if error_detail:
+      _OutputAndExit('%s: status=%d, code=%s, reason=%s, detail=%s.' %
+                    (exc_name, e.status, e.code, e.reason, error_detail))
+    else:
+      _OutputAndExit('%s: status=%d, code=%s, reason=%s.' %
+                    (exc_name, e.status, e.code, e.reason))
+  except ResumableUploadException, e:
+    _OutputAndExit('ResumableUploadException: %s.' % e.message)
+  except socket.error, e:
+    if e.args[0] == errno.EPIPE:
+      # Retrying with a smaller file (per suggestion below) works because
+      # the library code send loop (in boto/s3/key.py) can get through the
+      # entire file and then request the HTTP response before the socket
+      # gets closed and the response lost.
+      message = (
+"""
+Got a "Broken pipe" error. This can happen to clients using Python 2.x,
+when the server sends an error response and then closes the socket (see
+http://bugs.python.org/issue5542). If you are trying to upload a large
+object you might retry with a small (say 200k) object, and see if you get
+a more specific error code.
+""")
+      _OutputAndExit(message)
+    else:
+      _HandleUnknownFailure(e)
+  except Exception, e:
+    _HandleUnknownFailure(e)
+
+
+if __name__ == '__main__':
+  sys.exit(main())

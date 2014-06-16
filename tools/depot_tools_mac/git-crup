@@ -1,0 +1,171 @@
+#!/bin/bash
+# Copyright (c) 2012 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# A convenience script to largely replicate the behavior of `gclient sync` in a
+# submodule-based checkout.  Fetches latest commits for top-level solutions;
+# updates submodules; and runs post-sync hooks.
+
+orig_args="$@"
+ECHO=
+pull=pull
+pull_args=
+hooks=yes
+j=10
+crup_runner="crup-runner.sh"
+
+usage() {
+  cat <<EOF
+Usage: git-crup [-n|--dry-run] [--fetch|--sync] [-j|--jobs [jobs]]
+    [--no-hooks] [<args to git-pull or git-fetch>]
+
+    -n, --dry-run        Don't do anything; just show what would have been done.
+    --fetch              Run 'git fetch' on top-level sources, but don't merge.
+    --sync               Don't do anything at all to the top-level sources.
+    -j, --jobs           Run this many jobs in parallel.
+    --no-hooks           Don't run hooks (e.g., to generate build files) after
+                         updating.
+EOF
+}
+
+serial_update() {
+  ( cd "$1"
+    if test -n "$toplevel_cmd"; then
+      $ECHO $toplevel_cmd | sed "s/^/[$1] /g"
+      if [ $? -ne 0 ]; then
+        return $?
+      fi
+    fi
+    $ECHO git submodule --quiet sync
+    $ECHO git ls-files -s | grep ^160000 | awk '{print $4}' |
+    while read submod; do
+      $ECHO "$crup_runner" "$1/$submod"
+    done
+  )
+}
+
+while test $# -ne 0; do
+  case "$1" in
+    -j[0-9]*)
+      j=$(echo "$1" | cut -c3-)
+      ;;
+    --jobs=[0-9]*)
+      j=$(echo "$1" | cut -c8-)
+      ;;
+    -j|--jobs)
+      case "$2" in
+        ''|-*)
+          j=0
+          ;;
+        *)
+          j="$2"
+          shift
+          ;;
+      esac
+      ;;
+    -n|--dry-run)
+      ECHO=echo
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --fetch)
+      pull=fetch
+      ;;
+    --sync)
+      pull=
+      ;;
+    --no-hooks|--nohooks)
+      hooks=no
+      ;;
+    *)
+      pull_args="$pull_args $1"
+      break
+      ;;
+  esac
+  shift
+done
+
+# Auto-update depot_tools.
+if [ -z "$GIT_CRUP_REINVOKE" ]; then
+  kernel_name="\$(uname -s)"
+  if [ "\${kernel_name:0:5}" = "MINGW" ]; then
+    cmd '/C update_depot_tools.bat'
+  else
+    update_depot_tools
+  fi
+  GIT_CRUP_REINVOKE=1 exec bash "$0" $orig_args
+fi
+
+while test "$PWD" != "/"; do
+  if test -f "$PWD/src/.gitmodules"; then
+    break
+  fi
+  cd ..
+done
+if test "$PWD" = "/"; then
+  echo "Could not find the root of your checkout; aborting." 1>&2
+  exit 1
+fi
+
+export GIT_MERGE_AUTOEDIT=no
+
+if ( echo test | xargs --max-lines=1 true 2>/dev/null ); then
+  max_lines="--max-lines=1"
+else
+  max_lines="-L 1"
+fi
+
+if ( echo test | xargs -I bar true 2>/dev/null ); then
+  replace_arg="-I replace_arg"
+else
+  replace_arg="-ireplace_arg"
+fi
+
+if ( echo test test | xargs -P 2 true 2>/dev/null ); then
+  xargs_parallel=yes
+else
+  if test "$j" != "1"; then
+    echo "Warning: parallel execution is not supported on this platform." 1>&2
+  fi
+  xargs_parallel=no
+fi
+
+if test -n "$pull"; then
+  toplevel_cmd="git $pull $pull_args -q origin"
+else
+  toplevel_cmd=
+fi
+
+set -o pipefail
+if test "$xargs_parallel" = "yes"; then
+  ( ls -d */.git | sed 's/\/\.git$//' |
+   xargs $max_lines $replace_arg -P "$j" \
+       "$crup_runner" replace_arg $ECHO $toplevel_cmd |
+   xargs $max_lines -P "$j" $ECHO "$crup_runner" )
+else 
+  ls -d */.git |
+  while read gitdir; do
+    serial_update "${gitdir%%/.git}"
+  done
+fi
+
+status=$?
+
+if [ "$status" -ne 0 ]; then
+  cat 1>&2 <<EOF
+Please check the preceding terminal output for error messages.
+Run 'git submodule status' to see the current state of submodule checkouts.
+EOF
+  exit $status
+fi
+
+if [ "$hooks" = "yes" ]; then
+  $ECHO git runhooks
+  status=$?
+fi
+
+echo
+exit $status

@@ -1,0 +1,19 @@
+Name: gsutil
+URL: https://github.com/GoogleCloudPlatform/gsutil
+Version: 3.25
+License: Apache 2.0
+
+Description:
+Set of tools to allow querying, uploading, and downloading objects from
+Google Storage.
+
+Modifications:
+* Removed gsutil/gslib/commands/test.py
+* Removed gsutil/pkg_gen.sh
+* Removed gsutil/gslib/tests/
+* Moved gsutil/boto as a depot_tools third_party lib
+* Moved gsutil/third_party into our own third_party directory
+* Append sys.path in gsutil/gsutil to find the moved third_party modules
+* Updated checksum ce71ac982f1148315e7fa65cff2f83e8 -> bf29190007bc7557c33806367ee3ce9e 
+
+Full license is in the COPYING file.

@@ -1,0 +1,39 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "../"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "webkit.js debug",
+			"shell_cmd": "ninja -v -C Debug",
+			"working_dir": "${project_path:${folder}}/../",
+			"path": "/bin:/usr/bin/:/usr/local/bin:${project_path:${folder}}/depot_tools_mac/",
+			"windows":{
+				"path": "/bin:/usr/bin/:/usr/local/bin:${project_path:${folder}}/depot_tools_win/"
+			}
+		},
+		{
+			"name": "webkit.js release",
+			"shell_cmd": "ninja -v -C Release",
+			"working_dir": "${project_path:${folder}}/../",
+			"path": "/bin:/usr/bin/:/usr/local/bin:${project_path:${folder}}/depot_tools_mac/",
+			"windows":{
+				"path": "/bin:/usr/bin/:/usr/local/bin:${project_path:${folder}}/depot_tools_win/"
+			}
+		},
+		{
+			"name": "webkit.js docs",
+			"shell_cmd": "doxygen ${project_path:${folder}}/../docs/webcore.doxy",
+			"working_dir": "${project_path:${folder}}/../docs/",
+			"path": "/bin:/usr/bin/:/usr/local/bin:${project_path:${folder}}/depot_tools_mac/",
+			"windows":{
+				"path": "/bin:/usr/bin/:/usr/local/bin:${project_path:${folder}}/depot_tools_win/"
+			}
+		}
+	]
+}

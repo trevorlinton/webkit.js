@@ -1763,13 +1763,11 @@ void RenderLayerCompositor::recursiveRepaintLayer(RenderLayer& layer, const IntR
 
 RenderLayer& RenderLayerCompositor::rootRenderLayer() const
 {
-
     return *m_renderView.layer();
 }
 
 GraphicsLayer* RenderLayerCompositor::rootGraphicsLayer() const
 {
-
     if (m_overflowControlsHostLayer)
         return m_overflowControlsHostLayer.get();
     return m_rootContentLayer.get();
@@ -1975,7 +1973,6 @@ bool RenderLayerCompositor::canBeComposited(const RenderLayer& layer) const
 
 bool RenderLayerCompositor::requiresOwnBackingStore(const RenderLayer& layer, const RenderLayer* compositingAncestorLayer, const IntRect& layerCompositedBoundsInAncestor, const IntRect& ancestorCompositedBounds) const
 {
-
     auto& renderer = layer.renderer();
 
     if (compositingAncestorLayer

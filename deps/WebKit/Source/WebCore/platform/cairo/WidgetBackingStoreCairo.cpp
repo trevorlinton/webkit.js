@@ -34,12 +34,19 @@ static PassRefPtr<cairo_surface_t> createSurfaceForBackingStore(PlatformWidget w
     return adoptRef(gdk_window_create_similar_surface(gtk_widget_get_window(widget), CAIRO_CONTENT_COLOR_ALPHA, size.width(), size.height()));
 #elif PLATFORM(JS)
 	webkitTrace();
-	SDL_Surface *sdl_surface = (SDL_Surface *)widget;
-	return adoptRef(cairo_image_surface_create_for_data((unsigned char*)sdl_surface->pixels,
+	if(widget) {
+		fprintf(stderr, "WebCore::createSurfaceForBackingStore as SDL derived surface.\n");
+		SDL_Surface *sdl_surface = (SDL_Surface *)widget;
+		return adoptRef(cairo_image_surface_create_for_data((unsigned char*)sdl_surface->pixels,
 																			CAIRO_FORMAT_ARGB32,
 																			sdl_surface->w,
 																			sdl_surface->h,
 																			sdl_surface->pitch));
+	} else {
+		fprintf(stderr, "WebCore::createSurfaceForBackingStore as cairo format ARGB32.\n");
+		UNUSED_PARAM(widget);
+		return adoptRef(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, size.width(), size.height()));
+	}
 #else
 		UNUSED_PARAM(widget);
 		return adoptRef(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, size.width(), size.height()));
@@ -57,9 +64,7 @@ PassOwnPtr<WidgetBackingStore> WidgetBackingStoreCairo::create(PlatformWidget wi
 WidgetBackingStoreCairo::WidgetBackingStoreCairo(PlatformWidget widget, const IntSize& size)
     : WidgetBackingStore(size)
     , m_surface(createSurfaceForBackingStore(widget, size))
-#if !PLATFORM(JS)
     , m_scrollSurface(createSurfaceForBackingStore(widget, size))
-#endif
 		, m_widget(widget)
 
 {
@@ -90,13 +95,11 @@ void WidgetBackingStoreCairo::scroll(const IntRect& scrollRect, const IntSize& s
     targetRect.shiftMaxYEdgeTo(targetRect.maxY() - scrollOffset.height());
     if (targetRect.isEmpty())
         return;
-#if !PLATFORM(JS)
 
     copyRectFromOneSurfaceToAnother(m_surface.get(), m_scrollSurface.get(),
                                     scrollOffset, targetRect);
     copyRectFromOneSurfaceToAnother(m_scrollSurface.get(), m_surface.get(),
                                     IntSize(), targetRect);
-#endif
 }
 
 } // namespace WebCore

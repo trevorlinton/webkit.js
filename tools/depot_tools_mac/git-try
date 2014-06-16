@@ -1,0 +1,9 @@
+#!/bin/bash
+# Copyright (c) 2011 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# git_try.py - Commits a patch to the SVN try patch repo.
+#              It is highly recommended to use `git cl try` instead.
+
+. $(type -P python_git_runner.sh)

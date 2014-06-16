@@ -1,0 +1,47 @@
+# Chromium-specific config file to put at ~/.subversion/config or %USERPROFILE%\AppData\Roaming\Subversion\config
+# Inspired by http://src.chromium.org/svn/trunk/tools/build/slave/config
+
+[auth]
+# Warning, this is insecure.
+store-passwords=yes
+
+[miscellany]
+global-ignores = *.pyc *.user *.suo *.bak *~ #*# *.ncb *.o *.lo *.la .*~ .#* .DS_Store .*.swp *.scons *.mk *.Makefile *.sln *.vcproj *.rules SConstruct *.xcodeproj
+enable-auto-props = yes
+
+[auto-props]
+*.afm = svn:eol-style=LF
+*.bat = svn:eol-style=CRLF
+*.c = svn:eol-style=LF
+*.cc = svn:eol-style=LF
+*.cpp = svn:eol-style=LF
+*.css = svn:eol-style=LF
+*.def = svn:eol-style=LF
+*.dll = svn:executable
+*.exe = svn:executable
+*.grd = svn:eol-style=LF
+*.gyp = svn:eol-style=LF
+*.gypi = svn:eol-style=LF
+*.h = svn:eol-style=LF
+*.htm = svn:eol-style=LF
+*.html = svn:eol-style=LF
+*.idl = svn:eol-style=LF
+*.jpg = svn:mime-type=image/jpeg
+*.js = svn:eol-style=LF
+*.m = svn:eol-style=LF
+*.make = svn:eol-style=LF
+*.mm = svn:eol-style=LF
+*.mock-http-headers = svn:eol-style=LF
+*.obsolete = svn:eol-style=LF
+*.pdf = svn:mime-type=application/pdf
+*.pl = svn:eol-style=LF
+*.pm = svn:eol-style=LF
+*.png = svn:mime-type=image/png
+*.py = svn:eol-style=LF
+*.pyd = svn:executable
+*.sh = svn:eol-style=LF;svn:executable
+*.txt = svn:eol-style=LF
+*.webp = svn:mime-type=image/webp
+*.xml = svn:eol-style=LF
+*.xtb = svn:eol-style=LF
+Makefile = svn:eol-style=LF

@@ -1,0 +1,9 @@
+#!/bin/bash
+# Copyright (c) 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# git_cl.py -- a git-command for integrating reviews on Rietveld
+# Copyright (C) 2008 Evan Martin <martine@danga.com>
+
+. $(type -P python_git_runner.sh)

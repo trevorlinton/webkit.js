@@ -1,0 +1,39 @@
+This package contains tools for working with Chromium development.
+
+The "gclient" wrapper knows how to keep this repository updated to
+the latest versions of these tools as found at:
+
+    http://src.chromium.org/svn/trunk/tools/depot_tools
+
+This package contains:
+
+  chrome-update-create-task.bat
+    Creates a scheduled task to do an automatic local chromium build every day.
+
+  cpplint.py
+    A copy of our linting tool which enforces Google style. Fetched from
+    http://google-styleguide.googlecode.com/svn/trunk/cpplint/cpplint.py
+
+  gcl
+    A tool for uploading and managing code reviews on the Chromium
+    project, using the Rietveld code review tool.  More info at:
+    http://code.google.com/p/rietveld/
+
+  gclient
+    A script for managing a workspace with modular dependencies that
+    are each checked out independently from different repositories.
+    More info at:
+    http://code.google.com/p/gclient/
+
+  hammer
+    A wrapper script for building Chromium with the SCons software
+    construction tool.  More info at:
+    http://www.scons.org/
+
+Note: svn and python will be installed automatically if not accessible (on
+Windows only).
+
+To update this distribution manually, run .\update_depot_tools.bat on Windows,
+or ./update_depot_tools on Linux or Mac.
+
+To disable automatic updating, set the environment variable DEPOT_TOOLS_UPDATE=0

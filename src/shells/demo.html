@@ -61,8 +61,8 @@
 </div></body></html>
 
         </textarea>
-        Height: <input type="text" id="height" value="1250" style="width:30px;"/> 
-        Width: <input type="text" id="width" value="1250" style="width:30px;"/> 
+        Height: <input type="text" id="height" value="800" style="width:30px;"/> 
+        Width: <input type="text" id="width" value="600" style="width:30px;"/> 
         Scale: <input type="text" id="scale" value="1" style="width:10px;"/> 
         <input id="hidpi" type="checkbox" checked/> High DPI Rendering 
         <input id="reset" type="button" value="Reset"/> 
@@ -83,15 +83,15 @@
         window.webkit.width = document.getElementById('width').value;
         window.webkit.height = document.getElementById('height').value;
         window.webkit.scale = document.getElementById('scale').value;
-        window.webkit.hidpi = document.getElementById('hidpi').checked ? 1 : 0;
+        window.webkit.hidpi = 0;//document.getElementById('hidpi').checked ? 1 : 0;
       });
       window.addEventListener('load', function() {
-        window.webkit = window.webkit = new WebKit({
+        window.webkit = new WebKit({
           width:document.getElementById('width').value,
           height:document.getElementById('height').value,
           canvas:document.getElementById('canvas'),
           scale:document.getElementById('scale').value,
-          hidpi:(document.getElementById('hidpi').checked ? 1 : 0)
+          hidpi:0 //(document.getElementById('hidpi').checked ? 1 : 0)
         });
         window.webkit.addEventListener('call',function(e){
           running[e.call] = typeof(performance) != 'undefined' ? performance.now() : Date.now();

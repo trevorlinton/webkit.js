@@ -1,5 +1,13 @@
-/* settings = {width:, height:, canvas:, log:, scale:, hidpi:, error:, status:, path:'path/to/webkit.release.bin.js'} */
+/* settings = {width:, height:, canvas:, log:, scale:, hidpi:, error:, status:, path:'path/to/webkit.release.bin.js', accelerated:true} */
 function WebKit(settings) {
+	if(typeof(settings.accelerated)=='undefined') settings.accelerated = true;
+	if(typeof(settings.path)=='undefined') settings.path = '../Debug/webkit.js';
+	if(typeof(settings.canvas)=='undefined') throw new Error('A rendering target (Canvas Object) must be provided.');
+	if(typeof(settings.width)=='undefined') settings.width = 500;
+	if(typeof(settings.height)=='undefined') settings.height = 500;
+	if(typeof(settings.scale)=='undefined') settings.scale = 1;
+	if(typeof(settings.hidpi)=='undefined') settings.hidpi = false;
+
 	var events = [];
 
 	this.addEventListener = function(event, func) {
@@ -7,39 +15,33 @@ function WebKit(settings) {
 		events[event].push(func);
 	}
 
-	if(typeof(settings.path)=='undefined') settings.path = '../Debug/webkit.js';
-
-	var worker = new Worker(settings.path);
-
-	if(typeof(settings.canvas)=='undefined') throw new Error('A rendering target (Canvas Object) must be provided.');
-	if(typeof(settings.width)=='undefined') settings.width = 500;
-	if(typeof(settings.height)=='undefined') settings.height = 500;
-	if(typeof(settings.scale)=='undefined') settings.scale = 1;
-	if(typeof(settings.hidpi)=='undefined') settings.hidpi = false;
-
+	var worker = (!settings.accelerated) ? new Worker(settings.path) : null;
 	var workerResponded = false;
 	var queue = [];
 	var lastcommand = null;
-
+	var $resize, $scaleFactor, $setTransparent, $setHtml;
+	var _width = settings.width;
+	var _height = settings.height;
+	var _scale = settings.scale;
+	var _transparent = false;
+	var _html = "<html><body></body></html>";
+	var _hidpi = settings.hidpi;
+	var renderFrameData = null;
 	var Module = {
-		preRun:[], postRun:[], noInitialRun:true, noExitRuntime:true, doNotCaptureKeyboard:true, 
+		preRun:[], postRun:[], noInitialRun:false, noExitRuntime:false, doNotCaptureKeyboard:true, 
 		canvas:settings.canvas,
 		print: function(text) { console.log(Array.prototype.slice.call(arguments).join(' ')); },
 		printErr: function(text) { console.error(Array.prototype.slice.call(arguments).join(' ')); },
-		setStatus: function(text) { console.error(Array.prototype.slice.call(arguments).join(' ')); },
+		setStatus: function(text) { console.log(Array.prototype.slice.call(arguments).join(' ')); },
 		totalDependencies: 0,
 		monitorRunDependencies: function(left) { }
 	};
 
-	function wrap(func,returntype,argtypes) {
-		queue.push({wrap:func,returntype:returntype,argtypes:argtypes});
-		return function() {
-			queue.push({call:func,arguments:JSON.stringify(arguments)});
-		}
-	}
+	if(typeof(settings.log)!='undefined') Module.print = settings.log;
+	if(typeof(settings.error)!='undefined') Module.printErr = settings.error;
+	if(typeof(settings.status)!='undefined') Module.setStatus = settings.status;
 
-	Module.ctx = Module.canvas.getContext('2d');
-	var renderFrameData = null;
+	if(!settings.accelerated) Module.ctx = Module.canvas.getContext('2d');
 
 	function fireEvent(event, args) {
 		if(events[event]) {
@@ -49,23 +51,78 @@ function WebKit(settings) {
 			}
 		}
 	}
-	
-	function queueRunner() {
-		if(!workerResponded) return;
-		if(lastcommand && lastcommand.call) {
-			console.log("Returned: "+lastcommand.call);
-			fireEvent('done',lastcommand);
-			lastcommand = null;
-		}
-		if(queue.length > 0) {
-			var cmd = queue.shift();
-			lastcommand = cmd;
-			if(cmd.call) {
-				console.log("CAlling: "+lastcommand.call);
-				fireEvent('call',cmd);
+
+	function wrap(func,returntype,argtypes) {
+		if(!settings.accelerated) {
+			queue.push({wrap:func,returntype:returntype,argtypes:argtypes});
+			return function() {
+				queue.push({call:func,arguments:JSON.stringify(arguments)});
 			}
-			workerResponded = false;
-			worker.postMessage(cmd);
+		} else {
+			var cfunc = Module.cwrap(func,returntype,argtypes);
+
+			return function() {
+				fireEvent('call',func);
+				return cfunc(arguments[0],arguments[1]);
+				fireEvent('done', func);
+			}
+		}
+	}
+
+	function initializeInPage() {
+		 $resize = wrap('resize', 'number', ['number', 'number']);
+		 $scaleFactor  = wrap('scalefactor', 'number', ['number']);
+		 $setTransparent = wrap('setTransparent', 'number', ['boolean']);
+		 $setHtml = wrap('setHtml', 'number', ['string']);
+	}
+	function executeInPage() {
+		// TODO: This code is repeated from below for efficiency in loading,
+		// and setting defaults, we should most likely figure out how to combine it.
+		if(settings.width != 500 || settings.height != 500)
+			$resize(_width, _height);
+		if(settings.scale != 1 && !settings.hidpi)
+			$scaleFactor(_scale);
+		if(settings.hidpi) {
+			$scaleFactor(_scale * 2);
+			Module['canvas'].width = Module['canvas'].width * 2;
+			Module['canvas'].height = Module['canvas'].height * 2;
+			Module['canvas'].style.webkitTransform = 'scale(0.5,0.5)';
+			Module['canvas'].style.webkitTransformOrigin = '0 0';
+		}
+		fireEvent('ready',null);
+	}
+
+	if(settings.accelerated) {
+		window.Module = Module;
+		window.Module.preRun = [initializeInPage];
+		window.Module.postRun = [executeInPage];
+		var script = document.createElement("script");
+		script.src = settings.path;
+		document.head.appendChild(script);
+	} else {
+		initializeInPage();
+		executeInPage();
+	}
+
+
+	function queueRunner() {
+		if(!settings.accelerated) {
+			if(!workerResponded) return;
+			if(lastcommand && lastcommand.call) {
+				fireEvent('done',lastcommand);
+				lastcommand = null;
+			}
+			if(queue.length > 0) {
+				var cmd = queue.shift();
+				lastcommand = cmd;
+				if(cmd.call) {
+					fireEvent('call',cmd);
+				}
+				workerResponded = false;
+				if(!settings.accelerated) {
+					worker.postMessage(cmd);
+				} 
+			}
 		}
 	}
 
@@ -84,95 +141,68 @@ function WebKit(settings) {
 	}
 	window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || renderFrame;
 	
-	if(typeof(settings.log)!='undefined') Module.print = settings.log;
-	if(typeof(settings.error)!='undefined') Module.printErr = settings.error;
-	if(typeof(settings.status)!='undefined') Module.setStatus = settings.status;
 
-	var $resize = wrap('resize', 'number', ['number', 'number']);
-	var $scaleFactor = wrap('scalefactor', 'number', ['number']);
-	var $setTransparent = wrap('setTransparent', 'number', ['boolean']);
-	var $setHtml = wrap('setHtml', 'number', ['string']);
 
-	var _width = settings.width;
-	var _height = settings.height;
-	var _scale = settings.scale;
-	var _transparent = false;
-	var _html = "<html><body></body></html>";
-	var _hidpi = settings.hidpi;
+	if(!settings.accelerated) {
+		worker.onmessage = function worker_onmessage(event) {
+			if (!workerResponded)
+				workerResponded = true;
 
-	// TODO: This code is repeated from below for efficiency in loading,
-	// and setting defaults, we should most likely figure out how to combine it.
-	if(settings.width != 500 || settings.height != 500)
-		$resize(_width, _height);
-	if(settings.scale != 1 && !settings.hidpi)
-		$scaleFactor(_scale);
-	if(settings.hidpi) {
-		$scaleFactor(_scale * 2);
-		Module['canvas'].width = Module['canvas'].width * 2;
-		Module['canvas'].height = Module['canvas'].height * 2;
-		Module['canvas'].style.webkitTransform = 'scale(0.5,0.5)';
-		Module['canvas'].style.webkitTransformOrigin = '0 0';
-	}
-
-	worker.onmessage = function worker_onmessage(event) {
-		if (!workerResponded)
-			workerResponded = true;
-
-		var data = event.data;
-		switch (data.target) {
-			case 'status': {
-				if(data.context=='next') {
-					queueRunner();
-				} else if (data.context=='error') {
-					fireEvent('error',data);
-				} else if (data.context=='ready') {
-					queueRunner();
-					fireEvent('ready',null);
-				}
-				break;
-			}
-			case 'stdout': {
-				fireEvent('log',data);
-				Module.print(data.content);
-				break;
-			}
-			case 'stderr': {
-				fireEvent('error',data.content);
-				Module.printErr(data.content);
-				break;
-			}
-			case 'window': {
-				window[data.method]();
-				break;
-			}
-			case 'canvas': {
-				switch (data.op) {
-					case 'resize': {
-						Module.canvas.width = data.width;
-						Module.canvas.height = data.height;
-						Module.canvasData = Module.ctx.getImageData(0, 0, data.width, data.height);
-						worker.postMessage({ target: 'canvas', boundingClientRect: cloneObject(Module.canvas.getBoundingClientRect()) });
-						break;
+			var data = event.data;
+			switch (data.target) {
+				case 'status': {
+					if(data.context=='next') {
+						queueRunner();
+					} else if (data.context=='error') {
+						fireEvent('error',data);
+					} else if (data.context=='ready') {
+						queueRunner();
+						fireEvent('ready',null);
 					}
-					case 'render': {
-						if (renderFrameData) {
-            				// previous image was not rendered yet, just update image
-            				renderFrameData = data.image.data;
-        				} else {
-            				// previous image was rendered so update image and request another frame
-            				renderFrameData = data.image.data;
-            				window.requestAnimationFrame(renderFrame);
-        				}
-        				break;
-    				}
-    				default: throw 'Unknown command from canvas sub-worker.';
+					break;
 				}
-				break;
+				case 'stdout': {
+					fireEvent('log',data);
+					Module.print(data.content);
+					break;
+				}
+				case 'stderr': {
+					fireEvent('error',data.content);
+					Module.printErr(data.content);
+					break;
+				}
+				case 'window': {
+					window[data.method]();
+					break;
+				}
+				case 'canvas': {
+					switch (data.op) {
+						case 'resize': {
+							Module.canvas.width = data.width;
+							Module.canvas.height = data.height;
+							Module.canvasData = Module.ctx.getImageData(0, 0, data.width, data.height);
+							worker.postMessage({ target: 'canvas', boundingClientRect: cloneObject(Module.canvas.getBoundingClientRect()) });
+							break;
+						}
+						case 'render': {
+							if (renderFrameData) {
+	            				// previous image was not rendered yet, just update image
+	            				renderFrameData = data.image.data;
+	        				} else {
+	            				// previous image was rendered so update image and request another frame
+	            				renderFrameData = data.image.data;
+	            				window.requestAnimationFrame(renderFrame);
+	        				}
+	        				break;
+	    				}
+	    				default: throw 'Unknown command from canvas sub-worker.';
+					}
+					break;
+				}
+				default: throw 'Unknown command from sub-worker.';
 			}
-			default: throw 'Unknown command from sub-worker.';
-		}
-	}.bind(this);
-
+		}.bind(this);
+	}
 	function cloneObject(event) {
 		var ret = {};
 		for (var x in event) {

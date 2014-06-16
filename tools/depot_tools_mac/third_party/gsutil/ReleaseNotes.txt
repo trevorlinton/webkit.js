@@ -1,0 +1,825 @@
+Release 3.25 (release-date: 2013-02-21)
+
+
+Bug Fixes
+---------
+
+  - Fixed two version-specific URI bugs:
+
+    1. gsutil cp -r gs://bucket1 gs://bucket2 would create objects in bucket2
+       with names corresponding to version-specific URIs in bucket1 (e.g.,
+       gs://bucket2/obj#1361417568482000, where the "#1361417568482000" part was
+       part of the object name, not the object's generation).
+
+       This problem similarly caused gsutil cp -r gs://bucket1 ./dir to create
+       files names corresponding to version-specific URIs in bucket1.
+
+    2. gsutil rm -a gs://bucket/obj would attempt to delete the same object
+       twice, getting a NoSuchKey error on the second attempt.
+
+
+================================================================================
+
+
+Release 3.24 (release-date: 2013-02-19)
+
+
+Bug Fixes
+---------
+
+  - Fixed bug that caused attempt to dupe-encode a unicode filename.
+
+
+Other Changes
+---------
+
+  - Refactored retry logic from setmeta and chacl to use @Retry decorator.
+
+  - Moved @Retry decorator to third_party.
+
+  - Fixed flaky tests.
+
+
+================================================================================
+
+
+Release 3.23 (release-date: 2013-02-16)
+
+
+Bug Fixes
+---------
+
+  - Make version-specific URI parsing more robust. This fixes a bug where
+    listing buckets in certain cases would result in the error
+    'BucketStorageUri' object has no attribute 'version_specific_uri'
+
+
+================================================================================
+
+
+Release 3.22 (release-date: 2013-02-15)
+
+
+New Features
+------------
+
+  - Implemented new chacl command, which makes it easy to add and remove bucket
+    and object ACL grants without having to edit XML (like the older setacl
+    command).
+
+  - Implemented new "daisy-chain" copying mode, which allows cross-provider
+    copies to run without buffering to local disk, and to use resumable uploads.
+    This copying mode also allows copying between locations and between storage
+    classes, using the new gsutil cp -D option. (Daisy-chain copying is the
+    default when copying between providers, but must be explicitly requested for
+    the other cases to keep costs and performance expectations clear.)
+
+  - Implemented new perfdiag command to run a diagnostic test against
+    a bucket, collect system information, and report results. Useful
+    when working with Google Cloud Storage team to resolve questions
+    about performance.
+
+  - Added SIGQUIT (^\) handler, to allow breakpointing a running gsutil.
+
+
+Bug Fixes
+---------
+
+  - Fixed bug where gsutil setwebcfg signature didn't match with
+    HMAC authentication.
+
+  - Fixed ASCII codec decode error when constructing tracker filename
+    from non-7bit ASCII intput filename.
+
+  - Changed boto auth plugin framework to allow multiple plugins
+    supporting requested capability, which fixes gsutil exception
+    that used to happen where a GCE user had a service account
+    configured and then ran gsutil config.
+
+  - Changed Command.Apply method to be resilient to name expansion
+    exceptions. Before this change, if an exception was raised
+    during iteration of NameExpansionResult, the parent process
+    would immediately stop execution, causing the
+    _EOF_NAME_EXPANSION_RESULT to never be sent to child processes.
+    This resulted in the process hanging forever.
+
+  - Fixed various bugs for gsutil running on Windows:
+    - Fixed various places from a hard-coded '/' to os.sep.
+    - Fixed a bug in the cp command where it was using the destination
+      URI's .delim property instead of the source URI.
+    - Fixed a bug in the cp command's _SrcDstSame function by
+      simplifying it to use os.path.normpath.
+    - Fixed windows bug in tests/util.py _NormalizeURI function.
+    - Fixed ZeroDivisionError sometimes happening during unit tests
+      on Windows.
+
+  - Fixed gsutil rm bug that caused exit status 1 when encountered
+    non-existent URI.
+
+  - Fixed support for gsutil cp file -.
+
+  - Added preconditions and retry logic to setmeta command, to
+    enforce concurrency control.
+
+  - Fixed bug in copying subdirs to subdirs.
+
+  - Fixed cases where boto debug_level caused too much or too little
+    logging:
+    - resumable and one-shot uploads weren't showing response headers
+      when connection.debug > 0.
+    - payload was showing up in debug output when connection.debug
+      < 4 for streaming uploads.
+
+  - Removed XML parsing from setacl. The previous implementation
+    relied on loose XML handling, which could truncate what it sends
+    to the service, allowing invalid XML to be specified by the
+    user. Instead now the ACL XML is passed verbatim and we rely
+    on server-side schema enforcement.
+
+  - Added user-agent header to resumable uploads.
+
+  - Fixed reporting bits/s when it was really bytes/s.
+
+  - Changed so we now pass headers with API version & project ID
+    to create_bucket().
+
+  - Made "gsutil rm -r gs://bucket/folder" remove xyz_$folder$ object
+    (which is created by various GUI tools).
+
+  - Fixed bug where gsutil binary was shipped with protection 750
+    instead of 755.
+
+
+Other Changes
+---------
+
+  - Reworked versioned object handling:
+    - Removed need for commands to specify -v option to parse
+      versions. Versioned URIs are now uniformly handled by all
+      commands.
+    - Refactored StorageUri parsing that had been split across
+      storage_uri and conveience; made versioned URIs render with
+      version string so StorageUri is round-trippable (boto change).
+    - Implemented gsutil cp -v option for printing the version-specific
+      URI that was just created.
+    - Added error detail for attempt to delete non-empty versioned
+      bucket. Also added versioning state to ls -L -b gs://bucket
+      output.
+    - Changed URI parsing to use pre-compiled regex's.
+    - Other bug fixes.
+
+  - Rewrote/deepened/improved various parts of built-in help:
+    - Updated 'gsutil help dev'.
+    - Fixed help command handling when terminal does not have the
+      number of rows set.
+    - Rewrote versioning help.
+    - Added gsutil help text for common 403 AccountProblem error.
+    - Added text to 'gsutil help dev' about legal agreement needed
+      with code submissions.
+    - Fixed various other typos.
+    - Updated doc for cp command regarding metadata not being
+      preserved when copying between providers.
+    - Fixed gsutil ls command documentation typo for the -L option.
+    - Added HTTP scheme to doc/examples for gsutil setcors command.
+    - Changed minimum version in documentation from 2.5 to 2.6 since
+      gsutil no longer works in Python 2.5.
+    - Cleaned up/clarify/deepen various other parts of gsutil
+      built-in documentation.
+
+  - Numerous improvements to testing infrastructure:
+    - Completely refactored infrastructure, allowing deeper testing
+      and more readable test code, and enabling better debugging
+      output when tests fail.
+    - Moved gslib/test_*.py unit tests to gslib/tests module.
+    - Made all tests (unit and integration, per-command and modules
+      (like naming) run from single gsutil test command.
+    - Moved TempDir functions from GsUtilIntegrationTestCase to
+      GsUtilTestCase.
+    - Made test runner message show the test function being run.
+    - Added file path support to ObjectToURI function.
+    - Disabled the test command if running on Python 2.6 and unittest2
+      is not available instead of breaking all of gsutil.
+    - Changed to pass GCS V2 API and project_id from boto config
+      if necessary in integration_testcase#CreateBucket().
+    - Fixed unit tests by using a GS-specific mocking class to
+      override the S3 provider.
+    - Added friendlier error message if test path munging fails.
+    - Fixed bug where gsutil test only cleaned up first few test files.
+    - Implemented setacl integration tests.
+    - Implemented StorageUri parsing unit tests.
+    - Implemented test for gsutil cp -D.
+    - Implemented setacl integration tests.
+    - Implemented tests for reading and seeking past end of file.
+    - Implemented and tests for it in new tests module.
+    - Changed cp tests that don't specify a Content-Type to check
+      for new binary/octet-stream default instead of server-detected
+      mime type.
+
+  - Changed gsutil mv to allow moving local files/dirs to the cloud.
+    Previously this was disallowed in the belief we should be
+    conservative about deleting data from local disk but there are
+    legitimate use cases for moving data from a local dir to the
+    cloud, it's clear to the user this would remove data from the
+    local disk, and allowing it makes the tool behavior more
+    consistent with what users would expect.
+
+  - Changed gsutil update command to insist on is_secure and
+    https_validate_certificates.
+
+  - Fixed release no longer to include extraneous boto dirs in
+    top-level of gsutil distribution (like bin/ and docs/).
+
+  - Changed resumable upload threshold from 1 MB to 2 MB.
+
+  - Removed leftover cloudauth and cloudreader dirs. Sample code
+    now lives at https://github.com/GoogleCloudPlatform.
+
+  - Updated copyright notice on code files.
+
+
+================================================================================
+
+
+Release 3.21 (release-date: 2012-12-10)
+
+New Features
+------------
+
+  - Added the ability for the cp command to continue even if there is an
+    error. This can be activated with the -c flag.
+
+  - Added support for specifying src args for gsutil cp on stdin (-I option)
+
+
+Bug Fixes
+---------
+
+  - Fixed gsutil test cp, which assumed it was run from gsutil install dir.
+
+  - Mods so we send generation subresource only when user requested
+    version parsing (-v option for cp and cat commands).
+
+
+Other Changes
+-------------
+
+  - Updated docs about using setmeta with versioning enabled.
+
+  - Changed GCS endpoint in boto to storage.googleapis.com.
+
+
+================================================================================
+
+
+Release 3.20 (release-date: 2012-11-30)
+
+New Features
+------------
+
+  - Added a noclobber (-n) setting for the cp command. Existing objects/files
+    will not be overwritten when using this setting.
+
+
+Bug Fixes
+---------
+
+  - Fixed off-by-one error when reporting bytes transferred.
+
+
+Other Changes
+-------------
+
+  - Improved versioning support for the remove command.
+
+  - Improved test runner support.
+
+
+================================================================================
+
+
+Release 3.19 (release-date: 2012-11-26)
+
+New Features
+------------
+  - Added support for object versions.
+
+  - Added support for storage classes (including Durable Reduced Availability).
+
+
+Bug Fixes
+---------
+  - Fixed problem where cp -q prevented resumable uploads from being performed.
+
+  - Made setwebcfg and setcors tests robust wrt XML formatting variation.
+
+
+Other Changes
+-------------
+
+  - Incorporated vapier@ mods to make version command not fail if CHECKSUM file
+    missing.
+
+  - Refactored gsutil such that most functionality exists in boto.
+
+  - Updated gsutil help dev instructions for how to check out source.
+
+
+================================================================================
+
+
+Release 3.18 (release-date: 2012-09-19)
+
+Bug Fixes
+---------
+
+  - Fixed resumable upload boundary condition when handling POST request
+    when server already has complete file, which resulted in an infinite
+    loop that consumed 100% of the CPU.
+
+  - Fixed one more place that outputted progress info when gsutil cp -q
+    specified (during streaming uploads).
+
+
+Other Changes
+-------------
+
+  - Updated help text for "gsutil help setmeta" and "gsutil help metadata", to
+    clarify and deepen parts of the documentation.
+
+
+================================================================================
+
+
+Release 3.17 (release-date: 2012-08-17)
+
+Bug Fixes
+---------
+
+  - Fixed race condition when multiple threads attempt to get an OAuth2 refresh
+    token concurrently.
+
+
+Other Changes
+-------------
+
+  - Implemented simplified syntax for setmeta command. The old syntax still
+    works but is now deprecated.
+
+  - Added help to gsutil cp -z option, to describe how to change where temp
+    files are written.
+
+
+================================================================================
+
+
+Release 3.16 (release-date: 2012-08-13)
+
+Bug Fixes
+---------
+
+  - Added info to built-in help for setmeta command, to explain the syntax
+    needed when running from Windows.
+
+================================================================================
+
+
+Release 3.15 (release-date: 2012-08-12)
+
+New Features
+------------
+  - Implemented gsutil setmeta command.
+
+  - Made gsutil understand bucket subdir conventions used by various tools
+    (like GCS Manager and CloudBerry) so if you cp or mv to a subdir you
+    created with one of those tools it will work as expected.
+
+  - Added support for Windows drive letter-prefaced paths when using Storage
+    URIs.
+
+
+Bug Fixes
+---------
+
+  - Fixed performance bug when downloading a large object with Content-
+    Encoding:gzip, where decompression attempted to load the entire object
+    in memory. Also added "Uncompressing" log output if file is larger than
+    50M, to make it clear the download hasn't stalled.
+
+  - Fixed naming bug when performing gsutil mv from a bucket subdir to
+    and existing bucket subdir.
+
+  - Fixed bug that caused cross-provider copies into Google Cloud Storage to
+    fail.
+
+  - Made change needed to make resumable transfer progress messages not print
+    when running gsutil cp -q.
+
+  - Fixed copy/paste error in config file documentation for
+    https_validate_certificates option.
+
+  - Various typo fixes.
+
+Other Changes
+-------------
+
+  - Changed gsutil to unset http_proxy environment variable if it's set,
+    because it confuses boto. (Proxies should instead be configured via the
+    boto config file.)
+
+================================================================================
+
+
+Release 3.14 (release-date: 2012-07-28)
+
+New Features
+------------
+  - Added cp -q option, to support quiet operation from cron jobs.
+
+  - Made config command restore backed up file if there was a failure or user
+    hits ^C.
+
+Bug Fixes
+---------
+
+  - Fixed bug where gsutil cp -R from a source directory didn't generate
+    correct destination path.
+
+  - Fixed file handle leak in gsutil cp -z
+
+  - Fixed bug that caused cp -a option not to work when copying in the cloud.
+
+  - Fixed bug that caused '/-' to be appended to object name for streaming
+    uploads.
+
+  - Revert incorrect line I changed in previous CL, that attempted to
+    get fp from src_key object. The real fix that's needed is described in
+    http://code.google.com/p/gsutil/issues/detail?id=73.
+
+Other Changes
+-------------
+
+  - Changed logging to print "Copying..." and Content-Type on same line;
+    refactored content type and log handling.
+
+
+================================================================================
+
+
+Release 3.13 (release-date: 2012-07-19)
+
+Bug Fixes
+---------
+
+  - Included the fix to make 'gsutil config' honor BOTO_CONFIG environment
+    variable (which was intended to be included in Release 3.12)
+
+
+================================================================================
+
+
+Release 3.11 (release-date: 2012-06-28)
+
+New Features
+------------
+
+  - Added support for configuring website buckets.
+
+Bug Fixes
+---------
+
+  - Fixed bug that caused simultaneous resumable downloads of the same source
+    object to use the same tracker file.
+
+  - Changed language code spec pointer from Wikipedia to loc.gov (for
+    Content-Language header).
+
+
+================================================================================
+
+
+Release 3.10 (release-date: 2012-06-19)
+
+New Features
+------------
+
+  - Added support for setting and listing Content-Language header.
+
+
+Bug Fixes
+---------
+
+  - Fixed bug that caused getacl/setacl commands to get a character encoding
+    exception when ACL content contained content not representable in ISO-8859-1
+    character set.
+
+  - Fixed gsutil update not to fail under Windows exclusive file locking.
+
+  - Fixed gsutil ls -L to continue past 403 errors.
+
+  - Updated gsutil tests and also help dev with instructions on how to run
+    boto tests, based on recent test refactoring done to in boto library.
+
+  - Cleaned up parts of cp help text.
+
+
+================================================================================
+
+
+Release 3.9 (release-date: 2012-05-24)
+
+Bug Fixes
+---------
+
+  - Fixed bug that caused extra "file:/" to be included in pathnames with
+    doing gsutil cp -R on Windows.
+
+
+================================================================================
+
+
+Release 3.8 (release-date: 2012-05-20)
+
+Bug Fixes
+---------
+
+  - Fixed problem with non-ASCII filename characters not setting encoding before
+    attempting to hash for generating resumable transfer filename.
+
+
+================================================================================
+
+
+Release 3.7 (release-date: 2012-05-11)
+
+Bug Fixes
+---------
+
+  - Fixed handling of HTTPS tunneling through a proxy.
+
+
+================================================================================
+
+
+Release 3.6 (release-date: 2012-05-09)
+
+Bug Fixes
+---------
+
+  - Fixed bug that caused wildcards spanning directories not to work.
+  - Fixed bug that gsutil cp -z not to find available tmp space correctly
+    under Windows.
+
+
+================================================================================
+
+
+Release 3.5 (release-date: 2012-04-30)
+
+Performance Improvement
+-----------------------
+
+  - Change by Evan Worley to calculate MD5s incrementally during uploads and
+    downloads. This reduces overall transfer time substantially for large
+    objects.
+
+Bug Fixes
+---------
+
+  - Fixed bug where uploading and moving multiple files to a bucket subdirectory
+    didn't work as intended.
+    (http://code.google.com/p/gsutil/issues/detail?id=93).
+  - Fixed bug where gsutil cp -r sourcedir didn't copy to specified subdir
+    if there is only one file in sourcedir.
+  - Fixed bug where tracker file included a timestamp that caused it not to
+    be recognized across sessions.
+  - Fixed bug where gs://bucket/*/dir wildcard matches too many objects.
+  - Fixed documentation errors in help associated with ACLs and projects.
+  - Changed GCS ACL parsing to be case-insensitive.
+  - Changed ls to print error and exit with non-0 status when wildcard matches
+    nothing, to be more consistent with UNIX shell behavior.
+
+
+================================================================================
+
+
+Release 3.4 (release-date: 2012-04-06)
+
+Bug Fixes
+---------
+
+  - Fixed problem where resumable uploads/downloads of objects with very long
+    names would generate tracking files with names that exceeded local file
+    system limits, making it impossible to complete resumable transfers for
+    those objects. Solution was to build the tracking file name from a fixed
+    prefix, SHA1 hash of the long filename, epoch timestamp and last 16
+    chars of the long filename, which is guarantee to be a predicable and
+    reasonable length.
+
+  - Fixed minor bug in output from 'gsutil help dev' which advised executing
+    an inconsequential test script (test_util.py).
+
+
+================================================================================
+
+
+Release 3.3 (release-date: 2012-04-03)
+
+Bug Fixes
+---------
+
+  - Fixed problem where gsutil ver and debug flags crashed when used
+    with newly generated boto config files.
+
+  - Fixed gsutil bug in windows path handling, and make checksumming work
+    across platforms.
+
+  - Fixed enablelogging to translate -b URI param to plain bucket name in REST
+    API request.
+
+
+================================================================================
+
+
+Release 3.2 (release-date: 2012-03-30)
+
+Bug Fixes
+---------
+
+  - Fixed problem where gsutil didn't convert between OS-specific directory
+    separators when copying individually-named files (issue 87).
+
+  - Fixed problem where gsutil ls -R didn't work right if there was a key
+    with a leading path (like /foo/bar/baz)
+
+
+================================================================================
+
+
+Release 3.1 (release-date: 2012-03-20)
+
+Bug Fixes
+---------
+
+  - Removed erroneous setting of Content-Encoding when a gzip file is uploaded
+    (vs running gsutil cp -z, when Content-Encoding should be set). This
+    error caused users to get gsutil.tar.gz file uncompressed by the user
+    agent (like wget) while downloading, making the file appear to be of the
+    wrong size/content.
+
+  - Fixed handling of gsutil help for Windows (previous code depended on
+    termios and fcntl libs, which are Linux/MacOS-specific).
+
+
+================================================================================
+
+
+Release 3.0 (release-date: 2012-03-20)
+
+
+Important Notes
+---------------
+
+  - Backwards-incompatible wildcard change
+
+      The '*' wildcard now only matches objects within a bucket directory. If
+      you have scripts that depend on being able to match spanning multiple
+      directories you need to use '**' instead. For example, the command:
+
+        gsutil cp gs://bucket/*.txt
+
+      will now only match .txt files in the top-level directory.
+
+        gsutil cp gs://bucket/**.txt
+
+      will match across all directories.
+
+  - gsutil ls now lists one directory at a time. If you want to list all objects
+    in a bucket, you can use:
+
+        gsutil ls gs://bucket/**
+
+    or:
+
+        gsutil ls -R gs://bucket
+
+
+New Features
+------------
+
+  - Built-in help for all commands and many additional topics. Try
+    "gsutil help" for a list of available commands and topics.
+
+  - A new hierarchical file tree abstraction layer, which makes the flat bucket
+    name space look like a hierarchical file tree. This makes several things
+    possible:
+    - copying data to/from bucket sub-directories (see “gsutil help cp”).
+    - distributing large uploads/downloads across many machines
+      (see “gsutil help cp”)
+    - renaming bucket sub-directories (see “gsutil help mv”).
+    - listing individual bucket sub-directories and for listing directories
+      recursively (see “gsutil help ls”).
+    - setting ACLs for objects in a sub-directory (see “gsutil help setacl”).
+
+  - Support for per-directory (*) and recursive (**) wildcards. Essentially,
+    ** works the way * did in previous gsutil releases, and * now behaves
+    consistently with how it works in command interpreters (like bash). The
+    ability to specify directory-only wildcards also enables a number of use
+    cases, such as distributing large uploads/downloads by wildcarded name. See
+    "gsutil help wildcards" for details.
+
+  - Support for Cross-Origin Resource Sharing (CORS) configuration. See "gsutil
+    help cors" for details.
+
+  - Support for multi-threading and recursive operation for setacl command
+    (see “gsutil help setacl”).
+
+  - Ability to use the UNIX 'file' command to do content type recognition as
+    an alternative to filename extensions. 
+
+  - Introduction of new end-to-end test suite.
+
+  - The gsutil version command now computes a checksum of the code, to detect
+    corruption and local modification when assisting with technical support.
+
+  - The gsutil update command is no longer beta/experimental, and now also
+    supports updating from named URIs (for early/test releases).
+
+  - Changed gsutil ls -L to also print Content-Disposition header.
+
+
+Bug Fixes
+---------
+
+  - The gsutil cp -t option previously didn't work as documented, and instead
+    Content-Type was always detected based on filename extension. Content-Type
+    detection is now the default, the -t option is deprecated (to be removed in
+    the future), and specifying a -h Content-Type header now correctly overrides
+    the filename extension based handling. For details see "gsutil help
+    metadata".
+
+  - Fixed bug that caused multi-threaded mv command not to percolate failures
+    during the cp phase to the rm phase, which could under some circumstances
+    cause data that was not copied to be deleted.
+
+  - Fixed bug that caused gsutil to use GET for ls -L requests. It now uses HEAD
+    for ls -L requests, which is more efficient and faster.
+
+  - Fixed bug that caused gsutil not to preserve metadata during
+    copy-in-the-cloud.
+
+  - Fixed bug that prevented setacl command from allowing DisplayName's in ACLs.
+
+  - Fixed bug that caused gsutil/boto to suppress consecutive slashes in path
+    names.
+
+  - Fixed spec-non-compliant URI construction for resumable uploads.
+
+  - Fixed bug that caused rm -f not to work.
+
+  - Fixed UnicodeEncodeError that happened when redirecting gsutil ls output
+    to a file with non-ASCII object names.
+
+
+Other Changes
+-------------
+
+  - UserAgent sent in HTTP requests now includes gsutil version number and OS
+    name.
+
+  - Starting with this release users are able to get individual named releases
+    from version-named objects: gs://pub/gsutil_<version>.tar.gz
+    and gs://pub/gsutil_<version>.zip. The version-less counterparts
+    (gs://pub/gsutil.tar.gz and gs://pub/gsutil.zip) will contain the latest
+    release. Also, the gs://pub bucket is now publicly readable (so, anyone
+    can list its contents).
+
+
+================================================================================
+
+Release 2.0 (release-date: 2012-01-13)
+
+
+New Features
+------------
+
+  - Support for for two new installation modes: enterprise and RPM.
+    Customers can now install gsutil one of three ways:
+
+    - Individual user mode (previously the only available mode): unpacking from
+      a gzipped tarball (gs://pub/gsutil.tar.gz) or zip file
+      (gs://pub/gsutil.zip) and running the gsutil command in place in the
+      unpacked gsutil directory.
+
+    - Enterprise mode (new): unpacking as above, and then running the setup.py
+      script in the unpacked gsutil directory. This allows a systems
+      administrator to install gsutil in a central location, using the Python
+      distutils facility. This mode is supported only on Linux and MacOS.
+
+    - RPM mode (new). A RedHat RPM can be built from the gsutil.spec.in file
+      in the unpacked gsutil directory, allowing it to be installed as part of
+      a RedHat build.
+
+  - Note: v2.0 is the first numbered gsutil release. Previous releases
+    were given timestamps for versions. Numbered releases enable downstream
+    package builds (like RPMs) to define dependencies more easily.
+    This is also the first version where we began including release notes.

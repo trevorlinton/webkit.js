@@ -279,8 +279,6 @@ TextureMapperGL::ClipStack& TextureMapperGL::clipStack()
 
 void TextureMapperGL::beginPainting(PaintFlags flags)
 {
-	webkitTrace();
-
     m_context3D->getIntegerv(GraphicsContext3D::CURRENT_PROGRAM, &data().previousProgram);
     data().previousScissorState = m_context3D->isEnabled(GraphicsContext3D::SCISSOR_TEST);
     data().previousDepthState = m_context3D->isEnabled(GraphicsContext3D::DEPTH_TEST);

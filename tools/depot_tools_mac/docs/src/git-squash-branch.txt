@@ -1,0 +1,92 @@
+git-squash-branch(1)
+====================
+
+NAME
+----
+git-squash-branch -
+include::_git-squash-branch_desc.helper.txt[]
+
+SYNOPSIS
+--------
+[verse]
+'git squash-branch' [-m <message>]
+
+DESCRIPTION
+-----------
+
+`git squash-branch` is a simple helper command. It takes all the commits on the
+current branch from the 'merge_base' to HEAD, and reduces them to a single
+commit. The new commit will contain a summary of all the commits which were
+squashed, preceeded by a header message indicating that it's the result of a
+squash (or the message you pass on the command line.).
+
+Squashing branches is useful when trying to rebase-update over branches which
+were pushed to their upsteram (or committed by the 'Commit Queue'), and then
+conflicting changes landed in upstream on top of the push/commit. If you know
+that your branch was committed but linkgit:git-rebase-update[1] isn't able to
+automatically clean it, you can squash the troublesome branch before `git
+rebase-update`, and then when `git rebase-update` presents the conflict, you can
+verify that the conflict diff is what you expected (and then skip it with
+`git rebase --skip`).
+
+OPTIONS
+-------
+
+-m <message>::
+--message=<message>::
+  Optional message to use for the first line of the squashed commit. If omitted,
+  it defaults to "git squash commit.".
+
+EXAMPLE
+-------
+
+[subs="specialcharacters,quotes,attributes"]
+----
+[white]**$ git map**
+[white blue-background]##\*##{zwsp}[blue-background red]** 7dcfe47       ** [green]##(##{zwsp}[aqua]**frozen_changes**{zwsp}[green]##)## [yellow]##2014-03-12## \~ FREEZE.unindexed
+* [red]**4b0c180**        [yellow]##2014-03-12## \~ modfile
+* [red]**59a7cca**        [yellow]##2014-03-12## \~ a deleted file
+* [red]**6bec695**        [green]##(##{zwsp}[red]##origin/master##{zwsp}[green]##)## [yellow]##2014-03-11## \~ Add neat feature    [white]**<(frozen_changes)**
+* [red]**d15a38a**        [yellow]##2014-03-11## \~ Epic README update
+* [red]**d559894**        [green]##(##{zwsp}[lime]**master**{zwsp}[green]##)## [yellow]##2014-03-11## \~ Important upstream change
+[red]##|## * [red]**9c311fd**      [green]##(##{zwsp}[lime]**cool_feature**{zwsp}[green]##)## [yellow]##2014-03-11## \~ Respond to CL comments
+[red]##|## [green]##|## * [red]**2a1eeb2**    [green]##(##{zwsp}[lime]**subfeature**{zwsp}[green]##)## [yellow]##2014-03-11## \~ integrate with CoolService
+[red]##|## [green]##|## * [red]**d777af6**    [yellow]##2014-03-11## \~ slick commenting action
+[red]##|## [green]##|/##
+[red]##|## * [red]**265803a**      [yellow]##2014-03-11## \~ another improvement    [white]**<(subfeature)**
+[red]##|## * [red]**6d831ac**      [green]##(##{zwsp}[fuchsia]**spleen_tag**{zwsp}[green]##)## [yellow]##2014-03-11## \~ Refactor spleen
+[red]##|## * [red]**82e74ab**      [yellow]##2014-03-11## \~ Add widget
+[red]##|/##
+* [red]**d08c5b3**        [green]##(##{zwsp}[lime]**bogus_noparent**{zwsp}[green]##)## [yellow]##2014-03-11## \~ Wonderful beginnings    [white]**<(cool_feature)**
+[white]**$ git squash-branch "cool squash demo"**
+[white]**$ git map**
+[white blue-background]##*##{zwsp}[blue-background red]** 2c81508       ** [green]##(##{zwsp}[aqua]**frozen_changes**{zwsp}[green]##)## [yellow]##2014-03-22## \~ cool squash demo
+* [red]**6bec695**        [green]##(##{zwsp}[red]##origin/master##{zwsp}[green]##)## [yellow]##2014-03-11## \~ Add neat feature    [white]**<(frozen_changes)**
+* [red]**d15a38a**        [yellow]##2014-03-11## \~ Epic README update
+* [red]**d559894**        [green]##(##{zwsp}[lime]**master**{zwsp}[green]##)## [yellow]##2014-03-11## \~ Important upstream change
+[red]##|## * [red]**9c311fd**      [green]##(##{zwsp}[lime]**cool_feature**{zwsp}[green]##)## [yellow]##2014-03-11## \~ Respond to CL comments
+[red]##|## [green]##|## * [red]**2a1eeb2**    [green]##(##{zwsp}[lime]**subfeature**{zwsp}[green]##)## [yellow]##2014-03-11## \~ integrate with CoolService
+[red]##|## [green]##|## * [red]**d777af6**    [yellow]##2014-03-11## \~ slick commenting action
+[red]##|## [green]##|/##
+[red]##|## * [red]**265803a**      [yellow]##2014-03-11## \~ another improvement    [white]**<(subfeature)**
+[red]##|## * [red]**6d831ac**      [green]##(##{zwsp}[fuchsia]**spleen_tag**{zwsp}[green]##)## [yellow]##2014-03-11## \~ Refactor spleen
+[red]##|## * [red]**82e74ab**      [yellow]##2014-03-11## \~ Add widget
+[red]##|/##
+* [red]**d08c5b3**        [green]##(##{zwsp}[lime]**bogus_noparent**{zwsp}[green]##)## [yellow]##2014-03-11## ~ Wonderful beginnings    [white]**<(cool_feature)**
+----
+
+include::_aliases.txt[]
+
+----
+[alias]
+  git squash = squash-branch
+----
+
+
+SEE ALSO
+--------
+linkgit:git-rebase-update[1]
+
+include::_footer.txt[]
+
+// vim: ft=asciidoc:
