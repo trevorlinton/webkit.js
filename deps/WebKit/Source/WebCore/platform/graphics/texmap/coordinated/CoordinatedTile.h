@@ -26,7 +26,7 @@
 #ifndef CoordinatedTile_h
 #define CoordinatedTile_h
 
-#if USE(TILED_BACKING_STORE)
+#if USE(TILED_BACKING_STORE) && USE(COORDINATED_GRAPHICS)
 
 #include "CoordinatedSurface.h"
 #include "IntRect.h"

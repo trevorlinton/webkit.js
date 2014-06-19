@@ -6,24 +6,15 @@
 #include <wtf/text/WTFString.h>
 #endif
 
-namespace WebKit {
-	static WebKit::WebView* mainView = NULL;
+namespace WebCore {
+	static WebCore::WebView* mainView = NULL;
+#ifdef DEBUG
+	String logLevelString() { return getenv("WEBKIT_DEBUG"); }
+#endif
 }
 
-#ifdef DEBUG
-namespace WebCore {
-
-	String logLevelString()
-	{
-		return getenv("WEBKIT_DEBUG");
-	}
-
-} // namespace WebCore
-#endif
-
-// Private
 void tick() {
-	if(!WebKit::mainView) return;
+	if(!WebCore::mainView) return;
 	// Note: do not add a  here, this funciton executes quite
 	// a few times that it will cause the browser to slow down to a crawl
 	// to finish writing console messages.
@@ -39,34 +30,15 @@ void tick() {
 			break;
 	}
 }
-
-// Public
 extern "C" {
-	void setHtml(char *html) { WebKit::mainView->setHtml(html,strlen(html)); }
-	void setTransparent(bool transparent) { WebKit::mainView->setTransparent(transparent); }
-	void scrollBy(int x, int y) { WebKit::mainView->scrollBy(x,y); }
-	void resize(int w, int h) { WebKit::mainView->resize(w,h); }
-	void scalefactor(float sf) {
-		WebKit::mainView->scalefactor(sf);
-		//WebCore::IntSize rect = WebKit::mainView->size();
-		//WebKit::mainView->resize(rect.width(),rect.height());
-	}
-	void createWebKit(int width, int height, bool accel) {
-		//if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
-		//	exit(1);
-		//}
-		WebKit::mainView = new WebKit::WebView(width, height, accel);
-		//emscripten_set_main_loop(&tick, 0, false);
-	}
+	void setHtml(char *html) { WebCore::mainView->setHtml(html,strlen(html)); }
+	void setTransparent(bool transparent) { WebCore::mainView->setTransparent(transparent); }
+	void scrollBy(int x, int y) { WebCore::mainView->scrollBy(x,y); }
+	void resize(int w, int h) { WebCore::mainView->resize(w,h); }
+	void scalefactor(float sf) { WebCore::mainView->scalefactor(sf); }
+	void createWebKit(int width, int height, bool accel) { WebCore::mainView = new WebCore::WebView(width, height, accel); }
 	int main(int argc, char** argv) {
-		//"<!doctype html><html><body>Hello World</body></html>";//
-		//char tmp[] = "<!doctype html><html><body><div style='position:absolute;top:10px;left:10px;width:300px;height:300px;border-radius:5px;box-shadow:5px 5px 5px #000000;border:solid 1px white;color:white;background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%);-webkit-transform:rotate(7deg);'>Hello World</div></body></html>";
-#ifdef DEBUG
-		WebCore::initializeLoggingChannelsIfNecessary();
-#endif
 		createWebKit(500,500,true);
-		//scalefactor(2.0);
-		//setHtml(tmp);
 		emscripten_set_main_loop(&tick, 0, false);
 	}
 }

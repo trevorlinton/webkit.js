@@ -95,7 +95,7 @@
       'ENABLE_PROXIMITY_EVENTS=0',
       'ENABLE_PUBLIC_SUFFIX_LIST=1',
       'ENABLE_QUOTA=0',
-      'ENABLE_REQUEST_ANIMATION_FRAME=0',
+      'ENABLE_REQUEST_ANIMATION_FRAME=1',
       'ENABLE_REMOTE_INSPECTOR=0',
       'ENABLE_RESOLUTION_MEDIA_QUERY=0',
       'ENABLE_SCRIPTED_SPEECH=0',
@@ -168,42 +168,42 @@
       'WTF_USE_FASTMALLOC=0',
       'WTF_USE_FAST_MALLOC=0',
       'ENABLE_NETSCAPE_PLUGIN_API=0', #this should not be enabled, ever, it's being deprecated and is useless on JS platforms.
-			# Threading should always be disabled,
-			# we use pthread stubs and rely on shared
-			# timers to reproduce "thread-like" behavior.
+	# Threading should always be disabled,
+	# we use pthread stubs and rely on shared
+	# timers to reproduce "thread-like" behavior.
       'WTF_USE_PTHREADS=1',
-			'WTF_USE_WEB_THREAD=0',
+	'WTF_USE_WEB_THREAD=0',
 
-			# Graphics and Text Subsystems
-			# look for wchar instead ICU since wchar simply sets on top of
-			# javascripts existing unicode platform in javascript, this makes
-			# ICU unnecessary for any engine that implements ICU.
-			'WTF_USE_FREETYPE=1',
-			'WTF_USE_HARFBUZZ=1',
-			'WTF_USE_CAIRO=1',
-			'WTF_USE_SKIA=0',
+	# Graphics and Text Subsystems
+	# look for wchar instead ICU since wchar simply sets on top of
+	# javascripts existing unicode platform in javascript, this makes
+	# ICU unnecessary for any engine that implements ICU.
+	'WTF_USE_FREETYPE=1',
+	'WTF_USE_HARFBUZZ=1',
+	'WTF_USE_CAIRO=1',
+	'WTF_USE_SKIA=0',
       'WTF_USE_ICU_UNICODE=0',
       'WTF_USE_WCHAR_UNICODE=1',
 
-			# Enabling opengles requires egl as well. Note always specify
-			# OPENGL_ES_2 and OPENGL otherwise we won't compile.
-			# Accelerated compositing needs opengl, i believe.
+	# Enabling opengles requires egl as well. Note always specify
+	# OPENGL_ES_2 and OPENGL otherwise we won't compile.
+	# Accelerated compositing needs opengl, i believe.
       'WTF_USE_OPENGL=1',
       'WTF_USE_OPENGL_ES_2=1',
       'WTF_USE_EGL=1',
-			'WTF_USE_ACCELERATED_COMPOSITING=1',
+	'WTF_USE_ACCELERATED_COMPOSITING=1',
       'WTF_USE_GLX=0',
-			'WTF_USE_3D_GRAPHICS=1',
+	'WTF_USE_3D_GRAPHICS=1',
 
-			# turning on any of the below tend to require one another...
+	# turning on any of the below tend to require one another...
       'WTF_USE_TEXTURE_MAPPER=1', # requires cairo, won't work with skia.
       'WTF_USE_TEXTURE_MAPPER_GL=1', # requires cairo, won't work with skia.
-      'WTF_USE_TILED_BACKING_STORE=0', # requires cairo, won't work with skia. Not used by us.
-			'WTF_USE_COORDINATED_GRAPHICS=0', # requires cairo, won't work with skia. Not used by us.
+      'WTF_USE_TILED_BACKING_STORE=1', # requires cairo, won't work with skia. 
+	'WTF_USE_COORDINATED_GRAPHICS=0', # requires cairo, won't work with skia. Not used by us.
       'WTF_USE_GRAPHICS_SURFACE=0', # requires cairo, won't work with skia. Not used by us.
-			'ENABLE_TEXTURE_MAPPER=1', # some of the webkit code accidently referred to texture mapper as a feature, not a platform.
-
-			# Resource handlers
+	'ENABLE_TEXTURE_MAPPER=1', # some of the webkit code accidently referred to texture mapper as a feature, not a platform.
+	'ENABLE_TEXTURE_MAPPER_GL=1',
+	# Resource handlers
       'WTF_USE_UNIX_DOMAIN_SOCKETS=1',
       'WTF_USE_CURL=1',
     ],

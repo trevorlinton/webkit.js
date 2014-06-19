@@ -26,7 +26,7 @@
 #include "config.h"
 #include "CoordinatedTile.h"
 
-#if USE(TILED_BACKING_STORE)
+#if USE(TILED_BACKING_STORE) &&  USE(COORDINATED_GRAPHICS)
 
 #include "GraphicsContext.h"
 #include "ImageBuffer.h"

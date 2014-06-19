@@ -35,11 +35,11 @@
 #include "PlatformContextCairo.h"
 #include <SDL.h>
 
- using namespace WebCore;
- using namespace WTF;
+using namespace WebCore;
+using namespace WTF;
 
 
- namespace WebKit {
+namespace WebCore {
 
 	WebView::WebView(int width, int height, bool accelerated = false)
 	{
@@ -108,7 +108,7 @@
 				postMessage({target:'status',context:'ready'});
 			});
 		} else
-		m_private->mainFrame->coreFrame()->view()->enterCompositingMode();
+			m_private->mainFrame->coreFrame()->view()->enterCompositingMode();
 
 	}
 
@@ -149,7 +149,6 @@
 
 	WebCore::FloatRect WebView::positionAndSize() {
 		webkitTrace();
-		fprintf(stderr,"positionAndSize: (x,y,w,h) %f %f %f %f\n",m_private->size.x(),m_private->size.y(),m_private->size.width(),m_private->size.height());
 		return m_private->size;
 	}
 
@@ -166,8 +165,6 @@
 		webkitTrace();
 		if(m_private->sdl_screen)
 			SDL_FreeSurface(m_private->sdl_screen);
-
-		fprintf(stderr,"initializeScreens: %i %i\n",width,height);
 
 		m_private->size = FloatRect(0,0,(float)width, (float)height);
 
@@ -199,14 +196,12 @@
 				m_private->acceleratedContext = AcceleratedContext::create(this);
 
 			if ( !m_private->sdl_screen ) {
-				fprintf(stderr,"Unable to set video mode: %s\n", SDL_GetError());
 				SDL_Quit();
 				exit(2);
 			}
 		} else {
-			m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_SWSURFACE|SDL_RESIZABLE);
+			m_private->sdl_screen = SDL_SetVideoMode( width, height, 32, SDL_SWSURFACE | SDL_RESIZABLE);
 			if (!m_private->sdl_screen) {
-				fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
 				SDL_Quit();
 				exit(2);
 			}
@@ -218,7 +213,6 @@
 	{
 		webkitTrace();
 		IntSize oldSize = IntSize(m_private->size.width(), m_private->size.height());
-		fprintf(stderr,"resize: old: %i %i new: %i %i\n",oldSize.width(),oldSize.height(),width, height);
 		initializeScreens(width, height);
 		if(m_private->chromeClient) 
 			m_private->chromeClient->widgetSizeChanged(oldSize, IntSize(width,height));
@@ -246,7 +240,7 @@
 			break;
 			case SDL_USEREVENT:
 				// We use SDL_USEREVENT to fire the shared timer.
-						//fireSharedTimer();
+				//fireSharedTimer();
 			break;
 			case SDL_MOUSEMOTION:
 				//handleMotionEvent(m_private->corePage->mainFrame(), event.motion);
@@ -265,7 +259,7 @@
 	}
 	void WebView::scalefactor(float t) {
 		webkitTrace();
-		//m_private->corePage->setDeviceScaleFactor(t);
+		m_private->corePage->setDeviceScaleFactor(t);
 	}
 
 	void WebView::resizeEvent(void *) {

@@ -12,7 +12,7 @@ namespace WebCore {
 
 	class ChromeClientJS : public WebCore::ChromeClient {
 	public:
-		static ChromeClientJS* createClient(WebKit::WebView *);
+		static ChromeClientJS* createClient(WebView *);
 		ChromeClient *toChromeClient();
 		FloatRect windowRect() OVERRIDE;
 		void setWindowRect(const FloatRect& rect) OVERRIDE;
@@ -89,7 +89,7 @@ namespace WebCore {
 		void performAllPendingScrolls();
 		void paint(Timer<ChromeClientJS>*);
 
-		WebKit::WebView* webView() { return m_view; }
+		WebView* webView() { return m_view; }
 
 	private:
 		Timer <ChromeClientJS> m_displayTimer;
@@ -99,9 +99,9 @@ namespace WebCore {
 		Vector<IntRect> m_rectsToScroll;
 		Vector<IntSize> m_scrollOffsets;
 		double m_lastDisplayTime;
-		ChromeClientJS(WebKit::WebView *);
+		ChromeClientJS(WebView *);
 		FloatRect m_pageRect;
-		WebKit::WebView *m_view;
+		WebView *m_view;
 	};
 
 }

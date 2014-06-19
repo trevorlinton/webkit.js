@@ -19,9 +19,6 @@
 
 #include "SDL.h"
 #if USE(ACCELERATED_COMPOSITING)
-//#include <GLES2/gl2.h>
-//#include <EGL/egl.h>
-//#include "SDL/SDL_opengles2.h"
 #include "GL/glew.h"
 #include "GLContext.h"
 #endif
@@ -33,21 +30,15 @@ namespace WebCore {
 	class WebFrameJS;
 }
 
-namespace WebKit {
+namespace WebCore {
 	struct WebViewPrivate {
-		//WebCore::GraphicsContext* context = NULL;
 		OwnPtr<WebCore::WidgetBackingStore> backingStore = NULL;
-#if USE(CAIRO)
-		//cairo_surface_t* cairo_surface = NULL;
-		//cairo_t* cairo_device = NULL;
-#endif
-    SDL_Surface* sdl_screen = NULL;
+		SDL_Surface* sdl_screen = NULL;
 		WebCore::ChromeClientJS* chromeClient = NULL;
-    //SDL_Surface* sdl_surface = NULL;
-    WebCore::Page* corePage = NULL;
+		WebCore::Page* corePage = NULL;
 		WebCore::WebFrameJS* mainFrame = NULL;
-    bool transparent = false;
-    WebCore::FloatRect size;
+		bool transparent = false;
+		WebCore::FloatRect size;
 		bool accelerated;
 #if USE(ACCELERATED_COMPOSITING)
 		OwnPtr<WebCore::AcceleratedContext> acceleratedContext;
@@ -73,24 +64,24 @@ namespace WebKit {
 		void scrollBy(int offsetX, int offsetY);
 		void scalefactor(float t);
 		void resizeEvent(void *);
-    void paintEvent(void *);
-    void changeEvent(void *);
-    void mouseMoveEvent(void *);
-    void mousePressEvent(void *);
-    void mouseDoubleClickEvent(void *);
-    void mouseReleaseEvent(void *);
-    void contextMenuEvent(void *);
-    void wheelEvent(void *);
-    void keyPressEvent(void *);
-    void keyReleaseEvent(void *);
-    void dragEnterEvent(void *);
-    void dragLeaveEvent(void *);
-    void dragMoveEvent(void *);
-    void dropEvent(void *);
-    void focusInEvent(void *);
-    void focusOutEvent(void *);
-    void inputMethodEvent(void *);
-    bool focusNextPrevChild(bool next);
+		void paintEvent(void *);
+		void changeEvent(void *);
+		void mouseMoveEvent(void *);
+		void mousePressEvent(void *);
+		void mouseDoubleClickEvent(void *);
+		void mouseReleaseEvent(void *);
+		void contextMenuEvent(void *);
+		void wheelEvent(void *);
+		void keyPressEvent(void *);
+		void keyReleaseEvent(void *);
+		void dragEnterEvent(void *);
+		void dragLeaveEvent(void *);
+		void dragMoveEvent(void *);
+		void dropEvent(void *);
+		void focusInEvent(void *);
+		void focusOutEvent(void *);
+		void inputMethodEvent(void *);
+		bool focusNextPrevChild(bool next);
 		void initializeScreens(int width, int height);
 #if USE(ACCELERATED_COMPOSITING)
 		WebCore::GLContext *glWindowContext();
@@ -102,7 +93,7 @@ namespace WebKit {
 		friend class WebCore::WebFrameJS;
 		friend class WebCore::AcceleratedContext;
 	private:
-    void handleSDLEvent(const SDL_Event& event);
+		void handleSDLEvent(const SDL_Event& event);
 		WebViewPrivate* m_private;
 	};
 }

@@ -35,7 +35,7 @@ static PassRefPtr<cairo_surface_t> createSurfaceForBackingStore(PlatformWidget w
 #elif PLATFORM(JS)
 	webkitTrace();
 	if(widget) {
-		fprintf(stderr, "WebCore::createSurfaceForBackingStore as SDL derived surface.\n");
+		fprintf(stderr, "WebCore::createSurfaceForBackingStore as SDL derived surface. size (w,h): %i %i .\n\n",size.width(),size.height());
 		SDL_Surface *sdl_surface = (SDL_Surface *)widget;
 		return adoptRef(cairo_image_surface_create_for_data((unsigned char*)sdl_surface->pixels,
 																			CAIRO_FORMAT_ARGB32,
@@ -43,7 +43,7 @@ static PassRefPtr<cairo_surface_t> createSurfaceForBackingStore(PlatformWidget w
 																			sdl_surface->h,
 																			sdl_surface->pitch));
 	} else {
-		fprintf(stderr, "WebCore::createSurfaceForBackingStore as cairo format ARGB32.\n");
+		fprintf(stderr, "WebCore::createSurfaceForBackingStore as cairo format ARGB32 size (w,h): %i %i .\n",size.width(),size.height());
 		UNUSED_PARAM(widget);
 		return adoptRef(cairo_image_surface_create(CAIRO_FORMAT_ARGB32, size.width(), size.height()));
 	}

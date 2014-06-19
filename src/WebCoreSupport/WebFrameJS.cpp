@@ -10,7 +10,7 @@
 
 namespace WebCore {
 
-	WebFrameJS::WebFrameJS(WebKit::WebView* container, WebFrameJS* parent, WebFrameData* data)
+	WebFrameJS::WebFrameJS(WebView* container, WebFrameJS* parent, WebFrameData* data)
 		: m_webView(container)
 	{
 	}

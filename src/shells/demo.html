@@ -14,8 +14,14 @@
       canvas { border: 0px none; }
       header {
         padding:10px;
-        height:150px;
-        background-color:rgba(0,0,0,0.05);
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: 400px;
+        bottom: 0px;
+        height: 100%;
+        background-color:#ccc;
+        z-index:1;
       }
       header div h2 {
         font-size:1em;
@@ -28,12 +34,8 @@
         display:block;
       }
       header > div.info {
-        float:right;
-        width:48%;
       }
       header > div.tools {
-        float:left;
-        width:50%;
       }
       header > div.info > div {
         background-color:white;
@@ -51,6 +53,12 @@
   </head>
   <body>
     <header>
+      <h1>webkit.js</h1>
+      <p>
+        NOTES: This is still experimental v0.02, and unstable (not yet alpha). This version is hardware accelerated and requires WebGL. <b>Anything causing network requests will crash since CURL is disabled.</b> Currently javascript bindings are disabled. Routing mouse and keyboard events are still in the works. Images need to use data uri's. CSS must be inline stylesheets. There are known issues with CSS3 animations not working correctly. If you see gray bars on the right side or bottom, they're webkit's default scroll bars when no native ones exist.
+      </p>
+      <p>INSTRUCTIONS: Input some HTML into the textarea below, press render to display to the canvas. Note that it intially loads SVG/HTML tests so they're probably rendering while you're reading this.</p>
+      <p>Report issues to <a href="#">http://github.com/trevorlinton/webkit.js/</a></p>
       <div class="tools">
         <textarea rows="9" cols="90" id="htmltorender">
 <html>
@@ -61,11 +69,11 @@
 </div></body></html>
 
         </textarea>
-        Height: <input type="text" id="height" value="800" style="width:30px;"/> 
-        Width: <input type="text" id="width" value="600" style="width:30px;"/> 
-        Scale: <input type="text" id="scale" value="1" style="width:10px;"/> 
-        <input id="hidpi" type="checkbox" checked/> High DPI Rendering 
-        <input id="reset" type="button" value="Reset"/> 
+        Height: <input type="text" id="height" value="600" style="width:30px;" disabled/> 
+        Width: <input type="text" id="width" value="750" style="width:30px;" disabled/> 
+        <!--Scale:--><input type="text" id="scale" value="1" style="width:10px;display:none;"/>
+        <input id="hidpi" type="checkbox" checked disabled/> High DPI Rendering 
+        <input id="reset" type="button" value="Reset"  disabled/> 
         <input id="render" type="button" value="Render"/>
       </div>
       <div class="info">
@@ -83,7 +91,7 @@
         window.webkit.width = document.getElementById('width').value;
         window.webkit.height = document.getElementById('height').value;
         window.webkit.scale = document.getElementById('scale').value;
-        window.webkit.hidpi = 0;//document.getElementById('hidpi').checked ? 1 : 0;
+        window.webkit.hidpi = document.getElementById('hidpi').checked ? 1 : 0;
       });
       window.addEventListener('load', function() {
         window.webkit = new WebKit({
@@ -91,16 +99,16 @@
           height:document.getElementById('height').value,
           canvas:document.getElementById('canvas'),
           scale:document.getElementById('scale').value,
-          hidpi:0 //(document.getElementById('hidpi').checked ? 1 : 0)
+          hidpi:(document.getElementById('hidpi').checked ? 1 : 0)
         });
         window.webkit.addEventListener('call',function(e){
-          running[e.call] = typeof(performance) != 'undefined' ? performance.now() : Date.now();
+          running[e] = typeof(performance) != 'undefined' ? performance.now() : Date.now();
         });
         window.webkit.addEventListener('done',function(e){
           var t0 = typeof(performance) != 'undefined' ? performance.now() : Date.now();
-          document.getElementById('info').innerHTML += e.call + ' took ' + 
-              (Math.floor(((t0 - running[e.call])/1000)*1000)/1000) + ' seconds.<br>';
-          running[e.call] = null;
+          document.getElementById('info').innerHTML += e + ' took ' + 
+              (Math.floor(((t0 - running[e])/1000)*1000)/1000) + ' seconds.<br>';
+          running[e] = null;
         });
         window.webkit.addEventListener('ready',function() {
           window.webkit.html = document.getElementById('htmltorender').value;

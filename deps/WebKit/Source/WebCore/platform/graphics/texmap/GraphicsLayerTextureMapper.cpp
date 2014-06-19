@@ -25,6 +25,9 @@
 #include "GraphicsLayerFactory.h"
 #include "ImageBuffer.h"
 #include <wtf/CurrentTime.h>
+#if PLATFORM(JS)
+#include "DebuggerJS.h"
+#endif
 
 #if USE(TEXTURE_MAPPER)
 
@@ -37,9 +40,13 @@ TextureMapperLayer* toTextureMapperLayer(GraphicsLayer* layer)
 
 std::unique_ptr<GraphicsLayer> GraphicsLayer::create(GraphicsLayerFactory* factory, GraphicsLayerClient* client)
 {
-    if (!factory)
+//#if PLATFORM(JS)
+//	fprintf(stderr, "GraphicsLayer::create\n");
+//#endif
+    if (!factory) {
+//				fprintf(stderr, "GraphicsLayer::create, no factory, using GraphicsLayerTextureMapper\n");
         return std::make_unique<GraphicsLayerTextureMapper>(client);
-
+    }
     return factory->createGraphicsLayer(client);
 }
 
@@ -132,6 +139,11 @@ bool GraphicsLayerTextureMapper::setChildren(const Vector<GraphicsLayer*>& child
 */
 void GraphicsLayerTextureMapper::addChild(GraphicsLayer* layer)
 {
+//#if PLATFORM(JS)
+//	webkitTrace();
+//	FloatSize value = layer->size();
+//	fprintf(stderr,"GraphicsLayerTextureMapper::addChild(GraphicsLayer) layer->size() (w,h): %f %f\n", value.width(),value.height());
+//#endif
     notifyChange(ChildrenChange);
     GraphicsLayer::addChild(layer);
 }
@@ -140,6 +152,11 @@ void GraphicsLayerTextureMapper::addChild(GraphicsLayer* layer)
 */
 void GraphicsLayerTextureMapper::addChildAtIndex(GraphicsLayer* layer, int index)
 {
+//#if PLATFORM(JS)
+//	webkitTrace();
+//	FloatSize value = layer->size();
+//	fprintf(stderr,"GraphicsLayerTextureMapper::addChildAtIndex(GraphicsLayer) layer->size() (w,h): %f %f\n", value.width(),value.height());
+//#endif
     GraphicsLayer::addChildAtIndex(layer, index);
     notifyChange(ChildrenChange);
 }
@@ -148,6 +165,11 @@ void GraphicsLayerTextureMapper::addChildAtIndex(GraphicsLayer* layer, int index
 */
 void GraphicsLayerTextureMapper::addChildAbove(GraphicsLayer* layer, GraphicsLayer* sibling)
 {
+//#if PLATFORM(JS)
+//	webkitTrace();
+//	FloatSize value = layer->size();
+//	fprintf(stderr,"GraphicsLayerTextureMapper::addChildAbove(GraphicsLayer) layer->size() (w,h): %f %f\n", value.width(),value.height());
+//#endif
     GraphicsLayer::addChildAbove(layer, sibling);
     notifyChange(ChildrenChange);
 }
@@ -156,6 +178,11 @@ void GraphicsLayerTextureMapper::addChildAbove(GraphicsLayer* layer, GraphicsLay
 */
 void GraphicsLayerTextureMapper::addChildBelow(GraphicsLayer* layer, GraphicsLayer* sibling)
 {
+//#if PLATFORM(JS)
+//	webkitTrace();
+//	FloatSize value = layer->size();
+//	fprintf(stderr,"GraphicsLayerTextureMapper::addChildBelow(GraphicsLayer) layer->size() (w,h): %f %f\n", value.width(),value.height());
+//#endif
     GraphicsLayer::addChildBelow(layer, sibling);
     notifyChange(ChildrenChange);
 }
@@ -164,6 +191,9 @@ void GraphicsLayerTextureMapper::addChildBelow(GraphicsLayer* layer, GraphicsLay
 */
 bool GraphicsLayerTextureMapper::replaceChild(GraphicsLayer* oldChild, GraphicsLayer* newChild)
 {
+//#if PLATFORM(JS)
+//	webkitTrace();
+//#endif
     if (GraphicsLayer::replaceChild(oldChild, newChild)) {
         notifyChange(ChildrenChange);
         return true;
@@ -201,6 +231,10 @@ void GraphicsLayerTextureMapper::setReplicatedByLayer(GraphicsLayer* value)
 */
 void GraphicsLayerTextureMapper::setPosition(const FloatPoint& value)
 {
+//#if PLATFORM(JS)
+//	webkitTrace();
+//	fprintf(stderr, "GraphicsLayerTextureMapper::setPosition point(x,y): %f %f\n",value.x(), value.y());
+//#endif
     if (value == position())
         return;
     GraphicsLayer::setPosition(value);
@@ -221,6 +255,10 @@ void GraphicsLayerTextureMapper::setAnchorPoint(const FloatPoint3D& value)
 */
 void GraphicsLayerTextureMapper::setSize(const FloatSize& value)
 {
+//#if PLATFORM(JS)
+//	webkitTrace();
+//	fprintf(stderr, "GraphicsLayerTextureMapper::setSize size(w,h): %f %f\n",value.width(), value.height());
+//#endif
     if (value == size())
         return;
 
@@ -275,8 +313,6 @@ void GraphicsLayerTextureMapper::setMasksToBounds(bool value)
 */
 void GraphicsLayerTextureMapper::setDrawsContent(bool value)
 {
-
-
     if (value == drawsContent())
         return;
     GraphicsLayer::setDrawsContent(value);
@@ -332,6 +368,10 @@ void GraphicsLayerTextureMapper::setOpacity(float value)
 */
 void GraphicsLayerTextureMapper::setContentsRect(const IntRect& value)
 {
+//#if PLATFORM(JS)
+//	webkitTrace();
+//	fprintf(stderr,"GraphicsLayerTextureMapper::setContentsRect (x,y,w,h): %i %i %i %i\n", value.x(),value.y(),value.width(),value.height());
+//#endif
     if (value == contentsRect())
         return;
     GraphicsLayer::setContentsRect(value);
@@ -352,6 +392,11 @@ void GraphicsLayerTextureMapper::setContentsToSolidColor(const Color& color)
 */
 void GraphicsLayerTextureMapper::setContentsToImage(Image* image)
 {
+//#if PLATFORM(JS)
+//	webkitTrace();
+//	IntSize value = image->size();
+//	fprintf(stderr,"GraphicsLayerTextureMapper::setContentsToImage(image) image->size() (w,h): %i %i\n",value.width(),value.height());
+//#endif
     if (image) {
         // Make the decision about whether the image has changed.
         // This code makes the assumption that pointer equality on a NativeImagePtr is a valid way to tell if the image is changed.
@@ -442,8 +487,9 @@ void GraphicsLayerTextureMapper::flushCompositingStateForThisLayerOnly()
 
 void GraphicsLayerTextureMapper::prepareBackingStoreIfNeeded()
 {
-
-
+//#if PLATFORM(JS)
+//	webkitTrace();
+//#endif
     if (!shouldHaveBackingStore()) {
         m_backingStore.clear();
         m_changeMask |= BackingStoreChange;
@@ -486,9 +532,6 @@ static void toTextureMapperLayerVector(const Vector<GraphicsLayer*>& layers, Vec
 
 void GraphicsLayerTextureMapper::commitLayerChanges()
 	{
-#if PLATFORM(JS)
-	
-#endif
     if (m_changeMask == NoChanges)
         return;
 
@@ -600,6 +643,9 @@ void GraphicsLayerTextureMapper::flushCompositingState(const FloatRect& rect)
 
 void GraphicsLayerTextureMapper::updateBackingStoreIfNeeded()
 {
+//#if PLATFORM(JS)
+//	webkitTrace();
+//#endif
     TextureMapper* textureMapper = m_layer->textureMapper();
     if (!textureMapper)
         return;

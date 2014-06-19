@@ -21,18 +21,16 @@ using namespace WebCore;
 
 namespace WebCore {
 
-	ChromeClientJS* ChromeClientJS::createClient(WebKit::WebView *view) {
+	ChromeClientJS* ChromeClientJS::createClient(WebView *view) {
 		ChromeClientJS* client = new ChromeClientJS(view);
 		IntSize size = roundedIntSize(view->positionAndSize().size());
-		fprintf(stderr,"ChromeClientJS (x,y,w,h) %i %i\n",size.width(),size.height());
 		client->setWindowRect(FloatRect(0,0,size.width(),size.height()));
 		return client;
 	}
 
-	static void clearEverywhereInBackingStore(WebKit::WebView* webView, cairo_t* cr)
+	static void clearEverywhereInBackingStore(WebView* webView, cairo_t* cr)
 	{
 		webkitTrace();
-
 		// The strategy here is to quickly draw white into this new canvas, so that
 		// when a user quickly resizes the WebView in an environment that has opaque
 		// resizing (like Gnome Shell), there are no drawing artifacts.
@@ -44,7 +42,7 @@ namespace WebCore {
 		cairo_paint(cr);
 	}
 
-	ChromeClientJS::ChromeClientJS(WebKit::WebView *view)
+	ChromeClientJS::ChromeClientJS(WebView *view)
 		: m_view(view)
 		, m_displayTimer(this, &ChromeClientJS::paint)
 		, m_forcePaint(false)
@@ -114,7 +112,7 @@ namespace WebCore {
 		m_forcePaint = false;
 	}
 
-	static void paintWebView(WebKit::WebView* webView, Frame* frame, const Region& dirtyRegion)
+	static void paintWebView(WebView* webView, Frame* frame, const Region& dirtyRegion)
 	{
 		webkitTrace();
 		if (!webView->p()->backingStore)
@@ -199,18 +197,13 @@ namespace WebCore {
 	void ChromeClientJS::widgetSizeChanged(const IntSize& oldWidgetSize, IntSize newSize)
 	{
 		webkitTrace();
-		fprintf(stderr,"widgetSizeChanged old: %i %i new: %i %i\n",oldWidgetSize.width(),oldWidgetSize.height(),newSize.width(),newSize.height());
-
-
-		//IntRect rect = IntRect(IntPoint(),newSize);
-		/*float scale = m_view->m_private->corePage->deviceScaleFactor();
-		if (scale > 1) {
-			rect.setWidth((int)(rect.width()*scale));
-			rect.setHeight((int)(rect.height()*scale));
-		}*/
 		MainFrame& frame = (m_view->m_private->mainFrame->coreFrame()->mainFrame());
-		if (frame.contentRenderer() && !frame.view())
+		if(frame.view()) {
 			frame.view()->resize(newSize.width(),newSize.height());
+			frame.view()->adjustViewSize();
+			if(frame.view()->needsLayout())
+				frame.view()->layout();
+		}
 
 		if (m_view->m_private->acceleratedContext && m_view->m_private->acceleratedContext->enabled()) {
 			m_view->m_private->acceleratedContext->resizeRootLayer(newSize);
@@ -297,20 +290,13 @@ namespace WebCore {
 	FloatRect ChromeClientJS::windowRect() {
 		webkitTrace();
 		FloatRect rect = m_view->positionAndSize();
-		fprintf(stderr,"windowRect (x,y,w,h) %f %f %f %f\n",rect.x(),rect.y(),rect.width(),rect.height());
 		return rect;
 	}
 
 	void ChromeClientJS::setWindowRect(const FloatRect& rect) {
 		webkitTrace();
-
-		fprintf(stderr,"setWindowRect (x,y,w,h) %f %f %f %f\n",rect.x(),rect.y(),rect.width(),rect.height());
-
 		if(rect.width() == m_view->p()->size.width() && rect.height() == m_view->p()->size.height())
 			return;
-
-		fprintf(stderr, "passed.\n");
-
 		m_view->resize(rect.width(),rect.height());
 	}
 
@@ -318,7 +304,6 @@ namespace WebCore {
 	{
 		webkitTrace();
 		FloatRect size = m_view->positionAndSize();
-		fprintf(stderr,"pageRect (x,y,w,h) %f %f %f %f\n",size.x(),size.y(),size.width(),size.height());
 		return size;
 	}
 
@@ -566,7 +551,6 @@ namespace WebCore {
 
 	PlatformPageClient ChromeClientJS::platformPageClient() const
 	{
-		notImplemented();
 		return m_view;
 	}
 

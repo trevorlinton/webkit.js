@@ -34,62 +34,62 @@
 namespace WebCore {
 
 class AcceleratedContext : public WebCore::GraphicsLayerClient {
-    WTF_MAKE_NONCOPYABLE(AcceleratedContext);
+		WTF_MAKE_NONCOPYABLE(AcceleratedContext);
 	public:
-		static PassOwnPtr<AcceleratedContext> create(WebKit::WebView* webView)
+		static PassOwnPtr<AcceleratedContext> create(WebView* webView)
 		{
 			return adoptPtr(new AcceleratedContext(webView));
 		}
 
-    virtual ~AcceleratedContext();
-    void setRootCompositingLayer(WebCore::GraphicsLayer*);
-    void setNonCompositedContentsNeedDisplay(const WebCore::IntRect&);
-    void scheduleLayerFlush();
-    void resizeRootLayer(const WebCore::IntSize&);
-    bool enabled();
+		virtual ~AcceleratedContext();
+		void setRootCompositingLayer(WebCore::GraphicsLayer*);
+		void setNonCompositedContentsNeedDisplay(const WebCore::IntRect&);
+		void scheduleLayerFlush();
+		void resizeRootLayer(const WebCore::IntSize&);
+		bool enabled();
 
-    virtual void notifyAnimationStarted(const WebCore::GraphicsLayer*, double time);
-    virtual void notifyFlushRequired(const WebCore::GraphicsLayer*);
-    virtual void paintContents(const WebCore::GraphicsLayer*, WebCore::GraphicsContext&, WebCore::GraphicsLayerPaintingPhase, const WebCore::IntRect& rectToPaint);
+		virtual void notifyAnimationStarted(const WebCore::GraphicsLayer*, double time);
+		virtual void notifyFlushRequired(const WebCore::GraphicsLayer*);
+		virtual void paintContents(const WebCore::GraphicsLayer*, WebCore::GraphicsContext&, WebCore::GraphicsLayerPaintingPhase, const WebCore::IntRect& rectToPaint);
 
-    void initialize();
+		void initialize();
 
-    enum CompositePurpose { ForResize, NotForResize };
-    void compositeLayersToContext(CompositePurpose = NotForResize);
+		enum CompositePurpose { ForResize, NotForResize };
+		void compositeLayersToContext(CompositePurpose = NotForResize);
 
-    void flushAndRenderLayers();
-    bool flushPendingLayerChanges();
-    void scrollNonCompositedContents(const WebCore::IntRect& scrollRect, const WebCore::IntSize& scrollOffset);
+		void flushAndRenderLayers();
+		bool flushPendingLayerChanges();
+		void scrollNonCompositedContents(const WebCore::IntRect& scrollRect, const WebCore::IntSize& scrollOffset);
 
 		// Multiplier for backing store size, related to high DPI.
 		float deviceScaleFactor() const { return m_view->p()->corePage->deviceScaleFactor(); }
 		// Page scale factor.
 		float pageScaleFactor() const { return m_view->p()->corePage->pageScaleFactor(); }
-
+		bool shouldUseTiledBacking(const GraphicsLayer*) const { return true; }
 	private:
-		WebKit::WebView* m_view;
-    unsigned int m_layerFlushTimerCallbackId;
+		WebView* m_view;
+		unsigned int m_layerFlushTimerCallbackId;
 
 #if USE(TEXTURE_MAPPER_GL)
-    std::unique_ptr<WebCore::GraphicsLayer> m_rootLayer;
-    std::unique_ptr<WebCore::GraphicsLayer> m_nonCompositedContentLayer;
-    OwnPtr<WebCore::TextureMapper> m_textureMapper;
-    double m_lastFlushTime;
-    double m_redrawPendingTime;
-    bool m_needsExtraFlush;
-    WebCore::TextureMapperFPSCounter m_fpsCounter;
+		std::unique_ptr<WebCore::GraphicsLayer> m_rootLayer;
+		std::unique_ptr<WebCore::GraphicsLayer> m_nonCompositedContentLayer;
+		OwnPtr<WebCore::TextureMapper> m_textureMapper;
+		double m_lastFlushTime;
+		double m_redrawPendingTime;
+		bool m_needsExtraFlush;
+		WebCore::TextureMapperFPSCounter m_fpsCounter;
 
 		void layerFlushTimerFired();
 		void stopAnyPendingLayerFlush();
 		static void layerFlushTimerFiredCallback(void *);
-    WebCore::GLContext* prepareForRendering();
-    void clearEverywhere();
+		WebCore::GLContext* prepareForRendering();
+		void clearEverywhere();
 #elif USE(TEXTURE_MAPPER)
 		WebCore::TextureMapperLayer* m_rootTextureMapperLayer;
 		std::unique_ptr<WebCore::GraphicsLayer> m_rootGraphicsLayer;
 		OwnPtr<WebCore::TextureMapper> m_textureMapper;
 #endif
-    AcceleratedContext(WebKit::WebView*);
+		AcceleratedContext(WebView*);
 };
 
 }

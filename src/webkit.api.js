@@ -60,11 +60,12 @@ function WebKit(settings) {
 			}
 		} else {
 			var cfunc = Module.cwrap(func,returntype,argtypes);
-
+			var fire = fireEvent.bind(this);
 			return function() {
 				fireEvent('call',func);
-				return cfunc(arguments[0],arguments[1]);
+				var rval = cfunc(arguments[0],arguments[1]);
 				fireEvent('done', func);
+				return rval;
 			}
 		}
 	}
@@ -109,14 +110,14 @@ function WebKit(settings) {
 		if(!settings.accelerated) {
 			if(!workerResponded) return;
 			if(lastcommand && lastcommand.call) {
-				fireEvent('done',lastcommand);
+				fireEvent('done',lastcommand.call);
 				lastcommand = null;
 			}
 			if(queue.length > 0) {
 				var cmd = queue.shift();
 				lastcommand = cmd;
 				if(cmd.call) {
-					fireEvent('call',cmd);
+					fireEvent('call',cmd.call);
 				}
 				workerResponded = false;
 				if(!settings.accelerated) {
