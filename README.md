@@ -12,8 +12,8 @@ Goals
   - Develop frameworks for image/webpage capturing and automated web testing (similar to PhantomJS).
   - Develop a framework for prototyping CSS filters, HTML elements and attributes.
   - Experimental harness for pure JavaScript rendering performance.
-  - Develop a JavaScript based browser in nodejs (just for fun).
-
+  - A next-gen browser built entirely with javascript and utilizing multi-core parallel processing primitives with WebCL (or other draft prototype in the works).
+ 
 Status
 ----
 
@@ -33,19 +33,11 @@ Status
 
 The entire HTML5, CSS3 and SVG rendering is supported; the following features are not supported and probably will never be.
 
-* CSS Orientation (Browser Only)
-* Drag & Drop (Browser Only)
 * Encrypted Media
-* Input Speech
-* Media Streams
 * JavaScript Debugger / Inspector (Could be added, although huge penalty in code size -- greater than 5MB)
 * Quota's and File System (Browser Only)
-* Web Workers (Although can fall back to node/browser native solutions)
-* Web Sockets (Although can fall back to node/browser native solutions)
-* Shadow DOM (Unnessary in a pure JS renderer)
 * Web Timing (Implemented, but inaccurate due to limitations in JS spec).
-* Native OS Widgets (Input, Select, etc are support, but not native widget styles; this could be added at a considerable size penalty)
-* IFrames (This can never be supported in the Browser but could be built out in node -- unfortunately the rendering contexts and iframes are extremely bound to javascript context and no work is being done to resolve this.  Not to mention blank-check cross domain XmlHttpRequest will never be supported by any major browser vendor.)
+* Native OS Widgets (although "webkit" standard widgets, or any css styled widgets, e.g., input fields are supported).
 
 Fonts are rendered via freetype2, fontconfig and cairo for consistent font rendering across all platforms. Native video and audio decoding is supported but not included in the regular build. Eventually i'll post instructions on compiling in native video/audio support.
 
