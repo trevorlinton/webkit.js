@@ -1,7 +1,7 @@
 /* settings = {width:, height:, canvas:, log:, scale:, hidpi:, error:, status:, path:'path/to/webkit.release.bin.js', accelerated:true} */
 function WebKit(settings) {
 	if(typeof(settings.accelerated)=='undefined') settings.accelerated = true;
-	if(typeof(settings.path)=='undefined') settings.path = '../Debug/webkit.js';
+	if(typeof(settings.path)=='undefined') settings.path = 'webkit.bin.js';
 	if(typeof(settings.canvas)=='undefined') throw new Error('A rendering target (Canvas Object) must be provided.');
 	if(typeof(settings.width)=='undefined') settings.width = 500;
 	if(typeof(settings.height)=='undefined') settings.height = 500;
