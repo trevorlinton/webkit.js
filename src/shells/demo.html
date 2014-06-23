@@ -71,7 +71,7 @@
         <!--Height:--> <input type="text" id="height" value="600" style="width:30px;display:none;" disabled/> 
         <!--Width:--> <input type="text" id="width" value="750" style="width:30px;display:none;" disabled/> 
         <!--Scale:--><input type="text" id="scale" value="1" style="width:10px;display:none;"/>
-        <input id="hidpi" type="checkbox" style="display:none;" checked disabled/> High DPI Rendering 
+        <input id="hidpi" type="checkbox" style="display:none;" checked disabled/>  
         <input id="reset" type="button" value="Reset" style="display:none;" disabled/> 
         <input id="render" type="button" style="padding:5px;" disabled value="Please wait, loading"/>
       </div>
@@ -86,9 +86,8 @@
           <li>Currently javascript bindings are disabled, script tags are ignored.</li>
           <li>Routing mouse and keyboard events are still in the works.</li>
           <li>Images need to use data uri's since network requests crash the renderer, in addition CSS must be inline stylesheets.</li>
-          <li>There are known issues with CSS3 key-frame and SVG animations not working correctly.</li>
-          <li>If you see gray bars on the right side or bottom, they're webkit's default scroll bars when no native ones exist.</li>
-        </ul>
+          <li>Hi-DPI is currently not working with hardware acceleration.</li>
+	</ul>
       </p>
       Created with <a href="https://github.com/kripken/emscripten">emscripten</a>, many thanks to <a href="https://github.com/kripken/">Alon Zakai</a> for helping produce this. (c) 2014, <a href="http://wwww.trueinteractions.com">True Interactions</a><br>
     </header>
