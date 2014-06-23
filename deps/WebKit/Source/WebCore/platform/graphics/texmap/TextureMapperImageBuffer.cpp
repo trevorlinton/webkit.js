@@ -21,11 +21,7 @@
 #include "TextureMapperImageBuffer.h"
 
 #include "GraphicsLayer.h"
-#if PLATFORM(JS)
-#include "DebuggerJS.h"
-#else
 #include "NotImplemented.h"
-#endif
 
 #if USE(TEXTURE_MAPPER)
 namespace WebCore {
@@ -52,7 +48,6 @@ void BitmapTextureImageBuffer::updateContents(const void* data, const IntRect& t
 
 void BitmapTextureImageBuffer::updateContents(TextureMapper*, GraphicsLayer* sourceLayer, const IntRect& targetRect, const IntPoint& sourceOffset, UpdateContentsFlag)
 {
-
     GraphicsContext* context = m_image->context();
 
     context->clearRect(targetRect);

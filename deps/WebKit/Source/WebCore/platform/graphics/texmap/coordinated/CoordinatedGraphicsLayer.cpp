@@ -140,9 +140,6 @@ CoordinatedGraphicsLayer::CoordinatedGraphicsLayer(GraphicsLayerClient* client)
     , m_animationStartedTimer(this, &CoordinatedGraphicsLayer::animationStartedTimerFired)
     , m_scrollableArea(0)
 {
-#if PLATFORM(JS)
-	
-#endif
     static CoordinatedLayerID nextLayerID = 1;
     m_id = nextLayerID++;
 }

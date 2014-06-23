@@ -3,12 +3,15 @@
 #include "CairoUtilities.h"
 #include "DebuggerJS.h"
 #include "FrameView.h"
-#include "GraphicsLayerTextureMapper.h"
 #include "MainFrame.h"
 #include "PlatformContextCairo.h"
 #include "Settings.h"
+#if USE(TEXTURE_MAPPER) && USE(TEXTURE_MAPPER_GL)
 #include "TextureMapperGL.h"
 #include "TextureMapperLayer.h"
+#include "GraphicsLayerTextureMapper.h"
+#endif
+#include "GraphicsLayerClient.h"
 #include "WebView.h"
 
 #include <cairo.h>
@@ -44,15 +47,12 @@ namespace WebCore {
 		webkitTrace();
 		if (m_rootLayer) return;
 
-		IntSize unscaledPageSize = roundedIntSize(m_view->positionAndSize().size());
-
-		IntSize pageSize = unscaledPageSize;
-		pageSize.scale(deviceScaleFactor());
-		//fprintf(stderr, "AcceleratedContext::initialize deviceScaleFactor: %f pageSize (x,y,w,h) %i %i\n",deviceScaleFactor(),pageSize.width(),pageSize.height());
+		IntSize pageSize = roundedIntSize(m_view->positionAndSize().size());
 
 		clearEverywhere();
 		m_rootLayer = GraphicsLayer::create(0, this);
 		m_rootLayer->setDrawsContent(false);
+		m_rootLayer->setMasksToBounds(false);
 		m_rootLayer->setSize(FloatSize(pageSize.width(),pageSize.height()));
 
 		// The non-composited contents are a child of the root layer.
@@ -76,11 +76,12 @@ namespace WebCore {
 		GLContext* context = m_view->glWindowContext();
 		context->makeContextCurrent();
 
-		m_textureMapper = TextureMapperGL::create();
+#if USE(TEXTURE_MAPPER) && USE(TEXTURE_MAPPER_GL)
+		m_textureMapper = TextureMapper::create(TextureMapper::OpenGLMode);
 		static_cast<TextureMapperGL*>(m_textureMapper.get())->setEnableEdgeDistanceAntialiasing(true);
 		toTextureMapperLayer(m_rootLayer.get())->setTextureMapper(m_textureMapper.get());
-
-		//scheduleLayerFlush();
+#endif
+		scheduleLayerFlush();
 	}
 
 	AcceleratedContext::~AcceleratedContext()
@@ -97,7 +98,11 @@ namespace WebCore {
 	bool AcceleratedContext::enabled()
 	{
 		webkitTrace();
+#if USE(TEXTURE_MAPPER) && USE(TEXTURE_MAPPER_GL)
 		return m_rootLayer && m_textureMapper;
+#else
+		return m_rootLayer != nullptr;
+#endif
 	}
 
 	GLContext* AcceleratedContext::prepareForRendering()
@@ -119,28 +124,39 @@ namespace WebCore {
 	{
 		webkitTrace();
 		GLContext* context = prepareForRendering();
-		if (!context)	{
-		//	fprintf(stderr,"AcceleratedContext::compositeLayerToContext() FAILURE !flushPendingLayerChanges()\n");
+
+		if (!context)
 			return;
+
+		IntSize windowSize = roundedIntSize(m_view->positionAndSize().size());
+		glViewport(0, 0, windowSize.width(), windowSize.height());
+
+		if (purpose == ForResize) {
+			glClearColor(1, 1, 1, 0);
+			glClear(GL_COLOR_BUFFER_BIT);
 		}
 
-		//const IntSize& windowSize = roundedIntSize(m_view->positionAndSize().size());
-		//IntSize scaledWindowSize = windowSize;
-		//scaledWindowSize.scale(deviceScaleFactor());
-		//glViewport(0, 0, scaledWindowSize.width(), scaledWindowSize.height());
-		//fprintf(stderr, "AcceleratedContext::compositeLayersToContext deviceScaleFactor: %f scaledWindowSize (w,h) %i %i\n",deviceScaleFactor(),scaledWindowSize.width(),scaledWindowSize.height());
-		//fprintf(stderr, "AcceleratedContext::compositeLayersToContext deviceScaleFactor: %f\n",deviceScaleFactor());
-
-		//if (purpose == ForResize) {
-		//	glClearColor(1, 1, 1, 0);
-		//	glClear(GL_COLOR_BUFFER_BIT);
-		//}
-		
+#if USE(TEXTURE_MAPPER) && USE(TEXTURE_MAPPER_GL)
 		m_textureMapper->beginPainting();
 		toTextureMapperLayer(m_rootLayer.get())->paint();
 		m_textureMapper->endPainting();
+#else
+		// TODO: Composite layers together, without texutre mapping this is an
+		// unknown.
+#endif
 
 		context->swapBuffers();
+
+#if USE(TEXTURE_MAPPER) && USE(TEXTURE_MAPPER_GL)
+		// Without this call animations will not render, check to see if we have any existing
+		// (pending) animations and callback a render every 1/60th a second.
+		if(toTextureMapperLayer(m_rootLayer.get())->descendantsOrSelfHaveRunningAnimations()) {
+			m_layerFlushTimerCallbackId = 1;
+			emscripten_async_call(&layerFlushTimerFiredCallback, this, scheduleDelay * 1000);
+		}
+#else
+		// TODO: Determine if there's a running animation and call back for a composite.
+#endif
 	}
 
 	void AcceleratedContext::clearEverywhere()
@@ -149,26 +165,12 @@ namespace WebCore {
 		GLContext* context = prepareForRendering();
 		if (!context) return;
 
-		const IntSize& windowSize = roundedIntSize(m_view->positionAndSize().size());
-		IntSize scaledWindowSize = windowSize;
-		scaledWindowSize.scale(deviceScaleFactor());
-		//fprintf(stderr, "AcceleratedContext::clearEverywhere deviceScaleFactor: %f scaledWindowSize (w,h) %i %i\n",deviceScaleFactor(),scaledWindowSize.width(),scaledWindowSize.height());
-
-		glViewport(0, 0, scaledWindowSize.width(), scaledWindowSize.height());
+		IntSize windowSize = roundedIntSize(m_view->positionAndSize().size());
+		glViewport(0, 0, windowSize.width(), windowSize.height());
 		glClearColor(1, 1, 1, 0);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		context->swapBuffers();
-
-		// FIXME: It seems that when using double-buffering (and on some drivers single-buffering)
-		// and XComposite window redirection, two swap buffers are required to force the pixmap
-		// to update. This isn't a problem during animations, because swapBuffer is continuously
-		// called. For non-animation situations we use this terrible hack until we can get to the
-		// bottom of the issue.
-		//if (!toTextureMapperLayer(m_rootLayer.get())->descendantsOrSelfHaveRunningAnimations()) {
-		//	context->swapBuffers();
-		//	context->swapBuffers();
-		//}
 	}
 
 	void AcceleratedContext::setRootCompositingLayer(GraphicsLayer* graphicsLayer)
@@ -184,7 +186,9 @@ namespace WebCore {
 			// Shrink the offscreen window to save memory while accelerated compositing is turned off.
 			m_rootLayer = nullptr;
 			m_nonCompositedContentLayer = nullptr;
+#if USE(TEXTURE_MAPPER) && USE(TEXTURE_MAPPER_GL)
 			m_textureMapper = nullptr;
+#endif
 			return;
 		}
 
@@ -195,13 +199,7 @@ namespace WebCore {
 		m_nonCompositedContentLayer->addChild(graphicsLayer);
 
 		stopAnyPendingLayerFlush();
-
-		m_needsExtraFlush = true;
-		//scheduleLayerFlush();
-
-		//m_layerFlushTimerCallbackId = 2;
-		//fprintf(stderr, "AcceleratedContext::setRootCompositingLayer(), layerFlushTimerFiredCallback(50)\n");
-		//emscripten_async_call(&layerFlushTimerFiredCallback, this, 50);
+		scheduleLayerFlush();
 	}
 
 	void AcceleratedContext::setNonCompositedContentsNeedDisplay(const IntRect& rect)
@@ -214,30 +212,25 @@ namespace WebCore {
 			m_rootLayer->setNeedsDisplay();
 			return;
 		}
-		
+
 		m_nonCompositedContentLayer->setNeedsDisplayInRect(rect);
-		//m_rootLayer->setNeedsDisplay();
-		//scheduleLayerFlush();
+		scheduleLayerFlush();
 	}
 
-	void AcceleratedContext::resizeRootLayer(const IntSize& unscaledNewSize)
+	void AcceleratedContext::resizeRootLayer(const IntSize& newSize)
 	{
 		webkitTrace();
 		if (!enabled()) return;
 
-		IntSize newSize = unscaledNewSize;
-		newSize.scale(deviceScaleFactor());
+		FloatSize oldSize = m_nonCompositedContentLayer->size();
 
-		if (m_rootLayer->size() == newSize) return;
-		//fprintf(stderr, "AcceleratedContext::resizeRootLayer deviceScaleFactor: %f newSize (w,h) %i %i\n",deviceScaleFactor(),newSize.width(),newSize.height());
-		m_rootLayer->setSize(newSize);
-		m_rootLayer->setNeedsDisplay();
+		if (m_rootLayer->size() == newSize)
+			return;
 
 		// If the newSize exposes new areas of the non-composited content a setNeedsDisplay is needed
 		// for those newly exposed areas.
-		FloatSize oldSize = m_nonCompositedContentLayer->size();
+		m_rootLayer->setSize(newSize);
 		m_nonCompositedContentLayer->setSize(newSize);
-		m_nonCompositedContentLayer->setNeedsDisplay();
 
 		if (newSize.width() > oldSize.width()) {
 			float height = std::min(static_cast<float>(newSize.height()), oldSize.height());
@@ -248,15 +241,15 @@ namespace WebCore {
 			m_nonCompositedContentLayer->setNeedsDisplayInRect(FloatRect(0, oldSize.height(), newSize.width(), newSize.height() - oldSize.height()));
 
 		m_nonCompositedContentLayer->setNeedsDisplayInRect(IntRect(IntPoint(), newSize));
-		//compositeLayersToContext(ForResize);
-		//scheduleLayerFlush();
+		compositeLayersToContext(ForResize);
+		scheduleLayerFlush();
 	}
 
 	void AcceleratedContext::scrollNonCompositedContents(const IntRect& scrollRect, const IntSize& scrollOffset)
 	{
 		webkitTrace();
 		m_nonCompositedContentLayer->setNeedsDisplayInRect(scrollRect);
-		//scheduleLayerFlush();
+		scheduleLayerFlush();
 	}
 
 	void AcceleratedContext::layerFlushTimerFiredCallback(void* context)
@@ -272,20 +265,18 @@ namespace WebCore {
 		if (!enabled() || m_layerFlushTimerCallbackId)
 			return;
 
-		flushAndRenderLayers();
-		//m_layerFlushTimerCallbackId = 1;
-		//double nextFlush = std::max(scheduleDelay - (currentTime() - m_lastFlushTime), 0.0);
-		//fprintf(stderr, "AcceleratedContext::scheduleLayerFlush() layerFlushTimerFiredCallback(%f)\n",nextFlush*1000);
-		//emscripten_async_call(&layerFlushTimerFiredCallback, this, nextFlush * 1000);
+		m_layerFlushTimerCallbackId = 1;
+		double nextFlush = std::max(scheduleDelay - (currentTime() - m_lastFlushTime), 0.0);
+		emscripten_async_call(&layerFlushTimerFiredCallback, this, nextFlush * 1000);
 	}
 
 	bool AcceleratedContext::flushPendingLayerChanges()
 	{
 		webkitTrace();
-		if (!enabled()) {
-			//fprintf(stderr,"AcceleratedContext::flushAndRenderLayers() FAILURE !enabled()\n");
+
+		if (!enabled())
 			return false;
-		}
+
 		m_rootLayer->flushCompositingStateForThisLayerOnly();
 		m_nonCompositedContentLayer->flushCompositingStateForThisLayerOnly();
 		return m_view->p()->mainFrame->coreFrame()->view()->flushCompositingStateIncludingSubframes();
@@ -294,38 +285,29 @@ namespace WebCore {
 	void AcceleratedContext::flushAndRenderLayers()
 	{
 		webkitTrace();
-		if (!enabled()) {
-			//fprintf(stderr,"AcceleratedContext::flushAndRenderLayers() FAILURE !enabled()\n");
+
+		if (!enabled())
 			return;
-		}
 
 		Frame* frame = m_view->m_private->mainFrame->coreFrame();
 
 		ASSERT(frame->isMainFrame());
 
-		if (!frame->contentRenderer() || !frame->view()) {
-			//fprintf(stderr,"AcceleratedContext::flushAndRenderLayers() FAILURE !frame->contentRenderer() || !frame->view()\n");
+		if (!frame->contentRenderer() || !frame->view())
 			return;
-		}
 
 		frame->view()->updateLayoutAndStyleIfNeededRecursive();
 
-		if (!enabled()) {
-			//fprintf(stderr,"AcceleratedContext::flushAndRenderLayers() FAILURE !enabled()\n");
+		if (!enabled())
 			return;
-		}
 
 		GLContext* context = GLContext::getCurrent();
 	
-		if (context && !context->makeContextCurrent()) {
-			//fprintf(stderr,"AcceleratedContext::flushAndRenderLayers() FAILURE (context && !context->makeContextCurrent())\n");
+		if (context && !context->makeContextCurrent())
 			return;
-		}
 
-		if (!flushPendingLayerChanges()) {
-			//fprintf(stderr,"AcceleratedContext::flushAndRenderLayers() FAILURE !flushPendingLayerChanges()\n");
+		if (!flushPendingLayerChanges())
 			return;
-		}
 
 		m_lastFlushTime = currentTime();
 		compositeLayersToContext();
@@ -337,6 +319,8 @@ namespace WebCore {
 	void AcceleratedContext::layerFlushTimerFired()
 	{
 		webkitTrace();
+		if(!m_layerFlushTimerCallbackId)
+			return;
 		m_layerFlushTimerCallbackId = 0;
 		flushAndRenderLayers();
 	}
@@ -347,7 +331,7 @@ namespace WebCore {
 
 	void AcceleratedContext::notifyFlushRequired(const GraphicsLayer*) {
 		webkitTrace();
-		flushAndRenderLayers();
+		scheduleLayerFlush();
 	}
 
 	void AcceleratedContext::paintContents(const GraphicsLayer* layer, GraphicsContext& context, GraphicsLayerPaintingPhase phase, const IntRect& rectToPaint)
@@ -355,8 +339,6 @@ namespace WebCore {
 		webkitTrace();
 		Frame& frame = (m_view->m_private->mainFrame->coreFrame()->mainFrame());
 		ASSERT(frame.isMainFrame());
-		//fprintf(stderr, "AcceleratedContext::paintContents deviceScaleFactor: %f rectToPaint (x,y,w,h) %i %i %i %i\n",deviceScaleFactor(),rectToPaint.x(),rectToPaint.y(),rectToPaint.width(),rectToPaint.height());
-		context.applyDeviceScaleFactor(deviceScaleFactor());
 		context.save();
 		context.clip(rectToPaint);
 		if(m_view->m_private->transparent)

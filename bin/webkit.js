@@ -1,5 +1,7 @@
 /* settings = {width:, height:, canvas:, log:, scale:, hidpi:, error:, status:, path:'path/to/webkit.release.bin.js', accelerated:true} */
 function WebKit(settings) {
+	if(typeof(settings)=='undefined') settings = {};
+
 	if(typeof(settings.accelerated)=='undefined') settings.accelerated = true;
 	if(typeof(settings.path)=='undefined') settings.path = 'webkit.bin.js';
 	if(typeof(settings.canvas)=='undefined') throw new Error('A rendering target (Canvas Object) must be provided.');
@@ -83,12 +85,16 @@ function WebKit(settings) {
 			$resize(_width, _height);
 		if(settings.scale != 1 && !settings.hidpi)
 			$scaleFactor(_scale);
-		if(settings.hidpi) {
-			$scaleFactor(_scale * 2);
-			Module['canvas'].width = Module['canvas'].width * 2;
-			Module['canvas'].height = Module['canvas'].height * 2;
+		if(settings.hidpi && !settings.accelerated) {
+			Module['canvas'].width = _width * 2;
+			Module['canvas'].height = _height * 2;
 			Module['canvas'].style.webkitTransform = 'scale(0.5,0.5)';
 			Module['canvas'].style.webkitTransformOrigin = '0 0';
+			$scaleFactor(2);
+		} else if (settings.hidpi && settings.accelerated) {
+			Module['canvas'].width = _width;
+			Module['canvas'].height = _height;
+			$scaleFactor(2);
 		}
 		fireEvent('ready',null);
 	}
@@ -255,21 +261,18 @@ function WebKit(settings) {
 	Object.defineProperty(this,'hidpi', {
 		get:function() { return _hidpi; },
 		set:function(e) {
-			if(e) {
-				Module['canvas'].width = Module['canvas'].width * 2;
-				Module['canvas'].height = Module['canvas'].height * 2;
+			_hidpi = e;
+			if(settings.hidpi && !settings.accelerated) {
+				Module['canvas'].width = _width * 2;
+				Module['canvas'].height = _height * 2;
 				Module['canvas'].style.webkitTransform = 'scale(0.5,0.5)';
 				Module['canvas'].style.webkitTransformOrigin = '0 0';
-				_hidpi = true;
-				this.scale = this.scale; // force a scale size.
-			} else {
-				Module['canvas'].width = this.width;
-				Module['canvas'].height = this.height;
-				Module['canvas'].style.webkitTransform = '';
-				Module['canvas'].style.webkitTransformOrigin = '';
-				_hidpi = false;
-				this.scale = this.scale; // force a scale size.
+			} else if (settings.hidpi && settings.accelerated) {
+				Module['canvas'].width = _width;
+				Module['canvas'].height = _height;
 			}
+			this.scale = this.scale; // force a scale size.
+
 			queueRunner();
 		}
 	});

@@ -27,6 +27,9 @@
 #include "RuntimeEnabledFeaturesJS.h"
 #include "GraphicsContext.h"
 #include "EmptyClients.h"
+#if USE(TILED_BACKING_STORE)
+#include "TiledBackingStore.h"
+#endif
 
 #include <platform/cairo/WidgetBackingStore.h>
 #include <platform/cairo/WidgetBackingStoreCairo.h>
@@ -65,7 +68,7 @@ namespace WebCore {
 		m_private->corePage->settings().setScreenFontSubstitutionEnabled(true);
 		m_private->corePage->settings().setWebSecurityEnabled(false);
 		m_private->corePage->settings().setJavaEnabled(false);
-		m_private->corePage->settings().setMockScrollbarsEnabled(true);
+		m_private->corePage->settings().setMockScrollbarsEnabled(false);
 		m_private->corePage->settings().setLoadsImagesAutomatically(true);
 		m_private->corePage->settings().setDefaultFixedFontSize(13);
 		m_private->corePage->settings().setDefaultFontSize(16);
@@ -73,7 +76,6 @@ namespace WebCore {
 		m_private->corePage->settings().setScreenFontSubstitutionEnabled(true);
 		m_private->corePage->settings().setScriptEnabled(false);
 		m_private->corePage->settings().setPluginsEnabled(false);
-		m_private->corePage->settings().setMockScrollbarsEnabled(true);
 
 		if(accelerated) {
 			m_private->accelerated = true;
@@ -259,7 +261,11 @@ namespace WebCore {
 	}
 	void WebView::scalefactor(float t) {
 		webkitTrace();
-		m_private->corePage->setDeviceScaleFactor(t);
+//		m_private->corePage->setDeviceScaleFactor(t);
+// #if USE(TILED_BACKING_STORE)
+//		fprintf(stderr, "tiled backing store set to %f\n",t);
+//		m_private->mainFrame->coreFrame()->tiledBackingStore()->setContentsScale(t);
+//#endif
 	}
 
 	void WebView::resizeEvent(void *) {

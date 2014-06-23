@@ -52,7 +52,6 @@ namespace WebCore {
 		void invalidateContentsAndRootView(const IntRect&, bool immediate);
 		void invalidateContentsForSlowScroll(const IntRect&, bool immediate);
 		void scroll(const IntSize&, const IntRect&, const IntRect&);
-		void delegatedScrollRequested(const IntPoint&);
 		IntPoint screenToRootView(const IntPoint&) const;
 		IntRect rootViewToScreen(const IntRect&) const;
 		PlatformPageClient platformPageClient();
@@ -73,6 +72,10 @@ namespace WebCore {
 		void setNeedsOneShotDrawingSynchronization();
 		void scheduleCompositingLayerFlush();
 		void forceRepaint();
+#if USE(TILED_BACKING_STORE)
+		IntRect visibleRectForTiledBackingStore() const OVERRIDE;
+		void delegatedScrollRequested(const IntPoint&);
+#endif
 #if USE(ACCELERATED_COMPOSITING)
 		CompositingTriggerFlags allowedCompositingTriggers() const OVERRIDE;
 #endif

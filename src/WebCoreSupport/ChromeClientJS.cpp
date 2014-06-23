@@ -35,7 +35,7 @@ namespace WebCore {
 		// when a user quickly resizes the WebView in an environment that has opaque
 		// resizing (like Gnome Shell), there are no drawing artifacts.
 		if (!webView->p()->transparent) {
-			cairo_set_source_rgb(cr, 1, 1, 1);
+			cairo_set_source_rgb(cr, 1, 1, 0);
 			cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 		} else
 			cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
@@ -193,6 +193,15 @@ namespace WebCore {
 		m_lastDisplayTime = monotonicallyIncreasingTime();
 		m_repaintSoonSourceId = 0;
 	}
+
+#if USE(TILED_BACKING_STORE)
+	IntRect ChromeClientJS::visibleRectForTiledBackingStore() const {
+		return enclosingIntRect(m_view->m_private->size);
+	}
+	void ChromeClientJS::delegatedScrollRequested(const IntPoint&) {
+		notImplemented();
+	}
+#endif
 
 	void ChromeClientJS::widgetSizeChanged(const IntSize& oldWidgetSize, IntSize newSize)
 	{
@@ -637,9 +646,6 @@ namespace WebCore {
 		return nullptr;
 	}
 
-	void ChromeClientJS::delegatedScrollRequested(const IntPoint&) {
-		notImplemented();
-	}
 
 	void ChromeClientJS::formStateDidChange(const WebCore::Node*) {
 		notImplemented();

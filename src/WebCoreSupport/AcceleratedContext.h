@@ -28,8 +28,10 @@
 #include "WebView.h"
 #include <wtf/PassOwnPtr.h>
 #include "GLContext.h"
+#if USE(TEXTURE_MAPPER) && USE(TEXTURE_MAPPER_GL)
 #include "TextureMapperLayer.h"
 #include "TextureMapperFPSCounter.h"
+#endif
 
 namespace WebCore {
 
@@ -66,28 +68,24 @@ class AcceleratedContext : public WebCore::GraphicsLayerClient {
 		// Page scale factor.
 		float pageScaleFactor() const { return m_view->p()->corePage->pageScaleFactor(); }
 		bool shouldUseTiledBacking(const GraphicsLayer*) const { return true; }
+		void clearEverywhere();
 	private:
 		WebView* m_view;
 		unsigned int m_layerFlushTimerCallbackId;
 
-#if USE(TEXTURE_MAPPER_GL)
 		std::unique_ptr<WebCore::GraphicsLayer> m_rootLayer;
 		std::unique_ptr<WebCore::GraphicsLayer> m_nonCompositedContentLayer;
-		OwnPtr<WebCore::TextureMapper> m_textureMapper;
 		double m_lastFlushTime;
 		double m_redrawPendingTime;
 		bool m_needsExtraFlush;
-		WebCore::TextureMapperFPSCounter m_fpsCounter;
 
 		void layerFlushTimerFired();
 		void stopAnyPendingLayerFlush();
 		static void layerFlushTimerFiredCallback(void *);
 		WebCore::GLContext* prepareForRendering();
-		void clearEverywhere();
-#elif USE(TEXTURE_MAPPER)
-		WebCore::TextureMapperLayer* m_rootTextureMapperLayer;
-		std::unique_ptr<WebCore::GraphicsLayer> m_rootGraphicsLayer;
+#if USE(TEXTURE_MAPPER_GL) || USE(TEXTURE_MAPPER)
 		OwnPtr<WebCore::TextureMapper> m_textureMapper;
+		WebCore::TextureMapperFPSCounter m_fpsCounter;
 #endif
 		AcceleratedContext(WebView*);
 };

@@ -1,0 +1,903 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CSS3 Keyframe Animation Demo</title>
+
+<style>
+html,body,div,span,
+applet,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+a,abbr,acronym,address,big,cite,code,
+del,dfn,font,img,ins,kbd,q,s,samp,
+small,strike,sub,sup,tt,var,
+dd,dl,dt,li,ol,ul,
+fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 100%;
+	font-family: inherit;
+	text-align: left;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+ol,ul {
+	list-style: none;
+}
+q:before,q:after,
+blockquote:before,blockquote:after {
+	content: "";
+}
+
+#container {
+	width: 1020px;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 20px 20px 30px 20px;
+}
+
+	.top-ad {
+		text-align: center;
+		padding-bottom: 15px;
+	}
+
+	h1 {
+		font-size: 30px;
+		padding: 0 0 20px 0;
+		text-align: center;
+	}
+	
+	h1 span {
+		font-size: 18px;
+	}
+
+	#left {
+		overflow: hidden;
+		float: left;
+	}
+	
+		#left p {
+			width: 470px;
+			padding: 20px 0 0 0;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+#sky {
+	width: 500px;
+	height: 500px;
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+	background-color: #525252;
+}
+
+#sky.animate {
+	-webkit-animation-name: sky;
+	-webkit-animation-duration: 10s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-iteration-count: 1;	
+	-webkit-animation-direction: normal;
+	-webkit-animation-delay: 0;
+	-webkit-animation-play-state: running;
+	-webkit-animation-fill-mode: forwards;
+
+	-moz-animation-name: sky;
+	-moz-animation-duration: 10s;
+	-moz-animation-timing-function: ease;
+	-moz-animation-iteration-count: 1;	
+	-moz-animation-direction: normal;
+	-moz-animation-delay: 0;
+	-moz-animation-play-state: running;
+	-moz-animation-fill-mode: forwards;
+	
+	-ms-animation-name: sky;
+	-ms-animation-duration: 10s;
+	-ms-animation-timing-function: ease;
+	-ms-animation-iteration-count: 1;	
+	-ms-animation-direction: normal;
+	-ms-animation-delay: 0;
+	-ms-animation-play-state: running;
+	-ms-animation-fill-mode: forwards;
+
+	animation-name: sky;
+	animation-duration: 10s;
+	animation-timing-function: ease;
+	animation-iteration-count: 1;	
+	animation-direction: normal;
+	animation-delay: 0;
+	animation-play-state: running;
+	animation-fill-mode: forwards;
+
+}
+
+@-webkit-keyframes sky {
+
+	0% {
+		background-color: #525252;
+	}
+	
+	33% {
+		background-color: #6293e5;
+	}
+
+	66% {
+		background-color: #6293e5;
+	}
+
+	100% {
+		background-color: #525252;
+	}
+
+}
+
+@-moz-keyframes sky {
+
+	0% {
+		background-color: #525252;
+	}
+	
+	33% {
+		background-color: #6293e5;
+	}
+
+	66% {
+		background-color: #6293e5;
+	}
+
+	100% {
+		background-color: #525252;
+	}
+
+}
+
+@-ms-keyframes sky {
+
+	0% {
+		background-color: #525252;
+	}
+	
+	33% {
+		background-color: #6293e5;
+	}
+
+	66% {
+		background-color: #6293e5;
+	}
+
+	100% {
+		background-color: #525252;
+	}
+
+}
+
+@keyframes sky {
+
+	0% {
+		background-color: #525252;
+	}
+	
+	33% {
+		background-color: #6293e5;
+	}
+
+	66% {
+		background-color: #6293e5;
+	}
+
+	100% {
+		background-color: #525252;
+	}
+
+}
+
+#ground {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 500px;
+	height: 154px;
+	background: #6c5228;
+	z-index: 4;
+}
+
+#ground.animate {
+	-webkit-animation-name: ground;
+	-webkit-animation-duration: 10s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-iteration-count: 1;	
+	-webkit-animation-direction: normal;
+	-webkit-animation-delay: 0;
+	-webkit-animation-play-state: running;
+	-webkit-animation-fill-mode: forwards;
+
+	-moz-animation-name: ground;
+	-moz-animation-duration: 10s;
+	-moz-animation-timing-function: ease;
+	-moz-animation-iteration-count: 1;	
+	-moz-animation-direction: normal;
+	-moz-animation-delay: 0;
+	-moz-animation-play-state: running;
+	-moz-animation-fill-mode: forwards;
+	
+	-ms-animation-name: ground;
+	-ms-animation-duration: 10s;
+	-ms-animation-timing-function: ease;
+	-ms-animation-iteration-count: 1;	
+	-ms-animation-direction: normal;
+	-ms-animation-delay: 0;
+	-ms-animation-play-state: running;
+	-ms-animation-fill-mode: forwards;
+
+	animation-name: ground;
+	animation-duration: 10s;
+	animation-timing-function: ease;
+	animation-iteration-count: 1;	
+	animation-direction: normal;
+	animation-delay: 0;
+	animation-play-state: running;
+	animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes ground {
+
+	0% {
+		background: #6c5228;
+	}
+	
+	33% {
+		background: #48a037;
+	}
+
+	66% {
+		background: #48a037;
+	}
+
+	100% {
+		background: #6c5228;
+	}
+
+}
+
+@-moz-keyframes ground {
+
+	0% {
+		background: #6c5228;
+	}
+	
+	33% {
+		background: #48a037;
+	}
+
+	66% {
+		background: #48a037;
+	}
+
+	100% {
+		background: #6c5228;
+	}
+
+}
+
+@-ms-keyframes ground {
+
+	0% {
+		background: #6c5228;
+	}
+	
+	33% {
+		background: #48a037;
+	}
+
+	66% {
+		background: #48a037;
+	}
+
+	100% {
+		background: #6c5228;
+	}
+
+}
+
+@keyframes ground {
+
+	0% {
+		background: #6c5228;
+	}
+	
+	33% {
+		background: #48a037;
+	}
+
+	66% {
+		background: #48a037;
+	}
+
+	100% {
+		background: #6c5228;
+	}
+
+}
+
+#sun {
+	background: #ffd630;
+	width: 130px;
+	height: 130px;
+	position: absolute;
+	border-radius: 70px;
+	z-index: 2;
+	bottom: 0;
+	left: 340px;
+}
+
+#sun.animate {
+	-webkit-animation-name: sunrise;
+	-webkit-animation-duration: 10s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-iteration-count: 1;	
+	-webkit-animation-direction: normal;
+	-webkit-animation-delay: 0;
+	-webkit-animation-play-state: running;
+	-webkit-animation-fill-mode: forwards;
+
+	-moz-animation-name: sunrise;
+	-moz-animation-duration: 10s;
+	-moz-animation-timing-function: ease;
+	-moz-animation-iteration-count: 1;	
+	-moz-animation-direction: normal;
+	-moz-animation-delay: 0;
+	-moz-animation-play-state: running;
+	-moz-animation-fill-mode: forwards;
+	
+	-ms-animation-name: sunrise;
+	-ms-animation-duration: 10s;
+	-ms-animation-timing-function: ease;
+	-ms-animation-iteration-count: 1;	
+	-ms-animation-direction: normal;
+	-ms-animation-delay: 0;
+	-ms-animation-play-state: running;
+	-ms-animation-fill-mode: forwards;
+	
+	animation-name: sunrise;
+	animation-duration: 10s;
+	animation-timing-function: ease;
+	animation-iteration-count: 1;	
+	animation-direction: normal;
+	animation-delay: 0;
+	animation-play-state: running;
+	animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes sunrise {
+
+	0% {
+		bottom: 0;
+		left: 340px;
+		background: #f00;
+	}
+	
+	33% {
+		bottom: 340px;
+		left: 340px;
+		background: #ffd630;
+	}
+
+	66% {
+		bottom: 340px;
+		left: 40px;		
+		background: #ffd630;
+	}
+
+	100% {
+		bottom: 0;
+		left: 40px;
+		background: #f00;
+	}
+
+}
+
+@-moz-keyframes sunrise {
+
+	0% {
+		bottom: 0;
+		left: 340px;
+		background: #f00;
+		
+	}
+	
+	33% {
+		bottom: 340px;
+		left: 340px;
+		background: #ffd630;
+	}
+
+	66% {
+		bottom: 340px;
+		left: 40px;
+		background: #ffd630;
+	}
+
+	100% {
+		bottom: 0;
+		left: 40px;
+		background: #f00;
+	}
+
+}
+
+@-ms-keyframes sunrise {
+
+	0% {
+		bottom: 0;
+		left: 340px;
+		background: #f00;
+		
+	}
+	
+	33% {
+		bottom: 340px;
+		left: 340px;
+		background: #ffd630;
+	}
+
+	66% {
+		bottom: 340px;
+		left: 40px;
+		background: #ffd630;
+	}
+
+	100% {
+		bottom: 0;
+		left: 40px;
+		background: #f00;
+	}
+
+}
+
+@keyframes sunrise {
+
+	0% {
+		bottom: 0;
+		left: 340px;
+		background: #f00;
+	}
+	
+	33% {
+		bottom: 340px;
+		left: 340px;
+		background: #ffd630;
+	}
+
+	66% {
+		bottom: 340px;
+		left: 40px;
+		background: #ffd630;
+	}
+
+	100% {
+		bottom: 0;
+		left: 40px;
+		background: #f00;
+	}
+
+}
+
+#cloud {
+	position: relative;
+	top: 50px;
+	left: -100px;
+	opacity: 0;
+	z-index: 3;
+}
+
+#cloud.animate {
+	-webkit-animation-name: cloud;
+	-webkit-animation-duration: 12s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-iteration-count: 1;	
+	-webkit-animation-direction: normal;
+	-webkit-animation-delay: 0;
+	-webkit-animation-play-state: running;
+	-webkit-animation-fill-mode: forwards;
+
+	-moz-animation-name: cloud;
+	-moz-animation-duration: 12s;
+	-moz-animation-timing-function: ease;
+	-moz-animation-iteration-count: 1;	
+	-moz-animation-direction: normal;
+	-moz-animation-delay: 0;
+	-moz-animation-play-state: running;
+	-moz-animation-fill-mode: forwards;
+	
+	-ms-animation-name: cloud;
+	-ms-animation-duration: 12s;
+	-ms-animation-timing-function: ease;
+	-ms-animation-iteration-count: 1;	
+	-ms-animation-direction: normal;
+	-ms-animation-delay: 0;
+	-ms-animation-play-state: running;
+	-ms-animation-fill-mode: forwards;
+
+	animation-name: cloud;
+	animation-duration: 12s;
+	animation-timing-function: ease;
+	animation-iteration-count: 1;	
+	animation-direction: normal;
+	animation-delay: 0;
+	animation-play-state: running;
+	animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes cloud {
+
+	0% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	50% {
+		opacity: 1;
+		left: 60px;
+	}
+	
+	75% {
+		opacity: 1;
+		left: 100px;
+	}
+	
+	100% {
+		opacity: 0;
+		left: 500px;
+	}
+
+}
+
+@-moz-keyframes cloud {
+
+	0% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	50% {
+		opacity: 1;
+		left: 60px;
+	}
+	
+	75% {
+		opacity: 1;
+		left: 100px;
+	}
+	
+	100% {
+		opacity: 0;
+		left: 500px;
+	}
+
+}
+
+@-ms-keyframes cloud {
+
+	0% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	50% {
+		opacity: 1;
+		left: 60px;
+	}
+	
+	75% {
+		opacity: 1;
+		left: 100px;
+	}
+	
+	100% {
+		opacity: 0;
+		left: 500px;
+	}
+
+}
+
+@keyframes cloud {
+
+	0% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	50% {
+		opacity: 1;
+		left: 60px;
+	}
+	
+	75% {
+		opacity: 1;
+		left: 100px;
+	}
+	
+	100% {
+		opacity: 0;
+		left: 500px;
+	}
+
+}
+
+.cloud {
+	border-radius: 90px / 30px;
+	width: 160px;
+	height: 50px;
+	background: #fff;
+	position: absolute;
+	top: 10px;
+}
+
+.cloud-2 {
+	left: 50px;
+	top: 0;
+}
+
+.cloud-3 {
+	left: 110px;
+	top: 20px;
+
+}
+
+#moon {
+	position: relative;
+	opacity: 0;
+	top: 50px;
+	left: -100px;
+}
+
+#moon.animate {
+	-webkit-animation-name: moon;
+	-webkit-animation-duration: 10s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-direction: normal;
+	-webkit-animation-delay: 0;
+	-webkit-animation-play-state: running;
+	-webkit-animation-fill-mode: forwards;
+
+	-moz-animation-name: moon;
+	-moz-animation-duration: 10s;
+	-moz-animation-timing-function: ease;
+	-moz-animation-iteration-count: 1;
+	-moz-animation-direction: normal;
+	-moz-animation-delay: 0;
+	-moz-animation-play-state: running;
+	-moz-animation-fill-mode: forwards;
+	
+	-ms-animation-name: moon;
+	-ms-animation-duration: 10s;
+	-ms-animation-timing-function: ease;
+	-ms-animation-iteration-count: 1;
+	-ms-animation-direction: normal;
+	-ms-animation-delay: 0;
+	-ms-animation-play-state: running;
+	-ms-animation-fill-mode: forwards;
+
+	animation-name: moon;
+	animation-duration: 10s;
+	animation-timing-function: ease;
+	animation-iteration-count: 1;
+	animation-direction: normal;
+	animation-delay: 0;
+	animation-play-state: running;
+	animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes moon {
+
+	0% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	50% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	90% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	100% {
+		opacity: 1;
+		left: 50px;
+	}
+
+}
+
+@-moz-keyframes moon {
+
+	0% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	50% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	90% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	100% {
+		opacity: 1;
+		left: 50px;
+	}
+
+}
+
+@-ms-keyframes moon {
+
+	0% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	50% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	90% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	100% {
+		opacity: 1;
+		left: 50px;
+	}
+
+}
+
+@keyframes moon {
+
+	0% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	50% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	90% {
+		opacity: 0;
+		left: -100px;
+	}
+	
+	100% {
+		opacity: 1;
+		left: 50px;
+	}
+
+}
+
+	.moon {
+		width: 100px;
+		height: 100px;
+		border-radius: 50px;
+		background: #fff;
+		position: absolute;
+	}
+	
+	.moon-2 {
+		background: #525252;
+		position: absolute;
+		top: -20px;
+		left: 20px;
+	}
+
+#code {
+	float: left;
+	margin: 0 0 0 20px;
+	width: 494px;
+}
+
+ul.headers {
+	overflow: hidden;
+}
+
+	ul.headers li {
+		float: left;
+		width: 85px;
+		border: dashed 1px #ccc;
+		margin: 0 4px;
+	}
+
+	ul.headers li a {
+		display: block;
+		text-decoration: none;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 14px;
+		text-align: center;
+		padding: 10px;
+	}
+	
+	ul.headers li a:hover, ul.headers li a:active {
+		background: #ccc;
+		color: #fff;
+	}
+
+#tab_content {
+	border: #ccc 1px dashed;
+	margin: 20px 0 20px 3px;
+	padding: 0 0 20px 10px;
+	width: 456px;	
+}
+
+div.tab {
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 30px 0 0 10px;
+}
+
+div.tab pre {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 13px;
+}
+
+input[type="button"] {
+	margin: 20px 0 0 165px;
+	padding: 5px;
+}
+</style>
+</head>
+
+<body style="width: 98%;">
+
+<div id="container">
+
+	<div class="top-ad">
+
+	</div><!-- .top-ad -->
+
+
+	<div id="left">
+
+		<div id="sky" class="target animate">
+
+			<div id="cloud" class="target animate">
+				<div class="cloud cloud-1"></div>
+				<div class="cloud cloud-2"></div>
+				<div class="cloud cloud-3"></div>
+			</div>
+
+			<div id="sun" class="target animate"></div>
+
+			<div id="moon" class="target animate">
+				<div class="moon">
+				</div>
+				<div class="moon moon-2">
+				</div>
+			</div>
+
+			<div id="ground" class="target animate"></div>
+
+		</div><!-- #sky -->
+
+	</div><!-- #left -->
+
+
+</div>
+
+
+</body>
+</html>

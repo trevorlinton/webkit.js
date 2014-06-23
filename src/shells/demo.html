@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en-us">
   <head>
@@ -53,13 +54,11 @@
   </head>
   <body>
     <header>
-      <h1>webkit.js</h1>
-      <p>
-        NOTES: This is still experimental v0.02, and unstable (not yet alpha). This version is hardware accelerated and requires WebGL. <b>Anything causing network requests will crash since CURL is disabled.</b> Currently javascript bindings are disabled. Routing mouse and keyboard events are still in the works. Images need to use data uri's. CSS must be inline stylesheets. There are known issues with CSS3 animations not working correctly. If you see gray bars on the right side or bottom, they're webkit's default scroll bars when no native ones exist.
-      </p>
+      <h1 style="font-weight:100;">webkit.js</h1>
+      <a href="http://www.github.com/trevorlinton/webkit.js">Bugs? Contributions? http://www.github.com/trevorlinton/webkit.js</a>
       <p>INSTRUCTIONS: Input some HTML into the textarea below, press render to display to the canvas. Note that it intially loads SVG/HTML tests so they're probably rendering while you're reading this.</p>
-      <p>Report issues to <a href="#">http://github.com/trevorlinton/webkit.js/</a></p>
       <div class="tools">
+      HTML:<br>
         <textarea rows="9" cols="90" id="htmltorender">
 <html>
 <body>
@@ -69,16 +68,29 @@
 </div></body></html>
 
         </textarea>
-        Height: <input type="text" id="height" value="600" style="width:30px;" disabled/> 
-        Width: <input type="text" id="width" value="750" style="width:30px;" disabled/> 
+        <!--Height:--> <input type="text" id="height" value="600" style="width:30px;display:none;" disabled/> 
+        <!--Width:--> <input type="text" id="width" value="750" style="width:30px;display:none;" disabled/> 
         <!--Scale:--><input type="text" id="scale" value="1" style="width:10px;display:none;"/>
-        <input id="hidpi" type="checkbox" checked disabled/> High DPI Rendering 
-        <input id="reset" type="button" value="Reset"  disabled/> 
-        <input id="render" type="button" value="Render"/>
+        <input id="hidpi" type="checkbox" style="display:none;" checked disabled/> High DPI Rendering 
+        <input id="reset" type="button" value="Reset" style="display:none;" disabled/> 
+        <input id="render" type="button" style="padding:5px;" disabled value="Please wait, loading"/>
       </div>
       <div class="info">
-        <div id="info">Loading<br></div>
+        <div id="info" style="font-size:10px">Loading (600x750 viewport, device scale factor 2x, scale 1x, webgl canvas)<br></div>
       </div>
+      <p>
+        NOTES: This is still experimental v0.02, and unstable (not yet alpha). 
+        <ul>
+          <li>This is a hardware acceleration demo version, it requires WebGL, a software only version exists however.</li>
+          <li><b>Anything causing network requests will crash since CURL is disabled.</b></li>
+          <li>Currently javascript bindings are disabled, script tags are ignored.</li>
+          <li>Routing mouse and keyboard events are still in the works.</li>
+          <li>Images need to use data uri's since network requests crash the renderer, in addition CSS must be inline stylesheets.</li>
+          <li>There are known issues with CSS3 key-frame and SVG animations not working correctly.</li>
+          <li>If you see gray bars on the right side or bottom, they're webkit's default scroll bars when no native ones exist.</li>
+        </ul>
+      </p>
+      Created with <a href="https://github.com/kripken/emscripten">emscripten</a>, many thanks to <a href="https://github.com/kripken/">Alon Zakai</a> for helping produce this. (c) 2014, <a href="http://wwww.trueinteractions.com">True Interactions</a><br>
     </header>
     <canvas id="canvas" width="500" height="500" oncontextmenu="event.preventDefault()"></canvas>
     <script type="text/javascript">
@@ -109,8 +121,13 @@
           document.getElementById('info').innerHTML += e + ' took ' + 
               (Math.floor(((t0 - running[e])/1000)*1000)/1000) + ' seconds.<br>';
           running[e] = null;
+          if(e == 'setHTML' || e == 'setHtml') {
+            document.getElementById('render').value = 'Render';
+            document.getElementById('render').disabled = false;
+          }
         });
         window.webkit.addEventListener('ready',function() {
+          document.getElementById('info').innerHTML += 'Running...<br>';
           window.webkit.html = document.getElementById('htmltorender').value;
         });
       });

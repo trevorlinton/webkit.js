@@ -141,12 +141,8 @@ void TextureMapperTiledBackingStore::updateContents(TextureMapper* textureMapper
         m_tiles[i].updateContents(textureMapper, image, dirtyRect, updateContentsFlag);
 }
 
-void TextureMapperTiledBackingStore::updateContents(TextureMapper* textureMapper, GraphicsLayer* sourceLayer, const FloatSize& totalSize, const IntRect& unscaledDirtyRect, BitmapTexture::UpdateContentsFlag updateContentsFlag)
+void TextureMapperTiledBackingStore::updateContents(TextureMapper* textureMapper, GraphicsLayer* sourceLayer, const FloatSize& totalSize, const IntRect& dirtyRect, BitmapTexture::UpdateContentsFlag updateContentsFlag)
 {
-		IntRect dirtyRect = unscaledDirtyRect;
-#if PLATFORM(JS)
-		dirtyRect.scale(sourceLayer->deviceScaleFactor());
-#endif
 		createOrDestroyTilesIfNeeded(totalSize, textureMapper->maxTextureSize(), true);
     for (size_t i = 0; i < m_tiles.size(); ++i)
         m_tiles[i].updateContents(textureMapper, sourceLayer, dirtyRect, updateContentsFlag);

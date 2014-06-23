@@ -84,7 +84,6 @@ void CompositingCoordinator::setRootCompositingLayer(GraphicsLayer* layer)
 
 void CompositingCoordinator::sizeDidChange(const IntSize& newSize)
 {
-	webkitTrace();
     m_rootLayer->setSize(newSize);
     notifyFlushRequired(m_rootLayer.get());
 }
@@ -264,7 +263,6 @@ void CompositingCoordinator::paintContents(const GraphicsLayer* graphicsLayer, G
 
 std::unique_ptr<GraphicsLayer> CompositingCoordinator::createGraphicsLayer(GraphicsLayerClient* client)
 {
-	webkitTrace();
     CoordinatedGraphicsLayer* layer = new CoordinatedGraphicsLayer(client);
     layer->setCoordinator(this);
     m_registeredLayers.add(layer->id(), layer);
