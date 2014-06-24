@@ -26,6 +26,7 @@
 #define FormDataStreamCurl_h
 
 #include "config.h"
+#if USE(CURL)
 
 #include "FileSystem.h"
 #include "ResourceHandle.h"
@@ -61,3 +62,4 @@ private:
 } // namespace WebCore
 
 #endif // FormDataStreamCurl_h
+#endif

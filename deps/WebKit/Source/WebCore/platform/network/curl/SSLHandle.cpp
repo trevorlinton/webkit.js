@@ -24,6 +24,7 @@
  */
 
 #include "config.h"
+#if USE(CURL)
 
 #include "SSLHandle.h"
 
@@ -205,3 +206,4 @@ void setSSLVerifyOptions(ResourceHandle* handle)
 }
 
 }
+#endif

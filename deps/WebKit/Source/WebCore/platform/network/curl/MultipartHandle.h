@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#if USE(CURL)
 #ifndef MultipartHandle_h
 #define MultipartHandle_h
 
@@ -84,3 +85,4 @@ private:
 
 } // namespace WebCore
 #endif // MultipartHandle_h
+#endif

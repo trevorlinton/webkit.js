@@ -9,10 +9,10 @@
 # Files get into here through derived.gypi, the files included
 {
   'includes':[
-		'features.gypi',
-		'sources.gypi',
-		'derived.gypi',
-		'common.gypi',
+		'tools/features.gypi',
+		'tools/sources.gypi',
+		'tools/derived.gypi',
+		'tools/common.gypi',
 	],
   'targets': [
 	{
@@ -25,7 +25,7 @@
 			'freetype',
 			'harfbuzz',
 			'cairo',
-			'curl',
+			#	'curl',
 			'zlib',
 			'libpixman',
 			'fontconfig',
@@ -346,19 +346,19 @@
 		'cxx':'<(emscripten_cc)',
 		'cflags+':['-Werror -include ../deps/fontconfig/config/config.h'],
 	},
-	{
-		'target_name': 'curl',
-		'sources': ['<@(curl)',],
-		'sources/': [['exclude','(docs/|m4/|packages/|perl/|tests/|vs/|winbuild/|CMake/|tool_|vtls/|macos/)'],],
-		'include_dirs': [
-			'<(DEPTH)/deps/zlib',
-			'<(DEPTH)/deps/curl',
-			'<(DEPTH)/deps/curl/include',
-			'<(DEPTH)/deps/curl/lib',
-		],
-		'cxx':'<(emscripten_cc)',
-		'cflags+':['-Werror'],
-	},
+	#	{
+	#	'target_name': 'curl',
+	#	'sources': ['<@(curl)',],
+	#	'sources/': [['exclude','(docs/|m4/|packages/|perl/|tests/|vs/|winbuild/|CMake/|tool_|vtls/|macos/)'],],
+	#	'include_dirs': [
+	#		'<(DEPTH)/deps/zlib',
+	#		'<(DEPTH)/deps/curl',
+	#		'<(DEPTH)/deps/curl/include',
+	#		'<(DEPTH)/deps/curl/lib',
+	#	],
+	#	'cxx':'<(emscripten_cc)',
+	#	'cflags+':['-Werror'],
+	#},
 	{
 		'target_name':'zlib',
 		'sources':['<@(zlib_files)'],

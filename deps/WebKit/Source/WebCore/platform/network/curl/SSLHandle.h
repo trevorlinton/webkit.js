@@ -22,6 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#if USE(CURL)
 
 #ifndef SSLHandle_h
 #define SSLHandle_h
@@ -49,4 +50,5 @@ void setSSLVerifyOptions(ResourceHandle*);
 
 }
 
+#endif
 #endif

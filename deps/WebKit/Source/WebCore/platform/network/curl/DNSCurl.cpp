@@ -24,6 +24,7 @@
  */
 
 #include "config.h"
+#if USE(CURL)
 #include "DNS.h"
 
 #include "NotImplemented.h"
@@ -36,3 +37,4 @@ void prefetchDNS(const String& /* hostname */)
 }
 
 }
+#endif

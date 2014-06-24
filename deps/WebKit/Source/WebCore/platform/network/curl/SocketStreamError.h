@@ -27,6 +27,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#if USE(CURL)
 
 #ifndef SocketStreamError_h
 #define SocketStreamError_h
@@ -48,3 +49,4 @@ namespace WebCore {
 }  // namespace WebCore
 
 #endif  // SocketStreamError_h
+#endif

@@ -113,12 +113,12 @@ public:
 #if PLATFORM(MAC) || USE(CFNETWORK)
     void willSendRequest(ResourceRequest&, const ResourceResponse& redirectResponse);
 #endif
-#if PLATFORM(MAC) || USE(CFNETWORK) || USE(CURL) || USE(SOUP)
+#if PLATFORM(MAC) || USE(CFNETWORK) || USE(CURL) || USE(SOUP) || PLATFORM(JS)
     bool shouldUseCredentialStorage();
     void didReceiveAuthenticationChallenge(const AuthenticationChallenge&);
-    virtual void receivedCredential(const AuthenticationChallenge&, const Credential&) OVERRIDE;
-    virtual void receivedRequestToContinueWithoutCredential(const AuthenticationChallenge&) OVERRIDE;
-    virtual void receivedCancellation(const AuthenticationChallenge&) OVERRIDE;
+			virtual void receivedCredential(const AuthenticationChallenge&, const Credential&);//OVERRIDE;
+			virtual void receivedRequestToContinueWithoutCredential(const AuthenticationChallenge&);// OVERRIDE;
+			virtual void receivedCancellation(const AuthenticationChallenge&);// OVERRIDE;
 #endif
 
 #if PLATFORM(MAC)

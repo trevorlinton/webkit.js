@@ -24,6 +24,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "config.h"
+#if USE(CURL)
 #include "MultipartHandle.h"
 
 #include "HTTPParsers.h"
@@ -358,4 +359,4 @@ void MultipartHandle::didReceiveResponse()
 }
 
 } // namespace WebCore
-
+#endif

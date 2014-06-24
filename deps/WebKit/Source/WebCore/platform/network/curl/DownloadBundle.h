@@ -22,6 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
+#if USE(CURL)
 
 #ifndef DownloadBundle_h
 #define DownloadBundle_h
@@ -40,3 +41,4 @@ const String& fileExtension();
 } // namespace WebCore
 
 #endif // DownloadBundle_h
+#endif

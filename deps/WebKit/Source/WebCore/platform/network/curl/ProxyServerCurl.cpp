@@ -24,6 +24,7 @@
  */
 
 #include "config.h"
+#if USE(CURL)
 #include "ProxyServer.h"
 
 #include "URL.h"
@@ -37,3 +38,4 @@ Vector<ProxyServer> proxyServersForURL(const URL&, const NetworkingContext*)
 }
 
 } // namespace WebCore
+#endif

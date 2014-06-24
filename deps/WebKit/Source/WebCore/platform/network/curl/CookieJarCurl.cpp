@@ -15,6 +15,7 @@
  */
 
 #include "config.h"
+#if USE(CURL)
 #include "PlatformCookieJar.h"
 
 #include "Cookie.h"
@@ -327,3 +328,4 @@ void deleteAllCookies(const NetworkStorageSession&)
 }
 
 }
+#endif

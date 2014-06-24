@@ -26,6 +26,7 @@
  */
 
 #include "config.h"
+#if USE(CURL)
 #include "ResourceHandle.h"
 
 #include "CachedResourceLoader.h"
@@ -274,3 +275,4 @@ void ResourceHandle::receivedCancellation(const AuthenticationChallenge& challen
 }
 
 } // namespace WebCore
+#endif

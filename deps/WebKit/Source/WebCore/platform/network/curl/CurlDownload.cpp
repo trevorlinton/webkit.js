@@ -24,6 +24,7 @@
  */
 
 #include "config.h"
+#if USE(CURL)
 #include "CurlDownload.h"
 
 #include "HTTPParsers.h"
@@ -499,3 +500,4 @@ void CurlDownload::receivedResponseCallback(CurlDownload* download)
 }
 
 }
+#endif

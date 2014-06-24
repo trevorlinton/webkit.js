@@ -25,6 +25,7 @@
  */
 
 #include "config.h"
+#if USE(CURL)
 
 #include "CurlCacheEntry.h"
 
@@ -340,3 +341,4 @@ bool CurlCacheEntry::parseResponseHeaders(ResourceResponse& response)
 }
 
 }
+#endif

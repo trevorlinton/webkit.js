@@ -204,8 +204,8 @@
 	'ENABLE_TEXTURE_MAPPER=1', # some of the webkit code accidently referred to texture mapper as a feature, not a platform.
 	'ENABLE_TEXTURE_MAPPER_GL=1',
 	# Resource handlers
-      'WTF_USE_UNIX_DOMAIN_SOCKETS=1',
-      'WTF_USE_CURL=1',
+      'WTF_USE_UNIX_DOMAIN_SOCKETS=0',
+      'WTF_USE_CURL=0',
     ],
   },
 }

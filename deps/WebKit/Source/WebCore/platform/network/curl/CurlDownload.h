@@ -22,6 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
+#if USE(CURL)
 
 #ifndef CurlDownload_h
 #define CurlDownload_h
@@ -147,4 +148,5 @@ private:
 
 }
 
+#endif
 #endif

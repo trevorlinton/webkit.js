@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#if USE(CURL)
 
 #ifndef CurlCacheManager_h
 #define CurlCacheManager_h
@@ -72,3 +73,4 @@ private:
 }
 
 #endif // CurlCacheManager_h
+#endif

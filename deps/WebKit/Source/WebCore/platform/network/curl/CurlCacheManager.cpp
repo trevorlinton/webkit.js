@@ -25,6 +25,8 @@
  */
 
 #include "config.h"
+#if USE(CURL)
+
 #include "CurlCacheManager.h"
 
 #include "FileSystem.h"
@@ -273,3 +275,4 @@ void CurlCacheManager::loadCachedData(const String& url, ResourceHandle* job, Re
 }
 
 }
+#endif

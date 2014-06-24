@@ -1,5 +1,3 @@
-#if 0
-
 #include "config.h"
 #include "ResourceHandle.h"
 
@@ -8,57 +6,90 @@
 #include "NetworkingContext.h"
 #include "NotImplemented.h"
 #include "ResourceHandleInternal.h"
-#include "SSLHandle.h"
+#include "Cookie.h"
 
-#if PLATFORM(WIN) && USE(CF)
-#include <wtf/PassRefPtr.h>
-#include <wtf/RetainPtr.h>
-#endif
 
 namespace WebCore {
-/*
-class WebCoreSynchronousLoader : public ResourceHandleClient {
-public:
-    WebCoreSynchronousLoader();
+	/*
+	 class WebCoreSynchronousLoader : public ResourceHandleClient {
+	 public:
+	 WebCoreSynchronousLoader();
 
-    virtual void didReceiveResponse(ResourceHandle*, const ResourceResponse&);
-    virtual void didReceiveData(ResourceHandle*, const char*, unsigned, int encodedDataLength);
-    virtual void didFinishLoading(ResourceHandle*, double ); //finishtime
-    virtual void didFail(ResourceHandle*, const ResourceError&);
+	 virtual void didReceiveResponse(ResourceHandle*, const ResourceResponse&);
+	 virtual void didReceiveData(ResourceHandle*, const char*, unsigned, int encodedDataLength);
+	 virtual void didFinishLoading(ResourceHandle*, double ); //finishtime
+	 virtual void didFail(ResourceHandle*, const ResourceError&);
 
-    ResourceResponse resourceResponse() const { return m_response; }
-    ResourceError resourceError() const { return m_error; }
-    Vector<char> data() const { return m_data; }
+	 ResourceResponse resourceResponse() const { return m_response; }
+	 ResourceError resourceError() const { return m_error; }
+	 Vector<char> data() const { return m_data; }
 
-private:
-    ResourceResponse m_response;
-    ResourceError m_error;
-    Vector<char> m_data;
-};
+	 private:
+	 ResourceResponse m_response;
+	 ResourceError m_error;
+	 Vector<char> m_data;
+	 };
 
-WebCoreSynchronousLoader::WebCoreSynchronousLoader()
+	 WebCoreSynchronousLoader::WebCoreSynchronousLoader()
+	 {
+	 }
+
+	 void WebCoreSynchronousLoader::didReceiveResponse(ResourceHandle*, const ResourceResponse& response)
+	 {
+	 m_response = response;
+	 }
+
+	 void WebCoreSynchronousLoader::didReceiveData(ResourceHandle*, const char* data, unsigned length, int)
+	 {
+	 m_data.append(data, length);
+	 }
+
+	 void WebCoreSynchronousLoader::didFinishLoading(ResourceHandle*, double)
+	 {
+	 }
+
+	 void WebCoreSynchronousLoader::didFail(ResourceHandle*, const ResourceError& error)
+	 {
+	 m_error = error;
+	 }
+	 */
+
+void prefetchDNS(String const&) {
+	notImplemented();
+}
+void deleteCookie(const NetworkStorageSession&, const URL&, const String&)
 {
+	notImplemented();
 }
 
-void WebCoreSynchronousLoader::didReceiveResponse(ResourceHandle*, const ResourceResponse& response)
+String cookieRequestHeaderFieldValue(const NetworkStorageSession& session, const URL& firstParty, const URL& url)
 {
-    m_response = response;
+	notImplemented();
+	return String();
+}
+bool getRawCookies(const NetworkStorageSession&, const URL& /*firstParty*/, const URL& /*url*/, Vector<Cookie>& rawCookies)
+{
+	notImplemented();
+	// FIXME: Not yet implemented
+	rawCookies.clear();
+	return false; // return true when implemented
 }
 
-void WebCoreSynchronousLoader::didReceiveData(ResourceHandle*, const char* data, unsigned length, int)
+bool cookiesEnabled(const NetworkStorageSession&, const URL& /*firstParty*/, const URL& /*url*/)
 {
-    m_data.append(data, length);
+	notImplemented();
+	return true;
+}
+void setCookiesFromDOM(const NetworkStorageSession&, const URL&, const URL&, const String&)
+{
+	notImplemented();
+}
+String cookiesForDOM(const NetworkStorageSession&, const URL&, const URL&)
+{
+	notImplemented();
+	return String();
 }
 
-void WebCoreSynchronousLoader::didFinishLoading(ResourceHandle*, double)
-{
-}
-
-void WebCoreSynchronousLoader::didFail(ResourceHandle*, const ResourceError& error)
-{
-    m_error = error;
-}
- */
 
 ResourceHandleInternal::~ResourceHandleInternal()
 {
@@ -84,6 +115,7 @@ bool ResourceHandle::start()
 
     //ResourceHandleManager::sharedInstance()->add(this);
     //return true;
+	return false;
 }
 
 void ResourceHandle::cancel()
@@ -91,16 +123,14 @@ void ResourceHandle::cancel()
     //ResourceHandleManager::sharedInstance()->cancel(this);
 }
 
-void ResourceHandle::setHostAllowsAnyHTTPSCertificate(const String& host)
-{
-//#if !PLATFORM(JS)
-//    allowsAnyHTTPSCertificateHosts(host.lower());
-//#endif
-//    return;
-}
+//void ResourceHandle::setHostAllowsAnyHTTPSCertificate(const String& host)
+//{
+//	UNUSED_PARAM(host);
+//}
 
 void ResourceHandle::platformSetDefersLoading(bool defers)
 {
+		UNUSED_PARAM(defers);
 //    if (!d->m_handle)
 //        return;
 //
@@ -119,17 +149,26 @@ void ResourceHandle::platformSetDefersLoading(bool defers)
 
 bool ResourceHandle::loadsBlocked()
 {
+	return false;
 //    notImplemented();
 //    return false;
 }
 
 bool ResourceHandle::shouldUseCredentialStorage()
 {
+	return false;
 //    return (!client() || client()->shouldUseCredentialStorage(this)) && firstRequest().url().protocolIsInHTTPFamily();
 }
 
+
 void ResourceHandle::platformLoadResourceSynchronously(NetworkingContext* context, const ResourceRequest& request, StoredCredentials storedCredentials, ResourceError& error, ResourceResponse& response, Vector<char>& data)
 {
+		UNUSED_PARAM(context);
+		UNUSED_PARAM(request);
+		UNUSED_PARAM(storedCredentials);
+		UNUSED_PARAM(error);
+		UNUSED_PARAM(response);
+		UNUSED_PARAM(data);
 //    WebCoreSynchronousLoader syncLoader;
 //    RefPtr<ResourceHandle> handle = adoptRef(new ResourceHandle(context, request, &syncLoader, true, false));
 
@@ -144,6 +183,7 @@ void ResourceHandle::platformLoadResourceSynchronously(NetworkingContext* contex
 
 void ResourceHandle::didReceiveAuthenticationChallenge(const AuthenticationChallenge& challenge)
 {
+		UNUSED_PARAM(challenge);
 //    if (!d->m_user.isNull() && !d->m_pass.isNull()) {
 //        Credential credential(d->m_user, d->m_pass, CredentialPersistenceNone);
 
@@ -192,6 +232,8 @@ void ResourceHandle::didReceiveAuthenticationChallenge(const AuthenticationChall
 
 void ResourceHandle::receivedCredential(const AuthenticationChallenge& challenge, const Credential& credential)
 {
+		UNUSED_PARAM(challenge);
+		UNUSED_PARAM(credential);
 //    if (challenge != d->m_currentWebChallenge)
 //        return;
 
@@ -215,6 +257,7 @@ void ResourceHandle::receivedCredential(const AuthenticationChallenge& challenge
 
 void ResourceHandle::receivedRequestToContinueWithoutCredential(const AuthenticationChallenge& challenge)
 {
+		UNUSED_PARAM(challenge);
 //    if (challenge != d->m_currentWebChallenge)
 //        return;
 
@@ -226,6 +269,7 @@ void ResourceHandle::receivedRequestToContinueWithoutCredential(const Authentica
 
 void ResourceHandle::receivedCancellation(const AuthenticationChallenge& challenge)
 {
+		UNUSED_PARAM(challenge);
 //    if (challenge != d->m_currentWebChallenge)
 //        return;
 
@@ -235,5 +279,4 @@ void ResourceHandle::receivedCancellation(const AuthenticationChallenge& challen
 
 } // namespace WebCore
 
-#endif // if 0
 

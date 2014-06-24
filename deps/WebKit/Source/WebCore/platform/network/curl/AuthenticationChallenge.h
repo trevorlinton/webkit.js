@@ -22,6 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
+#if USE(CURL)
 #ifndef AuthenticationChallenge_h
 #define AuthenticationChallenge_h
 
@@ -50,4 +51,5 @@ public:
 
 }
 
+#endif
 #endif
