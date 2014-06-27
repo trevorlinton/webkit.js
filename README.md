@@ -22,10 +22,10 @@ Status
 * ~~Fixing canvas size bitblt issues; canvas width and height can become inaccurate due to hi-dpi rendering.~~
 * ~~Alpha channels are being flattened for unknown reasons, in addition gradients and animations in css are not rendering.~~
 * ~~Inline SVG seg-faults. Most likely due to threading issue.~~
-* Certain CSS3 key-frame animations cause either a segfault or jump to the last frame, uncertain but it seems to be an issue with ChromeClient and TextureMapperGL.
+* ~~Certain CSS3 key-frame animations cause either a segfault or jump to the last frame, uncertain but it seems to be an issue with ChromeClient and TextureMapperGL.~~
 * Mouse and keyboard (and other) events
-* Resource loader has yet to be implemented, callback for browser (and eventually node)
-* Support for WebGL within webworkers via proxy (emscripten is currently working on this)
+* IN-PROGRESS: Resource loader has yet to be implemented, callback for browser (and eventually node)
+* (Fixed, see emscripten post, waiting for it to land) ~~Support for WebGL within webworkers via proxy (emscripten is currently working on this)~~
 * Enhancing the API.  Adding mouse event callbacks, scrolling, keyboard callbacks, and snapshot to it.  Until there's a stable (well tested) API this will remain as an experiment.
 
 
@@ -159,7 +159,7 @@ Contributing
 * **In Progress** Create examples, demos and how-to guides (documentation, etc).
 * **DONE** Create hooks into webkit layout tests to ensure functionality.
 * **DONE** Fix all layout tests for still-frame and render tree unit tests.
-* **In Progress** Fix timing animation (CSS3) bug
+* **DONE** Fix timing animation (CSS3) bug
 * Scripts to auto-generate code with Emscripten JavaScript Bindings to enable DOM interactions with JavaScript (e.g., IDL generation, and some other bindings/scripts tasks)
 * **In Progress** Removal of "oddity" code (e.g., no mans land code, existing dead code, platform specific code) and optimization of file size and runtime
 * **In Progress** Benchmark harnass between different browsers and webkit.js
