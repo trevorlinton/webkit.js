@@ -31,13 +31,13 @@ else
   exit 1
 fi
 
-if [ `uname`=='Darwin' ]; then
-  echo "Building Xcode and Ninja files."
-  export GYP_GENERATORS=xcode,ninja
-else
- echo "Building Visual Studio and Ninja files."
-  export GYP_GENERATORS=msvs,ninja
-fi
+# if [ `uname`=='Darwin' ]; then
+#   echo "Building Xcode and Ninja files."
+#   export GYP_GENERATORS=xcode,ninja
+# else
+ echo "Building Ninja files."
+ export GYP_GENERATORS=ninja
+# fi
 
 export GYP_DEFINES="clang=1"
 ./tools/gyp-emscripten/gyp -Dsource_arch=js -Dtarget_arch=js -Darch=js --toplevel-dir=$PWD --depth=. --generator-output=. -G output_dir=. webkit.gyp

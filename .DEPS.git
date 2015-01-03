@@ -59,13 +59,3 @@ skip_child_includes = [
     'skia',
 ]
 
-hooks = [
-    {
-    'action':
-         ['build/config.sh'],
-    'pattern':
-         '.',
-    'name':
-         'gyp'
-},
-]

@@ -29,11 +29,11 @@
  */
 
 #include "config.h"
-#if PLATFORM(JS)
-#include <emscripten/SocketStreamError.h>
-#else
+//#if PLATFORM(JS)
+//#include <emscripten/SocketStreamError.h>
+//#else
 #include <curl/SocketStreamError.h>
-#endif
+//#endif
 namespace WebCore {
 
 SocketStreamError SocketStreamErrorBase::copy() const
