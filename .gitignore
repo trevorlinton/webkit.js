@@ -1,3 +1,4 @@
+install-tools
 deps/WebKit/Source/WebKit2/Scripts/webkit2/*.pyc
 compositebug/*
 compositebug/
