@@ -14085,7 +14085,7 @@ _ACEOF
 #
 # Checks for FreeType
 #
-PKG_CHECK_MODULES(FREETYPE, freetype2)
+# PKG_CHECK_MODULES(FREETYPE, freetype2)
 
 
 
@@ -14151,126 +14151,11 @@ else
 fi
 
 
-if test "$enable_libxml2" != "yes"; then
-	use_pkgconfig_for_expat=yes
-	if test "$expat_prefix" = "auto" -a "$expat_includes" = "auto" -a "$expat_lib" = "auto"; then
-		PKG_CHECK_MODULES(EXPAT, expat,,use_pkgconfig_for_expat=no)
-	else
-		use_pkgconfig_for_expat=no
-	fi
-	if test "x$use_pkgconfig_for_expat" = "xno"; then
-		if test "$expat_includes" != "auto" -a -r ${expat_includes}/expat.h; then
-			EXPAT_CFLAGS="-I${expat_includes}"
-		elif test "$expat_prefix" != "auto" -a -r ${expat_prefix}/include/expat.h; then
-			EXPAT_CFLAGS="-I${expat_prefix}/include"
-		else
-			EXPAT_CFLAGS=""
-		fi
-		if test "$expat_lib" != "auto"; then
-			EXPAT_LIBS="-L${expat_lib} -lexpat"
-		elif test "$expat_prefix" != "auto"; then
-			EXPAT_LIBS="-L${expat_prefix}/lib -lexpat"
-		else
-			EXPAT_LIBS="-lexpat"
-		fi
-	fi
-
-	expatsaved_CPPFLAGS="$CPPFLAGS"
-	expatsaved_LIBS="$LIBS"
-	CPPFLAGS="$CPPFLAGS $EXPAT_CFLAGS"
-	LIBS="$LIBS $EXPAT_LIBS"
-
-	ac_fn_c_check_header_mongrel "$LINENO" "expat.h" "ac_cv_header_expat_h" "$ac_includes_default"
-if test "x$ac_cv_header_expat_h" = xyes; then :
-
-fi
-
-
-	if test "$ac_cv_header_expat_h" = "no"; then
-		ac_fn_c_check_header_mongrel "$LINENO" "xmlparse.h" "ac_cv_header_xmlparse_h" "$ac_includes_default"
-if test "x$ac_cv_header_xmlparse_h" = xyes; then :
-
-fi
-
-
-		if test "$ac_cv_header_xmlparse_h" = "yes"; then
-			HAVE_XMLPARSE_H=1
-
-
-cat >>confdefs.h <<_ACEOF
-#define HAVE_XMLPARSE_H $HAVE_XMLPARSE_H
-_ACEOF
-
-		else
-			as_fn_error $? "
-*** expat is required. or try to use --enable-libxml2" "$LINENO" 5
-		fi
-	fi
-	for ac_func in XML_SetDoctypeDeclHandler
-do :
-  ac_fn_c_check_func "$LINENO" "XML_SetDoctypeDeclHandler" "ac_cv_func_XML_SetDoctypeDeclHandler"
-if test "x$ac_cv_func_XML_SetDoctypeDeclHandler" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_XML_SETDOCTYPEDECLHANDLER 1
-_ACEOF
-
-fi
-done
-
-	if test "$ac_cv_func_XML_SetDoctypeDeclHandler" = "no"; then
-		as_fn_error $? "
-*** expat is required. or try to use --enable-libxml2" "$LINENO" 5
-	fi
-	CPPFLAGS="$expatsaved_CPPFLAGS"
-	LIBS="$expatsaved_LIBS"
-
-
-
-fi
-
-#
-# Check libxml2 configuration
-#
-# Check whether --enable-libxml2 was given.
-if test "${enable_libxml2+set}" = set; then :
-  enableval=$enable_libxml2;
-fi
-
-
-if test "$enable_libxml2" = "yes"; then
-    PKG_CHECK_MODULES(LIBXML2, libxml-2.0 >= 2.6)
-
 cat >>confdefs.h <<_ACEOF
 #define ENABLE_LIBXML2 1
 _ACEOF
 
 
-
-
-
-    fc_saved_CFLAGS="$CFLAGS"
-    CFLAGS="$CFLAGS $LIBXML2_CFLAGS"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking SAX1 support in libxml2" >&5
-$as_echo_n "checking SAX1 support in libxml2... " >&6; }
-    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-	#include <libxml/xmlversion.h>
-	#if !defined(LIBXML_SAX1_ENABLED)
-	#  include "error: No SAX1 support in libxml2"
-	#endif
-
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"; then :
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: found" >&5
-$as_echo "found" >&6; }
-else
-  as_fn_error $? "
-*** SAX1 support in libxml2 is required. enable it or use expat instead." "$LINENO" 5
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-    CFLAGS="$fc_saved_CFLAGS"
-fi
 
 #
 # Set default font directory

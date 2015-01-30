@@ -19,6 +19,7 @@
 		# emscripten has a very posix unix compile interface, should be the most compatible with existing code.
 		# -fshort-wchar is needed, emscripten uses a 4, not 8 wchar (32 vs. 64 bit). 
 		'cflags':'-U__APPLE__ -U__WIN32__ -Ulinux -Wno-warn-absolute-paths -Werror -fshort-wchar -isysroot <(emscripten_sysroot)',
+		'cflags_c':'',
 		'cflags_cc':'-std=c++0x',
 		'ldflags':'',
 		'webcore_excludes':'(curl/|SSLHandle\\.cpp$|leveldb/|skia|glx/|cg/|ca/|avfoundation/|wince/|Modules/|soup/|ios/|nix/|plugin/|plugins/|blackberry/|WinCE|Gtk|storage/|win/|linux/|glib/|cocoa/|gtk/|cf/|mac/|efl/|appcache/|ExportFileGenerator\\.cpp$|CF\\.cpp$|IOS\\.|Mac\\.|Win\\.|XMLHttpRequest|ThemeSafari|PlugInElement|PlugInImageElement|JSAbstractView|InspectorWebBackend|AllInOne|OpenTypeUtilities|HarfBuzzFaceCoreText|graphics/FontPlatformData\\.cpp$|GraphicsContext3DOpenGL\\.cpp$|platform/sql/|ICU\\.cpp$|enchant/|ExportFileGenerator\\.cpp$|SmartReplaceICU\\.cpp$|HTMLObjectElement\\.cpp$|RenderEmbeddedObject\\.cpp$|Extensions3DOpenGL\\.cpp$|DragController\\.cpp$|JSDOMPlugin\\.cpp$|WebCoreDerived/JS|posix/|debug.cpp$|ANGLE/src/common/|_win.cpp$|BlobResourceHandle\\.cpp$|BlobRegistryImpl\\.cpp$|BlobRegistry\\.cpp$|GraphicsContext3DOpenGL\\.cpp$|javascript/OpenGLES)',

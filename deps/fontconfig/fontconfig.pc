@@ -12,5 +12,5 @@ Name: Fontconfig
 Description: Font configuration and customization library
 Version: 2.10.91
 Libs: -L${libdir} -lfontconfig
-Libs.private: ../libmxl2/libs  ../freetype/lib 
+Libs.private:    
 Cflags: -I${includedir}
