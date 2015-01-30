@@ -47,48 +47,36 @@ Building
 
 **Requirements**
 
-* Xcode/Visual Studio or GCC toolchain
+webkit.js can be built on linux, osx, or windows.
+
+* Xcode (OSX only)
+* Visual Studio (Windows only)
 * [Cygwin](http://dev.chromium.org/developers/how-tos/cygwin) (Windows only)
-* Command Line Utilities for Xcode (Mac OS X only, with `$ xcode-select --install`)
-* [Depot Tools](http://dev.chromium.org/developers/how-tos/install-depot-tools) These are a small set of command line tools that make development so much easier for projects with dependencies and pre-/post-/cross-platform build needs.
-* Git
-* Emscripten 1.13+
+* Command Line Utilities for Xcode, with `$ xcode-select --install` (Mac OS X only)
 * At least 16GB of free space (seriously)
 * At least 4GB of RAM
 
 **Building webkit.js step-by-step**
 
-* Make sure you meet all of the requirements above.
-* Write the following into a file named ```.gclient``` into your new repo.
-
+* Clone the repo to your local drive.
 ```
-solutions = [
-  { "name"        : ".",
-    "url"         : "https://github.com/trevorlinton/webkit.js.git",
-    "deps_file"   : ".DEPS.git",
-    "managed"     : True,
-    "custom_deps" : {
-    },
-    "safesync_url": "",
-  },
-]
+git clone https://github.com/trevorlinton/webkit.js webkitjs ; cd webkitjs
 ```
-
-* Run this (getting dependencies):
+* Run the setup script to grab all of the dependencies and tools.
 ```
-gclient sync
+./setup.sh
 ```
-* Then run this (generating project files based on your OS):
+* Run the configuration script to generate build and project files.
 ```
 ./config.sh
 ```
 * Then to build; run this (generates the actual js file):
 ```
-ninja -C Release
+./build.sh
 ```
 * OR if you want a debug version run this:
 ```
-ninja -C Debug
+./build.sh debug
 ```
 
 Running in the Browser
