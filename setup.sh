@@ -99,7 +99,7 @@ if [ "$EMSCRIPTEN" == "" ]; then
 
 	curl -OL https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz
 	tar -xzf emsdk-portable.tar.gz
-	cd emsdk_portable
+	cd emsdk-portable
 	./emsdk update
 	./emsdk install latest
 	./emsdk activate latest
@@ -107,10 +107,10 @@ if [ "$EMSCRIPTEN" == "" ]; then
 	cd ..
 
 	if [ "`grep emsdk_env ~/.profile`" == "" ]; then
-		echo "source `pwd`/emsdk_portable/emsdk_env.sh" >> ~/.profile
+		echo "source `pwd`/emsdk-portable/emsdk_env.sh" >> ~/.profile
 	fi
 	if [ "`grep emsdk_env ~/.bashrc`" == "" ]; then
-		echo "source `pwd`/emsdk_portable/emsdk_env.sh" >> ~/.bashrc
+		echo "source `pwd`/emsdk-portable/emsdk_env.sh" >> ~/.bashrc
 	fi
 
 	cd ..
