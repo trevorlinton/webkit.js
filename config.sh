@@ -7,27 +7,14 @@ if [ -d "$JAVAFLAGS" ]; then
 export JAVAFLAGS="-client -d32"
 export JAVA_FLAGS=$JAVAFLAGS
 fi
-
-export EMSCRIPTEN_ROOT=`em-config EMSCRIPTEN_ROOT`
-export NINJA_ROOT=`which ninja`
  
-if [ ! "$NINJA_ROOT" ]; then
+if [ ! "which ninja" ]; then
    echo "Cannot find ninja build tool.";
    exit 1
 fi
 
-if [ -d "$EMSCRIPTEN_ROOT" ]; then
-  export EMSCRIPTEN_EMCC=$EMSCRIPTEN_ROOT/emcc
-  export EMSCRIPTEN_EMCPP=$EMSCRIPTEN_ROOT/em++
-  if [ -z "$EMSCRIPTEN_INCLUDE" ]; then
-     export EMSCRIPTEN_INCLUDE=$EMSCRIPTEN_ROOT/system/include
-  fi
-  if [ ! -d "$EMSCRIPTEN_INCLUDE" ]; then
-     echo "config.sh: Error: Cannot find system include directory for emscripten."
-     exit 1
-  fi
-else
-  echo "config.sh: Error: Cannot find root directory for emscripten."
+if [ ! "which emcc" ] || [ ! "which em++" ]; then
+  echo "config.sh: Error: Cannot find emscripten compiler."
   exit 1
 fi
 
